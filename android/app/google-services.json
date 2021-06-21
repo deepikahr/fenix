@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1071695960550",
+    "project_id": "restaurant-saas-d6db1",
+    "storage_bucket": "restaurant-saas-d6db1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071695960550:android:09f06edee759da673a9e27",
+        "android_client_info": {
+          "package_name": "com.ioicfirebaseapp.fooddeliverysystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071695960550-afk8akkut4n6edclgned2s9elf4g3gb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ioicfirebaseapp.fooddeliverysystem",
+            "certificate_hash": "44646226a7ea9219292f1614510e19acda1a7f3d"
+          }
+        },
+        {
+          "client_id": "1071695960550-9g1dgsl3e0g0bt7mpcv4pfnh1074c0cd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHk8mXe5oWZa5gd5MBQWbeB6iAi0xOVcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071695960550-9g1dgsl3e0g0bt7mpcv4pfnh1074c0cd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
