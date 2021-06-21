@@ -55,10 +55,24 @@ Widget titleTextDarkRegularBR(BuildContext context, title) {
   );
 }
 
+Widget titleTextDarkRegularBRR(BuildContext context, title) {
+  return Text(
+    title,
+    style: textDarkRegularBR(context),
+  );
+}
+
 Widget titleTextDarkRegularBS(BuildContext context, title) {
   return Text(
     title,
-    style: textDarkRegularBM(context),
+    style: textDarkRegularBS(context),
+  );
+}
+
+Widget titleTextDarkRegularBG(BuildContext context, title) {
+  return Text(
+    title,
+    style: textDarkRegularBG(context),
   );
 }
 
@@ -120,6 +134,28 @@ Widget titleTextDarkLightRegularBR(BuildContext context, title) {
 
 Widget titleTextDarkRegularBB(BuildContext context, title) {
   return Text(title, style: textDarkRegularBB(context));
+}
+
+Widget titleTextDarkRegularBB20(BuildContext context, title) {
+  return Text(title, style: textDarkRegularBB(context));
+}
+
+Widget titleTextDarkRegularBW(BuildContext context, title) {
+  return Text(title, style: textDarkRegularBW(context),
+  textAlign: TextAlign.center,
+  );
+}
+
+Widget titleTextDarkRegularBW17(BuildContext context, title) {
+  return Text(title, style: textDarkRegularBW17(context),
+  textAlign: TextAlign.center,
+  );
+}
+
+Widget titleTextDarkRegularBW15(BuildContext context, title) {
+  return Text(title, style: textDarkRegularBW15(context),
+  textAlign: TextAlign.center,
+  );
 }
 
 Widget itemTotalAmount(BuildContext context, title) {

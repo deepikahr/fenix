@@ -49,12 +49,66 @@ class RestaurantScreen extends HookWidget {
 
     return Scaffold(
       backgroundColor: light,
-      appBar: titleAppbarWithCart(
-          context, state.restaurant?.restaurantName ?? '', cart?.cartCount,
-          () async {
-        await Get.to(() => CartScreen(backButton: true));
-        notifier.updateQuantity();
-      }),
+      // appBar: titleAppbarWithCart(
+      //     context, state.restaurant?.restaurantName ?? '', cart?.cartCount,
+      //     () async {
+      //   await Get.to(() => CartScreen(backButton: true));
+      //   notifier.updateQuantity();
+      // }),
+            appBar: PreferredSize(
+        child: Stack(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              // padding: EdgeInsets.symmetric(vertical: 15),
+              decoration: new BoxDecoration(color: secondary1, boxShadow: [
+                BoxShadow(color: Colors.black45, blurRadius: 20)
+              ]),
+            ),
+
+            Positioned(
+              top: 45,
+              left: 20,
+              child: Icon(
+                Icons.list,
+                color: primary,
+                size: 40,
+              ),
+            ),
+            Positioned(
+              top: 45,
+              left: 50,
+              right: 50,
+              child: Column(
+                children: [
+                  titleTextDarkRegularBW(context, "GASTROBAR"),
+                  titleTextDarkRegularBW17(context, "CALLE LARIOS 12"),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 45,
+              right: 20,
+              child: Row(
+                children: [
+                  RotatedBox(
+                    quarterTurns: -1,
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Mesa',
+                        style: textDarkRegularBW17(context),
+                        children: [],
+                      ),
+                    ),
+                  ),
+                  Text('5', style: textDarkRegularBW40(context)),
+                ],
+              ),
+            ),
+          ],
+        ),
+        preferredSize: new Size(MediaQuery.of(context).size.width, 80.0),
+      ),
       body: Stack(
         children: [
           if (state.restaurant != null)
@@ -62,83 +116,156 @@ class RestaurantScreen extends HookWidget {
               shrinkWrap: true,
               physics: ScrollPhysics(),
               children: [
-                infoBlock(
-                  context,
-                  state.restaurant!.restaurantName!,
-                  state.restaurant!.franchiseName!,
-                  state.restaurant!.cuisines,
-                  state.restaurant!.averageRating,
-                  state.restaurant!.preparationTime,
-                  state.restaurant!.calcDistance!,
-                  state.restaurant!.discount,
-                  state.restaurant!.coupons,
-                  state,
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 8),
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Stack(
                     children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            titleTextDarkLightRegularBR(
-                                context, '${'VEG_ONLY'.tr} :  '),
-                            Switch.adaptive(
-                              activeColor: green,
-                              value: state.isVegOnly,
-                              onChanged: (bool value) {
-                                context
-                                    .read(restaurantProvider.notifier)
-                                    .onSelectVegOnly(value);
-                                context
-                                    .read(restaurantProvider.notifier)
-                                    .fetchMenu(
-                                      state.restaurant!.id!,
-                                      state.restaurant!.vendor!,
-                                      categoryId,
-                                    );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (notifier.isLoggedIn())
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              titleTextDarkLightSmallBR(
-                                  context, '${'FAVORITE'.tr} :   '),
-                              InkWell(
-                                onTap: () {
-                                  state.restaurant!.isFavorite
-                                      ? context
-                                          .read(restaurantProvider.notifier)
-                                          .removeFromFavourite(
-                                              state.restaurant!.id!)
-                                      : context
-                                          .read(restaurantProvider.notifier)
-                                          .addToFavourite(state.restaurant!.id);
-                                },
-                                child: state.isFavouriteLoading
-                                    ? GFLoader()
-                                    : Image.asset(
-                                        state.restaurant!.isFavorite
-                                            ? 'lib/assets/icons/heart.png'
-                                            : 'lib/assets/icons/profile/fav.png',
-                                        height: 32,
-                                        width: 32,
-                                      ),
-                              )
-                            ],
-                          ),
-                        ),
+                      Column(children: [
+                       Container(
+                         height: 25,
+                         color: secondary1,
+                       ),
+                        Container(
+                         height: 13,
+                         decoration: BoxDecoration(
+                         color: white,
+                           boxShadow: [
+                           BoxShadow(color:Colors.black45,blurRadius:5)
+                         ]),
+                       ),
+                        Container(
+                         height: 12,
+                         color: white,
+                       ),
+                      ],),
+             Positioned(
+             bottom: 0,
+             left: 20,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFD2959),
+                  border:Border.all(color:white,width:2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 2
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.home,size: 30,color: white,),
+                    Text('INCIO',style: TextStyle(color: white),)
+                  ],
+                ),
+              )
+            ),
+            Positioned(
+             bottom: 0,
+             left: 80,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFD2959),
+                  border:Border.all(color:white,width:2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 2
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.home,size: 30,color: white,),
+                    Text('INCIO',style: TextStyle(color: white),)
+                  ],
+                ),
+              )
+            ),
                     ],
                   ),
-                ),
+                // infoBlock(
+                //   context,
+                //   state.restaurant!.restaurantName!,
+                //   state.restaurant!.franchiseName!,
+                //   state.restaurant!.cuisines,
+                //   state.restaurant!.averageRating,
+                //   state.restaurant!.preparationTime,
+                //   state.restaurant!.calcDistance!,
+                //   state.restaurant!.discount,
+                //   state.restaurant!.coupons,
+                //   state,
+                // ),
+                // Container(
+                //   margin: EdgeInsets.only(bottom: 8),
+                //   padding: EdgeInsets.symmetric(horizontal: 16),
+                //   color: Colors.white,
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Expanded(
+                //         child: Row(
+                //           children: [
+                //             titleTextDarkLightRegularBR(
+                //                 context, '${'VEG_ONLY'.tr} :  '),
+                //             Switch.adaptive(
+                //               activeColor: green,
+                //               value: state.isVegOnly,
+                //               onChanged: (bool value) {
+                //                 context
+                //                     .read(restaurantProvider.notifier)
+                //                     .onSelectVegOnly(value);
+                //                 context
+                //                     .read(restaurantProvider.notifier)
+                //                     .fetchMenu(
+                //                       state.restaurant!.id!,
+                //                       state.restaurant!.vendor!,
+                //                       categoryId,
+                //                     );
+                //               },
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       if (notifier.isLoggedIn())
+                //         Expanded(
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.end,
+                //             children: [
+                //               titleTextDarkLightSmallBR(
+                //                   context, '${'FAVORITE'.tr} :   '),
+                //               InkWell(
+                //                 onTap: () {
+                //                   state.restaurant!.isFavorite
+                //                       ? context
+                //                           .read(restaurantProvider.notifier)
+                //                           .removeFromFavourite(
+                //                               state.restaurant!.id!)
+                //                       : context
+                //                           .read(restaurantProvider.notifier)
+                //                           .addToFavourite(state.restaurant!.id);
+                //                 },
+                //                 child: state.isFavouriteLoading
+                //                     ? GFLoader()
+                //                     : Image.asset(
+                //                         state.restaurant!.isFavorite
+                //                             ? 'lib/assets/icons/heart.png'
+                //                             : 'lib/assets/icons/profile/fav.png',
+                //                         height: 32,
+                //                         width: 32,
+                //                       ),
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //     ],
+                //   ),
+                // ),
+                       SizedBox(height:13),
                 categoryList(
                     state.restaurant!.categories, notifier, cart, state),
               ],
@@ -445,33 +572,35 @@ class RestaurantScreen extends HookWidget {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: categories.length,
-        itemBuilder: (context, index) => Theme(
-          data: ThemeData().copyWith(
-              accentColor: Colors.grey, dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            initiallyExpanded: true,
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  categories[index].title!,
-                  style: textDarkRegularLargeBS(context),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  (categories[index].products.isEmpty
-                      ? 'NO_PRODUCTS'.tr
-                      : '${categories[index].products.length} ${categories[index].products.length > 1 ? 'ITEMS'.tr : 'ITEM'.tr}'),
-                  style: textDarkLightSmallBR(context),
-                ),
-              ],
-            ),
-            children: [
-              dishesList(categories[index].products, notifier, cart, state)
-            ],
-          ),
-        ),
+        itemBuilder: (context, index) => 
+        dishesList(categories[index].products, notifier, cart, state)
+        // Theme(
+        //   data: ThemeData().copyWith(
+        //       accentColor: Colors.grey, dividerColor: Colors.transparent),
+        //   child: ExpansionTile(
+        //     initiallyExpanded: true,
+        //     title: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Text(
+        //           categories[index].title!,
+        //           style: textDarkRegularLargeBS(context),
+        //         ),
+        //         SizedBox(
+        //           height: 4,
+        //         ),
+        //         Text(
+        //           (categories[index].products.isEmpty
+        //               ? 'NO_PRODUCTS'.tr
+        //               : '${categories[index].products.length} ${categories[index].products.length > 1 ? 'ITEMS'.tr : 'ITEM'.tr}'),
+        //           style: textDarkLightSmallBR(context),
+        //         ),
+        //       ],
+        //     ),
+        //     children: [
+        //       dishesList(categories[index].products, notifier, cart, state)
+        //     ],
+        //   ),
+        // ),
       );
 }

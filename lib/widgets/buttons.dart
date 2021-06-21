@@ -51,6 +51,22 @@ Widget primaryButton(BuildContext context, title, onPressed) {
   );
 }
 
+Widget primaryButtonSmall(BuildContext context, title, onPressed) {
+  return Container(
+    // width: 164,
+    // height: 46,
+    child: GFButton(
+      size: GFSize.LARGE,
+      color: primary,
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: textWhiteLargeBM(context),
+      ),
+    ),
+  );
+}
+
 Widget flatDarkButton(BuildContext context, String title, Function onPressed) {
   return Container(
     // width: 164,

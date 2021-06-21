@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-const primary = Color(0xFFFF0707);
+// const primary = Color(0xFFFF0707);
+// const primary = Color(0xFF52861D);
+// const primary = Color(0xFF2B80C9);
+// const primary = Color(0xFFED9732);
+const primary = Color(0xFFC92B2B);
 const secondary = Color(0xFFFFDDDD);
+const secondary1 = Color(0xFF212730);
 const grey = Colors.grey;
 const white = Colors.white;
 const brown = Color(0xFFD5AF6E);
@@ -112,7 +117,7 @@ TextStyle textWhiteLargeBM(context) {
     fontWeight: FontWeight.w600,
     fontSize: 18.0,
     color: Colors.white,
-    fontFamily: 'BarlowMedium',
+    fontFamily: 'BarlowBold',
   );
 }
 
@@ -138,6 +143,15 @@ TextStyle textWhiteXXSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 10.0,
+    color: Colors.white,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
+TextStyle textWhiteXXSmall(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 15.0,
     color: Colors.white,
     fontFamily: 'BarlowMedium',
   );
@@ -317,6 +331,15 @@ TextStyle textDarkRegularBR(context) {
   );
 }
 
+TextStyle textDarkRegularBRW(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 16.0,
+    color: white,
+    fontFamily: 'BarlowBold',
+  );
+}
+
 TextStyle textDarkRegularBR14(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
@@ -464,6 +487,15 @@ TextStyle textDarkRegularBS(context) {
   );
 }
 
+TextStyle textDarkRegularBG(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 17.0,
+    color: Color(0xFF6F757E),
+    fontFamily: 'BarlowSemiBold',
+  );
+}
+
 TextStyle textDarkRegularLargeBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
@@ -560,6 +592,51 @@ TextStyle textDarkRegularBB(context) {
     fontWeight: FontWeight.w800,
     fontSize: 17.0,
     color: dark,
+    fontFamily: 'BarlowBold',
+  );
+}
+
+TextStyle textDarkRegularBB20(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 20.0,
+    color: dark,
+    fontFamily: 'BarlowBold',
+  );
+}
+
+TextStyle textDarkRegularBW(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 25.0,
+    color: white,
+    fontFamily: 'BarlowBold',
+  );
+}
+
+TextStyle textDarkRegularBW40(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 40.0,
+    color: white,
+    fontFamily: 'BarlowBold',
+  );
+}
+
+TextStyle textDarkRegularBW17(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 17.0,
+    color: white,
+    fontFamily: 'BarlowBold',
+  );
+}
+
+TextStyle textDarkRegularBW15(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 15.0,
+    color: white.withOpacity(0.7),
     fontFamily: 'BarlowBold',
   );
 }

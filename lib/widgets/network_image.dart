@@ -11,8 +11,8 @@ Widget networkImage(String? url, int width, int height, double radius) {
       child: CachedNetworkImage(
         imageUrl: processImage(
           url,
-          width: width + (.5 * width).toInt(),
-          height: height + (.5 * height).toInt(),
+          width: width.toInt(),
+          height: height.toInt(),
         ),
       ),
     ),

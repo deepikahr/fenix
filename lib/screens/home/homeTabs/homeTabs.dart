@@ -78,7 +78,7 @@ class HomeTabs extends HookWidget {
           ? Center(child: GFLoader())
           : _screens[state.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: primary,
+        backgroundColor: white,
         elevation: 1,
         currentIndex: state.currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -86,13 +86,24 @@ class HomeTabs extends HookWidget {
           context.read(homeTabsProvider.notifier).onPageChanged(index);
         },
         items: items,
-        selectedLabelStyle: textWhiteXXSmallBM(context),
-        unselectedLabelStyle: textWhiteXXSmallBM(context),
-        selectedIconTheme: IconThemeData(color: light),
-        unselectedIconTheme: IconThemeData(color: whiteLight),
-        selectedItemColor: light,
-        unselectedItemColor: whiteLight,
+        selectedLabelStyle: textWhiteXXSmall(context),
+        unselectedLabelStyle: textWhiteXXSmall(context),
+        selectedIconTheme: IconThemeData(color: dark),
+        unselectedIconTheme: IconThemeData(color: darkLight),
+        selectedItemColor: dark,
+        unselectedItemColor: darkLight,
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'text',
+        isExtended: true,
+        onPressed: () {},
+        child: Icon(
+          Icons.navigation,
+          size: 40,
+        ),
+        backgroundColor: primary,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

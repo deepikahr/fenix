@@ -41,8 +41,62 @@ class Home extends HookWidget {
     }, const []);
 
     return Scaffold(
-      appBar: homeAppbar(context, onAppBarTap,
-          '${db.getLocalAddress() == null ? "" : (db.getLocalAddress()?.address ?? '')}'),
+      // appBar: homeAppbar(context, onAppBarTap,
+      //     '${db.getLocalAddress() == null ? "" : (db.getLocalAddress()?.address ?? '')}'),
+      appBar: PreferredSize(
+        child: Stack(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              // padding: EdgeInsets.symmetric(vertical: 15),
+              decoration: new BoxDecoration(color: secondary1, boxShadow: [
+                BoxShadow(color: Colors.black45, blurRadius: 20)
+              ]),
+            ),
+
+            Positioned(
+              top: 45,
+              left: 20,
+              child: Icon(
+                Icons.list,
+                color: primary,
+                size: 40,
+              ),
+            ),
+            Positioned(
+              top: 45,
+              left: 50,
+              right: 50,
+              child: Column(
+                children: [
+                  titleTextDarkRegularBW(context, "GASTROBAR"),
+                  titleTextDarkRegularBW17(context, "CALLE LARIOS 12"),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 45,
+              right: 20,
+              child: Row(
+                children: [
+                  RotatedBox(
+                    quarterTurns: -1,
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Mesa',
+                        style: textDarkRegularBW17(context),
+                        children: [],
+                      ),
+                    ),
+                  ),
+                  Text('5', style: textDarkRegularBW40(context)),
+                ],
+              ),
+            ),
+          ],
+        ),
+        preferredSize: new Size(MediaQuery.of(context).size.width, 80.0),
+      ),
       body: Container(
           color: light,
           child: Stack(
@@ -51,22 +105,94 @@ class Home extends HookWidget {
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 children: [
+                  Stack(
+                    children: [
+                      Column(children: [
+                       Container(
+                         height: 25,
+                         color: secondary1,
+                       ),
+                        Container(
+                         height: 13,
+                         decoration: BoxDecoration(
+                         color: white,
+                           boxShadow: [
+                           BoxShadow(color:Colors.black45,blurRadius:5)
+                         ]),
+                       ),
+                        Container(
+                         height: 12,
+                         color: white,
+                       ),
+                      ],),
+             Positioned(
+             bottom: 0,
+             left: 20,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFD2959),
+                  border:Border.all(color:white,width:2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 2
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.home,size: 30,color: white,),
+                    Text('INCIO',style: TextStyle(color: white),)
+                  ],
+                ),
+              )
+            ),
+            Positioned(
+             bottom: 0,
+             left: 80,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFD2959),
+                  border:Border.all(color:white,width:2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 2
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.home,size: 30,color: white,),
+                    Text('INCIO',style: TextStyle(color: white),)
+                  ],
+                ),
+              )
+            ),
+                    ],
+                  ),
                   if ((state.homeData?.banners.length ?? 0) > 0)
                     bannerBlock(context, state.homeData?.banners),
                   if ((state.homeData?.nearByRestaurants.length ?? 0) > 0)
                     nearByYouBlock(
                         context, state.homeData?.nearByRestaurants, state),
                   // topPickBlock(context, state?.homeData?.products),
-                  if ((state.homeData?.brands.length ?? 0) > 0)
-                    popularBrandsBlock(context, state.homeData?.brands, state),
-                  if ((state.homeData?.topRatedRestaurants.length ?? 0) > 0)
-                    topRatedBlock(
-                        context, state.homeData?.topRatedRestaurants, state),
-                  if ((state.homeData?.cuisines.length ?? 0) > 0)
-                    cuisinesBlock(context, state.homeData?.cuisines, state),
-                  if ((state.homeData?.featureRestaurants.length ?? 0) > 0)
-                    featuredRestaurantsBlock(
-                        context, state.homeData?.featureRestaurants, state),
+                  // if ((state.homeData?.brands.length ?? 0) > 0)
+                  //   popularBrandsBlock(context, state.homeData?.brands, state),
+                  // if ((state.homeData?.topRatedRestaurants.length ?? 0) > 0)
+                  //   topRatedBlock(
+                  //       context, state.homeData?.topRatedRestaurants, state),
+                  // if ((state.homeData?.cuisines.length ?? 0) > 0)
+                  //   cuisinesBlock(context, state.homeData?.cuisines, state),
+                  // if ((state.homeData?.featureRestaurants.length ?? 0) > 0)
+                  //   featuredRestaurantsBlock(
+                  //       context, state.homeData?.featureRestaurants, state),
                   // offersBlock(context, state?.homeData?.offerForYou),
                 ],
               ),
@@ -225,15 +351,15 @@ class Home extends HookWidget {
       BuildContext context, List<Restaurant>? restaurants, state) {
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: 8),
-      padding: EdgeInsets.symmetric(vertical: 16),
+      margin: EdgeInsets.only(top: 8,left: 12,right: 12,bottom: 8),
+      // padding: EdgeInsets.symmetric(vertical: 1),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          titleViewAllRow(context, 'NEAR_BY_YOU'.tr, () {
-            Get.to(() => ViewAllScreen(
-                'NEAR_BY_RESTAURANTS'.tr, ViewAllType.nearByRestaurant));
-          }),
+          // titleViewAllRow(context, 'NEAR_BY_YOU'.tr, () {
+          //   Get.to(() => ViewAllScreen(
+          //       'NEAR_BY_RESTAURANTS'.tr, ViewAllType.nearByRestaurant));
+          // }),
           Flexible(
             fit: FlexFit.loose,
             child: ListView.separated(
@@ -280,6 +406,66 @@ class Home extends HookWidget {
       ),
     );
   }
+
+  //   Widget nearByYouBlock(
+  //     BuildContext context, List<Restaurant>? restaurants, state) {
+  //   return Container(
+  //     color: Colors.white,
+  //     margin: EdgeInsets.only(top: 8),
+  //     padding: EdgeInsets.symmetric(vertical: 16),
+  //     child: Column(
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         // titleViewAllRow(context, 'NEAR_BY_YOU'.tr, () {
+  //         //   Get.to(() => ViewAllScreen(
+  //         //       'NEAR_BY_RESTAURANTS'.tr, ViewAllType.nearByRestaurant));
+  //         // }),
+  //         Flexible(
+  //           fit: FlexFit.loose,
+  //           child: ListView.separated(
+  //               separatorBuilder: (_, __) => Divider(
+  //                     thickness: .3,
+  //                     color: Colors.black12,
+  //                     indent: 16,
+  //                     endIndent: 16,
+  //                     height: 30,
+  //                   ),
+  //               padding: EdgeInsets.only(
+  //                 top: 16,
+  //               ),
+  //               physics: ScrollPhysics(),
+  //               scrollDirection: Axis.vertical,
+  //               shrinkWrap: true,
+  //               itemCount: restaurants?.length ?? 0,
+  //               itemBuilder: (BuildContext context, int i) {
+  //                 return InkWell(
+  //                   onTap: () {
+  //                     Get.to(() => RestaurantScreen(
+  //                         restaurants![i].id!, restaurants[i].vendor!));
+  //                   },
+  //                   child: restaurantInfoCard(
+  //                     context,
+  //                     restaurants![i].restaurantName!,
+  //                     restaurants[i].logo?.imageUrl,
+  //                     restaurants[i]
+  //                         .cuisines
+  //                         .map((e) => e.cuisineName)
+  //                         .join(', '),
+  //                     restaurants[i].franchiseName,
+  //                     restaurants[i].calcDistance!,
+  //                     restaurants[i].averageRating,
+  //                     restaurants[i].preparationTime,
+  //                     restaurants[i].workingHours?.timings[0].slot ?? '',
+  //                     restaurants[i].isFavorite,
+  //                     restaurants[i].storeOpen,
+  //                   ),
+  //                 );
+  //               }),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget cuisinesBlock(BuildContext context, List<Cuisine>? cuisines, state) =>
       Container(
