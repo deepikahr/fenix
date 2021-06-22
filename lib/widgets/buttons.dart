@@ -53,7 +53,51 @@ Widget primaryButton(BuildContext context, title, onPressed) {
 
 Widget primaryButtonSmall(BuildContext context, title, onPressed) {
   return Container(
-    // width: 164,
+    // width: 244,
+    height: 46,
+    child: GFButton(
+      size: GFSize.LARGE,
+      color: primary,
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: textWhiteLargeBM(context),
+      ),
+    ),
+  );
+}
+
+Widget custombuttonsm(BuildContext context, title, onPressed) {
+  return MaterialButton(
+    height: 46,
+    // minWidth: 340,
+    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
+    color: primary,
+    onPressed: onPressed,
+    child: Text(
+      title,
+      style: textWhiteLargeBM(context),
+    ),
+  );
+}
+
+Widget custombuttonsmFW(BuildContext context, title, onPressed) {
+  return MaterialButton(
+    height: 46,
+    minWidth: 244,
+    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
+    color: primary,
+    onPressed: onPressed,
+    child: Text(
+      title,
+      style: textWhiteLargeBM(context),
+    ),
+  );
+}
+
+Widget primaryButtonSmallFW(BuildContext context, title, onPressed) {
+  return Container(
+    width: 244,
     // height: 46,
     child: GFButton(
       size: GFSize.LARGE,
@@ -202,25 +246,25 @@ Widget tabIconButton(BuildContext context, iconData, cartData) {
     child: Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        Icon(
+        Image.asset(
           iconData,
+          width: 50,
+          height: 50,
         ),
-        Positioned(
-          bottom: 8,
-          left: 8,
-          child: (cartData == null || cartData == 0)
-              ? Container()
-              : GFBadge(
-                  shape: GFBadgeShape.circle,
-                  color: dark,
-                  size: 26,
-                  child: Text(
-                    '$cartData',
-                    textAlign: TextAlign.center,
-                    style: textWhiteXXSmallBM(context),
-                  ),
-                ),
-        )
+        // Positioned(
+        //   bottom: 8,
+        //   left: 8,
+        //   child: GFBadge(
+        //           shape: GFBadgeShape.circle,
+        //           color: dark,
+        //           size: 26,
+        //           child: Text(
+        //             '$cartData',
+        //             textAlign: TextAlign.center,
+        //             style: textWhiteXXSmallBM(context),
+        //           ),
+        //         ),
+        // )
       ],
     ),
   );

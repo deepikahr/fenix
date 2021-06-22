@@ -87,7 +87,8 @@ class EntryPage extends HookWidget {
         primaryColor: primary,
         accentColor: primary,
       ),
-      home: Categories(),
+      // home: Categories(),
+      home: AddNumber(),
       // home: GestureDetector(
       //   onTap: () {
       //     FocusScope.of(context).unfocus();

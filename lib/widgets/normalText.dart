@@ -141,20 +141,26 @@ Widget titleTextDarkRegularBB20(BuildContext context, title) {
 }
 
 Widget titleTextDarkRegularBW(BuildContext context, title) {
-  return Text(title, style: textDarkRegularBW(context),
-  textAlign: TextAlign.center,
+  return Text(
+    title,
+    style: textDarkRegularBW(context),
+    textAlign: TextAlign.center,
   );
 }
 
 Widget titleTextDarkRegularBW17(BuildContext context, title) {
-  return Text(title, style: textDarkRegularBW17(context),
-  textAlign: TextAlign.center,
+  return Text(
+    title,
+    style: textDarkRegularBW17(context),
+    textAlign: TextAlign.center,
   );
 }
 
 Widget titleTextDarkRegularBW15(BuildContext context, title) {
-  return Text(title, style: textDarkRegularBW15(context),
-  textAlign: TextAlign.center,
+  return Text(
+    title,
+    style: textDarkRegularBW15(context),
+    textAlign: TextAlign.center,
   );
 }
 

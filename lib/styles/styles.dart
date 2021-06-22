@@ -85,6 +85,24 @@ TextStyle textBlackLargeBM(context) {
   );
 }
 
+TextStyle textBlackLargeBM20(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 20.0,
+    color: Colors.black,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
+TextStyle textBlackLargeBM20G(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 20.0,
+    color: Color(0xFF5F5F5F),
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 TextStyle textDarkXXLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
@@ -121,10 +139,19 @@ TextStyle textWhiteLargeBM(context) {
   );
 }
 
+TextStyle textWhiteLargeBMM(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 18.0,
+    color: Colors.white,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 TextStyle textWhiteRegularBM() {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 16.0,
+    fontSize: 13.0,
     color: Colors.white,
     fontFamily: 'BarlowMedium',
   );
@@ -284,6 +311,15 @@ TextStyle textDarkRegularBM(context) {
   );
 }
 
+TextStyle textDarkRegularBM10(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 10.0,
+    color: dark,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 TextStyle textDark15RegularBR({context}) {
   return TextStyle(
     fontWeight: FontWeight.w600,
@@ -362,6 +398,15 @@ TextStyle textDarkLightSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 14.0,
+    color: darkLight,
+    fontFamily: 'BarlowRegular',
+  );
+}
+
+TextStyle textDarkLightSmallBR9(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 9.0,
     color: darkLight,
     fontFamily: 'BarlowRegular',
   );
@@ -487,10 +532,28 @@ TextStyle textDarkRegularBS(context) {
   );
 }
 
+TextStyle textDarkRegularBSW(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 17.0,
+    color: white,
+    fontFamily: 'BarlowSemiBold',
+  );
+}
+
 TextStyle textDarkRegularBG(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 17.0,
+    color: Color(0xFF6F757E),
+    fontFamily: 'BarlowSemiBold',
+  );
+}
+
+TextStyle textDarkRegularBGS(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 10.0,
     color: Color(0xFF6F757E),
     fontFamily: 'BarlowSemiBold',
   );

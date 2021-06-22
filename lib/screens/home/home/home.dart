@@ -12,6 +12,8 @@ import 'package:restaurant_saas/models/api_response_models/restaurant/restaurant
 import 'package:restaurant_saas/providers/providers.dart';
 import 'package:restaurant_saas/screens/home/browseByBrand/browseByBrand.dart';
 import 'package:restaurant_saas/screens/home/browseByCuisine/browseByCuisine.dart';
+import 'package:restaurant_saas/screens/home/drawer/drawer.dart';
+import 'package:restaurant_saas/screens/home/notify_waiter/notify_waiter.dart';
 import 'package:restaurant_saas/screens/pre_auth/pickLocation/pickLocation.dart';
 import 'package:restaurant_saas/screens/products/productSelection/productSelection.dart';
 import 'package:restaurant_saas/screens/restaurant/restaurant_screen.dart';
@@ -30,6 +32,15 @@ class Home extends HookWidget {
   Widget build(BuildContext context) {
     final state = useProvider(homeProvider);
     final isMounted = useIsMounted();
+    final List<String> items = <String>[
+      "red",
+      "blue",
+      "black",
+      "Idiomos",
+    ];
+    String? selectedItem = 'Idiomos';
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
 
     useEffect(() {
       Future.delayed(Duration.zero, () async {
@@ -41,26 +52,31 @@ class Home extends HookWidget {
     }, const []);
 
     return Scaffold(
-      // appBar: homeAppbar(context, onAppBarTap,
-      //     '${db.getLocalAddress() == null ? "" : (db.getLocalAddress()?.address ?? '')}'),
+      key: _scaffoldKey,
+      drawer: DrawerPage(),
       appBar: PreferredSize(
         child: Stack(
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
               // padding: EdgeInsets.symmetric(vertical: 15),
-              decoration: new BoxDecoration(color: secondary1, boxShadow: [
-                BoxShadow(color: Colors.black45, blurRadius: 20)
-              ]),
+              decoration: new BoxDecoration(
+                color: secondary1,
+                // boxShadow: [
+                //   BoxShadow(color: Colors.black45, blurRadius: 20)
+                // ]
+              ),
             ),
-
             Positioned(
               top: 45,
               left: 20,
-              child: Icon(
-                Icons.list,
-                color: primary,
-                size: 40,
+              child: InkWell(
+                onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                child: Icon(
+                  Icons.list,
+                  color: primary,
+                  size: 40,
+                ),
               ),
             ),
             Positioned(
@@ -107,74 +123,141 @@ class Home extends HookWidget {
                 children: [
                   Stack(
                     children: [
-                      Column(children: [
-                       Container(
-                         height: 25,
-                         color: secondary1,
-                       ),
-                        Container(
-                         height: 13,
-                         decoration: BoxDecoration(
-                         color: white,
-                           boxShadow: [
-                           BoxShadow(color:Colors.black45,blurRadius:5)
-                         ]),
-                       ),
-                        Container(
-                         height: 12,
-                         color: white,
-                       ),
-                      ],),
-             Positioned(
-             bottom: 0,
-             left: 20,
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFD2959),
-                  border:Border.all(color:white,width:2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 2
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Column(
-                  children: [
-                    Icon(Icons.home,size: 30,color: white,),
-                    Text('INCIO',style: TextStyle(color: white),)
-                  ],
-                ),
-              )
-            ),
-            Positioned(
-             bottom: 0,
-             left: 80,
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFD2959),
-                  border:Border.all(color:white,width:2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 2
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Column(
-                  children: [
-                    Icon(Icons.home,size: 30,color: white,),
-                    Text('INCIO',style: TextStyle(color: white),)
-                  ],
-                ),
-              )
-            ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 35,
+                            color: secondary1,
+                          ),
+                          Container(
+                            height: 13,
+                            decoration: BoxDecoration(
+                              color: white,
+                              //    boxShadow: [
+                              //    BoxShadow(color:Colors.black45,blurRadius:5)
+                              //  ]
+                            ),
+                          ),
+                          Container(
+                            height: 12,
+                            color: white,
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          left: 20,
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFFD2959),
+                                border: Border.all(color: white, width: 2),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black45, blurRadius: 2)
+                                ],
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'lib/assets/images/i.png',
+                                  width: 30,
+                                  height: 40,
+                                ),
+                                Text(
+                                  'INICIO',
+                                  style: TextStyle(color: white, fontSize: 10),
+                                )
+                              ],
+                            ),
+                          )),
+                      Positioned(
+                          bottom: 0,
+                          left: 100,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NotifyWaiter(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFFD2959),
+                                  border: Border.all(color: white, width: 2),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black45, blurRadius: 2)
+                                  ],
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'lib/assets/images/c.png',
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  Text(
+                                    'LLAMAR',
+                                    style:
+                                        TextStyle(color: white, fontSize: 10),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
+                      Positioned(
+                        right: 20,
+                        bottom: 0,
+                        child: DropdownButton<String>(
+                          underline: Container(color: Colors.transparent),
+                          iconSize: 0,
+                          value: selectedItem,
+                          onChanged: (String? string) =>
+                              useState(() => selectedItem = string),
+                          selectedItemBuilder: (BuildContext context) {
+                            return items.map<Widget>((String item) {
+                              return Padding(
+                                padding: const EdgeInsets.all(0.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'lib/assets/images/food1.png',
+                                      width: 50,
+                                      height: 36,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    Text(
+                                      item,
+                                      style: textDarkRegularBGS(context),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList();
+                          },
+                          items: items.map((String item) {
+                            return DropdownMenuItem<String>(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 14, 16, 4),
+                                child: Text(
+                                  '$item',
+                                  style: textDarkRegularBG(context),
+                                ),
+                              ),
+                              value: item,
+                            );
+                          }).toList(),
+                        ),
+                      )
                     ],
                   ),
                   if ((state.homeData?.banners.length ?? 0) > 0)
@@ -182,6 +265,9 @@ class Home extends HookWidget {
                   if ((state.homeData?.nearByRestaurants.length ?? 0) > 0)
                     nearByYouBlock(
                         context, state.homeData?.nearByRestaurants, state),
+                  // if ((state.homeData?.nearByRestaurants.length ?? 0) > 0)
+                  //   nearByYouBlockGrid(
+                  //       context, state.homeData?.nearByRestaurants, state),
                   // topPickBlock(context, state?.homeData?.products),
                   // if ((state.homeData?.brands.length ?? 0) > 0)
                   //   popularBrandsBlock(context, state.homeData?.brands, state),
@@ -351,7 +437,7 @@ class Home extends HookWidget {
       BuildContext context, List<Restaurant>? restaurants, state) {
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(top: 8,left: 12,right: 12,bottom: 8),
+      margin: EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 8),
       // padding: EdgeInsets.symmetric(vertical: 1),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -402,6 +488,98 @@ class Home extends HookWidget {
                   );
                 }),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget nearByYouBlockGrid(
+      BuildContext context, List<Restaurant>? restaurants, state) {
+    return Container(
+      color: Colors.white,
+      margin: EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 8),
+      // padding: EdgeInsets.symmetric(vertical: 1),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // titleViewAllRow(context, 'NEAR_BY_YOU'.tr, () {
+          //   Get.to(() => ViewAllScreen(
+          //       'NEAR_BY_RESTAURANTS'.tr, ViewAllType.nearByRestaurant));
+          // }),
+          GridView.builder(
+            physics: ScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: restaurants?.length ?? 0,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: MediaQuery.of(context).size.width / 383),
+            itemBuilder: (BuildContext context, int i) {
+              return InkWell(
+                onTap: () {
+                  Get.to(() => RestaurantScreen(
+                      restaurants![i].id!, restaurants[i].vendor!));
+                },
+                child: restaurantInfoCardGrid(
+                  context,
+                  restaurants![i].restaurantName!,
+                  restaurants[i].logo?.imageUrl,
+                  restaurants[i].cuisines.map((e) => e.cuisineName).join(', '),
+                  restaurants[i].franchiseName,
+                  restaurants[i].calcDistance!,
+                  restaurants[i].averageRating,
+                  restaurants[i].preparationTime,
+                  restaurants[i].workingHours?.timings[0].slot ?? '',
+                  restaurants[i].isFavorite,
+                  restaurants[i].storeOpen,
+                ),
+              );
+            },
+          ),
+          // Flexible(
+          //   fit: FlexFit.loose,
+          //   child: ListView.separated(
+          //       separatorBuilder: (_, __) => Divider(
+          //             thickness: .3,
+          //             color: Colors.black12,
+          //             indent: 16,
+          //             endIndent: 16,
+          //             height: 30,
+          //           ),
+          //       padding: EdgeInsets.only(
+          //         top: 16,
+          //       ),
+          //       physics: ScrollPhysics(),
+          //       scrollDirection: Axis.vertical,
+          //       shrinkWrap: true,
+          //       itemCount: restaurants?.length ?? 0,
+          //       itemBuilder: (BuildContext context, int i) {
+          //         return InkWell(
+          //           onTap: () {
+          //             Get.to(() => RestaurantScreen(
+          //                 restaurants![i].id!, restaurants[i].vendor!));
+          //           },
+          //           child: restaurantInfoCard(
+          //             context,
+          //             restaurants![i].restaurantName!,
+          //             restaurants[i].logo?.imageUrl,
+          //             restaurants[i]
+          //                 .cuisines
+          //                 .map((e) => e.cuisineName)
+          //                 .join(', '),
+          //             restaurants[i].franchiseName,
+          //             restaurants[i].calcDistance!,
+          //             restaurants[i].averageRating,
+          //             restaurants[i].preparationTime,
+          //             restaurants[i].workingHours?.timings[0].slot ?? '',
+          //             restaurants[i].isFavorite,
+          //             restaurants[i].storeOpen,
+          //           ),
+          //         );
+          //       }),
+          // )
         ],
       ),
     );

@@ -48,13 +48,14 @@ class Settings extends HookWidget {
           preferredSize: new Size(MediaQuery.of(context).size.width, 90.0),
         ),
         bottomNavigationBar: Container(
-          padding: EdgeInsets.only(bottom:10),
+          padding: EdgeInsets.only(bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-            primaryButtonSmall(context,'OK',(){}),
-            primaryButton(context,'SALIR',(){}),
-          ],),
+              primaryButtonSmall(context, 'OK', () {}),
+              primaryButton(context, 'SALIR', () {}),
+            ],
+          ),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -249,7 +250,7 @@ class Settings extends HookWidget {
                   )
                 ],
               ),
-                  Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   titleTextDarkRegularBS(context, 'carta selecionada'),
@@ -300,8 +301,8 @@ class Settings extends HookWidget {
                   ),
                 ],
               ),
-              SizedBox(height:10),
-                 Row(
+              SizedBox(height: 10),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   titleTextDarkRegularBS(context, 'carta selecionada'),

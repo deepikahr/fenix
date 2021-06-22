@@ -9,7 +9,10 @@ Timer useTimer(Duration? duration, Function()? callback) {
 }
 
 class _TimerHook extends Hook<Timer> {
-  const _TimerHook({this.duration, this.callback,});
+  const _TimerHook({
+    this.duration,
+    this.callback,
+  });
 
   final Duration? duration;
   final Function()? callback;

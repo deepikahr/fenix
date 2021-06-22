@@ -13,6 +13,9 @@ import 'package:restaurant_saas/models/api_response_models/offer/offer.dart';
 import 'package:restaurant_saas/models/api_response_models/product/product.dart';
 import 'package:restaurant_saas/providers/providers.dart';
 import 'package:restaurant_saas/screens/checkout/cart_screen/cart_screen.dart';
+import 'package:restaurant_saas/screens/home/drawer/drawer.dart';
+import 'package:restaurant_saas/screens/home/notify_waiter/notify_waiter.dart';
+import 'package:restaurant_saas/screens/products/product-details/productDetails.dart';
 import 'package:restaurant_saas/screens/products/productSelection/productSelection.dart';
 import 'package:restaurant_saas/screens/restaurant/restaurantScreenStateNotifier.dart';
 import 'package:restaurant_saas/screens/restaurant/shimmerRestaurantScreen.dart';
@@ -29,7 +32,14 @@ class RestaurantScreen extends HookWidget {
   final String? categoryId;
 
   RestaurantScreen(this.restaurantId, this.vendorId, {this.categoryId});
-
+  final List<String> items = <String>[
+    "red",
+    "blue",
+    "black",
+    "Idiomos",
+  ];
+  String? selectedItem = 'Idiomos';
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final state = useProvider(restaurantProvider);
@@ -49,30 +59,37 @@ class RestaurantScreen extends HookWidget {
 
     return Scaffold(
       backgroundColor: light,
+      key: _scaffoldKey,
       // appBar: titleAppbarWithCart(
       //     context, state.restaurant?.restaurantName ?? '', cart?.cartCount,
       //     () async {
       //   await Get.to(() => CartScreen(backButton: true));
       //   notifier.updateQuantity();
       // }),
-            appBar: PreferredSize(
+      drawer: DrawerPage(),
+      appBar: PreferredSize(
         child: Stack(
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
               // padding: EdgeInsets.symmetric(vertical: 15),
-              decoration: new BoxDecoration(color: secondary1, boxShadow: [
-                BoxShadow(color: Colors.black45, blurRadius: 20)
-              ]),
+              decoration: new BoxDecoration(
+                color: secondary1,
+                //  boxShadow: [
+                //   BoxShadow(color: Colors.black45, blurRadius: 20)
+                // ]
+              ),
             ),
-
             Positioned(
               top: 45,
               left: 20,
-              child: Icon(
-                Icons.list,
-                color: primary,
-                size: 40,
+              child: InkWell(
+                onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                child: Icon(
+                  Icons.list,
+                  color: primary,
+                  size: 40,
+                ),
               ),
             ),
             Positioned(
@@ -116,78 +133,142 @@ class RestaurantScreen extends HookWidget {
               shrinkWrap: true,
               physics: ScrollPhysics(),
               children: [
-                  Stack(
-                    children: [
-                      Column(children: [
-                       Container(
-                         height: 25,
-                         color: secondary1,
-                       ),
+                Stack(
+                  children: [
+                    Column(
+                      children: [
                         Container(
-                         height: 13,
-                         decoration: BoxDecoration(
-                         color: white,
-                           boxShadow: [
-                           BoxShadow(color:Colors.black45,blurRadius:5)
-                         ]),
-                       ),
+                          height: 35,
+                          color: secondary1,
+                        ),
                         Container(
-                         height: 12,
-                         color: white,
-                       ),
-                      ],),
-             Positioned(
-             bottom: 0,
-             left: 20,
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFD2959),
-                  border:Border.all(color:white,width:2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 2
+                          height: 13,
+                          decoration: BoxDecoration(
+                            color: white,
+                            //    boxShadow: [
+                            //    BoxShadow(color:Colors.black45,blurRadius:5)
+                            //  ]
+                          ),
+                        ),
+                        Container(
+                          height: 12,
+                          color: white,
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        left: 20,
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFFD2959),
+                              border: Border.all(color: white, width: 2),
+                              boxShadow: [
+                                BoxShadow(color: Colors.black45, blurRadius: 2)
+                              ],
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'lib/assets/images/i.png',
+                                width: 30,
+                                height: 40,
+                              ),
+                              Text(
+                                'INICIO',
+                                style: TextStyle(color: white, fontSize: 10),
+                              )
+                            ],
+                          ),
+                        )),
+                    Positioned(
+                        bottom: 0,
+                        left: 100,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NotifyWaiter(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFFD2959),
+                                border: Border.all(color: white, width: 2),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black45, blurRadius: 2)
+                                ],
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'lib/assets/images/c.png',
+                                  width: 40,
+                                  height: 40,
+                                ),
+                                Text(
+                                  'LLAMAR',
+                                  style: TextStyle(color: white, fontSize: 10),
+                                )
+                              ],
+                            ),
+                          ),
+                        )),
+                    Positioned(
+                      right: 20,
+                      bottom: 0,
+                      child: DropdownButton<String>(
+                        underline: Container(color: Colors.transparent),
+                        iconSize: 0,
+                        value: selectedItem,
+                        onChanged: (String? string) =>
+                            useState(() => selectedItem = string),
+                        selectedItemBuilder: (BuildContext context) {
+                          return items.map<Widget>((String item) {
+                            return Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'lib/assets/images/food1.png',
+                                    width: 50,
+                                    height: 36,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  Text(
+                                    item,
+                                    style: textDarkRegularBGS(context),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList();
+                        },
+                        items: items.map((String item) {
+                          return DropdownMenuItem<String>(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
+                              child: Text(
+                                '$item',
+                                style: textDarkRegularBG(context),
+                              ),
+                            ),
+                            value: item,
+                          );
+                        }).toList(),
+                      ),
                     )
                   ],
-                  borderRadius: BorderRadius.circular(12)
                 ),
-                child: Column(
-                  children: [
-                    Icon(Icons.home,size: 30,color: white,),
-                    Text('INCIO',style: TextStyle(color: white),)
-                  ],
-                ),
-              )
-            ),
-            Positioned(
-             bottom: 0,
-             left: 80,
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color(0xFFFD2959),
-                  border:Border.all(color:white,width:2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 2
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Column(
-                  children: [
-                    Icon(Icons.home,size: 30,color: white,),
-                    Text('INCIO',style: TextStyle(color: white),)
-                  ],
-                ),
-              )
-            ),
-                    ],
-                  ),
                 // infoBlock(
                 //   context,
                 //   state.restaurant!.restaurantName!,
@@ -265,9 +346,44 @@ class RestaurantScreen extends HookWidget {
                 //     ],
                 //   ),
                 // ),
-                       SizedBox(height:13),
-                categoryList(
-                    state.restaurant!.categories, notifier, cart, state),
+                SizedBox(height: 13),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Text(
+                        'Carnes',
+                        style: textDarkRegularBS(context),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 10),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetails(),
+                      ),
+                    );
+                  },
+                  child: categoryList(
+                      state.restaurant!.categories, notifier, cart, state),
+                ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => ProductDetails(),
+                //       ),
+                //     );
+                //   },
+                //   child: categoryListGrid(context, state.restaurant!.categories,
+                //       notifier, cart, state),
+                // ),
               ],
             ),
           if (state.isLoading)
@@ -455,6 +571,75 @@ class RestaurantScreen extends HookWidget {
         ),
       );
 
+  Widget dishesListGrid(BuildContext context, List<Product> products,
+          RestaurantScreenStateNotifier notifier, Cart? cart, state) =>
+      GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            childAspectRatio: MediaQuery.of(context).size.width / 383),
+        shrinkWrap: true,
+        itemCount: products.length,
+        itemBuilder: (BuildContext context, int i) => dishesInfoCard(
+          context,
+          products[i].productName!,
+          products[i].productImage?.imageUrl,
+          products[i].restaurantName,
+          products[i].franchiseName,
+          products[i].preparationTime,
+          products[i].discount,
+          products[i].averageRating,
+          products[i].originalPrice,
+          products[i].sellingPrice,
+          products[i].description,
+          products[i].isVeg,
+          products[i].totalQuantity,
+          state.currencySymbol,
+          () async {
+            if (products[i].isCustomization) {
+              await Get.to(() => ProductSizeSelection(
+                    products[i].id!,
+                  ));
+              notifier.updateQuantity();
+            } else {
+              await notifier.findLastUpdateProduct(
+                products[i],
+                true,
+                products[i].restaurantName,
+              );
+            }
+          },
+          () async {
+            if (products[i].isCustomization) {
+              await showDialog(
+                  context: context,
+                  builder: (context) =>
+                      showPopUp(context, products[i], () async {
+                        Get.back();
+                        await notifier.findLastUpdateProduct(
+                            products[i], true, products[i].restaurantName);
+                      }, cart));
+            } else {
+              await notifier.findLastUpdateProduct(
+                  products[i], true, products[i].restaurantName);
+            }
+          },
+          () {
+            if (products[i].isSameProductMultipleTime == true) {
+              showDialog(
+                  context: context,
+                  builder: (context) =>
+                      showMulitipleTimeProductPopUp(context, cart));
+            } else {
+              notifier.updateProductsQuantity(products[i], false);
+            }
+          },
+        ),
+      );
+
   Widget showMulitipleTimeProductPopUp(BuildContext context, Cart? cart) {
     return Dialog(
       child: Container(
@@ -569,38 +754,444 @@ class RestaurantScreen extends HookWidget {
   Widget categoryList(List<CategoryResponse> categories,
           RestaurantScreenStateNotifier notifier, Cart? cart, state) =>
       ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: categories.length,
+          itemBuilder: (context, index) =>
+              dishesList(categories[index].products, notifier, cart, state)
+          // Theme(
+          //   data: ThemeData().copyWith(
+          //       accentColor: Colors.grey, dividerColor: Colors.transparent),
+          //   child: ExpansionTile(
+          //     initiallyExpanded: true,
+          //     title: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text(
+          //           categories[index].title!,
+          //           style: textDarkRegularLargeBS(context),
+          //         ),
+          //         SizedBox(
+          //           height: 4,
+          //         ),
+          //         Text(
+          //           (categories[index].products.isEmpty
+          //               ? 'NO_PRODUCTS'.tr
+          //               : '${categories[index].products.length} ${categories[index].products.length > 1 ? 'ITEMS'.tr : 'ITEM'.tr}'),
+          //           style: textDarkLightSmallBR(context),
+          //         ),
+          //       ],
+          //     ),
+          //     children: [
+          //       dishesList(categories[index].products, notifier, cart, state)
+          //     ],
+          //   ),
+          // ),
+          );
+  Widget categoryListGrid(
+          BuildContext context,
+          List<CategoryResponse> categories,
+          RestaurantScreenStateNotifier notifier,
+          Cart? cart,
+          state) =>
+      GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: categories.length,
-        itemBuilder: (context, index) => 
-        dishesList(categories[index].products, notifier, cart, state)
-        // Theme(
-        //   data: ThemeData().copyWith(
-        //       accentColor: Colors.grey, dividerColor: Colors.transparent),
-        //   child: ExpansionTile(
-        //     initiallyExpanded: true,
-        //     title: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         Text(
-        //           categories[index].title!,
-        //           style: textDarkRegularLargeBS(context),
-        //         ),
-        //         SizedBox(
-        //           height: 4,
-        //         ),
-        //         Text(
-        //           (categories[index].products.isEmpty
-        //               ? 'NO_PRODUCTS'.tr
-        //               : '${categories[index].products.length} ${categories[index].products.length > 1 ? 'ITEMS'.tr : 'ITEM'.tr}'),
-        //           style: textDarkLightSmallBR(context),
-        //         ),
-        //       ],
-        //     ),
-        //     children: [
-        //       dishesList(categories[index].products, notifier, cart, state)
-        //     ],
-        //   ),
-        // ),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: MediaQuery.of(context).size.width / 563),
+        itemBuilder: (context, index) {
+          return Container(
+            // padding: EdgeInsets.only(left: 16, right: 16),
+            margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2)]),
+            child: Column(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      // height: 145,
+                      margin: EdgeInsets.only(top: 3, left: 3, right: 3),
+                      child:
+                          // Stack(
+                          //   alignment: AlignmentDirectional.center,
+                          //   children: [
+                          Stack(
+                        children: [
+                          // networkImage(img, 105, 109, 4),
+                          Container(
+                              child: Image.asset(
+                            'lib/assets/images/refer.png',
+                            width: MediaQuery.of(context).size.width,
+                            height: 139,
+                            fit: BoxFit.cover,
+                          )),
+                          Positioned(
+                              child: Container(
+                            color: primary,
+                            padding: EdgeInsets.all(4),
+                            child: Text(
+                              'OFFER',
+                              style: textDarkRegularBSW(context),
+                              textAlign: TextAlign.center,
+                            ),
+                          )),
+                          Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                color: darkLight,
+                                padding: EdgeInsets.all(4),
+                                child: Text(
+                                  'Ternera con verduras salteadas',
+                                  style: textDarkRegularBSW(context),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  // textAlign: TextAlign.center,
+                                ),
+                              )),
+                          // Positioned(
+                          //   bottom: 0,
+                          //   left: 0,
+                          //   child: Center(
+                          //     child: Text(
+                          //       '\$234',
+                          //       style: textDarkRegularBSW(context),
+                          //     ),
+                          //   ),
+                          // )
+                        ],
+                      ),
+
+                      // Positioned(
+                      //   bottom: 0,
+                      //   child: Container(
+                      //     width: 97,
+                      //     height: 38,
+                      //     child: totalQautity > 0
+                      //         ? Container(
+                      //             decoration: BoxDecoration(
+                      //                 color: white,
+                      //                 border: Border.all(
+                      //                     color: grey.shade300, width: 1),
+                      //                 borderRadius: BorderRadius.circular(5)),
+                      //             child: Row(
+                      //               mainAxisAlignment:
+                      //                   MainAxisAlignment.spaceBetween,
+                      //               children: [
+                      //                 InkWell(
+                      //                     onTap: onRemove,
+                      //                     child: Padding(
+                      //                       padding: const EdgeInsets.all(8.0),
+                      //                       child: Icon(
+                      //                         Icons.remove,
+                      //                         color: dark.withOpacity(0.8),
+                      //                       ),
+                      //                     )),
+                      //                 Text('$totalQautity',
+                      //                     style: textPrimaryLargeBM(context)),
+                      //                 InkWell(
+                      //                   onTap: onUpdate,
+                      //                   child: Padding(
+                      //                     padding: const EdgeInsets.all(8.0),
+                      //                     child: Icon(
+                      //                       Icons.add,
+                      //                       color: dark.withOpacity(0.8),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ))
+                      //         : GFButton(
+                      //             borderShape: RoundedRectangleBorder(
+                      //                 borderRadius: BorderRadius.circular(4),
+                      //                 side: BorderSide(color: buttonBorder)),
+                      //             onPressed: onAdd,
+                      //             color: Colors.white,
+                      //             text: 'ADD'.tr,
+                      //             textStyle: textPrimaryLargeBM(context),
+                      //           ),
+                      //   ),
+                      // ),
+                      //   ],
+                      // ),
+                    ),
+                    // SizedBox(
+                    //   width: 16,
+                    // ),
+                    // Expanded(
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // SizedBox(
+                          //   height: 1,
+                          // ),
+                          Row(
+                            children: [
+                              // (isVeg == null
+                              //     ? Container(
+                              //         height: 14,
+                              //         width: 14,
+                              //       )
+                              //     : isVeg == true
+                              //         ? Container(
+                              //             height: 14,
+                              //             width: 14,
+                              //             decoration: BoxDecoration(
+                              //                 border: Border.all(color: green)),
+                              //             child: Padding(
+                              //               padding: const EdgeInsets.all(2.0),
+                              //               child: GFAvatar(
+                              //                   backgroundColor: green,
+                              //                   shape: GFAvatarShape.circle),
+                              //             ),
+                              //           )
+                              //         : Container(
+                              //             height: 14,
+                              //             width: 14,
+                              //             decoration: BoxDecoration(
+                              //                 border: Border.all(color: red)),
+                              //             child: Padding(
+                              //               padding: const EdgeInsets.all(2.0),
+                              //               child: GFAvatar(
+                              //                   backgroundColor: red,
+                              //                   shape: GFAvatarShape.circle),
+                              //             ),
+                              //           )),
+                              // SizedBox(
+                              //   width: 5,
+                              // ),
+                              // Expanded(child: titleTextDarkRegularBR(context, 'name')),
+                            ],
+                          ),
+                          // SizedBox(
+                          //   height: 6,
+                          // ),
+                          titleTextDarkLightSmallBR(context,
+                              'Mezcla de verduras al vapor con ternera de primera'),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: primary,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              'Allergens',
+                              style: textWhiteRegularBM(),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Container(
+                              //   padding: EdgeInsets.all(8),
+                              //   decoration: BoxDecoration(
+                              //       color: primary,
+                              //       borderRadius: BorderRadius.circular(5)),
+                              //   child: Text(
+                              //     'Allergens',
+                              //     style: textWhiteRegularBM(),
+                              //   ),
+                              // ),
+                              // Icon(
+                              //   Icons.camera_alt,
+                              //   color: primary,
+                              // ),
+                              Text(
+                                '\$123',
+                                style: textDarkRegularBS(context),
+                              ),
+                              // sellingPrice == originalPrice
+                              //     ? Container()
+                              //     : SizedBox(width: 12),
+                              // sellingPrice == originalPrice
+                              //     ? Container()
+                              //     : Text(
+                              //         '$currencySymbol${originalPrice.toStringAsFixed(2)}',
+                              //         style: textDarkLight2XSmallLineThroughBR(context),
+                              //       ),
+                              Container(
+                                  // width: 97,
+                                  // height: 38,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color: white,
+                                          // border: Border.all(
+                                          //     color: grey.shade300, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                              // onTap: onRemove,
+                                              child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                  color: white,
+                                                  border: Border.all(
+                                                      color: dark, width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50)),
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: dark,
+                                              ),
+                                            ),
+                                          )),
+                                          Text('12',
+                                              style: textBlackLargeBM(context)),
+                                          InkWell(
+                                            // onTap: onUpdate,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                width: 25,
+                                                height: 25,
+                                                decoration: BoxDecoration(
+                                                    color: white,
+                                                    border: Border.all(
+                                                        color: dark, width: 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50)),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: dark,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ))
+                                  // : GFButton(
+                                  //     borderShape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.circular(4),
+                                  //         side: BorderSide(color: buttonBorder)),
+                                  //     onPressed: onAdd,
+                                  //     color: Colors.white,
+                                  //     text: 'ADD'.tr,
+                                  //     textStyle: textPrimaryLargeBM(context),
+                                  //   ),
+                                  ),
+                            ],
+                          ),
+                          // Container(
+                          //   padding: EdgeInsets.all(8),
+                          //   decoration: BoxDecoration(color: primary,
+                          //   borderRadius: BorderRadius.circular(5)
+                          //   ),
+                          //   child: Text('Allergens',style: textWhiteRegularBM(),),
+                          // )
+                          // IconButton(
+                          //   onPressed: () {},
+                          //   icon: Icon(
+                          //     Icons.favorite,
+                          //     color: Colors.red,
+                          //     size: 25,
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ),
+                    // ),
+                  ],
+                ),
+                // dottedLine(context, darkLight3.withOpacity(0.2), 12),
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         restaurantLocationRow(context, restaurantName, franchiseName),
+                //         discount > 0
+                //             ? Row(
+                //                 mainAxisAlignment: MainAxisAlignment.end,
+                //                 children: [
+                //                   Image.asset(
+                //                     'lib/assets/icons/discount.png',
+                //                     scale: 3,
+                //                   ),
+                //                   SizedBox(
+                //                     width: 6,
+                //                   ),
+                //                   Text(
+                //                     '$discount % ${'OFF'.tr}',
+                //                     style: textGreenSmallBM(context: context),
+                //                   )
+                //                 ],
+                //               )
+                //             : Container()
+                //       ],
+                //     ),
+                //     SizedBox(
+                //       height: 4,
+                //     ),
+                //     ratingDistanceRow(context, averageRating, '$time ${'MINS'.tr}'),
+                //   ],
+                // )
+              ],
+            ),
+          );
+        },
       );
+  // ListView.builder(
+  //     shrinkWrap: true,
+  //     physics: NeverScrollableScrollPhysics(),
+  //     itemCount: categories.length,
+  //     itemBuilder: (context, index) =>
+  //         dishesList(categories[index].products, notifier, cart, state)
+  //     // Theme(
+  //     //   data: ThemeData().copyWith(
+  //     //       accentColor: Colors.grey, dividerColor: Colors.transparent),
+  //     //   child: ExpansionTile(
+  //     //     initiallyExpanded: true,
+  //     //     title: Column(
+  //     //       crossAxisAlignment: CrossAxisAlignment.start,
+  //     //       children: [
+  //     //         Text(
+  //     //           categories[index].title!,
+  //     //           style: textDarkRegularLargeBS(context),
+  //     //         ),
+  //     //         SizedBox(
+  //     //           height: 4,
+  //     //         ),
+  //     //         Text(
+  //     //           (categories[index].products.isEmpty
+  //     //               ? 'NO_PRODUCTS'.tr
+  //     //               : '${categories[index].products.length} ${categories[index].products.length > 1 ? 'ITEMS'.tr : 'ITEM'.tr}'),
+  //     //           style: textDarkLightSmallBR(context),
+  //     //         ),
+  //     //       ],
+  //     //     ),
+  //     //     children: [
+  //     //       dishesList(categories[index].products, notifier, cart, state)
+  //     //     ],
+  //     //   ),
+  //     // ),
+  //     );
 }

@@ -69,12 +69,12 @@ flutter:
 
     - family: "BarlowMedium"
       fonts:
-        - asset: lib/assets/fonts/BarlowMedium.ttf
+        - asset: lib/assets/fonts/RobotoMedium.ttf
           weight: 400
 
     - family: "BarlowRegular"
       fonts:
-        - asset: lib/assets/fonts/BarlowRegular.ttf
+        - asset: lib/assets/fonts/RobotoRegular.ttf
           weight: 400
 
     - family: "BarlowSemiBold"
@@ -89,7 +89,7 @@ flutter:
 
     - family: "BarlowBold"
       fonts:
-        - asset: lib/assets/fonts/BarlowBold.ttf
+        - asset: lib/assets/fonts/RobotoBold.ttf
           weight: 400
 
     - family: "BarlowLight"
@@ -121,6 +121,26 @@ flutter:
     - lib/assets/images/rating.png
     - lib/assets/images/cookie.png
     - lib/assets/images/img1.png
+    - lib/assets/images/1.png
+    - lib/assets/images/2.png
+    - lib/assets/images/3.png
+    - lib/assets/images/4.png
+    - lib/assets/images/b1.png
+    - lib/assets/images/b2.png
+    - lib/assets/images/b3.png
+    - lib/assets/images/i.png
+    - lib/assets/images/c.png
+    - lib/assets/images/p1.png
+    - lib/assets/images/p2.png
+    - lib/assets/images/p3.png
+    - lib/assets/images/p4.png
+    - lib/assets/images/p5.png
+    - lib/assets/images/p6.png
+    - lib/assets/images/p7.png
+    - lib/assets/images/p8.png
+    - lib/assets/images/p9.png
+    - lib/assets/images/p10.png
+    - lib/assets/images/pedir.png
 
     - lib/assets/icons/close.png
     - lib/assets/icons/warning.png

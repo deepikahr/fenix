@@ -3,7 +3,10 @@ import 'package:getwidget/components/loader/gf_loader.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:restaurant_saas/database/db.dart';
 import 'package:restaurant_saas/screens/checkout/cart_screen/cart_screen.dart';
+import 'package:restaurant_saas/screens/fenix_orders/orders.dart';
+import 'package:restaurant_saas/screens/fenix_orders/total_amount.dart';
 import 'package:restaurant_saas/screens/others/profile/profile_screen.dart';
+import 'package:restaurant_saas/screens/restaurant/restaurant_screen.dart';
 import 'package:restaurant_saas/screens/search/search/search.dart';
 import 'package:restaurant_saas/styles/styles.dart';
 import 'package:restaurant_saas/widgets/buttons.dart';
@@ -31,45 +34,18 @@ class HomeTabs extends HookWidget {
     }, const []);
 
     var items = <BottomNavigationBarItem>[
+      bottomBarTabItem(context, 'Volver'.tr, "lib/assets/images/1.png", 0),
+      bottomBarTabItem(context, 'Beida'.tr, "lib/assets/images/2.png", 0),
       bottomBarTabItem(
-          context,
-          'HOME'.tr,
-          const IconData(
-            0xe903,
-            fontFamily: 'icomoon',
-          ),
-          0),
-      bottomBarTabItem(
-          context,
-          'SEARCH'.tr,
-          const IconData(
-            0xe902,
-            fontFamily: 'icomoon',
-          ),
-          0),
-      bottomBarTabItem(
-          context,
-          'CART'.tr,
-          const IconData(
-            0xe901,
-            fontFamily: 'icomoon',
-          ),
-          cartCount),
-      bottomBarTabItem(
-          context,
-          'PROFILE'.tr,
-          const IconData(
-            0xe900,
-            fontFamily: 'icomoon',
-          ),
-          0),
+          context, 'Comida'.tr, "lib/assets/images/3.png", cartCount),
+      bottomBarTabItem(context, 'Pagar'.tr, "lib/assets/images/4.png", 0),
     ];
 
     var _screens = <Widget>[
       Home(),
-      Search(),
-      CartScreen(backButton: false),
-      ProfileScreen(),
+      Home(),
+      Home(),
+      TotalAmount(),
     ];
 
     return Scaffold(
@@ -96,10 +72,22 @@ class HomeTabs extends HookWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'text',
         isExtended: true,
-        onPressed: () {},
-        child: Icon(
-          Icons.navigation,
-          size: 40,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrdersList(),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Image.asset(
+            'lib/assets/images/pedir.png',
+            width: 60,
+            height: 60,
+            alignment: Alignment.center,
+          ),
         ),
         backgroundColor: primary,
       ),

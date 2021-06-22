@@ -245,6 +245,141 @@ Widget restaurantInfoCard(
   );
 }
 
+Widget restaurantInfoCardGrid(
+  BuildContext context,
+  String name,
+  String? img,
+  String cuisines,
+  String? address,
+  double distance,
+  double? rating,
+  int? preparationTime,
+  String slot,
+  bool isFavorite,
+  bool isStoreOpen,
+) {
+  return Container(
+    decoration: BoxDecoration(
+      color: white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26,
+          blurRadius: 2
+        )
+      ]
+    ),
+    child: Stack(
+      children: [
+        // Row(
+        // mainAxisSize: MainAxisSize.min,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        // children: [
+        //  networkImage(img, 97, 109, 10),
+        Image.asset(
+          'lib/assets/images/refer.png',
+          width: MediaQuery.of(context).size.width,
+          height: 150,
+          fit: BoxFit.fill,
+        ),
+        Positioned(
+            left: 20,
+            right: 20,
+            bottom: 0,
+            child: Container(
+              width: 120,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: darkLight,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12))),
+              child: Text(
+                name,
+                style: textDarkRegularBRW(context),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )),
+        // SizedBox(
+        //   width: 16,
+        // ),
+        // Flexible(
+        //   flex: 2,
+        //   fit: FlexFit.loose,
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       Row(
+        //         children: [
+        //           Expanded(
+        //             child: Column(
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: [
+        //                 Text(
+        //                   name,
+        //                   style: textDarkRegularBR(context),
+        //                   overflow: TextOverflow.ellipsis,
+        //                 ),
+        //                 SizedBox(
+        //                   height: 4,
+        //                 ),
+        //                 Text(
+        //                   cuisines,
+        //                   overflow: TextOverflow.ellipsis,
+        //                   style: textDarkLight2XSmallBR(context),
+        //                 ),
+        //                 SizedBox(
+        //                   height: 4,
+        //                 ),
+        //                 Text(
+        //                   '$address, ${(distance / 1000.0).toStringAsFixed(2)} ${'KM'.tr}',
+        //                   overflow: TextOverflow.ellipsis,
+        //                   style: textDarkLight2XSmallBR(context),
+        //                 ),
+        //                 SizedBox(
+        //                   height: 8,
+        //                 ),
+        //                 ratingDistanceRow(context, rating,
+        //                     '$preparationTime ${'MINS'.tr}'),
+        //               ],
+        //             ),
+        //           ),
+        //           if (isFavorite)
+        //             Align(
+        //               alignment: Alignment.centerRight,
+        //               child: IconButton(
+        //                 onPressed: () {},
+        //                 icon: Icon(
+        //                   Icons.favorite,
+        //                   color: Colors.red,
+        //                   size: 25,
+        //                 ),
+        //               ),
+        //             ),
+        //         ],
+        //       ),
+        //       dottedLine(context, darkLight3.withOpacity(0.2), 8),
+        //       Row(
+        //         children: [
+        //           Text(slot, style: textDarkLight2XSmallBR(context)),
+        //           Spacer(),
+        //           if (!isStoreOpen)
+        //             Text('CLOSED'.tr,
+        //                 style: textPrimaryLightXSmallBR(context))
+        //         ],
+        //       ),
+        //     ],
+        //   ),
+        // )
+        //   ],
+        // ),
+      ],
+    ),
+  );
+}
+
 Widget dishesInfoCard(
   BuildContext context,
   String name,
@@ -279,7 +414,44 @@ Widget dishesInfoCard(
               child: Stack(
                 alignment: AlignmentDirectional.center,
                 children: [
-                  networkImage(img, 105, 109, 4),
+                  Stack(
+                    children: [
+                      networkImage(img, 105, 109, 4),
+                      Positioned(
+                          child: Container(
+                        color: primary,
+                        padding: EdgeInsets.all(4),
+                        child: Text(
+                          'OFFER',
+                          style: textDarkRegularBSW(context),
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                      //  Positioned(
+                      //    top: 40,
+                      //    bottom: 40,
+                      //     child: Container(
+                      //   color: darkLight,
+                      //   padding: EdgeInsets.all(4),
+                      //   child: Text(
+                      //     '350 gm',
+                      //     style: textDarkRegularBSW(context),
+                      //     textAlign: TextAlign.center,
+                      //   ),
+                      // )),
+                      // Positioned(
+                      //   bottom: 10,
+                      //   left: 10,
+                      //   right: 10,
+                      //   child: Center(
+                      //     child: Text(
+                      //       '$currencySymbol${sellingPrice.toStringAsFixed(2)}',
+                      //       style: textDarkRegularBSW(context),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
 
                   // Positioned(
                   //   bottom: 0,
@@ -394,6 +566,20 @@ Widget dishesInfoCard(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // Container(
+                      //   padding: EdgeInsets.all(8),
+                      //   decoration: BoxDecoration(
+                      //       color: primary,
+                      //       borderRadius: BorderRadius.circular(5)),
+                      //   child: Text(
+                      //     'Allergens',
+                      //     style: textWhiteRegularBM(),
+                      //   ),
+                      // ),
+                      // Icon(
+                      //   Icons.camera_alt,
+                      //   color: primary,
+                      // ),
                       Text(
                         '$currencySymbol${sellingPrice.toStringAsFixed(2)}',
                         style: textDarkRegularBS(context),
@@ -408,70 +594,71 @@ Widget dishesInfoCard(
                               style: textDarkLight2XSmallLineThroughBR(context),
                             ),
                       Container(
-                        // width: 97,
-                        // height: 38,
-                        child: totalQautity > 0
-                            ? Container(
-                                decoration: BoxDecoration(
-                                    color: white,
-                                    // border: Border.all(
-                                    //     color: grey.shade300, width: 1),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    InkWell(
-                                        onTap: onRemove,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            width: 35,
-                                            height: 35,
-                                              decoration: BoxDecoration(
-                                    color: white,
-                                    border: Border.all(
-                                        color: dark, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: dark,
-                                            ),
-                                          ),
-                                        )),
-                                    Text('$totalQautity',
-                                        style: textBlackLargeBM(context)),
-                                    InkWell(
-                                      onTap: onUpdate,
+                          // width: 97,
+                          // height: 38,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  // border: Border.all(
+                                  //     color: grey.shade300, width: 1),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                      onTap: onRemove,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
-                                            width: 35,
-                                            height: 35,
-                                              decoration: BoxDecoration(
-                                    color: white,
-                                    border: Border.all(
-                                        color: dark, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
+                                          width: 35,
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                              color: white,
+                                              border: Border.all(
+                                                  color: dark, width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
                                           child: Icon(
-                                            Icons.add,
+                                            Icons.remove,
                                             color: dark,
                                           ),
                                         ),
+                                      )),
+                                  Text('$totalQautity',
+                                      style: textBlackLargeBM(context)),
+                                  InkWell(
+                                    onTap: onUpdate,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                            color: white,
+                                            border: Border.all(
+                                                color: dark, width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: dark,
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ))
-                            : GFButton(
-                                borderShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    side: BorderSide(color: buttonBorder)),
-                                onPressed: onAdd,
-                                color: Colors.white,
-                                text: 'ADD'.tr,
-                                textStyle: textPrimaryLargeBM(context),
-                              ),
-                      ),
+                                  ),
+                                ],
+                              ))
+                          // : GFButton(
+                          //     borderShape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(4),
+                          //         side: BorderSide(color: buttonBorder)),
+                          //     onPressed: onAdd,
+                          //     color: Colors.white,
+                          //     text: 'ADD'.tr,
+                          //     textStyle: textPrimaryLargeBM(context),
+                          //   ),
+                          ),
                     ],
                   ),
                   // Container(
@@ -492,6 +679,347 @@ Widget dishesInfoCard(
                 ],
               ),
             ),
+          ],
+        ),
+        // dottedLine(context, darkLight3.withOpacity(0.2), 12),
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //       children: [
+        //         restaurantLocationRow(context, restaurantName, franchiseName),
+        //         discount > 0
+        //             ? Row(
+        //                 mainAxisAlignment: MainAxisAlignment.end,
+        //                 children: [
+        //                   Image.asset(
+        //                     'lib/assets/icons/discount.png',
+        //                     scale: 3,
+        //                   ),
+        //                   SizedBox(
+        //                     width: 6,
+        //                   ),
+        //                   Text(
+        //                     '$discount % ${'OFF'.tr}',
+        //                     style: textGreenSmallBM(context: context),
+        //                   )
+        //                 ],
+        //               )
+        //             : Container()
+        //       ],
+        //     ),
+        //     SizedBox(
+        //       height: 4,
+        //     ),
+        //     ratingDistanceRow(context, averageRating, '$time ${'MINS'.tr}'),
+        //   ],
+        // )
+      ],
+    ),
+  );
+}
+
+Widget dishesInfoCardGrid(
+  BuildContext context,
+  String name,
+  String? img,
+  String? restaurantName,
+  String? franchiseName,
+  int? time,
+  double discount,
+  double averageRating,
+  double originalPrice,
+  double sellingPrice,
+  String? description,
+  bool? isVeg,
+  int totalQautity,
+  String? currencySymbol,
+  void Function()? onAdd,
+  void Function()? onUpdate,
+  void Function()? onRemove,
+) {
+  return Container(
+    // padding: EdgeInsets.only(left: 16, right: 16),
+    color: Colors.white,
+    margin: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              // height: 145,
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Stack(
+                    children: [
+                      networkImage(img, 105, 109, 4),
+                      Positioned(
+                          child: Container(
+                        color: primary,
+                        padding: EdgeInsets.all(4),
+                        child: Text(
+                          'OFFER',
+                          style: textDarkRegularBSW(context),
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                      //  Positioned(
+                      //    top: 40,
+                      //    bottom: 40,
+                      //     child: Container(
+                      //   color: darkLight,
+                      //   padding: EdgeInsets.all(4),
+                      //   child: Text(
+                      //     '350 gm',
+                      //     style: textDarkRegularBSW(context),
+                      //     textAlign: TextAlign.center,
+                      //   ),
+                      // )),
+                      // Positioned(
+                      //   bottom: 10,
+                      //   left: 10,
+                      //   right: 10,
+                      //   child: Center(
+                      //     child: Text(
+                      //       '$currencySymbol${sellingPrice.toStringAsFixed(2)}',
+                      //       style: textDarkRegularBSW(context),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
+
+                  // Positioned(
+                  //   bottom: 0,
+                  //   child: Container(
+                  //     width: 97,
+                  //     height: 38,
+                  //     child: totalQautity > 0
+                  //         ? Container(
+                  //             decoration: BoxDecoration(
+                  //                 color: white,
+                  //                 border: Border.all(
+                  //                     color: grey.shade300, width: 1),
+                  //                 borderRadius: BorderRadius.circular(5)),
+                  //             child: Row(
+                  //               mainAxisAlignment:
+                  //                   MainAxisAlignment.spaceBetween,
+                  //               children: [
+                  //                 InkWell(
+                  //                     onTap: onRemove,
+                  //                     child: Padding(
+                  //                       padding: const EdgeInsets.all(8.0),
+                  //                       child: Icon(
+                  //                         Icons.remove,
+                  //                         color: dark.withOpacity(0.8),
+                  //                       ),
+                  //                     )),
+                  //                 Text('$totalQautity',
+                  //                     style: textPrimaryLargeBM(context)),
+                  //                 InkWell(
+                  //                   onTap: onUpdate,
+                  //                   child: Padding(
+                  //                     padding: const EdgeInsets.all(8.0),
+                  //                     child: Icon(
+                  //                       Icons.add,
+                  //                       color: dark.withOpacity(0.8),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ))
+                  //         : GFButton(
+                  //             borderShape: RoundedRectangleBorder(
+                  //                 borderRadius: BorderRadius.circular(4),
+                  //                 side: BorderSide(color: buttonBorder)),
+                  //             onPressed: onAdd,
+                  //             color: Colors.white,
+                  //             text: 'ADD'.tr,
+                  //             textStyle: textPrimaryLargeBM(context),
+                  //           ),
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+            // SizedBox(
+            //   width: 16,
+            // ),
+            // Expanded(
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       SizedBox(
+            //         height: 16,
+            //       ),
+            //       Row(
+            //         children: [
+            //           // (isVeg == null
+            //           //     ? Container(
+            //           //         height: 14,
+            //           //         width: 14,
+            //           //       )
+            //           //     : isVeg == true
+            //           //         ? Container(
+            //           //             height: 14,
+            //           //             width: 14,
+            //           //             decoration: BoxDecoration(
+            //           //                 border: Border.all(color: green)),
+            //           //             child: Padding(
+            //           //               padding: const EdgeInsets.all(2.0),
+            //           //               child: GFAvatar(
+            //           //                   backgroundColor: green,
+            //           //                   shape: GFAvatarShape.circle),
+            //           //             ),
+            //           //           )
+            //           //         : Container(
+            //           //             height: 14,
+            //           //             width: 14,
+            //           //             decoration: BoxDecoration(
+            //           //                 border: Border.all(color: red)),
+            //           //             child: Padding(
+            //           //               padding: const EdgeInsets.all(2.0),
+            //           //               child: GFAvatar(
+            //           //                   backgroundColor: red,
+            //           //                   shape: GFAvatarShape.circle),
+            //           //             ),
+            //           //           )),
+            //           // SizedBox(
+            //           //   width: 5,
+            //           // ),
+            //           Expanded(child: titleTextDarkRegularBR(context, name)),
+            //         ],
+            //       ),
+            //       SizedBox(
+            //         height: 6,
+            //       ),
+            //       titleTextDarkLightSmallBR(context, description ?? ''),
+
+            //       SizedBox(
+            //         height: 6,
+            //       ),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           // Container(
+            //           //   padding: EdgeInsets.all(8),
+            //           //   decoration: BoxDecoration(
+            //           //       color: primary,
+            //           //       borderRadius: BorderRadius.circular(5)),
+            //           //   child: Text(
+            //           //     'Allergens',
+            //           //     style: textWhiteRegularBM(),
+            //           //   ),
+            //           // ),
+            //           // Icon(
+            //           //   Icons.camera_alt,
+            //           //   color: primary,
+            //           // ),
+            //           Text(
+            //             '$currencySymbol${sellingPrice.toStringAsFixed(2)}',
+            //             style: textDarkRegularBS(context),
+            //           ),
+            //           sellingPrice == originalPrice
+            //               ? Container()
+            //               : SizedBox(width: 12),
+            //           sellingPrice == originalPrice
+            //               ? Container()
+            //               : Text(
+            //                   '$currencySymbol${originalPrice.toStringAsFixed(2)}',
+            //                   style: textDarkLight2XSmallLineThroughBR(context),
+            //                 ),
+            //           Container(
+            //             // width: 97,
+            //             // height: 38,
+            //             child:  Container(
+            //                     decoration: BoxDecoration(
+            //                         color: white,
+            //                         // border: Border.all(
+            //                         //     color: grey.shade300, width: 1),
+            //                         borderRadius: BorderRadius.circular(5)),
+            //                     child: Row(
+            //                       mainAxisAlignment:
+            //                           MainAxisAlignment.spaceBetween,
+            //                       children: [
+            //                         InkWell(
+            //                             onTap: onRemove,
+            //                             child: Padding(
+            //                               padding: const EdgeInsets.all(8.0),
+            //                               child: Container(
+            //                                 width: 35,
+            //                                 height: 35,
+            //                                 decoration: BoxDecoration(
+            //                                     color: white,
+            //                                     border: Border.all(
+            //                                         color: dark, width: 1),
+            //                                     borderRadius:
+            //                                         BorderRadius.circular(50)),
+            //                                 child: Icon(
+            //                                   Icons.remove,
+            //                                   color: dark,
+            //                                 ),
+            //                               ),
+            //                             )),
+            //                         Text('$totalQautity',
+            //                             style: textBlackLargeBM(context)),
+            //                         InkWell(
+            //                           onTap: onUpdate,
+            //                           child: Padding(
+            //                             padding: const EdgeInsets.all(8.0),
+            //                             child: Container(
+            //                               width: 35,
+            //                               height: 35,
+            //                               decoration: BoxDecoration(
+            //                                   color: white,
+            //                                   border: Border.all(
+            //                                       color: dark, width: 1),
+            //                                   borderRadius:
+            //                                       BorderRadius.circular(50)),
+            //                               child: Icon(
+            //                                 Icons.add,
+            //                                 color: dark,
+            //                               ),
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ],
+            //                     ))
+            //                 // : GFButton(
+            //                 //     borderShape: RoundedRectangleBorder(
+            //                 //         borderRadius: BorderRadius.circular(4),
+            //                 //         side: BorderSide(color: buttonBorder)),
+            //                 //     onPressed: onAdd,
+            //                 //     color: Colors.white,
+            //                 //     text: 'ADD'.tr,
+            //                 //     textStyle: textPrimaryLargeBM(context),
+            //                 //   ),
+            //           ),
+            //         ],
+            //       ),
+            //       // Container(
+            //       //   padding: EdgeInsets.all(8),
+            //       //   decoration: BoxDecoration(color: primary,
+            //       //   borderRadius: BorderRadius.circular(5)
+            //       //   ),
+            //       //   child: Text('Allergens',style: textWhiteRegularBM(),),
+            //       // )
+            //       // IconButton(
+            //       //   onPressed: () {},
+            //       //   icon: Icon(
+            //       //     Icons.favorite,
+            //       //     color: Colors.red,
+            //       //     size: 25,
+            //       //   ),
+            //       // ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
         // dottedLine(context, darkLight3.withOpacity(0.2), 12),
