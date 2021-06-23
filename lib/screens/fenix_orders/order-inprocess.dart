@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:restaurant_saas/screens/home/drawer/drawer.dart';
 import 'package:restaurant_saas/screens/home/notify_waiter/notify_waiter.dart';
-import 'package:restaurant_saas/screens/others/settings/settings.dart';
 import 'package:restaurant_saas/styles/styles.dart';
-import 'package:restaurant_saas/widgets/buttons.dart';
 import 'package:restaurant_saas/widgets/normalText.dart';
 
 class OrdersInProcess extends HookWidget {
@@ -42,10 +39,9 @@ class OrdersInProcess extends HookWidget {
                 left: 20,
                 child: InkWell(
                   onTap: () => _scaffoldKey.currentState!.openDrawer(),
-                  child: Icon(
-                    Icons.list,
-                    color: primary,
-                    size: 40,
+                  child: Image.asset(
+                    'lib/assets/images/drawer.png',
+                    scale: 1.8,
                   ),
                 ),
               ),
@@ -245,11 +241,10 @@ class OrdersInProcess extends HookWidget {
                     'SU PEDIDO ESTÁ \n EN PROCESO…\n\n',
                     style: textWhiteLargeBMM(context),
                   ),
-                  Icon(
-                    Icons.timer,
-                    color: white,
-                    size: 100,
-                  )
+                  Image.asset(
+                    'lib/assets/images/timer.png',
+                    scale: 3,
+                  ),
                 ],
               ),
             )

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/components/loader/gf_loader.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:restaurant_saas/database/db.dart';
@@ -20,7 +19,6 @@ import 'package:restaurant_saas/screens/products/productSelection/productSelecti
 import 'package:restaurant_saas/screens/restaurant/restaurantScreenStateNotifier.dart';
 import 'package:restaurant_saas/screens/restaurant/shimmerRestaurantScreen.dart';
 import 'package:restaurant_saas/styles/styles.dart';
-import 'package:restaurant_saas/widgets/appbar.dart';
 import 'package:restaurant_saas/widgets/card.dart';
 import 'package:restaurant_saas/widgets/normalText.dart';
 
@@ -85,10 +83,9 @@ class RestaurantScreen extends HookWidget {
               left: 20,
               child: InkWell(
                 onTap: () => _scaffoldKey.currentState!.openDrawer(),
-                child: Icon(
-                  Icons.list,
-                  color: primary,
-                  size: 40,
+                child: Image.asset(
+                  'lib/assets/images/drawer.png',
+                  scale: 1.8,
                 ),
               ),
             ),

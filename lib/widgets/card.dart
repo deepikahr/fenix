@@ -260,14 +260,8 @@ Widget restaurantInfoCardGrid(
 ) {
   return Container(
     decoration: BoxDecoration(
-      color: white,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          blurRadius: 2
-        )
-      ]
-    ),
+        color: white,
+        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2)]),
     child: Stack(
       children: [
         // Row(

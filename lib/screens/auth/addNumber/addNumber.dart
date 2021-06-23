@@ -125,15 +125,15 @@ class AddNumber extends HookWidget {
                                     }
                                   }
                                 }),
-                                flatDarkButton(context, 'HAVE_REFERAL_CODE'.tr,
-                                    () {
-                                  referralTextFieldController.text = '';
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => referralCode(
-                                          context,
-                                          referralTextFieldController));
-                                }),
+                                // flatDarkButton(context, 'HAVE_REFERAL_CODE'.tr,
+                                //     () {
+                                //   referralTextFieldController.text = '';
+                                //   showDialog(
+                                //       context: context,
+                                //       builder: (context) => referralCode(
+                                //           context,
+                                //           referralTextFieldController));
+                                // }),
                               ],
                             ),
                           ),

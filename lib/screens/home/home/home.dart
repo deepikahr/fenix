@@ -19,7 +19,6 @@ import 'package:restaurant_saas/screens/products/productSelection/productSelecti
 import 'package:restaurant_saas/screens/restaurant/restaurant_screen.dart';
 import 'package:restaurant_saas/screens/view_all/view_all.dart';
 import 'package:restaurant_saas/styles/styles.dart';
-import 'package:restaurant_saas/widgets/appbar.dart';
 import 'package:restaurant_saas/widgets/card.dart';
 import 'package:restaurant_saas/widgets/normalText.dart';
 import '../../../database/db.dart';
@@ -72,10 +71,9 @@ class Home extends HookWidget {
               left: 20,
               child: InkWell(
                 onTap: () => _scaffoldKey.currentState!.openDrawer(),
-                child: Icon(
-                  Icons.list,
-                  color: primary,
-                  size: 40,
+                child: Image.asset(
+                  'lib/assets/images/drawer.png',
+                  scale: 1.8,
                 ),
               ),
             ),

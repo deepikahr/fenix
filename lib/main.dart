@@ -9,16 +9,11 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:restaurant_saas/localization/localization.dart';
 import 'package:restaurant_saas/network/api_service.dart';
 import 'package:restaurant_saas/screens/auth/addNumber/addNumber.dart';
-import 'package:restaurant_saas/screens/home/homeTabs/homeTabs.dart';
-import 'package:restaurant_saas/screens/pre_auth/introScreen1.dart';
-import 'package:restaurant_saas/screens/pre_auth/pickLocation/pickLocation.dart';
 import 'package:restaurant_saas/styles/styles.dart';
 
 import 'common/constant.dart';
 import 'database/db.dart';
 import 'models/api_response_models/currencyApiResponse/currencyApiResponse.dart';
-import 'screens/categories/categories.dart';
-import 'screens/home/homeTabs/homeTabs.dart';
 
 final api = API();
 final db = DB();
