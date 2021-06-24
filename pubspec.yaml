@@ -41,6 +41,7 @@ dependencies:
   flutter_dotenv: ^4.0.0-nullsafety.1
   flutter_widget_from_html: ^0.6.1
   url_launcher: ^6.0.4
+  pin_code_fields: ^7.0.0
 
 dev_dependencies:
   flutter_test:
