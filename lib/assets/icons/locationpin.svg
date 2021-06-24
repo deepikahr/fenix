@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47">
+  <g id="Group_6255" data-name="Group 6255" transform="translate(-8097 -891)">
+    <g id="Rectangle_2812" data-name="Rectangle 2812" transform="translate(8097 891)" fill="#fff" stroke="rgba(55,56,60,0.2)" stroke-width="1">
+      <rect width="47" height="47" stroke="none"/>
+      <rect x="0.5" y="0.5" width="46" height="46" fill="none"/>
+    </g>
+    <g id="Iconly_Bulk_Location" data-name="Iconly/Bulk/Location" transform="translate(8106.593 899.776)">
+      <g id="Location" transform="translate(5 2)">
+        <path id="Path_34175" d="M9.494,3.192a8.766,8.766,0,0,1,8.951.074,9.327,9.327,0,0,1,4.369,7.974c-.063,3.233-1.841,6.271-4.062,8.62a23.829,23.829,0,0,1-4.274,3.588,1.493,1.493,0,0,1-.518.183,1.043,1.043,0,0,1-.5-.151,23.559,23.559,0,0,1-6.157-5.786A11.807,11.807,0,0,1,5,11.078,9.1,9.1,0,0,1,9.494,3.192ZM11.1,12.427a3.026,3.026,0,0,0,2.8,1.9,2.976,2.976,0,0,0,2.142-.892,3.123,3.123,0,0,0-.977-5.033,2.985,2.985,0,0,0-3.3.661A3.124,3.124,0,0,0,11.1,12.427Z" transform="translate(-5 -2)" fill="#37383c" fill-rule="evenodd"/>
+        <ellipse id="Ellipse_743" cx="6.495" cy="1.443" rx="6.495" ry="1.443" transform="translate(2.887 22.562)" fill="#fe2a2a"/>
+      </g>
+    </g>
+  </g>
+</svg>

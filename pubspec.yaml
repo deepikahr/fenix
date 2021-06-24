@@ -1,0 +1,214 @@
+name: fenix_user
+description: A new Flutter application.
+publish_to: "none"
+
+version: 1.0.10+11
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.3
+  getwidget: ^2.0.2
+  flutter_svg: ^0.22.0
+  hooks_riverpod: ^0.14.0
+  dotted_line: ^3.0.0
+  freezed_annotation: ^0.14.1
+  dio: ^4.0.0
+  json_serializable: ^4.1.1
+  json_annotation: ^4.0.1
+  get: ^4.1.4
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+  flutter_secure_storage: ^4.2.0
+  google_maps_flutter: ^2.0.3
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  geolocator: ^7.0.3
+  stripe_payment: ^1.1.0
+  country_code_picker: ^2.0.1
+  cached_network_image: ^3.0.0
+  image_picker: ^0.7.4
+  flutter_phone_direct_caller: ^2.0.0
+  intl: ^0.17.0
+  socket_io_client: ^1.0.1
+  flutter_polyline_points: ^1.0.0
+  onesignal_flutter: ^3.0.0-beta3
+  shimmer: ^2.0.0
+  collection: ^1.15.0-nullsafety.4
+  flutter_dotenv: ^4.0.0-nullsafety.1
+  flutter_widget_from_html: ^0.6.1
+  url_launcher: ^6.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^1.1.0
+  build_runner: ^2.0.2
+  freezed: ^0.14.1+3
+  pedantic: ^1.11.0
+  flutter_launcher_icons: ^0.9.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/assets/logo.png"
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: "SFProTextSemiBold"
+      fonts:
+        - asset: lib/assets/fonts/SFProTextSemiBold.ttf
+          weight: 400
+
+    - family: "BarlowMedium"
+      fonts:
+        - asset: lib/assets/fonts/RobotoMedium.ttf
+          weight: 400
+
+    - family: "BarlowRegular"
+      fonts:
+        - asset: lib/assets/fonts/RobotoRegular.ttf
+          weight: 400
+
+    - family: "BarlowSemiBold"
+      fonts:
+        - asset: lib/assets/fonts/BarlowSemiBold.ttf
+          weight: 400
+
+    - family: "RighteousRegular"
+      fonts:
+        - asset: lib/assets/fonts/RighteousRegular.ttf
+          weight: 400
+
+    - family: "BarlowBold"
+      fonts:
+        - asset: lib/assets/fonts/RobotoBold.ttf
+          weight: 400
+
+    - family: "BarlowLight"
+      fonts:
+        - asset: lib/assets/fonts/BarlowLight.ttf
+          weight: 400
+
+    - family: icomoon
+      fonts:
+        - asset: lib/assets/fonts/tabIcons.ttf
+
+  assets:
+    - .env
+    - lib/assets/logo.png
+    - lib/assets/images/intro1.png
+    - lib/assets/images/intro2.png
+    - lib/assets/images/intro3.png
+    - lib/assets/images/bg1.png
+    - lib/assets/images/location.png
+    - lib/assets/images/logo1.png
+    - lib/assets/images/food1.png
+    - lib/assets/images/banner1.png
+    - lib/assets/images/couponBg.png
+    - lib/assets/images/ptm.png
+    - lib/assets/images/thankYou.png
+    - lib/assets/images/offerBg.png
+    - lib/assets/images/wallet.png
+    - lib/assets/images/refer.png
+    - lib/assets/images/rating.png
+    - lib/assets/images/cookie.png
+    - lib/assets/images/img1.png
+    - lib/assets/images/1.png
+    - lib/assets/images/2.png
+    - lib/assets/images/3.png
+    - lib/assets/images/4.png
+    - lib/assets/images/b1.png
+    - lib/assets/images/b2.png
+    - lib/assets/images/b3.png
+    - lib/assets/images/i.png
+    - lib/assets/images/c.png
+    - lib/assets/images/p1.png
+    - lib/assets/images/p2.png
+    - lib/assets/images/p3.png
+    - lib/assets/images/p4.png
+    - lib/assets/images/p5.png
+    - lib/assets/images/p6.png
+    - lib/assets/images/p7.png
+    - lib/assets/images/p8.png
+    - lib/assets/images/p9.png
+    - lib/assets/images/p10.png
+    - lib/assets/images/pedir.png
+    - lib/assets/images/drawer.png
+    - lib/assets/images/smiley.png
+    - lib/assets/images/timer.png
+
+    - lib/assets/icons/close.png
+    - lib/assets/icons/warning.png
+    - lib/assets/icons/leftArrow.png
+    - lib/assets/icons/lock.png
+    - lib/assets/icons/message.png
+    - lib/assets/icons/phone.png
+    - lib/assets/icons/profile.png
+    - lib/assets/icons/greyLocation.png
+    - lib/assets/icons/greyRightArrow.png
+    - lib/assets/icons/blackLocation.png
+    - lib/assets/icons/redLocation.png
+    - lib/assets/icons/arrowBlock.png
+    - lib/assets/icons/done.png
+    - lib/assets/icons/cart.png
+    - lib/assets/icons/cart1.png
+    - lib/assets/icons/currentLocation.png
+    - lib/assets/icons/downArrow.png
+    - lib/assets/icons/home.png
+    - lib/assets/icons/search.png
+    - lib/assets/icons/person.png
+    - lib/assets/icons/backArrow.png
+    - lib/assets/icons/facebook.png
+    - lib/assets/icons/twitter.png
+    - lib/assets/icons/gmail.png
+    - lib/assets/icons/info.png
+    - lib/assets/icons/location.png
+    - lib/assets/icons/amazonPay.png
+    - lib/assets/icons/cookie.png
+    - lib/assets/icons/phonepe.png
+    - lib/assets/icons/paytm.png
+    - lib/assets/icons/googlePay.png
+    - lib/assets/icons/wallet.png
+    - lib/assets/icons/mastercard.png
+    - lib/assets/icons/visa.png
+    - lib/assets/icons/dollar.png
+    - lib/assets/icons/discount.png
+    - lib/assets/icons/accepted.png
+    - lib/assets/icons/blackDiscount.png
+    - lib/assets/icons/nonVeg.png
+    - lib/assets/icons/pin.png
+    - lib/assets/icons/delete.png
+    - lib/assets/icons/rightArrow.png
+    - lib/assets/icons/plus.png
+    - lib/assets/icons/minus.png
+    - lib/assets/icons/check.png
+    - lib/assets/icons/cellPhone.png
+    - lib/assets/icons/dp.png
+    - lib/assets/icons/addProfile.png
+    - lib/assets/icons/chatOn.png
+    - lib/assets/icons/copy.png
+    - lib/assets/icons/link.png
+    - lib/assets/icons/whatsapp.png
+    - lib/assets/icons/walletIcon.png
+    - lib/assets/icons/credit.png
+    - lib/assets/icons/debit.png
+    - lib/assets/icons/heart.png
+
+    - lib/assets/icons/profile/about.png
+    - lib/assets/icons/profile/cookie.png
+    - lib/assets/icons/profile/coupon.png
+    - lib/assets/icons/profile/fav.png
+    - lib/assets/icons/profile/friend.png
+    - lib/assets/icons/profile/help.png
+    - lib/assets/icons/profile/logout.png
+    - lib/assets/icons/profile/order.png
+    - lib/assets/icons/profile/pin.png
+    - lib/assets/icons/profile/wallet.png
+
+    - lib/assets/icons/delivery-man.bmp
