@@ -25,9 +25,9 @@ class DB {
     await Hive.close();
   }
 
-  Future<void> storeUserData(String token, String role, String id) async {
+  Future<void> storeUserData(String token, String role, String id, String franchiseId, String vendorId) async {
     final box = Hive.box('user');
-    await box.putAll({'token': token, 'role': role, 'id': id});
+    await box.putAll({'token': token, 'role': role, 'id': id, 'franchiseId': franchiseId, 'vendorId': vendorId});
   }
 
   String getToken() {
@@ -47,6 +47,19 @@ class DB {
     String id = box.get('id');
     return id;
   }
+
+  String getFranchiseId() {
+    final box = Hive.box('user');
+    String franchiseId = box.get('franchiseId');
+    return franchiseId;
+  }
+
+  String getVendorId() {
+    final box = Hive.box('user');
+    String vendorId = box.get('vendorId');
+    return vendorId;
+  }
+
 
   Future<void> logOut() async {
     final box = Hive.box('user');
