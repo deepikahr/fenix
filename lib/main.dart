@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fenix_user/screens/auth/otp/otp.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
+import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
@@ -83,7 +84,7 @@ class EntryPage extends HookWidget {
         accentColor: primary,
       ),
       // home: Categories(),
-      home: OtpPage(),
+      home: Settings(),
       // home: GestureDetector(
       //   onTap: () {
       //     FocusScope.of(context).unfocus();

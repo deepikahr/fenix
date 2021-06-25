@@ -28,7 +28,7 @@ class ApiHelper {
   Dio _getDio() {
     final dio = Dio();
     dio.options.baseUrl = Constants.apiUrl;
-    // dio.options.headers['Authorization'] = 'bearer ${db.getToken()}';
+    dio.options.headers['Authorization'] = 'bearer ${db.getToken()}';
 
     dio.interceptors.add(
       InterceptorsWrapper(

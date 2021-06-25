@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$SettingsStateTearOff {
   const _$SettingsStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call({bool isLoading = false, SettingsResponse? settings}) {
     return _Default(
       isLoading: isLoading,
+      settings: settings,
     );
   }
 }
@@ -29,6 +30,7 @@ const $SettingsState = _$SettingsStateTearOff();
 /// @nodoc
 mixin _$SettingsState {
   bool get isLoading => throw _privateConstructorUsedError;
+  SettingsResponse? get settings => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -40,7 +42,9 @@ abstract class $SettingsStateCopyWith<$Res> {
   factory $SettingsStateCopyWith(
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, SettingsResponse? settings});
+
+  $SettingsResponseCopyWith<$Res>? get settings;
 }
 
 /// @nodoc
@@ -55,13 +59,29 @@ class _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? settings = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      settings: settings == freezed
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as SettingsResponse?,
     ));
+  }
+
+  @override
+  $SettingsResponseCopyWith<$Res>? get settings {
+    if (_value.settings == null) {
+      return null;
+    }
+
+    return $SettingsResponseCopyWith<$Res>(_value.settings!, (value) {
+      return _then(_value.copyWith(settings: value));
+    });
   }
 }
 
@@ -70,7 +90,10 @@ abstract class _$DefaultCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, SettingsResponse? settings});
+
+  @override
+  $SettingsResponseCopyWith<$Res>? get settings;
 }
 
 /// @nodoc
@@ -85,12 +108,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? settings = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      settings: settings == freezed
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as SettingsResponse?,
     ));
   }
 }
@@ -98,15 +126,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default({this.isLoading = false, this.settings});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @override
+  final SettingsResponse? settings;
 
   @override
   String toString() {
-    return 'SettingsState(isLoading: $isLoading)';
+    return 'SettingsState(isLoading: $isLoading, settings: $settings)';
   }
 
   @override
@@ -115,12 +145,17 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.settings, settings) ||
+                const DeepCollectionEquality()
+                    .equals(other.settings, settings)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(settings);
 
   @JsonKey(ignore: true)
   @override
@@ -129,10 +164,13 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements SettingsState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default({bool isLoading, SettingsResponse? settings}) =
+      _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  SettingsResponse? get settings => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>
