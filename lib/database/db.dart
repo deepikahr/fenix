@@ -60,10 +60,26 @@ class DB {
     return vendorId;
   }
 
+  void saveMenuId(menuId) {
+    final box = Hive.box('user');
+    box.put('menuId', menuId);
+  }
+
   String getMenuId() {
     final box = Hive.box('user');
     String menuId = box.get('menuId');
     return menuId;
+  }
+
+  void saveMenuName(menuName) {
+    final box = Hive.box('user');
+    box.put('menuName', menuName);
+  }
+
+  String getMenuName() {
+    final box = Hive.box('user');
+    String menuName = box.get('menuName');
+    return menuName;
   }
 
   Future<void> logOut() async {

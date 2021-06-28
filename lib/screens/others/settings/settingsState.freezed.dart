@@ -16,10 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$SettingsStateTearOff {
   const _$SettingsStateTearOff();
 
-  _Default call({bool isLoading = false, SettingsResponse? settings}) {
+  _Default call(
+      {bool isLoading = false,
+      SettingsResponse? settings,
+      List<MenuResponse>? menuList}) {
     return _Default(
       isLoading: isLoading,
       settings: settings,
+      menuList: menuList,
     );
   }
 }
@@ -31,6 +35,7 @@ const $SettingsState = _$SettingsStateTearOff();
 mixin _$SettingsState {
   bool get isLoading => throw _privateConstructorUsedError;
   SettingsResponse? get settings => throw _privateConstructorUsedError;
+  List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -42,7 +47,10 @@ abstract class $SettingsStateCopyWith<$Res> {
   factory $SettingsStateCopyWith(
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, SettingsResponse? settings});
+  $Res call(
+      {bool isLoading,
+      SettingsResponse? settings,
+      List<MenuResponse>? menuList});
 
   $SettingsResponseCopyWith<$Res>? get settings;
 }
@@ -60,6 +68,7 @@ class _$SettingsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? settings = freezed,
+    Object? menuList = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -70,6 +79,10 @@ class _$SettingsStateCopyWithImpl<$Res>
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as SettingsResponse?,
+      menuList: menuList == freezed
+          ? _value.menuList
+          : menuList // ignore: cast_nullable_to_non_nullable
+              as List<MenuResponse>?,
     ));
   }
 
@@ -90,7 +103,10 @@ abstract class _$DefaultCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, SettingsResponse? settings});
+  $Res call(
+      {bool isLoading,
+      SettingsResponse? settings,
+      List<MenuResponse>? menuList});
 
   @override
   $SettingsResponseCopyWith<$Res>? get settings;
@@ -109,6 +125,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? settings = freezed,
+    Object? menuList = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -119,6 +136,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as SettingsResponse?,
+      menuList: menuList == freezed
+          ? _value.menuList
+          : menuList // ignore: cast_nullable_to_non_nullable
+              as List<MenuResponse>?,
     ));
   }
 }
@@ -126,17 +147,19 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.settings});
+  const _$_Default({this.isLoading = false, this.settings, this.menuList});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
   @override
   final SettingsResponse? settings;
+  @override
+  final List<MenuResponse>? menuList;
 
   @override
   String toString() {
-    return 'SettingsState(isLoading: $isLoading, settings: $settings)';
+    return 'SettingsState(isLoading: $isLoading, settings: $settings, menuList: $menuList)';
   }
 
   @override
@@ -148,14 +171,18 @@ class _$_Default implements _Default {
                     .equals(other.isLoading, isLoading)) &&
             (identical(other.settings, settings) ||
                 const DeepCollectionEquality()
-                    .equals(other.settings, settings)));
+                    .equals(other.settings, settings)) &&
+            (identical(other.menuList, menuList) ||
+                const DeepCollectionEquality()
+                    .equals(other.menuList, menuList)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(settings);
+      const DeepCollectionEquality().hash(settings) ^
+      const DeepCollectionEquality().hash(menuList);
 
   @JsonKey(ignore: true)
   @override
@@ -164,13 +191,17 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements SettingsState {
-  const factory _Default({bool isLoading, SettingsResponse? settings}) =
-      _$_Default;
+  const factory _Default(
+      {bool isLoading,
+      SettingsResponse? settings,
+      List<MenuResponse>? menuList}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   SettingsResponse? get settings => throw _privateConstructorUsedError;
+  @override
+  List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

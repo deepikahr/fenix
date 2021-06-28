@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
@@ -12,6 +13,8 @@ import 'package:getwidget/components/rating/gf_rating.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
+
+import '../../../main.dart';
 
 class Settings extends HookWidget {
   double _rating = 3;
@@ -29,12 +32,10 @@ class Settings extends HookWidget {
   final ipAddressFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
 
-
   @override
   Widget build(BuildContext context) {
     final tableNumberEditController = useTextEditingController();
     final ipAddressEditController = useTextEditingController();
-
 
     final state = useProvider(settingsProvider);
     final notifier = useProvider(settingsProvider.notifier);
@@ -44,10 +45,13 @@ class Settings extends HookWidget {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await notifier.fetchSettings();
+          await notifier.fetchMenuList();
         });
       }
       return;
     }, const []);
+
+    print('wwwwwww ${state.menuList}');
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -83,8 +87,9 @@ class Settings extends HookWidget {
             shrinkWrap: true,
             children: [
               if (state.settings != null)
-              contentBlock(context, state.settings!, tableNumberEditController, ipAddressEditController),
-              if (state.isLoading)GFLoader()
+                contentBlock(context, state.settings!, state.menuList!,
+                    tableNumberEditController, ipAddressEditController),
+              if (state.isLoading) GFLoader()
             ],
           ),
         ),
@@ -93,17 +98,28 @@ class Settings extends HookWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              primaryButtonSmall(context, 'OK', () {}),
-              primaryButton(context, 'SALIR', () {}),
+              primaryButtonSmall(context, 'CANCEL', () {}),
+              primaryButton(context, 'UPDATE', () async {
+                if (formKey.currentState!.validate()) {
+                  // final response = await context
+                  //     .read(settingsProvider.notifier)
+                  //     .updateSettings();
+                  if (response != null) {
+                    // await Get.offAll(() => HomeTabs());
+                  }
+                }
+              }),
             ],
           ),
-        )
-    );
-
+        ));
   }
 
-  Widget contentBlock(BuildContext context, SettingsResponse settings, tableNumberEditController, ipAddressEditController){
-
+  Widget contentBlock(
+      BuildContext context,
+      SettingsResponse settings,
+      List<MenuResponse>? menuList,
+      tableNumberEditController,
+      ipAddressEditController) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: ListView(
@@ -118,17 +134,19 @@ class Settings extends HookWidget {
                 color: dark,
                 borderColor: dark,
                 size: 25,
-                onChanged: (value) {
-                },
+                onChanged: (value) {},
               ),
             ],
           ),
-          SizedBox(height: 8,),
+          SizedBox(
+            height: 8,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               titleTextDarkRegularBS(context, 'color del tama'),
-              titleTextDarkRegularBS(context, '${settings.tabSetting!.themeColour}'),
+              titleTextDarkRegularBS(
+                  context, '${settings.tabSetting!.themeColour}'),
             ],
           ),
           Row(
@@ -138,20 +156,29 @@ class Settings extends HookWidget {
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
-                hint: Text('menu selection', style: textDarkRegularBG(context),),
-                value: selectedMenu,
-                onChanged: (String? value) =>
-                    useState(() => selectedMenu = value!),
-                items: <String>[
-                  'italian',
-                  'japanese',
-                ].map<DropdownMenuItem<String>>((String item) {
-                  return DropdownMenuItem<String>(
+                hint: Text(
+                  'menu selection',
+                  style: textDarkRegularBG(context),
+                ),
+                value: menuList!.first.title,
+                onChanged: (value) {
+                  db.saveMenuName(value);
+                  for (var i = 0; i < menuList.length; i++) {
+                    if (menuList[i].title == value) {
+                      db.saveMenuId(menuList[i].id);
+                      print('iiiiiiii ${menuList[i].title}');
+                    }
+                  }
+                },
+                items:
+                    // <String>['italian', 'japanese',]
+                    menuList.map((MenuResponse item) {
+                  return DropdownMenuItem(
                     child: Text(
-                      '$item',
+                      item.title!,
                       style: textDarkRegularBG(context),
                     ),
-                    value: item,
+                    value: item.title,
                   );
                 }).toList(),
               ),
@@ -164,7 +191,9 @@ class Settings extends HookWidget {
               titleTextDarkRegularBS(context, '${settings.tableNumber}'),
             ],
           ),
-          SizedBox(height: 12,),
+          SizedBox(
+            height: 12,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -233,11 +262,8 @@ class Settings extends HookWidget {
                 value: selectedOrderType,
                 onChanged: (String? value) =>
                     useState(() => selectedOrderType = value!),
-                items: <String>[
-                  'direct printer',
-                  "waiter's app",
-                    'pos link'
-                ].map<DropdownMenuItem<String>>((String item) {
+                items: <String>['direct printer', "waiter's app", 'pos link']
+                    .map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
                     child: Text(
                       '$item',
@@ -252,18 +278,18 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: titleTextDarkRegularBS(context, 'IP ADDRESS FOR WIFI PRINTER IN DIRECT MODE')),
+              Expanded(
+                  child: titleTextDarkRegularBS(
+                      context, 'IP ADDRESS FOR WIFI PRINTER IN DIRECT MODE')),
               Container(
                 width: 160,
                 child: regularTextField(
                   context,
                   ipAddressTextField(
-                      context,
-                      ipAddressEditController,
-                      ipAddressFocusNode, (value) {
+                      context, ipAddressEditController, ipAddressFocusNode,
+                      (value) {
                     FocusScope.of(context).unfocus();
-                  }
-                  ),
+                  }),
                 ),
               ),
             ],
@@ -272,7 +298,10 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: titleTextDarkRegularBS(context, 'ENABLE CALL TO WAITER (UPPER BAR)'),),
+              Expanded(
+                child: titleTextDarkRegularBS(
+                    context, 'ENABLE CALL TO WAITER (UPPER BAR)'),
+              ),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
@@ -285,7 +314,10 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: titleTextDarkRegularBS(context, 'PAY WHEN YOU MAKE THE COMMAND (KIOSK TYPE)'),),
+              Expanded(
+                child: titleTextDarkRegularBS(
+                    context, 'PAY WHEN YOU MAKE THE COMMAND (KIOSK TYPE)'),
+              ),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
@@ -298,7 +330,9 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: titleTextDarkRegularBS(context, 'VALIDATE PAYMENT / COMMANDS BY WAITER')),
+              Expanded(
+                  child: titleTextDarkRegularBS(
+                      context, 'VALIDATE PAYMENT / COMMANDS BY WAITER')),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
@@ -313,11 +347,11 @@ class Settings extends HookWidget {
   }
 
   Widget tableNumberTextField(
-      BuildContext context,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       keyboardType: TextInputType.text,
       controller: controller,
@@ -332,11 +366,11 @@ class Settings extends HookWidget {
   }
 
   Widget ipAddressTextField(
-      BuildContext context,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       keyboardType: TextInputType.text,
       controller: controller,
