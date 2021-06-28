@@ -3,6 +3,8 @@ import 'package:fenix_user/screens/auth/change_password/changePasswordState.dart
 import 'package:fenix_user/screens/auth/change_password/changePasswordStateNotifier.dart';
 import 'package:fenix_user/screens/auth/login/loginState.dart';
 import 'package:fenix_user/screens/auth/login/loginStateNotifier.dart';
+import 'package:fenix_user/screens/home/home/homeState.dart';
+import 'package:fenix_user/screens/home/home/homeStateNotifier.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsState.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsStateNotifier.dart';
 import 'package:fenix_user/screens/others/settings/settingsState.dart';
@@ -18,6 +20,13 @@ final homeTabsProvider =
     StateNotifierProvider.autoDispose<HomeTabsStateNotifier, HomeTabsState>(
         (ref) {
   return HomeTabsStateNotifier();
+});
+
+final homeProvider =
+StateNotifierProvider.autoDispose<HomeStateNotifier, HomeState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return HomeStateNotifier(api, db);
 });
 
 final loginProvider =

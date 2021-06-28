@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
+import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:fenix_user/widgets/textFields.dart';
@@ -107,7 +110,25 @@ class ChangePasswordPage extends HookWidget {
                 newPasswordEditController.text,
               );
               if (response != null) {
-                await Get.offAll(() => LoginPage());
+
+                Timer(Duration(seconds: 2), () async {
+                  await Get.offAll(() => LoginPage());
+                });
+
+                await showDialog(
+                  barrierColor: secondary,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return blackAlertBox(
+                        context,
+                        'Changed password successfully'.tr,
+                        Image.asset(
+                          'lib/assets/icons/done.png',
+                          scale: 3,
+                        ),
+                        null);
+                  },
+                );
               }
             }
           }),
