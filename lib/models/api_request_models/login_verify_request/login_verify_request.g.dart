@@ -1,21 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'otp_verify_request.dart';
+part of 'login_verify_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_OtpVerifyRequest _$_$_OtpVerifyRequestFromJson(Map<String, dynamic> json) {
-  return _$_OtpVerifyRequest(
+_$_LoginVerifyRequest _$_$_LoginVerifyRequestFromJson(
+    Map<String, dynamic> json) {
+  return _$_LoginVerifyRequest(
     tableNumber: json['tableNumber'] as int?,
     franchiseCode: json['franchiseCode'] as int?,
     password: json['password'] as String?,
   );
 }
 
-Map<String, dynamic> _$_$_OtpVerifyRequestToJson(
-        _$_OtpVerifyRequest instance) =>
+Map<String, dynamic> _$_$_LoginVerifyRequestToJson(
+        _$_LoginVerifyRequest instance) =>
     <String, dynamic>{
       'tableNumber': instance.tableNumber,
       'franchiseCode': instance.franchiseCode,

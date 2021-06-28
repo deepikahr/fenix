@@ -1,14 +1,17 @@
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:getwidget/components/rating/gf_rating.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:get/get.dart';
 
 class Settings extends HookWidget {
   double _rating = 3;
@@ -18,16 +21,19 @@ class Settings extends HookWidget {
     "black",
     "Primary",
   ];
-  String selectedItem = 'Primary';
+  String selectedMenu = 'italian';
+  String selectedCategory = 'list';
+  String selectedOrderType = 'direct printer';
 
   final tableNumberFocusNode = FocusNode();
   final ipAddressFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
-  final tableNumberEditController = useTextEditingController();
-  final ipAddressEditController = useTextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
+    final tableNumberEditController = useTextEditingController();
+    final ipAddressEditController = useTextEditingController();
 
 
     final state = useProvider(settingsProvider);
@@ -72,12 +78,15 @@ class Settings extends HookWidget {
           ),
           preferredSize: new Size(MediaQuery.of(context).size.width, 90.0),
         ),
-        body: ListView(
-          children: [
-            if (state.settings != null)
-            contentBlock(context, state.settings!),
-            if (state.isLoading)GFLoader()
-          ],
+        body: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              if (state.settings != null)
+              contentBlock(context, state.settings!, tableNumberEditController, ipAddressEditController),
+              if (state.isLoading)GFLoader()
+            ],
+          ),
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.only(bottom: 10),
@@ -90,12 +99,15 @@ class Settings extends HookWidget {
           ),
         )
     );
+
   }
 
-  Widget contentBlock(BuildContext context, SettingsResponse settings){
+  Widget contentBlock(BuildContext context, SettingsResponse settings, tableNumberEditController, ipAddressEditController){
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: ListView(
+        shrinkWrap: true,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,11 +123,12 @@ class Settings extends HookWidget {
               ),
             ],
           ),
+          SizedBox(height: 8,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               titleTextDarkRegularBS(context, 'color del tama'),
-              titleTextDarkRegularBS(context, settings.tabSetting!.themeColour!),
+              titleTextDarkRegularBS(context, '${settings.tabSetting!.themeColour}'),
             ],
           ),
           Row(
@@ -124,30 +137,19 @@ class Settings extends HookWidget {
               titleTextDarkRegularBS(context, 'carta selecionada'),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
-                iconSize: 40,
+                iconSize: 20,
                 hint: Text('menu selection', style: textDarkRegularBG(context),),
-                value: selectedItem,
-                onChanged: (String? string) =>
-                    useState(() => selectedItem = string!),
-                selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        item,
-                        style: textDarkRegularBG(context),
-                      ),
-                    );
-                  }).toList();
-                },
-                items: items.map((String item) {
+                value: selectedMenu,
+                onChanged: (String? value) =>
+                    useState(() => selectedMenu = value!),
+                items: <String>[
+                  'italian',
+                  'japanese',
+                ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
-                      child: Text(
-                        '$item',
-                        style: textDarkRegularBG(context),
-                      ),
+                    child: Text(
+                      '$item',
+                      style: textDarkRegularBG(context),
                     ),
                     value: item,
                   );
@@ -158,59 +160,50 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'Table number'),
-              titleTextDarkRegularBS(context, settings.tableNumber),
+              titleTextDarkRegularBS(context, 'Mesa Nº'),
+              titleTextDarkRegularBS(context, '${settings.tableNumber}'),
             ],
           ),
+          SizedBox(height: 12,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               titleTextDarkRegularBS(context, 'table capacity'),
-              Container(
-                width: 160,
-                child: regularTextField(
-                  context,
-                  tableNumberTextField(
-                      context,
-                      tableNumberEditController,
-                      tableNumberFocusNode, (value) {
-                    FocusScope.of(context)
-                        .requestFocus(ipAddressFocusNode);
-                  }
-                  ),
-                ),
-              ),
+              titleTextDarkRegularBS(context, '${settings.tableCapacity}'),
+              // Container(
+              //   width: 160,
+              //   child: regularTextField(
+              //     context,
+              //     tableNumberTextField(
+              //         context,
+              //         tableNumberEditController,
+              //         tableNumberFocusNode, (value) {
+              //       FocusScope.of(context)
+              //           .requestFocus(ipAddressFocusNode);
+              //     }
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'carta selecionada'),
+              titleTextDarkRegularBS(context, 'Representación de categoría'),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
-                iconSize: 40,
-                value: selectedItem,
-                onChanged: (String? string) =>
-                    useState(() => selectedItem = string!),
-                selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        item,
-                        style: textDarkRegularBG(context),
-                      ),
-                    );
-                  }).toList();
-                },
-                items: items.map((String item) {
+                iconSize: 20,
+                value: selectedCategory,
+                onChanged: (String? value) =>
+                    useState(() => selectedCategory = value!),
+                items: <String>[
+                  'list',
+                  'grid',
+                ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
-                      child: Text(
-                        '$item',
-                        style: textDarkRegularBG(context),
-                      ),
+                    child: Text(
+                      '$item',
+                      style: textDarkRegularBG(context),
                     ),
                     value: item,
                   );
@@ -221,43 +214,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'carta selecionada'),
-              DropdownButton<String>(
-                underline: Container(color: Colors.transparent),
-                iconSize: 40,
-                value: selectedItem,
-                onChanged: (String? string) =>
-                    useState(() => selectedItem = string!),
-                selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        item,
-                        style: textDarkRegularBG(context),
-                      ),
-                    );
-                  }).toList();
-                },
-                items: items.map((String item) {
-                  return DropdownMenuItem<String>(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
-                      child: Text(
-                        '$item',
-                        style: textDarkRegularBG(context),
-                      ),
-                    ),
-                    value: item,
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              titleTextDarkRegularBS(context, 'carta selecionada'),
+              titleTextDarkRegularBS(context, 'ENCABEZADO CATEGORIE'),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
@@ -269,32 +226,22 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'carta selecionada'),
+              titleTextDarkRegularBS(context, 'ORDERING MODE'),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
-                iconSize: 40,
-                value: selectedItem,
-                onChanged: (String? string) =>
-                    useState(() => selectedItem = string!),
-                selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        item,
-                        style: textDarkRegularBG(context),
-                      ),
-                    );
-                  }).toList();
-                },
-                items: items.map((String item) {
+                iconSize: 20,
+                value: selectedOrderType,
+                onChanged: (String? value) =>
+                    useState(() => selectedOrderType = value!),
+                items: <String>[
+                  'direct printer',
+                  "waiter's app",
+                    'pos link'
+                ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 4),
-                      child: Text(
-                        '$item',
-                        style: textDarkRegularBG(context),
-                      ),
+                    child: Text(
+                      '$item',
+                      style: textDarkRegularBG(context),
                     ),
                     value: item,
                   );
@@ -305,7 +252,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'mesa N*'),
+              Expanded(child: titleTextDarkRegularBS(context, 'IP ADDRESS FOR WIFI PRINTER IN DIRECT MODE')),
               Container(
                 width: 160,
                 child: regularTextField(
@@ -325,7 +272,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'ENABLE CALL TO WAITER (UPPER BAR)'),
+              Expanded(child: titleTextDarkRegularBS(context, 'ENABLE CALL TO WAITER (UPPER BAR)'),),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
@@ -338,7 +285,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'PAY WHEN YOU MAKE THE COMMAND (KIOSK TYPE)'),
+              Expanded(child: titleTextDarkRegularBS(context, 'PAY WHEN YOU MAKE THE COMMAND (KIOSK TYPE)'),),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
@@ -351,13 +298,13 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'VALIDATE PAYMENT / COMMANDS BY WAITER'),
+              Expanded(child: titleTextDarkRegularBS(context, 'VALIDATE PAYMENT / COMMANDS BY WAITER')),
               GFToggle(
                 onChanged: (val) {},
                 enabledThumbColor: Colors.blue,
                 enabledTrackColor: Colors.blue.withOpacity(0.3),
                 value: settings.tabSetting!.validatePaymentByWaiter!,
-              )
+              ),
             ],
           ),
         ],

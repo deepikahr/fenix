@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:fenix_user/database/db.dart';
-import 'package:fenix_user/screens/auth/otp/otpState.dart';
-import 'package:fenix_user/screens/auth/otp/otpStateNotifier.dart';
+import 'package:fenix_user/screens/auth/change_password/changePasswordState.dart';
+import 'package:fenix_user/screens/auth/change_password/changePasswordStateNotifier.dart';
+import 'package:fenix_user/screens/auth/login/loginState.dart';
+import 'package:fenix_user/screens/auth/login/loginStateNotifier.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsState.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsStateNotifier.dart';
 import 'package:fenix_user/screens/others/settings/settingsState.dart';
@@ -20,11 +20,18 @@ final homeTabsProvider =
   return HomeTabsStateNotifier();
 });
 
-final otpProvider =
-    StateNotifierProvider.autoDispose<OtpStateNotifier, OtpState>((ref) {
+final loginProvider =
+    StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
-  return OtpStateNotifier(api, db);
+  return LoginStateNotifier(api, db);
+});
+
+final changePasswordProvider =
+StateNotifierProvider.autoDispose<ChangePasswordStateNotifier, ChangePasswordState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return ChangePasswordStateNotifier(api, db);
 });
 
 final settingsProvider =

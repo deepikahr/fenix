@@ -12,9 +12,10 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
   Future<SettingsResponse?> fetchSettings() async {
     state = state.copyWith.call(isLoading: true);
     final response = await api.settings();
-    state = state.copyWith.call(isLoading: false);
-
-    return response;
+    state = state.copyWith.call(
+      settings: response,
+      isLoading: false,
+    );
   }
 
 
