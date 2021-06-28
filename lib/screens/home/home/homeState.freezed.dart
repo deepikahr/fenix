@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeStateTearOff {
   const _$HomeStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call({bool isLoading = false, HomeResponse? homeData}) {
     return _Default(
       isLoading: isLoading,
+      homeData: homeData,
     );
   }
 }
@@ -29,6 +30,7 @@ const $HomeState = _$HomeStateTearOff();
 /// @nodoc
 mixin _$HomeState {
   bool get isLoading => throw _privateConstructorUsedError;
+  HomeResponse? get homeData => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -39,7 +41,9 @@ mixin _$HomeState {
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, HomeResponse? homeData});
+
+  $HomeResponseCopyWith<$Res>? get homeData;
 }
 
 /// @nodoc
@@ -53,13 +57,29 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? homeData = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      homeData: homeData == freezed
+          ? _value.homeData
+          : homeData // ignore: cast_nullable_to_non_nullable
+              as HomeResponse?,
     ));
+  }
+
+  @override
+  $HomeResponseCopyWith<$Res>? get homeData {
+    if (_value.homeData == null) {
+      return null;
+    }
+
+    return $HomeResponseCopyWith<$Res>(_value.homeData!, (value) {
+      return _then(_value.copyWith(homeData: value));
+    });
   }
 }
 
@@ -68,7 +88,10 @@ abstract class _$DefaultCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, HomeResponse? homeData});
+
+  @override
+  $HomeResponseCopyWith<$Res>? get homeData;
 }
 
 /// @nodoc
@@ -83,12 +106,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? homeData = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      homeData: homeData == freezed
+          ? _value.homeData
+          : homeData // ignore: cast_nullable_to_non_nullable
+              as HomeResponse?,
     ));
   }
 }
@@ -96,15 +124,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default({this.isLoading = false, this.homeData});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @override
+  final HomeResponse? homeData;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading)';
+    return 'HomeState(isLoading: $isLoading, homeData: $homeData)';
   }
 
   @override
@@ -113,12 +143,17 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.homeData, homeData) ||
+                const DeepCollectionEquality()
+                    .equals(other.homeData, homeData)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(homeData);
 
   @JsonKey(ignore: true)
   @override
@@ -127,10 +162,12 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements HomeState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default({bool isLoading, HomeResponse? homeData}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  HomeResponse? get homeData => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

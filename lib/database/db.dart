@@ -60,6 +60,11 @@ class DB {
     return vendorId;
   }
 
+  String getMenuId() {
+    final box = Hive.box('user');
+    String menuId = box.get('menuId');
+    return menuId;
+  }
 
   Future<void> logOut() async {
     final box = Hive.box('user');

@@ -14,8 +14,6 @@ class ChangePasswordStateNotifier extends StateNotifier<ChangePasswordState> {
       String? oldPassword, String? newPassword) async {
     state = state.copyWith(isLoading: true);
 
-    print('qqqqqqqq $oldPassword $newPassword');
-
     final response = await api.changePassword(ChangePasswordRequest(
         currentPassword: oldPassword,
         newPassword: newPassword

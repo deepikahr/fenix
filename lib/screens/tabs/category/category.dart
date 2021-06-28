@@ -96,7 +96,7 @@ class Category extends HookWidget {
                       ));
                     },
                     child: restaurantInfoCard(
-                      context,
+                      context, 'title'
                     ),
                   );
                 }),

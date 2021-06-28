@@ -28,7 +28,7 @@ Widget restaurantCard(BuildContext context, image, title, time) {
 }
 
 Widget popularRestaurantCard(BuildContext context, image, title,
-    {int width = 68, int height = 68, double radius = 34}) {
+    {double width = 68.0, double height = 68.0, double radius = 34}) {
   return Container(
     width: 85,
     child: Column(
@@ -69,9 +69,8 @@ Widget cuisineCard(BuildContext context, image, title) {
 Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
-    padding: EdgeInsets.only(left: 16, right: 16),
-    decoration:
-        BoxDecoration(color: dark, borderRadius: BorderRadius.circular(5)),
+    // padding: EdgeInsets.only(left: 16, right: 16),
+    // decoration: BoxDecoration(color: dark, borderRadius: BorderRadius.circular(5)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -112,14 +111,14 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
         //     ),
         //   ),
         // ),
-        networkImage(image, 150, 455, 8)
+        networkImage(image, 390, 455, 8)
       ],
     ),
   );
 }
 
 Widget restaurantInfoCard(
-  BuildContext context,
+  BuildContext context, title
 ) {
   return Container(
     child: Stack(
@@ -149,7 +148,7 @@ Widget restaurantInfoCard(
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12))),
               child: Text(
-                'name',
+                title,
                 style: textDarkRegularBRW(context),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
