@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'otpState.dart';
+part of 'changePasswordState.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$OtpStateTearOff {
-  const _$OtpStateTearOff();
+class _$ChangePasswordStateTearOff {
+  const _$ChangePasswordStateTearOff();
 
   _Default call({bool isLoading = false}) {
     return _Default(
@@ -24,31 +24,33 @@ class _$OtpStateTearOff {
 }
 
 /// @nodoc
-const $OtpState = _$OtpStateTearOff();
+const $ChangePasswordState = _$ChangePasswordStateTearOff();
 
 /// @nodoc
-mixin _$OtpState {
+mixin _$ChangePasswordState {
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $OtpStateCopyWith<OtpState> get copyWith =>
+  $ChangePasswordStateCopyWith<ChangePasswordState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OtpStateCopyWith<$Res> {
-  factory $OtpStateCopyWith(OtpState value, $Res Function(OtpState) then) =
-      _$OtpStateCopyWithImpl<$Res>;
+abstract class $ChangePasswordStateCopyWith<$Res> {
+  factory $ChangePasswordStateCopyWith(
+          ChangePasswordState value, $Res Function(ChangePasswordState) then) =
+      _$ChangePasswordStateCopyWithImpl<$Res>;
   $Res call({bool isLoading});
 }
 
 /// @nodoc
-class _$OtpStateCopyWithImpl<$Res> implements $OtpStateCopyWith<$Res> {
-  _$OtpStateCopyWithImpl(this._value, this._then);
+class _$ChangePasswordStateCopyWithImpl<$Res>
+    implements $ChangePasswordStateCopyWith<$Res> {
+  _$ChangePasswordStateCopyWithImpl(this._value, this._then);
 
-  final OtpState _value;
+  final ChangePasswordState _value;
   // ignore: unused_field
-  final $Res Function(OtpState) _then;
+  final $Res Function(ChangePasswordState) _then;
 
   @override
   $Res call({
@@ -64,7 +66,8 @@ class _$OtpStateCopyWithImpl<$Res> implements $OtpStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DefaultCopyWith<$Res> implements $OtpStateCopyWith<$Res> {
+abstract class _$DefaultCopyWith<$Res>
+    implements $ChangePasswordStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
@@ -72,7 +75,8 @@ abstract class _$DefaultCopyWith<$Res> implements $OtpStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$DefaultCopyWithImpl<$Res> extends _$OtpStateCopyWithImpl<$Res>
+class __$DefaultCopyWithImpl<$Res>
+    extends _$ChangePasswordStateCopyWithImpl<$Res>
     implements _$DefaultCopyWith<$Res> {
   __$DefaultCopyWithImpl(_Default _value, $Res Function(_Default) _then)
       : super(_value, (v) => _then(v as _Default));
@@ -104,7 +108,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'OtpState(isLoading: $isLoading)';
+    return 'ChangePasswordState(isLoading: $isLoading)';
   }
 
   @override
@@ -126,7 +130,7 @@ class _$_Default implements _Default {
       __$DefaultCopyWithImpl<_Default>(this, _$identity);
 }
 
-abstract class _Default implements OtpState {
+abstract class _Default implements ChangePasswordState {
   const factory _Default({bool isLoading}) = _$_Default;
 
   @override

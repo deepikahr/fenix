@@ -1,8 +1,11 @@
+import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart';
 
 class DrawerPage extends HookWidget {
   @override
@@ -69,6 +72,14 @@ class DrawerPage extends HookWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: titleTextDarkRegularBB20(context, 'CATEGORIA 2'),
+              ),
+              Divider(),
+              InkWell(
+                onTap:  (){Get.to(() => ChangePasswordPage());},
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: titleTextDarkRegularBB20(context, 'change password'),
+                ),
               ),
               Divider(),
             ],

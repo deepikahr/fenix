@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'otpState.freezed.dart';
+part 'loginState.freezed.dart';
 
 @freezed
-class OtpState with _$OtpState {
-  const factory OtpState({
+class LoginState with _$LoginState {
+  const factory LoginState({
     @Default(false) bool isLoading,
   }) = _Default;
 }

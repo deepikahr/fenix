@@ -1,5 +1,6 @@
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -9,25 +10,22 @@ import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/components/loader/gf_loader.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../main.dart';
 
-class OtpPage extends HookWidget {
-  final tableNumberFocusNode = FocusNode();
-  final franchiseCodeFocusNode = FocusNode();
-  final passwordFocusNode = FocusNode();
+class ChangePasswordPage extends HookWidget {
+  final oldPasswordFocusNode = FocusNode();
+  final newPasswordFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> formKey2 = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
-    final tableNumberEditController = useTextEditingController();
-    final franchiseCodeEditController = useTextEditingController();
-    final passwordEditController = useTextEditingController();
+    final oldPasswordEditController = useTextEditingController();
+    final newPasswordEditController = useTextEditingController();
 
-    final state = useProvider(otpProvider);
+    final state = useProvider(changePasswordProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -70,38 +68,31 @@ class OtpPage extends HookWidget {
           SizedBox(height: 25,),
           regularTextField(
             context,
-            tableNumberTextField(
-                context,
-                tableNumberEditController,
-                tableNumberFocusNode, (value) {
-              FocusScope.of(context)
-                  .requestFocus(franchiseCodeFocusNode);
-            }),
-          ),
-          SizedBox(
-            height: 26,
-          ),
-          regularTextField(
-            context,
-            franchiseCodeTextField(context, franchiseCodeEditController,
-                franchiseCodeFocusNode, (value) {
-                  FocusScope.of(context)
-                      .requestFocus(passwordFocusNode);
-                }),
-          ),
-          SizedBox(
-            height: 26,
-          ),
-          regularTextField(
-            context,
-            passwordTextField(
+            oldPasswordTextField(
               context,
               formKey,
-              passwordEditController,
-              passwordFocusNode,
+              oldPasswordEditController,
+              oldPasswordFocusNode,
+                  (value) {
+                    FocusScope.of(context)
+                        .requestFocus(newPasswordFocusNode);
+                formKey.currentState!.validate();
+              },
+            ),
+          ),
+          SizedBox(
+            height: 26,
+          ),
+          regularTextField(
+            context,
+            newPasswordTextField(
+              context,
+              formKey2,
+              newPasswordEditController,
+              newPasswordFocusNode,
                   (value) {
                 FocusScope.of(context).unfocus();
-                formKey.currentState!.validate();
+                formKey2.currentState!.validate();
               },
             ),
           ),
@@ -109,67 +100,24 @@ class OtpPage extends HookWidget {
             height: 66,
           ),
           primaryButton(context, 'SUBMIT'.tr, () async {
-            if (formKey.currentState!.validate()) {
+            if (formKey.currentState!.validate() && formKey2.currentState!.validate()) {
               final response =
-              await context.read(otpProvider.notifier).submit(
-                int.parse(tableNumberEditController.text),
-                int.parse(franchiseCodeEditController.text),
-                passwordEditController.text,
+              await context.read(changePasswordProvider.notifier).submit(
+                oldPasswordEditController.text,
+                newPasswordEditController.text,
               );
               if (response != null) {
-                  await Get.offAll(() => HomeTabs());
+                await Get.offAll(() => LoginPage());
               }
             }
           }),
-          // if (state.isLoading) GFLoader(),
+          if (state.isLoading) GFLoader(),
         ],
       ),
     );
   }
 
-  Widget tableNumberTextField(
-      BuildContext context,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
-    return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: controller,
-      focusNode: focusNode,
-      onFieldSubmitted: onFieldSubmitted,
-      validator: validateFirstName,
-      decoration: InputDecoration(
-        labelText: 'TABLE_NUMBER'.tr,
-        labelStyle: textDarkLightSmallBR(context),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        border: InputBorder.none,
-      ),
-    );
-  }
-
-  Widget franchiseCodeTextField(
-      BuildContext context,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
-    return TextFormField(
-      keyboardType: TextInputType.number,
-      controller: controller,
-      focusNode: focusNode,
-      onFieldSubmitted: onFieldSubmitted,
-      validator: validateLastName,
-      decoration: InputDecoration(
-        labelText: 'FRANCHISE_CODE'.tr,
-        labelStyle: textDarkLightSmallBR(context),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        border: InputBorder.none,
-      ),
-    );
-  }
-
-  Widget passwordTextField(
+  Widget oldPasswordTextField(
       BuildContext context,
       GlobalKey<FormFieldState> key,
       controller,
@@ -186,11 +134,37 @@ class OtpPage extends HookWidget {
       obscureText: true,
       validator: validateOtp,
       decoration: InputDecoration(
-        labelText: 'PASSWORD'.tr,
-        labelStyle: textDarkLightSmallBR(context),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        border: InputBorder.none,
-        counterText: ''
+          labelText: 'CURRENT PASSWORD'.tr,
+          labelStyle: textDarkLightSmallBR(context),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          border: InputBorder.none,
+          counterText: ''
+      ),
+    );
+  }
+
+  Widget newPasswordTextField(
+      BuildContext context,
+      GlobalKey<FormFieldState> key,
+      controller,
+      FocusNode focusNode,
+      ValueChanged<String> onFieldSubmitted,
+      ) {
+    return TextFormField(
+      key: key,
+      keyboardType: TextInputType.phone,
+      controller: controller,
+      onFieldSubmitted: onFieldSubmitted,
+      focusNode: focusNode,
+      maxLength: 6,
+      obscureText: true,
+      validator: validateOtp,
+      decoration: InputDecoration(
+          labelText: 'NEW PASSWORD'.tr,
+          labelStyle: textDarkLightSmallBR(context),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          border: InputBorder.none,
+          counterText: ''
       ),
     );
   }

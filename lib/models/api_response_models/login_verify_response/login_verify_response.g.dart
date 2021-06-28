@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'otp_verify_response.dart';
+part of 'login_verify_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_OtpVerifyResponse _$_$_OtpVerifyResponseFromJson(Map<String, dynamic> json) {
-  return _$_OtpVerifyResponse(
+_$_LoginVerifyResponse _$_$_LoginVerifyResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_LoginVerifyResponse(
     token: json['token'] as String?,
     role: json['role'] as String?,
     id: json['id'] as String?,
@@ -16,8 +17,8 @@ _$_OtpVerifyResponse _$_$_OtpVerifyResponseFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_OtpVerifyResponseToJson(
-        _$_OtpVerifyResponse instance) =>
+Map<String, dynamic> _$_$_LoginVerifyResponseToJson(
+        _$_LoginVerifyResponse instance) =>
     <String, dynamic>{
       'token': instance.token,
       'role': instance.role,

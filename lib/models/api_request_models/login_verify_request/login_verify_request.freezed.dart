@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'otp_verify_request.dart';
+part of 'login_verify_request.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,59 +12,59 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-OtpVerifyRequest _$OtpVerifyRequestFromJson(Map<String, dynamic> json) {
-  return _OtpVerifyRequest.fromJson(json);
+LoginVerifyRequest _$LoginVerifyRequestFromJson(Map<String, dynamic> json) {
+  return _LoginVerifyRequest.fromJson(json);
 }
 
 /// @nodoc
-class _$OtpVerifyRequestTearOff {
-  const _$OtpVerifyRequestTearOff();
+class _$LoginVerifyRequestTearOff {
+  const _$LoginVerifyRequestTearOff();
 
-  _OtpVerifyRequest call(
+  _LoginVerifyRequest call(
       {int? tableNumber, int? franchiseCode, String? password}) {
-    return _OtpVerifyRequest(
+    return _LoginVerifyRequest(
       tableNumber: tableNumber,
       franchiseCode: franchiseCode,
       password: password,
     );
   }
 
-  OtpVerifyRequest fromJson(Map<String, Object> json) {
-    return OtpVerifyRequest.fromJson(json);
+  LoginVerifyRequest fromJson(Map<String, Object> json) {
+    return LoginVerifyRequest.fromJson(json);
   }
 }
 
 /// @nodoc
-const $OtpVerifyRequest = _$OtpVerifyRequestTearOff();
+const $LoginVerifyRequest = _$LoginVerifyRequestTearOff();
 
 /// @nodoc
-mixin _$OtpVerifyRequest {
+mixin _$LoginVerifyRequest {
   int? get tableNumber => throw _privateConstructorUsedError;
   int? get franchiseCode => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $OtpVerifyRequestCopyWith<OtpVerifyRequest> get copyWith =>
+  $LoginVerifyRequestCopyWith<LoginVerifyRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OtpVerifyRequestCopyWith<$Res> {
-  factory $OtpVerifyRequestCopyWith(
-          OtpVerifyRequest value, $Res Function(OtpVerifyRequest) then) =
-      _$OtpVerifyRequestCopyWithImpl<$Res>;
+abstract class $LoginVerifyRequestCopyWith<$Res> {
+  factory $LoginVerifyRequestCopyWith(
+          LoginVerifyRequest value, $Res Function(LoginVerifyRequest) then) =
+      _$LoginVerifyRequestCopyWithImpl<$Res>;
   $Res call({int? tableNumber, int? franchiseCode, String? password});
 }
 
 /// @nodoc
-class _$OtpVerifyRequestCopyWithImpl<$Res>
-    implements $OtpVerifyRequestCopyWith<$Res> {
-  _$OtpVerifyRequestCopyWithImpl(this._value, this._then);
+class _$LoginVerifyRequestCopyWithImpl<$Res>
+    implements $LoginVerifyRequestCopyWith<$Res> {
+  _$LoginVerifyRequestCopyWithImpl(this._value, this._then);
 
-  final OtpVerifyRequest _value;
+  final LoginVerifyRequest _value;
   // ignore: unused_field
-  final $Res Function(OtpVerifyRequest) _then;
+  final $Res Function(LoginVerifyRequest) _then;
 
   @override
   $Res call({
@@ -90,25 +90,25 @@ class _$OtpVerifyRequestCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$OtpVerifyRequestCopyWith<$Res>
-    implements $OtpVerifyRequestCopyWith<$Res> {
-  factory _$OtpVerifyRequestCopyWith(
-          _OtpVerifyRequest value, $Res Function(_OtpVerifyRequest) then) =
-      __$OtpVerifyRequestCopyWithImpl<$Res>;
+abstract class _$LoginVerifyRequestCopyWith<$Res>
+    implements $LoginVerifyRequestCopyWith<$Res> {
+  factory _$LoginVerifyRequestCopyWith(
+          _LoginVerifyRequest value, $Res Function(_LoginVerifyRequest) then) =
+      __$LoginVerifyRequestCopyWithImpl<$Res>;
   @override
   $Res call({int? tableNumber, int? franchiseCode, String? password});
 }
 
 /// @nodoc
-class __$OtpVerifyRequestCopyWithImpl<$Res>
-    extends _$OtpVerifyRequestCopyWithImpl<$Res>
-    implements _$OtpVerifyRequestCopyWith<$Res> {
-  __$OtpVerifyRequestCopyWithImpl(
-      _OtpVerifyRequest _value, $Res Function(_OtpVerifyRequest) _then)
-      : super(_value, (v) => _then(v as _OtpVerifyRequest));
+class __$LoginVerifyRequestCopyWithImpl<$Res>
+    extends _$LoginVerifyRequestCopyWithImpl<$Res>
+    implements _$LoginVerifyRequestCopyWith<$Res> {
+  __$LoginVerifyRequestCopyWithImpl(
+      _LoginVerifyRequest _value, $Res Function(_LoginVerifyRequest) _then)
+      : super(_value, (v) => _then(v as _LoginVerifyRequest));
 
   @override
-  _OtpVerifyRequest get _value => super._value as _OtpVerifyRequest;
+  _LoginVerifyRequest get _value => super._value as _LoginVerifyRequest;
 
   @override
   $Res call({
@@ -116,7 +116,7 @@ class __$OtpVerifyRequestCopyWithImpl<$Res>
     Object? franchiseCode = freezed,
     Object? password = freezed,
   }) {
-    return _then(_OtpVerifyRequest(
+    return _then(_LoginVerifyRequest(
       tableNumber: tableNumber == freezed
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -135,13 +135,13 @@ class __$OtpVerifyRequestCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OtpVerifyRequest extends _OtpVerifyRequest {
-  const _$_OtpVerifyRequest(
+class _$_LoginVerifyRequest extends _LoginVerifyRequest {
+  const _$_LoginVerifyRequest(
       {this.tableNumber, this.franchiseCode, this.password})
       : super._();
 
-  factory _$_OtpVerifyRequest.fromJson(Map<String, dynamic> json) =>
-      _$_$_OtpVerifyRequestFromJson(json);
+  factory _$_LoginVerifyRequest.fromJson(Map<String, dynamic> json) =>
+      _$_$_LoginVerifyRequestFromJson(json);
 
   @override
   final int? tableNumber;
@@ -152,13 +152,13 @@ class _$_OtpVerifyRequest extends _OtpVerifyRequest {
 
   @override
   String toString() {
-    return 'OtpVerifyRequest(tableNumber: $tableNumber, franchiseCode: $franchiseCode, password: $password)';
+    return 'LoginVerifyRequest(tableNumber: $tableNumber, franchiseCode: $franchiseCode, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _OtpVerifyRequest &&
+        (other is _LoginVerifyRequest &&
             (identical(other.tableNumber, tableNumber) ||
                 const DeepCollectionEquality()
                     .equals(other.tableNumber, tableNumber)) &&
@@ -179,24 +179,24 @@ class _$_OtpVerifyRequest extends _OtpVerifyRequest {
 
   @JsonKey(ignore: true)
   @override
-  _$OtpVerifyRequestCopyWith<_OtpVerifyRequest> get copyWith =>
-      __$OtpVerifyRequestCopyWithImpl<_OtpVerifyRequest>(this, _$identity);
+  _$LoginVerifyRequestCopyWith<_LoginVerifyRequest> get copyWith =>
+      __$LoginVerifyRequestCopyWithImpl<_LoginVerifyRequest>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_OtpVerifyRequestToJson(this);
+    return _$_$_LoginVerifyRequestToJson(this);
   }
 }
 
-abstract class _OtpVerifyRequest extends OtpVerifyRequest {
-  const factory _OtpVerifyRequest(
+abstract class _LoginVerifyRequest extends LoginVerifyRequest {
+  const factory _LoginVerifyRequest(
       {int? tableNumber,
       int? franchiseCode,
-      String? password}) = _$_OtpVerifyRequest;
-  const _OtpVerifyRequest._() : super._();
+      String? password}) = _$_LoginVerifyRequest;
+  const _LoginVerifyRequest._() : super._();
 
-  factory _OtpVerifyRequest.fromJson(Map<String, dynamic> json) =
-      _$_OtpVerifyRequest.fromJson;
+  factory _LoginVerifyRequest.fromJson(Map<String, dynamic> json) =
+      _$_LoginVerifyRequest.fromJson;
 
   @override
   int? get tableNumber => throw _privateConstructorUsedError;
@@ -206,6 +206,6 @@ abstract class _OtpVerifyRequest extends OtpVerifyRequest {
   String? get password => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$OtpVerifyRequestCopyWith<_OtpVerifyRequest> get copyWith =>
+  _$LoginVerifyRequestCopyWith<_LoginVerifyRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
