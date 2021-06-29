@@ -13,6 +13,7 @@ _$_CategoryResponse _$_$_CategoryResponseFromJson(Map<String, dynamic> json) {
     imageUrl: json['imageUrl'] as String?,
     imageId: json['imageId'] as String?,
     filePath: json['filePath'] as String?,
+    description: json['description'] as String?,
   );
 }
 
@@ -24,4 +25,5 @@ Map<String, dynamic> _$_$_CategoryResponseToJson(
       'imageUrl': instance.imageUrl,
       'imageId': instance.imageId,
       'filePath': instance.filePath,
+      'description': instance.description,
     };

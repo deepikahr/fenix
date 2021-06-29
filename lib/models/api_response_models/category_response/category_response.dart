@@ -14,6 +14,7 @@ class CategoryResponse with BaseModel<CategoryResponse>, _$CategoryResponse {
     String? imageUrl,
     String? imageId,
     String? filePath,
+    String? description,
   }) = _CategoryResponse;
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>

@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
@@ -118,7 +119,7 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
 }
 
 Widget restaurantInfoCard(
-  BuildContext context, title
+  BuildContext context, title, image
 ) {
   return Container(
     child: Stack(
@@ -129,12 +130,13 @@ Widget restaurantInfoCard(
         // crossAxisAlignment: CrossAxisAlignment.center,
         // children: [
         //  networkImage(img, 97, 109, 10),
-        Image.asset(
-          'lib/assets/images/refer.png',
-          width: MediaQuery.of(context).size.width,
-          height: 150,
-          fit: BoxFit.fill,
-        ),
+        networkImage(image, 390, 150, 2),
+        // Image.asset(
+        //   'lib/assets/images/refer.png',
+        //   width: MediaQuery.of(context).size.width,
+        //   height: 150,
+        //   fit: BoxFit.fill,
+        // ),
         Positioned(
             left: 100,
             right: 100,
@@ -363,7 +365,7 @@ Widget restaurantInfoCardGrid(
 }
 
 Widget dishesInfoCard(
-  BuildContext context,
+  BuildContext context, ProductResponse product
 ) {
   return Container(
     // padding: EdgeInsets.only(left: 16, right: 16),
@@ -382,10 +384,12 @@ Widget dishesInfoCard(
                 children: [
                   Stack(
                     children: [
+                      product.productImage!.imageUrl != null ?
+                      networkImage(product.productImage!.imageUrl!, 111, 109, 4) :
                       Container(
                           child: Image.asset(
                             'lib/assets/images/refer.png',
-                            width: 111,
+                            width: MediaQuery.of(context).size.width,
                             height: 109,
                             fit: BoxFit.cover,
                           )),
@@ -394,87 +398,13 @@ Widget dishesInfoCard(
                         color: primary,
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          'OFFER',
+                          '${product.tags!.first.title}',
                           style: textDarkRegularBSW(context),
                           textAlign: TextAlign.center,
                         ),
                       )),
-                      //  Positioned(
-                      //    top: 40,
-                      //    bottom: 40,
-                      //     child: Container(
-                      //   color: darkLight,
-                      //   padding: EdgeInsets.all(4),
-                      //   child: Text(
-                      //     '350 gm',
-                      //     style: textDarkRegularBSW(context),
-                      //     textAlign: TextAlign.center,
-                      //   ),
-                      // )),
-                      // Positioned(
-                      //   bottom: 10,
-                      //   left: 10,
-                      //   right: 10,
-                      //   child: Center(
-                      //     child: Text(
-                      //       '$currencySymbol${sellingPrice.toStringAsFixed(2)}',
-                      //       style: textDarkRegularBSW(context),
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
-
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: Container(
-                  //     width: 97,
-                  //     height: 38,
-                  //     child: totalQautity > 0
-                  //         ? Container(
-                  //             decoration: BoxDecoration(
-                  //                 color: white,
-                  //                 border: Border.all(
-                  //                     color: grey.shade300, width: 1),
-                  //                 borderRadius: BorderRadius.circular(5)),
-                  //             child: Row(
-                  //               mainAxisAlignment:
-                  //                   MainAxisAlignment.spaceBetween,
-                  //               children: [
-                  //                 InkWell(
-                  //                     onTap: onRemove,
-                  //                     child: Padding(
-                  //                       padding: const EdgeInsets.all(8.0),
-                  //                       child: Icon(
-                  //                         Icons.remove,
-                  //                         color: dark.withOpacity(0.8),
-                  //                       ),
-                  //                     )),
-                  //                 Text('$totalQautity',
-                  //                     style: textPrimaryLargeBM(context)),
-                  //                 InkWell(
-                  //                   onTap: onUpdate,
-                  //                   child: Padding(
-                  //                     padding: const EdgeInsets.all(8.0),
-                  //                     child: Icon(
-                  //                       Icons.add,
-                  //                       color: dark.withOpacity(0.8),
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ))
-                  //         : GFButton(
-                  //             borderShape: RoundedRectangleBorder(
-                  //                 borderRadius: BorderRadius.circular(4),
-                  //                 side: BorderSide(color: buttonBorder)),
-                  //             onPressed: onAdd,
-                  //             color: Colors.white,
-                  //             text: 'ADD'.tr,
-                  //             textStyle: textPrimaryLargeBM(context),
-                  //           ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -491,46 +421,13 @@ Widget dishesInfoCard(
                   ),
                   Row(
                     children: [
-                      // (isVeg == null
-                      //     ? Container(
-                      //         height: 14,
-                      //         width: 14,
-                      //       )
-                      //     : isVeg == true
-                      //         ? Container(
-                      //             height: 14,
-                      //             width: 14,
-                      //             decoration: BoxDecoration(
-                      //                 border: Border.all(color: green)),
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.all(2.0),
-                      //               child: GFAvatar(
-                      //                   backgroundColor: green,
-                      //                   shape: GFAvatarShape.circle),
-                      //             ),
-                      //           )
-                      //         : Container(
-                      //             height: 14,
-                      //             width: 14,
-                      //             decoration: BoxDecoration(
-                      //                 border: Border.all(color: red)),
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.all(2.0),
-                      //               child: GFAvatar(
-                      //                   backgroundColor: red,
-                      //                   shape: GFAvatarShape.circle),
-                      //             ),
-                      //           )),
-                      // SizedBox(
-                      //   width: 5,
-                      // ),
-                      Expanded(child: titleTextDarkRegularBR(context, 'ame')),
+                      Expanded(child: titleTextDarkRegularBR(context, '${product.productName}')),
                     ],
                   ),
                   SizedBox(
                     height: 6,
                   ),
-                  titleTextDarkLightSmallBR(context, 'escription'),
+                  titleTextDarkLightSmallBR(context, '${product.productDescription}'),
 
                   SizedBox(
                     height: 6,
@@ -538,22 +435,8 @@ Widget dishesInfoCard(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Container(
-                      //   padding: EdgeInsets.all(8),
-                      //   decoration: BoxDecoration(
-                      //       color: primary,
-                      //       borderRadius: BorderRadius.circular(5)),
-                      //   child: Text(
-                      //     'Allergens',
-                      //     style: textWhiteRegularBM(),
-                      //   ),
-                      // ),
-                      // Icon(
-                      //   Icons.camera_alt,
-                      //   color: primary,
-                      // ),
                       Text(
-                        '${123}',
+                        '\$${product.variant!.price}',
                         style: textDarkRegularBS(context),
                       ),
                       // sellingPrice == originalPrice
@@ -572,10 +455,6 @@ Widget dishesInfoCard(
                           style: textWhiteRegularBM(),
                         ),
                       ),
-                      // Text(
-                      //         '${123}',
-                      //         style: textDarkLight2XSmallLineThroughBR(context),
-                      //       ),
                       Container(
                           // width: 97,
                           // height: 38,
@@ -608,7 +487,7 @@ Widget dishesInfoCard(
                                           ),
                                         ),
                                       )),
-                                  Text('112',
+                                  Text('1',
                                       style: textBlackLargeBM(context)),
                                   InkWell(
                                     onTap: (){},
@@ -632,73 +511,14 @@ Widget dishesInfoCard(
                                   ),
                                 ],
                               ))
-                          // : GFButton(
-                          //     borderShape: RoundedRectangleBorder(
-                          //         borderRadius: BorderRadius.circular(4),
-                          //         side: BorderSide(color: buttonBorder)),
-                          //     onPressed: onAdd,
-                          //     color: Colors.white,
-                          //     text: 'ADD'.tr,
-                          //     textStyle: textPrimaryLargeBM(context),
-                          //   ),
                           ),
                     ],
                   ),
-                  // Container(
-                  //   padding: EdgeInsets.all(8),
-                  //   decoration: BoxDecoration(color: primary,
-                  //   borderRadius: BorderRadius.circular(5)
-                  //   ),
-                  //   child: Text('Allergens',style: textWhiteRegularBM(),),
-                  // )
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: Icon(
-                  //     Icons.favorite,
-                  //     color: Colors.red,
-                  //     size: 25,
-                  //   ),
-                  // ),
                 ],
               ),
             ),
           ],
         ),
-        // dottedLine(context, darkLight3.withOpacity(0.2), 12),
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       children: [
-        //         restaurantLocationRow(context, restaurantName, franchiseName),
-        //         discount > 0
-        //             ? Row(
-        //                 mainAxisAlignment: MainAxisAlignment.end,
-        //                 children: [
-        //                   Image.asset(
-        //                     'lib/assets/icons/discount.png',
-        //                     scale: 3,
-        //                   ),
-        //                   SizedBox(
-        //                     width: 6,
-        //                   ),
-        //                   Text(
-        //                     '$discount % ${'OFF'.tr}',
-        //                     style: textGreenSmallBM(context: context),
-        //                   )
-        //                 ],
-        //               )
-        //             : Container()
-        //       ],
-        //     ),
-        //     SizedBox(
-        //       height: 4,
-        //     ),
-        //     ratingDistanceRow(context, averageRating, '$time ${'MINS'.tr}'),
-        //   ],
-        // )
       ],
     ),
   );
@@ -1504,7 +1324,7 @@ Widget walletCard(BuildContext context, text1, text2, image, onTap) {
   );
 }
 
-Widget gridDishCard(BuildContext context){
+Widget gridDishCard(BuildContext context, ProductResponse product){
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
     decoration: BoxDecoration(
@@ -1522,6 +1342,8 @@ Widget gridDishCard(BuildContext context){
               child:
               Stack(
                 children: [
+                  product.productImage!.imageUrl != null ?
+                  networkImage(product.productImage!.imageUrl!, MediaQuery.of(context).size.width, 139, 4) :
                   Container(
                       child: Image.asset(
                         'lib/assets/images/refer.png',
@@ -1534,7 +1356,7 @@ Widget gridDishCard(BuildContext context){
                         color: primary,
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          'OFFER',
+                          '${product.tags!.first.title}',
                           style: textDarkRegularBSW(context),
                           textAlign: TextAlign.center,
                         ),
@@ -1546,7 +1368,7 @@ Widget gridDishCard(BuildContext context){
                         color: darkLight,
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          'Ternera con verduras salteadas',
+                          '${product.productName}',
                           style: textDarkRegularBSW(context),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -1563,7 +1385,7 @@ Widget gridDishCard(BuildContext context){
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   titleTextDarkLightSmallBR(context,
-                      'Mezcla de verduras al vapor con ternera de primera'),
+                      '${product.productDescription}'),
                   SizedBox(
                     height: 6,
                   ),
@@ -1585,7 +1407,7 @@ Widget gridDishCard(BuildContext context){
                     children: [
 
                       Text(
-                        '\$123',
+                        '\$${product.variant!.price}',
                         style: textDarkRegularBS(context),
                       ),
                       Container(
@@ -1622,7 +1444,7 @@ Widget gridDishCard(BuildContext context){
                                           ),
                                         ),
                                       )),
-                                  Text('12',
+                                  Text('1',
                                       style: textBlackLargeBM(context)),
                                   InkWell(
                                     // onTap: onUpdate,

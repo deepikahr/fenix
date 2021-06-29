@@ -16,9 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ProductListStateTearOff {
   const _$ProductListStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call(
+      {bool isLoading = false,
+      String? categoryTitle,
+      ProductModel? productData,
+      List<ProductResponse>? products,
+      int? productTotal}) {
     return _Default(
       isLoading: isLoading,
+      categoryTitle: categoryTitle,
+      productData: productData,
+      products: products,
+      productTotal: productTotal,
     );
   }
 }
@@ -29,6 +38,10 @@ const $ProductListState = _$ProductListStateTearOff();
 /// @nodoc
 mixin _$ProductListState {
   bool get isLoading => throw _privateConstructorUsedError;
+  String? get categoryTitle => throw _privateConstructorUsedError;
+  ProductModel? get productData => throw _privateConstructorUsedError;
+  List<ProductResponse>? get products => throw _privateConstructorUsedError;
+  int? get productTotal => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductListStateCopyWith<ProductListState> get copyWith =>
@@ -40,7 +53,14 @@ abstract class $ProductListStateCopyWith<$Res> {
   factory $ProductListStateCopyWith(
           ProductListState value, $Res Function(ProductListState) then) =
       _$ProductListStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call(
+      {bool isLoading,
+      String? categoryTitle,
+      ProductModel? productData,
+      List<ProductResponse>? products,
+      int? productTotal});
+
+  $ProductModelCopyWith<$Res>? get productData;
 }
 
 /// @nodoc
@@ -55,13 +75,44 @@ class _$ProductListStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? categoryTitle = freezed,
+    Object? productData = freezed,
+    Object? products = freezed,
+    Object? productTotal = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      categoryTitle: categoryTitle == freezed
+          ? _value.categoryTitle
+          : categoryTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productData: productData == freezed
+          ? _value.productData
+          : productData // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
+      products: products == freezed
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<ProductResponse>?,
+      productTotal: productTotal == freezed
+          ? _value.productTotal
+          : productTotal // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
+  }
+
+  @override
+  $ProductModelCopyWith<$Res>? get productData {
+    if (_value.productData == null) {
+      return null;
+    }
+
+    return $ProductModelCopyWith<$Res>(_value.productData!, (value) {
+      return _then(_value.copyWith(productData: value));
+    });
   }
 }
 
@@ -71,7 +122,15 @@ abstract class _$DefaultCopyWith<$Res>
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call(
+      {bool isLoading,
+      String? categoryTitle,
+      ProductModel? productData,
+      List<ProductResponse>? products,
+      int? productTotal});
+
+  @override
+  $ProductModelCopyWith<$Res>? get productData;
 }
 
 /// @nodoc
@@ -86,12 +145,32 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? categoryTitle = freezed,
+    Object? productData = freezed,
+    Object? products = freezed,
+    Object? productTotal = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      categoryTitle: categoryTitle == freezed
+          ? _value.categoryTitle
+          : categoryTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productData: productData == freezed
+          ? _value.productData
+          : productData // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
+      products: products == freezed
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<ProductResponse>?,
+      productTotal: productTotal == freezed
+          ? _value.productTotal
+          : productTotal // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -99,15 +178,28 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default(
+      {this.isLoading = false,
+      this.categoryTitle,
+      this.productData,
+      this.products,
+      this.productTotal});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @override
+  final String? categoryTitle;
+  @override
+  final ProductModel? productData;
+  @override
+  final List<ProductResponse>? products;
+  @override
+  final int? productTotal;
 
   @override
   String toString() {
-    return 'ProductListState(isLoading: $isLoading)';
+    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, productData: $productData, products: $products, productTotal: $productTotal)';
   }
 
   @override
@@ -116,12 +208,29 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.categoryTitle, categoryTitle) ||
+                const DeepCollectionEquality()
+                    .equals(other.categoryTitle, categoryTitle)) &&
+            (identical(other.productData, productData) ||
+                const DeepCollectionEquality()
+                    .equals(other.productData, productData)) &&
+            (identical(other.products, products) ||
+                const DeepCollectionEquality()
+                    .equals(other.products, products)) &&
+            (identical(other.productTotal, productTotal) ||
+                const DeepCollectionEquality()
+                    .equals(other.productTotal, productTotal)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(categoryTitle) ^
+      const DeepCollectionEquality().hash(productData) ^
+      const DeepCollectionEquality().hash(products) ^
+      const DeepCollectionEquality().hash(productTotal);
 
   @JsonKey(ignore: true)
   @override
@@ -130,10 +239,23 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements ProductListState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default(
+      {bool isLoading,
+      String? categoryTitle,
+      ProductModel? productData,
+      List<ProductResponse>? products,
+      int? productTotal}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  String? get categoryTitle => throw _privateConstructorUsedError;
+  @override
+  ProductModel? get productData => throw _privateConstructorUsedError;
+  @override
+  List<ProductResponse>? get products => throw _privateConstructorUsedError;
+  @override
+  int? get productTotal => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>
