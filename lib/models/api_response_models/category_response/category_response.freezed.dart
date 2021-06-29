@@ -25,13 +25,15 @@ class _$CategoryResponseTearOff {
       String? title,
       String? imageUrl,
       String? imageId,
-      String? filePath}) {
+      String? filePath,
+      String? description}) {
     return _CategoryResponse(
       id: id,
       title: title,
       imageUrl: imageUrl,
       imageId: imageId,
       filePath: filePath,
+      description: description,
     );
   }
 
@@ -51,6 +53,7 @@ mixin _$CategoryResponse {
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get imageId => throw _privateConstructorUsedError;
   String? get filePath => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +71,8 @@ abstract class $CategoryResponseCopyWith<$Res> {
       String? title,
       String? imageUrl,
       String? imageId,
-      String? filePath});
+      String? filePath,
+      String? description});
 }
 
 /// @nodoc
@@ -87,6 +91,7 @@ class _$CategoryResponseCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? imageId = freezed,
     Object? filePath = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -109,6 +114,10 @@ class _$CategoryResponseCopyWithImpl<$Res>
           ? _value.filePath
           : filePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -125,7 +134,8 @@ abstract class _$CategoryResponseCopyWith<$Res>
       String? title,
       String? imageUrl,
       String? imageId,
-      String? filePath});
+      String? filePath,
+      String? description});
 }
 
 /// @nodoc
@@ -146,6 +156,7 @@ class __$CategoryResponseCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? imageId = freezed,
     Object? filePath = freezed,
+    Object? description = freezed,
   }) {
     return _then(_CategoryResponse(
       id: id == freezed
@@ -168,6 +179,10 @@ class __$CategoryResponseCopyWithImpl<$Res>
           ? _value.filePath
           : filePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -180,7 +195,8 @@ class _$_CategoryResponse extends _CategoryResponse {
       this.title,
       this.imageUrl,
       this.imageId,
-      this.filePath})
+      this.filePath,
+      this.description})
       : super._();
 
   factory _$_CategoryResponse.fromJson(Map<String, dynamic> json) =>
@@ -197,10 +213,12 @@ class _$_CategoryResponse extends _CategoryResponse {
   final String? imageId;
   @override
   final String? filePath;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'CategoryResponse(id: $id, title: $title, imageUrl: $imageUrl, imageId: $imageId, filePath: $filePath)';
+    return 'CategoryResponse(id: $id, title: $title, imageUrl: $imageUrl, imageId: $imageId, filePath: $filePath, description: $description)';
   }
 
   @override
@@ -219,7 +237,10 @@ class _$_CategoryResponse extends _CategoryResponse {
                     .equals(other.imageId, imageId)) &&
             (identical(other.filePath, filePath) ||
                 const DeepCollectionEquality()
-                    .equals(other.filePath, filePath)));
+                    .equals(other.filePath, filePath)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)));
   }
 
   @override
@@ -229,7 +250,8 @@ class _$_CategoryResponse extends _CategoryResponse {
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(imageId) ^
-      const DeepCollectionEquality().hash(filePath);
+      const DeepCollectionEquality().hash(filePath) ^
+      const DeepCollectionEquality().hash(description);
 
   @JsonKey(ignore: true)
   @override
@@ -248,7 +270,8 @@ abstract class _CategoryResponse extends CategoryResponse {
       String? title,
       String? imageUrl,
       String? imageId,
-      String? filePath}) = _$_CategoryResponse;
+      String? filePath,
+      String? description}) = _$_CategoryResponse;
   const _CategoryResponse._() : super._();
 
   factory _CategoryResponse.fromJson(Map<String, dynamic> json) =
@@ -265,6 +288,8 @@ abstract class _CategoryResponse extends CategoryResponse {
   String? get imageId => throw _privateConstructorUsedError;
   @override
   String? get filePath => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CategoryResponseCopyWith<_CategoryResponse> get copyWith =>

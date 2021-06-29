@@ -1,6 +1,7 @@
 import 'package:fenix_user/models/api_response_models/banner_response/banner_response.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -95,9 +96,6 @@ class Home extends HookWidget {
                 endIndent: 16,
                 height: 30,
               ),
-          padding: EdgeInsets.only(
-            top: 16,
-          ),
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -105,10 +103,9 @@ class Home extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                // Get.to(() => RestaurantScreen(
-                // ));
+                Get.to(() => ProductList(categoryId: category[i].id));
               },
-              child: restaurantInfoCard(context, category[i].title),
+              child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
             );
           }),
     );
