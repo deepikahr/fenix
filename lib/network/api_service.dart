@@ -69,7 +69,7 @@ class API {
         bool autoErrorHandle = true,
       }) async {
     return _api.get(
-      URL.HOME + '60d19cd30aa04b2300b2af8b',
+      URL.HOME + '${db.getMenuId()}',
       resModel: HomeResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -83,7 +83,7 @@ class API {
     bool autoErrorHandle = true,
   }) async {
     return _api.putForStringResponse(
-      URL.HOME + db.getId(),
+      URL.SETTINGS_UPDATE + '${db.getId()}',
       reqModel: settingsUpdateRequest,
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -97,7 +97,7 @@ class API {
     bool autoErrorHandle = true,
   }) async {
     return _api.getForArrayResponse(
-      URL.MENU_DROPDOWN + db.getFranchiseId(),
+      URL.MENU_DROPDOWN + '${db.getFranchiseId()}',
       resModel: MenuResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,

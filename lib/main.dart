@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:fenix_user/screens/auth/login/login.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
+import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
@@ -65,6 +67,7 @@ class EntryPage extends HookWidget {
     final isMounted = useIsMounted();
     useEffect(() {
       if (isMounted()) {
+        db.saveThemeColor('red');
         Future.delayed(Duration.zero, () {
           initializeconfigLocalNotification();
         });
@@ -82,7 +85,7 @@ class EntryPage extends HookWidget {
         accentColor: primary,
       ),
       // home: Categories(),
-      home: LoginPage(),
+      home: db.isLoggedIn() ? HomeTabs() : LoginPage(),
       // home: GestureDetector(
       //   onTap: () {
       //     FocusScope.of(context).unfocus();

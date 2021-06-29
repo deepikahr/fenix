@@ -51,7 +51,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
               child: Column(
                 children: [
                   titleTextDarkRegularBW(context, 'GASTROBAR'),
-                  titleTextDarkRegularBW17(context, 'CALLE LARIOS 12'),
+                  titleTextDarkRegularBW17(context, db.getMenuName()),
                 ],
               ),
             ),

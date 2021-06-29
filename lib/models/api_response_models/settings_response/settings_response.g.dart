@@ -13,7 +13,9 @@ _$_SettingsResponse _$_$_SettingsResponseFromJson(Map<String, dynamic> json) {
         : TabSettingResponse.fromJson(
             json['tabSetting'] as Map<String, dynamic>),
     id: json['_id'] as String?,
-    franchiseId: json['franchiseId'] as String?,
+    franchiseId: json['franchiseId'] == null
+        ? null
+        : FranchiseModel.fromJson(json['franchiseId'] as Map<String, dynamic>),
     vendorId: json['vendorId'] as String?,
     tableName: json['tableName'] as String?,
     tableCapacity: json['tableCapacity'] as int?,

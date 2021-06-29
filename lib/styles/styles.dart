@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 // const primary = Color(0xFFFF0707);
 // const primary = Color(0xFF52861D);
 // const primary = Color(0xFF2B80C9);
 // const primary = Color(0xFFED9732);
-const primary = Color(0xFFC92B2B);
+
+const themeRed = Color(0xFFC92B2B);
+const themeGreen = Color(0xFF5B8E27);
+const themeBlue = Color(0xFF2B80C9);
+
+var primary = db.getThemeColor() == 'red' ? Color(0xFFC92B2B) : db.getThemeColor() == 'green' ? Color(0xFF5B8E27)
+    : Color(0xFF2B80C9);
+// const primary = Color(0xFFC92B2B);
 const secondary = Color(0xFFFFDDDD);
 const secondary1 = Color(0xFF212730);
 const grey = Colors.grey;

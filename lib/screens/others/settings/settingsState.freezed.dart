@@ -19,11 +19,27 @@ class _$SettingsStateTearOff {
   _Default call(
       {bool isLoading = false,
       SettingsResponse? settings,
-      List<MenuResponse>? menuList}) {
+      List<MenuResponse>? menuList,
+      String? themeColor,
+      String? menuTitle,
+      String? type,
+      String? orderMode,
+      bool? resetCategory,
+      bool? enableCall,
+      bool? payOnCommand,
+      bool? validatePayment}) {
     return _Default(
       isLoading: isLoading,
       settings: settings,
       menuList: menuList,
+      themeColor: themeColor,
+      menuTitle: menuTitle,
+      type: type,
+      orderMode: orderMode,
+      resetCategory: resetCategory,
+      enableCall: enableCall,
+      payOnCommand: payOnCommand,
+      validatePayment: validatePayment,
     );
   }
 }
@@ -36,6 +52,14 @@ mixin _$SettingsState {
   bool get isLoading => throw _privateConstructorUsedError;
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
+  String? get themeColor => throw _privateConstructorUsedError;
+  String? get menuTitle => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
+  String? get orderMode => throw _privateConstructorUsedError;
+  bool? get resetCategory => throw _privateConstructorUsedError;
+  bool? get enableCall => throw _privateConstructorUsedError;
+  bool? get payOnCommand => throw _privateConstructorUsedError;
+  bool? get validatePayment => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -50,7 +74,15 @@ abstract class $SettingsStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       SettingsResponse? settings,
-      List<MenuResponse>? menuList});
+      List<MenuResponse>? menuList,
+      String? themeColor,
+      String? menuTitle,
+      String? type,
+      String? orderMode,
+      bool? resetCategory,
+      bool? enableCall,
+      bool? payOnCommand,
+      bool? validatePayment});
 
   $SettingsResponseCopyWith<$Res>? get settings;
 }
@@ -69,6 +101,14 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? settings = freezed,
     Object? menuList = freezed,
+    Object? themeColor = freezed,
+    Object? menuTitle = freezed,
+    Object? type = freezed,
+    Object? orderMode = freezed,
+    Object? resetCategory = freezed,
+    Object? enableCall = freezed,
+    Object? payOnCommand = freezed,
+    Object? validatePayment = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -83,6 +123,38 @@ class _$SettingsStateCopyWithImpl<$Res>
           ? _value.menuList
           : menuList // ignore: cast_nullable_to_non_nullable
               as List<MenuResponse>?,
+      themeColor: themeColor == freezed
+          ? _value.themeColor
+          : themeColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menuTitle: menuTitle == freezed
+          ? _value.menuTitle
+          : menuTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      orderMode: orderMode == freezed
+          ? _value.orderMode
+          : orderMode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      resetCategory: resetCategory == freezed
+          ? _value.resetCategory
+          : resetCategory // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      enableCall: enableCall == freezed
+          ? _value.enableCall
+          : enableCall // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      payOnCommand: payOnCommand == freezed
+          ? _value.payOnCommand
+          : payOnCommand // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      validatePayment: validatePayment == freezed
+          ? _value.validatePayment
+          : validatePayment // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 
@@ -106,7 +178,15 @@ abstract class _$DefaultCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       SettingsResponse? settings,
-      List<MenuResponse>? menuList});
+      List<MenuResponse>? menuList,
+      String? themeColor,
+      String? menuTitle,
+      String? type,
+      String? orderMode,
+      bool? resetCategory,
+      bool? enableCall,
+      bool? payOnCommand,
+      bool? validatePayment});
 
   @override
   $SettingsResponseCopyWith<$Res>? get settings;
@@ -126,6 +206,14 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? settings = freezed,
     Object? menuList = freezed,
+    Object? themeColor = freezed,
+    Object? menuTitle = freezed,
+    Object? type = freezed,
+    Object? orderMode = freezed,
+    Object? resetCategory = freezed,
+    Object? enableCall = freezed,
+    Object? payOnCommand = freezed,
+    Object? validatePayment = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -140,6 +228,38 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
           ? _value.menuList
           : menuList // ignore: cast_nullable_to_non_nullable
               as List<MenuResponse>?,
+      themeColor: themeColor == freezed
+          ? _value.themeColor
+          : themeColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menuTitle: menuTitle == freezed
+          ? _value.menuTitle
+          : menuTitle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      orderMode: orderMode == freezed
+          ? _value.orderMode
+          : orderMode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      resetCategory: resetCategory == freezed
+          ? _value.resetCategory
+          : resetCategory // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      enableCall: enableCall == freezed
+          ? _value.enableCall
+          : enableCall // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      payOnCommand: payOnCommand == freezed
+          ? _value.payOnCommand
+          : payOnCommand // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      validatePayment: validatePayment == freezed
+          ? _value.validatePayment
+          : validatePayment // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -147,7 +267,18 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.settings, this.menuList});
+  const _$_Default(
+      {this.isLoading = false,
+      this.settings,
+      this.menuList,
+      this.themeColor,
+      this.menuTitle,
+      this.type,
+      this.orderMode,
+      this.resetCategory,
+      this.enableCall,
+      this.payOnCommand,
+      this.validatePayment});
 
   @JsonKey(defaultValue: false)
   @override
@@ -156,10 +287,26 @@ class _$_Default implements _Default {
   final SettingsResponse? settings;
   @override
   final List<MenuResponse>? menuList;
+  @override
+  final String? themeColor;
+  @override
+  final String? menuTitle;
+  @override
+  final String? type;
+  @override
+  final String? orderMode;
+  @override
+  final bool? resetCategory;
+  @override
+  final bool? enableCall;
+  @override
+  final bool? payOnCommand;
+  @override
+  final bool? validatePayment;
 
   @override
   String toString() {
-    return 'SettingsState(isLoading: $isLoading, settings: $settings, menuList: $menuList)';
+    return 'SettingsState(isLoading: $isLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment)';
   }
 
   @override
@@ -174,7 +321,30 @@ class _$_Default implements _Default {
                     .equals(other.settings, settings)) &&
             (identical(other.menuList, menuList) ||
                 const DeepCollectionEquality()
-                    .equals(other.menuList, menuList)));
+                    .equals(other.menuList, menuList)) &&
+            (identical(other.themeColor, themeColor) ||
+                const DeepCollectionEquality()
+                    .equals(other.themeColor, themeColor)) &&
+            (identical(other.menuTitle, menuTitle) ||
+                const DeepCollectionEquality()
+                    .equals(other.menuTitle, menuTitle)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.orderMode, orderMode) ||
+                const DeepCollectionEquality()
+                    .equals(other.orderMode, orderMode)) &&
+            (identical(other.resetCategory, resetCategory) ||
+                const DeepCollectionEquality()
+                    .equals(other.resetCategory, resetCategory)) &&
+            (identical(other.enableCall, enableCall) ||
+                const DeepCollectionEquality()
+                    .equals(other.enableCall, enableCall)) &&
+            (identical(other.payOnCommand, payOnCommand) ||
+                const DeepCollectionEquality()
+                    .equals(other.payOnCommand, payOnCommand)) &&
+            (identical(other.validatePayment, validatePayment) ||
+                const DeepCollectionEquality()
+                    .equals(other.validatePayment, validatePayment)));
   }
 
   @override
@@ -182,7 +352,15 @@ class _$_Default implements _Default {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(settings) ^
-      const DeepCollectionEquality().hash(menuList);
+      const DeepCollectionEquality().hash(menuList) ^
+      const DeepCollectionEquality().hash(themeColor) ^
+      const DeepCollectionEquality().hash(menuTitle) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(orderMode) ^
+      const DeepCollectionEquality().hash(resetCategory) ^
+      const DeepCollectionEquality().hash(enableCall) ^
+      const DeepCollectionEquality().hash(payOnCommand) ^
+      const DeepCollectionEquality().hash(validatePayment);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +372,15 @@ abstract class _Default implements SettingsState {
   const factory _Default(
       {bool isLoading,
       SettingsResponse? settings,
-      List<MenuResponse>? menuList}) = _$_Default;
+      List<MenuResponse>? menuList,
+      String? themeColor,
+      String? menuTitle,
+      String? type,
+      String? orderMode,
+      bool? resetCategory,
+      bool? enableCall,
+      bool? payOnCommand,
+      bool? validatePayment}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -202,6 +388,22 @@ abstract class _Default implements SettingsState {
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   @override
   List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
+  @override
+  String? get themeColor => throw _privateConstructorUsedError;
+  @override
+  String? get menuTitle => throw _privateConstructorUsedError;
+  @override
+  String? get type => throw _privateConstructorUsedError;
+  @override
+  String? get orderMode => throw _privateConstructorUsedError;
+  @override
+  bool? get resetCategory => throw _privateConstructorUsedError;
+  @override
+  bool? get enableCall => throw _privateConstructorUsedError;
+  @override
+  bool? get payOnCommand => throw _privateConstructorUsedError;
+  @override
+  bool? get validatePayment => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>
