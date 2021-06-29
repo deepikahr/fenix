@@ -23,7 +23,7 @@ class _$SettingsResponseTearOff {
   _SettingsResponse call(
       {TabSettingResponse? tabSetting,
       @JsonKey(name: '_id') String? id,
-      String? franchiseId,
+      FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
       int? tableCapacity,
@@ -54,7 +54,7 @@ mixin _$SettingsResponse {
   TabSettingResponse? get tabSetting => throw _privateConstructorUsedError;
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
-  String? get franchiseId => throw _privateConstructorUsedError;
+  FranchiseModel? get franchiseId => throw _privateConstructorUsedError;
   String? get vendorId => throw _privateConstructorUsedError;
   String? get tableName => throw _privateConstructorUsedError;
   int? get tableCapacity => throw _privateConstructorUsedError;
@@ -75,7 +75,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
   $Res call(
       {TabSettingResponse? tabSetting,
       @JsonKey(name: '_id') String? id,
-      String? franchiseId,
+      FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
       int? tableCapacity,
@@ -83,6 +83,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
       int? franchiseCode});
 
   $TabSettingResponseCopyWith<$Res>? get tabSetting;
+  $FranchiseModelCopyWith<$Res>? get franchiseId;
 }
 
 /// @nodoc
@@ -117,7 +118,7 @@ class _$SettingsResponseCopyWithImpl<$Res>
       franchiseId: franchiseId == freezed
           ? _value.franchiseId
           : franchiseId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as FranchiseModel?,
       vendorId: vendorId == freezed
           ? _value.vendorId
           : vendorId // ignore: cast_nullable_to_non_nullable
@@ -151,6 +152,17 @@ class _$SettingsResponseCopyWithImpl<$Res>
       return _then(_value.copyWith(tabSetting: value));
     });
   }
+
+  @override
+  $FranchiseModelCopyWith<$Res>? get franchiseId {
+    if (_value.franchiseId == null) {
+      return null;
+    }
+
+    return $FranchiseModelCopyWith<$Res>(_value.franchiseId!, (value) {
+      return _then(_value.copyWith(franchiseId: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -163,7 +175,7 @@ abstract class _$SettingsResponseCopyWith<$Res>
   $Res call(
       {TabSettingResponse? tabSetting,
       @JsonKey(name: '_id') String? id,
-      String? franchiseId,
+      FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
       int? tableCapacity,
@@ -172,6 +184,8 @@ abstract class _$SettingsResponseCopyWith<$Res>
 
   @override
   $TabSettingResponseCopyWith<$Res>? get tabSetting;
+  @override
+  $FranchiseModelCopyWith<$Res>? get franchiseId;
 }
 
 /// @nodoc
@@ -208,7 +222,7 @@ class __$SettingsResponseCopyWithImpl<$Res>
       franchiseId: franchiseId == freezed
           ? _value.franchiseId
           : franchiseId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as FranchiseModel?,
       vendorId: vendorId == freezed
           ? _value.vendorId
           : vendorId // ignore: cast_nullable_to_non_nullable
@@ -256,7 +270,7 @@ class _$_SettingsResponse extends _SettingsResponse {
   @JsonKey(name: '_id')
   final String? id;
   @override
-  final String? franchiseId;
+  final FranchiseModel? franchiseId;
   @override
   final String? vendorId;
   @override
@@ -329,7 +343,7 @@ abstract class _SettingsResponse extends SettingsResponse {
   const factory _SettingsResponse(
       {TabSettingResponse? tabSetting,
       @JsonKey(name: '_id') String? id,
-      String? franchiseId,
+      FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
       int? tableCapacity,
@@ -346,7 +360,7 @@ abstract class _SettingsResponse extends SettingsResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   @override
-  String? get franchiseId => throw _privateConstructorUsedError;
+  FranchiseModel? get franchiseId => throw _privateConstructorUsedError;
   @override
   String? get vendorId => throw _privateConstructorUsedError;
   @override

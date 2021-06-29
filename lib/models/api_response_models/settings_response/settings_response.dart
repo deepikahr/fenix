@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/franchise_model/franchise_model.dart';
 import 'package:fenix_user/models/api_response_models/tab_setting_response/tab_setting_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,7 +14,7 @@ class SettingsResponse with BaseModel<SettingsResponse>, _$SettingsResponse {
   const factory SettingsResponse({
     TabSettingResponse?  tabSetting,
     @JsonKey(name: '_id') String? id,
-    String? franchiseId,
+    FranchiseModel? franchiseId,
     String? vendorId,
     String? tableName,
     int? tableCapacity,

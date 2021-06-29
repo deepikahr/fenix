@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
@@ -30,40 +31,84 @@ class DB {
     await box.putAll({'token': token, 'role': role, 'id': id, 'franchiseId': franchiseId, 'vendorId': vendorId});
   }
 
-  String getToken() {
+  bool isLoggedIn() {
+    final db = DB();
+    final output = db.getToken() != null ? true : false;
+    return output;
+  }
+
+  String? getToken() {
     final box = Hive.box('user');
-    String token = box.get('token');
+    String? token = box.get('token');
     return token;
   }
 
-  String getRole() {
+  String? getRole() {
     final box = Hive.box('user');
-    String role = box.get('role');
+    String? role = box.get('role');
     return role;
   }
 
-  String getId() {
+  String? getId() {
     final box = Hive.box('user');
-    String id = box.get('id');
+    String? id = box.get('id');
     return id;
   }
 
-  String getFranchiseId() {
+  String? getFranchiseId() {
     final box = Hive.box('user');
-    String franchiseId = box.get('franchiseId');
+    String? franchiseId = box.get('franchiseId');
     return franchiseId;
   }
 
-  String getVendorId() {
+  String? getVendorId() {
     final box = Hive.box('user');
-    String vendorId = box.get('vendorId');
+    String? vendorId = box.get('vendorId');
     return vendorId;
   }
 
-  String getMenuId() {
+  void saveMenuId(menuId) {
     final box = Hive.box('user');
-    String menuId = box.get('menuId');
+    box.put('menuId', menuId);
+  }
+
+  String? getMenuId() {
+    final box = Hive.box('user');
+    String? menuId = box.get('menuId');
     return menuId;
+  }
+
+  void saveMenuName(menuName) {
+    final box = Hive.box('user');
+    box.put('menuName', menuName);
+  }
+
+  String? getMenuName() {
+    final box = Hive.box('user');
+    String? menuName = box.get('menuName');
+    return menuName;
+  }
+
+  void saveThemeColor(themeColor) {
+    final box = Hive.box('user');
+    box.put('themeColor', themeColor);
+  }
+
+  String? getThemeColor() {
+    final box = Hive.box('user');
+    String? themeColor = box.get('themeColor');
+    return themeColor;
+  }
+
+  void saveType(type) {
+    final box = Hive.box('user');
+    box.put('type', type);
+  }
+
+  String? getType() {
+    final box = Hive.box('user');
+    String? type = box.get('type');
+    return type;
   }
 
   Future<void> logOut() async {

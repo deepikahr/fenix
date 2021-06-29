@@ -81,7 +81,7 @@ class HomeTabs extends HookWidget {
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: 'PEDIR',
         color: Colors.grey,
-        selectedColor: Colors.red,
+        selectedColor: primary,
         notchedShape: CircularNotchedRectangle(),
         onTabSelected: (index) async {
           context.read(homeTabsProvider.notifier).onPageChanged(index);

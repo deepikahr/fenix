@@ -118,7 +118,7 @@ class LoginPage extends HookWidget {
                 passwordEditController.text,
               );
               if (response != null) {
-                  await Get.offAll(() => HomeTabs());
+                  await Get.offAll(() => Settings());
               }
             }
           }),
