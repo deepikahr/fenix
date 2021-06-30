@@ -385,11 +385,11 @@ Widget dishesInfoCard(
                   Stack(
                     children: [
                       product.productImage!.imageUrl != null ?
-                      networkImage(product.productImage!.imageUrl!, 111, 109, 4) :
+                      networkImage(product.productImage!.imageUrl!,  111, 109, 4) :
                       Container(
                           child: Image.asset(
                             'lib/assets/images/refer.png',
-                            width: MediaQuery.of(context).size.width,
+                            width: 111,
                             height: 109,
                             fit: BoxFit.cover,
                           )),

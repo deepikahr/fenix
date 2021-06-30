@@ -106,7 +106,8 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     );
 
     final response = await api.settingUpdate(SettingsUpdateRequest(tabSetting: tabSetting));
-    db.getThemeColor();
+    db.saveThemeColor(themeColour);
+    db.saveType(viewType);
     state = state.copyWith.call(isLoading: false);
 
     return response;

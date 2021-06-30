@@ -12,9 +12,12 @@ class VariantResponse with BaseModel<VariantResponse>, _$VariantResponse {
   const VariantResponse._();
 
   const factory VariantResponse({
-  int? price,
-  String? sizeName,
-  bool? isDefaultVariant
+    @JsonKey(name: '_id') String? id,
+    String? size,
+    int? price,
+    String? sizeName,
+    bool? isDefaultVariant,
+    bool? outOfStock
   }) =
   _VariantResponse;
 

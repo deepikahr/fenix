@@ -21,5 +21,4 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
     );
   }
 
-
 }

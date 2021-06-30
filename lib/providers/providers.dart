@@ -9,6 +9,8 @@ import 'package:fenix_user/screens/home/home_tabs/homeTabsState.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsStateNotifier.dart';
 import 'package:fenix_user/screens/others/settings/settingsState.dart';
 import 'package:fenix_user/screens/others/settings/settingsStateNotifier.dart';
+import 'package:fenix_user/screens/product/product_details/productDetailsState.dart';
+import 'package:fenix_user/screens/product/product_details/productDetailsStateNotifier.dart';
 import 'package:fenix_user/screens/product/product_list/productListState.dart';
 import 'package:fenix_user/screens/product/product_list/productListStateNotifier.dart';
 import 'package:hive/hive.dart';
@@ -57,4 +59,11 @@ StateNotifierProvider.autoDispose<ProductListStateNotifier, ProductListState>((r
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return ProductListStateNotifier(api, db);
+});
+
+final productDetailsProvider =
+StateNotifierProvider.autoDispose<ProductDetailsStateNotifier, ProductDetailsState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return ProductDetailsStateNotifier(api, db);
 });

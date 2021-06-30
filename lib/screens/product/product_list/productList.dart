@@ -91,6 +91,7 @@ class ProductList extends HookWidget {
           itemBuilder: (context, index) => InkWell(
               onTap: () {
                 Get.to(() => ProductDetails(
+                  productId: product[index].id,
                 ));
               },
               child: dishesInfoCard(context, product[index])),
@@ -106,11 +107,11 @@ class ProductList extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 563),
+            childAspectRatio: MediaQuery.of(context).size.width / 503),
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Get.to(() => ProductDetails());
+              Get.to(() => ProductDetails( productId: product[index].id,));
             },
             child: gridDishCard(context, product[index])
           );

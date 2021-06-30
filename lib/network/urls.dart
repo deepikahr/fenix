@@ -8,5 +8,6 @@ class URL {
   static const SETTINGS_UPDATE = '/users/update/tabSetting/';
   static const MENU_DROPDOWN = '/menu/user/drop-down/';
   static const PRODUCT_LIST = '/products/list/';
+  static const PRODUCT_DETAILS = '/products/detail/';
 
 }
