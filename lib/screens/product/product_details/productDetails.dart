@@ -7,6 +7,7 @@ import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
+import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/network_image.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class ProductDetails extends HookWidget {
         body: Stack(
           children: [
             if(!state.isLoading)
-              productData(context, state.productDetails!, state),
+              productData(context, state.productDetails!, state, notifier),
             if(state.isLoading)
               GFLoader()
           ],
@@ -56,7 +57,7 @@ class ProductDetails extends HookWidget {
     );
   }
 
-  Widget productData(BuildContext context, ProductDetailsResponse product, state){
+  Widget productData(BuildContext context, ProductDetailsResponse product, state, notifier){
     return ListView(
       children: [
         Container(
@@ -131,6 +132,26 @@ class ProductDetails extends HookWidget {
                     style: textDarkRegularBS(context),
                   ),
                   Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: custombuttonsm(
+                      context,
+                      'ADD',
+                          () async {
+                            // if(addOnCategory.isRequired! && (state.selectedAddOnItems!.contains(addOnItem))){
+                            //
+                            // }
+                        await notifier.saveCart(
+                          context,
+                          state.selectedAddOnItems,
+                          state.productDetails!.variants[state.groupValue],
+                          state.productDetails!,
+                          productId,
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
                       decoration: BoxDecoration(
                           color: white,
                           // border: Border.all(
@@ -187,83 +208,12 @@ class ProductDetails extends HookWidget {
                   state.productDetails?.addOnItems ?? [],
                   state.selectedAddOnItems,
                   state),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      GFCheckbox(
-                        size: 20,
-                        activeBgColor: GFColors.DANGER,
-                        onChanged: (value) {
-                          // setState(() {
-                          //   isChecked = value;
-                          // }
-                          // );
-                        },
-                        value: isChecked,
-                      ),
-                      SizedBox(width: 4),
-                      Text('Extra de patatas',
-                          style: textDarkRegularBR(context)),
-                    ],
-                  ),
-                  Text('1,0€', style: textBlackLargeBM(context)),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: white,
-                          // border: Border.all(
-                          //     color: grey.shade300, width: 1),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            // onTap: onRemove,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: 25,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                      color: white,
-                                      border: Border.all(color: dark, width: 1),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: dark,
-                                  ),
-                                ),
-                              )),
-                          Text('12', style: textBlackLargeBM(context)),
-                          InkWell(
-                            // onTap: onUpdate,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 25,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                    color: white,
-                                    border:
-                                    Border.all(color: dark, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(50)),
-                                child: Icon(
-                                  Icons.add,
-                                  color: dark,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
-                ],
-              ),
             ],
           ),
         ),
-        Center(
+        Container(
+          alignment: AlignmentDirectional.center,
+          padding: EdgeInsets.only(bottom: 16),
             child: Text('TOTAL + EXTRAS 10,50€',
                 style: textBlackLargeBM(context))),
       ],
@@ -349,22 +299,22 @@ class ProductDetails extends HookWidget {
     );
   }
 
-  Widget optionBlockExtra(List<AddOnCategory> categoryList,
+  Widget optionBlockExtra(List<AddOnCategory> addOnCategory,
       Set<AddOnItem>? selectedAddOnItems, state) {
     return Container(
       child: ListView.builder(
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: categoryList.length,
+          itemCount: addOnCategory.length,
           itemBuilder: (BuildContext context, int index) {
-            final addOnItems = categoryList[index].addOnItems;
+            final addOnItems = addOnCategory[index].addOnItems;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 titleTextDark17RegularBR(
                   context,
-                  categoryList[index].addOnCategoryName,
+                  addOnCategory[index].addOnCategoryName,
                 ),
                 ListView.builder(
                     physics: ScrollPhysics(),
@@ -377,7 +327,7 @@ class ProductDetails extends HookWidget {
                         contentPadding: EdgeInsets.zero,
                         controlAffinity: ListTileControlAffinity.leading,
                         activeColor: green,
-                        value: false,
+                        value: selectedAddOnItems!.contains(addOnItems[i]),
                         title: Row(
                           children: [
                             Text('${addOnItems[i].addOnItemName} - ',
@@ -387,9 +337,14 @@ class ProductDetails extends HookWidget {
                         ),
                         onChanged: (value) {
                           if (value!) {
+                            if(addOnCategory[index].selectionType! == 'SINGLE_SELECT'){
+                              if(state.selectedAddOnItems!.contains(addOnItems)){
+
+                              }
+                            }
                             context
                                 .read(productDetailsProvider.notifier)
-                                .addSelectedAddOnItem(addOnItems[i]);
+                                .addSelectedAddOnItem(addOnItems[i], addOnCategory[index]);
                           } else {
                             context
                                 .read(productDetailsProvider.notifier)
