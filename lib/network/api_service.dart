@@ -6,6 +6,7 @@ import 'package:fenix_user/models/api_response_models/home_response/home_respons
 import 'package:fenix_user/models/api_response_models/login_verify_response/login_verify_response.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
+import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fenix_user/models/api_response_model.dart';
@@ -113,6 +114,19 @@ class API {
     return _api.get(
       URL.PRODUCT_LIST + '$categoryId',
       resModel: ProductDataResponse(),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+    );
+  }
+
+  Future<ProductDetailsResponse?> productDetails(String? productId,
+      {ValueSetter<ErrorResponse>? errorListener,
+        ValueSetter<ApiResponse<ProductDetailsResponse>>? responseListener,
+        bool autoErrorHandle = true}) async {
+    return _api.get(
+      URL.PRODUCT_DETAILS + '$productId',
+      resModel: ProductDetailsResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,

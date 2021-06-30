@@ -21,11 +21,19 @@ class _$VariantResponseTearOff {
   const _$VariantResponseTearOff();
 
   _VariantResponse call(
-      {int? price, String? sizeName, bool? isDefaultVariant}) {
+      {@JsonKey(name: '_id') String? id,
+      String? size,
+      int? price,
+      String? sizeName,
+      bool? isDefaultVariant,
+      bool? outOfStock}) {
     return _VariantResponse(
+      id: id,
+      size: size,
       price: price,
       sizeName: sizeName,
       isDefaultVariant: isDefaultVariant,
+      outOfStock: outOfStock,
     );
   }
 
@@ -39,9 +47,13 @@ const $VariantResponse = _$VariantResponseTearOff();
 
 /// @nodoc
 mixin _$VariantResponse {
+  @JsonKey(name: '_id')
+  String? get id => throw _privateConstructorUsedError;
+  String? get size => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   bool? get isDefaultVariant => throw _privateConstructorUsedError;
+  bool? get outOfStock => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +66,13 @@ abstract class $VariantResponseCopyWith<$Res> {
   factory $VariantResponseCopyWith(
           VariantResponse value, $Res Function(VariantResponse) then) =
       _$VariantResponseCopyWithImpl<$Res>;
-  $Res call({int? price, String? sizeName, bool? isDefaultVariant});
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      String? size,
+      int? price,
+      String? sizeName,
+      bool? isDefaultVariant,
+      bool? outOfStock});
 }
 
 /// @nodoc
@@ -68,11 +86,22 @@ class _$VariantResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
+    Object? size = freezed,
     Object? price = freezed,
     Object? sizeName = freezed,
     Object? isDefaultVariant = freezed,
+    Object? outOfStock = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      size: size == freezed
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -85,6 +114,10 @@ class _$VariantResponseCopyWithImpl<$Res>
           ? _value.isDefaultVariant
           : isDefaultVariant // ignore: cast_nullable_to_non_nullable
               as bool?,
+      outOfStock: outOfStock == freezed
+          ? _value.outOfStock
+          : outOfStock // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -96,7 +129,13 @@ abstract class _$VariantResponseCopyWith<$Res>
           _VariantResponse value, $Res Function(_VariantResponse) then) =
       __$VariantResponseCopyWithImpl<$Res>;
   @override
-  $Res call({int? price, String? sizeName, bool? isDefaultVariant});
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      String? size,
+      int? price,
+      String? sizeName,
+      bool? isDefaultVariant,
+      bool? outOfStock});
 }
 
 /// @nodoc
@@ -112,11 +151,22 @@ class __$VariantResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
+    Object? size = freezed,
     Object? price = freezed,
     Object? sizeName = freezed,
     Object? isDefaultVariant = freezed,
+    Object? outOfStock = freezed,
   }) {
     return _then(_VariantResponse(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      size: size == freezed
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -129,6 +179,10 @@ class __$VariantResponseCopyWithImpl<$Res>
           ? _value.isDefaultVariant
           : isDefaultVariant // ignore: cast_nullable_to_non_nullable
               as bool?,
+      outOfStock: outOfStock == freezed
+          ? _value.outOfStock
+          : outOfStock // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -136,28 +190,45 @@ class __$VariantResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VariantResponse extends _VariantResponse {
-  const _$_VariantResponse({this.price, this.sizeName, this.isDefaultVariant})
+  const _$_VariantResponse(
+      {@JsonKey(name: '_id') this.id,
+      this.size,
+      this.price,
+      this.sizeName,
+      this.isDefaultVariant,
+      this.outOfStock})
       : super._();
 
   factory _$_VariantResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_VariantResponseFromJson(json);
 
   @override
+  @JsonKey(name: '_id')
+  final String? id;
+  @override
+  final String? size;
+  @override
   final int? price;
   @override
   final String? sizeName;
   @override
   final bool? isDefaultVariant;
+  @override
+  final bool? outOfStock;
 
   @override
   String toString() {
-    return 'VariantResponse(price: $price, sizeName: $sizeName, isDefaultVariant: $isDefaultVariant)';
+    return 'VariantResponse(id: $id, size: $size, price: $price, sizeName: $sizeName, isDefaultVariant: $isDefaultVariant, outOfStock: $outOfStock)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _VariantResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.size, size) ||
+                const DeepCollectionEquality().equals(other.size, size)) &&
             (identical(other.price, price) ||
                 const DeepCollectionEquality().equals(other.price, price)) &&
             (identical(other.sizeName, sizeName) ||
@@ -165,15 +236,21 @@ class _$_VariantResponse extends _VariantResponse {
                     .equals(other.sizeName, sizeName)) &&
             (identical(other.isDefaultVariant, isDefaultVariant) ||
                 const DeepCollectionEquality()
-                    .equals(other.isDefaultVariant, isDefaultVariant)));
+                    .equals(other.isDefaultVariant, isDefaultVariant)) &&
+            (identical(other.outOfStock, outOfStock) ||
+                const DeepCollectionEquality()
+                    .equals(other.outOfStock, outOfStock)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(size) ^
       const DeepCollectionEquality().hash(price) ^
       const DeepCollectionEquality().hash(sizeName) ^
-      const DeepCollectionEquality().hash(isDefaultVariant);
+      const DeepCollectionEquality().hash(isDefaultVariant) ^
+      const DeepCollectionEquality().hash(outOfStock);
 
   @JsonKey(ignore: true)
   @override
@@ -188,20 +265,30 @@ class _$_VariantResponse extends _VariantResponse {
 
 abstract class _VariantResponse extends VariantResponse {
   const factory _VariantResponse(
-      {int? price,
+      {@JsonKey(name: '_id') String? id,
+      String? size,
+      int? price,
       String? sizeName,
-      bool? isDefaultVariant}) = _$_VariantResponse;
+      bool? isDefaultVariant,
+      bool? outOfStock}) = _$_VariantResponse;
   const _VariantResponse._() : super._();
 
   factory _VariantResponse.fromJson(Map<String, dynamic> json) =
       _$_VariantResponse.fromJson;
 
   @override
+  @JsonKey(name: '_id')
+  String? get id => throw _privateConstructorUsedError;
+  @override
+  String? get size => throw _privateConstructorUsedError;
+  @override
   int? get price => throw _privateConstructorUsedError;
   @override
   String? get sizeName => throw _privateConstructorUsedError;
   @override
   bool? get isDefaultVariant => throw _privateConstructorUsedError;
+  @override
+  bool? get outOfStock => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$VariantResponseCopyWith<_VariantResponse> get copyWith =>
