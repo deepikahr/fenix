@@ -8,7 +8,7 @@ import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class OrdersList extends HookWidget {
+class CartScreen extends HookWidget {
   final List<String> items = <String>[
     "red",
     "blue",

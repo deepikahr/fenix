@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
 import 'package:fenix_user/models/api_response_models/product_model/product_model.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,6 +12,8 @@ class ProductListState with _$ProductListState {
     String? categoryTitle,
     ProductModel? productData,
     List<ProductResponse>? products,
-    int? productTotal
+    int? productTotal,
+    Set<AddOnItem>? selectedAddOnItems,
+    @Default(0) int groupValue,
   }) = _Default;
 }

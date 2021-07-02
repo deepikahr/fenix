@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/network/api_service.dart';
+import 'package:fenix_user/providers/cart_notifier.dart';
+import 'package:fenix_user/screens/others/cart/cart.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +21,13 @@ import 'package:get/get.dart';
 class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
   final API api;
   final DB db;
+  final CartNotifier cartState;
+  Cart? get cartData {
+    return cartState.state;
+  }
 
-  ProductDetailsStateNotifier(this.api, this.db) :
-        super(ProductDetailsState(isLoading: true, selectedAddOnItems: <AddOnItem>{}));
+  ProductDetailsStateNotifier(this.api, this.db, this.cartState)
+      : super(ProductDetailsState(selectedAddOnItems: <AddOnItem>{}));
 
   Future<void> fetchProductDetails(String productId) async {
     state = state.copyWith.call(isLoading: true);
@@ -52,8 +61,9 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       ProductDetailsResponse productDetails,
       String productId,
       ) async {
-    // Cart? cart = Cart();
-printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
+    Cart? cart = Cart();
+
+    printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
 
     var addOnItemsPrice = .0;
     if (selectedAddOnItems!.isNotEmpty) {
@@ -65,39 +75,39 @@ printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
     }
     final totalPrice = selectedVariant.price! + addOnItemsPrice;
 
-    // final product = ProductResponse(
-    //   id: productId,
-    //   productName: productDetails.productName,
-    //   productImage: productDetails.productImage,
-    //   franchiseName: productDetails.franchiseName,
-    //   averageRating: productDetails.averageRating,
-    //   franchiseId: productDetails.franchiseId,
-    //   categoryId: productDetails.categoryId,
-    //   vendorId: productDetails.vendorId,
-    //   restaurantName: productDetails.restaurantName,
-    //   discount: productDetails.discount,
-    //   isVeg: productDetails.isVeg,
-    //   description: productDetails.description,
-    //   sizeName: selectedVariant.sizeName,
-    //   sellingPrice: selectedVariant.price ?? 0,
-    //   originalPrice: selectedVariant.price ?? 0,
-    //   totalProductPrice: totalPrice,
-    //   addOnItems: selectedAddOnItems.toList(),
-    //   preparationTime: productDetails.preparationTime,
-    //   quantity: 1,
-    //   productId: productId,
-    //   isLastVeriant: true,
-    // );
+    final product = ProductResponse(
+      id: productId,
+      productName: productDetails.productName,
+      productImage: productDetails.productImage,
+      franchiseName: productDetails.franchiseName,
+      averageRating: productDetails.averageRating!,
+      franchiseId: productDetails.franchiseId,
+      categoryId: productDetails.category,
+      vendorId: productDetails.vendorId,
+      restaurantName: productDetails.franchiseName,
+      discount: productDetails.offerPercentage!,
+      isVeg: productDetails.isVeg,
+      description: productDetails.productDescription,
+      sizeName: selectedVariant.sizeName,
+      sellingPrice: selectedVariant.price ?? 0,
+      originalPrice: selectedVariant.price ?? 0,
+      totalProductPrice: totalPrice,
+      addOnItems: selectedAddOnItems.toList(),
+      // preparationTime: productDetails.preparationTime,
+      quantity: 1,
+      productId: productId,
+      isLastVeriant: true,
+    );
 
-    // if (cartData == null) {
-    //   cart = cart.copyWith.call(
-    //     franchiseId: product.franchiseId,
-    //     franchiseName: product.franchiseName,
-    //     preparationTime: product.preparationTime,
-    //     vendorId: product.vendorId,
-    //     restaurantName: product.restaurantName,
-    //   );
-    //
+    if (cartData == null) {
+      cart = cart.copyWith.call(
+        franchiseId: product.franchiseId,
+        franchiseName: product.franchiseName,
+        preparationTime: product.preparationTime,
+        vendorId: product.vendorId,
+        restaurantName: product.restaurantName,
+      );
+
     //   cart = cart.copyWith(products: [
     //     product,
     //     ...cart.products,
@@ -109,15 +119,15 @@ printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
     //
     //   await cartState.updateCart(cart);
     //   Timer(Duration(seconds: 1), () async {
-    //     if (type == 'ADDTOCART') {
+    //     // if (type == 'ADDTOCART') {
+    //     //   Get.back();
+    //     //   Get.back();
+    //     // } else {
     //       Get.back();
-    //       Get.back();
-    //     } else {
-    //       Get.back();
-    //       // await Get.to(() => CartScreen(
-    //       //   backButton: true,
-    //       // ));
-    //     }
+    //       await Get.to(() => CartScreen(
+    //         // backButton: true,
+    //       ));
+    //     // }
     //   });
     //   await showDialog(
     //     barrierColor: secondary,
@@ -167,8 +177,8 @@ printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
     //     cart = cartData?.copyWith(products: [
     //       product.copyWith.call(
     //         sizeName: selectedVariant.sizeName,
-    //         sellingPrice: selectedVariant.price ?? 0,
-    //         originalPrice: selectedVariant.price ?? 0,
+    //         sellingPrice: selectedVariant.price!.toDouble(),
+    //         originalPrice: selectedVariant.price!.toDouble(),
     //         totalProductPrice: totalProductPrice,
     //         addOnItems: selectedAddOnItems.toList(),
     //       ),
@@ -194,15 +204,14 @@ printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
     //
     //   await cartState.updateCart(cart);
     //   Timer(Duration(seconds: 1), () async {
-    //     if (type == 'ADDTOCART') {
-    //       Get.back();
-    //       Get.back();
-    //     } else {
+    //     // if (type == 'ADDTOCART') {
+    //     //   Get.back();
+    //     //   Get.back();
+    //     // } else {
     //       Get.back();
     //       await Get.to(() => CartScreen(
-    //         backButton: true,
     //       ));
-    //     }
+    //     // }
     //   });
     //   await showDialog(
     //     barrierColor: secondary,
@@ -218,18 +227,18 @@ printWrapped('zzzzzzz $selectedAddOnItems $selectedVariant ');
     //           null);
     //     },
     //   );
-    // } else {
-    //   await customDialog(
-    //     status: DIALOG_STATUS.WARNING,
-    //     title:
-    //     '${'SOME_PRODUCTS_ARE_ALREADY_ADDED_IN'} ${cartData?.franchiseName} ${'FIRST_CLEAN_YOUR_CART'}',
-    //     textConfirm: 'CLEAN_CART',
-    //     onConfirmListener: () {
-    //       cartState.deleteCart();
-    //       Get.back();
-    //     },
-    //   );
-    // }
+    } else {
+      await customDialog(
+        status: DIALOG_STATUS.WARNING,
+        title:
+        '${'SOME_PRODUCTS_ARE_ALREADY_ADDED_IN'} ${cartData?.franchiseName} ${'FIRST_CLEAN_YOUR_CART'}',
+        textConfirm: 'CLEAN_CART',
+        onConfirmListener: () {
+          cartState.deleteCart();
+          Get.back();
+        },
+      );
+    }
   }
 
 }

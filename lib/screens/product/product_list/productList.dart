@@ -1,4 +1,5 @@
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -32,6 +33,7 @@ class ProductList extends HookWidget {
     final state = useProvider(productListProvider);
     final notifier = useProvider(productListProvider.notifier);
     final isMounted = useIsMounted();
+    final cart = useProvider(cartProvider);
 
     useEffect(() {
       if (isMounted()) {
@@ -59,8 +61,8 @@ class ProductList extends HookWidget {
               SizedBox(height: 10),
               if ((state.products?.length ?? 0) > 0)
               db.getType() == 'list' ?
-              productList(state.products!) :
-              productListGrid(context, state.products!),
+              productList(state.products!, notifier, state, cart) :
+              productListGrid(context, state.products!, notifier, state, cart),
             ],
           ),
           if(state.isLoading)
@@ -83,7 +85,7 @@ class ProductList extends HookWidget {
     ],
   );
 
-  Widget productList(List<ProductResponse>? product) =>
+  Widget productList(List<ProductResponse>? product, notifier, state, Cart? cart) =>
       ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -94,11 +96,50 @@ class ProductList extends HookWidget {
                   productId: product[index].id,
                 ));
               },
-              child: dishesInfoCard(context, product[index])),
+              child: dishesInfoCard(context, product[index], notifier, state,  () async {
+                if (product[index].isCustomization) {
+                  await Get.to(() => ProductDetails(
+                    productId: product[index].id!,
+                  ));
+                  notifier.updateQuantity();
+                } else {
+                  await notifier.findLastUpdateProduct(
+                    product[index],
+                    true,
+                    product[index].restaurantName,
+                  );
+                }
+              },
+                    () async {
+                  if (product[index].isCustomization) {
+                    await showDialog(
+                        context: context,
+                        builder: (context) =>
+                            showPopUp(context, product[index], () async {
+                              Get.back();
+                              await notifier.findLastUpdateProduct(
+                                  product[index], true, product[index].restaurantName);
+                            }, cart));
+                  } else {
+                    await notifier.findLastUpdateProduct(
+                        product[index], true, product[index].restaurantName);
+                  }
+                },
+                    () {
+                  if (product[index].isSameProductMultipleTime == true) {
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            showMulitipleTimeProductPopUp(context, cart));
+                  } else {
+                    notifier.updateProductsQuantity(product[index], false);
+                  }
+                },
+              )),
       );
 
   Widget productListGrid(
-      BuildContext context, List<ProductResponse>? product) =>
+      BuildContext context, List<ProductResponse>? product, notifier, state, Cart? cart) =>
       GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -113,8 +154,122 @@ class ProductList extends HookWidget {
             onTap: () {
               Get.to(() => ProductDetails( productId: product[index].id,));
             },
-            child: gridDishCard(context, product[index])
+            child: gridDishCard(context, product[index], notifier, state)
           );
         },
       );
+
+
+  Widget showMulitipleTimeProductPopUp(BuildContext context, Cart? cart) {
+    return Dialog(
+      child: Container(
+        height: 165,
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${'MULTIPLE_SAME_PRODUCTS_IN_CART'.tr}',
+              style: textBlackLargeBM(context),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                    child: GFButton(
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: primary,
+                      type: GFButtonType.outline,
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        'CANCEL'.tr.toUpperCase(),
+                        style: textPrimarySmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                    child: GFButton(
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: GFColors.DARK,
+                      type: GFButtonType.outline,
+                      onPressed: () async {
+                        Get.back();
+                        // await Get.to(() => CartScreen(backButton: true));
+                        context.read(productListProvider.notifier).updateQuantity();
+                      },
+                      child: Text(
+                        'CART'.tr.toUpperCase(),
+                        style: textBlackSmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget showPopUp(
+      BuildContext context, ProductResponse product, Function() onRepeat, Cart? cart) {
+    return Dialog(
+      child: Container(
+        height: 165,
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${'HOW_YOU_LIKE_TO_CUSTOMIZE_?'.tr}',
+              style: textBlackLargeBM(context),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                    child: GFButton(
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: primary,
+                      type: GFButtonType.outline,
+                      onPressed: onRepeat,
+                      child: Text(
+                        'REPEAT_LAST'.tr.toUpperCase(),
+                        style: textPrimarySmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+                SizedBox(width: 10),
+                Expanded(
+                    child: GFButton(
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: GFColors.DARK,
+                      type: GFButtonType.outline,
+                      onPressed: () async {
+                        Get.back();
+                        await Get.to(() => ProductDetails(productId: product.id!));
+                        context.read(productListProvider.notifier).updateQuantity();
+                      },
+                      child: Text(
+                        'NEW'.tr.toUpperCase(),
+                        style: textBlackSmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+
 }

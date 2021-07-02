@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'ordersState.dart';
+part of 'cartState.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$OrdersStateTearOff {
-  const _$OrdersStateTearOff();
+class _$CartScreenStateTearOff {
+  const _$CartScreenStateTearOff();
 
   _Default call({bool isLoading = false}) {
     return _Default(
@@ -24,32 +24,33 @@ class _$OrdersStateTearOff {
 }
 
 /// @nodoc
-const $OrdersState = _$OrdersStateTearOff();
+const $CartScreenState = _$CartScreenStateTearOff();
 
 /// @nodoc
-mixin _$OrdersState {
+mixin _$CartScreenState {
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $OrdersStateCopyWith<OrdersState> get copyWith =>
+  $CartScreenStateCopyWith<CartScreenState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OrdersStateCopyWith<$Res> {
-  factory $OrdersStateCopyWith(
-          OrdersState value, $Res Function(OrdersState) then) =
-      _$OrdersStateCopyWithImpl<$Res>;
+abstract class $CartScreenStateCopyWith<$Res> {
+  factory $CartScreenStateCopyWith(
+          CartScreenState value, $Res Function(CartScreenState) then) =
+      _$CartScreenStateCopyWithImpl<$Res>;
   $Res call({bool isLoading});
 }
 
 /// @nodoc
-class _$OrdersStateCopyWithImpl<$Res> implements $OrdersStateCopyWith<$Res> {
-  _$OrdersStateCopyWithImpl(this._value, this._then);
+class _$CartScreenStateCopyWithImpl<$Res>
+    implements $CartScreenStateCopyWith<$Res> {
+  _$CartScreenStateCopyWithImpl(this._value, this._then);
 
-  final OrdersState _value;
+  final CartScreenState _value;
   // ignore: unused_field
-  final $Res Function(OrdersState) _then;
+  final $Res Function(CartScreenState) _then;
 
   @override
   $Res call({
@@ -65,7 +66,8 @@ class _$OrdersStateCopyWithImpl<$Res> implements $OrdersStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DefaultCopyWith<$Res> implements $OrdersStateCopyWith<$Res> {
+abstract class _$DefaultCopyWith<$Res>
+    implements $CartScreenStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
@@ -73,7 +75,7 @@ abstract class _$DefaultCopyWith<$Res> implements $OrdersStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$DefaultCopyWithImpl<$Res> extends _$OrdersStateCopyWithImpl<$Res>
+class __$DefaultCopyWithImpl<$Res> extends _$CartScreenStateCopyWithImpl<$Res>
     implements _$DefaultCopyWith<$Res> {
   __$DefaultCopyWithImpl(_Default _value, $Res Function(_Default) _then)
       : super(_value, (v) => _then(v as _Default));
@@ -105,7 +107,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'OrdersState(isLoading: $isLoading)';
+    return 'CartScreenState(isLoading: $isLoading)';
   }
 
   @override
@@ -127,7 +129,7 @@ class _$_Default implements _Default {
       __$DefaultCopyWithImpl<_Default>(this, _$identity);
 }
 
-abstract class _Default implements OrdersState {
+abstract class _Default implements CartScreenState {
   const factory _Default({bool isLoading}) = _$_Default;
 
   @override

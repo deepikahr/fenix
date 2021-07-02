@@ -12,6 +12,7 @@ import 'package:fenix_user/widgets/network_image.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 
@@ -122,8 +123,8 @@ class ProductDetails extends HookWidget {
               SizedBox(
                 height: 6,
               ),
-              titleTextDarkLightSmallBR(context, '${product.productDescription}'),
-
+              // titleTextDarkLightSmallBR(context, '${product.productDescription}'),
+              HtmlWidget(product.productDescription!, textStyle: textDarkLightSmallBR(context),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -1,6 +1,8 @@
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
 import 'buttons.dart';
@@ -365,7 +367,10 @@ Widget restaurantInfoCardGrid(
 }
 
 Widget dishesInfoCard(
-  BuildContext context, ProductResponse product
+  BuildContext context, ProductResponse product, notifier, state,
+    void Function()? onAdd,
+    void Function()? onUpdate,
+    void Function()? onRemove,
 ) {
   return Container(
     // padding: EdgeInsets.only(left: 16, right: 16),
@@ -427,8 +432,8 @@ Widget dishesInfoCard(
                   SizedBox(
                     height: 6,
                   ),
-                  titleTextDarkLightSmallBR(context, '${product.productDescription}'),
-
+                  // titleTextDarkLightSmallBR(context, '${product.productDescription}'),
+                  HtmlWidget(product.productDescription!, textStyle: textDarkLightSmallBR(context),),
                   SizedBox(
                     height: 6,
                   ),
@@ -456,62 +461,75 @@ Widget dishesInfoCard(
                         ),
                       ),
                       Container(
-                          // width: 97,
-                          // height: 38,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: white,
-                                  // border: Border.all(
-                                  //     color: grey.shade300, width: 1),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                      onTap: (){},
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: 35,
-                                          height: 35,
-                                          decoration: BoxDecoration(
-                                              color: white,
-                                              border: Border.all(
-                                                  color: dark, width: 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: dark,
-                                          ),
-                                        ),
-                                      )),
-                                  Text('1',
-                                      style: textBlackLargeBM(context)),
-                                  InkWell(
-                                    onTap: (){},
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 35,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                            color: white,
-                                            border: Border.all(
-                                                color: dark, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: dark,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ))
-                          ),
+                        color: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: custombuttonsm(
+                          context,
+                          'ADD',
+                              () async {
+                            await notifier.saveCart(
+                              context,
+                              state.selectedAddOnItems,
+                              state.product!.variants[state.groupValue],
+                              product,
+                              product.id,
+                            );
+                          },
+                        ),
+                      ),
+                      // Container(
+                      //     child: Container(
+                      //         decoration: BoxDecoration(
+                      //             color: white,
+                      //             borderRadius: BorderRadius.circular(5)),
+                      //         child: Row(
+                      //           mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //           children: [
+                      //             InkWell(
+                      //                 onTap: (){},
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.all(8.0),
+                      //                   child: Container(
+                      //                     width: 35,
+                      //                     height: 35,
+                      //                     decoration: BoxDecoration(
+                      //                         color: white,
+                      //                         border: Border.all(
+                      //                             color: dark, width: 1),
+                      //                         borderRadius:
+                      //                             BorderRadius.circular(50)),
+                      //                     child: Icon(
+                      //                       Icons.remove,
+                      //                       color: dark,
+                      //                     ),
+                      //                   ),
+                      //                 )),
+                      //             Text('1',
+                      //                 style: textBlackLargeBM(context)),
+                      //             InkWell(
+                      //               onTap: (){},
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.all(8.0),
+                      //                 child: Container(
+                      //                   width: 35,
+                      //                   height: 35,
+                      //                   decoration: BoxDecoration(
+                      //                       color: white,
+                      //                       border: Border.all(
+                      //                           color: dark, width: 1),
+                      //                       borderRadius:
+                      //                           BorderRadius.circular(50)),
+                      //                   child: Icon(
+                      //                     Icons.add,
+                      //                     color: dark,
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ))
+                      //     ),
                     ],
                   ),
                 ],
@@ -1324,7 +1342,7 @@ Widget walletCard(BuildContext context, text1, text2, image, onTap) {
   );
 }
 
-Widget gridDishCard(BuildContext context, ProductResponse product){
+Widget gridDishCard(BuildContext context, ProductResponse product, notifier, state){
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
     decoration: BoxDecoration(
@@ -1411,66 +1429,86 @@ Widget gridDishCard(BuildContext context, ProductResponse product){
                         style: textDarkRegularBS(context),
                       ),
                       Container(
-                        // width: 97,
-                        // height: 38,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: white,
-                                  // border: Border.all(
-                                  //     color: grey.shade300, width: 1),
-                                  borderRadius:
-                                  BorderRadius.circular(5)),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    // onTap: onRemove,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                              color: white,
-                                              border: Border.all(
-                                                  color: dark, width: 1),
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  50)),
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: dark,
-                                          ),
-                                        ),
-                                      )),
-                                  Text('1',
-                                      style: textBlackLargeBM(context)),
-                                  InkWell(
-                                    // onTap: onUpdate,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 25,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                            color: white,
-                                            border: Border.all(
-                                                color: dark, width: 1),
-                                            borderRadius:
-                                            BorderRadius.circular(
-                                                50)),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: dark,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ))
+                        color: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: custombuttonsm(
+                          context,
+                          'ADD',
+                              () async {
+                            // if(addOnCategory.isRequired! && (state.selectedAddOnItems!.contains(addOnItem))){
+                            //
+                            // }
+                            await notifier.saveCart(
+                              context,
+                              state.selectedAddOnItems,
+                              state.product!.variants[state.groupValue],
+                              product,
+                              product.id,
+                            );
+                          },
+                        ),
                       ),
+                      // Container(
+                      //   // width: 97,
+                      //   // height: 38,
+                      //     child: Container(
+                      //         decoration: BoxDecoration(
+                      //             color: white,
+                      //             // border: Border.all(
+                      //             //     color: grey.shade300, width: 1),
+                      //             borderRadius:
+                      //             BorderRadius.circular(5)),
+                      //         child: Row(
+                      //           mainAxisAlignment:
+                      //           MainAxisAlignment.spaceBetween,
+                      //           children: [
+                      //             InkWell(
+                      //               // onTap: onRemove,
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.all(8.0),
+                      //                   child: Container(
+                      //                     width: 25,
+                      //                     height: 25,
+                      //                     decoration: BoxDecoration(
+                      //                         color: white,
+                      //                         border: Border.all(
+                      //                             color: dark, width: 1),
+                      //                         borderRadius:
+                      //                         BorderRadius.circular(
+                      //                             50)),
+                      //                     child: Icon(
+                      //                       Icons.remove,
+                      //                       color: dark,
+                      //                     ),
+                      //                   ),
+                      //                 )),
+                      //             Text('1',
+                      //                 style: textBlackLargeBM(context)),
+                      //             InkWell(
+                      //               // onTap: onUpdate,
+                      //               child: Padding(
+                      //                 padding:
+                      //                 const EdgeInsets.all(8.0),
+                      //                 child: Container(
+                      //                   width: 25,
+                      //                   height: 25,
+                      //                   decoration: BoxDecoration(
+                      //                       color: white,
+                      //                       border: Border.all(
+                      //                           color: dark, width: 1),
+                      //                       borderRadius:
+                      //                       BorderRadius.circular(
+                      //                           50)),
+                      //                   child: Icon(
+                      //                     Icons.add,
+                      //                     color: dark,
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ))
+                      // ),
                     ],
                   ),
                 ],

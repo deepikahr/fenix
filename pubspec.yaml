@@ -42,6 +42,7 @@ dependencies:
   flutter_widget_from_html: ^0.6.1
   url_launcher: ^6.0.4
   pin_code_fields: ^7.0.0
+  flutter_html:
 
 dev_dependencies:
   flutter_test:
