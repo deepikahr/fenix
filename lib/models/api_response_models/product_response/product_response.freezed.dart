@@ -47,8 +47,8 @@ class _$ProductResponseTearOff {
       String? productId,
       double rate = 0,
       String? rateDescription,
-      bool isLastVeriant = false,
-      bool isCustomization = true,
+      bool isLastVariant = false,
+      bool isCustomizable = true,
       int totalQuantity = 0,
       bool isSameProductMultipleTime = false,
       VariantResponse? variant}) {
@@ -79,8 +79,8 @@ class _$ProductResponseTearOff {
       productId: productId,
       rate: rate,
       rateDescription: rateDescription,
-      isLastVeriant: isLastVeriant,
-      isCustomization: isCustomization,
+      isLastVariant: isLastVariant,
+      isCustomizable: isCustomizable,
       totalQuantity: totalQuantity,
       isSameProductMultipleTime: isSameProductMultipleTime,
       variant: variant,
@@ -124,8 +124,8 @@ mixin _$ProductResponse {
   String? get productId => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
   String? get rateDescription => throw _privateConstructorUsedError;
-  bool get isLastVeriant => throw _privateConstructorUsedError;
-  bool get isCustomization => throw _privateConstructorUsedError;
+  bool get isLastVariant => throw _privateConstructorUsedError;
+  bool get isCustomizable => throw _privateConstructorUsedError;
   int get totalQuantity => throw _privateConstructorUsedError;
   bool get isSameProductMultipleTime => throw _privateConstructorUsedError;
   VariantResponse? get variant => throw _privateConstructorUsedError;
@@ -168,8 +168,8 @@ abstract class $ProductResponseCopyWith<$Res> {
       String? productId,
       double rate,
       String? rateDescription,
-      bool isLastVeriant,
-      bool isCustomization,
+      bool isLastVariant,
+      bool isCustomizable,
       int totalQuantity,
       bool isSameProductMultipleTime,
       VariantResponse? variant});
@@ -215,8 +215,8 @@ class _$ProductResponseCopyWithImpl<$Res>
     Object? productId = freezed,
     Object? rate = freezed,
     Object? rateDescription = freezed,
-    Object? isLastVeriant = freezed,
-    Object? isCustomization = freezed,
+    Object? isLastVariant = freezed,
+    Object? isCustomizable = freezed,
     Object? totalQuantity = freezed,
     Object? isSameProductMultipleTime = freezed,
     Object? variant = freezed,
@@ -326,13 +326,13 @@ class _$ProductResponseCopyWithImpl<$Res>
           ? _value.rateDescription
           : rateDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      isLastVeriant: isLastVeriant == freezed
-          ? _value.isLastVeriant
-          : isLastVeriant // ignore: cast_nullable_to_non_nullable
+      isLastVariant: isLastVariant == freezed
+          ? _value.isLastVariant
+          : isLastVariant // ignore: cast_nullable_to_non_nullable
               as bool,
-      isCustomization: isCustomization == freezed
-          ? _value.isCustomization
-          : isCustomization // ignore: cast_nullable_to_non_nullable
+      isCustomizable: isCustomizable == freezed
+          ? _value.isCustomizable
+          : isCustomizable // ignore: cast_nullable_to_non_nullable
               as bool,
       totalQuantity: totalQuantity == freezed
           ? _value.totalQuantity
@@ -406,8 +406,8 @@ abstract class _$ProductResponseCopyWith<$Res>
       String? productId,
       double rate,
       String? rateDescription,
-      bool isLastVeriant,
-      bool isCustomization,
+      bool isLastVariant,
+      bool isCustomizable,
       int totalQuantity,
       bool isSameProductMultipleTime,
       VariantResponse? variant});
@@ -457,8 +457,8 @@ class __$ProductResponseCopyWithImpl<$Res>
     Object? productId = freezed,
     Object? rate = freezed,
     Object? rateDescription = freezed,
-    Object? isLastVeriant = freezed,
-    Object? isCustomization = freezed,
+    Object? isLastVariant = freezed,
+    Object? isCustomizable = freezed,
     Object? totalQuantity = freezed,
     Object? isSameProductMultipleTime = freezed,
     Object? variant = freezed,
@@ -568,13 +568,13 @@ class __$ProductResponseCopyWithImpl<$Res>
           ? _value.rateDescription
           : rateDescription // ignore: cast_nullable_to_non_nullable
               as String?,
-      isLastVeriant: isLastVeriant == freezed
-          ? _value.isLastVeriant
-          : isLastVeriant // ignore: cast_nullable_to_non_nullable
+      isLastVariant: isLastVariant == freezed
+          ? _value.isLastVariant
+          : isLastVariant // ignore: cast_nullable_to_non_nullable
               as bool,
-      isCustomization: isCustomization == freezed
-          ? _value.isCustomization
-          : isCustomization // ignore: cast_nullable_to_non_nullable
+      isCustomizable: isCustomizable == freezed
+          ? _value.isCustomizable
+          : isCustomizable // ignore: cast_nullable_to_non_nullable
               as bool,
       totalQuantity: totalQuantity == freezed
           ? _value.totalQuantity
@@ -622,8 +622,8 @@ class _$_ProductResponse extends _ProductResponse {
       this.productId,
       this.rate = 0,
       this.rateDescription,
-      this.isLastVeriant = false,
-      this.isCustomization = true,
+      this.isLastVariant = false,
+      this.isCustomizable = true,
       this.totalQuantity = 0,
       this.isSameProductMultipleTime = false,
       this.variant})
@@ -696,10 +696,10 @@ class _$_ProductResponse extends _ProductResponse {
   final String? rateDescription;
   @JsonKey(defaultValue: false)
   @override
-  final bool isLastVeriant;
+  final bool isLastVariant;
   @JsonKey(defaultValue: true)
   @override
-  final bool isCustomization;
+  final bool isCustomizable;
   @JsonKey(defaultValue: 0)
   @override
   final int totalQuantity;
@@ -711,7 +711,7 @@ class _$_ProductResponse extends _ProductResponse {
 
   @override
   String toString() {
-    return 'ProductResponse(id: $id, productImage: $productImage, allergens: $allergens, tags: $tags, productName: $productName, productDescription: $productDescription, franchiseName: $franchiseName, averageRating: $averageRating, franchiseId: $franchiseId, categoryName: $categoryName, categoryId: $categoryId, vendorId: $vendorId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, sizeName: $sizeName, isVeg: $isVeg, description: $description, addOnItems: $addOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVeriant: $isLastVeriant, isCustomization: $isCustomization, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant)';
+    return 'ProductResponse(id: $id, productImage: $productImage, allergens: $allergens, tags: $tags, productName: $productName, productDescription: $productDescription, franchiseName: $franchiseName, averageRating: $averageRating, franchiseId: $franchiseId, categoryName: $categoryName, categoryId: $categoryId, vendorId: $vendorId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, sizeName: $sizeName, isVeg: $isVeg, description: $description, addOnItems: $addOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVariant: $isLastVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant)';
   }
 
   @override
@@ -787,8 +787,8 @@ class _$_ProductResponse extends _ProductResponse {
             (identical(other.productId, productId) || const DeepCollectionEquality().equals(other.productId, productId)) &&
             (identical(other.rate, rate) || const DeepCollectionEquality().equals(other.rate, rate)) &&
             (identical(other.rateDescription, rateDescription) || const DeepCollectionEquality().equals(other.rateDescription, rateDescription)) &&
-            (identical(other.isLastVeriant, isLastVeriant) || const DeepCollectionEquality().equals(other.isLastVeriant, isLastVeriant)) &&
-            (identical(other.isCustomization, isCustomization) || const DeepCollectionEquality().equals(other.isCustomization, isCustomization)) &&
+            (identical(other.isLastVariant, isLastVariant) || const DeepCollectionEquality().equals(other.isLastVariant, isLastVariant)) &&
+            (identical(other.isCustomizable, isCustomizable) || const DeepCollectionEquality().equals(other.isCustomizable, isCustomizable)) &&
             (identical(other.totalQuantity, totalQuantity) || const DeepCollectionEquality().equals(other.totalQuantity, totalQuantity)) &&
             (identical(other.isSameProductMultipleTime, isSameProductMultipleTime) || const DeepCollectionEquality().equals(other.isSameProductMultipleTime, isSameProductMultipleTime)) &&
             (identical(other.variant, variant) || const DeepCollectionEquality().equals(other.variant, variant)));
@@ -823,8 +823,8 @@ class _$_ProductResponse extends _ProductResponse {
       const DeepCollectionEquality().hash(productId) ^
       const DeepCollectionEquality().hash(rate) ^
       const DeepCollectionEquality().hash(rateDescription) ^
-      const DeepCollectionEquality().hash(isLastVeriant) ^
-      const DeepCollectionEquality().hash(isCustomization) ^
+      const DeepCollectionEquality().hash(isLastVariant) ^
+      const DeepCollectionEquality().hash(isCustomizable) ^
       const DeepCollectionEquality().hash(totalQuantity) ^
       const DeepCollectionEquality().hash(isSameProductMultipleTime) ^
       const DeepCollectionEquality().hash(variant);
@@ -868,8 +868,8 @@ abstract class _ProductResponse extends ProductResponse {
       String? productId,
       double rate,
       String? rateDescription,
-      bool isLastVeriant,
-      bool isCustomization,
+      bool isLastVariant,
+      bool isCustomizable,
       int totalQuantity,
       bool isSameProductMultipleTime,
       VariantResponse? variant}) = _$_ProductResponse;
@@ -932,9 +932,9 @@ abstract class _ProductResponse extends ProductResponse {
   @override
   String? get rateDescription => throw _privateConstructorUsedError;
   @override
-  bool get isLastVeriant => throw _privateConstructorUsedError;
+  bool get isLastVariant => throw _privateConstructorUsedError;
   @override
-  bool get isCustomization => throw _privateConstructorUsedError;
+  bool get isCustomizable => throw _privateConstructorUsedError;
   @override
   int get totalQuantity => throw _privateConstructorUsedError;
   @override

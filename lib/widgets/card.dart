@@ -241,33 +241,21 @@ Widget restaurantInfoCardGrid(
   BuildContext context,
   String name,
   String img,
-  String cuisines,
-  String address,
-  double distance,
-  double rating,
-  int preparationTime,
-  String slot,
-  bool isFavorite,
-  bool isStoreOpen,
 ) {
   return Container(
+    margin: EdgeInsets.only(bottom: 10, left: 10, right: 10, ),
     decoration: BoxDecoration(
         color: white,
         boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2)]),
     child: Stack(
       children: [
-        // Row(
-        // mainAxisSize: MainAxisSize.min,
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        // children: [
-        //  networkImage(img, 97, 109, 10),
-        Image.asset(
-          'lib/assets/images/refer.png',
-          width: MediaQuery.of(context).size.width,
-          height: 150,
-          fit: BoxFit.fill,
-        ),
+        // Image.asset(
+        //   'lib/assets/images/refer.png',
+        //   fit: BoxFit.fill,
+        //   height: 90,
+        //   width: MediaQuery.of(context).size.width,
+        // ),
+         networkImage(img, MediaQuery.of(context).size.width, 150, 2),
         Positioned(
             left: 20,
             right: 20,
@@ -287,80 +275,6 @@ Widget restaurantInfoCardGrid(
                 overflow: TextOverflow.ellipsis,
               ),
             )),
-        // SizedBox(
-        //   width: 16,
-        // ),
-        // Flexible(
-        //   flex: 2,
-        //   fit: FlexFit.loose,
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Row(
-        //         children: [
-        //           Expanded(
-        //             child: Column(
-        //               crossAxisAlignment: CrossAxisAlignment.start,
-        //               children: [
-        //                 Text(
-        //                   name,
-        //                   style: textDarkRegularBR(context),
-        //                   overflow: TextOverflow.ellipsis,
-        //                 ),
-        //                 SizedBox(
-        //                   height: 4,
-        //                 ),
-        //                 Text(
-        //                   cuisines,
-        //                   overflow: TextOverflow.ellipsis,
-        //                   style: textDarkLight2XSmallBR(context),
-        //                 ),
-        //                 SizedBox(
-        //                   height: 4,
-        //                 ),
-        //                 Text(
-        //                   '$address, ${(distance / 1000.0).toStringAsFixed(2)} ${'KM'.tr}',
-        //                   overflow: TextOverflow.ellipsis,
-        //                   style: textDarkLight2XSmallBR(context),
-        //                 ),
-        //                 SizedBox(
-        //                   height: 8,
-        //                 ),
-        //                 ratingDistanceRow(context, rating,
-        //                     '$preparationTime ${'MINS'.tr}'),
-        //               ],
-        //             ),
-        //           ),
-        //           if (isFavorite)
-        //             Align(
-        //               alignment: Alignment.centerRight,
-        //               child: IconButton(
-        //                 onPressed: () {},
-        //                 icon: Icon(
-        //                   Icons.favorite,
-        //                   color: Colors.red,
-        //                   size: 25,
-        //                 ),
-        //               ),
-        //             ),
-        //         ],
-        //       ),
-        //       dottedLine(context, darkLight3.withOpacity(0.2), 8),
-        //       Row(
-        //         children: [
-        //           Text(slot, style: textDarkLight2XSmallBR(context)),
-        //           Spacer(),
-        //           if (!isStoreOpen)
-        //             Text('CLOSED'.tr,
-        //                 style: textPrimaryLightXSmallBR(context))
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        // )
-        //   ],
-        // ),
       ],
     ),
   );
@@ -391,13 +305,7 @@ Widget dishesInfoCard(
                     children: [
                       product.productImage!.imageUrl != null ?
                       networkImage(product.productImage!.imageUrl!,  111, 109, 4) :
-                      Container(
-                          child: Image.asset(
-                            'lib/assets/images/refer.png',
-                            width: 111,
-                            height: 109,
-                            fit: BoxFit.cover,
-                          )),
+                      networkImageOverlay(111, 109),
                       Positioned(
                           child: Container(
                         color: primary,
@@ -460,76 +368,72 @@ Widget dishesInfoCard(
                           style: textWhiteRegularBM(),
                         ),
                       ),
-                      Container(
-                        color: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: custombuttonsm(
-                          context,
-                          'ADD',
-                              () async {
-                            await notifier.saveCart(
-                              context,
-                              state.selectedAddOnItems,
-                              state.product!.variants[state.groupValue],
-                              product,
-                              product.id,
-                            );
-                          },
+
+                      product.totalQuantity > 0 ?Container(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                      onTap: (){},
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 35,
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                              color: white,
+                                              border: Border.all(
+                                                  color: dark, width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: dark,
+                                          ),
+                                        ),
+                                      )),
+                                  Text('1',
+                                      style: textBlackLargeBM(context)),
+                                  InkWell(
+                                    onTap: (){},
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                            color: white,
+                                            border: Border.all(
+                                                color: dark, width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: dark,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ))
+                          ) :
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: GFButton(
+                          borderShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: BorderSide(color: buttonBorder)),
+                          onPressed: onAdd,
+                          color: Colors.white,
+                          text: 'ADD'.tr,
+                          textStyle: textPrimaryLargeBM(context),
                         ),
                       ),
-                      // Container(
-                      //     child: Container(
-                      //         decoration: BoxDecoration(
-                      //             color: white,
-                      //             borderRadius: BorderRadius.circular(5)),
-                      //         child: Row(
-                      //           mainAxisAlignment:
-                      //               MainAxisAlignment.spaceBetween,
-                      //           children: [
-                      //             InkWell(
-                      //                 onTap: (){},
-                      //                 child: Padding(
-                      //                   padding: const EdgeInsets.all(8.0),
-                      //                   child: Container(
-                      //                     width: 35,
-                      //                     height: 35,
-                      //                     decoration: BoxDecoration(
-                      //                         color: white,
-                      //                         border: Border.all(
-                      //                             color: dark, width: 1),
-                      //                         borderRadius:
-                      //                             BorderRadius.circular(50)),
-                      //                     child: Icon(
-                      //                       Icons.remove,
-                      //                       color: dark,
-                      //                     ),
-                      //                   ),
-                      //                 )),
-                      //             Text('1',
-                      //                 style: textBlackLargeBM(context)),
-                      //             InkWell(
-                      //               onTap: (){},
-                      //               child: Padding(
-                      //                 padding: const EdgeInsets.all(8.0),
-                      //                 child: Container(
-                      //                   width: 35,
-                      //                   height: 35,
-                      //                   decoration: BoxDecoration(
-                      //                       color: white,
-                      //                       border: Border.all(
-                      //                           color: dark, width: 1),
-                      //                       borderRadius:
-                      //                           BorderRadius.circular(50)),
-                      //                   child: Icon(
-                      //                     Icons.add,
-                      //                     color: dark,
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ))
-                      //     ),
                     ],
                   ),
                 ],
@@ -1362,13 +1266,7 @@ Widget gridDishCard(BuildContext context, ProductResponse product, notifier, sta
                 children: [
                   product.productImage!.imageUrl != null ?
                   networkImage(product.productImage!.imageUrl!, MediaQuery.of(context).size.width, 139, 4) :
-                  Container(
-                      child: Image.asset(
-                        'lib/assets/images/refer.png',
-                        width: MediaQuery.of(context).size.width,
-                        height: 139,
-                        fit: BoxFit.cover,
-                      )),
+                  networkImageOverlay(MediaQuery.of(context).size.width, 139),
                   Positioned(
                       child: Container(
                         color: primary,
@@ -1430,8 +1328,8 @@ Widget gridDishCard(BuildContext context, ProductResponse product, notifier, sta
                       ),
                       Container(
                         color: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: custombuttonsm(
+                        // padding: EdgeInsets.symmetric(vertical: 16),
+                        child: smallOutlineButton(
                           context,
                           'ADD',
                               () async {

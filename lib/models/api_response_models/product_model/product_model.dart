@@ -12,8 +12,8 @@ class ProductModel with BaseModel<ProductModel>, _$ProductModel {
   const ProductModel._();
 
   const factory ProductModel({
-    List<ProductResponse>? data,
-    int? total
+  @Default([]) List<ProductResponse>? data,
+  @Default(0) int total
   }) =
   _ProductModel;
 

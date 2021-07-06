@@ -96,22 +96,24 @@ class ProductList extends HookWidget {
                   productId: product[index].id,
                 ));
               },
-              child: dishesInfoCard(context, product[index], notifier, state,  () async {
-                if (product[index].isCustomization) {
-                  await Get.to(() => ProductDetails(
-                    productId: product[index].id!,
-                  ));
-                  notifier.updateQuantity();
-                } else {
-                  await notifier.findLastUpdateProduct(
-                    product[index],
-                    true,
-                    product[index].restaurantName,
-                  );
-                }
+              child: dishesInfoCard(context, product[index], notifier, state,
+                    () async {
+                // if (product[index].isCustomizable) {
+                //   await Get.to(() => ProductDetails(
+                //     productId: product[index].id,
+                //   ));
+                //   notifier.updateQuantity();
+                // } else {
+                //   print('aaaaaaaa ');
+                //   await notifier.findLastUpdateProduct(
+                //     product[index],
+                //     true,
+                //     product[index].franchiseName,
+                //   );
+                // }
               },
                     () async {
-                  if (product[index].isCustomization) {
+                  if (product[index].isCustomizable) {
                     await showDialog(
                         context: context,
                         builder: (context) =>
@@ -198,7 +200,7 @@ class ProductList extends HookWidget {
                       type: GFButtonType.outline,
                       onPressed: () async {
                         Get.back();
-                        // await Get.to(() => CartScreen(backButton: true));
+                        await Get.to(() => Cart());
                         context.read(productListProvider.notifier).updateQuantity();
                       },
                       child: Text(

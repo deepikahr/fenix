@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
@@ -93,83 +94,85 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
     // }
   }
 
-  Future<void> findLastUpdateProduct(
-      ProductResponse product,
-      bool increased,
-      String? restaurantName,
-      ) async {
-    if (cartData == null) {
-      final cart = Cart(
-        franchiseId: product.franchiseId,
-        franchiseName: product.franchiseName,
-        preparationTime: product.preparationTime,
-        vendorId: product.vendorId,
-        restaurantName: restaurantName,
-        products: [
-          product.copyWith(
-            isLastVeriant: true,
-            totalQuantity: product.quantity,
-            totalProductPrice: product.sellingPrice.toDouble(),
-          )
-        ],
-      );
-      await cartNotifier.updateCart(cart);
-      updateQuantity(newCart: cart);
-    } else if (product.franchiseId != cartData?.franchiseId) {
-      await customDialog(
-        status: DIALOG_STATUS.WARNING,
-        title:
-        '${'SOME_PRODUCTS_ARE_ALREADY_ADDED_IN'} ${cartData?.franchiseName} ${'FIRST_CLEAN_YOUR_CART'}',
-        textConfirm: 'CLEAN_CART',
-        onConfirmListener: () {
-          cartNotifier.deleteCart();
-          updateQuantity();
-          Get.back();
-        },
-      );
-    } else if (!cartData!.products.any((element) => element.id == product.id)) {
-      final cart = cartData?.copyWith(products: [
-        ...cartData?.products ?? [],
-        product.copyWith(
-          isLastVeriant: true,
-          totalQuantity: product.quantity,
-          totalProductPrice: product.sellingPrice.toDouble(),
-        )
-      ]);
-      await cartNotifier.updateCart(cart);
-      updateQuantity(newCart: cart);
-    } else {
-      cartData?.products.forEach(
-            (element) async {
-          if (element.id == product.id && element.isLastVeriant == true) {
-            final newProduct = element.copyWith(
-                quantity: element.quantity + (increased ? 1 : -1));
-            if (newProduct.quantity > 0) {
-              var products = cartData!.products;
-              products = products.map((p) {
-                if (p == element) {
-                  return newProduct;
-                }
-                return p;
-              }).toList();
-
-              Cart? cart = cartData!.copyWith(products: products);
-              await cartNotifier.updateCart(cart);
-              updateQuantity(newCart: cart);
-            } else {
-              Cart? cart = cartData!
-                  .copyWith(products: cartData!.products..remove(element));
-              await cartNotifier.updateCart(cart);
-              updateQuantity(newCart: cart);
-              if (cart.products.isEmpty) {
-                await cartNotifier.deleteCart();
-              }
-            }
-          }
-        },
-      );
-    }
-  }
+  // Future<void> findLastUpdateProduct(
+  //     ProductResponse product,
+  //     bool increased,
+  //     String? restaurantName,
+  //     ) async {
+  //   printWrapped('bbbb $cartData');
+  //   if (cartData == null) {
+  //     print('qqq $cartData');
+  //     final cart = Cart(
+  //       franchiseId: product.franchiseId,
+  //       franchiseName: product.franchiseName,
+  //       preparationTime: product.preparationTime,
+  //       vendorId: product.vendorId,
+  //       restaurantName: restaurantName,
+  //       products: [
+  //         product.copyWith(
+  //           isLastVariant: true,
+  //           totalQuantity: product.quantity,
+  //           totalProductPrice: product.sellingPrice.toDouble(),
+  //         )
+  //       ],
+  //     );
+  //     await cartNotifier.updateCart(cart);
+  //     updateQuantity(newCart: cart);
+  //   } else if (product.franchiseId != cartData?.franchiseId) {
+  //     await customDialog(
+  //       status: DIALOG_STATUS.WARNING,
+  //       title:
+  //       '${'SOME_PRODUCTS_ARE_ALREADY_ADDED_IN'} ${cartData?.franchiseName} ${'FIRST_CLEAN_YOUR_CART'}',
+  //       textConfirm: 'CLEAN_CART',
+  //       onConfirmListener: () {
+  //         cartNotifier.deleteCart();
+  //         updateQuantity();
+  //         Get.back();
+  //       },
+  //     );
+  //   } else if (!cartData!.products.any((element) => element.id == product.id)) {
+  //     final cart = cartData?.copyWith(products: [
+  //       ...cartData?.products ?? [],
+  //       product.copyWith(
+  //         isLastVariant: true,
+  //         totalQuantity: product.quantity,
+  //         totalProductPrice: product.sellingPrice.toDouble(),
+  //       )
+  //     ]);
+  //     await cartNotifier.updateCart(cart);
+  //     updateQuantity(newCart: cart);
+  //   } else {
+  //     cartData?.products.forEach(
+  //           (element) async {
+  //         if (element.id == product.id && element.isLastVariant == true) {
+  //           final newProduct = element.copyWith(
+  //               quantity: element.quantity + (increased ? 1 : -1));
+  //           if (newProduct.quantity > 0) {
+  //             var products = cartData!.products;
+  //             products = products.map((p) {
+  //               if (p == element) {
+  //                 return newProduct;
+  //               }
+  //               return p;
+  //             }).toList();
+  //
+  //             Cart? cart = cartData!.copyWith(products: products);
+  //             await cartNotifier.updateCart(cart);
+  //             updateQuantity(newCart: cart);
+  //           } else {
+  //             Cart? cart = cartData!
+  //                 .copyWith(products: cartData!.products..remove(element));
+  //             await cartNotifier.updateCart(cart);
+  //             updateQuantity(newCart: cart);
+  //             if (cart.products.isEmpty) {
+  //               await cartNotifier.deleteCart();
+  //             }
+  //           }
+  //         }
+  //       },
+  //     );
+  //   }
+  // }
 
   void updateProductsQuantity(ProductResponse product, increased) async {
     if (cartData == null) {

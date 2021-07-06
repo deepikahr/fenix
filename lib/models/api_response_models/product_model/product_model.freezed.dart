@@ -20,7 +20,7 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) {
 class _$ProductModelTearOff {
   const _$ProductModelTearOff();
 
-  _ProductModel call({List<ProductResponse>? data, int? total}) {
+  _ProductModel call({List<ProductResponse>? data = const [], int total = 0}) {
     return _ProductModel(
       data: data,
       total: total,
@@ -38,7 +38,7 @@ const $ProductModel = _$ProductModelTearOff();
 /// @nodoc
 mixin _$ProductModel {
   List<ProductResponse>? get data => throw _privateConstructorUsedError;
-  int? get total => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +51,7 @@ abstract class $ProductModelCopyWith<$Res> {
   factory $ProductModelCopyWith(
           ProductModel value, $Res Function(ProductModel) then) =
       _$ProductModelCopyWithImpl<$Res>;
-  $Res call({List<ProductResponse>? data, int? total});
+  $Res call({List<ProductResponse>? data, int total});
 }
 
 /// @nodoc
@@ -75,7 +75,7 @@ class _$ProductModelCopyWithImpl<$Res> implements $ProductModelCopyWith<$Res> {
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -87,7 +87,7 @@ abstract class _$ProductModelCopyWith<$Res>
           _ProductModel value, $Res Function(_ProductModel) then) =
       __$ProductModelCopyWithImpl<$Res>;
   @override
-  $Res call({List<ProductResponse>? data, int? total});
+  $Res call({List<ProductResponse>? data, int total});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$ProductModelCopyWithImpl<$Res> extends _$ProductModelCopyWithImpl<$Res>
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -121,15 +121,17 @@ class __$ProductModelCopyWithImpl<$Res> extends _$ProductModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ProductModel extends _ProductModel {
-  const _$_ProductModel({this.data, this.total}) : super._();
+  const _$_ProductModel({this.data = const [], this.total = 0}) : super._();
 
   factory _$_ProductModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ProductModelFromJson(json);
 
+  @JsonKey(defaultValue: const [])
   @override
   final List<ProductResponse>? data;
+  @JsonKey(defaultValue: 0)
   @override
-  final int? total;
+  final int total;
 
   @override
   String toString() {
@@ -164,7 +166,7 @@ class _$_ProductModel extends _ProductModel {
 }
 
 abstract class _ProductModel extends ProductModel {
-  const factory _ProductModel({List<ProductResponse>? data, int? total}) =
+  const factory _ProductModel({List<ProductResponse>? data, int total}) =
       _$_ProductModel;
   const _ProductModel._() : super._();
 
@@ -174,7 +176,7 @@ abstract class _ProductModel extends ProductModel {
   @override
   List<ProductResponse>? get data => throw _privateConstructorUsedError;
   @override
-  int? get total => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ProductModelCopyWith<_ProductModel> get copyWith =>

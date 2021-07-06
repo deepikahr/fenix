@@ -10,6 +10,7 @@ import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/network_image.dart';
 import 'package:fenix_user/widgets/normalText.dart';
+import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -24,9 +25,12 @@ class ProductDetails extends HookWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isChecked = false;
 
+  final noteFocusNode = FocusNode();
+  final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context) {
-
+    final noteEditController = useTextEditingController();
     final state = useProvider(productDetailsProvider);
     final notifier = useProvider(productDetailsProvider.notifier);
     final isMounted = useIsMounted();
@@ -49,8 +53,8 @@ class ProductDetails extends HookWidget {
             useState(() => selectedItem = string!)),
         body: Stack(
           children: [
-            if(!state.isLoading)
-              productData(context, state.productDetails!, state, notifier),
+            if(!state.isLoading && state.productDetails != null)
+              productData(context, state.productDetails!, state, notifier, noteEditController),
             if(state.isLoading)
               GFLoader()
           ],
@@ -58,22 +62,14 @@ class ProductDetails extends HookWidget {
     );
   }
 
-  Widget productData(BuildContext context, ProductDetailsResponse product, state, notifier){
+  Widget productData(BuildContext context, ProductDetailsResponse product, state, notifier, noteEditController){
     return ListView(
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: Stack(
+          child: product.productImage!.imageUrl != null ? Stack(
             children: [
-              product.productImage!.imageUrl != null ?
-              networkImage(product.productImage!.imageUrl!, MediaQuery.of(context).size.width, 200, 4) :
-              Container(
-                  child: Image.asset(
-                    'lib/assets/images/refer.png',
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  )),
+              networkImage(product.productImage!.imageUrl!, MediaQuery.of(context).size.width, 200, 4),
               Positioned(
                   child: Container(
                     color: Colors.blue,
@@ -106,7 +102,29 @@ class ProductDetails extends HookWidget {
                     ),
                   )),
             ],
-          ),
+          ) : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(4),
+                child: Text(
+                  'OFFER',
+                  style: textDarkRegularBSW(context),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                color: darkLight,
+                padding: EdgeInsets.all(4),
+                child: Text(
+                  '350 gm',
+                  style: textDarkRegularBSW(context),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
+          )
         ),
         Container(
           padding:
@@ -132,7 +150,59 @@ class ProductDetails extends HookWidget {
                     '5,95€',
                     style: textDarkRegularBS(context),
                   ),
-                  Container(
+                  state.productDetails!.totalQuantity > 0 ?Container(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                  onTap: (){},
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                          color: white,
+                                          border: Border.all(
+                                              color: dark, width: 1),
+                                          borderRadius:
+                                          BorderRadius.circular(50)),
+                                      child: Icon(
+                                        Icons.remove,
+                                        color: dark,
+                                      ),
+                                    ),
+                                  )),
+                              Text('1',
+                                  style: textBlackLargeBM(context)),
+                              InkWell(
+                                onTap: (){},
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                        color: white,
+                                        border: Border.all(
+                                            color: dark, width: 1),
+                                        borderRadius:
+                                        BorderRadius.circular(50)),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: dark,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ))
+                  ) : Container(
                     color: Colors.white,
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: custombuttonsm(
@@ -217,7 +287,50 @@ class ProductDetails extends HookWidget {
           padding: EdgeInsets.only(bottom: 16),
             child: Text('TOTAL + EXTRAS 10,50€',
                 style: textBlackLargeBM(context))),
+        Padding(
+          padding: const EdgeInsets.only(left:16.0),
+          child: titleTextDark17RegularBR(
+            context, 'sugerencias',
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(16),
+          child: noteTextField(
+            context,
+            noteEditController,
+            noteFocusNode,  (value) {
+            FocusScope.of(context).unfocus();
+            formKey.currentState!.validate();
+          },),
+        ),
       ],
+    );
+  }
+
+  Widget noteTextField(
+      BuildContext context,
+      controller,
+      FocusNode focusNode,
+      ValueChanged<String> onFieldSubmitted,
+      ) {
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      controller: controller,
+      focusNode: focusNode,
+      onFieldSubmitted: onFieldSubmitted,
+      maxLines: 5,
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        labelStyle: textDarkLightSmallBR(context),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black26, width: 1.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black26, width: 1.0),
+        ),
+      ),
     );
   }
 
@@ -338,11 +451,6 @@ class ProductDetails extends HookWidget {
                         ),
                         onChanged: (value) {
                           if (value!) {
-                            if(addOnCategory[index].selectionType! == 'SINGLE_SELECT'){
-                              if(state.selectedAddOnItems!.contains(addOnItems)){
-
-                              }
-                            }
                             context
                                 .read(productDetailsProvider.notifier)
                                 .addSelectedAddOnItem(addOnItems[i], addOnCategory[index]);

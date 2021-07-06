@@ -26,7 +26,7 @@ class _$CartTearOff {
       String? franchiseName,
       String? franchiseId,
       int? preparationTime,
-      @JsonKey(name: 'cart') List<ProductResponse> products = const [],
+      @JsonKey(name: 'cart') List<ProductDetailsResponse> products = const [],
       String? couponCode,
       double couponAmount = 0,
       double tipAmount = 0,
@@ -75,7 +75,8 @@ mixin _$Cart {
   String? get franchiseId => throw _privateConstructorUsedError;
   int? get preparationTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'cart')
-  List<ProductResponse> get products => throw _privateConstructorUsedError;
+  List<ProductDetailsResponse> get products =>
+      throw _privateConstructorUsedError;
   String? get couponCode => throw _privateConstructorUsedError;
   double get couponAmount => throw _privateConstructorUsedError;
   double get tipAmount => throw _privateConstructorUsedError;
@@ -104,7 +105,7 @@ abstract class $CartCopyWith<$Res> {
       String? franchiseName,
       String? franchiseId,
       int? preparationTime,
-      @JsonKey(name: 'cart') List<ProductResponse> products,
+      @JsonKey(name: 'cart') List<ProductDetailsResponse> products,
       String? couponCode,
       double couponAmount,
       double tipAmount,
@@ -170,7 +171,7 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
       products: products == freezed
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<ProductResponse>,
+              as List<ProductDetailsResponse>,
       couponCode: couponCode == freezed
           ? _value.couponCode
           : couponCode // ignore: cast_nullable_to_non_nullable
@@ -230,7 +231,7 @@ abstract class _$CartCopyWith<$Res> implements $CartCopyWith<$Res> {
       String? franchiseName,
       String? franchiseId,
       int? preparationTime,
-      @JsonKey(name: 'cart') List<ProductResponse> products,
+      @JsonKey(name: 'cart') List<ProductDetailsResponse> products,
       String? couponCode,
       double couponAmount,
       double tipAmount,
@@ -297,7 +298,7 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
       products: products == freezed
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<ProductResponse>,
+              as List<ProductDetailsResponse>,
       couponCode: couponCode == freezed
           ? _value.couponCode
           : couponCode // ignore: cast_nullable_to_non_nullable
@@ -384,7 +385,7 @@ class _$_Cart extends _Cart {
   final int? preparationTime;
   @override
   @JsonKey(name: 'cart')
-  final List<ProductResponse> products;
+  final List<ProductDetailsResponse> products;
   @override
   final String? couponCode;
   @JsonKey(defaultValue: 0)
@@ -518,7 +519,7 @@ abstract class _Cart extends Cart {
       String? franchiseName,
       String? franchiseId,
       int? preparationTime,
-      @JsonKey(name: 'cart') List<ProductResponse> products,
+      @JsonKey(name: 'cart') List<ProductDetailsResponse> products,
       String? couponCode,
       double couponAmount,
       double tipAmount,
@@ -546,7 +547,8 @@ abstract class _Cart extends Cart {
   int? get preparationTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'cart')
-  List<ProductResponse> get products => throw _privateConstructorUsedError;
+  List<ProductDetailsResponse> get products =>
+      throw _privateConstructorUsedError;
   @override
   String? get couponCode => throw _privateConstructorUsedError;
   @override

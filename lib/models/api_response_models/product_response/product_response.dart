@@ -41,8 +41,8 @@ class ProductResponse with BaseModel<ProductResponse>, _$ProductResponse {
     String? productId,
     @Default(0) double rate,
     String? rateDescription,
-    @Default(false) bool isLastVeriant,
-    @Default(true) bool isCustomization,
+    @Default(false) bool isLastVariant,
+    @Default(true) bool isCustomizable,
     @Default(0) int totalQuantity,
     @Default(false) bool isSameProductMultipleTime,
     VariantResponse? variant

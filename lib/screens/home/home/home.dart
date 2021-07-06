@@ -41,8 +41,11 @@ class Home extends HookWidget {
               children: [
                 if ((state.homeData?.banners.length ?? 0) > 0)
                   bannerBlock(context, state.homeData?.banners),
+                SizedBox(height: 16,),
                 if ((state.homeData?.category.length ?? 0) > 0)
-                  categoryBlock(context, state.homeData?.category),
+                  db.getType() == 'list' ?
+                  categoryBlock(context, state.homeData?.category) :
+                  categoryListGrid(context, state.homeData?.category),
               ],
             ),
             if (state.isLoading) GFLoader()
@@ -110,4 +113,25 @@ class Home extends HookWidget {
           }),
     );
   }
+
+  Widget categoryListGrid(
+      BuildContext context, List<CategoryResponse>? category) =>
+      GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: category!.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: MediaQuery.of(context).size.width / 245),
+        itemBuilder: (context, i) {
+          return InkWell(
+              onTap: () {
+                Get.to(() => ProductList(categoryId: category[i].id));
+              },
+              child: restaurantInfoCardGrid(context, category[i].title!, category[i].imageUrl!));
+        },
+      );
+
 }

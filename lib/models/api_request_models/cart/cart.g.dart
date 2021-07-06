@@ -14,7 +14,7 @@ _$_Cart _$_$_CartFromJson(Map<String, dynamic> json) {
     franchiseId: json['franchiseId'] as String?,
     preparationTime: json['preparationTime'] as int?,
     products: (json['cart'] as List<dynamic>)
-        .map((e) => ProductResponse.fromJson(e as Map<String, dynamic>))
+        .map((e) => ProductDetailsResponse.fromJson(e as Map<String, dynamic>))
         .toList(),
     couponCode: json['couponCode'] as String?,
     couponAmount: (json['couponAmount'] as num?)?.toDouble() ?? 0,

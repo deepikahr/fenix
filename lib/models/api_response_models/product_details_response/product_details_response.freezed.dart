@@ -27,7 +27,7 @@ class _$ProductDetailsResponseTearOff {
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int? averageRating,
+      int averageRating = 0,
       int? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
@@ -50,7 +50,26 @@ class _$ProductDetailsResponseTearOff {
       String? categoryName,
       String? franchiseName,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      String? categoryId,
+      String? restaurantName,
+      int originalPrice = 0,
+      int sellingPrice = 0,
+      int discount = 0,
+      String? sizeName,
+      String? description,
+      List<AddOnItem> selectedAddOnItems = const [],
+      int preparationTime = 0,
+      double totalProductPrice = 0,
+      int quantity = 1,
+      String? productId,
+      double rate = 0,
+      String? rateDescription,
+      bool isLastVariant = false,
+      bool isCustomizable = true,
+      int totalQuantity = 0,
+      bool isSameProductMultipleTime = false,
+      VariantResponse? variant}) {
     return _ProductDetailsResponse(
       productImage: productImage,
       taxInfo: taxInfo,
@@ -81,6 +100,25 @@ class _$ProductDetailsResponseTearOff {
       franchiseName: franchiseName,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      categoryId: categoryId,
+      restaurantName: restaurantName,
+      originalPrice: originalPrice,
+      sellingPrice: sellingPrice,
+      discount: discount,
+      sizeName: sizeName,
+      description: description,
+      selectedAddOnItems: selectedAddOnItems,
+      preparationTime: preparationTime,
+      totalProductPrice: totalProductPrice,
+      quantity: quantity,
+      productId: productId,
+      rate: rate,
+      rateDescription: rateDescription,
+      isLastVariant: isLastVariant,
+      isCustomizable: isCustomizable,
+      totalQuantity: totalQuantity,
+      isSameProductMultipleTime: isSameProductMultipleTime,
+      variant: variant,
     );
   }
 
@@ -99,7 +137,7 @@ mixin _$ProductDetailsResponse {
   List<IngredientsModel>? get ingredients => throw _privateConstructorUsedError;
   List<String>? get addOnCategories => throw _privateConstructorUsedError;
   bool? get status => throw _privateConstructorUsedError;
-  int? get averageRating => throw _privateConstructorUsedError;
+  int get averageRating => throw _privateConstructorUsedError;
   int? get totalRating => throw _privateConstructorUsedError;
   int? get noOfUsersRated => throw _privateConstructorUsedError;
   List<String>? get allergens => throw _privateConstructorUsedError;
@@ -125,6 +163,25 @@ mixin _$ProductDetailsResponse {
   String? get franchiseName => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
+  String? get categoryId => throw _privateConstructorUsedError;
+  String? get restaurantName => throw _privateConstructorUsedError;
+  int get originalPrice => throw _privateConstructorUsedError;
+  int get sellingPrice => throw _privateConstructorUsedError;
+  int get discount => throw _privateConstructorUsedError;
+  String? get sizeName => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
+  int get preparationTime => throw _privateConstructorUsedError;
+  double get totalProductPrice => throw _privateConstructorUsedError;
+  int get quantity => throw _privateConstructorUsedError;
+  String? get productId => throw _privateConstructorUsedError;
+  double get rate => throw _privateConstructorUsedError;
+  String? get rateDescription => throw _privateConstructorUsedError;
+  bool get isLastVariant => throw _privateConstructorUsedError;
+  bool get isCustomizable => throw _privateConstructorUsedError;
+  int get totalQuantity => throw _privateConstructorUsedError;
+  bool get isSameProductMultipleTime => throw _privateConstructorUsedError;
+  VariantResponse? get variant => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -143,7 +200,7 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int? averageRating,
+      int averageRating,
       int? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
@@ -166,10 +223,30 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       String? categoryName,
       String? franchiseName,
       String? createdAt,
-      String? updatedAt});
+      String? updatedAt,
+      String? categoryId,
+      String? restaurantName,
+      int originalPrice,
+      int sellingPrice,
+      int discount,
+      String? sizeName,
+      String? description,
+      List<AddOnItem> selectedAddOnItems,
+      int preparationTime,
+      double totalProductPrice,
+      int quantity,
+      String? productId,
+      double rate,
+      String? rateDescription,
+      bool isLastVariant,
+      bool isCustomizable,
+      int totalQuantity,
+      bool isSameProductMultipleTime,
+      VariantResponse? variant});
 
   $ImageResponseCopyWith<$Res>? get productImage;
   $TaxInfoModelCopyWith<$Res>? get taxInfo;
+  $VariantResponseCopyWith<$Res>? get variant;
 }
 
 /// @nodoc
@@ -212,6 +289,25 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
     Object? franchiseName = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? categoryId = freezed,
+    Object? restaurantName = freezed,
+    Object? originalPrice = freezed,
+    Object? sellingPrice = freezed,
+    Object? discount = freezed,
+    Object? sizeName = freezed,
+    Object? description = freezed,
+    Object? selectedAddOnItems = freezed,
+    Object? preparationTime = freezed,
+    Object? totalProductPrice = freezed,
+    Object? quantity = freezed,
+    Object? productId = freezed,
+    Object? rate = freezed,
+    Object? rateDescription = freezed,
+    Object? isLastVariant = freezed,
+    Object? isCustomizable = freezed,
+    Object? totalQuantity = freezed,
+    Object? isSameProductMultipleTime = freezed,
+    Object? variant = freezed,
   }) {
     return _then(_value.copyWith(
       productImage: productImage == freezed
@@ -237,7 +333,7 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       averageRating: averageRating == freezed
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       totalRating: totalRating == freezed
           ? _value.totalRating
           : totalRating // ignore: cast_nullable_to_non_nullable
@@ -330,6 +426,82 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      categoryId: categoryId == freezed
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      originalPrice: originalPrice == freezed
+          ? _value.originalPrice
+          : originalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
+      sellingPrice: sellingPrice == freezed
+          ? _value.sellingPrice
+          : sellingPrice // ignore: cast_nullable_to_non_nullable
+              as int,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
+      sizeName: sizeName == freezed
+          ? _value.sizeName
+          : sizeName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      selectedAddOnItems: selectedAddOnItems == freezed
+          ? _value.selectedAddOnItems
+          : selectedAddOnItems // ignore: cast_nullable_to_non_nullable
+              as List<AddOnItem>,
+      preparationTime: preparationTime == freezed
+          ? _value.preparationTime
+          : preparationTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalProductPrice: totalProductPrice == freezed
+          ? _value.totalProductPrice
+          : totalProductPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      quantity: quantity == freezed
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rate: rate == freezed
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double,
+      rateDescription: rateDescription == freezed
+          ? _value.rateDescription
+          : rateDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isLastVariant: isLastVariant == freezed
+          ? _value.isLastVariant
+          : isLastVariant // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCustomizable: isCustomizable == freezed
+          ? _value.isCustomizable
+          : isCustomizable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      totalQuantity: totalQuantity == freezed
+          ? _value.totalQuantity
+          : totalQuantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      isSameProductMultipleTime: isSameProductMultipleTime == freezed
+          ? _value.isSameProductMultipleTime
+          : isSameProductMultipleTime // ignore: cast_nullable_to_non_nullable
+              as bool,
+      variant: variant == freezed
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as VariantResponse?,
     ));
   }
 
@@ -354,6 +526,17 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       return _then(_value.copyWith(taxInfo: value));
     });
   }
+
+  @override
+  $VariantResponseCopyWith<$Res>? get variant {
+    if (_value.variant == null) {
+      return null;
+    }
+
+    return $VariantResponseCopyWith<$Res>(_value.variant!, (value) {
+      return _then(_value.copyWith(variant: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -369,7 +552,7 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int? averageRating,
+      int averageRating,
       int? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
@@ -392,12 +575,33 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       String? categoryName,
       String? franchiseName,
       String? createdAt,
-      String? updatedAt});
+      String? updatedAt,
+      String? categoryId,
+      String? restaurantName,
+      int originalPrice,
+      int sellingPrice,
+      int discount,
+      String? sizeName,
+      String? description,
+      List<AddOnItem> selectedAddOnItems,
+      int preparationTime,
+      double totalProductPrice,
+      int quantity,
+      String? productId,
+      double rate,
+      String? rateDescription,
+      bool isLastVariant,
+      bool isCustomizable,
+      int totalQuantity,
+      bool isSameProductMultipleTime,
+      VariantResponse? variant});
 
   @override
   $ImageResponseCopyWith<$Res>? get productImage;
   @override
   $TaxInfoModelCopyWith<$Res>? get taxInfo;
+  @override
+  $VariantResponseCopyWith<$Res>? get variant;
 }
 
 /// @nodoc
@@ -442,6 +646,25 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
     Object? franchiseName = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? categoryId = freezed,
+    Object? restaurantName = freezed,
+    Object? originalPrice = freezed,
+    Object? sellingPrice = freezed,
+    Object? discount = freezed,
+    Object? sizeName = freezed,
+    Object? description = freezed,
+    Object? selectedAddOnItems = freezed,
+    Object? preparationTime = freezed,
+    Object? totalProductPrice = freezed,
+    Object? quantity = freezed,
+    Object? productId = freezed,
+    Object? rate = freezed,
+    Object? rateDescription = freezed,
+    Object? isLastVariant = freezed,
+    Object? isCustomizable = freezed,
+    Object? totalQuantity = freezed,
+    Object? isSameProductMultipleTime = freezed,
+    Object? variant = freezed,
   }) {
     return _then(_ProductDetailsResponse(
       productImage: productImage == freezed
@@ -467,7 +690,7 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       averageRating: averageRating == freezed
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       totalRating: totalRating == freezed
           ? _value.totalRating
           : totalRating // ignore: cast_nullable_to_non_nullable
@@ -560,6 +783,82 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      categoryId: categoryId == freezed
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      originalPrice: originalPrice == freezed
+          ? _value.originalPrice
+          : originalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
+      sellingPrice: sellingPrice == freezed
+          ? _value.sellingPrice
+          : sellingPrice // ignore: cast_nullable_to_non_nullable
+              as int,
+      discount: discount == freezed
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
+      sizeName: sizeName == freezed
+          ? _value.sizeName
+          : sizeName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      selectedAddOnItems: selectedAddOnItems == freezed
+          ? _value.selectedAddOnItems
+          : selectedAddOnItems // ignore: cast_nullable_to_non_nullable
+              as List<AddOnItem>,
+      preparationTime: preparationTime == freezed
+          ? _value.preparationTime
+          : preparationTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalProductPrice: totalProductPrice == freezed
+          ? _value.totalProductPrice
+          : totalProductPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      quantity: quantity == freezed
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      rate: rate == freezed
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as double,
+      rateDescription: rateDescription == freezed
+          ? _value.rateDescription
+          : rateDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isLastVariant: isLastVariant == freezed
+          ? _value.isLastVariant
+          : isLastVariant // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCustomizable: isCustomizable == freezed
+          ? _value.isCustomizable
+          : isCustomizable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      totalQuantity: totalQuantity == freezed
+          ? _value.totalQuantity
+          : totalQuantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      isSameProductMultipleTime: isSameProductMultipleTime == freezed
+          ? _value.isSameProductMultipleTime
+          : isSameProductMultipleTime // ignore: cast_nullable_to_non_nullable
+              as bool,
+      variant: variant == freezed
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as VariantResponse?,
     ));
   }
 }
@@ -573,7 +872,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       this.ingredients,
       this.addOnCategories,
       this.status,
-      this.averageRating,
+      this.averageRating = 0,
       this.totalRating,
       this.noOfUsersRated,
       this.allergens,
@@ -596,7 +895,26 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       this.categoryName,
       this.franchiseName,
       this.createdAt,
-      this.updatedAt})
+      this.updatedAt,
+      this.categoryId,
+      this.restaurantName,
+      this.originalPrice = 0,
+      this.sellingPrice = 0,
+      this.discount = 0,
+      this.sizeName,
+      this.description,
+      this.selectedAddOnItems = const [],
+      this.preparationTime = 0,
+      this.totalProductPrice = 0,
+      this.quantity = 1,
+      this.productId,
+      this.rate = 0,
+      this.rateDescription,
+      this.isLastVariant = false,
+      this.isCustomizable = true,
+      this.totalQuantity = 0,
+      this.isSameProductMultipleTime = false,
+      this.variant})
       : super._();
 
   factory _$_ProductDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -612,8 +930,9 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final List<String>? addOnCategories;
   @override
   final bool? status;
+  @JsonKey(defaultValue: 0)
   @override
-  final int? averageRating;
+  final int averageRating;
   @override
   final int? totalRating;
   @override
@@ -662,10 +981,60 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final String? createdAt;
   @override
   final String? updatedAt;
+  @override
+  final String? categoryId;
+  @override
+  final String? restaurantName;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int originalPrice;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int sellingPrice;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int discount;
+  @override
+  final String? sizeName;
+  @override
+  final String? description;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<AddOnItem> selectedAddOnItems;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int preparationTime;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double totalProductPrice;
+  @JsonKey(defaultValue: 1)
+  @override
+  final int quantity;
+  @override
+  final String? productId;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double rate;
+  @override
+  final String? rateDescription;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isLastVariant;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool isCustomizable;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int totalQuantity;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isSameProductMultipleTime;
+  @override
+  final VariantResponse? variant;
 
   @override
   String toString() {
-    return 'ProductDetailsResponse(productImage: $productImage, taxInfo: $taxInfo, ingredients: $ingredients, addOnCategories: $addOnCategories, status: $status, averageRating: $averageRating, totalRating: $totalRating, noOfUsersRated: $noOfUsersRated, allergens: $allergens, relatedProducts: $relatedProducts, tags: $tags, isCopy: $isCopy, id: $id, offerPercentage: $offerPercentage, franchiseId: $franchiseId, category: $category, productName: $productName, productDescription: $productDescription, isVeg: $isVeg, variants: $variants, addOnItems: $addOnItems, subCategory: $subCategory, ranking: $ranking, menuId: $menuId, vendorId: $vendorId, categoryName: $categoryName, franchiseName: $franchiseName, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProductDetailsResponse(productImage: $productImage, taxInfo: $taxInfo, ingredients: $ingredients, addOnCategories: $addOnCategories, status: $status, averageRating: $averageRating, totalRating: $totalRating, noOfUsersRated: $noOfUsersRated, allergens: $allergens, relatedProducts: $relatedProducts, tags: $tags, isCopy: $isCopy, id: $id, offerPercentage: $offerPercentage, franchiseId: $franchiseId, category: $category, productName: $productName, productDescription: $productDescription, isVeg: $isVeg, variants: $variants, addOnItems: $addOnItems, subCategory: $subCategory, ranking: $ranking, menuId: $menuId, vendorId: $vendorId, categoryName: $categoryName, franchiseName: $franchiseName, createdAt: $createdAt, updatedAt: $updatedAt, categoryId: $categoryId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, sizeName: $sizeName, description: $description, selectedAddOnItems: $selectedAddOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVariant: $isLastVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant)';
   }
 
   @override
@@ -743,7 +1112,26 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
             (identical(other.categoryName, categoryName) || const DeepCollectionEquality().equals(other.categoryName, categoryName)) &&
             (identical(other.franchiseName, franchiseName) || const DeepCollectionEquality().equals(other.franchiseName, franchiseName)) &&
             (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)) &&
-            (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)));
+            (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)) &&
+            (identical(other.categoryId, categoryId) || const DeepCollectionEquality().equals(other.categoryId, categoryId)) &&
+            (identical(other.restaurantName, restaurantName) || const DeepCollectionEquality().equals(other.restaurantName, restaurantName)) &&
+            (identical(other.originalPrice, originalPrice) || const DeepCollectionEquality().equals(other.originalPrice, originalPrice)) &&
+            (identical(other.sellingPrice, sellingPrice) || const DeepCollectionEquality().equals(other.sellingPrice, sellingPrice)) &&
+            (identical(other.discount, discount) || const DeepCollectionEquality().equals(other.discount, discount)) &&
+            (identical(other.sizeName, sizeName) || const DeepCollectionEquality().equals(other.sizeName, sizeName)) &&
+            (identical(other.description, description) || const DeepCollectionEquality().equals(other.description, description)) &&
+            (identical(other.selectedAddOnItems, selectedAddOnItems) || const DeepCollectionEquality().equals(other.selectedAddOnItems, selectedAddOnItems)) &&
+            (identical(other.preparationTime, preparationTime) || const DeepCollectionEquality().equals(other.preparationTime, preparationTime)) &&
+            (identical(other.totalProductPrice, totalProductPrice) || const DeepCollectionEquality().equals(other.totalProductPrice, totalProductPrice)) &&
+            (identical(other.quantity, quantity) || const DeepCollectionEquality().equals(other.quantity, quantity)) &&
+            (identical(other.productId, productId) || const DeepCollectionEquality().equals(other.productId, productId)) &&
+            (identical(other.rate, rate) || const DeepCollectionEquality().equals(other.rate, rate)) &&
+            (identical(other.rateDescription, rateDescription) || const DeepCollectionEquality().equals(other.rateDescription, rateDescription)) &&
+            (identical(other.isLastVariant, isLastVariant) || const DeepCollectionEquality().equals(other.isLastVariant, isLastVariant)) &&
+            (identical(other.isCustomizable, isCustomizable) || const DeepCollectionEquality().equals(other.isCustomizable, isCustomizable)) &&
+            (identical(other.totalQuantity, totalQuantity) || const DeepCollectionEquality().equals(other.totalQuantity, totalQuantity)) &&
+            (identical(other.isSameProductMultipleTime, isSameProductMultipleTime) || const DeepCollectionEquality().equals(other.isSameProductMultipleTime, isSameProductMultipleTime)) &&
+            (identical(other.variant, variant) || const DeepCollectionEquality().equals(other.variant, variant)));
   }
 
   @override
@@ -777,7 +1165,26 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       const DeepCollectionEquality().hash(categoryName) ^
       const DeepCollectionEquality().hash(franchiseName) ^
       const DeepCollectionEquality().hash(createdAt) ^
-      const DeepCollectionEquality().hash(updatedAt);
+      const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(categoryId) ^
+      const DeepCollectionEquality().hash(restaurantName) ^
+      const DeepCollectionEquality().hash(originalPrice) ^
+      const DeepCollectionEquality().hash(sellingPrice) ^
+      const DeepCollectionEquality().hash(discount) ^
+      const DeepCollectionEquality().hash(sizeName) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(selectedAddOnItems) ^
+      const DeepCollectionEquality().hash(preparationTime) ^
+      const DeepCollectionEquality().hash(totalProductPrice) ^
+      const DeepCollectionEquality().hash(quantity) ^
+      const DeepCollectionEquality().hash(productId) ^
+      const DeepCollectionEquality().hash(rate) ^
+      const DeepCollectionEquality().hash(rateDescription) ^
+      const DeepCollectionEquality().hash(isLastVariant) ^
+      const DeepCollectionEquality().hash(isCustomizable) ^
+      const DeepCollectionEquality().hash(totalQuantity) ^
+      const DeepCollectionEquality().hash(isSameProductMultipleTime) ^
+      const DeepCollectionEquality().hash(variant);
 
   @JsonKey(ignore: true)
   @override
@@ -798,7 +1205,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int? averageRating,
+      int averageRating,
       int? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
@@ -821,7 +1228,26 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       String? categoryName,
       String? franchiseName,
       String? createdAt,
-      String? updatedAt}) = _$_ProductDetailsResponse;
+      String? updatedAt,
+      String? categoryId,
+      String? restaurantName,
+      int originalPrice,
+      int sellingPrice,
+      int discount,
+      String? sizeName,
+      String? description,
+      List<AddOnItem> selectedAddOnItems,
+      int preparationTime,
+      double totalProductPrice,
+      int quantity,
+      String? productId,
+      double rate,
+      String? rateDescription,
+      bool isLastVariant,
+      bool isCustomizable,
+      int totalQuantity,
+      bool isSameProductMultipleTime,
+      VariantResponse? variant}) = _$_ProductDetailsResponse;
   const _ProductDetailsResponse._() : super._();
 
   factory _ProductDetailsResponse.fromJson(Map<String, dynamic> json) =
@@ -838,7 +1264,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   bool? get status => throw _privateConstructorUsedError;
   @override
-  int? get averageRating => throw _privateConstructorUsedError;
+  int get averageRating => throw _privateConstructorUsedError;
   @override
   int? get totalRating => throw _privateConstructorUsedError;
   @override
@@ -887,6 +1313,44 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   String? get createdAt => throw _privateConstructorUsedError;
   @override
   String? get updatedAt => throw _privateConstructorUsedError;
+  @override
+  String? get categoryId => throw _privateConstructorUsedError;
+  @override
+  String? get restaurantName => throw _privateConstructorUsedError;
+  @override
+  int get originalPrice => throw _privateConstructorUsedError;
+  @override
+  int get sellingPrice => throw _privateConstructorUsedError;
+  @override
+  int get discount => throw _privateConstructorUsedError;
+  @override
+  String? get sizeName => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
+  @override
+  List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
+  @override
+  int get preparationTime => throw _privateConstructorUsedError;
+  @override
+  double get totalProductPrice => throw _privateConstructorUsedError;
+  @override
+  int get quantity => throw _privateConstructorUsedError;
+  @override
+  String? get productId => throw _privateConstructorUsedError;
+  @override
+  double get rate => throw _privateConstructorUsedError;
+  @override
+  String? get rateDescription => throw _privateConstructorUsedError;
+  @override
+  bool get isLastVariant => throw _privateConstructorUsedError;
+  @override
+  bool get isCustomizable => throw _privateConstructorUsedError;
+  @override
+  int get totalQuantity => throw _privateConstructorUsedError;
+  @override
+  bool get isSameProductMultipleTime => throw _privateConstructorUsedError;
+  @override
+  VariantResponse? get variant => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ProductDetailsResponseCopyWith<_ProductDetailsResponse> get copyWith =>

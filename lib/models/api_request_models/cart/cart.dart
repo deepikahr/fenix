@@ -1,4 +1,6 @@
+import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
+import 'package:fenix_user/screens/product/product_details/productDetails.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -16,7 +18,7 @@ class Cart with BaseModel<Cart>, _$Cart {
     String? franchiseName,
     String? franchiseId,
     int? preparationTime,
-    @JsonKey(name: 'cart') @Default([]) List<ProductResponse> products,
+    @JsonKey(name: 'cart') @Default([]) List<ProductDetailsResponse> products,
     String? couponCode,
     @Default(0) double couponAmount,
     @Default(0) double tipAmount,

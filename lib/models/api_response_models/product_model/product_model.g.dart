@@ -9,9 +9,10 @@ part of 'product_model.dart';
 _$_ProductModel _$_$_ProductModelFromJson(Map<String, dynamic> json) {
   return _$_ProductModel(
     data: (json['data'] as List<dynamic>?)
-        ?.map((e) => ProductResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    total: json['total'] as int?,
+            ?.map((e) => ProductResponse.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
+    total: json['total'] as int? ?? 0,
   );
 }
 

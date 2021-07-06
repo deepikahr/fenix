@@ -22,7 +22,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
         ?.map((e) => e as String)
         .toList(),
     status: json['status'] as bool?,
-    averageRating: json['averageRating'] as int?,
+    averageRating: json['averageRating'] as int? ?? 0,
     totalRating: json['totalRating'] as int?,
     noOfUsersRated: json['noOfUsersRated'] as int?,
     allergens:
@@ -55,6 +55,31 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     franchiseName: json['franchiseName'] as String?,
     createdAt: json['createdAt'] as String?,
     updatedAt: json['updatedAt'] as String?,
+    categoryId: json['categoryId'] as String?,
+    restaurantName: json['restaurantName'] as String?,
+    originalPrice: json['originalPrice'] as int? ?? 0,
+    sellingPrice: json['sellingPrice'] as int? ?? 0,
+    discount: json['discount'] as int? ?? 0,
+    sizeName: json['sizeName'] as String?,
+    description: json['description'] as String?,
+    selectedAddOnItems: (json['selectedAddOnItems'] as List<dynamic>?)
+            ?.map((e) => AddOnItem.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
+    preparationTime: json['preparationTime'] as int? ?? 0,
+    totalProductPrice: (json['totalProductPrice'] as num?)?.toDouble() ?? 0,
+    quantity: json['quantity'] as int? ?? 1,
+    productId: json['productId'] as String?,
+    rate: (json['rate'] as num?)?.toDouble() ?? 0,
+    rateDescription: json['rateDescription'] as String?,
+    isLastVariant: json['isLastVariant'] as bool? ?? false,
+    isCustomizable: json['isCustomizable'] as bool? ?? true,
+    totalQuantity: json['totalQuantity'] as int? ?? 0,
+    isSameProductMultipleTime:
+        json['isSameProductMultipleTime'] as bool? ?? false,
+    variant: json['variant'] == null
+        ? null
+        : VariantResponse.fromJson(json['variant'] as Map<String, dynamic>),
   );
 }
 
@@ -90,4 +115,23 @@ Map<String, dynamic> _$_$_ProductDetailsResponseToJson(
       'franchiseName': instance.franchiseName,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'categoryId': instance.categoryId,
+      'restaurantName': instance.restaurantName,
+      'originalPrice': instance.originalPrice,
+      'sellingPrice': instance.sellingPrice,
+      'discount': instance.discount,
+      'sizeName': instance.sizeName,
+      'description': instance.description,
+      'selectedAddOnItems': instance.selectedAddOnItems,
+      'preparationTime': instance.preparationTime,
+      'totalProductPrice': instance.totalProductPrice,
+      'quantity': instance.quantity,
+      'productId': instance.productId,
+      'rate': instance.rate,
+      'rateDescription': instance.rateDescription,
+      'isLastVariant': instance.isLastVariant,
+      'isCustomizable': instance.isCustomizable,
+      'totalQuantity': instance.totalQuantity,
+      'isSameProductMultipleTime': instance.isSameProductMultipleTime,
+      'variant': instance.variant,
     };

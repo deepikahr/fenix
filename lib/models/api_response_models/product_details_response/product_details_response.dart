@@ -1,4 +1,5 @@
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
+import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
 import 'package:fenix_user/models/api_response_models/image_response/image_response.dart';
 import 'package:fenix_user/models/api_response_models/ingredients_model/ingredients_model.dart';
 import 'package:fenix_user/models/api_response_models/tag_response/tag_response.dart';
@@ -20,7 +21,7 @@ class ProductDetailsResponse with BaseModel<ProductDetailsResponse>, _$ProductDe
     List<IngredientsModel>? ingredients,
     List<String>? addOnCategories,
     bool? status,
-    int? averageRating,
+    @Default(0) int averageRating,
     int? totalRating,
     int? noOfUsersRated,
     List<String>? allergens,
@@ -45,6 +46,26 @@ class ProductDetailsResponse with BaseModel<ProductDetailsResponse>, _$ProductDe
     String? franchiseName,
     String? createdAt,
     String? updatedAt,
+
+    String? categoryId,
+    String? restaurantName,
+    @Default(0) int originalPrice,
+    @Default(0) int sellingPrice,
+    @Default(0) int discount,
+    String? sizeName,
+    String? description,
+    @Default([]) List<AddOnItem> selectedAddOnItems,
+    @Default(0) int preparationTime,
+    @Default(0) double totalProductPrice,
+    @Default(1) int quantity,
+    String? productId,
+    @Default(0) double rate,
+    String? rateDescription,
+    @Default(false) bool isLastVariant,
+    @Default(true) bool isCustomizable,
+    @Default(0) int totalQuantity,
+    @Default(false) bool isSameProductMultipleTime,
+    VariantResponse? variant
 
   }) =
   _ProductDetailsResponse;
