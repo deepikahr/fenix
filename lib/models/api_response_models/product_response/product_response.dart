@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
 import 'package:fenix_user/models/api_response_models/htmlDataResponse/htmlDataResponse.dart';
 import 'package:fenix_user/models/api_response_models/image_response/image_response.dart';
 import 'package:fenix_user/models/api_response_models/tag_response/tag_response.dart';
@@ -20,7 +21,30 @@ class ProductResponse with BaseModel<ProductResponse>, _$ProductResponse {
     List<TagResponse>? tags,
     String? productName,
     String? productDescription,
-  // "productDescription": "<p>Gobi Manchurian</p>",
+    String? franchiseName,
+    @Default(0) int averageRating,
+    String? franchiseId,
+    String? categoryName,
+    String? categoryId,
+    String? vendorId,
+    String? restaurantName,
+    @Default(0) int originalPrice,
+    @Default(0) int sellingPrice,
+    @Default(0) int discount,
+    String? sizeName,
+    bool? isVeg,
+    String? description,
+    @Default([]) List<AddOnItem> addOnItems,
+    @Default(0) int preparationTime,
+    @Default(0) double totalProductPrice,
+    @Default(1) int quantity,
+    String? productId,
+    @Default(0) double rate,
+    String? rateDescription,
+    @Default(false) bool isLastVariant,
+    @Default(true) bool isCustomizable,
+    @Default(0) int totalQuantity,
+    @Default(false) bool isSameProductMultipleTime,
     VariantResponse? variant
   }) =
   _ProductResponse;

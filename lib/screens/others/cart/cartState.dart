@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'ordersState.freezed.dart';
+part 'cartState.freezed.dart';
 
 @freezed
-class OrdersState with _$OrdersState {
-  const factory OrdersState({
+class CartScreenState with _$CartScreenState {
+  const factory CartScreenState({
     @Default(false) bool isLoading,
   }) = _Default;
 }
