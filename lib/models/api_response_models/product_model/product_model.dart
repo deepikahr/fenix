@@ -1,4 +1,5 @@
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
+import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,7 +13,7 @@ class ProductModel with BaseModel<ProductModel>, _$ProductModel {
   const ProductModel._();
 
   const factory ProductModel({
-  @Default([]) List<ProductResponse>? data,
+  @Default([]) List<ProductDetailsResponse>? data,
   @Default(0) int total
   }) =
   _ProductModel;

@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -281,7 +282,7 @@ Widget restaurantInfoCardGrid(
 }
 
 Widget dishesInfoCard(
-  BuildContext context, ProductResponse product, notifier, state,
+  BuildContext context, ProductDetailsResponse product, notifier, state,
     void Function()? onAdd,
     void Function()? onUpdate,
     void Function()? onRemove,
@@ -379,7 +380,7 @@ Widget dishesInfoCard(
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
-                                      onTap: (){},
+                                      onTap: onRemove,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
@@ -397,10 +398,10 @@ Widget dishesInfoCard(
                                           ),
                                         ),
                                       )),
-                                  Text('1',
+                                  Text(product.totalQuantity.toString(),
                                       style: textBlackLargeBM(context)),
                                   InkWell(
-                                    onTap: (){},
+                                    onTap: onUpdate,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
@@ -1246,7 +1247,7 @@ Widget walletCard(BuildContext context, text1, text2, image, onTap) {
   );
 }
 
-Widget gridDishCard(BuildContext context, ProductResponse product, notifier, state){
+Widget gridDishCard(BuildContext context, ProductDetailsResponse product, notifier, state){
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
     decoration: BoxDecoration(

@@ -31,12 +31,15 @@ class _$ProductResponseTearOff {
       int averageRating = 0,
       String? franchiseId,
       String? categoryName,
-      String? categoryId,
+      String? category,
+      String? subCategory,
       String? vendorId,
+      String? menuId,
       String? restaurantName,
       int originalPrice = 0,
       int sellingPrice = 0,
       int discount = 0,
+      int? ranking,
       String? sizeName,
       bool? isVeg,
       String? description,
@@ -63,12 +66,15 @@ class _$ProductResponseTearOff {
       averageRating: averageRating,
       franchiseId: franchiseId,
       categoryName: categoryName,
-      categoryId: categoryId,
+      category: category,
+      subCategory: subCategory,
       vendorId: vendorId,
+      menuId: menuId,
       restaurantName: restaurantName,
       originalPrice: originalPrice,
       sellingPrice: sellingPrice,
       discount: discount,
+      ranking: ranking,
       sizeName: sizeName,
       isVeg: isVeg,
       description: description,
@@ -108,12 +114,15 @@ mixin _$ProductResponse {
   int get averageRating => throw _privateConstructorUsedError;
   String? get franchiseId => throw _privateConstructorUsedError;
   String? get categoryName => throw _privateConstructorUsedError;
-  String? get categoryId => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
+  String? get subCategory => throw _privateConstructorUsedError;
   String? get vendorId => throw _privateConstructorUsedError;
+  String? get menuId => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
   int get originalPrice => throw _privateConstructorUsedError;
   int get sellingPrice => throw _privateConstructorUsedError;
   int get discount => throw _privateConstructorUsedError;
+  int? get ranking => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   bool? get isVeg => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -152,12 +161,15 @@ abstract class $ProductResponseCopyWith<$Res> {
       int averageRating,
       String? franchiseId,
       String? categoryName,
-      String? categoryId,
+      String? category,
+      String? subCategory,
       String? vendorId,
+      String? menuId,
       String? restaurantName,
       int originalPrice,
       int sellingPrice,
       int discount,
+      int? ranking,
       String? sizeName,
       bool? isVeg,
       String? description,
@@ -199,12 +211,15 @@ class _$ProductResponseCopyWithImpl<$Res>
     Object? averageRating = freezed,
     Object? franchiseId = freezed,
     Object? categoryName = freezed,
-    Object? categoryId = freezed,
+    Object? category = freezed,
+    Object? subCategory = freezed,
     Object? vendorId = freezed,
+    Object? menuId = freezed,
     Object? restaurantName = freezed,
     Object? originalPrice = freezed,
     Object? sellingPrice = freezed,
     Object? discount = freezed,
+    Object? ranking = freezed,
     Object? sizeName = freezed,
     Object? isVeg = freezed,
     Object? description = freezed,
@@ -262,13 +277,21 @@ class _$ProductResponseCopyWithImpl<$Res>
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String?,
-      categoryId: categoryId == freezed
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subCategory: subCategory == freezed
+          ? _value.subCategory
+          : subCategory // ignore: cast_nullable_to_non_nullable
               as String?,
       vendorId: vendorId == freezed
           ? _value.vendorId
           : vendorId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menuId: menuId == freezed
+          ? _value.menuId
+          : menuId // ignore: cast_nullable_to_non_nullable
               as String?,
       restaurantName: restaurantName == freezed
           ? _value.restaurantName
@@ -286,6 +309,10 @@ class _$ProductResponseCopyWithImpl<$Res>
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as int,
+      ranking: ranking == freezed
+          ? _value.ranking
+          : ranking // ignore: cast_nullable_to_non_nullable
+              as int?,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -390,12 +417,15 @@ abstract class _$ProductResponseCopyWith<$Res>
       int averageRating,
       String? franchiseId,
       String? categoryName,
-      String? categoryId,
+      String? category,
+      String? subCategory,
       String? vendorId,
+      String? menuId,
       String? restaurantName,
       int originalPrice,
       int sellingPrice,
       int discount,
+      int? ranking,
       String? sizeName,
       bool? isVeg,
       String? description,
@@ -441,12 +471,15 @@ class __$ProductResponseCopyWithImpl<$Res>
     Object? averageRating = freezed,
     Object? franchiseId = freezed,
     Object? categoryName = freezed,
-    Object? categoryId = freezed,
+    Object? category = freezed,
+    Object? subCategory = freezed,
     Object? vendorId = freezed,
+    Object? menuId = freezed,
     Object? restaurantName = freezed,
     Object? originalPrice = freezed,
     Object? sellingPrice = freezed,
     Object? discount = freezed,
+    Object? ranking = freezed,
     Object? sizeName = freezed,
     Object? isVeg = freezed,
     Object? description = freezed,
@@ -504,13 +537,21 @@ class __$ProductResponseCopyWithImpl<$Res>
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String?,
-      categoryId: categoryId == freezed
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subCategory: subCategory == freezed
+          ? _value.subCategory
+          : subCategory // ignore: cast_nullable_to_non_nullable
               as String?,
       vendorId: vendorId == freezed
           ? _value.vendorId
           : vendorId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menuId: menuId == freezed
+          ? _value.menuId
+          : menuId // ignore: cast_nullable_to_non_nullable
               as String?,
       restaurantName: restaurantName == freezed
           ? _value.restaurantName
@@ -528,6 +569,10 @@ class __$ProductResponseCopyWithImpl<$Res>
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as int,
+      ranking: ranking == freezed
+          ? _value.ranking
+          : ranking // ignore: cast_nullable_to_non_nullable
+              as int?,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -606,12 +651,15 @@ class _$_ProductResponse extends _ProductResponse {
       this.averageRating = 0,
       this.franchiseId,
       this.categoryName,
-      this.categoryId,
+      this.category,
+      this.subCategory,
       this.vendorId,
+      this.menuId,
       this.restaurantName,
       this.originalPrice = 0,
       this.sellingPrice = 0,
       this.discount = 0,
+      this.ranking,
       this.sizeName,
       this.isVeg,
       this.description,
@@ -655,9 +703,13 @@ class _$_ProductResponse extends _ProductResponse {
   @override
   final String? categoryName;
   @override
-  final String? categoryId;
+  final String? category;
+  @override
+  final String? subCategory;
   @override
   final String? vendorId;
+  @override
+  final String? menuId;
   @override
   final String? restaurantName;
   @JsonKey(defaultValue: 0)
@@ -669,6 +721,8 @@ class _$_ProductResponse extends _ProductResponse {
   @JsonKey(defaultValue: 0)
   @override
   final int discount;
+  @override
+  final int? ranking;
   @override
   final String? sizeName;
   @override
@@ -711,7 +765,7 @@ class _$_ProductResponse extends _ProductResponse {
 
   @override
   String toString() {
-    return 'ProductResponse(id: $id, productImage: $productImage, allergens: $allergens, tags: $tags, productName: $productName, productDescription: $productDescription, franchiseName: $franchiseName, averageRating: $averageRating, franchiseId: $franchiseId, categoryName: $categoryName, categoryId: $categoryId, vendorId: $vendorId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, sizeName: $sizeName, isVeg: $isVeg, description: $description, addOnItems: $addOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVariant: $isLastVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant)';
+    return 'ProductResponse(id: $id, productImage: $productImage, allergens: $allergens, tags: $tags, productName: $productName, productDescription: $productDescription, franchiseName: $franchiseName, averageRating: $averageRating, franchiseId: $franchiseId, categoryName: $categoryName, category: $category, subCategory: $subCategory, vendorId: $vendorId, menuId: $menuId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, ranking: $ranking, sizeName: $sizeName, isVeg: $isVeg, description: $description, addOnItems: $addOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVariant: $isLastVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant)';
   }
 
   @override
@@ -746,12 +800,17 @@ class _$_ProductResponse extends _ProductResponse {
             (identical(other.categoryName, categoryName) ||
                 const DeepCollectionEquality()
                     .equals(other.categoryName, categoryName)) &&
-            (identical(other.categoryId, categoryId) ||
+            (identical(other.category, category) ||
                 const DeepCollectionEquality()
-                    .equals(other.categoryId, categoryId)) &&
+                    .equals(other.category, category)) &&
+            (identical(other.subCategory, subCategory) ||
+                const DeepCollectionEquality()
+                    .equals(other.subCategory, subCategory)) &&
             (identical(other.vendorId, vendorId) ||
                 const DeepCollectionEquality()
                     .equals(other.vendorId, vendorId)) &&
+            (identical(other.menuId, menuId) ||
+                const DeepCollectionEquality().equals(other.menuId, menuId)) &&
             (identical(other.restaurantName, restaurantName) ||
                 const DeepCollectionEquality()
                     .equals(other.restaurantName, restaurantName)) &&
@@ -764,6 +823,9 @@ class _$_ProductResponse extends _ProductResponse {
             (identical(other.discount, discount) ||
                 const DeepCollectionEquality()
                     .equals(other.discount, discount)) &&
+            (identical(other.ranking, ranking) ||
+                const DeepCollectionEquality()
+                    .equals(other.ranking, ranking)) &&
             (identical(other.sizeName, sizeName) ||
                 const DeepCollectionEquality()
                     .equals(other.sizeName, sizeName)) &&
@@ -776,14 +838,9 @@ class _$_ProductResponse extends _ProductResponse {
                 const DeepCollectionEquality()
                     .equals(other.addOnItems, addOnItems)) &&
             (identical(other.preparationTime, preparationTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.preparationTime, preparationTime)) &&
-            (identical(other.totalProductPrice, totalProductPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.totalProductPrice, totalProductPrice)) &&
-            (identical(other.quantity, quantity) ||
-                const DeepCollectionEquality()
-                    .equals(other.quantity, quantity)) &&
+                const DeepCollectionEquality().equals(other.preparationTime, preparationTime)) &&
+            (identical(other.totalProductPrice, totalProductPrice) || const DeepCollectionEquality().equals(other.totalProductPrice, totalProductPrice)) &&
+            (identical(other.quantity, quantity) || const DeepCollectionEquality().equals(other.quantity, quantity)) &&
             (identical(other.productId, productId) || const DeepCollectionEquality().equals(other.productId, productId)) &&
             (identical(other.rate, rate) || const DeepCollectionEquality().equals(other.rate, rate)) &&
             (identical(other.rateDescription, rateDescription) || const DeepCollectionEquality().equals(other.rateDescription, rateDescription)) &&
@@ -807,12 +864,15 @@ class _$_ProductResponse extends _ProductResponse {
       const DeepCollectionEquality().hash(averageRating) ^
       const DeepCollectionEquality().hash(franchiseId) ^
       const DeepCollectionEquality().hash(categoryName) ^
-      const DeepCollectionEquality().hash(categoryId) ^
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(subCategory) ^
       const DeepCollectionEquality().hash(vendorId) ^
+      const DeepCollectionEquality().hash(menuId) ^
       const DeepCollectionEquality().hash(restaurantName) ^
       const DeepCollectionEquality().hash(originalPrice) ^
       const DeepCollectionEquality().hash(sellingPrice) ^
       const DeepCollectionEquality().hash(discount) ^
+      const DeepCollectionEquality().hash(ranking) ^
       const DeepCollectionEquality().hash(sizeName) ^
       const DeepCollectionEquality().hash(isVeg) ^
       const DeepCollectionEquality().hash(description) ^
@@ -852,12 +912,15 @@ abstract class _ProductResponse extends ProductResponse {
       int averageRating,
       String? franchiseId,
       String? categoryName,
-      String? categoryId,
+      String? category,
+      String? subCategory,
       String? vendorId,
+      String? menuId,
       String? restaurantName,
       int originalPrice,
       int sellingPrice,
       int discount,
+      int? ranking,
       String? sizeName,
       bool? isVeg,
       String? description,
@@ -900,9 +963,13 @@ abstract class _ProductResponse extends ProductResponse {
   @override
   String? get categoryName => throw _privateConstructorUsedError;
   @override
-  String? get categoryId => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
+  @override
+  String? get subCategory => throw _privateConstructorUsedError;
   @override
   String? get vendorId => throw _privateConstructorUsedError;
+  @override
+  String? get menuId => throw _privateConstructorUsedError;
   @override
   String? get restaurantName => throw _privateConstructorUsedError;
   @override
@@ -911,6 +978,8 @@ abstract class _ProductResponse extends ProductResponse {
   int get sellingPrice => throw _privateConstructorUsedError;
   @override
   int get discount => throw _privateConstructorUsedError;
+  @override
+  int? get ranking => throw _privateConstructorUsedError;
   @override
   String? get sizeName => throw _privateConstructorUsedError;
   @override

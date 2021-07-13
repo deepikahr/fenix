@@ -1,6 +1,8 @@
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
+import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
@@ -61,8 +63,8 @@ class ProductList extends HookWidget {
               SizedBox(height: 10),
               if ((state.products?.length ?? 0) > 0)
               db.getType() == 'list' ?
-              productList(state.products!, notifier, state, cart) :
-              productListGrid(context, state.products!, notifier, state, cart),
+              productList(state.productData!.data!, notifier, state, cart) :
+              productListGrid(context, state.productData!.data!, notifier, state, cart),
             ],
           ),
           if(state.isLoading)
@@ -85,7 +87,7 @@ class ProductList extends HookWidget {
     ],
   );
 
-  Widget productList(List<ProductResponse>? product, notifier, state, Cart? cart) =>
+  Widget productList(List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
       ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -98,19 +100,18 @@ class ProductList extends HookWidget {
               },
               child: dishesInfoCard(context, product[index], notifier, state,
                     () async {
-                // if (product[index].isCustomizable) {
-                //   await Get.to(() => ProductDetails(
-                //     productId: product[index].id,
-                //   ));
-                //   notifier.updateQuantity();
-                // } else {
-                //   print('aaaaaaaa ');
-                //   await notifier.findLastUpdateProduct(
-                //     product[index],
-                //     true,
-                //     product[index].franchiseName,
-                //   );
-                // }
+                if (product[index].isCustomizable) {
+                  await Get.to(() => ProductDetails(
+                    productId: product[index].id,
+                  ));
+                  notifier.updateQuantity();
+                } else {
+                  await notifier.findLastUpdateProduct(
+                    product[index],
+                    true,
+                    product[index].franchiseName,
+                  );
+                }
               },
                     () async {
                   if (product[index].isCustomizable) {
@@ -141,7 +142,7 @@ class ProductList extends HookWidget {
       );
 
   Widget productListGrid(
-      BuildContext context, List<ProductResponse>? product, notifier, state, Cart? cart) =>
+      BuildContext context, List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
       GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -218,7 +219,7 @@ class ProductList extends HookWidget {
   }
 
   Widget showPopUp(
-      BuildContext context, ProductResponse product, Function() onRepeat, Cart? cart) {
+      BuildContext context, ProductDetailsResponse product, Function() onRepeat, Cart? cart) {
     return Dialog(
       child: Container(
         height: 165,

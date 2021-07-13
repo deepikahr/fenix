@@ -5,6 +5,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
+import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
@@ -40,6 +41,10 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     );
   }
 
+  void showAddButton(bool value) {
+    state = state.copyWith(showAddButton: value);
+  }
+
   void onSizeSelect(value) {
     state = state.copyWith(groupValue: value);
   }
@@ -54,10 +59,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
   void removeAddOnItem(AddOnItem addOnItem) {
     state = state.copyWith
         .call(selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem));
-  }
-
-  void onProsuct(value) {
-    state = state.copyWith(groupValue: value);
   }
 
 
@@ -90,34 +91,39 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       id: productId,
       productName: productDetails.productName,
       productImage: productDetails.productImage,
-      franchiseName: productDetails.franchiseName,
-      averageRating: productDetails.averageRating,
-      franchiseId: productDetails.franchiseId,
       categoryId: productDetails.category,
-      vendorId: productDetails.vendorId,
-      restaurantName: productDetails.franchiseName,
-      discount: productDetails.offerPercentage!,
-      isVeg: productDetails.isVeg,
-      description: productDetails.productDescription,
-      sizeName: selectedVariant.sizeName,
+      categoryName: productDetails.categoryName,
       sellingPrice: selectedVariant.price ?? 0,
       originalPrice: selectedVariant.price ?? 0,
-      totalProductPrice: totalPrice,
-      selectedAddOnItems: selectedAddOnItems.toList(),
-      // preparationTime: productDetails.preparationTime,
+      taxInfo: productDetails.taxInfo,
       quantity: 1,
-      productId: productId,
       isLastVariant: true,
       totalQuantity: 1,
-      tags: productDetails.tags,
+      totalProductPrice: totalPrice,
+      selectedAddOnItems: selectedAddOnItems.toList(),
+      variant: selectedVariant,
+      franchiseName: productDetails.franchiseName,
+      franchiseId: productDetails.franchiseId,
+      vendorId: productDetails.vendorId,
+      restaurantName: productDetails.franchiseName,
+      description: productDetails.productDescription,
+      sizeName: selectedVariant.sizeName,
+      productId: productId,
       allergens: productDetails.allergens,
+    );
+
+    state = state.copyWith.productDetails!(
+        totalQuantity: product.totalQuantity,
+        isSameProductMultipleTime: product.isSameProductMultipleTime,
+      selectedAddOnItems: product.selectedAddOnItems,
+      totalProductPrice: product.totalProductPrice,
+
     );
 
     if (cartData == null) {
       cart = cart.copyWith.call(
         franchiseId: product.franchiseId,
         franchiseName: product.franchiseName,
-        preparationTime: product.preparationTime,
         vendorId: product.vendorId,
         restaurantName: product.franchiseName,
       );
@@ -131,8 +137,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
           .reduce((_, __) => _ + __);
       cart = cart.copyWith(subTotal: cartTotal);
 
-      printWrapped('qqqqqqqqqqqqqqqqqqqqq  $cart');
-      state.productDetails!.copyWith.call(totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
+      state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
+          totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
       await cartState.updateCart(cart);
       // Timer(Duration(seconds: 1), () async {
       //   await Get.to(() => CartScreen());
@@ -161,7 +167,10 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
                 .0;
       }
 
+      state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
+          totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
       final totalProductPrice = selectedVariant.price! + addOnItemsPrice;
+      print('hhhh $totalProductPrice');
       if (cartData!.products.any(
         (p) =>
             p.id == productId &&
@@ -173,7 +182,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
           if (p.id == productId &&
               p.sizeName == product.sizeName &&
               p.selectedAddOnItems.equals(selectedAddOnItems.toList())) {
-            printWrapped('cartData ================= $cartData');
+            printWrapped('1cartData ================= $cartData');
 
             return p.copyWith(quantity: p.quantity + 1, isLastVariant: true);
           } else {
@@ -188,21 +197,23 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
             originalPrice: selectedVariant.price!,
             totalProductPrice: totalProductPrice,
             selectedAddOnItems: selectedAddOnItems.toList(),
+            variant: selectedVariant
           ),
           ...cartData!.products,
         ]);
       }
-      cart = cartData?.copyWith(
-          products: cartData!.products.map((p) {
-        if (p.id == productId &&
-            p.sizeName == product.sizeName &&
-            p.selectedAddOnItems.equals(selectedAddOnItems.toList())) {
-          return p.copyWith(isLastVariant: true);
-        } else {
-          return p.copyWith(isLastVariant: false);
-        }
-      }).toList());
-      printWrapped('cartData===================$cartData');
+
+      // cart = cartData!.copyWith(
+      //     products: cartData!.products.map((p) {
+      //   if (p.id == productId &&
+      //       p.sizeName == product.sizeName &&
+      //       p.selectedAddOnItems.equals(selectedAddOnItems.toList())) {
+      //     return p.copyWith(isLastVariant: true);
+      //   } else {
+      //     return p.copyWith(isLastVariant: false);
+      //   }
+      // }).toList());
+      await cartState.updateCart(cart);
 
       final cartTotal = cartData!.products
           .map((e) => e.totalProductPrice)
@@ -210,23 +221,23 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       cart = cartData?.copyWith(subTotal: cartTotal);
 
       await cartState.updateCart(cart);
-      // Timer(Duration(seconds: 1), () async {
-      //   await Get.to(() => CartScreen());
-      // });
-      // await showDialog(
-      //   barrierColor: secondary,
-      //   context: context,
-      //   builder: (BuildContext context) {
-      //     return blackAlertBox(
-      //         context,
-      //         'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
-      //         Image.asset(
-      //           'lib/assets/icons/done.png',
-      //           scale: 3,
-      //         ),
-      //         null);
-      //   },
-      // );
+      Timer(Duration(seconds: 1), () async {
+        await Get.to(() => CartScreen());
+      });
+      await showDialog(
+        barrierColor: secondary,
+        context: context,
+        builder: (BuildContext context) {
+          return blackAlertBox(
+              context,
+              'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
+              Image.asset(
+                'lib/assets/icons/done.png',
+                scale: 3,
+              ),
+              null);
+        },
+      );
     } else {
       await customDialog(
         status: DIALOG_STATUS.WARNING,
@@ -241,67 +252,37 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     }
   }
 
-
-  void updateQuantity({Cart? newCart}) {
+  void updateQuantity({Cart? newCart, ProductDetailsResponse? product}) {
     newCart ??= cartData;
-    state.productDetails!.copyWith.call(totalQuantity: 0, isSameProductMultipleTime: false);
+    if (
+        newCart != null
+        ) {
+            final quantity = newCart.products
+                .map((e) => (e.id == state.productDetails!.id) ? e.quantity : 0)
+                .reduce((_, __) => _ + __);
+            final productData = newCart.products
+                .map((e) => (e.id == state.productDetails!.id) ? 1 : 0)
+                .reduce((_, __) => _ + __);
+    product = state.productDetails!.copyWith.call(
+                totalQuantity: quantity,
+                isSameProductMultipleTime: productData > 1 ? true : false);
 
-    // if (state.productDetails!.isNotEmpty &&
-    //     newCart != null &&
-    //     newCart.products.isNotEmpty) {
-    //   state.products!.forEach((categoriesElement) {
-    //     if (categoriesElement.products.isNotEmpty) {
-    //       categoriesElement.products.forEach((productsElement) {
-    //         final quantity = newCart!.products
-    //             .map((e) => (e.id == productsElement.id) ? e.quantity : 0)
-    //             .reduce((_, __) => _ + __);
-    //         final productData = newCart.products
-    //             .map((e) => (e.id == productsElement.id) ? 1 : 0)
-    //             .reduce((_, __) => _ + __);
-    //         productsElement = productsElement.copyWith.call(
-    //             totalQuantity: quantity,
-    //             isSameProductMultipleTime: productData > 1 ? true : false);
-    //         categoriesElement = categoriesElement.copyWith(
-    //             products: categoriesElement.products.map((p) {
-    //               if (p.id == productsElement.id) {
-    //                 return productsElement;
-    //               }
-    //               return p;
-    //             }).toList());
-    //         state = state.copyWith.restaurant!(
-    //             categories: state.restaurant!.categories.map((p) {
-    //               if (p.id == categoriesElement.id) {
-    //                 return categoriesElement;
-    //               }
-    //               return p;
-    //             }).toList());
-    //       });
-    //     }
-    //   });
-    // } else {
-      // state.restaurant!.categories.forEach((categoriesElement) {
-      //   if (categoriesElement.products.isNotEmpty) {
-      //     state.productDetails!.forEach((productsElement) {
-      //       productsElement = productsElement.copyWith
-      //           .call(totalQuantity: 0, isSameProductMultipleTime: false);
-      //       categoriesElement = categoriesElement.copyWith(
-      //           products: categoriesElement.products.map((p) {
-      //             if (p.id == productsElement.id) {
-      //               return productsElement;
-      //             }
-      //             return p;
-      //           }).toList());
-      //       state = state.copyWith.restaurant!(
-      //           categories: state.restaurant!.categories.map((p) {
-      //             if (p.id == categoriesElement.id) {
-      //               return categoriesElement;
-      //             }
-      //             return p;
-      //           }).toList());
-      //     });
-        // }
-      // });
-    // }
+            state = state.copyWith.productDetails!(
+                totalQuantity: product.totalQuantity,
+                isSameProductMultipleTime: product.isSameProductMultipleTime
+                );
+
+    } else {
+            product = product!.copyWith
+                .call(totalQuantity: 0, isSameProductMultipleTime: false);
+
+            state = state.copyWith.productDetails!(
+                totalQuantity: product.totalQuantity,
+                isSameProductMultipleTime: product.isSameProductMultipleTime
+
+            );
+
+    }
   }
 
   Future<void> findLastUpdateProduct(
@@ -309,13 +290,12 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       bool increased,
       String? restaurantName,
       ) async {
-    printWrapped('bbbb $cartData');
+    printWrapped('11111');
     if (cartData == null) {
-      print('qqq $cartData');
+      print('222222 ');
       final cart = Cart(
         franchiseId: product.franchiseId,
         franchiseName: product.franchiseName,
-        preparationTime: product.preparationTime,
         vendorId: product.vendorId,
         restaurantName: restaurantName,
         products: [
@@ -327,8 +307,9 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         ],
       );
       await cartState.updateCart(cart);
-      updateQuantity(newCart: cart);
+      updateQuantity(newCart: cart, product: product);
     } else if (product.franchiseId != cartData?.franchiseId) {
+      print('333');
       await customDialog(
         status: DIALOG_STATUS.WARNING,
         title:
@@ -341,6 +322,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         },
       );
     } else if (!cartData!.products.any((element) => element.id == product.id)) {
+      print('44444');
       final cart = cartData?.copyWith(products: [
         ...cartData?.products ?? [],
         product.copyWith(
@@ -350,14 +332,16 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         )
       ]);
       await cartState.updateCart(cart);
-      updateQuantity(newCart: cart);
+      updateQuantity(newCart: cart, product: product);
     } else {
+      print('5555');
       cartData?.products.forEach(
             (element) async {
           if (element.id == product.id && element.isLastVariant == true) {
             final newProduct = element.copyWith(
                 quantity: element.quantity + (increased ? 1 : -1));
             if (newProduct.quantity > 0) {
+              print('555 11111');
               var products = cartData!.products;
               products = products.map((p) {
                 if (p == element) {
@@ -368,12 +352,13 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
 
               Cart? cart = cartData!.copyWith(products: products);
               await cartState.updateCart(cart);
-              updateQuantity(newCart: cart);
+              updateQuantity(newCart: cart, product: product);
             } else {
+              print('555 22');
               Cart? cart = cartData!
                   .copyWith(products: cartData!.products..remove(element));
               await cartState.updateCart(cart);
-              updateQuantity(newCart: cart);
+              updateQuantity(newCart: cart, product: product);
               if (cart.products.isEmpty) {
                 await cartState.deleteCart();
               }
@@ -384,7 +369,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     }
   }
 
-  void updateProductsQuantity(ProductResponse product, increased) async {
+  void updateProductsQuantity(ProductDetailsResponse product, increased) async {
     if (cartData == null) {
       return;
     }
@@ -400,12 +385,12 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
               ..add(newProduct),
           );
           await cartState.updateCart(cart);
-          updateQuantity(newCart: cart);
+          updateQuantity(newCart: cart, product: product);
         } else {
           Cart? cart =
           cartData!.copyWith(products: cartData!.products..remove(element));
           await cartState.updateCart(cart);
-          updateQuantity(newCart: cart);
+          updateQuantity(newCart: cart, product: product);
           if (cart.products.isEmpty) {
             await cartState.deleteCart();
           }
