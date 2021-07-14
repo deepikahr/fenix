@@ -6,11 +6,17 @@ import 'package:fenix_user/screens/auth/change_password/changePasswordState.dart
 import 'package:fenix_user/screens/auth/change_password/changePasswordStateNotifier.dart';
 import 'package:fenix_user/screens/auth/login/loginState.dart';
 import 'package:fenix_user/screens/auth/login/loginStateNotifier.dart';
+import 'package:fenix_user/screens/home/drawer/drawerState.dart';
+import 'package:fenix_user/screens/home/drawer/drawerStateNotifier.dart';
 import 'package:fenix_user/screens/home/home/homeState.dart';
 import 'package:fenix_user/screens/home/home/homeStateNotifier.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsState.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabsStateNotifier.dart';
 import 'package:fenix_user/screens/others/cart/cartState.dart';
+import 'package:fenix_user/screens/others/notify_waiter/notifyWaiterState.dart';
+import 'package:fenix_user/screens/others/notify_waiter/notifyWaiterStateNotifier.dart';
+import 'package:fenix_user/screens/others/order_details/orderDetailsState.dart';
+import 'package:fenix_user/screens/others/order_details/orderDetailsStateNotifier.dart';
 import 'package:fenix_user/screens/others/settings/settingsState.dart';
 import 'package:fenix_user/screens/others/settings/settingsStateNotifier.dart';
 import 'package:fenix_user/screens/product/product_details/productDetailsState.dart';
@@ -97,3 +103,24 @@ final cartProvider = StateNotifierProvider<CartNotifier, Cart?>(
     return CartNotifier(cart: cart);
   },
 );
+
+final orderDetailsProvider =
+StateNotifierProvider.autoDispose<OrderDetailsStateNotifier, OrderDetailsState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return OrderDetailsStateNotifier(api, db,);
+});
+
+final notifyWaiterProvider =
+StateNotifierProvider.autoDispose<NotifyWaiterStateNotifier, NotifyWaiterState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return NotifyWaiterStateNotifier(api, db,);
+});
+
+final drawerProvider =
+StateNotifierProvider.autoDispose<DrawerStateNotifier, DrawerState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return DrawerStateNotifier(api, db,);
+});

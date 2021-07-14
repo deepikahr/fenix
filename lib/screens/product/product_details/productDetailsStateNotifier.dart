@@ -28,7 +28,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     return cartState.state;
   }
 
-
   ProductDetailsStateNotifier(this.api, this.db, this.cartState)
       : super(ProductDetailsState(selectedAddOnItems: <AddOnItem>{}));
 
@@ -126,6 +125,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         franchiseName: product.franchiseName,
         vendorId: product.vendorId,
         restaurantName: product.franchiseName,
+        userId: db.getId()
       );
 
       cart = cart.copyWith(products: [
@@ -140,23 +140,23 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
           totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
       await cartState.updateCart(cart);
-      // Timer(Duration(seconds: 1), () async {
-      //   await Get.to(() => CartScreen());
-      // });
-      // await showDialog(
-      //   barrierColor: secondary,
-      //   context: context,
-      //   builder: (BuildContext context) {
-      //     return blackAlertBox(
-      //         context,
-      //         'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
-      //         Image.asset(
-      //           'lib/assets/icons/done.png',
-      //           scale: 3,
-      //         ),
-      //         null);
-      //   },
-      // );
+      Timer(Duration(seconds: 1), () async {
+        await Get.to(() => CartScreen());
+      });
+      await showDialog(
+        barrierColor: secondary,
+        context: context,
+        builder: (BuildContext context) {
+          return blackAlertBox(
+              context,
+              'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
+              Image.asset(
+                'lib/assets/icons/done.png',
+                scale: 3,
+              ),
+              null);
+        },
+      );
     } else if (product.franchiseId == cartData!.franchiseId) {
       var addOnItemsPrice = .0;
       if (selectedAddOnItems.isNotEmpty) {

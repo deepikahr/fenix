@@ -93,6 +93,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
         franchiseName: product.franchiseName,
         vendorId: product.vendorId,
         restaurantName: restaurantName,
+        userId: db.getId(),
         products: [
           product.copyWith(
             isLastVariant: true,

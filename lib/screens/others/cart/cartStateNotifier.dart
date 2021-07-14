@@ -1,6 +1,7 @@
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_response_models/order_response/order_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
@@ -63,13 +64,26 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
             },
       )
           .reduce((_, __) => _ + __);
-      final grandTotal = total + 1;
+      final grandTotal = total ;
 
       await cartState.updateCart(cart?.copyWith(
         subTotal: total,
         grandTotal: grandTotal,
       ));
     }
+  }
+
+  Future<OrderResponse?> createOrder() async {
+    updateGrandTotal();
+    state = state.copyWith.call(isLoading: true);
+    final response = await api.createOrder(
+      cart!,
+    );
+    db.saveOrderId(response!.id);
+    state = state.copyWith.call(
+      isLoading: false,
+      orderResponse: response
+    );
   }
 
 }

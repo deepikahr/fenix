@@ -1,3 +1,4 @@
+import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -70,7 +71,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                       ),
                     ),
                   ),
-                  Text('5', style: textDarkRegularBW40(context)),
+                  Text(DB().getTableNumber()!.toString(), style: textDarkRegularBW40(context)),
                 ],
               ),
             ),

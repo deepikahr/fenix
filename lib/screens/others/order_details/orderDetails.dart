@@ -1,5 +1,6 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
@@ -13,19 +14,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 
-class TotalAmount extends HookWidget {
+class OrderDetails extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
 
-    final cart = useProvider(cartProvider);
-    final state = useProvider(cartScreenProvider);
-    final cartNotifier = useProvider(cartScreenProvider.notifier);
+    final state = useProvider(orderDetailsProvider);
+    final notifier = useProvider(orderDetailsProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
       if (isMounted()) {
-        context.read(cartScreenProvider.notifier);
+        Future.delayed(Duration.zero, () {
+          notifier.fetchOrderDetails();
+        });
       }
       return;
     }, const []);
@@ -33,7 +35,10 @@ class TotalAmount extends HookWidget {
     return Scaffold(
         body: ListView(
           children: [
-            Container(
+            state.orderDetails == null || !DB().isLoggedIn()
+                ? state.isLoading ? GFLoader() : Center(
+              child: Text('CART_IS_EMPTY'),
+            ) : Container(
               color: white,
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.all(15),
@@ -43,16 +48,12 @@ class TotalAmount extends HookWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('ORDER ID: 4456', style: textBlackLargeBM(context)),
-                      Text('UNIDADES', style: textBlackLargeBM(context)),
+                      Text('ORDER ID: ${state.orderDetails!.orderID}', style: textBlackLargeBM(context)),
+                      Text('${state.orderDetails!.orderStatus}', style: textBlackLargeBM(context)),
                     ],
                   ),
                   SizedBox(height: 10),
-                  cart == null || !DB().isLoggedIn()
-                      ? Center(
-                    child: Text('CART_IS_EMPTY'),
-                  )
-                      : cartItemBlock(context, cart, state),
+                  cartItemBlock(context, state.orderDetails!.cart, state),
                   if (state.isLoading) GFLoader(),
                   Container(
                     padding: EdgeInsets.all(12),
@@ -62,7 +63,7 @@ class TotalAmount extends HookWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 0.0),
-                          child: Text('${cart!.subTotal} Iva incl. TOTAL',
+                          child: Text('${state.orderDetails!.subTotal} Iva incl. TOTAL',
                               style: textBlackLargeBM20G(context)),
                         ),
                         SizedBox(height: 10),
@@ -88,7 +89,7 @@ class TotalAmount extends HookWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        Text('${cart.grandTotal} TOTAL SELECCIÓN',
+                        Text('${state.orderDetails!.grandTotal} TOTAL SELECCIÓN',
                             style: textBlackLargeBM20G(context)),
                       ],
                     ),
@@ -115,14 +116,14 @@ class TotalAmount extends HookWidget {
         ));
   }
 
-  cartItemBlock(BuildContext context, Cart cart, state) {
+  cartItemBlock(BuildContext context, List<CartProduct> cart, state) {
     return ListView.builder(
         physics: ScrollPhysics(),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: cart.products.length,
+        itemCount: cart.length,
         itemBuilder: (BuildContext context, int i) {
-          final cartProduct = cart.products.elementAt(i);
+          final cartProduct = cart.elementAt(i);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -152,7 +153,7 @@ class TotalAmount extends HookWidget {
                       Text('${cartProduct.totalProductPrice}€', style: textBlackLargeBM(context)),
                     ],
                   ),
-                  Text('${cartProduct.totalQuantity}', style: textBlackLargeBM(context)),
+                  Text('${cartProduct.quantity}', style: textBlackLargeBM(context)),
                 ],
               ),
               Divider()

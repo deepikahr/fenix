@@ -78,6 +78,39 @@ class DB {
     return menuId;
   }
 
+  void saveOrderId(orderId) {
+    final box = Hive.box('user');
+    box.put('orderId', orderId);
+  }
+
+  String? getOrderId() {
+    final box = Hive.box('user');
+    String? orderId = box.get('orderId');
+    return orderId;
+  }
+
+  void saveOrderNumber(orderNumber) {
+    final box = Hive.box('user');
+    box.put('orderNumber', orderNumber);
+  }
+
+  String? getOrderNumber() {
+    final box = Hive.box('user');
+    String? orderNumber = box.get('orderNumber');
+    return orderNumber;
+  }
+
+  void saveTableNumber(tableNumber) {
+    final box = Hive.box('user');
+    box.put('tableNumber', tableNumber);
+  }
+
+  String? getTableNumber() {
+    final box = Hive.box('user');
+    String? tableNumber = box.get('tableNumber');
+    return tableNumber;
+  }
+
   void saveMenuName(menuName) {
     final box = Hive.box('user');
     box.put('menuName', menuName);

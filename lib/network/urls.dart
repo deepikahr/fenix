@@ -10,4 +10,10 @@ class URL {
   static const PRODUCT_LIST = '/products/list/';
   static const PRODUCT_DETAILS = '/products/detail/';
 
+  static const CREATE_ORDER = '/orders/create';
+  static const ORDER_DETAILS = '/orders/detail/';
+
+  static const CALL_WAITER = '/notifications/request';
+
+
 }
