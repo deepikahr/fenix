@@ -25,12 +25,15 @@ class ProductResponse with BaseModel<ProductResponse>, _$ProductResponse {
     @Default(0) int averageRating,
     String? franchiseId,
     String? categoryName,
-    String? categoryId,
+    String? category,
+    String? subCategory,
     String? vendorId,
+    String? menuId,
     String? restaurantName,
     @Default(0) int originalPrice,
     @Default(0) int sellingPrice,
     @Default(0) int discount,
+    int? ranking,
     String? sizeName,
     bool? isVeg,
     String? description,
@@ -62,4 +65,3 @@ class ProductResponse with BaseModel<ProductResponse>, _$ProductResponse {
     return toJson();
   }
 }
-

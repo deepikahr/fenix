@@ -20,12 +20,14 @@ class _$ProductDetailsStateTearOff {
       {bool isLoading = false,
       ProductDetailsResponse? productDetails,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue = 0}) {
+      int groupValue = 0,
+      bool showAddButton = false}) {
     return _Default(
       isLoading: isLoading,
       productDetails: productDetails,
       selectedAddOnItems: selectedAddOnItems,
       groupValue: groupValue,
+      showAddButton: showAddButton,
     );
   }
 }
@@ -40,6 +42,7 @@ mixin _$ProductDetailsState {
       throw _privateConstructorUsedError;
   Set<AddOnItem>? get selectedAddOnItems => throw _privateConstructorUsedError;
   int get groupValue => throw _privateConstructorUsedError;
+  bool get showAddButton => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductDetailsStateCopyWith<ProductDetailsState> get copyWith =>
@@ -55,7 +58,8 @@ abstract class $ProductDetailsStateCopyWith<$Res> {
       {bool isLoading,
       ProductDetailsResponse? productDetails,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue});
+      int groupValue,
+      bool showAddButton});
 
   $ProductDetailsResponseCopyWith<$Res>? get productDetails;
 }
@@ -75,6 +79,7 @@ class _$ProductDetailsStateCopyWithImpl<$Res>
     Object? productDetails = freezed,
     Object? selectedAddOnItems = freezed,
     Object? groupValue = freezed,
+    Object? showAddButton = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -93,6 +98,10 @@ class _$ProductDetailsStateCopyWithImpl<$Res>
           ? _value.groupValue
           : groupValue // ignore: cast_nullable_to_non_nullable
               as int,
+      showAddButton: showAddButton == freezed
+          ? _value.showAddButton
+          : showAddButton // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -119,7 +128,8 @@ abstract class _$DefaultCopyWith<$Res>
       {bool isLoading,
       ProductDetailsResponse? productDetails,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue});
+      int groupValue,
+      bool showAddButton});
 
   @override
   $ProductDetailsResponseCopyWith<$Res>? get productDetails;
@@ -141,6 +151,7 @@ class __$DefaultCopyWithImpl<$Res>
     Object? productDetails = freezed,
     Object? selectedAddOnItems = freezed,
     Object? groupValue = freezed,
+    Object? showAddButton = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -159,6 +170,10 @@ class __$DefaultCopyWithImpl<$Res>
           ? _value.groupValue
           : groupValue // ignore: cast_nullable_to_non_nullable
               as int,
+      showAddButton: showAddButton == freezed
+          ? _value.showAddButton
+          : showAddButton // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -170,7 +185,8 @@ class _$_Default implements _Default {
       {this.isLoading = false,
       this.productDetails,
       this.selectedAddOnItems,
-      this.groupValue = 0});
+      this.groupValue = 0,
+      this.showAddButton = false});
 
   @JsonKey(defaultValue: false)
   @override
@@ -182,10 +198,13 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: 0)
   @override
   final int groupValue;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool showAddButton;
 
   @override
   String toString() {
-    return 'ProductDetailsState(isLoading: $isLoading, productDetails: $productDetails, selectedAddOnItems: $selectedAddOnItems, groupValue: $groupValue)';
+    return 'ProductDetailsState(isLoading: $isLoading, productDetails: $productDetails, selectedAddOnItems: $selectedAddOnItems, groupValue: $groupValue, showAddButton: $showAddButton)';
   }
 
   @override
@@ -203,7 +222,10 @@ class _$_Default implements _Default {
                     .equals(other.selectedAddOnItems, selectedAddOnItems)) &&
             (identical(other.groupValue, groupValue) ||
                 const DeepCollectionEquality()
-                    .equals(other.groupValue, groupValue)));
+                    .equals(other.groupValue, groupValue)) &&
+            (identical(other.showAddButton, showAddButton) ||
+                const DeepCollectionEquality()
+                    .equals(other.showAddButton, showAddButton)));
   }
 
   @override
@@ -212,7 +234,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(productDetails) ^
       const DeepCollectionEquality().hash(selectedAddOnItems) ^
-      const DeepCollectionEquality().hash(groupValue);
+      const DeepCollectionEquality().hash(groupValue) ^
+      const DeepCollectionEquality().hash(showAddButton);
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +248,8 @@ abstract class _Default implements ProductDetailsState {
       {bool isLoading,
       ProductDetailsResponse? productDetails,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue}) = _$_Default;
+      int groupValue,
+      bool showAddButton}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -236,6 +260,8 @@ abstract class _Default implements ProductDetailsState {
   Set<AddOnItem>? get selectedAddOnItems => throw _privateConstructorUsedError;
   @override
   int get groupValue => throw _privateConstructorUsedError;
+  @override
+  bool get showAddButton => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

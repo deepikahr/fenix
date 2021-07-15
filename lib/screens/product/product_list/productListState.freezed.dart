@@ -20,7 +20,7 @@ class _$ProductListStateTearOff {
       {bool isLoading = false,
       String? categoryTitle,
       ProductModel? productData,
-      List<ProductResponse>? products,
+      List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue = 0}) {
@@ -44,7 +44,8 @@ mixin _$ProductListState {
   bool get isLoading => throw _privateConstructorUsedError;
   String? get categoryTitle => throw _privateConstructorUsedError;
   ProductModel? get productData => throw _privateConstructorUsedError;
-  List<ProductResponse>? get products => throw _privateConstructorUsedError;
+  List<ProductDetailsResponse>? get products =>
+      throw _privateConstructorUsedError;
   int? get productTotal => throw _privateConstructorUsedError;
   Set<AddOnItem>? get selectedAddOnItems => throw _privateConstructorUsedError;
   int get groupValue => throw _privateConstructorUsedError;
@@ -63,7 +64,7 @@ abstract class $ProductListStateCopyWith<$Res> {
       {bool isLoading,
       String? categoryTitle,
       ProductModel? productData,
-      List<ProductResponse>? products,
+      List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue});
@@ -106,7 +107,7 @@ class _$ProductListStateCopyWithImpl<$Res>
       products: products == freezed
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<ProductResponse>?,
+              as List<ProductDetailsResponse>?,
       productTotal: productTotal == freezed
           ? _value.productTotal
           : productTotal // ignore: cast_nullable_to_non_nullable
@@ -144,7 +145,7 @@ abstract class _$DefaultCopyWith<$Res>
       {bool isLoading,
       String? categoryTitle,
       ProductModel? productData,
-      List<ProductResponse>? products,
+      List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue});
@@ -188,7 +189,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
       products: products == freezed
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<ProductResponse>?,
+              as List<ProductDetailsResponse>?,
       productTotal: productTotal == freezed
           ? _value.productTotal
           : productTotal // ignore: cast_nullable_to_non_nullable
@@ -225,7 +226,7 @@ class _$_Default implements _Default {
   @override
   final ProductModel? productData;
   @override
-  final List<ProductResponse>? products;
+  final List<ProductDetailsResponse>? products;
   @override
   final int? productTotal;
   @override
@@ -288,7 +289,7 @@ abstract class _Default implements ProductListState {
       {bool isLoading,
       String? categoryTitle,
       ProductModel? productData,
-      List<ProductResponse>? products,
+      List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue}) = _$_Default;
@@ -300,7 +301,8 @@ abstract class _Default implements ProductListState {
   @override
   ProductModel? get productData => throw _privateConstructorUsedError;
   @override
-  List<ProductResponse>? get products => throw _privateConstructorUsedError;
+  List<ProductDetailsResponse>? get products =>
+      throw _privateConstructorUsedError;
   @override
   int? get productTotal => throw _privateConstructorUsedError;
   @override

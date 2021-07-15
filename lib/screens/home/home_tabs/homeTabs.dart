@@ -2,7 +2,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/others/cart/cart.dart';
-import 'package:fenix_user/screens/others/total_amount/totalAmount.dart';
+import 'package:fenix_user/screens/others/order_details/orderDetails.dart';
 import 'package:fenix_user/screens/product/product_details/productDetails.dart';
 import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/screens/tabs/category/category.dart';
@@ -49,7 +49,7 @@ class HomeTabs extends HookWidget {
       Home(),
       Category(),
       Category(),
-      TotalAmount(),
+      OrderDetails(),
     ];
 
     return Scaffold(

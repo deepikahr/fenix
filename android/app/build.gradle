@@ -44,6 +44,7 @@ file('../../.env').readLines().each() {
     }
 }
 
+
 android {
     compileSdkVersion 30
 

@@ -13,6 +13,7 @@ const themeBlue = Color(0xFF2B80C9);
 
 var primary = db.getThemeColor() == 'red' ? Color(0xFFC92B2B) : db.getThemeColor() == 'green' ? Color(0xFF5B8E27)
     : Color(0xFF2B80C9);
+
 // const primary = Color(0xFFC92B2B);
 const secondary = Color(0xFFFFDDDD);
 const secondary1 = Color(0xFF212730);

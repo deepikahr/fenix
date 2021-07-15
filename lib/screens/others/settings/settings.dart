@@ -181,6 +181,7 @@ class Settings extends HookWidget {
       tableNumberEditController,
       ipAddressEditController,
       state) {
+    DB().saveTableNumber(settings.tableNumber.toString());
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: ListView(
@@ -274,10 +275,10 @@ class Settings extends HookWidget {
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
                 hint: Text(
-                  'menu selection',
+                  'Choose menu',
                   style: textDarkRegularBG(context),
                 ),
-                value: state.menuTitle ?? menuList!.first.title,
+                value: state.menuTitle,
                 onChanged: (value) async {
                   for (var i = 0; i < menuList!.length; i++) {
                     if (menuList[i].title == value) {

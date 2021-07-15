@@ -304,11 +304,11 @@ Widget totalRow(BuildContext context, text1, text2) {
     children: [
       Text(
         text1,
-        style: textDarkLightXSmallBLS(context),
+        style: textBlackLargeBM(context),
       ),
       Text(
         text2,
-        style: textDarkLightXSmallBLS(context),
+        style: textBlackLargeBM(context),
       ),
     ],
   );
