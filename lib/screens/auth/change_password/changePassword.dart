@@ -121,7 +121,7 @@ class ChangePasswordPage extends HookWidget {
                   builder: (BuildContext context) {
                     return blackAlertBox(
                         context,
-                        'Changed password successfully'.tr,
+                        'Changed passcode successfully'.tr,
                         Image.asset(
                           'lib/assets/icons/done.png',
                           scale: 3,
@@ -131,8 +131,8 @@ class ChangePasswordPage extends HookWidget {
                 );
               }
             }
-          }),
-          if (state.isLoading) GFLoader(),
+          }, state.isLoading),
+          // if (state.isLoading) GFLoader(type: GFLoaderType.ios),
         ],
       ),
     );
@@ -155,7 +155,7 @@ class ChangePasswordPage extends HookWidget {
       obscureText: true,
       validator: validateOtp,
       decoration: InputDecoration(
-          labelText: 'CURRENT PASSWORD'.tr,
+          labelText: 'CURRENT PASSCODE'.tr,
           labelStyle: textDarkLightSmallBR(context),
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: InputBorder.none,
@@ -181,7 +181,7 @@ class ChangePasswordPage extends HookWidget {
       obscureText: true,
       validator: validateOtp,
       decoration: InputDecoration(
-          labelText: 'NEW PASSWORD'.tr,
+          labelText: 'NEW PASSCODE'.tr,
           labelStyle: textDarkLightSmallBR(context),
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: InputBorder.none,

@@ -16,10 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CartScreenStateTearOff {
   const _$CartScreenStateTearOff();
 
-  _Default call({bool isLoading = false, OrderResponse? orderResponse}) {
+  _Default call(
+      {bool isLoading = false,
+      OrderResponse? orderResponse,
+      String? selectedLanguage}) {
     return _Default(
       isLoading: isLoading,
       orderResponse: orderResponse,
+      selectedLanguage: selectedLanguage,
     );
   }
 }
@@ -31,6 +35,7 @@ const $CartScreenState = _$CartScreenStateTearOff();
 mixin _$CartScreenState {
   bool get isLoading => throw _privateConstructorUsedError;
   OrderResponse? get orderResponse => throw _privateConstructorUsedError;
+  String? get selectedLanguage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartScreenStateCopyWith<CartScreenState> get copyWith =>
@@ -42,7 +47,8 @@ abstract class $CartScreenStateCopyWith<$Res> {
   factory $CartScreenStateCopyWith(
           CartScreenState value, $Res Function(CartScreenState) then) =
       _$CartScreenStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, OrderResponse? orderResponse});
+  $Res call(
+      {bool isLoading, OrderResponse? orderResponse, String? selectedLanguage});
 
   $OrderResponseCopyWith<$Res>? get orderResponse;
 }
@@ -60,6 +66,7 @@ class _$CartScreenStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? orderResponse = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -70,6 +77,10 @@ class _$CartScreenStateCopyWithImpl<$Res>
           ? _value.orderResponse
           : orderResponse // ignore: cast_nullable_to_non_nullable
               as OrderResponse?,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -91,7 +102,8 @@ abstract class _$DefaultCopyWith<$Res>
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, OrderResponse? orderResponse});
+  $Res call(
+      {bool isLoading, OrderResponse? orderResponse, String? selectedLanguage});
 
   @override
   $OrderResponseCopyWith<$Res>? get orderResponse;
@@ -110,6 +122,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$CartScreenStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? orderResponse = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -120,6 +133,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$CartScreenStateCopyWithImpl<$Res>
           ? _value.orderResponse
           : orderResponse // ignore: cast_nullable_to_non_nullable
               as OrderResponse?,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -127,17 +144,20 @@ class __$DefaultCopyWithImpl<$Res> extends _$CartScreenStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.orderResponse});
+  const _$_Default(
+      {this.isLoading = false, this.orderResponse, this.selectedLanguage});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
   @override
   final OrderResponse? orderResponse;
+  @override
+  final String? selectedLanguage;
 
   @override
   String toString() {
-    return 'CartScreenState(isLoading: $isLoading, orderResponse: $orderResponse)';
+    return 'CartScreenState(isLoading: $isLoading, orderResponse: $orderResponse, selectedLanguage: $selectedLanguage)';
   }
 
   @override
@@ -149,14 +169,18 @@ class _$_Default implements _Default {
                     .equals(other.isLoading, isLoading)) &&
             (identical(other.orderResponse, orderResponse) ||
                 const DeepCollectionEquality()
-                    .equals(other.orderResponse, orderResponse)));
+                    .equals(other.orderResponse, orderResponse)) &&
+            (identical(other.selectedLanguage, selectedLanguage) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedLanguage, selectedLanguage)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(orderResponse);
+      const DeepCollectionEquality().hash(orderResponse) ^
+      const DeepCollectionEquality().hash(selectedLanguage);
 
   @JsonKey(ignore: true)
   @override
@@ -165,13 +189,17 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements CartScreenState {
-  const factory _Default({bool isLoading, OrderResponse? orderResponse}) =
-      _$_Default;
+  const factory _Default(
+      {bool isLoading,
+      OrderResponse? orderResponse,
+      String? selectedLanguage}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   OrderResponse? get orderResponse => throw _privateConstructorUsedError;
+  @override
+  String? get selectedLanguage => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

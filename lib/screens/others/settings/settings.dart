@@ -26,6 +26,7 @@ class Settings extends HookWidget {
   final tableNumberFocusNode = FocusNode();
   final ipAddressFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class Settings extends HookWidget {
     // print('wwwwwww ${state.menuList}');
 
     return Scaffold(
+      key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: PreferredSize(
           child: Stack(
@@ -84,7 +86,7 @@ class Settings extends HookWidget {
               if (state.settings != null && state.menuList != null)
                 contentBlock(context, state.settings!, state.menuList!,
                     tableNumberEditController, ipAddressEditController, state),
-              if (state.isLoading) GFLoader()
+              if (state.isLoading) GFLoader(type: GFLoaderType.ios)
             ],
           ),
         ),
@@ -97,7 +99,7 @@ class Settings extends HookWidget {
                 Get.back();
               }),
               primaryButton(context, 'UPDATE', () async {
-                if (state.menuTitle != null) {
+                if (state.menuTitle != null || DB().getMenuName() != null) {
                   final response = await context
                       .read(settingsProvider.notifier)
                       .updateSettings(
@@ -168,7 +170,7 @@ class Settings extends HookWidget {
                     },
                   );
                 }
-              }),
+              }, state.isUpdateLoading),
             ],
           ),
         ));
@@ -278,7 +280,7 @@ class Settings extends HookWidget {
                   'Choose menu',
                   style: textDarkRegularBG(context),
                 ),
-                value: state.menuTitle,
+                value: state.menuTitle ?? DB().getMenuName(),
                 onChanged: (value) async {
                   for (var i = 0; i < menuList!.length; i++) {
                     if (menuList[i].title == value) {

@@ -18,6 +18,7 @@ class _$SettingsStateTearOff {
 
   _Default call(
       {bool isLoading = false,
+      bool isUpdateLoading = false,
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
@@ -30,6 +31,7 @@ class _$SettingsStateTearOff {
       bool? validatePayment}) {
     return _Default(
       isLoading: isLoading,
+      isUpdateLoading: isUpdateLoading,
       settings: settings,
       menuList: menuList,
       themeColor: themeColor,
@@ -50,6 +52,7 @@ const $SettingsState = _$SettingsStateTearOff();
 /// @nodoc
 mixin _$SettingsState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isUpdateLoading => throw _privateConstructorUsedError;
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
   String? get themeColor => throw _privateConstructorUsedError;
@@ -73,6 +76,7 @@ abstract class $SettingsStateCopyWith<$Res> {
       _$SettingsStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
+      bool isUpdateLoading,
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
@@ -99,6 +103,7 @@ class _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isUpdateLoading = freezed,
     Object? settings = freezed,
     Object? menuList = freezed,
     Object? themeColor = freezed,
@@ -114,6 +119,10 @@ class _$SettingsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUpdateLoading: isUpdateLoading == freezed
+          ? _value.isUpdateLoading
+          : isUpdateLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       settings: settings == freezed
           ? _value.settings
@@ -177,6 +186,7 @@ abstract class _$DefaultCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
   @override
   $Res call(
       {bool isLoading,
+      bool isUpdateLoading,
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
@@ -204,6 +214,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isUpdateLoading = freezed,
     Object? settings = freezed,
     Object? menuList = freezed,
     Object? themeColor = freezed,
@@ -219,6 +230,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUpdateLoading: isUpdateLoading == freezed
+          ? _value.isUpdateLoading
+          : isUpdateLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       settings: settings == freezed
           ? _value.settings
@@ -269,6 +284,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
 class _$_Default implements _Default {
   const _$_Default(
       {this.isLoading = false,
+      this.isUpdateLoading = false,
       this.settings,
       this.menuList,
       this.themeColor,
@@ -283,6 +299,9 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isUpdateLoading;
   @override
   final SettingsResponse? settings;
   @override
@@ -306,7 +325,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'SettingsState(isLoading: $isLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment)';
+    return 'SettingsState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment)';
   }
 
   @override
@@ -316,6 +335,9 @@ class _$_Default implements _Default {
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
+            (identical(other.isUpdateLoading, isUpdateLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.isUpdateLoading, isUpdateLoading)) &&
             (identical(other.settings, settings) ||
                 const DeepCollectionEquality()
                     .equals(other.settings, settings)) &&
@@ -351,6 +373,7 @@ class _$_Default implements _Default {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(isUpdateLoading) ^
       const DeepCollectionEquality().hash(settings) ^
       const DeepCollectionEquality().hash(menuList) ^
       const DeepCollectionEquality().hash(themeColor) ^
@@ -371,6 +394,7 @@ class _$_Default implements _Default {
 abstract class _Default implements SettingsState {
   const factory _Default(
       {bool isLoading,
+      bool isUpdateLoading,
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
@@ -384,6 +408,8 @@ abstract class _Default implements SettingsState {
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get isUpdateLoading => throw _privateConstructorUsedError;
   @override
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   @override

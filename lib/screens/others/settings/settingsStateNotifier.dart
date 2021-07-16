@@ -93,7 +93,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       String? orderingMode,
       String? viewType
       ) async {
-    state = state.copyWith.call(isLoading: true);
+    state = state.copyWith.call(isUpdateLoading: true);
 
     TabSettingResponse tabSetting = TabSettingResponse(
       resetCategory: resetCategory,
@@ -108,7 +108,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     final response = await api.settingUpdate(SettingsUpdateRequest(tabSetting: tabSetting));
     db.saveThemeColor(themeColour);
     db.saveType(viewType);
-    state = state.copyWith.call(isLoading: false);
+    state = state.copyWith.call(isUpdateLoading: false);
 
     return response;
   }

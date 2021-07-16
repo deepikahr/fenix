@@ -21,9 +21,11 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
 
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
 
+
     final newProduct = product.copyWith(
       totalQuantity: product.totalQuantity + (increased ? 1 : -1),
     );
+
 
     if (newProduct.totalQuantity > 0) {
       var products = cart!.products;

@@ -121,9 +121,9 @@ class LoginPage extends HookWidget {
                   await Get.offAll(() => Settings());
               }
             }
-          }),
+          }, state.isLoading),
 
-          if (state.isLoading) GFLoader(),
+          // if (state.isLoading) GFLoader(type: GFLoaderType.ios),
         ],
       ),
     );
@@ -188,7 +188,7 @@ class LoginPage extends HookWidget {
       obscureText: true,
       validator: validateOtp,
       decoration: InputDecoration(
-        labelText: 'PASSWORD'.tr,
+        labelText: 'PASSCODE'.tr,
         labelStyle: textDarkLightSmallBR(context),
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         border: InputBorder.none,

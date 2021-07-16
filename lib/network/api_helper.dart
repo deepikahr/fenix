@@ -5,6 +5,7 @@ import 'package:fenix_user/models/api_response_model.dart';
 import 'package:fenix_user/models/api_response_models/base_response/base_response.dart';
 import 'package:fenix_user/models/api_response_models/error_response/error_response.dart';
 import 'package:fenix_user/models/base_model.dart';
+import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:get/get.dart' hide Response, FormData;
 import 'package:dio/dio.dart';
@@ -300,7 +301,7 @@ class ApiHelper {
           title: 'Session Expired',
           okText: 'LOGIN',
           onOkListener: () {
-            // Get.offAll(() => AddNumber());
+            Get.offAll(() => LoginPage());
           });
     } else if (autoErrorHandle) {
       customDialog(

@@ -23,7 +23,8 @@ class _$ProductListStateTearOff {
       List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue = 0}) {
+      int groupValue = 0,
+      String? selectedLanguage}) {
     return _Default(
       isLoading: isLoading,
       categoryTitle: categoryTitle,
@@ -32,6 +33,7 @@ class _$ProductListStateTearOff {
       productTotal: productTotal,
       selectedAddOnItems: selectedAddOnItems,
       groupValue: groupValue,
+      selectedLanguage: selectedLanguage,
     );
   }
 }
@@ -49,6 +51,7 @@ mixin _$ProductListState {
   int? get productTotal => throw _privateConstructorUsedError;
   Set<AddOnItem>? get selectedAddOnItems => throw _privateConstructorUsedError;
   int get groupValue => throw _privateConstructorUsedError;
+  String? get selectedLanguage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductListStateCopyWith<ProductListState> get copyWith =>
@@ -67,7 +70,8 @@ abstract class $ProductListStateCopyWith<$Res> {
       List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue});
+      int groupValue,
+      String? selectedLanguage});
 
   $ProductModelCopyWith<$Res>? get productData;
 }
@@ -90,6 +94,7 @@ class _$ProductListStateCopyWithImpl<$Res>
     Object? productTotal = freezed,
     Object? selectedAddOnItems = freezed,
     Object? groupValue = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -120,6 +125,10 @@ class _$ProductListStateCopyWithImpl<$Res>
           ? _value.groupValue
           : groupValue // ignore: cast_nullable_to_non_nullable
               as int,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -148,7 +157,8 @@ abstract class _$DefaultCopyWith<$Res>
       List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue});
+      int groupValue,
+      String? selectedLanguage});
 
   @override
   $ProductModelCopyWith<$Res>? get productData;
@@ -172,6 +182,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
     Object? productTotal = freezed,
     Object? selectedAddOnItems = freezed,
     Object? groupValue = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -202,6 +213,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
           ? _value.groupValue
           : groupValue // ignore: cast_nullable_to_non_nullable
               as int,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -216,7 +231,8 @@ class _$_Default implements _Default {
       this.products,
       this.productTotal,
       this.selectedAddOnItems,
-      this.groupValue = 0});
+      this.groupValue = 0,
+      this.selectedLanguage});
 
   @JsonKey(defaultValue: false)
   @override
@@ -234,10 +250,12 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: 0)
   @override
   final int groupValue;
+  @override
+  final String? selectedLanguage;
 
   @override
   String toString() {
-    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, productData: $productData, products: $products, productTotal: $productTotal, selectedAddOnItems: $selectedAddOnItems, groupValue: $groupValue)';
+    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, productData: $productData, products: $products, productTotal: $productTotal, selectedAddOnItems: $selectedAddOnItems, groupValue: $groupValue, selectedLanguage: $selectedLanguage)';
   }
 
   @override
@@ -264,7 +282,10 @@ class _$_Default implements _Default {
                     .equals(other.selectedAddOnItems, selectedAddOnItems)) &&
             (identical(other.groupValue, groupValue) ||
                 const DeepCollectionEquality()
-                    .equals(other.groupValue, groupValue)));
+                    .equals(other.groupValue, groupValue)) &&
+            (identical(other.selectedLanguage, selectedLanguage) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedLanguage, selectedLanguage)));
   }
 
   @override
@@ -276,7 +297,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(products) ^
       const DeepCollectionEquality().hash(productTotal) ^
       const DeepCollectionEquality().hash(selectedAddOnItems) ^
-      const DeepCollectionEquality().hash(groupValue);
+      const DeepCollectionEquality().hash(groupValue) ^
+      const DeepCollectionEquality().hash(selectedLanguage);
 
   @JsonKey(ignore: true)
   @override
@@ -292,7 +314,8 @@ abstract class _Default implements ProductListState {
       List<ProductDetailsResponse>? products,
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
-      int groupValue}) = _$_Default;
+      int groupValue,
+      String? selectedLanguage}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -309,6 +332,8 @@ abstract class _Default implements ProductListState {
   Set<AddOnItem>? get selectedAddOnItems => throw _privateConstructorUsedError;
   @override
   int get groupValue => throw _privateConstructorUsedError;
+  @override
+  String? get selectedLanguage => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

@@ -38,7 +38,7 @@ Widget smallOutlineButton(BuildContext context, title, onPressed) {
   );
 }
 
-Widget primaryButton(BuildContext context, title, onPressed) {
+Widget primaryButton(BuildContext context, title, onPressed, loading) {
   return Container(
     width: 164,
     // height: 46,
@@ -46,7 +46,7 @@ Widget primaryButton(BuildContext context, title, onPressed) {
       size: GFSize.LARGE,
       color: primary,
       onPressed: onPressed,
-      child: Text(
+      child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
         title,
         style: textWhiteLargeBM(context),
       ),

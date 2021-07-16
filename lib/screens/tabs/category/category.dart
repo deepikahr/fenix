@@ -18,19 +18,12 @@ import '../../../database/db.dart';
 final db = DB();
 
 class Category extends HookWidget {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     // final state = useProvider(homeProvider);
-    final isMounted = useIsMounted();
-    final items = <String>[
-      'red',
-      'blue',
-      'black',
-      'Idiomos',
-    ];
-    String selectedItem = 'Idiomos';
-    final _scaffoldKey =
-    GlobalKey<ScaffoldState>();
 
     // useEffect(() {
     //   Future.delayed(Duration.zero, () async {
@@ -42,6 +35,9 @@ class Category extends HookWidget {
     // }, const []);
 
     return Scaffold(
+      backgroundColor: light,
+      key: _scaffoldKey,
+      drawer: DrawerPage(),
       body: Container(
             color: light,
             child: ListView(
@@ -51,60 +47,62 @@ class Category extends HookWidget {
                 // homeButtonRow(context, items, (String? string) =>
                 //     useState(() => selectedItem = string!), selectedItem),
                 // if ((state.homeData?.nearByRestaurants.length ?? 0) > 0)
-                nearByYouBlock(context),
+
+                db.getType() == 'list' ?
+                categoryBlock(context) :
+                categoryListGrid(context),
               ],
             ),
       ),
     );
   }
 
-  Widget nearByYouBlock(
-      BuildContext context,) {
+  Widget categoryBlock(BuildContext context) {
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 8),
       // padding: EdgeInsets.symmetric(vertical: 1),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // titleViewAllRow(context, 'NEAR_BY_YOU'.tr, () {
-          //   Get.to(() => ViewAllScreen(
-          //       'NEAR_BY_RESTAURANTS'.tr, ViewAllType.nearByRestaurant));
-          // }),
-          Flexible(
-            fit: FlexFit.loose,
-            child: ListView.separated(
-                separatorBuilder: (_, __) => Divider(
-                  thickness: .3,
-                  color: Colors.black12,
-                  indent: 16,
-                  endIndent: 16,
-                  height: 30,
-                ),
-                padding: EdgeInsets.only(
-                  top: 16,
-                ),
-                physics: ScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int i) {
-                  return InkWell(
-                    onTap: () {
-                      Get.to(() => ProductList(
-                        // restaurants![i].id!, restaurants[i].vendor!
-                      ));
-                    },
-                    child: restaurantInfoCard(
-                      context, 'title', 'lib/assets/images/refer.png'
-                    ),
-                  );
-                }),
-          )
-        ],
-      ),
+      child: ListView.separated(
+          separatorBuilder: (_, __) => Divider(
+            thickness: .3,
+            color: Colors.black12,
+            indent: 16,
+            endIndent: 16,
+            height: 30,
+          ),
+          physics: ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: 4,
+          itemBuilder: (BuildContext context, int i) {
+            return InkWell(
+              // onTap: () {
+              //   Get.to(() => ProductList(categoryId: category[i].id));
+              // },
+              child: restaurantInfoCard(context, 'title', null),
+            );
+          }),
     );
   }
 
+  Widget categoryListGrid(
+      BuildContext context) =>
+      GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 4,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: MediaQuery.of(context).size.width / 245),
+        itemBuilder: (context, i) {
+          return InkWell(
+              onTap: () {
+                // Get.to(() => ProductList(categoryId: category[i].id));
+              },
+              child: restaurantInfoCardGrid(context, 'title', null));
+        },
+      );
 
 }

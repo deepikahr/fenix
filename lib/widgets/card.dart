@@ -133,7 +133,10 @@ Widget restaurantInfoCard(
         // crossAxisAlignment: CrossAxisAlignment.center,
         // children: [
         //  networkImage(img, 97, 109, 10),
-        networkImage(image, 390, 150, 2),
+        // networkImage(image, 390, 150, 2),
+        image != null ?
+        networkImage(image,  390, 150, 2) :
+        networkImageOverlay(390, 150),
         // Image.asset(
         //   'lib/assets/images/refer.png',
         //   width: MediaQuery.of(context).size.width,
@@ -241,7 +244,7 @@ Widget restaurantInfoCard(
 Widget restaurantInfoCardGrid(
   BuildContext context,
   String name,
-  String img,
+  String? img,
 ) {
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 10, right: 10, ),
@@ -256,7 +259,8 @@ Widget restaurantInfoCardGrid(
         //   height: 90,
         //   width: MediaQuery.of(context).size.width,
         // ),
-         networkImage(img, MediaQuery.of(context).size.width, 150, 2),
+         img != null ? networkImage(img, MediaQuery.of(context).size.width, 150, 2)
+        : networkImageOverlay(MediaQuery.of(context).size.width, 150),
         Positioned(
             left: 20,
             right: 20,
@@ -1247,7 +1251,12 @@ Widget walletCard(BuildContext context, text1, text2, image, onTap) {
   );
 }
 
-Widget gridDishCard(BuildContext context, ProductDetailsResponse product, notifier, state){
+Widget gridDishCard(
+    BuildContext context, ProductDetailsResponse product, notifier, state,
+    void Function()? onAdd,
+    void Function()? onUpdate,
+    void Function()? onRemove,
+    ){
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
     decoration: BoxDecoration(
@@ -1301,8 +1310,7 @@ Widget gridDishCard(BuildContext context, ProductDetailsResponse product, notifi
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  titleTextDarkLightSmallBR(context,
-                      '${product.productDescription}'),
+                  HtmlWidget(product.productDescription!, textStyle: textDarkLightSmallBR(context),),
                   SizedBox(
                     height: 6,
                   ),
@@ -1327,24 +1335,69 @@ Widget gridDishCard(BuildContext context, ProductDetailsResponse product, notifi
                         '\$${product.variant!.price}',
                         style: textDarkRegularBS(context),
                       ),
-                      Container(
-                        color: Colors.white,
-                        // padding: EdgeInsets.symmetric(vertical: 16),
-                        child: smallOutlineButton(
-                          context,
-                          'ADD',
-                              () async {
-                            // if(addOnCategory.isRequired! && (state.selectedAddOnItems!.contains(addOnItem))){
-                            //
-                            // }
-                            await notifier.saveCart(
-                              context,
-                              state.selectedAddOnItems,
-                              state.product!.variants[state.groupValue],
-                              product,
-                              product.id,
-                            );
-                          },
+                      product.totalQuantity > 0 ?Container(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                      onTap: onRemove,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              color: white,
+                                              border: Border.all(
+                                                  color: dark, width: 1),
+                                              borderRadius:
+                                              BorderRadius.circular(50)),
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: dark,
+                                          ),
+                                        ),
+                                      )),
+                                  Text(product.totalQuantity.toString(),
+                                      style: textBlackLargeBM(context)),
+                                  InkWell(
+                                    onTap: onUpdate,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            color: white,
+                                            border: Border.all(
+                                                color: dark, width: 1),
+                                            borderRadius:
+                                            BorderRadius.circular(50)),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: dark,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ))
+                      ) :
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: GFButton(
+                          borderShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: BorderSide(color: buttonBorder)),
+                          onPressed: onAdd,
+                          color: Colors.white,
+                          text: 'ADD'.tr,
+                          textStyle: textPrimaryLargeBM(context),
                         ),
                       ),
                       // Container(

@@ -49,7 +49,7 @@ class Home extends HookWidget {
                   categoryListGrid(context, state.homeData?.category),
               ],
             ),
-            if (state.isLoading) GFLoader()
+            if (state.isLoading) GFLoader(type: GFLoaderType.ios)
           ],
         ),
       ),

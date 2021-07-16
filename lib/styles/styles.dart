@@ -1,3 +1,5 @@
+import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -11,7 +13,7 @@ const themeRed = Color(0xFFC92B2B);
 const themeGreen = Color(0xFF5B8E27);
 const themeBlue = Color(0xFF2B80C9);
 
-var primary = db.getThemeColor() == 'red' ? Color(0xFFC92B2B) : db.getThemeColor() == 'green' ? Color(0xFF5B8E27)
+var primary = DB().getThemeColor() == 'red' ? Color(0xFFC92B2B) : DB().getThemeColor() == 'green' ? Color(0xFF5B8E27)
     : Color(0xFF2B80C9);
 
 // const primary = Color(0xFFC92B2B);
