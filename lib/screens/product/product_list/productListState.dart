@@ -16,5 +16,6 @@ class ProductListState with _$ProductListState {
     int? productTotal,
     Set<AddOnItem>? selectedAddOnItems,
     @Default(0) int groupValue,
+    String? selectedLanguage
   }) = _Default;
 }

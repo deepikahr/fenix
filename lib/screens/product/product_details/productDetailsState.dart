@@ -11,6 +11,7 @@ class ProductDetailsState with _$ProductDetailsState {
     ProductDetailsResponse? productDetails,
     Set<AddOnItem>? selectedAddOnItems,
     @Default(0) int groupValue,
-    @Default(false) bool showAddButton
+    @Default(false) bool showAddButton,
+    String? selectedLanguage
   }) = _Default;
 }

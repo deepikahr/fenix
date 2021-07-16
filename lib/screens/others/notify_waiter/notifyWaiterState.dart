@@ -6,5 +6,6 @@ part 'notifyWaiterState.freezed.dart';
 class NotifyWaiterState with _$NotifyWaiterState {
   const factory NotifyWaiterState({
     @Default(false) bool isLoading,
+    String? selectedLanguage
   }) = _Default;
 }

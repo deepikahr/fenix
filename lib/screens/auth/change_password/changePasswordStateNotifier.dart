@@ -8,7 +8,7 @@ import 'changePasswordState.dart';
 class ChangePasswordStateNotifier extends StateNotifier<ChangePasswordState> {
   final API api;
   final DB db;
-  ChangePasswordStateNotifier(this.api, this.db) : super(ChangePasswordState(isLoading: true));
+  ChangePasswordStateNotifier(this.api, this.db) : super(ChangePasswordState());
 
   Future<String?> submit(
       String? oldPassword, String? newPassword) async {

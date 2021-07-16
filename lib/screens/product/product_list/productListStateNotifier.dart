@@ -8,7 +8,7 @@ import 'package:fenix_user/models/api_response_models/product_data_response/prod
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/network/api_service.dart';
-import 'package:fenix_user/screens/others/cart/cart.dart';
+import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +39,10 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
       productTotal: response.product!.total ,
       isLoading: false,
     );
+  }
+
+  void onSelectLanguage(String value) {
+    state = state.copyWith(selectedLanguage: value);
   }
 
   void updateQuantity({Cart? newCart}) {

@@ -9,10 +9,10 @@ import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 final items = <String>[
-  'red',
-  'blue',
-  'black',
-  'Idiomos',
+  'English',
+  'Spanish',
+  'French',
+  'Japanese',
 ];
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, selectedItem, onSelect) {
@@ -84,12 +84,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                 left: 20,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeTabs(tabIndex: 0,),
-                      ),
-                    );
+                    Get.to(() => HomeTabs(tabIndex: 0,),);
                   },
                   child: Container(
                     width: 60,
@@ -123,12 +118,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                 left: 100,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotifyWaiter(),
-                      ),
-                    );
+                    Get.to(() => NotifyWaiter());
                   },
                   child: Container(
                     width: 60,

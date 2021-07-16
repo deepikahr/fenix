@@ -56,7 +56,7 @@ Widget customNumberTextField(BuildContext context, icon, textField,
 
 Widget regularTextField(BuildContext context, textField) {
   return Container(
-      height: 49,
+      // height: 49,
       decoration: BoxDecoration(
           color: dark.withOpacity(0.15),
           borderRadius: BorderRadius.circular(4)),

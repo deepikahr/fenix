@@ -8,6 +8,7 @@ import 'package:fenix_user/models/api_response_models/variant_response/variant_r
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
+import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
@@ -26,7 +27,13 @@ class ProductDetails extends HookWidget {
   final String? productId;
   ProductDetails({this.productId});
 
-  String selectedItem = 'Idiomos';
+  final items = <String>[
+    'red',
+    'blue',
+    'black',
+    'Idiom',
+  ];
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isChecked = false;
 
@@ -37,6 +44,7 @@ class ProductDetails extends HookWidget {
   Widget build(BuildContext context) {
     final noteEditController = useTextEditingController();
     final state = useProvider(productDetailsProvider);
+    final homeState = useProvider(homeTabsProvider);
     final notifier = useProvider(productDetailsProvider.notifier);
     final cart = useProvider(cartProvider);
     final cartState = useProvider(cartScreenProvider);
@@ -57,14 +65,15 @@ class ProductDetails extends HookWidget {
         backgroundColor: Colors.white,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey, items, selectedItem,
-            (String? string) => useState(() => selectedItem = string!)),
+      appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage,
+              (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+      ),
         body: Stack(
           children: [
             if (!state.isLoading && state.productDetails != null)
               productData(context, state.productDetails!, state, notifier,
                   noteEditController, cart),
-            if (state.isLoading) GFLoader()
+            if (state.isLoading) GFLoader(type: GFLoaderType.ios)
           ],
         ),
     );
@@ -507,7 +516,7 @@ class ProductDetails extends HookWidget {
                   type: GFButtonType.outline,
                   onPressed: () async {
                     Get.back();
-                    await Get.to(() => Cart());
+                    await Get.to(() => CartScreen());
                     context.read(productDetailsProvider.notifier).updateQuantity();
                   },
                   child: Text(

@@ -1,17 +1,17 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
-import 'package:fenix_user/screens/others/cart/cart.dart';
-import 'package:fenix_user/screens/others/order_details/orderDetails.dart';
+import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/screens/product/product_details/productDetails.dart';
 import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/screens/tabs/category/category.dart';
+import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/fab_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/loader/gf_loader.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../home/home.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -27,13 +27,12 @@ class HomeTabs extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final items = <String>[
-      'red',
-      'blue',
-      'black',
-      'Idiomos',
-    ];
-    String selectedItem = 'Idiomos';
+    // final items = <String>[
+    //   'red',
+    //   'blue',
+    //   'black',
+    //   'Idiomos',
+    // ];
 
     final state = useProvider(homeTabsProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -55,11 +54,12 @@ class HomeTabs extends HookWidget {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey, items, selectedItem,  (String? string) =>
-        useState(() => selectedItem = string!)),
+      appBar: fenixAppbar(context, _scaffoldKey, items, state.selectedLanguage ?? items.first,
+              (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+        ),
       backgroundColor: light,
       body: state.isLoading
-          ? Center(child: GFLoader())
+          ? Center(child: GFLoader(type: GFLoaderType.ios))
           : _screens[state.currentIndex],
       // bottomNavigationBar: BottomNavigationBar(
       //   backgroundColor: white,

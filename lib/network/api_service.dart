@@ -1,3 +1,4 @@
+import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_request_models/change_password_request/change_password_request.dart';
@@ -12,6 +13,7 @@ import 'package:fenix_user/models/api_response_models/order_response/order_respo
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
+import 'package:fenix_user/screens/home/home/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fenix_user/models/api_response_model.dart';
 import 'package:fenix_user/network/urls.dart';
@@ -75,7 +77,7 @@ class API {
         bool autoErrorHandle = true,
       }) async {
     return _api.get(
-      URL.HOME + '${db.getMenuId()}',
+      URL.HOME + '${DB().getMenuId()}',
       resModel: HomeResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -89,7 +91,7 @@ class API {
     bool autoErrorHandle = true,
   }) async {
     return _api.putForStringResponse(
-      URL.SETTINGS_UPDATE + '${db.getId()}',
+      URL.SETTINGS_UPDATE + '${DB().getId()}',
       reqModel: settingsUpdateRequest,
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -103,7 +105,7 @@ class API {
     bool autoErrorHandle = true,
   }) async {
     return _api.getForArrayResponse(
-      URL.MENU_DROPDOWN + '${db.getFranchiseId()}',
+      URL.MENU_DROPDOWN + '${DB().getFranchiseId()}',
       resModel: MenuResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -158,7 +160,7 @@ class API {
         ValueSetter<ApiResponse<OrderDetailsResponse>>? responseListener,
         bool autoErrorHandle = true}) async {
     return _api.get(
-      URL.ORDER_DETAILS + '${db.getOrderId()}',
+      URL.ORDER_DETAILS + '${DB().getOrderId()}',
       resModel: OrderDetailsResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,

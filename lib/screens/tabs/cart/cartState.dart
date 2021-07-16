@@ -7,6 +7,7 @@ part 'cartState.freezed.dart';
 class CartScreenState with _$CartScreenState {
   const factory CartScreenState({
     @Default(false) bool isLoading,
-    OrderResponse? orderResponse
+    OrderResponse? orderResponse,
+    String? selectedLanguage
   }) = _Default;
 }

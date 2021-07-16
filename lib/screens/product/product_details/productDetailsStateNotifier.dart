@@ -11,7 +11,7 @@ import 'package:fenix_user/models/api_response_models/product_response/product_r
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
-import 'package:fenix_user/screens/others/cart/cart.dart';
+import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +58,10 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
   void removeAddOnItem(AddOnItem addOnItem) {
     state = state.copyWith
         .call(selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem));
+  }
+
+  void onSelectLanguage(String value) {
+    state = state.copyWith(selectedLanguage: value);
   }
 
 

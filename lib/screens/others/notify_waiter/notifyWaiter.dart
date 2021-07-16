@@ -9,13 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/all.dart';
 
 class NotifyWaiter extends HookWidget {
-  final List<String> items = <String>[
-    "red",
-    "blue",
-    "black",
-    "Idiomos",
-  ];
-  String selectedItem = 'Idiomos';
+
   bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -29,14 +23,17 @@ class NotifyWaiter extends HookWidget {
   Widget build(BuildContext context) {
 
     final state = useProvider(notifyWaiterProvider);
+    final homeState = useProvider(homeTabsProvider);
+
     final notifyWaiterNotifier = useProvider(notifyWaiterProvider.notifier);
 
     return Scaffold(
         backgroundColor: light,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey, items, selectedItem,  (String? string) =>
-            useState(() => selectedItem = string!)),
+        appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage ?? items.first,
+                (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

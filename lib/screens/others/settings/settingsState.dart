@@ -10,6 +10,7 @@ part 'settingsState.freezed.dart';
 class SettingsState with _$SettingsState {
   const factory SettingsState({
     @Default(false) bool isLoading,
+    @Default(false) bool isUpdateLoading,
     SettingsResponse? settings,
     List<MenuResponse>? menuList,
     String? themeColor,

@@ -18,19 +18,13 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
 
 class CartScreen extends HookWidget {
-  final List<String> items = <String>[
-    "red",
-    "blue",
-    "black",
-    "Idiomos",
-  ];
-  String selectedItem = 'Idiomos';
   bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final cart = useProvider(cartProvider);
     final state = useProvider(cartScreenProvider);
+    final homeState = useProvider(homeTabsProvider);
     final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
 
@@ -45,50 +39,63 @@ class CartScreen extends HookWidget {
         backgroundColor: light,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey, items, selectedItem,
-            (String? string) => useState(() => selectedItem = string!)),
-        body: ListView(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 12, right: 8, top: 8, bottom: 8),
-              child: Text('PRODUCTOS SELECCIONADOS',
-                  style: textBlackLargeBM(context)),
-            ),
-            Container(
-              color: white,
-              margin: EdgeInsets.all(8),
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            items,
+            homeState.selectedLanguage ?? items.first,
+            (String? value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!)),
+        body: cart == null || !DB().isLoggedIn()
+            ? Center(
+                child: Text('CART_IS_EMPTY'),
+              )
+            : ListView(
                 children: [
-                  cart == null || !DB().isLoggedIn()
-                      ? Center(
-                          child: Text('CART_IS_EMPTY'),
-                        )
-                      : cartItemBlock(context, cart, state),
-                  // totalRow(context, 'Sub Total', cart!.subTotal.toString()),
-                  // totalRow(context, 'Grand Total', cart.grandTotal.toString()),
-                  if (state.isLoading) GFLoader(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 28.0),
-                    child: Center(
-                        child: custombuttonsm(context, 'OK, ENVIAR PEDIDO', () {
-                      context.read(cartScreenProvider.notifier).createOrder();
-                       if(state.orderResponse != null){
-                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                             content: Text('Order created successfully')));
-                         Timer(Duration(seconds: 2), () async {
-                           await Get.offAll(() => OrdersInProcess());
-                         });
-                       }
-
-                    })),
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 12, right: 8, top: 8, bottom: 8),
+                    child: Text('PRODUCTOS SELECCIONADOS',
+                        style: textBlackLargeBM(context)),
                   ),
+                  Container(
+                    color: white,
+                    margin: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        cartItemBlock(context, cart, state),
+                        // totalRow(context, 'Sub Total', cart!.subTotal.toString()),
+                        // totalRow(context, 'Grand Total', cart.grandTotal.toString()),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 28.0),
+                          child: Center(
+                              child: state.isLoading
+                                  ? GFLoader(type: GFLoaderType.ios)
+                                  : custombuttonsm(context, 'OK, ENVIAR PEDIDO',
+                                      () {
+                                     final response = context
+                                          .read(cartScreenProvider.notifier)
+                                          .createOrder();
+                                      if (response != null) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'Order created successfully')));
+                                        Timer(Duration(seconds: 2), () async {
+                                          await Get.to(() => OrdersInProcess());
+                                        });
+                                      }
+                                    })),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
-              ),
-            )
-          ],
-        ));
+              ));
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {

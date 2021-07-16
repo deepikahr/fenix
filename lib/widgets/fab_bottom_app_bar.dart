@@ -1,4 +1,7 @@
+import 'package:fenix_user/providers/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({this.iconData, this.text});
@@ -6,7 +9,18 @@ class FABBottomAppBarItem {
   String? text;
 }
 
-class FABBottomAppBar extends StatefulWidget {
+class FABBottomAppBar extends HookWidget {
+
+  final List<FABBottomAppBarItem?>? items;
+  final String? centerItemText;
+  final double? height;
+  final double? iconSize;
+  final Color? backgroundColor;
+  final Color? color;
+  final Color? selectedColor;
+  final NotchedShape? notchedShape;
+  final ValueChanged<int?>? onTabSelected;
+
   FABBottomAppBar({
     this.items,
     this.centerItemText,
@@ -20,64 +34,49 @@ class FABBottomAppBar extends StatefulWidget {
   }) {
     assert(this.items!.length == 2 || this.items!.length == 4);
   }
-  final List<FABBottomAppBarItem?>? items;
-  final String? centerItemText;
-  final double? height;
-  final double? iconSize;
-  final Color? backgroundColor;
-  final Color? color;
-  final Color? selectedColor;
-  final NotchedShape? notchedShape;
-  final ValueChanged<int?>? onTabSelected;
 
-  @override
-  State<StatefulWidget> createState() => FABBottomAppBarState();
-}
-
-class FABBottomAppBarState extends State<FABBottomAppBar> {
-  int _selectedIndex = 0;
-
-  _updateIndex(int? index) {
-    widget.onTabSelected!(index!);
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = List.generate(widget.items!.length, (int index) {
+
+
+    final state = useProvider(homeTabsProvider);
+
+    List<Widget> item = List.generate(items!.length, (int index) {
       return _buildTabItem(
-        item: widget.items![index],
+        item: items![index],
         index: index,
-        onPressed: _updateIndex,
+        sel: state.currentIndex,
+        onPressed: (int? index) {
+          context.read(homeTabsProvider.notifier).onPageChanged(index);
+        },
       );
     });
-    items.insert(items.length >> 1, _buildMiddleTabItem());
+    item.insert(items!.length >> 1, _buildMiddleTabItem());
 
     return BottomAppBar(
-      shape: widget.notchedShape,
+      shape: notchedShape,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: items,
+        children: item,
       ),
-      color: widget.backgroundColor,
+      color: backgroundColor,
     );
   }
 
   Widget _buildMiddleTabItem() {
     return Expanded(
       child: SizedBox(
-        height: widget.height,
+        height: height,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: widget.iconSize),
+            SizedBox(height: iconSize),
             Text(
-              widget.centerItemText ?? '',
-              style: TextStyle(color: widget.color),
+              centerItemText ?? '',
+              style: TextStyle(color: color),
             ),
           ],
         ),
@@ -88,12 +87,13 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
   Widget _buildTabItem({
     FABBottomAppBarItem? item,
     int? index,
+    int? sel,
     ValueChanged<int?>? onPressed,
   }) {
-    Color color = _selectedIndex == index ? widget.selectedColor! : widget.color!;
+    Color? selColor = sel == index ? selectedColor! : color;
     return Expanded(
       child: SizedBox(
-        height: widget.height,
+        height: height,
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
@@ -110,7 +110,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                 // Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(
                   item.text!,
-                  style: TextStyle(color: color),
+                  style: TextStyle(color: selColor),
                 )
               ],
             ),
@@ -119,4 +119,5 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
       ),
     );
   }
+
 }

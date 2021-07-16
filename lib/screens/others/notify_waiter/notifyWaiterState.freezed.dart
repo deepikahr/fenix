@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NotifyWaiterStateTearOff {
   const _$NotifyWaiterStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call({bool isLoading = false, String? selectedLanguage}) {
     return _Default(
       isLoading: isLoading,
+      selectedLanguage: selectedLanguage,
     );
   }
 }
@@ -29,6 +30,7 @@ const $NotifyWaiterState = _$NotifyWaiterStateTearOff();
 /// @nodoc
 mixin _$NotifyWaiterState {
   bool get isLoading => throw _privateConstructorUsedError;
+  String? get selectedLanguage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NotifyWaiterStateCopyWith<NotifyWaiterState> get copyWith =>
@@ -40,7 +42,7 @@ abstract class $NotifyWaiterStateCopyWith<$Res> {
   factory $NotifyWaiterStateCopyWith(
           NotifyWaiterState value, $Res Function(NotifyWaiterState) then) =
       _$NotifyWaiterStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, String? selectedLanguage});
 }
 
 /// @nodoc
@@ -55,12 +57,17 @@ class _$NotifyWaiterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -71,7 +78,7 @@ abstract class _$DefaultCopyWith<$Res>
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, String? selectedLanguage});
 }
 
 /// @nodoc
@@ -86,12 +93,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$NotifyWaiterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -99,15 +111,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$NotifyWaiterStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default({this.isLoading = false, this.selectedLanguage});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @override
+  final String? selectedLanguage;
 
   @override
   String toString() {
-    return 'NotifyWaiterState(isLoading: $isLoading)';
+    return 'NotifyWaiterState(isLoading: $isLoading, selectedLanguage: $selectedLanguage)';
   }
 
   @override
@@ -116,12 +130,17 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.selectedLanguage, selectedLanguage) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedLanguage, selectedLanguage)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(selectedLanguage);
 
   @JsonKey(ignore: true)
   @override
@@ -130,10 +149,13 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements NotifyWaiterState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default({bool isLoading, String? selectedLanguage}) =
+      _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  String? get selectedLanguage => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

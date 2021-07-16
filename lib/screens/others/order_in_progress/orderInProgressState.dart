@@ -6,5 +6,6 @@ part 'orderInProgressState.freezed.dart';
 class OrderInProgressState with _$OrderInProgressState {
   const factory OrderInProgressState({
     @Default(false) bool isLoading,
+    String? selectedLanguage
   }) = _Default;
 }

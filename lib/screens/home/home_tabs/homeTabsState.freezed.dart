@@ -16,10 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeTabsStateTearOff {
   const _$HomeTabsStateTearOff();
 
-  _Default call({bool isLoading = false, int currentIndex = 0}) {
+  _Default call(
+      {bool isLoading = false,
+      int currentIndex = 0,
+      String? selectedLanguage}) {
     return _Default(
       isLoading: isLoading,
       currentIndex: currentIndex,
+      selectedLanguage: selectedLanguage,
     );
   }
 }
@@ -31,6 +35,7 @@ const $HomeTabsState = _$HomeTabsStateTearOff();
 mixin _$HomeTabsState {
   bool get isLoading => throw _privateConstructorUsedError;
   int get currentIndex => throw _privateConstructorUsedError;
+  String? get selectedLanguage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeTabsStateCopyWith<HomeTabsState> get copyWith =>
@@ -42,7 +47,7 @@ abstract class $HomeTabsStateCopyWith<$Res> {
   factory $HomeTabsStateCopyWith(
           HomeTabsState value, $Res Function(HomeTabsState) then) =
       _$HomeTabsStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, int currentIndex});
+  $Res call({bool isLoading, int currentIndex, String? selectedLanguage});
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ class _$HomeTabsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? currentIndex = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -68,6 +74,10 @@ class _$HomeTabsStateCopyWithImpl<$Res>
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -77,7 +87,7 @@ abstract class _$DefaultCopyWith<$Res> implements $HomeTabsStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, int currentIndex});
+  $Res call({bool isLoading, int currentIndex, String? selectedLanguage});
 }
 
 /// @nodoc
@@ -93,6 +103,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? currentIndex = freezed,
+    Object? selectedLanguage = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -103,6 +114,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      selectedLanguage: selectedLanguage == freezed
+          ? _value.selectedLanguage
+          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -110,7 +125,8 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.currentIndex = 0});
+  const _$_Default(
+      {this.isLoading = false, this.currentIndex = 0, this.selectedLanguage});
 
   @JsonKey(defaultValue: false)
   @override
@@ -118,10 +134,12 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: 0)
   @override
   final int currentIndex;
+  @override
+  final String? selectedLanguage;
 
   @override
   String toString() {
-    return 'HomeTabsState(isLoading: $isLoading, currentIndex: $currentIndex)';
+    return 'HomeTabsState(isLoading: $isLoading, currentIndex: $currentIndex, selectedLanguage: $selectedLanguage)';
   }
 
   @override
@@ -133,14 +151,18 @@ class _$_Default implements _Default {
                     .equals(other.isLoading, isLoading)) &&
             (identical(other.currentIndex, currentIndex) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentIndex, currentIndex)));
+                    .equals(other.currentIndex, currentIndex)) &&
+            (identical(other.selectedLanguage, selectedLanguage) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedLanguage, selectedLanguage)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(currentIndex);
+      const DeepCollectionEquality().hash(currentIndex) ^
+      const DeepCollectionEquality().hash(selectedLanguage);
 
   @JsonKey(ignore: true)
   @override
@@ -149,12 +171,17 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements HomeTabsState {
-  const factory _Default({bool isLoading, int currentIndex}) = _$_Default;
+  const factory _Default(
+      {bool isLoading,
+      int currentIndex,
+      String? selectedLanguage}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   int get currentIndex => throw _privateConstructorUsedError;
+  @override
+  String? get selectedLanguage => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

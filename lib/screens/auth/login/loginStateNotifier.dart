@@ -7,7 +7,7 @@ import 'loginState.dart';
 class LoginStateNotifier extends StateNotifier<LoginState> {
   final API api;
   final DB db;
-  LoginStateNotifier(this.api, this.db) : super(LoginState(isLoading: true));
+  LoginStateNotifier(this.api, this.db) : super(LoginState());
 
   Future<LoginVerifyResponse?> submit(
       int tableNumber, int franchiseCode, String? password) async {

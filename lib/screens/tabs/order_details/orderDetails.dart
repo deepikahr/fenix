@@ -4,7 +4,7 @@ import 'package:fenix_user/models/api_response_models/cart_product/cart_product.
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
-import 'package:fenix_user/screens/others/payment/payment.dart';
+import 'package:fenix_user/screens/tabs/payment/payment.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -13,8 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:get/get.dart';
 
 class OrderDetails extends HookWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class OrderDetails extends HookWidget {
         body: ListView(
           children: [
             state.orderDetails == null || !DB().isLoggedIn()
-                ? state.isLoading ? GFLoader() : Center(
+                ? state.isLoading ? GFLoader(type: GFLoaderType.ios) : Center(
               child: Text('CART_IS_EMPTY'),
             ) : Container(
               color: white,
@@ -54,7 +56,7 @@ class OrderDetails extends HookWidget {
                   ),
                   SizedBox(height: 10),
                   cartItemBlock(context, state.orderDetails!.cart, state),
-                  if (state.isLoading) GFLoader(),
+                  if (state.isLoading) GFLoader(type: GFLoaderType.ios),
                   Container(
                     padding: EdgeInsets.all(12),
                     color: light,
@@ -99,12 +101,7 @@ class OrderDetails extends HookWidget {
                     child: Center(
                         child:
                         custombuttonsm(context, 'OK, FORMAS DE PAGO', () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Payment(),
-                            ),
-                          );
+                          Get.to(() => Payment());
                         })),
                   ),
                   //   ],

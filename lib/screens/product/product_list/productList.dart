@@ -26,13 +26,13 @@ class ProductList extends HookWidget {
 
   ProductList({this.categoryId});
 
-  String selectedItem = 'Idiomos';
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
 
     final state = useProvider(productListProvider);
+    final homeState = useProvider(homeTabsProvider);
     final notifier = useProvider(productListProvider.notifier);
     final isMounted = useIsMounted();
     final cart = useProvider(cartProvider);
@@ -50,8 +50,9 @@ class ProductList extends HookWidget {
       backgroundColor: light,
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey, items, selectedItem,  (String? string) =>
-          useState(() => selectedItem = string!)),
+      appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage,
+              (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+      ),
       body: Stack(
         children: [
           ListView(
@@ -68,7 +69,7 @@ class ProductList extends HookWidget {
             ],
           ),
           if(state.isLoading)
-            GFLoader()
+            GFLoader(type: GFLoaderType.ios)
         ],
       ),
     );
@@ -157,7 +158,47 @@ class ProductList extends HookWidget {
             onTap: () {
               Get.to(() => ProductDetails( productId: product[index].id,));
             },
-            child: gridDishCard(context, product[index], notifier, state)
+            child: gridDishCard(context, product[index], notifier, state,
+                  () async {
+                if (product[index].isCustomizable) {
+                  await Get.to(() => ProductDetails(
+                    productId: product[index].id,
+                  ));
+                  notifier.updateQuantity();
+                } else {
+                  await notifier.findLastUpdateProduct(
+                    product[index],
+                    true,
+                    product[index].franchiseName,
+                  );
+                }
+              },
+                  () async {
+                if (product[index].isCustomizable) {
+                  await showDialog(
+                      context: context,
+                      builder: (context) =>
+                          showPopUp(context, product[index], () async {
+                            Get.back();
+                            await notifier.findLastUpdateProduct(
+                                product[index], true, product[index].restaurantName);
+                          }, cart));
+                } else {
+                  await notifier.findLastUpdateProduct(
+                      product[index], true, product[index].restaurantName);
+                }
+              },
+                  () {
+                if (product[index].isSameProductMultipleTime == true) {
+                  showDialog(
+                      context: context,
+                      builder: (context) =>
+                          showMulitipleTimeProductPopUp(context, cart));
+                } else {
+                  notifier.updateProductsQuantity(product[index], false);
+                }
+              },
+            )
           );
         },
       );
