@@ -50,8 +50,8 @@ class OrderDetails extends HookWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('ORDER ID: ${state.orderDetails!.orderID}', style: textBlackLargeBM(context)),
-                      Text('${state.orderDetails!.orderStatus}', style: textBlackLargeBM(context)),
+                      Text('ORDER ID: ${state.orderDetails!.orderID}', style: textDarkLight3SmallBR(context)),
+                      Text('${state.orderDetails!.orderStatus}', style: textDarkLight3SmallBR(context)),
                     ],
                   ),
                   SizedBox(height: 10),

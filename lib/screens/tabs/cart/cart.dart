@@ -55,7 +55,7 @@ class CartScreen extends HookWidget {
                 children: [
                   Container(
                     margin:
-                        EdgeInsets.only(left: 12, right: 8, top: 8, bottom: 8),
+                        EdgeInsets.only(left: 12, right: 8, top: 16, bottom: 8),
                     child: Text('PRODUCTOS SELECCIONADOS',
                         style: textBlackLargeBM(context)),
                   ),
@@ -112,7 +112,7 @@ class CartScreen extends HookWidget {
             children: [
               Text(cart.products[i].productName!,
                   style: textBlackLargeBM20(context)),
-              SizedBox(height: 10),
+              // SizedBox(height: 4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -123,7 +123,8 @@ class CartScreen extends HookWidget {
                       SizedBox(width: 4),
                       cartProduct.allergens!.isNotEmpty
                           ? Container(
-                              padding: EdgeInsets.all(8),
+                        margin: EdgeInsets.only(left: 12),
+                              padding: EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                   color: primary,
                                   borderRadius: BorderRadius.circular(5)),
@@ -137,66 +138,60 @@ class CartScreen extends HookWidget {
                   ),
                   Row(
                     children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              color: white,
-                              // border: Border.all(
-                              //     color: grey.shade300, width: 1),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    context
-                                        .read(cartScreenProvider.notifier)
-                                        .updateQuantity(cartProduct, false);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                          color: white,
-                                          border:
-                                              Border.all(color: dark, width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: dark,
-                                      ),
-                                    ),
-                                  )),
-                              Text('${cartProduct.totalQuantity}',
-                                  style: textBlackLargeBM(context)),
-                              InkWell(
-                                onTap: () {
-                                  context
-                                      .read(cartScreenProvider.notifier)
-                                      .updateQuantity(cartProduct, true);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                        color: white,
-                                        border:
-                                            Border.all(color: dark, width: 1),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: dark,
-                                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                context
+                                    .read(cartScreenProvider.notifier)
+                                    .updateQuantity(cartProduct, false);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                      color: white,
+                                      border:
+                                          Border.all(color: dark, width: 1),
+                                      borderRadius:
+                                          BorderRadius.circular(50)),
+                                  child: Icon(
+                                    Icons.remove,
+                                    color: dark,
                                   ),
                                 ),
+                              )),
+                          Text('${cartProduct.totalQuantity}',
+                              style: textBlackLargeBM(context)),
+                          InkWell(
+                            onTap: () {
+                              context
+                                  .read(cartScreenProvider.notifier)
+                                  .updateQuantity(cartProduct, true);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                    color: white,
+                                    border:
+                                        Border.all(color: dark, width: 1),
+                                    borderRadius:
+                                        BorderRadius.circular(50)),
+                                child: Icon(
+                                  Icons.add,
+                                  color: dark,
+                                ),
                               ),
-                            ],
-                          )),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(width: 10),
                       IconButton(
                         onPressed: () {
@@ -205,7 +200,7 @@ class CartScreen extends HookWidget {
                               .removeProduct(cartProduct);
                         },
                         icon: Icon(
-                          Icons.delete,
+                          Icons.delete_outline_outlined,
                           color: dark,
                         ),
                       )

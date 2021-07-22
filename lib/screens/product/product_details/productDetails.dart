@@ -62,7 +62,7 @@ class ProductDetails extends HookWidget {
     }, const []);
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: grey2,
         key: _scaffoldKey,
         drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage,
@@ -82,34 +82,28 @@ class ProductDetails extends HookWidget {
   Widget productData(BuildContext context, ProductDetailsResponse product,
       state, notifier, noteEditController, cart) {
     return ListView(
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
       children: [
-        Container(
-            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-            child: product.productImage!.imageUrl != null
-                ? Stack(
+            product.productImage!.imageUrl != null ?
+            Stack(
                     children: [
+                      // networkImageOverlay(MediaQuery.of(context).size.width, 120,),
                       networkImage(product.productImage!.imageUrl!,
-                          MediaQuery.of(context).size.width, 200, 4),
+                          MediaQuery.of(context).size.width, 120, 0),
                       Positioned(
-                          child: Container(
-                        color: Colors.blue,
-                        padding: EdgeInsets.all(4),
-                        child: Text(
-                          'OFFER',
-                          style: textDarkRegularBSW(context),
-                          // textAlign: TextAlign.center,
-                        ),
-                      )),
-                      Positioned(
-                          child: Container(
-                        color: Colors.blue,
-                        padding: EdgeInsets.all(4),
-                        child: Text(
-                          'OFFER',
-                          style: textDarkRegularBSW(context),
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
+                          top: 0,
+                          child: Stack(
+                            alignment: AlignmentDirectional.center,
+                            children: [
+                              Image.asset('lib/assets/images/b2.png', scale: 1,),
+                              Text(
+                                '${product.tags!.first.title}',
+                                style: textDarkRegularBSW(context),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          )
+                      ),
                       Positioned(
                           bottom: 0,
                           child: Container(
@@ -126,14 +120,16 @@ class ProductDetails extends HookWidget {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        color: Colors.blue,
-                        padding: EdgeInsets.all(4),
-                        child: Text(
-                          'OFFER',
-                          style: textDarkRegularBSW(context),
-                          textAlign: TextAlign.center,
-                        ),
+                      Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Image.asset('lib/assets/images/b2.png', scale: 1,),
+                          Text(
+                            '${product.tags!.first.title}',
+                            style: textDarkRegularBSW(context),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                       Container(
                         color: darkLight,
@@ -145,9 +141,11 @@ class ProductDetails extends HookWidget {
                         ),
                       )
                     ],
-                  )),
+                  ),
+
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          color: white,
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
           child: Column(
             children: [
               Row(
@@ -167,146 +165,135 @@ class ProductDetails extends HookWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '5,95€',
+                    'TOTAL + EXTRAS: ${product.totalProductPrice}€',
                     style: textDarkRegularBS(context),
                   ),
                   product.totalQuantity > 0 && !state.showAddButton
-                      ? Container(
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: white,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        print('aaaaaaaa');
-                                        if (product.isSameProductMultipleTime == true) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  showMulitipleTimeProductPopUp(
-                                                      context, cart));
-                                        } else {
-                                          print('bbbbbb');
-                                          notifier.updateProductsQuantity(
-                                              product, false);
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: 35,
-                                          height: 35,
-                                          decoration: BoxDecoration(
-                                              color: white,
-                                              border: Border.all(
-                                                  color: dark, width: 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: dark,
-                                          ),
-                                        ),
-                                      )),
-                                  Text(product.totalQuantity.toString(), style: textBlackLargeBM(context)),
-                                  InkWell(
-                                    onTap: () async {
-                                      if (product.isCustomizable) {
-                                        print('aaaaaaaa uppp');
-                                        await showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                showPopUp(context, product, () async {
-                                                  Get.back();
-                                                  await notifier.findLastUpdateProduct(
-                                                      product,
-                                                      true,
-                                                      product.restaurantName);
-                                                }, cart));
-                                      } else {
-                                        print('bbbbbb upp');
-                                        await notifier.findLastUpdateProduct(
-                                            product, true, product.restaurantName);
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 35,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                            color: white,
-                                            border: Border.all(
-                                                color: dark, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: dark,
-                                        ),
-                                      ),
-                                    ),
+                      ? Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                print('aaaaaaaa');
+                                if (product.isSameProductMultipleTime == true) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          showMulitipleTimeProductPopUp(
+                                              context, cart));
+                                } else {
+                                  print('bbbbbb');
+                                  notifier.updateProductsQuantity(
+                                      product, false);
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                      color: white,
+                                      border: Border.all(
+                                          color: dark, width: 1),
+                                      borderRadius:
+                                          BorderRadius.circular(50)),
+                                  child: Icon(
+                                    Icons.remove,
+                                    color: dark,
                                   ),
-                                ],
-                              )))
-                      : Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          child: custombuttonsm(
-                            context,
-                            'ADD',
-                            () async {
-                              context.read(productDetailsProvider.notifier).showAddButton(false);
-                              await notifier.saveCart(
-                                context,
-                                state.selectedAddOnItems,
-                                state
-                                    .productDetails!.variants[state.groupValue],
-                                state.productDetails!,
-                                productId,
-                              );
+                                ),
+                              )),
+                          Text(product.totalQuantity.toString(), style: textBlackLargeBM(context)),
+                          InkWell(
+                            onTap: () async {
+                              if (product.isCustomizable) {
+                                print('aaaaaaaa uppp');
+                                await showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        showPopUp(context, product, () async {
+                                          Get.back();
+                                          await notifier.findLastUpdateProduct(
+                                              product,
+                                              true,
+                                              product.restaurantName);
+                                        }, cart));
+                              } else {
+                                print('bbbbbb upp');
+                                await notifier.findLastUpdateProduct(
+                                    product, true, product.restaurantName);
+                              }
                             },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                    color: white,
+                                    border: Border.all(
+                                        color: dark, width: 1),
+                                    borderRadius:
+                                        BorderRadius.circular(50)),
+                                child: Icon(
+                                  Icons.add,
+                                  color: dark,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
+                      )
+                      : GFButton(
+                    borderShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        side: BorderSide(color: buttonBorder)),
+                    onPressed: () async {
+                      context.read(productDetailsProvider.notifier).showAddButton(false);
+                      await notifier.saveCart(
+                        context,
+                        state.selectedAddOnItems,
+                        state
+                            .productDetails!.variants[state.groupValue],
+                        state.productDetails!,
+                        productId,
+                      );
+                    },
+                    color: Colors.white,
+                    text: 'ADD'.tr,
+                    textStyle: textPrimaryLargeBM(context),
+                  ),
                 ],
               ),
-              sizeBlock(
-                  context, state.groupValue, product.variants ?? [], state),
-              allergenList(context, product.allergens ?? []),
-              optionBlockExtra(state.productDetails?.addOnItems ?? [],
-                  state.selectedAddOnItems, state),
+
             ],
           ),
         ),
-        Container(
-            alignment: AlignmentDirectional.center,
-            padding: EdgeInsets.only(bottom: 16),
-            child: Text('TOTAL + EXTRAS ${product.totalProductPrice}€',
-                style: textBlackLargeBM(context))),
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: titleTextDark17RegularBR(
-            context,
-            'sugerencias',
-          ),
+        SizedBox(height: 12,),
+        sizeBlock(
+            context, state.groupValue, product.variants ?? [], state),
+        allergenList(context, product.allergens ?? []),
+        optionBlockExtra(state.productDetails?.addOnItems ?? [],
+            state.selectedAddOnItems, state),
+        SizedBox(height: 4,),
+        titleTextDark17RegularBR(
+          context,
+          'Sugerencias',
         ),
-        Container(
-          margin: EdgeInsets.all(16),
-          child: noteTextField(
-            context,
-            noteEditController,
-            noteFocusNode,
-            (value) {
-              FocusScope.of(context).unfocus();
-              formKey.currentState!.validate();
-            },
-          ),
+        SizedBox(height: 8,),
+        noteTextField(
+          context,
+          noteEditController,
+          noteFocusNode,
+          (value) {
+            FocusScope.of(context).unfocus();
+            formKey.currentState!.validate();
+          },
         ),
       ],
     );
@@ -395,7 +382,7 @@ class ProductDetails extends HookWidget {
             itemBuilder: (BuildContext context, int i) {
               return RadioListTile(
                 dense: true,
-                controlAffinity: ListTileControlAffinity.trailing,
+                controlAffinity: ListTileControlAffinity.leading,
                 activeColor: green,
                 value: i,
                 groupValue: groupValue,
@@ -403,7 +390,7 @@ class ProductDetails extends HookWidget {
                   children: [
                     Text('${variants[i].sizeName} -  ',
                         style: textDarkRegularBR(context)),
-                    Text('${'\$'}${variants[i].price}',
+                    Text('${variants[i].price}€',
                         style: textBlackLargeBM(context)),
                   ],
                 ),
@@ -453,7 +440,7 @@ class ProductDetails extends HookWidget {
                           children: [
                             Text('${addOnItems[i].addOnItemName} - ',
                                 style: textDarkRegularBR(context)),
-                            Text('${'\$'}${addOnItems[i].addOnItemPrice}',
+                            Text('${addOnItems[i].addOnItemPrice}€',
                                 style: textBlackLargeBM(context)),
                           ],
                         ),

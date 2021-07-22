@@ -41,6 +41,10 @@ final primaryLight = primary.withOpacity(0.6);
 final primaryLight2 = primary.withOpacity(0.8);
 final primaryLight3 = dark.withOpacity(0.4);
 
+final grey1 = Color(0xFFEEEEEE);
+final grey2 = Color(0xFFF8F8F8);
+
+
 final red = Color(0xFFF44242);
 
 final blackN = Color(0xFF37383C);
@@ -537,8 +541,8 @@ TextStyle textRedLightXSmallBR(context) {
 
 TextStyle textDarkRegularBS(context) {
   return TextStyle(
-    fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontWeight: FontWeight.w700,
+    fontSize: 20.0,
     color: dark,
     fontFamily: 'BarlowSemiBold',
   );

@@ -32,8 +32,9 @@ class Home extends HookWidget {
 
 
     return Scaffold(
+      backgroundColor: grey2,
       body: Container(
-        color: light,
+        color: grey2,
         child: Stack(
           children: [
             ListView(
@@ -42,7 +43,7 @@ class Home extends HookWidget {
               children: [
                 if ((state.homeData?.banners.length ?? 0) > 0)
                   bannerBlock(context, state.homeData?.banners),
-                SizedBox(height: 16,),
+                // SizedBox(height: 8,),
                 if ((state.homeData?.category.length ?? 0) > 0)
                   db.getType() == 'list' ?
                   categoryBlock(context, state.homeData?.category) :
@@ -73,14 +74,14 @@ class Home extends HookWidget {
     ).toList();
 
     return Container(
-      color: Colors.white,
+      // color: Colors.white,
       child: GFCarousel(
           autoPlay: false,
           pagination: true,
           viewportFraction: 1.0,
           activeIndicator: primary,
           passiveIndicator: darkLight2,
-          height: 180,
+          height: 150,
           aspectRatio: 2,
           onPageChanged: (_) {},
           items: list),

@@ -47,7 +47,7 @@ class ProductList extends HookWidget {
     }, const []);
 
     return Scaffold(
-      backgroundColor: light,
+      backgroundColor: grey2,
       key: _scaffoldKey,
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage,
@@ -145,6 +145,7 @@ class ProductList extends HookWidget {
   Widget productListGrid(
       BuildContext context, List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
       GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 12),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: product!.length,
@@ -152,7 +153,7 @@ class ProductList extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 503),
+            childAspectRatio: MediaQuery.of(context).size.width / 510),
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {

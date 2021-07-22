@@ -118,7 +118,7 @@ class Settings extends HookWidget {
                     });
 
                     await showDialog(
-                      barrierColor: secondary,
+                      // barrierColor: grey,
                       context: context,
                       builder: (BuildContext context) {
                         return blackAlertBox(

@@ -101,28 +101,49 @@ class HomeTabs extends HookWidget {
 
   Widget _buildFab(BuildContext context) {
     return SizedBox(
-      width: 44,
-      height: 44,
-      child: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CartScreen(),
+      width: 54,
+      height: 54,
+      child: Stack(
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartScreen(),
+                ),
+              );
+            },
+            backgroundColor: primary,
+            elevation: 2.0,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Image.asset(
+                'lib/assets/images/pedir.png',
+                width: 60,
+                height: 60,
+                alignment: Alignment.center,
+              ),
             ),
-          );
-        },
-        backgroundColor: primary,
-        elevation: 2.0,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Image.asset(
-            'lib/assets/images/pedir.png',
-            width: 40,
-            height: 40,
-            alignment: Alignment.center,
           ),
-        ),
+          PositionedDirectional(
+            end: 0,
+            bottom: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(color: Colors.white, width: 1)
+              ),
+              child: GFBadge(
+                shape: GFBadgeShape.circle,
+                color: Colors.black,
+                textColor: GFColors.WHITE,
+                size: GFSize.SMALL,
+                text: '1',
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

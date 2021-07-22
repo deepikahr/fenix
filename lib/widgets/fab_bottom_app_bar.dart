@@ -24,7 +24,7 @@ class FABBottomAppBar extends HookWidget {
   FABBottomAppBar({
     this.items,
     this.centerItemText,
-    this.height: 60.0,
+    this.height: 66.0,
     this.iconSize: 24.0,
     this.backgroundColor,
     this.color,
@@ -104,8 +104,8 @@ class FABBottomAppBar extends HookWidget {
               children: <Widget>[
                 Image.asset(
                   item!.iconData!,
-                  width: 40,
-                  height: 40,
+                  width: 50,
+                  height: 50,
                 ),
                 // Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(
