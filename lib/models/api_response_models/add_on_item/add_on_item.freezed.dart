@@ -26,6 +26,7 @@ class _$AddOnItemTearOff {
       String? addOnItemId,
       String? addOnItemName,
       double? addOnItemPrice,
+      int? addOnItemQuantity = 1,
       bool? selected}) {
     return _AddOnItem(
       id: id,
@@ -33,6 +34,7 @@ class _$AddOnItemTearOff {
       addOnItemId: addOnItemId,
       addOnItemName: addOnItemName,
       addOnItemPrice: addOnItemPrice,
+      addOnItemQuantity: addOnItemQuantity,
       selected: selected,
     );
   }
@@ -53,6 +55,7 @@ mixin _$AddOnItem {
   String? get addOnItemId => throw _privateConstructorUsedError;
   String? get addOnItemName => throw _privateConstructorUsedError;
   double? get addOnItemPrice => throw _privateConstructorUsedError;
+  int? get addOnItemQuantity => throw _privateConstructorUsedError;
   bool? get selected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,6 +74,7 @@ abstract class $AddOnItemCopyWith<$Res> {
       String? addOnItemId,
       String? addOnItemName,
       double? addOnItemPrice,
+      int? addOnItemQuantity,
       bool? selected});
 }
 
@@ -89,6 +93,7 @@ class _$AddOnItemCopyWithImpl<$Res> implements $AddOnItemCopyWith<$Res> {
     Object? addOnItemId = freezed,
     Object? addOnItemName = freezed,
     Object? addOnItemPrice = freezed,
+    Object? addOnItemQuantity = freezed,
     Object? selected = freezed,
   }) {
     return _then(_value.copyWith(
@@ -112,6 +117,10 @@ class _$AddOnItemCopyWithImpl<$Res> implements $AddOnItemCopyWith<$Res> {
           ? _value.addOnItemPrice
           : addOnItemPrice // ignore: cast_nullable_to_non_nullable
               as double?,
+      addOnItemQuantity: addOnItemQuantity == freezed
+          ? _value.addOnItemQuantity
+          : addOnItemQuantity // ignore: cast_nullable_to_non_nullable
+              as int?,
       selected: selected == freezed
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
@@ -132,6 +141,7 @@ abstract class _$AddOnItemCopyWith<$Res> implements $AddOnItemCopyWith<$Res> {
       String? addOnItemId,
       String? addOnItemName,
       double? addOnItemPrice,
+      int? addOnItemQuantity,
       bool? selected});
 }
 
@@ -151,6 +161,7 @@ class __$AddOnItemCopyWithImpl<$Res> extends _$AddOnItemCopyWithImpl<$Res>
     Object? addOnItemId = freezed,
     Object? addOnItemName = freezed,
     Object? addOnItemPrice = freezed,
+    Object? addOnItemQuantity = freezed,
     Object? selected = freezed,
   }) {
     return _then(_AddOnItem(
@@ -174,6 +185,10 @@ class __$AddOnItemCopyWithImpl<$Res> extends _$AddOnItemCopyWithImpl<$Res>
           ? _value.addOnItemPrice
           : addOnItemPrice // ignore: cast_nullable_to_non_nullable
               as double?,
+      addOnItemQuantity: addOnItemQuantity == freezed
+          ? _value.addOnItemQuantity
+          : addOnItemQuantity // ignore: cast_nullable_to_non_nullable
+              as int?,
       selected: selected == freezed
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
@@ -191,6 +206,7 @@ class _$_AddOnItem extends _AddOnItem {
       this.addOnItemId,
       this.addOnItemName,
       this.addOnItemPrice,
+      this.addOnItemQuantity = 1,
       this.selected})
       : super._();
 
@@ -208,12 +224,15 @@ class _$_AddOnItem extends _AddOnItem {
   final String? addOnItemName;
   @override
   final double? addOnItemPrice;
+  @JsonKey(defaultValue: 1)
+  @override
+  final int? addOnItemQuantity;
   @override
   final bool? selected;
 
   @override
   String toString() {
-    return 'AddOnItem(id: $id, addOnCategoryId: $addOnCategoryId, addOnItemId: $addOnItemId, addOnItemName: $addOnItemName, addOnItemPrice: $addOnItemPrice, selected: $selected)';
+    return 'AddOnItem(id: $id, addOnCategoryId: $addOnCategoryId, addOnItemId: $addOnItemId, addOnItemName: $addOnItemName, addOnItemPrice: $addOnItemPrice, addOnItemQuantity: $addOnItemQuantity, selected: $selected)';
   }
 
   @override
@@ -234,6 +253,9 @@ class _$_AddOnItem extends _AddOnItem {
             (identical(other.addOnItemPrice, addOnItemPrice) ||
                 const DeepCollectionEquality()
                     .equals(other.addOnItemPrice, addOnItemPrice)) &&
+            (identical(other.addOnItemQuantity, addOnItemQuantity) ||
+                const DeepCollectionEquality()
+                    .equals(other.addOnItemQuantity, addOnItemQuantity)) &&
             (identical(other.selected, selected) ||
                 const DeepCollectionEquality()
                     .equals(other.selected, selected)));
@@ -247,6 +269,7 @@ class _$_AddOnItem extends _AddOnItem {
       const DeepCollectionEquality().hash(addOnItemId) ^
       const DeepCollectionEquality().hash(addOnItemName) ^
       const DeepCollectionEquality().hash(addOnItemPrice) ^
+      const DeepCollectionEquality().hash(addOnItemQuantity) ^
       const DeepCollectionEquality().hash(selected);
 
   @JsonKey(ignore: true)
@@ -267,6 +290,7 @@ abstract class _AddOnItem extends AddOnItem {
       String? addOnItemId,
       String? addOnItemName,
       double? addOnItemPrice,
+      int? addOnItemQuantity,
       bool? selected}) = _$_AddOnItem;
   const _AddOnItem._() : super._();
 
@@ -284,6 +308,8 @@ abstract class _AddOnItem extends AddOnItem {
   String? get addOnItemName => throw _privateConstructorUsedError;
   @override
   double? get addOnItemPrice => throw _privateConstructorUsedError;
+  @override
+  int? get addOnItemQuantity => throw _privateConstructorUsedError;
   @override
   bool? get selected => throw _privateConstructorUsedError;
   @override

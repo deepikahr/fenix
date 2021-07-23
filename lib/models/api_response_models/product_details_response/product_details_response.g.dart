@@ -80,6 +80,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     variant: json['variant'] == null
         ? null
         : VariantResponse.fromJson(json['variant'] as Map<String, dynamic>),
+    productInstructions: json['productInstructions'] as String?,
   );
 }
 
@@ -134,4 +135,5 @@ Map<String, dynamic> _$_$_ProductDetailsResponseToJson(
       'totalQuantity': instance.totalQuantity,
       'isSameProductMultipleTime': instance.isSameProductMultipleTime,
       'variant': instance.variant,
+      'productInstructions': instance.productInstructions,
     };

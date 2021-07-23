@@ -116,7 +116,7 @@ class ChangePasswordPage extends HookWidget {
                 });
 
                 await showDialog(
-                  barrierColor: secondary,
+
                   context: context,
                   builder: (BuildContext context) {
                     return blackAlertBox(

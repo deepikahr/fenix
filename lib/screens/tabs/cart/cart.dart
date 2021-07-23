@@ -67,8 +67,8 @@ class CartScreen extends HookWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         cartItemBlock(context, cart, state),
-                        // totalRow(context, 'Sub Total', cart!.subTotal.toString()),
-                        // totalRow(context, 'Grand Total', cart.grandTotal.toString()),
+                        totalRow(context, 'Sub Total', cart.subTotal.toStringAsFixed(2)),
+                        totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
 
                         Padding(
                           padding: const EdgeInsets.only(top: 28.0),
@@ -118,7 +118,7 @@ class CartScreen extends HookWidget {
                 children: [
                   Row(
                     children: [
-                      Text('${cartProduct.totalProductPrice}€',
+                      Text('${cartProduct.totalProductPrice.toStringAsFixed(2)}€',
                           style: textBlackLargeBM(context)),
                       SizedBox(width: 4),
                       cartProduct.allergens!.isNotEmpty

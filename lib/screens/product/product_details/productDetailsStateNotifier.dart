@@ -44,12 +44,16 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     state = state.copyWith(showAddButton: value);
   }
 
+  void showCounter(bool value) {
+    state = state.copyWith(showCounter: value);
+  }
+
   void onSizeSelect(value) {
     state = state.copyWith(groupValue: value);
   }
 
   void addSelectedAddOnItem(AddOnItem addOnItem, AddOnCategory addOnCategory) {
-    print('aaaaaaa $addOnItem');
+    // print('aaaaaaa $addOnItem');
 
     state = state.copyWith
         .call(selectedAddOnItems: state.selectedAddOnItems?..add(addOnItem));
@@ -64,6 +68,30 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     state = state.copyWith(selectedLanguage: value);
   }
 
+  void updateAddonItemQuantity(AddOnItem addOnItem, increased) async {
+    print('object $addOnItem');
+
+
+
+    var selectedAddon = List.empty(growable: true);
+    selectedAddon = state.selectedAddOnItems!.toList(growable: true);
+
+    AddOnItem item = selectedAddon.toList().singleWhere((element) =>
+    element.id == addOnItem.id, orElse: () => AddOnItem());
+
+    for (var i = 0; i < (selectedAddon.length); i++) {
+      if (selectedAddon[i].id == addOnItem.id) {
+        final AddOnItem newAddon =
+        addOnItem.copyWith(addOnItemQuantity: increased? item.addOnItemQuantity! + 1 : item.addOnItemQuantity! >= 2 ? item.addOnItemQuantity! - 1 : 1);
+
+        selectedAddon[i] = newAddon;
+        state = state.copyWith.call(
+            selectedAddOnItems: selectedAddon.toSet() as Set<AddOnItem>
+        );
+      }
+    }
+  }
+
 
   Future<void> saveCart(
     context,
@@ -71,6 +99,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     VariantResponse selectedVariant,
     ProductDetailsResponse productDetails,
     String productId,
+      String note
   ) async {
     Cart? cart = Cart();
 
@@ -79,13 +108,14 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     var addOnItemsPrice = .0;
     if (selectedAddOnItems!.isNotEmpty) {
       addOnItemsPrice =
-          selectedAddOnItems.map((value) => value.addOnItemPrice).reduce(
-                    (_, __) => _! + __!,
-                  ) ??
-              .0;
+          selectedAddOnItems.map((value) => value.addOnItemPrice! * value.addOnItemQuantity!.toDouble()).reduce(
+                    (_, __) => _+ __,
+                  );
     }
 
-    final totalPrice = selectedVariant.price! + addOnItemsPrice;
+    final productPrice = selectedVariant.price! + productDetails.taxInfo!.taxPercentage!/100;
+
+    final totalPrice = productPrice  + addOnItemsPrice;
 
     print('ssssssssssssssss $selectedAddOnItems $addOnItemsPrice $totalPrice');
 
@@ -113,14 +143,15 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       sizeName: selectedVariant.sizeName,
       productId: productId,
       allergens: productDetails.allergens,
+      productInstructions: note
     );
 
     state = state.copyWith.productDetails!(
+
         totalQuantity: product.totalQuantity,
         isSameProductMultipleTime: product.isSameProductMultipleTime,
-      selectedAddOnItems: product.selectedAddOnItems,
-      totalProductPrice: product.totalProductPrice,
-
+        selectedAddOnItems: product.selectedAddOnItems,
+        totalProductPrice: product.totalProductPrice,
     );
 
     if (cartData == null) {
@@ -148,7 +179,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         await Get.to(() => CartScreen());
       });
       await showDialog(
-        barrierColor: secondary,
+
         context: context,
         builder: (BuildContext context) {
           return blackAlertBox(
@@ -165,15 +196,14 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       var addOnItemsPrice = .0;
       if (selectedAddOnItems.isNotEmpty) {
         addOnItemsPrice =
-            selectedAddOnItems.map((value) => value.addOnItemPrice).reduce(
-                      (_, __) => _! + __!,
-                    ) ??
-                .0;
+            selectedAddOnItems.map((value) => value.addOnItemPrice! * value.addOnItemQuantity!.toDouble()).reduce(
+                      (_, __) => _ + __,
+                    );
       }
 
       state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
           totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
-      final totalProductPrice = selectedVariant.price! + addOnItemsPrice;
+      final totalProductPrice = (selectedVariant.price! + product.taxInfo!.taxPercentage!/100) + addOnItemsPrice;
       print('hhhh $totalProductPrice');
       if (cartData!.products.any(
         (p) =>
@@ -229,7 +259,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         await Get.to(() => CartScreen());
       });
       await showDialog(
-        barrierColor: secondary,
+
         context: context,
         builder: (BuildContext context) {
           return blackAlertBox(
@@ -283,7 +313,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
             state = state.copyWith.productDetails!(
                 totalQuantity: product.totalQuantity,
                 isSameProductMultipleTime: product.isSameProductMultipleTime
-
             );
 
     }
@@ -402,5 +431,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       }
     }
   }
+
 
 }
