@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_response_models/notification_response/notification_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -26,6 +27,16 @@ class NotifyWaiter extends HookWidget {
     final homeState = useProvider(homeTabsProvider);
 
     final notifyWaiterNotifier = useProvider(notifyWaiterProvider.notifier);
+    final isMounted = useIsMounted();
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () async {
+        if (isMounted()) {
+          await context.read(notifyWaiterProvider.notifier).fetchNotification();
+        }
+      });
+      return;
+    }, const []);
 
     return Scaffold(
         backgroundColor: light,
@@ -43,12 +54,13 @@ class NotifyWaiter extends HookWidget {
                 child: Text('AVISO AL CAMARERO',
                     style: textBlackLargeBM(context))),
             SizedBox(height: 20),
-            requestBlock(context),
+            if ((state.notification.length) > 0)
+            requestBlock(context, state.notification),
           ],
         ));
   }
 
-  requestBlock(BuildContext context) {
+  requestBlock(BuildContext context, List<NotificationResponse> notification) {
     return ListView.builder(
         physics: ScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -58,10 +70,10 @@ class NotifyWaiter extends HookWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              custombuttonsmFW(context, requestList[i], () {
-                final response = context.read(notifyWaiterProvider.notifier).callWaiter(requestList[i], requestList[i]);
+              custombuttonsmFW(context, notification[i].title, () {
+                final response = context.read(notifyWaiterProvider.notifier).callWaiter(notification[i].title, notification[i].description);
                 if(response != null)
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Notified waiter successfully')));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$response')));
               }),
               SizedBox(height: 30),
             ],

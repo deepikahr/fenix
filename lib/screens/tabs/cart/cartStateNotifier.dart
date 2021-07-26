@@ -1,6 +1,8 @@
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
+import 'package:fenix_user/models/api_request_models/update_product/update_product.dart';
 import 'package:fenix_user/models/api_response_models/order_response/order_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/network/api_service.dart';
@@ -20,13 +22,10 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       : super(CartScreenState());
 
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
-
-
     final newProduct = product.copyWith(
       totalQuantity: product.totalQuantity + (increased ? 1 : -1),
+      modified: true
     );
-
-
     if (newProduct.totalQuantity > 0) {
       var products = cart!.products;
       products = products.map((p) {
@@ -86,6 +85,30 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       isLoading: false,
       orderResponse: response
     );
+  }
+
+  UpdateProduct createUpdateProduct(ProductDetailsResponse product){
+    return UpdateProduct(productId: product.id, sizeName: product.sizeName, quantity: product.quantity,
+        addOnItems: product.selectedAddOnItems);
+  }
+
+  Future<String?> updateOrder() async {
+    updateGrandTotal();
+    state = state.copyWith.call(isUpdateLoading: true);
+
+
+    UpdateCart updateCart = UpdateCart(orderId: db.getOrderId(), products: cart!.products.where((element) =>
+    element.modified).map((e) => createUpdateProduct(e)).toList());
+
+    printWrapped('aaaaaaaaa ${cart!.products}');
+
+    // final updateResponse = await api.updateOrder(
+    //   updateCart
+    // );
+    state = state.copyWith.call(
+        isUpdateLoading: false,
+    );
+    // return updateResponse;
   }
 
 }

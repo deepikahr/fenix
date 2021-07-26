@@ -168,7 +168,16 @@ TextStyle textWhiteRegularBM() {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 13.0,
-    color: Colors.white,
+    color: white,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
+TextStyle textWhiteLightRegularBM() {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 13.0,
+    color: white.withOpacity(0.8),
     fontFamily: 'BarlowMedium',
   );
 }
@@ -181,6 +190,16 @@ TextStyle textWhiteXSmallBM(context) {
     fontFamily: 'BarlowMedium',
   );
 }
+
+TextStyle textWhite3XSmallBM(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 12.0,
+    color: whiteLight2,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 
 TextStyle textWhiteXXSmallBM(context) {
   return TextStyle(

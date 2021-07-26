@@ -116,7 +116,7 @@ class ProductDetails extends HookWidget {
                         color: darkLight,
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          '350 gm',
+                          '${product.variants!.first.sizeName}',
                           style: textDarkRegularBSW(context),
                           textAlign: TextAlign.center,
                         ),
@@ -144,7 +144,7 @@ class ProductDetails extends HookWidget {
                     color: darkLight,
                     padding: EdgeInsets.all(4),
                     child: Text(
-                      '350 gm',
+                      '${product.variants!.first.sizeName}',
                       style: textDarkRegularBSW(context),
                       textAlign: TextAlign.center,
                     ),

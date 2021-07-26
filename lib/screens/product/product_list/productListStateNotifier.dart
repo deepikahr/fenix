@@ -102,7 +102,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
           product.copyWith(
             isLastVariant: true,
             totalQuantity: product.quantity,
-            totalProductPrice: product.variant!.price!.toDouble(),
+            totalProductPrice: product.variant!.price!.toDouble() + product.taxInfo!.taxPercentage!/100,
           )
         ],
       );
@@ -128,7 +128,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
         product.copyWith(
           isLastVariant: true,
           totalQuantity: product.quantity,
-          totalProductPrice: product.variant!.price!.toDouble(),
+          totalProductPrice: product.variant!.price!.toDouble() + product.taxInfo!.taxPercentage!/100,
         )
       ]);
       await cartNotifier.updateCart(cart);

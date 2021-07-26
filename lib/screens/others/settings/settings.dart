@@ -123,7 +123,7 @@ class Settings extends HookWidget {
                       builder: (BuildContext context) {
                         return blackAlertBox(
                             context,
-                            'Settings updated successfully'.tr,
+                            '$response',
                             Image.asset(
                               'lib/assets/icons/done.png',
                               scale: 3,
@@ -134,7 +134,6 @@ class Settings extends HookWidget {
                   }
                 }else{
                   await showDialog(
-
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(

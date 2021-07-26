@@ -66,7 +66,8 @@ class ProductDetailsResponse with BaseModel<ProductDetailsResponse>, _$ProductDe
     @Default(0) int totalQuantity,
     @Default(false) bool isSameProductMultipleTime,
     VariantResponse? variant,
-    String? productInstructions
+    String? productInstructions,
+    @JsonKey(ignore: true) @Default(false) bool modified
 
   }) =
   _ProductDetailsResponse;

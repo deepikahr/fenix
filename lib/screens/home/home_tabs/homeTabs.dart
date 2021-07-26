@@ -1,4 +1,5 @@
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
@@ -35,11 +36,16 @@ class HomeTabs extends HookWidget {
     // ];
 
     final state = useProvider(homeTabsProvider);
+    final cart = useProvider(cartProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final isMounted = useIsMounted();
 
     useEffect(() {
-      Future.delayed(Duration.zero, () {
+      Future.delayed(Duration.zero, () async {
         context.read(homeTabsProvider.notifier).onPageChanged(tabIndex);
+        if (isMounted()) {
+          await context.read(homeTabsProvider.notifier).fetchLanguage();
+        }
       });
       return;
     }, const []);
@@ -95,11 +101,13 @@ class HomeTabs extends HookWidget {
         ], backgroundColor: Colors.white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFab(context),
+      floatingActionButton: cart == null || !DB().isLoggedIn()
+          ? _buildFab(context, cart)
+          : _buildFab(context, cart),
     );
   }
 
-  Widget _buildFab(BuildContext context) {
+  Widget _buildFab(BuildContext context, Cart? cart) {
     return SizedBox(
       width: 54,
       height: 54,
@@ -126,7 +134,7 @@ class HomeTabs extends HookWidget {
               ),
             ),
           ),
-          PositionedDirectional(
+          cart == null || !DB().isLoggedIn() ? Container() : PositionedDirectional(
             end: 0,
             bottom: 0,
             child: Container(
@@ -139,7 +147,7 @@ class HomeTabs extends HookWidget {
                 color: Colors.black,
                 textColor: GFColors.WHITE,
                 size: GFSize.SMALL,
-                text: '1',
+                text: '${cart.products.length}',
               ),
             ),
           )

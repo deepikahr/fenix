@@ -119,7 +119,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
 
     print('ssssssssssssssss $selectedAddOnItems $addOnItemsPrice $totalPrice');
 
-
     final product = ProductDetailsResponse(
       id: productId,
       productName: productDetails.productName,
@@ -143,11 +142,11 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       sizeName: selectedVariant.sizeName,
       productId: productId,
       allergens: productDetails.allergens,
-      productInstructions: note
+      productInstructions: note,
+      modified: db.getOrderId() == null ? false : true
     );
 
     state = state.copyWith.productDetails!(
-
         totalQuantity: product.totalQuantity,
         isSameProductMultipleTime: product.isSameProductMultipleTime,
         selectedAddOnItems: product.selectedAddOnItems,
@@ -168,7 +167,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         ...cart.products,
       ]);
       final cartTotal = cart.products
-          .map((e) => e.totalProductPrice)
+          .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
       cart = cart.copyWith(subTotal: cartTotal);
 
@@ -250,7 +249,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       await cartState.updateCart(cart);
 
       final cartTotal = cartData!.products
-          .map((e) => e.totalProductPrice)
+          .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
       cart = cartData?.copyWith(subTotal: cartTotal);
 
@@ -383,6 +382,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
                 return p;
               }).toList();
 
+              printWrapped('qqqqqqqqq $products');
               Cart? cart = cartData!.copyWith(products: products);
               await cartState.updateCart(cart);
               updateQuantity(newCart: cart, product: product);

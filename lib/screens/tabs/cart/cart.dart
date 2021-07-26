@@ -67,29 +67,54 @@ class CartScreen extends HookWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         cartItemBlock(context, cart, state),
-                        totalRow(context, 'Sub Total', cart.subTotal.toStringAsFixed(2)),
-                        totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
-
+                        totalRow(context, 'Sub Total',
+                            cart.subTotal.toStringAsFixed(2)),
+                        // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
                         Padding(
                           padding: const EdgeInsets.only(top: 28.0),
                           child: Center(
                               child: state.isLoading
                                   ? GFLoader(type: GFLoaderType.ios)
-                                  : custombuttonsm(context, 'OK, ENVIAR PEDIDO',
-                                      () {
-                                     final response = context
-                                          .read(cartScreenProvider.notifier)
-                                          .createOrder();
-                                      if (response != null) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    'Order created successfully')));
-                                        Timer(Duration(seconds: 2), () async {
-                                          await Get.to(() => OrdersInProcess());
-                                        });
-                                      }
-                                    })),
+                                  : custombuttonsm(
+                                      context,
+                                      DB().getOrderId() == null
+                                          ? 'PLACE ORDER'
+                                          : 'MODIFY ORDER',
+                                      DB().getOrderId() == null
+                                          ? () async {
+                                              final response = await context
+                                                  .read(cartScreenProvider
+                                                      .notifier)
+                                                  .createOrder();
+                                              if (response != null) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        content: Text(
+                                                            'order placed successfully')));
+                                                Timer(Duration(seconds: 2),
+                                                    () async {
+                                                  await Get.to(
+                                                      () => OrdersInProcess());
+                                                });
+                                              }
+                                            }
+                                          : () async {
+                                              final updateResponse = await context
+                                                  .read(cartScreenProvider
+                                                      .notifier)
+                                                  .updateOrder();
+                                              if (updateResponse != null) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        content: Text(
+                                                            '${updateResponse}')));
+                                                Timer(Duration(seconds: 2),
+                                                    () async {
+                                                  await Get.to(
+                                                      () => OrdersInProcess());
+                                                });
+                                              }
+                                            })),
                         ),
                       ],
                     ),
@@ -118,12 +143,13 @@ class CartScreen extends HookWidget {
                 children: [
                   Row(
                     children: [
-                      Text('${cartProduct.totalProductPrice.toStringAsFixed(2)}€',
+                      Text(
+                          '${cartProduct.totalProductPrice.toStringAsFixed(2)}€',
                           style: textBlackLargeBM(context)),
                       SizedBox(width: 4),
                       cartProduct.allergens!.isNotEmpty
                           ? Container(
-                        margin: EdgeInsets.only(left: 12),
+                              margin: EdgeInsets.only(left: 12),
                               padding: EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                   color: primary,
@@ -154,10 +180,8 @@ class CartScreen extends HookWidget {
                                   height: 25,
                                   decoration: BoxDecoration(
                                       color: white,
-                                      border:
-                                          Border.all(color: dark, width: 1),
-                                      borderRadius:
-                                          BorderRadius.circular(50)),
+                                      border: Border.all(color: dark, width: 1),
+                                      borderRadius: BorderRadius.circular(50)),
                                   child: Icon(
                                     Icons.remove,
                                     color: dark,
@@ -179,10 +203,8 @@ class CartScreen extends HookWidget {
                                 height: 25,
                                 decoration: BoxDecoration(
                                     color: white,
-                                    border:
-                                        Border.all(color: dark, width: 1),
-                                    borderRadius:
-                                        BorderRadius.circular(50)),
+                                    border: Border.all(color: dark, width: 1),
+                                    borderRadius: BorderRadius.circular(50)),
                                 child: Icon(
                                   Icons.add,
                                   color: dark,

@@ -120,8 +120,11 @@ Widget dishesInfoCard(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            product.productImage!.imageUrl != null
-                ? networkImage(product.productImage!.imageUrl!, 111, 109, 4)
+            // Image.asset(
+            //   'lib/assets/images/refer.png', height: 111, width: 109,
+            // ),
+            product.productImage!.imageUrl != null ?
+            networkImage(product.productImage!.imageUrl!, 111, 109, 1)
                 : networkImageOverlay(111, 109),
             SizedBox(
               width: 8,
@@ -155,24 +158,27 @@ Widget dishesInfoCard(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      product.productImage!.imageUrl == null ?
+                      Icon(Icons.camera_alt_rounded, color: primary,) :
                       Text(
                         '${product.variant!.price}€',
-                        style: textDarkRegularBS(context),
-                      ),
-                      // sellingPrice == originalPrice
-                      //     ? Container()
-                      //     : SizedBox(width: 12),
-                      // sellingPrice == originalPrice
-                      //     ? Container()
-                      //     :
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: primary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          'Allergens',
-                          style: textWhiteRegularBM(),
+                        style: textDarkRegularBS(context),),
+                      InkWell(
+                        onTap: () async {
+                          // await showDialog(
+                          //     context: context,
+                          //     builder: (context) =>
+                          //         allergenDialog(context, product));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            'Allergens',
+                            style: textWhiteRegularBM(),
+                          ),
                         ),
                       ),
 
@@ -257,7 +263,26 @@ Widget dishesInfoCard(
               ),
             ],
           )
-        )
+        ),
+        Positioned(
+            top: 40,
+            child: Container(
+              alignment: AlignmentDirectional.center,
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              height: 25,
+              color: Colors.black45,
+              child: Text('${product.variant!.sizeName}',
+                style: textWhite3XSmallBM(context),
+                textAlign: TextAlign.center,),
+            )
+        ),
+        product.productImage!.imageUrl == null ? Positioned(
+          bottom: 10, left: 30, right: 0,
+          child: Text(
+            '${product.variant!.price}€',
+            style: textWhiteLargeBMM(context),
+          ),
+        ) : Container()
       ],
     ),
   );
@@ -288,6 +313,9 @@ Widget gridDishCard(
               margin: EdgeInsets.all(6),
               child: Stack(
                 children: [
+                  // Image.asset(
+                  //   'lib/assets/images/refer.png', height: 115, width: MediaQuery.of(context).size.width,
+                  // ),
                   product.productImage!.imageUrl != null
                       ? networkImage(product.productImage!.imageUrl!,
                           MediaQuery.of(context).size.width, 115, 0)
@@ -308,19 +336,42 @@ Widget gridDishCard(
                       )
                   ),
                   Positioned(
+                      top: 0, right: 0,
+                      child: Container(
+                        alignment: AlignmentDirectional.center,
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        height: 25,
+                        color: Colors.black45,
+                        child: Text('${product.variant!.sizeName}',
+                          style: textWhite3XSmallBM(context),
+                          textAlign: TextAlign.center,),
+                      )
+                  ),
+                  Positioned(
                       bottom: 0,
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.45,
-                        color: darkLight,
-                        padding: EdgeInsets.all(4),
-                        child: Text(
-                          '${product.productName}',
-                          style: textDarkRegularBSW(context),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          // textAlign: TextAlign.center,
+                        color: Colors.black45,
+                        padding: EdgeInsets.all(5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${product.productName}',
+                              style: textWhiteLightRegularBM(),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              // textAlign: TextAlign.center,
+                            ),
+                            product.productImage!.imageUrl == null ? Text(
+                              '${product.variant!.price}€',
+                              style: textWhiteLargeBMM(context),
+                            ) : Container()
+                          ],
                         ),
                       )),
+
                 ],
               ),
             ),
@@ -337,13 +388,21 @@ Widget gridDishCard(
                   SizedBox(
                     height: 6,
                   ),
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        color: primary, borderRadius: BorderRadius.circular(5)),
-                    child: Text(
-                      'Allergens',
-                      style: textWhiteRegularBM(),
+                  InkWell(
+                    onTap: () async {
+                      // await showDialog(
+                      //     context: context,
+                      //     builder: (context) =>
+                      //         allergenDialog(context, product));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: primary, borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                        'Allergens',
+                        style: textWhiteRegularBM(),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -352,6 +411,8 @@ Widget gridDishCard(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      product.productImage!.imageUrl == null ?
+                      Icon(Icons.camera_alt_rounded, color: primary,) :
                       Text(
                         '${product.variant!.price}€',
                         style: textDarkRegularBS(context),
@@ -427,6 +488,54 @@ Widget gridDishCard(
           ],
         ),
       ],
+    ),
+  );
+}
+
+
+Widget allergenDialog(BuildContext context,  ProductDetailsResponse product){
+  return Dialog(
+    child: Container(
+      height: 165,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          titleTextDark17RegularBR(
+            context,
+            'Allergens',
+          ),
+          Container(
+            alignment: AlignmentDirectional.topStart,
+            height: 85,
+            child: ListView.builder(
+                physics: ScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: product.allergens!.length,
+                itemBuilder: (BuildContext context, int i) {
+                  return Column(
+                    children: [
+                      Image.asset(
+                        'lib/assets/images/p3.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                      Text(
+                        product.allergens![i],
+                        style: textDarkRegularBM10(context),
+                      ),
+                      Text(
+                        'description',
+                        style: textDarkLightSmallBR9(context),
+                      )
+                    ],
+                  );
+                }),
+          ),
+        ],
+      ),
     ),
   );
 }

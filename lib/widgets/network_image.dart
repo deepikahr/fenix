@@ -28,7 +28,7 @@ Widget networkImageOverlay(double width, double height, ) {
     decoration: BoxDecoration(
       image: DecorationImage(
           fit: BoxFit.cover,
-          colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.8), BlendMode.darken),
+          colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.9), BlendMode.darken),
           image: AssetImage(
             'lib/assets/images/refer.png',
           )
@@ -36,5 +36,4 @@ Widget networkImageOverlay(double width, double height, ) {
     ),
   );
 }
-
 
