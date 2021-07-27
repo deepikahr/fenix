@@ -5,6 +5,12 @@ class Constants {
   // app name
   static String appName = 'Restaurant Sass';
 
+  // restaurant name
+  static String restaurantName = "GASTROBAR";
+
+  // restaurant address
+  static String restaurantAddress = "CALLE LARIOS 12";
+
   // delopy url production
   static String apiUrl = dotenv.env['API_URL']!;
 

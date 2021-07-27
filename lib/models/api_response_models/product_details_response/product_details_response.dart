@@ -57,6 +57,7 @@ class ProductDetailsResponse with BaseModel<ProductDetailsResponse>, _$ProductDe
     @Default([]) List<AddOnItem> selectedAddOnItems,
     @Default(0) int preparationTime,
     @Default(0) double totalProductPrice,
+    @Default(0) double tax,
     @Default(1) int quantity,
     String? productId,
     @Default(0) double rate,

@@ -1,3 +1,5 @@
+import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
+import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/screens/product/product_list/productList.dart';
@@ -23,16 +25,21 @@ class Category extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final state = useProvider(homeProvider);
 
-    // useEffect(() {
-    //   Future.delayed(Duration.zero, () async {
-    //     if (isMounted()) {
-    //       await context.read(homeProvider.notifier).fetchCategoryData(6, 1);
-    //     }
-    //   });
-    //   return;
-    // }, const []);
+    final homeState = useProvider(homeTabsProvider);
+    final state = useProvider(categoryProvider);
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final isMounted = useIsMounted();
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () async {
+        if (isMounted()) {
+          await context.read(categoryProvider.notifier).
+          fetchCategory(homeState.currentIndex == 1 ? 'BEVERAGE_CATEGORY' : 'FOOD_CATEGORY', 1, 10);
+        }
+      });
+      return;
+    }, const []);
 
     return Scaffold(
       backgroundColor: light,
@@ -40,57 +47,54 @@ class Category extends HookWidget {
       drawer: DrawerPage(),
       body: Container(
             color: light,
-            child: ListView(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
+            child: Stack(
               children: [
-                // homeButtonRow(context, items, (String? string) =>
-                //     useState(() => selectedItem = string!), selectedItem),
-                // if ((state.homeData?.nearByRestaurants.length ?? 0) > 0)
-
-                db.getType() == 'list' ?
-                categoryBlock(context) :
-                categoryListGrid(context),
+                ListView(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  children: [
+                    if ((state.category?.length ?? 0) > 0)
+                    db.getType() == 'list' ?
+                    categoryBlock(context, state.category) :
+                    categoryListGrid(context, state.category),
+                  ],
+                ),
+                if (state.isLoading) GFLoader(type: GFLoaderType.ios)
               ],
             ),
       ),
     );
   }
 
-  Widget categoryBlock(BuildContext context) {
+  Widget categoryBlock(BuildContext context, List<CategoryResponse>? category) {
     return Container(
-      color: Colors.white,
-      margin: EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 8),
+      // color: Colors.white,
+      margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       // padding: EdgeInsets.symmetric(vertical: 1),
-      child: ListView.separated(
-          separatorBuilder: (_, __) => Divider(
-            thickness: .3,
-            color: Colors.black12,
-            indent: 16,
-            endIndent: 16,
-            height: 30,
-          ),
+      child: ListView.builder(
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: 4,
+          itemCount: category!.length,
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
-              // onTap: () {
-              //   Get.to(() => ProductList(categoryId: category[i].id));
-              // },
-              child: restaurantInfoCard(context, 'title', null),
+              onTap: () {
+                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+              },
+              child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
             );
           }),
     );
   }
 
   Widget categoryListGrid(
-      BuildContext context) =>
+      BuildContext context, List<CategoryResponse>? category) =>
       GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: 4,
+        itemCount: category!.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 0,
@@ -99,9 +103,9 @@ class Category extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
-                // Get.to(() => ProductList(categoryId: category[i].id));
+                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
-              child: restaurantInfoCardGrid(context, 'title', null));
+              child: restaurantInfoCardGrid(context, category[i].title, category[i].imageUrl));
         },
       );
 

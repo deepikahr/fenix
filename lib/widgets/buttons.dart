@@ -12,6 +12,17 @@ Widget primaryButton(BuildContext context, title, onPressed, loading) {
   return Container(
     width: 164,
     // height: 46,
+    //   #00000029
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: dark.withOpacity(0.2),
+          // offset: Offset(0.5, 0.5),
+          blurRadius: 4.0,
+          spreadRadius: 1.0,
+        ),
+      ],
+    ),
     child: GFButton(
       size: GFSize.LARGE,
       color: primary,
@@ -27,7 +38,17 @@ Widget primaryButton(BuildContext context, title, onPressed, loading) {
 Widget primaryButtonSmall(BuildContext context, title, onPressed) {
   return Container(
     // width: 244,
-    height: 46,
+    // height: 46,
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: dark.withOpacity(0.2),
+          // offset: Offset(0.5, 0.5),
+          blurRadius: 4.0,
+          spreadRadius: 1.0,
+        ),
+      ],
+    ),
     child: GFButton(
       size: GFSize.LARGE,
       color: primary,
@@ -40,14 +61,14 @@ Widget primaryButtonSmall(BuildContext context, title, onPressed) {
   );
 }
 
-Widget custombuttonsm(BuildContext context, title, onPressed) {
+Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
   return MaterialButton(
     height: 36,
     // minWidth: 340,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
     color: primary,
     onPressed: onPressed,
-    child: Text(
+    child: isloading ? GFLoader(type: GFLoaderType.ios,) : Text(
       title,
       style: textWhiteLargeBM(context),
     ),

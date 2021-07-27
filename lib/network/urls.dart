@@ -9,6 +9,7 @@ class URL {
   static const SETTINGS_UPDATE = '/users/update/tabSetting/';
 
   static const HOME = '/categories/home-page/';
+  static const CATEGORY = '/categories/type-based?topCategory=';
 
   static const PRODUCT_LIST = '/products/list/';
   static const PRODUCT_DETAILS = '/products/detail/';

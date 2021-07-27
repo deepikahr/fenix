@@ -102,13 +102,13 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
 
     printWrapped('aaaaaaaaa ${cart!.products}');
 
-    // final updateResponse = await api.updateOrder(
-    //   updateCart
-    // );
+    final updateResponse = await api.updateOrder(
+      updateCart
+    );
     state = state.copyWith.call(
         isUpdateLoading: false,
     );
-    // return updateResponse;
+    return updateResponse;
   }
 
 }

@@ -74,7 +74,7 @@ class Home extends HookWidget {
     ).toList();
 
     return Container(
-      // color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 8),
       child: GFCarousel(
           autoPlay: false,
           pagination: true,
@@ -90,17 +90,9 @@ class Home extends HookWidget {
 
   Widget categoryBlock(BuildContext context, List<CategoryResponse>? category) {
     return Container(
-      color: Colors.white,
-      margin: EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 8),
+      margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       // padding: EdgeInsets.symmetric(vertical: 1),
-      child: ListView.separated(
-          separatorBuilder: (_, __) => Divider(
-                thickness: .3,
-                color: Colors.black12,
-                indent: 16,
-                endIndent: 16,
-                height: 30,
-              ),
+      child: ListView.builder(
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -108,7 +100,7 @@ class Home extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                Get.to(() => ProductList(categoryId: category[i].id));
+                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
             );
@@ -119,6 +111,7 @@ class Home extends HookWidget {
   Widget categoryListGrid(
       BuildContext context, List<CategoryResponse>? category) =>
       GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 6),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: category!.length,
@@ -130,7 +123,7 @@ class Home extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
-                Get.to(() => ProductList(categoryId: category[i].id));
+                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCardGrid(context, category[i].title!, category[i].imageUrl!));
         },

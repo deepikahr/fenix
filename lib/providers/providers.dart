@@ -22,6 +22,8 @@ import 'package:fenix_user/screens/product/product_details/productDetailsStateNo
 import 'package:fenix_user/screens/tabs/cart/cartStateNotifier.dart';
 import 'package:fenix_user/screens/product/product_list/productListState.dart';
 import 'package:fenix_user/screens/product/product_list/productListStateNotifier.dart';
+import 'package:fenix_user/screens/tabs/category/categoryState.dart';
+import 'package:fenix_user/screens/tabs/category/categoryStateNotifier.dart';
 import 'package:fenix_user/screens/tabs/order_details/orderDetailsState.dart';
 import 'package:fenix_user/screens/tabs/order_details/orderDetailsStateNotifier.dart';
 import 'package:hive/hive.dart';
@@ -44,6 +46,13 @@ StateNotifierProvider.autoDispose<HomeStateNotifier, HomeState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return HomeStateNotifier(api, db);
+});
+
+final categoryProvider =
+StateNotifierProvider.autoDispose<CategoryStateNotifier, CategoryState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return CategoryStateNotifier(api, db);
 });
 
 final loginProvider =

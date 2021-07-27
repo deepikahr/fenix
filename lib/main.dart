@@ -85,7 +85,8 @@ class EntryPage extends HookWidget {
         accentColor: primary,
       ),
       // home: Categories(),
-      home: db.isLoggedIn() ? HomeTabs() : LoginPage(),
+      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs() :
+      db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
       // home: GestureDetector(
       //   onTap: () {
       //     FocusScope.of(context).unfocus();

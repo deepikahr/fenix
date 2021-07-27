@@ -13,7 +13,7 @@ _$_AddOnItem _$_$_AddOnItemFromJson(Map<String, dynamic> json) {
     addOnItemId: json['addOnItemId'] as String?,
     addOnItemName: json['addOnItemName'] as String?,
     addOnItemPrice: (json['addOnItemPrice'] as num?)?.toDouble(),
-    addOnItemQuantity: json['addOnItemQuantity'] as int? ?? 1,
+    quantity: json['quantity'] as int? ?? 1,
     selected: json['selected'] as bool?,
   );
 }
@@ -25,6 +25,6 @@ Map<String, dynamic> _$_$_AddOnItemToJson(_$_AddOnItem instance) =>
       'addOnItemId': instance.addOnItemId,
       'addOnItemName': instance.addOnItemName,
       'addOnItemPrice': instance.addOnItemPrice,
-      'addOnItemQuantity': instance.addOnItemQuantity,
+      'quantity': instance.quantity,
       'selected': instance.selected,
     };

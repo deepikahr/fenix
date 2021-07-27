@@ -28,13 +28,6 @@ class HomeTabs extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final items = <String>[
-    //   'red',
-    //   'blue',
-    //   'black',
-    //   'Idiomos',
-    // ];
-
     final state = useProvider(homeTabsProvider);
     final cart = useProvider(cartProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -63,29 +56,12 @@ class HomeTabs extends HookWidget {
       appBar: fenixAppbar(context, _scaffoldKey, items, state.selectedLanguage ?? items.first,
               (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
         ),
-      backgroundColor: light,
+      backgroundColor: grey2,
       body: state.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))
           : _screens[state.currentIndex],
-      // bottomNavigationBar: BottomNavigationBar(
-      //   backgroundColor: white,
-      //   elevation: 1,
-      //   currentIndex: state.currentIndex,
-      //   type: BottomNavigationBarType.fixed,
-      //   onTap: (index) async {
-      //     context.read(homeTabsProvider.notifier).onPageChanged(index);
-      //   },
-      //   items: [
-      //     bottomBarTabItem(context, 'Volver'.tr, "lib/assets/images/1.png", 0),
-      //     bottomBarTabItem(context, 'Beida'.tr, "lib/assets/images/2.png", 0),
-      //     bottomBarTabItem(context, 'Comida'.tr, "lib/assets/images/3.png", 0),
-      //     bottomBarTabItem(context, 'Pagar'.tr, "lib/assets/images/4.png", 0),
-      //   ],
-      //   selectedItemColor: primary,
-      //   unselectedItemColor: darkLight,
-      // ),
       bottomNavigationBar: FABBottomAppBar(
-        centerItemText: 'PEDIR',
+        centerItemText: 'ASK_FOR'.tr,
         color: Colors.grey,
         selectedColor: primary,
         notchedShape: CircularNotchedRectangle(),
@@ -93,10 +69,10 @@ class HomeTabs extends HookWidget {
           context.read(homeTabsProvider.notifier).onPageChanged(index);
         },
         items: [
-          FABBottomAppBarItem(iconData: "lib/assets/images/1.png", text: 'Volver'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'Beida'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'Comida'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'Pagar'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/1.png", text: 'RETURN'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'DRINKS'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'FOOD'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'TO_PAY'.tr),
 
         ], backgroundColor: Colors.white,
       ),
@@ -115,12 +91,7 @@ class HomeTabs extends HookWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CartScreen(),
-                ),
-              );
+              Get.to(() => CartScreen());
             },
             backgroundColor: primary,
             elevation: 2.0,

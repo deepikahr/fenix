@@ -10,11 +10,13 @@ class CategoryResponse with BaseModel<CategoryResponse>, _$CategoryResponse {
 
   const factory CategoryResponse({
     @JsonKey(name: '_id') String? id,
+    String? franchiseId,
     String? title,
+    String? description,
     String? imageUrl,
     String? imageId,
     String? filePath,
-    String? description,
+    String? topCategory
   }) = _CategoryResponse;
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>

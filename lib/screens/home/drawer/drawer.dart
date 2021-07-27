@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -77,8 +78,8 @@ class DrawerPage extends HookWidget {
                     right: 50,
                     child: Column(
                       children: [
-                        titleTextDarkRegularBW(context, "GASTROBAR"),
-                        titleTextDarkRegularBW17(context, "CALLE LARIOS 12"),
+                        titleTextDarkRegularBW(context, Constants.restaurantName),
+                        titleTextDarkRegularBW17(context, Constants.restaurantAddress),
                       ],
                     ),
                   ),
@@ -90,8 +91,8 @@ class DrawerPage extends HookWidget {
               InkWell(
                 onTap:  (){Get.to(() => ChangePasswordPage());},
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: titleTextDarkRegularBB20(context, 'Change Password'),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
                 ),
               ),
               Divider(),
@@ -104,8 +105,8 @@ class DrawerPage extends HookWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: titleTextDarkRegularBB20(context, DB().isLoggedIn() ? 'LOGOUT' : 'LOGIN'),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: titleTextDarkRegularBB20(context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
                 ),
               ),
               Divider(),

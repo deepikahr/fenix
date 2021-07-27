@@ -14,10 +14,20 @@ import 'package:get/get.dart';
 Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: dark.withOpacity(0.2),
+          // offset: Offset(0.5, 0.5),
+          blurRadius: 4.0,
+          spreadRadius: 1.0,
+        ),
+      ],
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        networkImage(image, 390, 455, 2)
+        networkImage(image, MediaQuery.of(context).size.width *  0.9, 455, 5)
       ],
     ),
   );
@@ -25,11 +35,12 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
 
 Widget restaurantInfoCard(BuildContext context, title, image) {
   return Container(
+    margin: EdgeInsets.only(bottom: 12),
     child: Stack(
       children: [
         image != null
-            ? networkImage(image, 390, 130, 2)
-            : networkImageOverlay(390, 130),
+            ? networkImage(image, 390, 120, 2)
+            : networkImageOverlay(390, 120),
         Positioned(
             left: 120,
             right: 120,
@@ -56,7 +67,7 @@ Widget restaurantInfoCard(BuildContext context, title, image) {
 
 Widget restaurantInfoCardGrid(
   BuildContext context,
-  String name,
+  String? name,
   String? img,
 ) {
   return Container(
@@ -86,7 +97,7 @@ Widget restaurantInfoCardGrid(
                       topLeft: Radius.circular(22),
                       topRight: Radius.circular(22))),
               child: Text(
-                name,
+                name!,
                 style: textDarkRegularBRW(context),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
@@ -102,6 +113,7 @@ Widget dishesInfoCard(
   ProductDetailsResponse product,
   notifier,
   state,
+categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
@@ -112,6 +124,9 @@ Widget dishesInfoCard(
       borderRadius: BorderRadius.only(
         bottomRight: Radius.circular(16),
       ),
+       boxShadow: [
+        BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)
+      ]
     ),
     margin: EdgeInsets.only(bottom: 16, left: 16, right: 16),
     child: Stack(
@@ -123,8 +138,8 @@ Widget dishesInfoCard(
             // Image.asset(
             //   'lib/assets/images/refer.png', height: 111, width: 109,
             // ),
-            product.productImage!.imageUrl != null ?
-            networkImage(product.productImage!.imageUrl!, 111, 109, 1)
+            categoryImage != null ?
+            networkImage(categoryImage, 111, 109, 1)
                 : networkImageOverlay(111, 109),
             SizedBox(
               width: 8,
@@ -158,12 +173,12 @@ Widget dishesInfoCard(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      product.productImage!.imageUrl == null ?
-                      Icon(Icons.camera_alt_rounded, color: primary,) :
-                      Text(
+                      categoryImage != null ? Text(
                         '${product.variant!.price}€',
-                        style: textDarkRegularBS(context),),
-                      InkWell(
+                        style: textDarkRegularBS(context),) : Container(),
+                      product.productImage!.imageUrl != null ?
+                      Icon(Icons.camera_alt_rounded, color: primary,) : Container(),
+                      product.allergens!.length > 0 ? InkWell(
                         onTap: () async {
                           // await showDialog(
                           //     context: context,
@@ -176,11 +191,11 @@ Widget dishesInfoCard(
                               color: primary,
                               borderRadius: BorderRadius.circular(5)),
                           child: Text(
-                            'Allergens',
+                            'ALLERGENS'.tr,
                             style: textWhiteRegularBM(),
                           ),
                         ),
-                      ),
+                      ) : Container(),
 
                       product.totalQuantity > 0
                           ? Row(
@@ -276,7 +291,7 @@ Widget dishesInfoCard(
                 textAlign: TextAlign.center,),
             )
         ),
-        product.productImage!.imageUrl == null ? Positioned(
+        categoryImage == null ? Positioned(
           bottom: 10, left: 30, right: 0,
           child: Text(
             '${product.variant!.price}€',
@@ -293,6 +308,7 @@ Widget gridDishCard(
   ProductDetailsResponse product,
   notifier,
   state,
+categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
@@ -302,7 +318,10 @@ Widget gridDishCard(
     decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2)]),
+        boxShadow: [
+          BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)
+        ]
+    ),
     child: Column(
       children: [
         Column(
@@ -316,8 +335,8 @@ Widget gridDishCard(
                   // Image.asset(
                   //   'lib/assets/images/refer.png', height: 115, width: MediaQuery.of(context).size.width,
                   // ),
-                  product.productImage!.imageUrl != null
-                      ? networkImage(product.productImage!.imageUrl!,
+                  categoryImage != null
+                      ? networkImage(categoryImage,
                           MediaQuery.of(context).size.width, 115, 0)
                       : networkImageOverlay(
                           MediaQuery.of(context).size.width, 115),
@@ -364,7 +383,7 @@ Widget gridDishCard(
                               overflow: TextOverflow.ellipsis,
                               // textAlign: TextAlign.center,
                             ),
-                            product.productImage!.imageUrl == null ? Text(
+                            categoryImage == null ? Text(
                               '${product.variant!.price}€',
                               style: textWhiteLargeBMM(context),
                             ) : Container()
@@ -388,7 +407,7 @@ Widget gridDishCard(
                   SizedBox(
                     height: 6,
                   ),
-                  InkWell(
+                  product.allergens!.length > 0 ? InkWell(
                     onTap: () async {
                       // await showDialog(
                       //     context: context,
@@ -400,23 +419,23 @@ Widget gridDishCard(
                       decoration: BoxDecoration(
                           color: primary, borderRadius: BorderRadius.circular(5)),
                       child: Text(
-                        'Allergens',
+                        'ALLERGENS'.tr,
                         style: textWhiteRegularBM(),
                       ),
                     ),
-                  ),
+                  ) : Container(),
                   SizedBox(
                     height: 6,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      product.productImage!.imageUrl == null ?
-                      Icon(Icons.camera_alt_rounded, color: primary,) :
-                      Text(
+                      categoryImage != null ? Text(
                         '${product.variant!.price}€',
                         style: textDarkRegularBS(context),
-                      ),
+                      ) : Container(),
+                      product.productImage!.imageUrl != null ?
+                      Icon(Icons.camera_alt_rounded, color: primary,) : Container(),
                       product.totalQuantity > 0
                           ? Container(
                               child: Row(
@@ -504,7 +523,7 @@ Widget allergenDialog(BuildContext context,  ProductDetailsResponse product){
         children: [
           titleTextDark17RegularBR(
             context,
-            'Allergens',
+            'ALLERGENS'.tr,
           ),
           Container(
             alignment: AlignmentDirectional.topStart,
@@ -527,7 +546,7 @@ Widget allergenDialog(BuildContext context,  ProductDetailsResponse product){
                         style: textDarkRegularBM10(context),
                       ),
                       Text(
-                        'description',
+                        'DESCRIPTION'.tr,
                         style: textDarkLightSmallBR9(context),
                       )
                     ],

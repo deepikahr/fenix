@@ -13,6 +13,8 @@ const themeRed = Color(0xFFC92B2B);
 const themeGreen = Color(0xFF5B8E27);
 const themeBlue = Color(0xFF2B80C9);
 
+const appBarDark = Color(0xFF222831);
+
 var primary = DB().getThemeColor() == 'red' ? Color(0xFFC92B2B) : DB().getThemeColor() == 'green' ? Color(0xFF5B8E27)
     : Color(0xFF2B80C9);
 

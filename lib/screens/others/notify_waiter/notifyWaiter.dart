@@ -4,21 +4,17 @@ import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
-import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:getwidget/components/loader/gf_loader.dart';
+import 'package:getwidget/types/gf_loader_type.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:get/get.dart';
 
 class NotifyWaiter extends HookWidget {
 
   bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  final List<String> requestList = <String>[
-    "HELP WITH NAPKIN RACK",
-    "ASK SOMETHING",
-    "REQUEST NAPKINS"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +41,22 @@ class NotifyWaiter extends HookWidget {
         appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage ?? items.first,
                 (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        body: Stack(
           children: [
-            SizedBox(height: 30),
-            Center(
-                child: Text('AVISO AL CAMARERO',
-                    style: textBlackLargeBM(context))),
-            SizedBox(height: 20),
-            if ((state.notification.length) > 0)
-            requestBlock(context, state.notification),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 30),
+                Center(
+                    child: Text('${'NOTICE_TO_THE_WAITER'.tr}',
+                        style: textBlackLargeBM(context))),
+                SizedBox(height: 20),
+                if ((state.notification.length) > 0)
+                requestBlock(context, state.notification),
+              ],
+            ),
+            if (state.isLoading) GFLoader(type: GFLoaderType.ios)
           ],
         ));
   }
@@ -65,13 +66,13 @@ class NotifyWaiter extends HookWidget {
         physics: ScrollPhysics(),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: requestList.length,
+        itemCount: notification.length,
         itemBuilder: (BuildContext context, int i) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              custombuttonsmFW(context, notification[i].title, () {
-                final response = context.read(notifyWaiterProvider.notifier).callWaiter(notification[i].title, notification[i].description);
+              custombuttonsmFW(context, notification[i].title, () async {
+                final response = await context.read(notifyWaiterProvider.notifier).callWaiter(notification[i].title, notification[i].description);
                 if(response != null)
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$response')));
               }),

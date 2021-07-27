@@ -36,7 +36,7 @@ class CartScreen extends HookWidget {
     }, const []);
 
     return Scaffold(
-        backgroundColor: light,
+        backgroundColor: grey2,
         key: _scaffoldKey,
         drawer: DrawerPage(),
         appBar: fenixAppbar(
@@ -47,80 +47,99 @@ class CartScreen extends HookWidget {
             (String? value) => context
                 .read(homeTabsProvider.notifier)
                 .onSelectLanguage(value!)),
-        body: cart == null || !DB().isLoggedIn()
+        body:
+        cart == null || !DB().isLoggedIn()
             ? Center(
-                child: Text('CART_IS_EMPTY'),
+                child: Text('CART_IS_EMPTY'.tr),
               )
-            : ListView(
-                children: [
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 12, right: 8, top: 16, bottom: 8),
-                    child: Text('PRODUCTOS SELECCIONADOS',
-                        style: textBlackLargeBM(context)),
-                  ),
-                  Container(
-                    color: white,
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        cartItemBlock(context, cart, state),
-                        totalRow(context, 'Sub Total',
-                            cart.subTotal.toStringAsFixed(2)),
-                        // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 28.0),
-                          child: Center(
-                              child: state.isLoading
-                                  ? GFLoader(type: GFLoaderType.ios)
-                                  : custombuttonsm(
-                                      context,
-                                      DB().getOrderId() == null
-                                          ? 'PLACE ORDER'
-                                          : 'MODIFY ORDER',
-                                      DB().getOrderId() == null
-                                          ? () async {
-                                              final response = await context
-                                                  .read(cartScreenProvider
-                                                      .notifier)
-                                                  .createOrder();
-                                              if (response != null) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                        content: Text(
-                                                            'order placed successfully')));
-                                                Timer(Duration(seconds: 2),
-                                                    () async {
-                                                  await Get.to(
-                                                      () => OrdersInProcess());
-                                                });
-                                              }
-                                            }
-                                          : () async {
-                                              final updateResponse = await context
-                                                  .read(cartScreenProvider
-                                                      .notifier)
-                                                  .updateOrder();
-                                              if (updateResponse != null) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                        content: Text(
-                                                            '${updateResponse}')));
-                                                Timer(Duration(seconds: 2),
-                                                    () async {
-                                                  await Get.to(
-                                                      () => OrdersInProcess());
-                                                });
-                                              }
-                                            })),
+            :
+        SingleChildScrollView(
+          child: Container(
+            color: white,
+            margin: EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        decoration: BoxDecoration(
+                          color: grey2,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ));
+                        padding: EdgeInsets.all(14),
+                        margin: EdgeInsets.only(top: 16,),
+                        child: Text('SELECTED PRODUCTS'.tr,
+                            style: textBlackLargeBM(context)),
+                      ),
+                      Container(
+                        color: white,
+                        // margin: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            cartItemBlock(context, cart, state),
+                            // totalRow(context, 'Sub Total',
+                            //     cart.subTotal.toStringAsFixed(2)),
+                            // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 28.0),
+                              child: Center(
+                                  child: state.isLoading
+                                      ? GFLoader(type: GFLoaderType.ios)
+                                      : custombuttonsm(
+                                          context,
+                                          DB().getOrderId() == null
+                                              ? 'PLACE_ORDER'.tr
+                                              : 'MODIFY_ORDER'.tr,
+                                          DB().getOrderId() == null
+                                              ? () async {
+                                                  final response = await context
+                                                      .read(cartScreenProvider
+                                                          .notifier)
+                                                      .createOrder();
+                                                  if (response != null) {
+                                                    ScaffoldMessenger.of(context)
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                'order placed successfully')));
+                                                    Timer(Duration(seconds: 2),
+                                                        () async {
+                                                      await Get.to(
+                                                          () => OrdersInProcess());
+                                                    });
+                                                  }
+                                                }
+                                              : () async {
+                                                  final updateResponse = await context
+                                                      .read(cartScreenProvider
+                                                          .notifier)
+                                                      .updateOrder();
+                                                  if (updateResponse != null) {
+                                                    ScaffoldMessenger.of(context)
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                '${updateResponse}')));
+                                                    Timer(Duration(seconds: 2),
+                                                        () async {
+                                                      await Get.to(
+                                                          () => OrdersInProcess());
+                                                    });
+                                                  }
+                                                }, DB().getOrderId() == null
+                                      ? state.isLoading : state.isUpdateLoading)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+          ),
+        ));
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {
@@ -155,7 +174,7 @@ class CartScreen extends HookWidget {
                                   color: primary,
                                   borderRadius: BorderRadius.circular(5)),
                               child: Text(
-                                'Alérgenos',
+                                'ALLERGENS'.tr,
                                 style: textWhiteRegularBM(),
                               ),
                             )
@@ -230,7 +249,7 @@ class CartScreen extends HookWidget {
                   ),
                 ],
               ),
-              Divider(),
+              Divider(height: 1,),
             ],
           );
         });

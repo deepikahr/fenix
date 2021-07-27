@@ -1,11 +1,10 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
-import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 final items = <String>[
@@ -17,7 +16,7 @@ final items = <String>[
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, selectedItem, onSelect) {
   return PreferredSize(
-    preferredSize: Size(MediaQuery.of(context).size.width, 146.0),
+    preferredSize: Size(MediaQuery.of(context).size.width, 135.0),
     child: Stack(
       children: [
         Stack(
@@ -29,8 +28,11 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                   color: secondary1,
                 ),
                 Container(
-                  height: 40,
-                  color: white,
+                  height: 8,
+                  // color: white,
+                  decoration: new BoxDecoration(color: white, boxShadow: [
+                    BoxShadow(color: grey.withOpacity(0.5), blurRadius: 10)
+                  ]),
                 ),
               ],
             ),
@@ -51,7 +53,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
               right: 50,
               child: Column(
                 children: [
-                  titleTextDarkRegularBW(context, 'GASTROBAR'),
+                  titleTextDarkRegularBW(context, Constants.restaurantName),
                   titleTextDarkRegularBW17(context, db.getMenuName()),
                 ],
               ),
@@ -65,7 +67,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                     quarterTurns: -1,
                     child: RichText(
                       text: TextSpan(
-                        text: 'Mesa',
+                        text: 'DESK'.tr,
                         style: textDarkRegularBW17(context),
                         children: [],
                       ),
@@ -106,7 +108,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                           height: 40,
                         ),
                         Text(
-                          'INICIO',
+                          'HOME'.tr,
                           style: TextStyle(color: white, fontSize: 10),
                         )
                       ],
@@ -140,7 +142,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                           height: 40,
                         ),
                         Text(
-                          'LLAMAR',
+                          'TO_CALL'.tr,
                           style:
                           TextStyle(color: white, fontSize: 10),
                         )

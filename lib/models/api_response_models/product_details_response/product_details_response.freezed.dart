@@ -61,6 +61,7 @@ class _$ProductDetailsResponseTearOff {
       List<AddOnItem> selectedAddOnItems = const [],
       int preparationTime = 0,
       double totalProductPrice = 0,
+      double tax = 0,
       int quantity = 1,
       String? productId,
       double rate = 0,
@@ -112,6 +113,7 @@ class _$ProductDetailsResponseTearOff {
       selectedAddOnItems: selectedAddOnItems,
       preparationTime: preparationTime,
       totalProductPrice: totalProductPrice,
+      tax: tax,
       quantity: quantity,
       productId: productId,
       rate: rate,
@@ -177,6 +179,7 @@ mixin _$ProductDetailsResponse {
   List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
   int get preparationTime => throw _privateConstructorUsedError;
   double get totalProductPrice => throw _privateConstructorUsedError;
+  double get tax => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   String? get productId => throw _privateConstructorUsedError;
   double get rate => throw _privateConstructorUsedError;
@@ -241,6 +244,7 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       List<AddOnItem> selectedAddOnItems,
       int preparationTime,
       double totalProductPrice,
+      double tax,
       int quantity,
       String? productId,
       double rate,
@@ -308,6 +312,7 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
     Object? selectedAddOnItems = freezed,
     Object? preparationTime = freezed,
     Object? totalProductPrice = freezed,
+    Object? tax = freezed,
     Object? quantity = freezed,
     Object? productId = freezed,
     Object? rate = freezed,
@@ -477,6 +482,10 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
           ? _value.totalProductPrice
           : totalProductPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      tax: tax == freezed
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as double,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -605,6 +614,7 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       List<AddOnItem> selectedAddOnItems,
       int preparationTime,
       double totalProductPrice,
+      double tax,
       int quantity,
       String? productId,
       double rate,
@@ -677,6 +687,7 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
     Object? selectedAddOnItems = freezed,
     Object? preparationTime = freezed,
     Object? totalProductPrice = freezed,
+    Object? tax = freezed,
     Object? quantity = freezed,
     Object? productId = freezed,
     Object? rate = freezed,
@@ -846,6 +857,10 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
           ? _value.totalProductPrice
           : totalProductPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      tax: tax == freezed
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as double,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -937,6 +952,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       this.selectedAddOnItems = const [],
       this.preparationTime = 0,
       this.totalProductPrice = 0,
+      this.tax = 0,
       this.quantity = 1,
       this.productId,
       this.rate = 0,
@@ -1040,6 +1056,9 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   @JsonKey(defaultValue: 0)
   @override
   final double totalProductPrice;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double tax;
   @JsonKey(defaultValue: 1)
   @override
   final int quantity;
@@ -1072,7 +1091,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
 
   @override
   String toString() {
-    return 'ProductDetailsResponse(productImage: $productImage, taxInfo: $taxInfo, ingredients: $ingredients, addOnCategories: $addOnCategories, status: $status, averageRating: $averageRating, totalRating: $totalRating, noOfUsersRated: $noOfUsersRated, allergens: $allergens, relatedProducts: $relatedProducts, tags: $tags, isCopy: $isCopy, id: $id, offerPercentage: $offerPercentage, franchiseId: $franchiseId, category: $category, productName: $productName, productDescription: $productDescription, isVeg: $isVeg, variants: $variants, addOnItems: $addOnItems, subCategory: $subCategory, ranking: $ranking, menuId: $menuId, vendorId: $vendorId, categoryName: $categoryName, franchiseName: $franchiseName, createdAt: $createdAt, updatedAt: $updatedAt, categoryId: $categoryId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, sizeName: $sizeName, description: $description, selectedAddOnItems: $selectedAddOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVariant: $isLastVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant, productInstructions: $productInstructions, modified: $modified)';
+    return 'ProductDetailsResponse(productImage: $productImage, taxInfo: $taxInfo, ingredients: $ingredients, addOnCategories: $addOnCategories, status: $status, averageRating: $averageRating, totalRating: $totalRating, noOfUsersRated: $noOfUsersRated, allergens: $allergens, relatedProducts: $relatedProducts, tags: $tags, isCopy: $isCopy, id: $id, offerPercentage: $offerPercentage, franchiseId: $franchiseId, category: $category, productName: $productName, productDescription: $productDescription, isVeg: $isVeg, variants: $variants, addOnItems: $addOnItems, subCategory: $subCategory, ranking: $ranking, menuId: $menuId, vendorId: $vendorId, categoryName: $categoryName, franchiseName: $franchiseName, createdAt: $createdAt, updatedAt: $updatedAt, categoryId: $categoryId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, sizeName: $sizeName, description: $description, selectedAddOnItems: $selectedAddOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, tax: $tax, quantity: $quantity, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastVariant: $isLastVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant, productInstructions: $productInstructions, modified: $modified)';
   }
 
   @override
@@ -1161,6 +1180,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
             (identical(other.selectedAddOnItems, selectedAddOnItems) || const DeepCollectionEquality().equals(other.selectedAddOnItems, selectedAddOnItems)) &&
             (identical(other.preparationTime, preparationTime) || const DeepCollectionEquality().equals(other.preparationTime, preparationTime)) &&
             (identical(other.totalProductPrice, totalProductPrice) || const DeepCollectionEquality().equals(other.totalProductPrice, totalProductPrice)) &&
+            (identical(other.tax, tax) || const DeepCollectionEquality().equals(other.tax, tax)) &&
             (identical(other.quantity, quantity) || const DeepCollectionEquality().equals(other.quantity, quantity)) &&
             (identical(other.productId, productId) || const DeepCollectionEquality().equals(other.productId, productId)) &&
             (identical(other.rate, rate) || const DeepCollectionEquality().equals(other.rate, rate)) &&
@@ -1216,6 +1236,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       const DeepCollectionEquality().hash(selectedAddOnItems) ^
       const DeepCollectionEquality().hash(preparationTime) ^
       const DeepCollectionEquality().hash(totalProductPrice) ^
+      const DeepCollectionEquality().hash(tax) ^
       const DeepCollectionEquality().hash(quantity) ^
       const DeepCollectionEquality().hash(productId) ^
       const DeepCollectionEquality().hash(rate) ^
@@ -1281,6 +1302,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       List<AddOnItem> selectedAddOnItems,
       int preparationTime,
       double totalProductPrice,
+      double tax,
       int quantity,
       String? productId,
       double rate,
@@ -1377,6 +1399,8 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   int get preparationTime => throw _privateConstructorUsedError;
   @override
   double get totalProductPrice => throw _privateConstructorUsedError;
+  @override
+  double get tax => throw _privateConstructorUsedError;
   @override
   int get quantity => throw _privateConstructorUsedError;
   @override

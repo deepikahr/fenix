@@ -14,7 +14,7 @@ class AddOnItem with BaseModel<AddOnItem>, _$AddOnItem {
     String? addOnItemId,
     String? addOnItemName,
     double? addOnItemPrice,
-    @Default(1) int? addOnItemQuantity,
+    @Default(1) int? quantity,
     bool? selected,
   }) = _AddOnItem;
 

@@ -82,7 +82,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     for (var i = 0; i < (selectedAddon.length); i++) {
       if (selectedAddon[i].id == addOnItem.id) {
         final AddOnItem newAddon =
-        addOnItem.copyWith(addOnItemQuantity: increased? item.addOnItemQuantity! + 1 : item.addOnItemQuantity! >= 2 ? item.addOnItemQuantity! - 1 : 1);
+        addOnItem.copyWith(quantity: increased? item.quantity! + 1 : item.quantity! >= 2 ? item.quantity! - 1 : 1);
 
         selectedAddon[i] = newAddon;
         state = state.copyWith.call(
@@ -108,12 +108,14 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     var addOnItemsPrice = .0;
     if (selectedAddOnItems!.isNotEmpty) {
       addOnItemsPrice =
-          selectedAddOnItems.map((value) => value.addOnItemPrice! * value.addOnItemQuantity!.toDouble()).reduce(
+          selectedAddOnItems.map((value) => value.addOnItemPrice! * value.quantity!.toDouble()).reduce(
                     (_, __) => _+ __,
                   );
     }
 
-    final productPrice = selectedVariant.price! + productDetails.taxInfo!.taxPercentage!/100;
+    // final productPrice = selectedVariant.price! + productDetails.taxInfo!.taxPercentage!/100;
+    final productPrice = selectedVariant.price!;
+    final productTax = productPrice * productDetails.taxInfo!.taxPercentage!/100;
 
     final totalPrice = productPrice  + addOnItemsPrice;
 
@@ -128,6 +130,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       sellingPrice: selectedVariant.price ?? 0,
       originalPrice: selectedVariant.price ?? 0,
       taxInfo: productDetails.taxInfo,
+      tax: productTax,
       quantity: 1,
       isLastVariant: true,
       totalQuantity: 1,
@@ -151,6 +154,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         isSameProductMultipleTime: product.isSameProductMultipleTime,
         selectedAddOnItems: product.selectedAddOnItems,
         totalProductPrice: product.totalProductPrice,
+      tax: productTax,
     );
 
     if (cartData == null) {
@@ -195,14 +199,16 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       var addOnItemsPrice = .0;
       if (selectedAddOnItems.isNotEmpty) {
         addOnItemsPrice =
-            selectedAddOnItems.map((value) => value.addOnItemPrice! * value.addOnItemQuantity!.toDouble()).reduce(
+            selectedAddOnItems.map((value) => value.addOnItemPrice! * value.quantity!.toDouble()).reduce(
                       (_, __) => _ + __,
                     );
       }
 
       state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
           totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
-      final totalProductPrice = (selectedVariant.price! + product.taxInfo!.taxPercentage!/100) + addOnItemsPrice;
+      // final totalProductPrice = (selectedVariant.price! + product.taxInfo!.taxPercentage!/100) + addOnItemsPrice;
+      final totalProductPrice = selectedVariant.price! + addOnItemsPrice;
+      final productTax = totalProductPrice * productDetails.taxInfo!.taxPercentage!/100;
       print('hhhh $totalProductPrice');
       if (cartData!.products.any(
         (p) =>
@@ -230,7 +236,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
             originalPrice: selectedVariant.price!,
             totalProductPrice: totalProductPrice,
             selectedAddOnItems: selectedAddOnItems.toList(),
-            variant: selectedVariant
+            variant: selectedVariant,
+            tax: productTax,
           ),
           ...cartData!.products,
         ]);

@@ -1,21 +1,15 @@
-import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
-import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
-import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
-import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
-import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/network_image.dart';
 import 'package:fenix_user/widgets/normalText.dart';
-import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -26,13 +20,6 @@ import 'package:get/get.dart';
 class ProductDetails extends HookWidget {
   final String? productId;
   ProductDetails({this.productId});
-
-  final items = <String>[
-    'red',
-    'blue',
-    'black',
-    'Idiom',
-  ];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isChecked = false;
@@ -176,7 +163,7 @@ class ProductDetails extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'TOTAL + EXTRAS: ${product.totalProductPrice.toStringAsFixed(2)}€',
+                    '${product.totalProductPrice.toStringAsFixed(2)}€',
                     style: textDarkRegularBS(context),
                   ),
                   product.totalQuantity > 0 && !state.showAddButton
@@ -295,7 +282,7 @@ class ProductDetails extends HookWidget {
         ),
         titleTextDark17RegularBR(
           context,
-          'Sugerencias',
+          'INSTRUCTIONS'.tr,
         ),
         SizedBox(
           height: 8,
@@ -347,7 +334,7 @@ class ProductDetails extends HookWidget {
       children: [
         titleTextDark17RegularBR(
           context,
-          'Allergens',
+          'ALLERGENS'.tr,
         ),
         Container(
           alignment: AlignmentDirectional.topStart,
@@ -369,10 +356,10 @@ class ProductDetails extends HookWidget {
                       allergens[i],
                       style: textDarkRegularBM10(context),
                     ),
-                    Text(
-                      'description',
-                      style: textDarkLightSmallBR9(context),
-                    )
+                    // Text(
+                    //   'description',
+                    //   style: textDarkLightSmallBR9(context),
+                    // )
                   ],
                 );
               }),
@@ -387,7 +374,7 @@ class ProductDetails extends HookWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          titleTextDark17RegularBR(context, 'Choose size'),
+          titleTextDark17RegularBR(context, 'CHOOSE_SIZE'.tr),
           ListView.builder(
             physics: ScrollPhysics(),
             scrollDirection: Axis.vertical,
@@ -548,7 +535,7 @@ class ProductDetails extends HookWidget {
                                                       element.id ==
                                                       addOnItems[i].id,
                                                   orElse: () => AddOnItem())
-                                              .addOnItemQuantity
+                                              .quantity
                                               .toString(),
                                           style: textBlackLargeBM(context)),
                                       InkWell(
