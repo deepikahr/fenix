@@ -79,7 +79,7 @@ class Home extends HookWidget {
           autoPlay: false,
           pagination: true,
           viewportFraction: 1.0,
-          activeIndicator: primary,
+          activeIndicator: primary(),
           passiveIndicator: darkLight2,
           height: 150,
           aspectRatio: 2,

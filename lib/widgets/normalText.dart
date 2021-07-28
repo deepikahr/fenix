@@ -525,7 +525,7 @@ Widget chatMessgae(BuildContext context, message, isOwn) {
                           bottomRight: Radius.circular(8),
                           bottomLeft: Radius.circular(0),
                         ),
-                        color: primary.withOpacity(0.20),
+                        color: primary().withOpacity(0.20),
                       ),
                       child: Text(
                         message,

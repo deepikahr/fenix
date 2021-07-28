@@ -177,7 +177,7 @@ categoryImage,
                         '${product.variant!.price}€',
                         style: textDarkRegularBS(context),) : Container(),
                       product.productImage!.imageUrl != null ?
-                      Icon(Icons.camera_alt_rounded, color: primary,) : Container(),
+                      Icon(Icons.camera_alt_rounded, color: primary(),) : Container(),
                       product.allergens!.length > 0 ? InkWell(
                         onTap: () async {
                           // await showDialog(
@@ -188,7 +188,7 @@ categoryImage,
                         child: Container(
                           padding: EdgeInsets.all(4),
                           decoration: BoxDecoration(
-                              color: primary,
+                              color: primary(),
                               borderRadius: BorderRadius.circular(5)),
                           child: Text(
                             'ALLERGENS'.tr,
@@ -270,7 +270,7 @@ categoryImage,
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: [
-              Image.asset('lib/assets/images/b2.png', scale: 1.4,),
+              Image.asset('lib/assets/images/b2.png', scale: 1.4, color: primary(),),
               Text(
                 '${product.tags!.first.title}',
                 style: textDarkRegularBSW(context),
@@ -345,7 +345,7 @@ categoryImage,
                       child: Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          Image.asset('lib/assets/images/b2.png', scale: 1.2,),
+                          Image.asset('lib/assets/images/b2.png', scale: 1.2, color: primary(),),
                           Text(
                             '${product.tags!.first.title}',
                             style: textDarkRegularBSW(context),
@@ -417,7 +417,7 @@ categoryImage,
                     child: Container(
                       padding: EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: primary, borderRadius: BorderRadius.circular(5)),
+                          color: primary(), borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         'ALLERGENS'.tr,
                         style: textWhiteRegularBM(),
@@ -435,7 +435,7 @@ categoryImage,
                         style: textDarkRegularBS(context),
                       ) : Container(),
                       product.productImage!.imageUrl != null ?
-                      Icon(Icons.camera_alt_rounded, color: primary,) : Container(),
+                      Icon(Icons.camera_alt_rounded, color: primary(),) : Container(),
                       product.totalQuantity > 0
                           ? Container(
                               child: Row(

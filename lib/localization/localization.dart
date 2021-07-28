@@ -66,7 +66,6 @@ class Localization extends Translations {
           'WE_WAIT_FOR_YOU_SOON.': 'We wait for you soon.',
           'CHANGE_PASSCODE': 'Change passcode',
           'LOGOUT': 'Logout'
-
         }
       };
 }

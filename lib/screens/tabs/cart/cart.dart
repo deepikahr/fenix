@@ -41,10 +41,10 @@ class CartScreen extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages
+            homeState.languages, homeState.isLoading
         ),
         body:
-        cart == null || !DB().isLoggedIn()
+        cart == null || !DB().isLoggedIn() || cart.products.length == 0
             ? Center(
                 child: Text('CART_IS_EMPTY'.tr),
               )
@@ -99,6 +99,7 @@ class CartScreen extends HookWidget {
                                                       .read(cartScreenProvider
                                                           .notifier)
                                                       .createOrder();
+                                                  print('zzzzzzzzzz ${state.orderResponse}');
                                                   if (state.orderResponse != null) {
                                                     ScaffoldMessenger.of(context)
                                                         .showSnackBar(SnackBar(
@@ -167,7 +168,7 @@ class CartScreen extends HookWidget {
                               margin: EdgeInsets.only(left: 12),
                               padding: EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                  color: primary,
+                                  color: primary(),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Text(
                                 'ALLERGENS'.tr,

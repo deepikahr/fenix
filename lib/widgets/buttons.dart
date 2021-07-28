@@ -25,7 +25,7 @@ Widget primaryButton(BuildContext context, title, onPressed, loading) {
     ),
     child: GFButton(
       size: GFSize.LARGE,
-      color: primary,
+      color: primary(),
       onPressed: onPressed,
       child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
         title,
@@ -51,7 +51,7 @@ Widget primaryButtonSmall(BuildContext context, title, onPressed) {
     ),
     child: GFButton(
       size: GFSize.LARGE,
-      color: primary,
+      color: primary(),
       onPressed: onPressed,
       child: Text(
         title,
@@ -66,7 +66,7 @@ Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
     height: 36,
     // minWidth: 340,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
-    color: primary,
+    color: primary(),
     onPressed: onPressed,
     child: isloading ? GFLoader(type: GFLoaderType.ios,) : Text(
       title,
@@ -80,7 +80,7 @@ Widget custombuttonsmFW(BuildContext context, title, onPressed) {
     height: 46,
     minWidth: 244,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
-    color: primary,
+    color: primary(),
     onPressed: onPressed,
     child: Text(
       title,

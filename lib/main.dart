@@ -67,7 +67,9 @@ class EntryPage extends HookWidget {
     final isMounted = useIsMounted();
     useEffect(() {
       if (isMounted()) {
-        db.saveThemeColor('red');
+        db.saveThemeColor(db.getThemeColor() ?? 'red' );
+        db.saveLanguage(db.getLanguage() ?? 'English' );
+        db.saveLanguageCode(db.getLanguageCode() ?? 'en' );
         Future.delayed(Duration.zero, () {
           initializeconfigLocalNotification();
         });
@@ -79,10 +81,10 @@ class EntryPage extends HookWidget {
       title: Constants.appName,
       theme: ThemeData(
         fontFamily: FONT_FAMILY,
-        primaryColor: primary,
-        accentColor: primary,
+        primaryColor: primary(),
+        accentColor: primary(),
       ),
-      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs() :
+      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0,) :
       db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
       translations: Localization(),
       locale: Get.deviceLocale,

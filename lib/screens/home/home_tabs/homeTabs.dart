@@ -56,7 +56,7 @@ class HomeTabs extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            state.languages
+            state.languages, state.isLoading
         ),
       backgroundColor: grey2,
       body: state.isLoading
@@ -65,7 +65,7 @@ class HomeTabs extends HookWidget {
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: 'ASK_FOR'.tr,
         color: Colors.grey,
-        selectedColor: primary,
+        selectedColor: primary(),
         notchedShape: CircularNotchedRectangle(),
         onTabSelected: (index) async {
           context.read(homeTabsProvider.notifier).onPageChanged(index);
@@ -95,7 +95,7 @@ class HomeTabs extends HookWidget {
             onPressed: () {
               Get.to(() => CartScreen());
             },
-            backgroundColor: primary,
+            backgroundColor: primary(),
             elevation: 2.0,
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -107,7 +107,7 @@ class HomeTabs extends HookWidget {
               ),
             ),
           ),
-          cart == null || !DB().isLoggedIn() ? Container() : PositionedDirectional(
+          cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
             end: 0,
             bottom: 0,
             child: Container(

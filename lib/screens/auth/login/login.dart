@@ -29,38 +29,43 @@ class LoginPage extends HookWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0),
-        child: AppBar(
-          backgroundColor: appBarDark,
-          leading:  InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Settings(),
+        child: Container(
+          decoration: new BoxDecoration(color: secondary1, boxShadow: [
+            BoxShadow(color: Colors.black45, blurRadius: 20)
+          ]),
+          child: AppBar(
+            backgroundColor: appBarDark,
+            leading:  InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 16, top: 16),
+                decoration: BoxDecoration(
+                    color: primary(),
+                    borderRadius: BorderRadius.circular(8)),
+                child: Icon(
+                  Icons.settings,
+                  color: secondary1,
+                  size: 30,
                 ),
-              );
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: 16, top: 16),
-              decoration: BoxDecoration(
-                  color: primary,
-                  borderRadius: BorderRadius.circular(8)),
-              child: Icon(
-                Icons.settings,
-                color: secondary1,
-                size: 30,
               ),
             ),
-          ),
-          centerTitle: true,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 16,),
-              titleTextDarkRegularBW(context, Constants.restaurantName),
-              titleTextDarkRegularBW17(context, Constants.restaurantAddress),
-            ],
+            centerTitle: true,
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 16,),
+                titleTextDarkRegularBW(context, Constants.restaurantName),
+                titleTextDarkRegularBW17(context, Constants.restaurantAddress),
+              ],
+            ),
           ),
         ),
       ),

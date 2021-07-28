@@ -24,7 +24,7 @@ class DrawerStateNotifier extends StateNotifier<DrawerState> {
     if (db.isLoggedIn()) {
         await db.logOut();
         state = state.copyWith(isLoading: true);
-        await Get.offAll(() => HomeTabs());
+        await Get.offAll(() => HomeTabs(tabIndex: 0,));
     }
   }
 

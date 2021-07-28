@@ -17,6 +17,7 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
     print('ddddd ${db.getLanguageCode()}');
     state = state.copyWith(selectedLanguage: value);
     db.saveLanguage(value);
+    print('ddddd ${db.getLanguage()}');
   }
 
   Future<LanguageResponse?> fetchLanguage() async {

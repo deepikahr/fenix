@@ -29,35 +29,46 @@ class ChangePasswordPage extends HookWidget {
     final state = useProvider(changePasswordProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading:  InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Settings(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80.0),
+        child: Container(
+          decoration: new BoxDecoration(color: secondary1, boxShadow: [
+            BoxShadow(color: Colors.black45, blurRadius: 20)
+          ]),
+          child: AppBar(
+            backgroundColor: appBarDark,
+            leading:   InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings(),
+                  ),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 16, top: 16),
+                decoration: BoxDecoration(
+                    color: primary(),
+                    borderRadius: BorderRadius.circular(8)),
+                child: Icon(
+                  Icons.settings,
+                  color: secondary1,
+                  size: 30,
+                ),
               ),
-            );
-          },
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-                color: primary,
-                borderRadius: BorderRadius.circular(12)),
-            child: Icon(
-              Icons.settings,
-              color: secondary1,
-              size: 40,
+            ),
+            centerTitle: true,
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 16,),
+                titleTextDarkRegularBW(context, Constants.restaurantName),
+                titleTextDarkRegularBW17(context, Constants.restaurantAddress),
+              ],
             ),
           ),
-        ),
-        centerTitle: true,
-        title: Column(
-          children: [
-            titleTextDarkRegularBW(context, Constants.restaurantName),
-            titleTextDarkRegularBW17(context, Constants.restaurantAddress),
-          ],
         ),
       ),
       backgroundColor: light,

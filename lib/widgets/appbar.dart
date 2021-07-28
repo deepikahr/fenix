@@ -6,10 +6,11 @@ import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
-    onSelectLanguage, List<LanguageResponse> languages) {
+    onSelectLanguage, List<LanguageResponse> languages, isLoading) {
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 135.0),
     child: Stack(
@@ -38,6 +39,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                 onTap: () => _scaffoldKey.currentState!.openDrawer(),
                 child: Image.asset(
                   'lib/assets/images/drawer.png',
+                  color: primary(),
                   scale: 1.8,
                 ),
               ),
@@ -87,7 +89,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                        color: Color(0xFFFD2959),
+                        color: primary(),
                         border: Border.all(color: white, width: 2),
                         boxShadow: [
                           BoxShadow(
@@ -121,7 +123,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                        color: Color(0xFFFD2959),
+                         color: primary(),
                         border: Border.all(color: white, width: 2),
                         boxShadow: [
                           BoxShadow(
@@ -145,13 +147,13 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     ),
                   ),
                 )),
-            Positioned(
+            isLoading ? GFLoader(type: GFLoaderType.ios,) : Positioned(
               right: 40,
               top: 105,
               child: DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 0,
-                value: languages.first.languageName,
+                value: db.getLanguage() ?? languages.first.languageName,
                 onChanged: onSelectLanguage,
                 selectedItemBuilder: (BuildContext context) {
                   return languages.map<Widget>((item) {

@@ -22,7 +22,7 @@ class OrdersInProcess extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages
+            homeState.languages, homeState.isLoading
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,

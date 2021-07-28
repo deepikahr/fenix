@@ -63,7 +63,7 @@ class DrawerPage extends HookWidget {
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
-                            color: primary,
+                            color: primary(),
                             borderRadius: BorderRadius.circular(12)),
                         child: Icon(
                           Icons.settings,

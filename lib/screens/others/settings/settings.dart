@@ -102,12 +102,12 @@ class Settings extends HookWidget {
                       state.validatePayment ?? state.settings!.tabSetting!.validatePaymentByWaiter,
                       state.themeColor ?? state.settings!.tabSetting!.themeColour,
                       state.orderMode ?? state.settings!.tabSetting!.orderingMode,
-                      state.type ?? state.settings!.tabSetting!.viewType
+                      state.type ?? state.settings!.tabSetting!.viewType,
                   );
-
+                  print('qqqqqqqqq $response');
                   if(response != null){
                     Timer(Duration(seconds: 2), () async {
-                      await Get.offAll(() => HomeTabs());
+                      await Get.offAll(() => HomeTabs(tabIndex: 0,));
                     });
 
                     await showDialog(
@@ -221,6 +221,10 @@ class Settings extends HookWidget {
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
+                hint: Text(
+                  'red',
+                  style: textDarkRegularBG(context),
+                ),
                 value: state.themeColor ?? settings.tabSetting!.themeColour,
                 onChanged: (value) async {
                   await context.read(settingsProvider.notifier)
@@ -228,7 +232,7 @@ class Settings extends HookWidget {
                 },
                 items: <String>[
                   'red',
-                  'green','blue'
+                  'green','blue', 'yellow'
                 ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
                     child: Text(
@@ -311,8 +315,8 @@ class Settings extends HookWidget {
                   await context.read(settingsProvider.notifier)
                       .setResetCategory(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.resetCategory!,
               )
             ],
@@ -374,8 +378,8 @@ class Settings extends HookWidget {
                   await context.read(settingsProvider.notifier)
                       .setEnableCall(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.callToWaiter!,
               )
             ],
@@ -393,8 +397,8 @@ class Settings extends HookWidget {
                   await context.read(settingsProvider.notifier)
                       .setPayOnCommand(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.payTypeKiosk!,
               )
             ],
@@ -411,8 +415,8 @@ class Settings extends HookWidget {
                   await context.read(settingsProvider.notifier)
                       .setValidatePayment(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.validatePaymentByWaiter!,
               ),
             ],

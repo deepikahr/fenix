@@ -33,7 +33,6 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
   }
 
   Future<String?> setThemeColor(String color) async {
-    db.saveThemeColor(color);
     state = state.copyWith.call(
       themeColor: color
     );
@@ -109,10 +108,8 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     db.saveThemeColor(themeColour);
     db.saveType(viewType);
     state = state.copyWith.call(isUpdateLoading: false);
-
     return response;
   }
-
 
 
 }

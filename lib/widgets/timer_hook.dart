@@ -36,7 +36,7 @@ class _TimerHookState extends HookState<Timer, _TimerHook> {
   Timer build(BuildContext context) => _timer;
 
   @override
-  void dispose() => _timer!.cancel();
+  void dispose() => _timer.cancel();
 
   @override
   String get debugLabel => 'useTimer';

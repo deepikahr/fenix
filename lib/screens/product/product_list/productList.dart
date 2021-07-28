@@ -46,7 +46,7 @@ class ProductList extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages
+          homeState.languages, homeState.isLoading
       ),
       body: Stack(
         children: [
@@ -224,7 +224,7 @@ class ProductList extends HookWidget {
                     child: GFButton(
                       blockButton: true,
                       size: GFSize.LARGE,
-                      color: primary,
+                      color: primary(),
                       type: GFButtonType.outline,
                       onPressed: () => Get.back(),
                       child: Text(
@@ -280,7 +280,7 @@ class ProductList extends HookWidget {
                     child: GFButton(
                       blockButton: true,
                       size: GFSize.LARGE,
-                      color: primary,
+                      color: primary(),
                       type: GFButtonType.outline,
                       onPressed: onRepeat,
                       child: Text(

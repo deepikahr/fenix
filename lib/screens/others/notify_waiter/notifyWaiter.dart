@@ -41,22 +41,24 @@ class NotifyWaiter extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages
+            homeState.languages, homeState.isLoading
         ),
         body: Stack(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 30),
-                Center(
-                    child: Text('${'NOTICE_TO_THE_WAITER'.tr}',
-                        style: textBlackLargeBM(context))),
-                SizedBox(height: 20),
-                if ((state.notification.length) > 0)
-                requestBlock(context, state.notification),
-              ],
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30),
+                  Center(
+                      child: Text('${'NOTICE_TO_THE_WAITER'.tr}',
+                          style: textBlackLargeBM(context))),
+                  SizedBox(height: 20),
+                  if ((state.notification.length) > 0)
+                  requestBlock(context, state.notification),
+                ],
+              ),
             ),
             if (state.isLoading) GFLoader(type: GFLoaderType.ios)
           ],
