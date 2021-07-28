@@ -1,9 +1,11 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
+import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +63,7 @@ class DrawerPage extends HookWidget {
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
-                            color: primary,
+                            color: primary(),
                             borderRadius: BorderRadius.circular(12)),
                         child: Icon(
                           Icons.settings,
@@ -77,8 +79,8 @@ class DrawerPage extends HookWidget {
                     right: 50,
                     child: Column(
                       children: [
-                        titleTextDarkRegularBW(context, "GASTROBAR"),
-                        titleTextDarkRegularBW17(context, "CALLE LARIOS 12"),
+                        titleTextDarkRegularBW(context, Constants.restaurantName),
+                        titleTextDarkRegularBW17(context, Constants.restaurantAddress),
                       ],
                     ),
                   ),
@@ -90,8 +92,8 @@ class DrawerPage extends HookWidget {
               InkWell(
                 onTap:  (){Get.to(() => ChangePasswordPage());},
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: titleTextDarkRegularBB20(context, 'Change Password'),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
                 ),
               ),
               Divider(),
@@ -104,8 +106,8 @@ class DrawerPage extends HookWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: titleTextDarkRegularBB20(context, DB().isLoggedIn() ? 'LOGOUT' : 'LOGIN'),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: titleTextDarkRegularBB20(context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
                 ),
               ),
               Divider(),
@@ -121,16 +123,21 @@ class DrawerPage extends HookWidget {
         shrinkWrap: true,
         itemCount: category!.length,
         itemBuilder: (BuildContext context, int i) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                child: titleTextDarkRegularBB20(context, category[i].title),
-              ),
-              Divider(),
-            ],
+          return InkWell(
+            onTap: () {
+              Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: titleTextDarkRegularBB20(context, category[i].title),
+                ),
+                Divider(),
+              ],
+            ),
           );
         });
   }

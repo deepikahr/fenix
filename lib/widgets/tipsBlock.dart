@@ -95,8 +95,8 @@ Widget selectedTipBlock(String tip, BuildContext context, Function onRemoved) {
     width: 69,
     padding: EdgeInsets.only(left: 10, right: 10),
     decoration: BoxDecoration(
-        color: lightprimary,
-        border: Border.all(color: primary),
+        color: lightPrimary,
+        border: Border.all(color: primary()),
         borderRadius: BorderRadius.circular(4)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -289,7 +289,7 @@ class ApiHelper {
     if (e.response?.data == null) {
       customDialog(
         status: DIALOG_STATUS.FAIL,
-        title: 'Server not responding',
+        title: 'SERVER_NOT_RESPONDING'.tr,
       );
       return null;
     }
@@ -298,8 +298,8 @@ class ApiHelper {
     if (e.response?.statusCode == StatusCode.UNAUTHORIZED_OR_NOTFOUND) {
       customDialog(
           status: DIALOG_STATUS.WARNING,
-          title: 'Session Expired',
-          okText: 'LOGIN',
+          title: 'SESSION_EXPIRED'.tr,
+          okText: 'LOGIN'.tr,
           onOkListener: () {
             Get.offAll(() => LoginPage());
           });
@@ -317,7 +317,7 @@ class ApiHelper {
     if (res == null) {
       customDialog(
         status: DIALOG_STATUS.FAIL,
-        title: 'Server not responding',
+        title: 'SERVER_NOT_RESPONDING'.tr,
       );
       return null;
     }
@@ -343,7 +343,7 @@ class ApiHelper {
     if (res == null) {
       customDialog(
         status: DIALOG_STATUS.FAIL,
-        title: 'Server not responding',
+        title: 'SERVER_NOT_RESPONDING'.tr,
       );
       return null;
     }
@@ -363,7 +363,7 @@ class ApiHelper {
     if (res == null) {
       customDialog(
         status: DIALOG_STATUS.FAIL,
-        title: 'Server not responding',
+        title: 'SERVER_NOT_RESPONDING'.tr,
       );
       return null;
     }

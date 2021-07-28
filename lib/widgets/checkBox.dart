@@ -11,7 +11,7 @@ Widget normalCheckBox(context, text, onchanged, value) {
     title: titleTextDarkLightSmallBR(context, text),
     position: GFPosition.start,
     size: 20,
-    activeBgColor: primary,
+    activeBgColor: primary(),
     inactiveBgColor: light,
     inactiveBorderColor: Colors.black12,
     activeIcon: Icon(

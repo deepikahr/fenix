@@ -12,6 +12,7 @@ class ProductDetailsState with _$ProductDetailsState {
     Set<AddOnItem>? selectedAddOnItems,
     @Default(0) int groupValue,
     @Default(false) bool showAddButton,
+    @Default(false) bool showCounter,
     String? selectedLanguage
   }) = _Default;
 }

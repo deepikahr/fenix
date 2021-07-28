@@ -37,4 +37,3 @@ Widget networkImageOverlay(double width, double height, ) {
   );
 }
 
-

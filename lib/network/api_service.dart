@@ -3,11 +3,16 @@ import 'package:fenix_user/models/api_request_models/call_waiter_request/call_wa
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_request_models/change_password_request/change_password_request.dart';
 import 'package:fenix_user/models/api_request_models/login_verify_request/login_verify_request.dart';
+import 'package:fenix_user/models/api_request_models/pagination_request/pagination_request.dart';
 import 'package:fenix_user/models/api_request_models/settings_update_request/settings_update_request.dart';
+import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
+import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/models/api_response_models/error_response/error_response.dart';
 import 'package:fenix_user/models/api_response_models/home_response/home_response.dart';
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/models/api_response_models/login_verify_response/login_verify_response.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
+import 'package:fenix_user/models/api_response_models/notification_list_response/notification_list_response.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_response/order_response.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
@@ -155,6 +160,21 @@ class API {
     );
   }
 
+  Future<String?> updateOrder(
+      UpdateCart updatedCart, {
+        ValueSetter<ErrorResponse>? errorListener,
+        ValueSetter<ApiResponse<String?>>? responseListener,
+        bool autoErrorHandle = true,
+      }) async {
+    return _api.putForStringResponse(
+      URL.UPDATE_ORDER,
+      errorListener: errorListener,
+      reqModel: updatedCart,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+    );
+  }
+
   Future<OrderDetailsResponse?> orderDetails(
       {ValueSetter<ErrorResponse>? errorListener,
         ValueSetter<ApiResponse<OrderDetailsResponse>>? responseListener,
@@ -178,6 +198,47 @@ class API {
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
+    );
+  }
+
+  Future<NotificationListResponse?> notificationList(
+      {ValueSetter<ErrorResponse>? errorListener,
+        ValueSetter<ApiResponse<NotificationListResponse>>? responseListener,
+        bool autoErrorHandle = true}) async {
+    return _api.get(
+      URL.CALL_WAITER_LIST,
+      resModel: NotificationListResponse(),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+    );
+  }
+
+  Future<List<LanguageResponse>?> languages({
+    ValueSetter<ErrorResponse>? errorListener,
+    ValueSetter<ApiResponse<List<LanguageResponse>?>>? responseListener,
+    bool autoErrorHandle = true,
+  }) async {
+    return _api.getForArrayResponse(
+      URL.LANGUAGES,
+      resModel: LanguageResponse(),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+    );
+  }
+
+  Future<List<CategoryResponse>?> category(String type, int page, int limit,
+      {ValueSetter<ErrorResponse>? errorListener,
+        ValueSetter<ApiResponse<List<CategoryResponse>?>>? responseListener,
+        bool autoErrorHandle = true}) async {
+    return _api.getForArrayResponse(
+      URL.CATEGORY + type,
+      reqModel: PaginationRequest(page: page, limit: limit),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+      resModel: CategoryResponse(),
     );
   }
 

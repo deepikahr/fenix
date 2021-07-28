@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
@@ -53,31 +54,23 @@ class Settings extends HookWidget {
       key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: PreferredSize(
-          child: Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                decoration: new BoxDecoration(color: secondary1, boxShadow: [
-                  BoxShadow(color: Colors.black45, blurRadius: 20)
-                ]),
-              ),
-              Positioned(
-                top: 40,
-                left: 50,
-                right: 50,
-                child: Column(
-                  children: [
-                    titleTextDarkRegularBW15(context, "MAC 91:75:1a:ec:9a:c7"),
-                    SizedBox(height: 5),
-                    titleTextDarkRegularBW(context, "GASTROBAR"),
-                    titleTextDarkRegularBW17(context, "CALLE LARIOS 12"),
-                  ],
-                ),
-              ),
-            ],
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(vertical: 15),
+            decoration: new BoxDecoration(color: secondary1, boxShadow: [
+              BoxShadow(color: Colors.black45, blurRadius: 20)
+            ]),
+            child: Column(
+              children: [
+                SizedBox(height: 25),
+                titleTextDarkRegularBW15(context, "MAC 91:75:1a:ec:9a:c7"),
+                SizedBox(height: 5),
+                titleTextDarkRegularBW(context, Constants.restaurantName),
+                titleTextDarkRegularBW17(context, Constants.restaurantAddress),
+              ],
+            ),
           ),
-          preferredSize: new Size(MediaQuery.of(context).size.width, 90.0),
+          preferredSize: new Size(MediaQuery.of(context).size.width, 110.0),
         ),
         body: Center(
           child: ListView(
@@ -95,10 +88,10 @@ class Settings extends HookWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              primaryButtonSmall(context, 'CANCEL', () {
+              primaryButtonSmall(context, 'CANCEL'.tr, () {
                 Get.back();
               }),
-              primaryButton(context, 'UPDATE', () async {
+              primaryButton(context, 'UPDATE'.tr, () async {
                 if (state.menuTitle != null || DB().getMenuName() != null) {
                   final response = await context
                       .read(settingsProvider.notifier)
@@ -109,21 +102,21 @@ class Settings extends HookWidget {
                       state.validatePayment ?? state.settings!.tabSetting!.validatePaymentByWaiter,
                       state.themeColor ?? state.settings!.tabSetting!.themeColour,
                       state.orderMode ?? state.settings!.tabSetting!.orderingMode,
-                      state.type ?? state.settings!.tabSetting!.viewType
+                      state.type ?? state.settings!.tabSetting!.viewType,
                   );
-
+                  print('qqqqqqqqq $response');
                   if(response != null){
                     Timer(Duration(seconds: 2), () async {
-                      await Get.offAll(() => HomeTabs());
+                      await Get.offAll(() => HomeTabs(tabIndex: 0,));
                     });
 
                     await showDialog(
-                      barrierColor: secondary,
+                      // barrierColor: grey,
                       context: context,
                       builder: (BuildContext context) {
                         return blackAlertBox(
                             context,
-                            'Settings updated successfully'.tr,
+                            '$response',
                             Image.asset(
                               'lib/assets/icons/done.png',
                               scale: 3,
@@ -134,13 +127,12 @@ class Settings extends HookWidget {
                   }
                 }else{
                   await showDialog(
-                    barrierColor: secondary,
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
                         actions: [
                           flatPrimaryUnderlineButton(
-                              context, 'OK', (){
+                              context, 'OK'.tr, (){
                                 Get.back();
                           })
                         ],
@@ -158,7 +150,7 @@ class Settings extends HookWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 55),
                                 child: Text(
-                                  'Please select menu ',
+                                  'PLEASE_SELECT_MENU'.tr,
                                   style: textWhiteRegularBM(),
                                   textAlign: TextAlign.center,
                                 ),
@@ -192,7 +184,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'codigo conexion'),
+              titleTextDarkRegularBS(context, 'CONNECTION_CODE'.tr),
               GFRating(
                 value: _rating,
                 color: dark,
@@ -208,7 +200,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'Mesa Nº'),
+              titleTextDarkRegularBS(context, 'TABLE_NUMBER'.tr),
               titleTextDarkRegularBS(context, '${settings.tableNumber}'),
             ],
           ),
@@ -218,33 +210,19 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'table capacity'),
+              titleTextDarkRegularBS(context, 'TABLE_CAPACITY'.tr),
               titleTextDarkRegularBS(context, '${settings.tableCapacity}'),
-              // Container(
-              //   width: 160,
-              //   child: regularTextField(
-              //     context,
-              //     tableNumberTextField(
-              //         context,
-              //         tableNumberEditController,
-              //         tableNumberFocusNode, (value) {
-              //       FocusScope.of(context)
-              //           .requestFocus(ipAddressFocusNode);
-              //     }
-              //     ),
-              //   ),
-              // ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'color del tama'),
+              titleTextDarkRegularBS(context, 'SELECT_COLOR'.tr),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
                 hint: Text(
-                  'menu selection',
+                  'red',
                   style: textDarkRegularBG(context),
                 ),
                 value: state.themeColor ?? settings.tabSetting!.themeColour,
@@ -254,7 +232,7 @@ class Settings extends HookWidget {
                 },
                 items: <String>[
                   'red',
-                  'green','blue'
+                  'green','blue', 'yellow'
                 ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
                     child: Text(
@@ -272,12 +250,12 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'carta selecionada'),
+              titleTextDarkRegularBS(context, 'SELECT_MENU'.tr),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
                 hint: Text(
-                  'Choose menu',
+                  'CHOOSE_MENU'.tr,
                   style: textDarkRegularBG(context),
                 ),
                 value: state.menuTitle ?? DB().getMenuName(),
@@ -304,7 +282,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'Representación de categoría'),
+              titleTextDarkRegularBS(context, 'CATEGORY_REPRESENTATION'.tr),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
@@ -314,8 +292,8 @@ class Settings extends HookWidget {
                       .setType(value!);
                 },
                 items: <String>[
-                  'list',
-                  'grid',
+                  'LIST'.tr,
+                  'GRID'.tr,
                 ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
                     child: Text(
@@ -331,14 +309,14 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'ENCABEZADO CATEGORIE'),
+              titleTextDarkRegularBS(context, 'CATEGORY_HEADER'.tr),
               GFToggle(
                 onChanged: (bool? value) async {
                   await context.read(settingsProvider.notifier)
                       .setResetCategory(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.resetCategory!,
               )
             ],
@@ -346,7 +324,7 @@ class Settings extends HookWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              titleTextDarkRegularBS(context, 'ORDERING MODE'),
+              titleTextDarkRegularBS(context, 'ORDERING_MODE'.tr),
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
@@ -393,15 +371,15 @@ class Settings extends HookWidget {
             children: [
               Expanded(
                 child: titleTextDarkRegularBS(
-                    context, 'ENABLE CALL TO WAITER (UPPER BAR)'),
+                    context, 'ENABLE_CALL_TO_WAITER'.tr),
               ),
               GFToggle(
                 onChanged: (bool? value) async {
                   await context.read(settingsProvider.notifier)
                       .setEnableCall(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.callToWaiter!,
               )
             ],
@@ -412,15 +390,15 @@ class Settings extends HookWidget {
             children: [
               Expanded(
                 child: titleTextDarkRegularBS(
-                    context, 'PAY WHEN YOU MAKE THE COMMAND (KIOSK TYPE)'),
+                    context, 'PAY_WHEN_YOU_MAKE_THE_COMMAND_(KIOSK TYPE)'.tr),
               ),
               GFToggle(
                 onChanged: (bool? value) async {
                   await context.read(settingsProvider.notifier)
                       .setPayOnCommand(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.payTypeKiosk!,
               )
             ],
@@ -431,14 +409,14 @@ class Settings extends HookWidget {
             children: [
               Expanded(
                   child: titleTextDarkRegularBS(
-                      context, 'VALIDATE PAYMENT / COMMANDS BY WAITER')),
+                      context, 'VALIDATE_PAYMENT_/_COMMANDS_BY_WAITER'.tr)),
               GFToggle(
                 onChanged: (bool? value) async {
                   await context.read(settingsProvider.notifier)
                       .setValidatePayment(value!);
                 },
-                enabledThumbColor: primary,
-                enabledTrackColor: primary.withOpacity(0.3),
+                enabledThumbColor: primary(),
+                enabledTrackColor: primary().withOpacity(0.3),
                 value: settings.tabSetting!.validatePaymentByWaiter!,
               ),
             ],

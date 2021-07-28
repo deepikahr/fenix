@@ -1,28 +1,20 @@
 import 'package:fenix_user/database/db.dart';
-import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
+const appBarDark = Color(0xFF222831);
 
-// const primary = Color(0xFFFF0707);
-// const primary = Color(0xFF52861D);
-// const primary = Color(0xFF2B80C9);
-// const primary = Color(0xFFED9732);
+Color primary(){
+  print('ccccccccccc ${DB().getThemeColor()}');
+  return DB().getThemeColor() == 'red' ? Color(0xFFC92B2B) : DB().getThemeColor() == 'green' ? Color(0xFF5B8E27)
+  : DB().getThemeColor() == 'blue' ? Color(0xFF2B80C9) : Color(0xFFED9732);
+}
 
-const themeRed = Color(0xFFC92B2B);
-const themeGreen = Color(0xFF5B8E27);
-const themeBlue = Color(0xFF2B80C9);
-
-var primary = DB().getThemeColor() == 'red' ? Color(0xFFC92B2B) : DB().getThemeColor() == 'green' ? Color(0xFF5B8E27)
-    : Color(0xFF2B80C9);
-
-// const primary = Color(0xFFC92B2B);
 const secondary = Color(0xFFFFDDDD);
 const secondary1 = Color(0xFF212730);
 const grey = Colors.grey;
 const white = Colors.white;
 const brown = Color(0xFFD5AF6E);
-const lightprimary = Color(0xFFF7d3d4);
+const lightPrimary = Color(0xFFF7d3d4);
 
 const dark = Color(0xFF37383C);
 const light = Color(0xFFF7F7F7);
@@ -37,12 +29,14 @@ final whiteLight = Colors.white.withOpacity(0.6);
 final whiteLight2 = Colors.white.withOpacity(0.8);
 final whiteLight3 = Colors.white.withOpacity(0.4);
 
-final primaryLight = primary.withOpacity(0.6);
-final primaryLight2 = primary.withOpacity(0.8);
+final primaryLight = primary().withOpacity(0.6);
+final primaryLight2 = primary().withOpacity(0.8);
 final primaryLight3 = dark.withOpacity(0.4);
 
-final red = Color(0xFFF44242);
+final grey1 = Color(0xFFEEEEEE);
+final grey2 = Color(0xFFF8F8F8);
 
+final red = Color(0xFFF44242);
 final blackN = Color(0xFF37383C);
 
 //----------------------------------- font family for main.dart ---------------------------
@@ -83,7 +77,7 @@ TextStyle textPrimaryLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 18.0,
-    color: primary,
+    color: primary(),
     fontFamily: 'BarlowMedium',
   );
 }
@@ -164,7 +158,16 @@ TextStyle textWhiteRegularBM() {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 13.0,
-    color: Colors.white,
+    color: white,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
+TextStyle textWhiteLightRegularBM() {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 13.0,
+    color: white.withOpacity(0.8),
     fontFamily: 'BarlowMedium',
   );
 }
@@ -177,6 +180,16 @@ TextStyle textWhiteXSmallBM(context) {
     fontFamily: 'BarlowMedium',
   );
 }
+
+TextStyle textWhite3XSmallBM(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 12.0,
+    color: whiteLight2,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 
 TextStyle textWhiteXXSmallBM(context) {
   return TextStyle(
@@ -210,7 +223,7 @@ TextStyle textPrimarySmallUnderlineBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 14.0,
-    color: primary,
+    color: primary(),
     decoration: TextDecoration.underline,
     fontFamily: 'BarlowMedium',
   );
@@ -264,7 +277,7 @@ TextStyle textPrimarySmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 14.0,
-    color: primary,
+    color: primary(),
     fontFamily: 'BarlowMedium',
   );
 }
@@ -518,7 +531,7 @@ TextStyle textPrimarySmallUnderlineBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 14.0,
-    color: primary,
+    color: primary(),
     decoration: TextDecoration.underline,
     fontFamily: 'BarlowRegular',
   );
@@ -537,8 +550,8 @@ TextStyle textRedLightXSmallBR(context) {
 
 TextStyle textDarkRegularBS(context) {
   return TextStyle(
-    fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontWeight: FontWeight.w700,
+    fontSize: 20.0,
     color: dark,
     fontFamily: 'BarlowSemiBold',
   );
@@ -602,7 +615,7 @@ TextStyle textPrimaryXXXLargeBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 32.0,
-    color: primary,
+    color: primary(),
     fontFamily: 'BarlowSemiBold',
   );
 }
@@ -620,7 +633,7 @@ TextStyle textPrimarySmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 14.0,
-    color: primary,
+    color: primary(),
     fontFamily: 'BarlowSemiBold',
   );
 }
@@ -769,7 +782,7 @@ TextStyle textPrimarySmallBSLineThrough(context) {
   return TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 10.0,
-      color: primary,
+      color: primary(),
       fontFamily: 'BarlowSemiBold',
       decoration: TextDecoration.underline);
 }

@@ -1,4 +1,5 @@
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,7 +25,7 @@ class FABBottomAppBar extends HookWidget {
   FABBottomAppBar({
     this.items,
     this.centerItemText,
-    this.height: 60.0,
+    this.height: 66.0,
     this.iconSize: 24.0,
     this.backgroundColor,
     this.color,
@@ -54,14 +55,27 @@ class FABBottomAppBar extends HookWidget {
     });
     item.insert(items!.length >> 1, _buildMiddleTabItem());
 
-    return BottomAppBar(
-      shape: notchedShape,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: item,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: dark.withOpacity(0.1),
+            // offset: Offset(0.5, 0.5),
+            blurRadius: 4.0,
+            spreadRadius: 4.0,
+          ),
+        ],
       ),
-      color: backgroundColor,
+      child: BottomAppBar(
+        elevation: 0.0,
+        shape: notchedShape,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: item,
+        ),
+        color: backgroundColor,
+      ),
     );
   }
 
@@ -104,8 +118,8 @@ class FABBottomAppBar extends HookWidget {
               children: <Widget>[
                 Image.asset(
                   item!.iconData!,
-                  width: 40,
-                  height: 40,
+                  width: 50,
+                  height: 50,
                 ),
                 // Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(

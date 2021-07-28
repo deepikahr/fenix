@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CategoryStateTearOff {
   const _$CategoryStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call(
+      {bool isLoading = false, List<CategoryResponse>? category = const []}) {
     return _Default(
       isLoading: isLoading,
+      category: category,
     );
   }
 }
@@ -29,6 +31,7 @@ const $CategoryState = _$CategoryStateTearOff();
 /// @nodoc
 mixin _$CategoryState {
   bool get isLoading => throw _privateConstructorUsedError;
+  List<CategoryResponse>? get category => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryStateCopyWith<CategoryState> get copyWith =>
@@ -40,7 +43,7 @@ abstract class $CategoryStateCopyWith<$Res> {
   factory $CategoryStateCopyWith(
           CategoryState value, $Res Function(CategoryState) then) =
       _$CategoryStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, List<CategoryResponse>? category});
 }
 
 /// @nodoc
@@ -55,12 +58,17 @@ class _$CategoryStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? category = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<CategoryResponse>?,
     ));
   }
 }
@@ -70,7 +78,7 @@ abstract class _$DefaultCopyWith<$Res> implements $CategoryStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, List<CategoryResponse>? category});
 }
 
 /// @nodoc
@@ -85,12 +93,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? category = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<CategoryResponse>?,
     ));
   }
 }
@@ -98,15 +111,18 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default({this.isLoading = false, this.category = const []});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<CategoryResponse>? category;
 
   @override
   String toString() {
-    return 'CategoryState(isLoading: $isLoading)';
+    return 'CategoryState(isLoading: $isLoading, category: $category)';
   }
 
   @override
@@ -115,12 +131,17 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(category);
 
   @JsonKey(ignore: true)
   @override
@@ -129,10 +150,13 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements CategoryState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default({bool isLoading, List<CategoryResponse>? category}) =
+      _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  List<CategoryResponse>? get category => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

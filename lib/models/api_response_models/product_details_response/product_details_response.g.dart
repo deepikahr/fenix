@@ -68,6 +68,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
         [],
     preparationTime: json['preparationTime'] as int? ?? 0,
     totalProductPrice: (json['totalProductPrice'] as num?)?.toDouble() ?? 0,
+    tax: (json['tax'] as num?)?.toDouble() ?? 0,
     quantity: json['quantity'] as int? ?? 1,
     productId: json['productId'] as String?,
     rate: (json['rate'] as num?)?.toDouble() ?? 0,
@@ -80,6 +81,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     variant: json['variant'] == null
         ? null
         : VariantResponse.fromJson(json['variant'] as Map<String, dynamic>),
+    productInstructions: json['productInstructions'] as String?,
   );
 }
 
@@ -125,6 +127,7 @@ Map<String, dynamic> _$_$_ProductDetailsResponseToJson(
       'selectedAddOnItems': instance.selectedAddOnItems,
       'preparationTime': instance.preparationTime,
       'totalProductPrice': instance.totalProductPrice,
+      'tax': instance.tax,
       'quantity': instance.quantity,
       'productId': instance.productId,
       'rate': instance.rate,
@@ -134,4 +137,5 @@ Map<String, dynamic> _$_$_ProductDetailsResponseToJson(
       'totalQuantity': instance.totalQuantity,
       'isSameProductMultipleTime': instance.isSameProductMultipleTime,
       'variant': instance.variant,
+      'productInstructions': instance.productInstructions,
     };

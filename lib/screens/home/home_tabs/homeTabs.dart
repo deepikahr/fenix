@@ -1,4 +1,6 @@
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
@@ -27,19 +29,17 @@ class HomeTabs extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final items = <String>[
-    //   'red',
-    //   'blue',
-    //   'black',
-    //   'Idiomos',
-    // ];
-
     final state = useProvider(homeTabsProvider);
+    final cart = useProvider(cartProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final isMounted = useIsMounted();
 
     useEffect(() {
-      Future.delayed(Duration.zero, () {
+      Future.delayed(Duration.zero, () async {
         context.read(homeTabsProvider.notifier).onPageChanged(tabIndex);
+        if (isMounted()) {
+          await context.read(homeTabsProvider.notifier).fetchLanguage();
+        }
       });
       return;
     }, const []);
@@ -54,75 +54,77 @@ class HomeTabs extends HookWidget {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey, items, state.selectedLanguage ?? items.first,
-              (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+      appBar: fenixAppbar(context, _scaffoldKey,
+              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+            state.languages, state.isLoading
         ),
-      backgroundColor: light,
+      backgroundColor: grey2,
       body: state.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))
           : _screens[state.currentIndex],
-      // bottomNavigationBar: BottomNavigationBar(
-      //   backgroundColor: white,
-      //   elevation: 1,
-      //   currentIndex: state.currentIndex,
-      //   type: BottomNavigationBarType.fixed,
-      //   onTap: (index) async {
-      //     context.read(homeTabsProvider.notifier).onPageChanged(index);
-      //   },
-      //   items: [
-      //     bottomBarTabItem(context, 'Volver'.tr, "lib/assets/images/1.png", 0),
-      //     bottomBarTabItem(context, 'Beida'.tr, "lib/assets/images/2.png", 0),
-      //     bottomBarTabItem(context, 'Comida'.tr, "lib/assets/images/3.png", 0),
-      //     bottomBarTabItem(context, 'Pagar'.tr, "lib/assets/images/4.png", 0),
-      //   ],
-      //   selectedItemColor: primary,
-      //   unselectedItemColor: darkLight,
-      // ),
       bottomNavigationBar: FABBottomAppBar(
-        centerItemText: 'PEDIR',
+        centerItemText: 'ASK_FOR'.tr,
         color: Colors.grey,
-        selectedColor: primary,
+        selectedColor: primary(),
         notchedShape: CircularNotchedRectangle(),
         onTabSelected: (index) async {
           context.read(homeTabsProvider.notifier).onPageChanged(index);
         },
         items: [
-          FABBottomAppBarItem(iconData: "lib/assets/images/1.png", text: 'Volver'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'Beida'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'Comida'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'Pagar'.tr),
-
-        ], backgroundColor: Colors.white,
+          FABBottomAppBarItem(iconData: "lib/assets/images/1.png", text: 'RETURN'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'DRINKS'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'FOOD'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'TO_PAY'.tr),
+        ],
+        backgroundColor: white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFab(context),
+      floatingActionButton: cart == null || !DB().isLoggedIn()
+          ? _buildFab(context, cart)
+          : _buildFab(context, cart),
     );
   }
 
-  Widget _buildFab(BuildContext context) {
+  Widget _buildFab(BuildContext context, Cart? cart) {
     return SizedBox(
-      width: 44,
-      height: 44,
-      child: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CartScreen(),
+      width: 54,
+      height: 54,
+      child: Stack(
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => CartScreen());
+            },
+            backgroundColor: primary(),
+            elevation: 2.0,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Image.asset(
+                'lib/assets/images/pedir.png',
+                width: 60,
+                height: 60,
+                alignment: Alignment.center,
+              ),
             ),
-          );
-        },
-        backgroundColor: primary,
-        elevation: 2.0,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Image.asset(
-            'lib/assets/images/pedir.png',
-            width: 40,
-            height: 40,
-            alignment: Alignment.center,
           ),
-        ),
+          cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
+            end: 0,
+            bottom: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(color: Colors.white, width: 1)
+              ),
+              child: GFBadge(
+                shape: GFBadgeShape.circle,
+                color: Colors.black,
+                textColor: GFColors.WHITE,
+                size: GFSize.SMALL,
+                text: '${cart.products.length}',
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

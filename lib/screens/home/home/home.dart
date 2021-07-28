@@ -32,8 +32,9 @@ class Home extends HookWidget {
 
 
     return Scaffold(
+      backgroundColor: grey2,
       body: Container(
-        color: light,
+        color: grey2,
         child: Stack(
           children: [
             ListView(
@@ -42,7 +43,7 @@ class Home extends HookWidget {
               children: [
                 if ((state.homeData?.banners.length ?? 0) > 0)
                   bannerBlock(context, state.homeData?.banners),
-                SizedBox(height: 16,),
+                // SizedBox(height: 8,),
                 if ((state.homeData?.category.length ?? 0) > 0)
                   db.getType() == 'list' ?
                   categoryBlock(context, state.homeData?.category) :
@@ -73,14 +74,14 @@ class Home extends HookWidget {
     ).toList();
 
     return Container(
-      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 8),
       child: GFCarousel(
           autoPlay: false,
           pagination: true,
           viewportFraction: 1.0,
-          activeIndicator: primary,
+          activeIndicator: primary(),
           passiveIndicator: darkLight2,
-          height: 180,
+          height: 150,
           aspectRatio: 2,
           onPageChanged: (_) {},
           items: list),
@@ -89,17 +90,9 @@ class Home extends HookWidget {
 
   Widget categoryBlock(BuildContext context, List<CategoryResponse>? category) {
     return Container(
-      color: Colors.white,
-      margin: EdgeInsets.only(top: 8, left: 12, right: 12, bottom: 8),
+      margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       // padding: EdgeInsets.symmetric(vertical: 1),
-      child: ListView.separated(
-          separatorBuilder: (_, __) => Divider(
-                thickness: .3,
-                color: Colors.black12,
-                indent: 16,
-                endIndent: 16,
-                height: 30,
-              ),
+      child: ListView.builder(
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -107,7 +100,7 @@ class Home extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                Get.to(() => ProductList(categoryId: category[i].id));
+                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
             );
@@ -118,6 +111,7 @@ class Home extends HookWidget {
   Widget categoryListGrid(
       BuildContext context, List<CategoryResponse>? category) =>
       GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 6),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: category!.length,
@@ -129,7 +123,7 @@ class Home extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
-                Get.to(() => ProductList(categoryId: category[i].id));
+                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCardGrid(context, category[i].title!, category[i].imageUrl!));
         },

@@ -7,44 +7,25 @@ import 'package:getwidget/getwidget.dart';
 
 import 'normalText.dart';
 
-Widget outlineButton(BuildContext context, title, onPressed) {
-  return Container(
-    width: 164,
-    // height: 46,
-    child: GFButton(
-      size: GFSize.LARGE,
-      color: buttonBorder,
-      type: GFButtonType.outline,
-      onPressed: onPressed,
-      child: Text(
-        title,
-        style: textDarkLargeBM(context),
-      ),
-    ),
-  );
-}
-
-Widget smallOutlineButton(BuildContext context, title, onPressed) {
-  return GFButton(
-    padding: EdgeInsets.symmetric(horizontal: 16),
-    color: buttonBorder,
-    type: GFButtonType.outline,
-    onPressed: onPressed,
-    child: Text(
-      title,
-      textAlign: TextAlign.center,
-      style: textDarkSmallBM(context),
-    ),
-  );
-}
 
 Widget primaryButton(BuildContext context, title, onPressed, loading) {
   return Container(
     width: 164,
     // height: 46,
+    //   #00000029
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: dark.withOpacity(0.2),
+          // offset: Offset(0.5, 0.5),
+          blurRadius: 4.0,
+          spreadRadius: 1.0,
+        ),
+      ],
+    ),
     child: GFButton(
       size: GFSize.LARGE,
-      color: primary,
+      color: primary(),
       onPressed: onPressed,
       child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
         title,
@@ -57,10 +38,20 @@ Widget primaryButton(BuildContext context, title, onPressed, loading) {
 Widget primaryButtonSmall(BuildContext context, title, onPressed) {
   return Container(
     // width: 244,
-    height: 46,
+    // height: 46,
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: dark.withOpacity(0.2),
+          // offset: Offset(0.5, 0.5),
+          blurRadius: 4.0,
+          spreadRadius: 1.0,
+        ),
+      ],
+    ),
     child: GFButton(
       size: GFSize.LARGE,
-      color: primary,
+      color: primary(),
       onPressed: onPressed,
       child: Text(
         title,
@@ -70,14 +61,14 @@ Widget primaryButtonSmall(BuildContext context, title, onPressed) {
   );
 }
 
-Widget custombuttonsm(BuildContext context, title, onPressed) {
+Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
   return MaterialButton(
-    height: 46,
+    height: 36,
     // minWidth: 340,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
-    color: primary,
+    color: primary(),
     onPressed: onPressed,
-    child: Text(
+    child: isloading ? GFLoader(type: GFLoaderType.ios,) : Text(
       title,
       style: textWhiteLargeBM(context),
     ),
@@ -89,43 +80,11 @@ Widget custombuttonsmFW(BuildContext context, title, onPressed) {
     height: 46,
     minWidth: 244,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
-    color: primary,
+    color: primary(),
     onPressed: onPressed,
     child: Text(
       title,
       style: textWhiteLargeBM(context),
-    ),
-  );
-}
-
-Widget primaryButtonSmallFW(BuildContext context, title, onPressed) {
-  return Container(
-    width: 244,
-    // height: 46,
-    child: GFButton(
-      size: GFSize.LARGE,
-      color: primary,
-      onPressed: onPressed,
-      child: Text(
-        title,
-        style: textWhiteLargeBM(context),
-      ),
-    ),
-  );
-}
-
-Widget flatDarkButton(BuildContext context, String title, Function onPressed) {
-  return Container(
-    // width: 164,
-    // height: 46,
-    child: GFButton(
-      size: GFSize.LARGE,
-      type: GFButtonType.transparent,
-      onPressed: onPressed as void Function(),
-      child: Text(
-        title,
-        style: textDarkSmallUnderlineBM(context),
-      ),
     ),
   );
 }
@@ -147,101 +106,7 @@ Widget flatPrimaryUnderlineButton(
   );
 }
 
-Widget flatPrimaryButton(
-    BuildContext context, String title, Function onPressed) {
-  return Container(
-    // width: 164,
-    // height: 46,
-    child: GFButton(
-      size: GFSize.LARGE,
-      type: GFButtonType.transparent,
-      onPressed: onPressed as void Function(),
-      child: titleTextPrimarySmallBM(context, title),
-    ),
-  );
-}
 
-Widget outlineBlockButton(BuildContext context, title, onPressed) {
-  return Container(
-    width: screenWidth(context),
-    child: GFButton(
-      blockButton: true,
-      size: GFSize.LARGE,
-      color: buttonBorder,
-      type: GFButtonType.outline,
-      onPressed: onPressed,
-      child: Text(
-        title,
-        style: textDarkLargeBM(context),
-      ),
-    ),
-  );
-}
-
-Widget primaryBlockButton(BuildContext context, title, onPressed) {
-  return Container(
-    width: screenWidth(context),
-    child: GFButton(
-      blockButton: true,
-      size: GFSize.LARGE,
-      color: primary,
-      onPressed: onPressed,
-      child: Text(
-        title,
-        style: textWhiteLargeBM(context),
-      ),
-    ),
-  );
-}
-
-Widget outlineBlockSocialButton(BuildContext context, image, title, onPressed) {
-  return Container(
-    width: screenWidth(context),
-    margin: EdgeInsets.symmetric(horizontal: 16),
-    child: GFButton(
-        padding: EdgeInsets.zero,
-        blockButton: true,
-        size: GFSize.LARGE,
-        color: buttonBorder,
-        type: GFButtonType.outline,
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              image,
-              scale: 3,
-            ),
-            Text(
-              title,
-              style: textDarkLargeBM(context),
-            ),
-            Image.asset(
-              'lib/assets/icons/backArrow.png',
-              scale: 3,
-            ),
-          ],
-        )),
-  );
-}
-
-Widget categoryTabButton(
-    BuildContext context, title, onPressed, showRestaurants) {
-  return GFButton(
-    padding: EdgeInsets.symmetric(horizontal: 16),
-    onPressed: onPressed,
-    size: GFSize.MEDIUM,
-    color: showRestaurants ? dark : buttonBorder,
-    type: showRestaurants ? GFButtonType.solid : GFButtonType.outline,
-    shape: GFButtonShape.pills,
-    child: Text(
-      title,
-      style: showRestaurants
-          ? textWhiteSmallBR(context)
-          : textDarkSmallBR(context),
-    ),
-  );
-}
 
 Widget tabIconButton(BuildContext context, iconData, cartData) {
   return Stack(
@@ -274,101 +139,5 @@ BottomNavigationBarItem bottomBarTabItem(
     BuildContext context, label, iconData, cartData) {
   return BottomNavigationBarItem(
       label: label, icon: tabIconButton(context, iconData, cartData));
-}
-
-Widget outlineBlockDoubleTextButton(
-    BuildContext context, text1, text2, onPressed) {
-  return Container(
-    width: screenWidth(context),
-    margin: EdgeInsets.symmetric(horizontal: 16),
-    child: GFButton(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        blockButton: true,
-        size: GFSize.LARGE,
-        color: buttonBorder,
-        type: GFButtonType.outline,
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text1,
-              style: textDarkLargeBM(context),
-            ),
-            Text(
-              text2,
-              style: textDarkLargeBM(context),
-            ),
-          ],
-        )),
-  );
-}
-
-Widget primaryBlockSigleTextButton(BuildContext context, text, onPressed) {
-  return Container(
-    width: screenWidth(context),
-    margin: EdgeInsets.symmetric(horizontal: 16),
-    child: GFButton(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        blockButton: true,
-        size: GFSize.LARGE,
-        color: primary,
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: textLightLargeBM(context),
-        )),
-  );
-}
-
-Widget primaryBlockDoubleTextButton(
-    BuildContext context, text1, text2, onPressed) {
-  return Container(
-    width: screenWidth(context),
-    margin: EdgeInsets.symmetric(horizontal: 16),
-    child: GFButton(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        blockButton: true,
-        size: GFSize.LARGE,
-        color: primary,
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text1,
-              style: textLightLargeBM(context),
-            ),
-            Text(
-              text2,
-              style: textLightLargeBM(context),
-            ),
-          ],
-        )),
-  );
-}
-
-Widget lightBlockDoubleTextButton(
-    BuildContext context, text1, text2, onPressed) {
-  return GFButton(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      blockButton: true,
-      size: GFSize.LARGE,
-      borderSide: BorderSide(color: buttonBorder),
-      color: light,
-      onPressed: onPressed,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text1,
-            style: textDarkLightSmallBR(context),
-          ),
-          Text(
-            text2,
-            style: textPrimarySmallBM(context),
-          ),
-        ],
-      ));
 }
 

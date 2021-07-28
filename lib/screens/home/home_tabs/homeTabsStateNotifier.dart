@@ -1,5 +1,7 @@
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../main.dart';
 import 'homeTabsState.dart';
 
 class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
@@ -12,9 +14,20 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
   }
 
   void onSelectLanguage(String value) {
+    print('ddddd ${db.getLanguageCode()}');
     state = state.copyWith(selectedLanguage: value);
+    db.saveLanguage(value);
+    print('ddddd ${db.getLanguage()}');
   }
 
+  Future<LanguageResponse?> fetchLanguage() async {
+    state = state.copyWith.call(isLoading: true);
+    final response = await api.languages();
+    state = state.copyWith.call(
+      languages: response!,
+      isLoading: false,
+    );
+  }
 
 
 }

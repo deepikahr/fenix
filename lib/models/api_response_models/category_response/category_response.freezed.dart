@@ -22,18 +22,22 @@ class _$CategoryResponseTearOff {
 
   _CategoryResponse call(
       {@JsonKey(name: '_id') String? id,
+      String? franchiseId,
       String? title,
+      String? description,
       String? imageUrl,
       String? imageId,
       String? filePath,
-      String? description}) {
+      String? topCategory}) {
     return _CategoryResponse(
       id: id,
+      franchiseId: franchiseId,
       title: title,
+      description: description,
       imageUrl: imageUrl,
       imageId: imageId,
       filePath: filePath,
-      description: description,
+      topCategory: topCategory,
     );
   }
 
@@ -49,11 +53,13 @@ const $CategoryResponse = _$CategoryResponseTearOff();
 mixin _$CategoryResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
+  String? get franchiseId => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get imageId => throw _privateConstructorUsedError;
   String? get filePath => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
+  String? get topCategory => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,11 +74,13 @@ abstract class $CategoryResponseCopyWith<$Res> {
       _$CategoryResponseCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: '_id') String? id,
+      String? franchiseId,
       String? title,
+      String? description,
       String? imageUrl,
       String? imageId,
       String? filePath,
-      String? description});
+      String? topCategory});
 }
 
 /// @nodoc
@@ -87,20 +95,30 @@ class _$CategoryResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? franchiseId = freezed,
     Object? title = freezed,
+    Object? description = freezed,
     Object? imageUrl = freezed,
     Object? imageId = freezed,
     Object? filePath = freezed,
-    Object? description = freezed,
+    Object? topCategory = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      franchiseId: franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
@@ -114,9 +132,9 @@ class _$CategoryResponseCopyWithImpl<$Res>
           ? _value.filePath
           : filePath // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      topCategory: topCategory == freezed
+          ? _value.topCategory
+          : topCategory // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -131,11 +149,13 @@ abstract class _$CategoryResponseCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: '_id') String? id,
+      String? franchiseId,
       String? title,
+      String? description,
       String? imageUrl,
       String? imageId,
       String? filePath,
-      String? description});
+      String? topCategory});
 }
 
 /// @nodoc
@@ -152,20 +172,30 @@ class __$CategoryResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? franchiseId = freezed,
     Object? title = freezed,
+    Object? description = freezed,
     Object? imageUrl = freezed,
     Object? imageId = freezed,
     Object? filePath = freezed,
-    Object? description = freezed,
+    Object? topCategory = freezed,
   }) {
     return _then(_CategoryResponse(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      franchiseId: franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
@@ -179,9 +209,9 @@ class __$CategoryResponseCopyWithImpl<$Res>
           ? _value.filePath
           : filePath // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      topCategory: topCategory == freezed
+          ? _value.topCategory
+          : topCategory // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -192,11 +222,13 @@ class __$CategoryResponseCopyWithImpl<$Res>
 class _$_CategoryResponse extends _CategoryResponse {
   const _$_CategoryResponse(
       {@JsonKey(name: '_id') this.id,
+      this.franchiseId,
       this.title,
+      this.description,
       this.imageUrl,
       this.imageId,
       this.filePath,
-      this.description})
+      this.topCategory})
       : super._();
 
   factory _$_CategoryResponse.fromJson(Map<String, dynamic> json) =>
@@ -206,7 +238,11 @@ class _$_CategoryResponse extends _CategoryResponse {
   @JsonKey(name: '_id')
   final String? id;
   @override
+  final String? franchiseId;
+  @override
   final String? title;
+  @override
+  final String? description;
   @override
   final String? imageUrl;
   @override
@@ -214,11 +250,11 @@ class _$_CategoryResponse extends _CategoryResponse {
   @override
   final String? filePath;
   @override
-  final String? description;
+  final String? topCategory;
 
   @override
   String toString() {
-    return 'CategoryResponse(id: $id, title: $title, imageUrl: $imageUrl, imageId: $imageId, filePath: $filePath, description: $description)';
+    return 'CategoryResponse(id: $id, franchiseId: $franchiseId, title: $title, description: $description, imageUrl: $imageUrl, imageId: $imageId, filePath: $filePath, topCategory: $topCategory)';
   }
 
   @override
@@ -227,8 +263,14 @@ class _$_CategoryResponse extends _CategoryResponse {
         (other is _CategoryResponse &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.franchiseId, franchiseId) ||
+                const DeepCollectionEquality()
+                    .equals(other.franchiseId, franchiseId)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
             (identical(other.imageUrl, imageUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.imageUrl, imageUrl)) &&
@@ -238,20 +280,22 @@ class _$_CategoryResponse extends _CategoryResponse {
             (identical(other.filePath, filePath) ||
                 const DeepCollectionEquality()
                     .equals(other.filePath, filePath)) &&
-            (identical(other.description, description) ||
+            (identical(other.topCategory, topCategory) ||
                 const DeepCollectionEquality()
-                    .equals(other.description, description)));
+                    .equals(other.topCategory, topCategory)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(franchiseId) ^
       const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(imageId) ^
       const DeepCollectionEquality().hash(filePath) ^
-      const DeepCollectionEquality().hash(description);
+      const DeepCollectionEquality().hash(topCategory);
 
   @JsonKey(ignore: true)
   @override
@@ -267,11 +311,13 @@ class _$_CategoryResponse extends _CategoryResponse {
 abstract class _CategoryResponse extends CategoryResponse {
   const factory _CategoryResponse(
       {@JsonKey(name: '_id') String? id,
+      String? franchiseId,
       String? title,
+      String? description,
       String? imageUrl,
       String? imageId,
       String? filePath,
-      String? description}) = _$_CategoryResponse;
+      String? topCategory}) = _$_CategoryResponse;
   const _CategoryResponse._() : super._();
 
   factory _CategoryResponse.fromJson(Map<String, dynamic> json) =
@@ -281,7 +327,11 @@ abstract class _CategoryResponse extends CategoryResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   @override
+  String? get franchiseId => throw _privateConstructorUsedError;
+  @override
   String? get title => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
   @override
   String? get imageUrl => throw _privateConstructorUsedError;
   @override
@@ -289,7 +339,7 @@ abstract class _CategoryResponse extends CategoryResponse {
   @override
   String? get filePath => throw _privateConstructorUsedError;
   @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get topCategory => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CategoryResponseCopyWith<_CategoryResponse> get copyWith =>

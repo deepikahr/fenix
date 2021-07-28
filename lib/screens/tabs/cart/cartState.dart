@@ -7,7 +7,10 @@ part 'cartState.freezed.dart';
 class CartScreenState with _$CartScreenState {
   const factory CartScreenState({
     @Default(false) bool isLoading,
+    @Default(false) bool isUpdateLoading,
     OrderResponse? orderResponse,
+    // @Default([]) List<String> modifiedProducts,
     String? selectedLanguage
   }) = _Default;
 }
+

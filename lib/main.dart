@@ -67,35 +67,25 @@ class EntryPage extends HookWidget {
     final isMounted = useIsMounted();
     useEffect(() {
       if (isMounted()) {
-        db.saveThemeColor('red');
+        db.saveThemeColor(db.getThemeColor() ?? 'red' );
+        db.saveLanguage(db.getLanguage() ?? 'English' );
+        db.saveLanguageCode(db.getLanguageCode() ?? 'en' );
         Future.delayed(Duration.zero, () {
           initializeconfigLocalNotification();
         });
       }
       return;
     }, const []);
-    // var isIntroScreen = db.getIntroductionScreen();
-    // var getLocalAddres = db.getLocalAddress();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.appName,
       theme: ThemeData(
         fontFamily: FONT_FAMILY,
-        primaryColor: primary,
-        accentColor: primary,
+        primaryColor: primary(),
+        accentColor: primary(),
       ),
-      // home: Categories(),
-      home: db.isLoggedIn() ? HomeTabs() : LoginPage(),
-      // home: GestureDetector(
-      //   onTap: () {
-      //     FocusScope.of(context).unfocus();
-      //   },
-      //   child: (isIntroScreen == true
-      //       ? getLocalAddres != null
-      //           ? HomeTabs()
-      //           : PickLocation(backButton: false, isHomePage: true)
-      //       : AddNumber()),
-      // ),
+      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0,) :
+      db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
       translations: Localization(),
       locale: Get.deviceLocale,
       fallbackLocale: Locale('en', 'US'),

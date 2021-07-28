@@ -1,23 +1,18 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
-import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
-final items = <String>[
-  'English',
-  'Spanish',
-  'French',
-  'Japanese',
-];
-
-PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, selectedItem, onSelect) {
+PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
+    onSelectLanguage, List<LanguageResponse> languages, isLoading) {
   return PreferredSize(
-    preferredSize: Size(MediaQuery.of(context).size.width, 146.0),
+    preferredSize: Size(MediaQuery.of(context).size.width, 135.0),
     child: Stack(
       children: [
         Stack(
@@ -29,8 +24,11 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                   color: secondary1,
                 ),
                 Container(
-                  height: 40,
-                  color: white,
+                  height: 8,
+                  // color: white,
+                  decoration: new BoxDecoration(color: white, boxShadow: [
+                    BoxShadow(color: grey.withOpacity(0.5), blurRadius: 10)
+                  ]),
                 ),
               ],
             ),
@@ -41,6 +39,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                 onTap: () => _scaffoldKey.currentState!.openDrawer(),
                 child: Image.asset(
                   'lib/assets/images/drawer.png',
+                  color: primary(),
                   scale: 1.8,
                 ),
               ),
@@ -51,7 +50,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
               right: 50,
               child: Column(
                 children: [
-                  titleTextDarkRegularBW(context, 'GASTROBAR'),
+                  titleTextDarkRegularBW(context, Constants.restaurantName),
                   titleTextDarkRegularBW17(context, db.getMenuName()),
                 ],
               ),
@@ -65,7 +64,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                     quarterTurns: -1,
                     child: RichText(
                       text: TextSpan(
-                        text: 'Mesa',
+                        text: 'DESK'.tr,
                         style: textDarkRegularBW17(context),
                         children: [],
                       ),
@@ -90,7 +89,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                        color: Color(0xFFFD2959),
+                        color: primary(),
                         border: Border.all(color: white, width: 2),
                         boxShadow: [
                           BoxShadow(
@@ -106,7 +105,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                           height: 40,
                         ),
                         Text(
-                          'INICIO',
+                          'HOME'.tr,
                           style: TextStyle(color: white, fontSize: 10),
                         )
                       ],
@@ -124,7 +123,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                        color: Color(0xFFFD2959),
+                         color: primary(),
                         border: Border.all(color: white, width: 2),
                         boxShadow: [
                           BoxShadow(
@@ -140,7 +139,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                           height: 40,
                         ),
                         Text(
-                          'LLAMAR',
+                          'TO_CALL'.tr,
                           style:
                           TextStyle(color: white, fontSize: 10),
                         )
@@ -148,41 +147,52 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
                     ),
                   ),
                 )),
-            Positioned(
+            isLoading ? GFLoader(type: GFLoaderType.ios,) : Positioned(
               right: 40,
               top: 105,
               child: DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 0,
-                value: selectedItem,
-                onChanged: onSelect,
+                value: db.getLanguage() ?? languages.first.languageName,
+                onChanged: onSelectLanguage,
                 selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    return Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'lib/assets/images/food1.png',
+                  return languages.map<Widget>((item) {
+                    return Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: Image.network(
+                            item.imageUrl!,
                             width: 50,
                             height: 36,
                             fit: BoxFit.fill,
                           ),
-                          Text(
-                            item,
-                            style: textDarkRegularBGS(context),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          item.languageName!,
+                          style: textDarkRegularBGS(context),
+                        ),
+                      ],
                     );
                   }).toList();
                 },
-                items: items.map((String item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      '$item',
-                      style: textDarkRegularBG(context),
+                items: languages.map((item) {
+                  db.saveLanguageCode(item.languageCode);
+                  return DropdownMenuItem(
+                    value: item.languageName,
+                    child:
+                    // Text(
+                    //   '${item.languageName}',
+                    //   style: textDarkRegularBG(context),
+                    // ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        item.imageUrl!,
+                        width: 50,
+                        height: 36,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   );
                 }).toList(),
@@ -196,162 +206,3 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
 }
 
 
-PreferredSizeWidget introAppbar(BuildContext context) {
-  return GFAppBar(
-    backgroundColor: secondary,
-    leading: InkWell(
-      onTap: () {
-        Get.back();
-      },
-      child: Image.asset(
-        'lib/assets/icons/leftArrow.png',
-        scale: 3,
-      ),
-    ),
-    elevation: 0,
-  );
-}
-
-PreferredSizeWidget commonAppbar(BuildContext context, title) => GFAppBar(
-      backgroundColor: primary,
-      centerTitle: true,
-      iconTheme: IconThemeData(color: primary),
-      title: Text(
-        title,
-        style: textWhiteRegularBS(context),
-      ),
-      elevation: 0,
-    );
-
-PreferredSizeWidget titleAppbar(BuildContext context, title) {
-  return GFAppBar(
-    backgroundColor: primary,
-    leading: InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Image.asset(
-        'lib/assets/icons/leftArrow.png',
-        scale: 3,
-        color: light,
-      ),
-    ),
-    centerTitle: true,
-    title: Text(title, style: textLightRegularBS(context)),
-    elevation: 0,
-  );
-}
-
-PreferredSizeWidget titleAppbarWithOutBack(BuildContext context, title) {
-  return GFAppBar(
-    backgroundColor: primary,
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    title: Text(title, style: textLightRegularBS(context)),
-    elevation: 0,
-  );
-}
-
-PreferredSizeWidget homeAppbar(BuildContext context, onTap, title) {
-  return GFAppBar(
-    backgroundColor: primary,
-    automaticallyImplyLeading: false,
-    title: InkWell(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Image.asset(
-            'lib/assets/icons/currentLocation.png',
-            scale: 3,
-          ),
-          SizedBox(width: 6),
-          Expanded(
-            child: Text(
-              title,
-              style: textLightRegularBS(context),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              height: 25,
-              width: 25,
-              child: Image.asset(
-                'lib/assets/icons/downArrow.png',
-                scale: 3,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-    elevation: 0,
-  );
-}
-
-PreferredSizeWidget searchAppbar(BuildContext context, locationTextField) {
-  return PreferredSize(
-    preferredSize: Size.fromHeight(62.0),
-    child: GFAppBar(
-      backgroundColor: primary,
-      automaticallyImplyLeading: false,
-      title: regularTextField(context, locationTextField),
-      elevation: 0,
-    ),
-  );
-}
-
-PreferredSizeWidget titleAppbarWithCart(
-    BuildContext context, title, cartCount, void Function() onCartTap) {
-  return GFAppBar(
-    backgroundColor: primary,
-    leading: InkWell(
-      onTap: () {
-        Get.back();
-      },
-      child: Image.asset(
-        'lib/assets/icons/leftArrow.png',
-        scale: 3,
-        color: light,
-      ),
-    ),
-    centerTitle: true,
-    title: Text(title, style: textLightRegularBS(context)),
-    elevation: 0,
-    actions: [
-      InkWell(
-        onTap: onCartTap,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 5, right: 5),
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Image.asset(
-                'lib/assets/icons/cart1.png',
-                scale: 3,
-                color: light,
-              ),
-              Positioned(
-                top: 16,
-                right: 4,
-                child: cartCount == null || cartCount == 0
-                    ? Container()
-                    : GFBadge(
-                        shape: GFBadgeShape.circle,
-                        color: dark,
-                        size: 26,
-                        child: Text(
-                          '$cartCount',
-                          textAlign: TextAlign.center,
-                          style: textWhiteXXSmallBM(context),
-                        ),
-                      ),
-              )
-            ],
-          ),
-        ),
-      ),
-    ],
-  );
-}

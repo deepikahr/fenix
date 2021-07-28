@@ -44,12 +44,16 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     state = state.copyWith(showAddButton: value);
   }
 
+  void showCounter(bool value) {
+    state = state.copyWith(showCounter: value);
+  }
+
   void onSizeSelect(value) {
     state = state.copyWith(groupValue: value);
   }
 
   void addSelectedAddOnItem(AddOnItem addOnItem, AddOnCategory addOnCategory) {
-    print('aaaaaaa $addOnItem');
+    // print('aaaaaaa $addOnItem');
 
     state = state.copyWith
         .call(selectedAddOnItems: state.selectedAddOnItems?..add(addOnItem));
@@ -64,6 +68,30 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     state = state.copyWith(selectedLanguage: value);
   }
 
+  void updateAddonItemQuantity(AddOnItem addOnItem, increased) async {
+    print('object $addOnItem');
+
+
+
+    var selectedAddon = List.empty(growable: true);
+    selectedAddon = state.selectedAddOnItems!.toList(growable: true);
+
+    AddOnItem item = selectedAddon.toList().singleWhere((element) =>
+    element.id == addOnItem.id, orElse: () => AddOnItem());
+
+    for (var i = 0; i < (selectedAddon.length); i++) {
+      if (selectedAddon[i].id == addOnItem.id) {
+        final AddOnItem newAddon =
+        addOnItem.copyWith(quantity: increased? item.quantity! + 1 : item.quantity! >= 2 ? item.quantity! - 1 : 1);
+
+        selectedAddon[i] = newAddon;
+        state = state.copyWith.call(
+            selectedAddOnItems: selectedAddon.toSet() as Set<AddOnItem>
+        );
+      }
+    }
+  }
+
 
   Future<void> saveCart(
     context,
@@ -71,6 +99,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     VariantResponse selectedVariant,
     ProductDetailsResponse productDetails,
     String productId,
+      String note
   ) async {
     Cart? cart = Cart();
 
@@ -79,16 +108,19 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     var addOnItemsPrice = .0;
     if (selectedAddOnItems!.isNotEmpty) {
       addOnItemsPrice =
-          selectedAddOnItems.map((value) => value.addOnItemPrice).reduce(
-                    (_, __) => _! + __!,
-                  ) ??
-              .0;
+          selectedAddOnItems.map((value) => value.addOnItemPrice! * value.quantity!.toDouble()).reduce(
+                    (_, __) => _+ __,
+                  );
     }
 
-    final totalPrice = selectedVariant.price! + addOnItemsPrice;
+    // final productPrice = selectedVariant.price! + productDetails.taxInfo!.taxPercentage!/100;
+    final productPrice = selectedVariant.price!;
 
-    print('ssssssssssssssss $selectedAddOnItems $addOnItemsPrice $totalPrice');
+    final totalPrice = productPrice  + addOnItemsPrice;
 
+    final productTax = totalPrice * productDetails.taxInfo!.taxPercentage!/100;
+
+    print('ssssssssssssssss $selectedAddOnItems $addOnItemsPrice $totalPrice $productTax');
 
     final product = ProductDetailsResponse(
       id: productId,
@@ -99,6 +131,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       sellingPrice: selectedVariant.price ?? 0,
       originalPrice: selectedVariant.price ?? 0,
       taxInfo: productDetails.taxInfo,
+      tax: productTax,
       quantity: 1,
       isLastVariant: true,
       totalQuantity: 1,
@@ -113,14 +146,16 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       sizeName: selectedVariant.sizeName,
       productId: productId,
       allergens: productDetails.allergens,
+      productInstructions: note,
+      modified: db.getOrderId() == null ? false : true
     );
 
     state = state.copyWith.productDetails!(
         totalQuantity: product.totalQuantity,
         isSameProductMultipleTime: product.isSameProductMultipleTime,
-      selectedAddOnItems: product.selectedAddOnItems,
-      totalProductPrice: product.totalProductPrice,
-
+        selectedAddOnItems: product.selectedAddOnItems,
+        totalProductPrice: product.totalProductPrice,
+      tax: productTax,
     );
 
     if (cartData == null) {
@@ -137,7 +172,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         ...cart.products,
       ]);
       final cartTotal = cart.products
-          .map((e) => e.totalProductPrice)
+          .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
       cart = cart.copyWith(subTotal: cartTotal);
 
@@ -148,7 +183,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         await Get.to(() => CartScreen());
       });
       await showDialog(
-        barrierColor: secondary,
+
         context: context,
         builder: (BuildContext context) {
           return blackAlertBox(
@@ -165,16 +200,17 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       var addOnItemsPrice = .0;
       if (selectedAddOnItems.isNotEmpty) {
         addOnItemsPrice =
-            selectedAddOnItems.map((value) => value.addOnItemPrice).reduce(
-                      (_, __) => _! + __!,
-                    ) ??
-                .0;
+            selectedAddOnItems.map((value) => value.addOnItemPrice! * value.quantity!.toDouble()).reduce(
+                      (_, __) => _ + __,
+                    );
       }
 
       state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
           totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
+      // final totalProductPrice = (selectedVariant.price! + product.taxInfo!.taxPercentage!/100) + addOnItemsPrice;
       final totalProductPrice = selectedVariant.price! + addOnItemsPrice;
-      print('hhhh $totalProductPrice');
+      final productTax = totalProductPrice * productDetails.taxInfo!.taxPercentage!/100;
+      print('hhhh $totalProductPrice $productTax');
       if (cartData!.products.any(
         (p) =>
             p.id == productId &&
@@ -201,7 +237,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
             originalPrice: selectedVariant.price!,
             totalProductPrice: totalProductPrice,
             selectedAddOnItems: selectedAddOnItems.toList(),
-            variant: selectedVariant
+            variant: selectedVariant,
+            tax: productTax,
           ),
           ...cartData!.products,
         ]);
@@ -220,7 +257,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       await cartState.updateCart(cart);
 
       final cartTotal = cartData!.products
-          .map((e) => e.totalProductPrice)
+          .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
       cart = cartData?.copyWith(subTotal: cartTotal);
 
@@ -229,7 +266,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
         await Get.to(() => CartScreen());
       });
       await showDialog(
-        barrierColor: secondary,
+
         context: context,
         builder: (BuildContext context) {
           return blackAlertBox(
@@ -283,7 +320,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
             state = state.copyWith.productDetails!(
                 totalQuantity: product.totalQuantity,
                 isSameProductMultipleTime: product.isSameProductMultipleTime
-
             );
 
     }
@@ -354,6 +390,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
                 return p;
               }).toList();
 
+              printWrapped('qqqqqqqqq $products');
               Cart? cart = cartData!.copyWith(products: products);
               await cartState.updateCart(cart);
               updateQuantity(newCart: cart, product: product);
@@ -402,5 +439,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       }
     }
   }
+
 
 }
