@@ -96,7 +96,6 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
     updateGrandTotal();
     state = state.copyWith.call(isUpdateLoading: true);
 
-
     UpdateCart updateCart = UpdateCart(orderId: db.getOrderId(), products: cart!.products.where((element) =>
     element.modified).map((e) => createUpdateProduct(e)).toList());
 

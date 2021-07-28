@@ -29,6 +29,7 @@ class NotifyWaiter extends HookWidget {
       Future.delayed(Duration.zero, () async {
         if (isMounted()) {
           await context.read(notifyWaiterProvider.notifier).fetchNotification();
+          await context.read(homeTabsProvider.notifier).fetchLanguage();
         }
       });
       return;
@@ -38,8 +39,9 @@ class NotifyWaiter extends HookWidget {
         backgroundColor: light,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage ?? items.first,
-                (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+        appBar: fenixAppbar(context, _scaffoldKey,
+                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+            homeState.languages
         ),
         body: Stack(
           children: [

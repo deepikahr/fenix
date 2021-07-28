@@ -39,14 +39,10 @@ class CartScreen extends HookWidget {
         backgroundColor: grey2,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(
-            context,
-            _scaffoldKey,
-            items,
-            homeState.selectedLanguage ?? items.first,
-            (String? value) => context
-                .read(homeTabsProvider.notifier)
-                .onSelectLanguage(value!)),
+        appBar: fenixAppbar(context, _scaffoldKey,
+                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+            homeState.languages
+        ),
         body:
         cart == null || !DB().isLoggedIn()
             ? Center(
@@ -93,20 +89,20 @@ class CartScreen extends HookWidget {
                                       ? GFLoader(type: GFLoaderType.ios)
                                       : custombuttonsm(
                                           context,
-                                          DB().getOrderId() == null
-                                              ? 'PLACE_ORDER'.tr
+                                          DB().getOrderId() == null ?
+                                          'PLACE_ORDER'.tr
                                               : 'MODIFY_ORDER'.tr,
                                           DB().getOrderId() == null
-                                              ? () async {
-                                                  final response = await context
+                                              ?
+                                              () async {
+                                                  await context
                                                       .read(cartScreenProvider
                                                           .notifier)
                                                       .createOrder();
-                                                  if (response != null) {
+                                                  if (state.orderResponse != null) {
                                                     ScaffoldMessenger.of(context)
                                                         .showSnackBar(SnackBar(
-                                                            content: Text(
-                                                                'order placed successfully')));
+                                                            content: Text('${state.orderResponse!.message}')));
                                                     Timer(Duration(seconds: 2),
                                                         () async {
                                                       await Get.to(
@@ -130,8 +126,8 @@ class CartScreen extends HookWidget {
                                                           () => OrdersInProcess());
                                                     });
                                                   }
-                                                }, DB().getOrderId() == null
-                                      ? state.isLoading : state.isUpdateLoading)),
+                                                },
+                                        DB().getOrderId() == null ? state.isLoading : state.isUpdateLoading)),
                             ),
                           ],
                         ),

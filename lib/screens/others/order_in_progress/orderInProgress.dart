@@ -20,11 +20,15 @@ class OrdersInProcess extends HookWidget {
         backgroundColor: light,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage ?? items.first,
-                (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+        appBar: fenixAppbar(context, _scaffoldKey,
+                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+            homeState.languages
         ),
-        body: ListView(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 25,),
             Container(
               margin: EdgeInsets.all(15),
               height: MediaQuery.of(context).size.height * 0.5,

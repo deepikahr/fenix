@@ -5,6 +5,7 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
+import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
@@ -122,16 +123,21 @@ class DrawerPage extends HookWidget {
         shrinkWrap: true,
         itemCount: category!.length,
         itemBuilder: (BuildContext context, int i) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                child: titleTextDarkRegularBB20(context, category[i].title),
-              ),
-              Divider(),
-            ],
+          return InkWell(
+            onTap: () {
+              Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: titleTextDarkRegularBB20(context, category[i].title),
+                ),
+                Divider(),
+              ],
+            ),
           );
         });
   }

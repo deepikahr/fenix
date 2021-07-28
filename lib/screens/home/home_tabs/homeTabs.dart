@@ -1,5 +1,6 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
@@ -53,8 +54,9 @@ class HomeTabs extends HookWidget {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey, items, state.selectedLanguage ?? items.first,
-              (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+      appBar: fenixAppbar(context, _scaffoldKey,
+              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+            state.languages
         ),
       backgroundColor: grey2,
       body: state.isLoading
@@ -73,8 +75,8 @@ class HomeTabs extends HookWidget {
           FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'DRINKS'.tr),
           FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'FOOD'.tr),
           FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'TO_PAY'.tr),
-
-        ], backgroundColor: Colors.white,
+        ],
+        backgroundColor: white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: cart == null || !DB().isLoggedIn()

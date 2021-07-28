@@ -1,5 +1,6 @@
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -7,14 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'normalText.dart';
 
-final items = <String>[
-  'English',
-  'Spanish',
-  'French',
-  'Japanese',
-];
-
-PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, selectedItem, onSelect) {
+PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
+    onSelectLanguage, List<LanguageResponse> languages) {
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 135.0),
     child: Stack(
@@ -156,35 +151,46 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey, item, select
               child: DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 0,
-                value: selectedItem,
-                onChanged: onSelect,
+                value: languages.first.languageName,
+                onChanged: onSelectLanguage,
                 selectedItemBuilder: (BuildContext context) {
-                  return items.map<Widget>((String item) {
-                    return Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'lib/assets/images/food1.png',
+                  return languages.map<Widget>((item) {
+                    return Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: Image.network(
+                            item.imageUrl!,
                             width: 50,
                             height: 36,
                             fit: BoxFit.fill,
                           ),
-                          Text(
-                            item,
-                            style: textDarkRegularBGS(context),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          item.languageName!,
+                          style: textDarkRegularBGS(context),
+                        ),
+                      ],
                     );
                   }).toList();
                 },
-                items: items.map((String item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      '$item',
-                      style: textDarkRegularBG(context),
+                items: languages.map((item) {
+                  db.saveLanguageCode(item.languageCode);
+                  return DropdownMenuItem(
+                    value: item.languageName,
+                    child:
+                    // Text(
+                    //   '${item.languageName}',
+                    //   style: textDarkRegularBG(context),
+                    // ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        item.imageUrl!,
+                        width: 50,
+                        height: 36,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   );
                 }).toList(),

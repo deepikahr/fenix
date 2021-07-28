@@ -44,8 +44,9 @@ class ProductList extends HookWidget {
       backgroundColor: grey2,
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey, items, homeState.selectedLanguage,
-              (String? value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!)
+      appBar: fenixAppbar(context, _scaffoldKey,
+              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+          homeState.languages
       ),
       body: Stack(
         children: [

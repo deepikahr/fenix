@@ -115,11 +115,12 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
 
     // final productPrice = selectedVariant.price! + productDetails.taxInfo!.taxPercentage!/100;
     final productPrice = selectedVariant.price!;
-    final productTax = productPrice * productDetails.taxInfo!.taxPercentage!/100;
 
     final totalPrice = productPrice  + addOnItemsPrice;
 
-    print('ssssssssssssssss $selectedAddOnItems $addOnItemsPrice $totalPrice');
+    final productTax = totalPrice * productDetails.taxInfo!.taxPercentage!/100;
+
+    print('ssssssssssssssss $selectedAddOnItems $addOnItemsPrice $totalPrice $productTax');
 
     final product = ProductDetailsResponse(
       id: productId,
@@ -209,7 +210,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       // final totalProductPrice = (selectedVariant.price! + product.taxInfo!.taxPercentage!/100) + addOnItemsPrice;
       final totalProductPrice = selectedVariant.price! + addOnItemsPrice;
       final productTax = totalProductPrice * productDetails.taxInfo!.taxPercentage!/100;
-      print('hhhh $totalProductPrice');
+      print('hhhh $totalProductPrice $productTax');
       if (cartData!.products.any(
         (p) =>
             p.id == productId &&

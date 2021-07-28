@@ -74,8 +74,6 @@ class EntryPage extends HookWidget {
       }
       return;
     }, const []);
-    // var isIntroScreen = db.getIntroductionScreen();
-    // var getLocalAddres = db.getLocalAddress();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.appName,
@@ -84,19 +82,8 @@ class EntryPage extends HookWidget {
         primaryColor: primary,
         accentColor: primary,
       ),
-      // home: Categories(),
       home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs() :
       db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
-      // home: GestureDetector(
-      //   onTap: () {
-      //     FocusScope.of(context).unfocus();
-      //   },
-      //   child: (isIntroScreen == true
-      //       ? getLocalAddres != null
-      //           ? HomeTabs()
-      //           : PickLocation(backButton: false, isHomePage: true)
-      //       : AddNumber()),
-      // ),
       translations: Localization(),
       locale: Get.deviceLocale,
       fallbackLocale: Locale('en', 'US'),

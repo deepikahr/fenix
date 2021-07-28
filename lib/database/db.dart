@@ -144,6 +144,28 @@ class DB {
     return type;
   }
 
+  void saveLanguageCode(code) {
+    final box = Hive.box('user');
+    box.put('code', code);
+  }
+
+  String? getLanguageCode() {
+    final box = Hive.box('user');
+    String? code = box.get('code');
+    return code;
+  }
+
+  void saveLanguage(language) {
+    final box = Hive.box('user');
+    box.put('language', language);
+  }
+
+  String? getLanguage() {
+    final box = Hive.box('user');
+    String? language = box.get('language');
+    return language;
+  }
+
   Future<void> logOut() async {
     final box = Hive.box('user');
     await box.delete('token');
