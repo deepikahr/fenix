@@ -13,6 +13,7 @@ import 'package:fenix_user/models/api_response_models/language_response/language
 import 'package:fenix_user/models/api_response_models/login_verify_response/login_verify_response.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/notification_list_response/notification_list_response.dart';
+import 'package:fenix_user/models/api_response_models/notification_response/notification_response.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_response/order_response.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
@@ -201,13 +202,13 @@ class API {
     );
   }
 
-  Future<NotificationListResponse?> notificationList(
+  Future<List<NotificationResponse>?> notificationList(
       {ValueSetter<ErrorResponse>? errorListener,
-        ValueSetter<ApiResponse<NotificationListResponse>>? responseListener,
+        ValueSetter<ApiResponse<List<NotificationResponse>?>>? responseListener,
         bool autoErrorHandle = true}) async {
-    return _api.get(
+    return _api.getForArrayResponse(
       URL.CALL_WAITER_LIST,
-      resModel: NotificationListResponse(),
+      resModel: NotificationResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,

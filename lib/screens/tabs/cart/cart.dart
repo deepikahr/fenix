@@ -13,6 +13,7 @@ import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,7 @@ class CartScreen extends HookWidget {
             :
         SingleChildScrollView(
           child: Container(
-            color: white,
+            color: grey2,
             margin: EdgeInsets.all(8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -72,46 +73,73 @@ class CartScreen extends HookWidget {
                             style: textBlackLargeBM(context)),
                       ),
                       Container(
-                        color: white,
+                        // color: white,
                         // margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.all(14),
+
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             cartItemBlock(context, cart, state),
+                            Container(
+                              margin: EdgeInsets.only(top: 16),
+                              padding: EdgeInsets.all(14),
+                              color: white,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      'Total: ${cart.subTotal.toStringAsFixed(2)}',
+                                      style: textPrimaryXXSmall(context)
+                                  ),
+                                  Text(
+                                      'Tax: ${cart.taxTotal.toStringAsFixed(2)}',
+                                      style: textPrimaryXXSmall(context)
+                                  ),
+                                  Text(
+                                      'Grand Total: ${cart.grandTotal.toStringAsFixed(2)}',
+                                      style: textPrimaryXXSmallDark(context)
+                                  ),
+                                ],
+                              ),
+                            ),
                             // totalRow(context, 'Sub Total',
                             //     cart.subTotal.toStringAsFixed(2)),
                             // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
-                            Padding(
+                            Container(
+                              color: grey2,
                               padding: const EdgeInsets.only(top: 28.0),
                               child: Center(
-                                  child: state.isLoading
+                                  child: state.isLoading || state.isUpdateLoading
                                       ? GFLoader(type: GFLoaderType.ios)
-                                      : custombuttonsm(
+                                      :
+                                  DB().getOrderId()  == null ?
+                                  custombuttonsm(
+                                      context,
+                                      'PLACE_ORDER'.tr,
+                                          () async {
+                                        await context
+                                            .read(cartScreenProvider
+                                            .notifier)
+                                            .createOrder();
+                                        print('zzzzzzzzzz ${state.orderResponse}');
+                                        if (state.orderResponse != null) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                              content: Text('${state.orderResponse!.message}')));
+                                        }
+                                        Timer(Duration(seconds: 2),
+                                                () async {
+                                              await Get.to(
+                                                      () => OrdersInProcess());
+                                            });
+                                      },
+                                      state.isLoading)
+                                      :
+                                  cart.products.where((element) =>
+                                  element.modified).isNotEmpty && DB().getOrderId() != null  ? custombuttonsm(
                                           context,
-                                          DB().getOrderId() == null ?
-                                          'PLACE_ORDER'.tr
-                                              : 'MODIFY_ORDER'.tr,
-                                          DB().getOrderId() == null
-                                              ?
-                                              () async {
-                                                  await context
-                                                      .read(cartScreenProvider
-                                                          .notifier)
-                                                      .createOrder();
-                                                  print('zzzzzzzzzz ${state.orderResponse}');
-                                                  if (state.orderResponse != null) {
-                                                    ScaffoldMessenger.of(context)
-                                                        .showSnackBar(SnackBar(
-                                                            content: Text('${state.orderResponse!.message}')));
-                                                    Timer(Duration(seconds: 2),
-                                                        () async {
-                                                      await Get.to(
-                                                          () => OrdersInProcess());
-                                                    });
-                                                  }
-                                                }
-                                              : () async {
+                                          'MODIFY_ORDER'.tr,
+                                          () async {
                                                   final updateResponse = await context
                                                       .read(cartScreenProvider
                                                           .notifier)
@@ -128,7 +156,9 @@ class CartScreen extends HookWidget {
                                                     });
                                                   }
                                                 },
-                                        DB().getOrderId() == null ? state.isLoading : state.isUpdateLoading)),
+                                       state.isUpdateLoading)
+                                      : Container()
+                              ),
                             ),
                           ],
                         ),
@@ -140,54 +170,64 @@ class CartScreen extends HookWidget {
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {
+    printWrapped('ss ${cart.products.where((element) =>
+    element.modified)}');
     // context.read(cartScreenProvider.notifier).updateGrandTotal();
-    return ListView.builder(
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: cart.products.length,
-        itemBuilder: (BuildContext context, int i) {
-          final cartProduct = cart.products.elementAt(i);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(cart.products[i].productName!,
-                  style: textBlackLargeBM20(context)),
-              // SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                          '${cartProduct.totalProductPrice.toStringAsFixed(2)}€',
-                          style: textBlackLargeBM(context)),
-                      SizedBox(width: 4),
-                      cartProduct.allergens!.isNotEmpty
-                          ? Container(
-                              margin: EdgeInsets.only(left: 12),
-                              padding: EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                  color: primary(),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(
-                                'ALLERGENS'.tr,
-                                style: textWhiteRegularBM(),
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
+    return Container(
+      color: white,
+      child: ListView.builder(
+          padding: EdgeInsets.all(14),
+          physics: ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: cart.products.length,
+          itemBuilder: (BuildContext context, int i) {
+            final cartProduct = cart.products.elementAt(i);
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(cart.products[i].productName!,
+                    style: textBlackLargeBM20(context)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HtmlWidget(
+                      cart.products[i].description!,
+                      textStyle: textDarkLightSmallBR(context),
+                    ),
+                    Row(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  context
+                                      .read(cartScreenProvider.notifier)
+                                      .updateQuantity(cartProduct, false);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 25,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                        color: white,
+                                        border: Border.all(color: dark, width: 1),
+                                        borderRadius: BorderRadius.circular(50)),
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: dark,
+                                    ),
+                                  ),
+                                )),
+                            Text('${cartProduct.totalQuantity}',
+                                style: textBlackLargeBM(context)),
+                            InkWell(
                               onTap: () {
                                 context
                                     .read(cartScreenProvider.notifier)
-                                    .updateQuantity(cartProduct, false);
+                                    .updateQuantity(cartProduct, true);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -199,56 +239,62 @@ class CartScreen extends HookWidget {
                                       border: Border.all(color: dark, width: 1),
                                       borderRadius: BorderRadius.circular(50)),
                                   child: Icon(
-                                    Icons.remove,
+                                    Icons.add,
                                     color: dark,
                                   ),
                                 ),
-                              )),
-                          Text('${cartProduct.totalQuantity}',
-                              style: textBlackLargeBM(context)),
-                          InkWell(
-                            onTap: () {
-                              context
-                                  .read(cartScreenProvider.notifier)
-                                  .updateQuantity(cartProduct, true);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 25,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                    color: white,
-                                    border: Border.all(color: dark, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: Icon(
-                                  Icons.add,
-                                  color: dark,
-                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 10),
-                      IconButton(
-                        onPressed: () {
-                          context
-                              .read(cartScreenProvider.notifier)
-                              .removeProduct(cartProduct);
-                        },
-                        icon: Icon(
-                          Icons.delete_outline_outlined,
-                          color: dark,
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              Divider(height: 1,),
-            ],
-          );
-        });
+                        // SizedBox(width: 6),
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read(cartScreenProvider.notifier)
+                                .removeProduct(cartProduct);
+                          },
+                          icon: Icon(
+                            Icons.delete_outline_outlined,
+                            color: dark,
+                            size: 26,
+                          ),
+
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                        Text(
+                            '${cartProduct.totalProductPrice.toStringAsFixed(2)}€',
+                            style: textBlackLargeBM(context)),
+                        cartProduct.allergens!.isNotEmpty
+                            ? Container(
+                                margin: EdgeInsets.symmetric(horizontal: 16),
+                                padding: EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                    color: primary(),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(
+                                  'ALLERGENS'.tr,
+                                  style: textWhiteRegularBM(),
+                                ),
+                              )
+                            : Container(),
+                        Text(
+                            'Tax: ${cartProduct.taxInfo!.taxPercentage} %',
+                            style: textPrimaryXXSmall(context)
+                        ),
+                  ],
+                ),
+                SizedBox(height: 12,),
+                Divider(height: 12,),
+              ],
+            );
+          }),
+    );
   }
 }

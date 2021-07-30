@@ -2,6 +2,7 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FABBottomAppBarItem {
@@ -116,11 +117,17 @@ class FABBottomAppBar extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  item!.iconData!,
-                  width: 50,
-                  height: 50,
-                ),
+                // Image.asset(
+                //   item!.iconData!,
+                //   width: 50,
+                //   height: 50,
+                // ),
+            SvgPicture.asset(
+                item!.iconData!,
+                width: 40,
+                height: 40,
+                // color: selColor,
+            ),
                 // Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(
                   item.text!,

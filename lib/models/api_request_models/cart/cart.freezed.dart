@@ -24,6 +24,7 @@ class _$CartTearOff {
       {@JsonKey(name: 'cart') List<ProductDetailsResponse> products = const [],
       dynamic grandTotal = 0,
       dynamic subTotal = 0,
+      dynamic taxTotal = 0,
       String? deliveryType,
       String? paymentType,
       String? restaurantName,
@@ -35,6 +36,7 @@ class _$CartTearOff {
       products: products,
       grandTotal: grandTotal,
       subTotal: subTotal,
+      taxTotal: taxTotal,
       deliveryType: deliveryType,
       paymentType: paymentType,
       restaurantName: restaurantName,
@@ -60,6 +62,7 @@ mixin _$Cart {
       throw _privateConstructorUsedError;
   dynamic get grandTotal => throw _privateConstructorUsedError;
   dynamic get subTotal => throw _privateConstructorUsedError;
+  dynamic get taxTotal => throw _privateConstructorUsedError;
   String? get deliveryType => throw _privateConstructorUsedError;
   String? get paymentType => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
@@ -81,6 +84,7 @@ abstract class $CartCopyWith<$Res> {
       {@JsonKey(name: 'cart') List<ProductDetailsResponse> products,
       dynamic grandTotal,
       dynamic subTotal,
+      dynamic taxTotal,
       String? deliveryType,
       String? paymentType,
       String? restaurantName,
@@ -103,6 +107,7 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
     Object? products = freezed,
     Object? grandTotal = freezed,
     Object? subTotal = freezed,
+    Object? taxTotal = freezed,
     Object? deliveryType = freezed,
     Object? paymentType = freezed,
     Object? restaurantName = freezed,
@@ -123,6 +128,10 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
       subTotal: subTotal == freezed
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      taxTotal: taxTotal == freezed
+          ? _value.taxTotal
+          : taxTotal // ignore: cast_nullable_to_non_nullable
               as dynamic,
       deliveryType: deliveryType == freezed
           ? _value.deliveryType
@@ -165,6 +174,7 @@ abstract class _$CartCopyWith<$Res> implements $CartCopyWith<$Res> {
       {@JsonKey(name: 'cart') List<ProductDetailsResponse> products,
       dynamic grandTotal,
       dynamic subTotal,
+      dynamic taxTotal,
       String? deliveryType,
       String? paymentType,
       String? restaurantName,
@@ -188,6 +198,7 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
     Object? products = freezed,
     Object? grandTotal = freezed,
     Object? subTotal = freezed,
+    Object? taxTotal = freezed,
     Object? deliveryType = freezed,
     Object? paymentType = freezed,
     Object? restaurantName = freezed,
@@ -203,6 +214,7 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
               as List<ProductDetailsResponse>,
       grandTotal: grandTotal == freezed ? _value.grandTotal : grandTotal,
       subTotal: subTotal == freezed ? _value.subTotal : subTotal,
+      taxTotal: taxTotal == freezed ? _value.taxTotal : taxTotal,
       deliveryType: deliveryType == freezed
           ? _value.deliveryType
           : deliveryType // ignore: cast_nullable_to_non_nullable
@@ -242,6 +254,7 @@ class _$_Cart extends _Cart {
       {@JsonKey(name: 'cart') this.products = const [],
       this.grandTotal = 0,
       this.subTotal = 0,
+      this.taxTotal = 0,
       this.deliveryType,
       this.paymentType,
       this.restaurantName,
@@ -263,6 +276,9 @@ class _$_Cart extends _Cart {
   @JsonKey(defaultValue: 0)
   @override
   final dynamic subTotal;
+  @JsonKey(defaultValue: 0)
+  @override
+  final dynamic taxTotal;
   @override
   final String? deliveryType;
   @override
@@ -280,7 +296,7 @@ class _$_Cart extends _Cart {
 
   @override
   String toString() {
-    return 'Cart(products: $products, grandTotal: $grandTotal, subTotal: $subTotal, deliveryType: $deliveryType, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId)';
+    return 'Cart(products: $products, grandTotal: $grandTotal, subTotal: $subTotal, taxTotal: $taxTotal, deliveryType: $deliveryType, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId)';
   }
 
   @override
@@ -296,6 +312,9 @@ class _$_Cart extends _Cart {
             (identical(other.subTotal, subTotal) ||
                 const DeepCollectionEquality()
                     .equals(other.subTotal, subTotal)) &&
+            (identical(other.taxTotal, taxTotal) ||
+                const DeepCollectionEquality()
+                    .equals(other.taxTotal, taxTotal)) &&
             (identical(other.deliveryType, deliveryType) ||
                 const DeepCollectionEquality()
                     .equals(other.deliveryType, deliveryType)) &&
@@ -324,6 +343,7 @@ class _$_Cart extends _Cart {
       const DeepCollectionEquality().hash(products) ^
       const DeepCollectionEquality().hash(grandTotal) ^
       const DeepCollectionEquality().hash(subTotal) ^
+      const DeepCollectionEquality().hash(taxTotal) ^
       const DeepCollectionEquality().hash(deliveryType) ^
       const DeepCollectionEquality().hash(paymentType) ^
       const DeepCollectionEquality().hash(restaurantName) ^
@@ -348,6 +368,7 @@ abstract class _Cart extends Cart {
       {@JsonKey(name: 'cart') List<ProductDetailsResponse> products,
       dynamic grandTotal,
       dynamic subTotal,
+      dynamic taxTotal,
       String? deliveryType,
       String? paymentType,
       String? restaurantName,
@@ -367,6 +388,8 @@ abstract class _Cart extends Cart {
   dynamic get grandTotal => throw _privateConstructorUsedError;
   @override
   dynamic get subTotal => throw _privateConstructorUsedError;
+  @override
+  dynamic get taxTotal => throw _privateConstructorUsedError;
   @override
   String? get deliveryType => throw _privateConstructorUsedError;
   @override

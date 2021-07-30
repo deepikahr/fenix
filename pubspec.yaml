@@ -201,6 +201,11 @@ flutter:
     - lib/assets/icons/credit.png
     - lib/assets/icons/debit.png
     - lib/assets/icons/heart.png
+    - lib/assets/icons/ask.svg
+    - lib/assets/icons/drinks.svg
+    - lib/assets/icons/foods.svg
+    - lib/assets/icons/pay.svg
+    - lib/assets/icons/return.svg
 
     - lib/assets/icons/profile/about.png
     - lib/assets/icons/profile/cookie.png

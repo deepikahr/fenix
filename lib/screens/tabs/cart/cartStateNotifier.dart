@@ -65,17 +65,26 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
             },
       )
           .reduce((_, __) => _ + __);
-      final grandTotal = total ;
+      final tax = cart!.products
+          .map(
+            (e) {
+          return e.tax;
+        },
+      )
+          .reduce((_, __) => _ + __);
+      final subTotal = total;
+      final grandTotal = total + tax;
 
       await cartState.updateCart(cart?.copyWith(
-        subTotal: total,
+        subTotal: subTotal,
         grandTotal: grandTotal,
+        taxTotal: tax
       ));
     }
   }
 
   Future<OrderResponse?> createOrder() async {
-    updateGrandTotal();
+    // updateGrandTotal();
     state = state.copyWith.call(isLoading: true);
     final response = await api.createOrder(
       cart!,
@@ -93,7 +102,7 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<String?> updateOrder() async {
-    updateGrandTotal();
+    // updateGrandTotal();
     state = state.copyWith.call(isUpdateLoading: true);
 
     UpdateCart updateCart = UpdateCart(orderId: db.getOrderId(), products: cart!.products.where((element) =>

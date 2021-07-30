@@ -72,7 +72,6 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     print('object $addOnItem');
 
 
-
     var selectedAddon = List.empty(growable: true);
     selectedAddon = state.selectedAddOnItems!.toList(growable: true);
 
@@ -174,28 +173,33 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       final cartTotal = cart.products
           .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
-      cart = cart.copyWith(subTotal: cartTotal);
+      final taxTotal = cart.products
+          .map((e) => e.tax)
+          .reduce((_, __) => _ + __);
+      print('tttttt $taxTotal');
+      final grandTotal = cartTotal + taxTotal;
+      cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
 
       state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
           totalQuantity: product.totalQuantity, isSameProductMultipleTime: false);
       await cartState.updateCart(cart);
-      Timer(Duration(seconds: 1), () async {
-        await Get.to(() => CartScreen());
-      });
-      await showDialog(
+      // Timer(Duration(seconds: 1), () async {
+      //   await showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return blackAlertBox(
+      //           context,
+      //           'PRODUCT_ADDED_TO_CART_SUCCESSFULLY'.tr,
+      //           Image.asset(
+      //             'lib/assets/icons/done.png',
+      //             scale: 3,
+      //           ),
+      //           null);
+      //     },
+      //   );
+      // });
+      await Get.to(() => CartScreen());
 
-        context: context,
-        builder: (BuildContext context) {
-          return blackAlertBox(
-              context,
-              'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
-              Image.asset(
-                'lib/assets/icons/done.png',
-                scale: 3,
-              ),
-              null);
-        },
-      );
     } else if (product.franchiseId == cartData!.franchiseId) {
       var addOnItemsPrice = .0;
       if (selectedAddOnItems.isNotEmpty) {
@@ -259,26 +263,30 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       final cartTotal = cartData!.products
           .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
-      cart = cartData?.copyWith(subTotal: cartTotal);
+      final taxTotal = cartData!.products
+          .map((e) => e.tax)
+          .reduce((_, __) => _ + __);
+      final grandTotal = cartTotal + taxTotal;
+      cart = cartData?.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
+      // cart = cartData?.copyWith(subTotal: cartTotal);
 
       await cartState.updateCart(cart);
-      Timer(Duration(seconds: 1), () async {
-        await Get.to(() => CartScreen());
-      });
-      await showDialog(
-
-        context: context,
-        builder: (BuildContext context) {
-          return blackAlertBox(
-              context,
-              'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
-              Image.asset(
-                'lib/assets/icons/done.png',
-                scale: 3,
-              ),
-              null);
-        },
-      );
+      // Timer(Duration(seconds: 1), () async {
+      //   await showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return blackAlertBox(
+      //           context,
+      //           'PRODUCT_ADDED_TO_CART_SUCCESSFULLY',
+      //           Image.asset(
+      //             'lib/assets/icons/done.png',
+      //             scale: 3,
+      //           ),
+      //           null);
+      //     },
+      //   );
+      // });
+      await Get.to(() => CartScreen());
     } else {
       await customDialog(
         status: DIALOG_STATUS.WARNING,

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="241.725" height="241.987" viewBox="0 0 241.725 241.987">
+  <defs>
+    <filter id="Circulo_Avión_borde_blanco" x="0" y="0" width="241.725" height="241.987" filterUnits="userSpaceOnUse">
+      <feOffset dy="-10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#b2b2b2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Circulo_Avión" x="14.021" y="13.704" width="215.283" height="215.283" filterUnits="userSpaceOnUse">
+      <feOffset dy="-10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur-2"/>
+      <feFlood flood-color="#bebebe" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_3619" data-name="Group 3619" transform="translate(-503.5 -46.688)">
+    <g transform="matrix(1, 0, 0, 1, 503.5, 46.69)" filter="url(#Circulo_Avión_borde_blanco)">
+      <path id="Circulo_Avión_borde_blanco-2" data-name="Circulo Avión borde blanco" d="M75.863,159.487a83.493,83.493,0,1,1,83.363-83.493A83.523,83.523,0,0,1,75.863,159.487Z" transform="translate(45 55)" fill="#eee" stroke="#eee" stroke-width="15" opacity="0.751"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 503.5, 46.69)" filter="url(#Circulo_Avión)">
+      <path id="Circulo_Avión-2" data-name="Circulo Avión" d="M77.641,0A77.641,77.641,0,1,1,0,77.641,77.641,77.641,0,0,1,77.641,0Z" transform="translate(44.02 53.7)" fill="#c92b2b"/>
+    </g>
+    <path id="Path_55" data-name="Path 55" d="M.05,98.654l104.6-49.327L.05,0,0,38.366,74.753,49.327,0,60.289Z" transform="translate(566.207 149.207) rotate(-25)" fill="#eee"/>
+  </g>
+</svg>

@@ -15,14 +15,14 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
     decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: dark.withOpacity(0.2),
-          // offset: Offset(0.5, 0.5),
-          blurRadius: 4.0,
-          spreadRadius: 1.0,
-        ),
-      ],
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: dark.withOpacity(0.2),
+      //     // offset: Offset(0.5, 0.5),
+      //     blurRadius: 4.0,
+      //     spreadRadius: 1.0,
+      //   ),
+      // ],
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -37,16 +37,18 @@ Widget restaurantInfoCard(BuildContext context, title, image) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Stack(
+      alignment: AlignmentDirectional.center,
       children: [
         image != null
-            ? networkImage(image, 390, 120, 2)
-            : networkImageOverlay(390, 120),
+            ? networkImage(image, MediaQuery.of(context).size.width, 120, 2)
+            : networkImageOverlay(MediaQuery.of(context).size.width, 120),
         Positioned(
-            left: 120,
-            right: 120,
+            // left: 0,
+            // right: 0,
             bottom: 0,
             child: Container(
-              // width: 80,
+              width: 120,
+              alignment: AlignmentDirectional.center,
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                   color: darkLight,

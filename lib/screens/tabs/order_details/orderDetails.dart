@@ -59,7 +59,7 @@ class OrderDetails extends HookWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 0.0),
-                          child: Text('${state.orderDetails!.subTotal} ${'VAT_INCLUDE_TOTAL'.tr}',
+                          child: Text('${state.orderDetails!.subTotal!.toStringAsFixed(2)} ${'VAT_INCLUDE_TOTAL'.tr}',
                               style: textBlackLargeBM20G(context)),
                         ),
                         SizedBox(height: 10),
@@ -85,7 +85,7 @@ class OrderDetails extends HookWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        Text('${state.orderDetails!.grandTotal} ${'TOTAL_SELECTION'.tr}',
+                        Text('${state.orderDetails!.grandTotal!.toStringAsFixed(2)} ${'TOTAL_SELECTION'.tr}',
                             style: textBlackLargeBM20G(context)),
                       ],
                     ),

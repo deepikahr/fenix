@@ -17,6 +17,7 @@ class Cart with BaseModel<Cart>, _$Cart {
     @JsonKey(name: 'cart') @Default([]) List<ProductDetailsResponse> products,
     @Default(0) grandTotal,
     @Default(0) subTotal,
+    @Default(0) taxTotal,
     String? deliveryType,
     String? paymentType,
     String? restaurantName,

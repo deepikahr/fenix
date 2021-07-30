@@ -209,6 +209,25 @@ TextStyle textWhiteXXSmall(context) {
   );
 }
 
+TextStyle textPrimaryXXSmall(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 15.0,
+    color: primary(),
+    fontFamily: 'BarlowMedium',
+  );
+}
+
+TextStyle textPrimaryXXSmallDark(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 16.0,
+    color: primary(),
+    fontFamily: 'BarlowMedium',
+  );
+}
+
+
 TextStyle textDarkSmallUnderlineBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,

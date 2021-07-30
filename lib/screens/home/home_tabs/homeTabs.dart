@@ -71,10 +71,10 @@ class HomeTabs extends HookWidget {
           context.read(homeTabsProvider.notifier).onPageChanged(index);
         },
         items: [
-          FABBottomAppBarItem(iconData: "lib/assets/images/1.png", text: 'RETURN'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'DRINKS'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'FOOD'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'TO_PAY'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr),
+          FABBottomAppBarItem(iconData: "lib/assets/icons/pay.svg", text: 'TO_PAY'.tr),
         ],
         backgroundColor: white,
       ),

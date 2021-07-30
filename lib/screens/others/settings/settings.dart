@@ -104,7 +104,6 @@ class Settings extends HookWidget {
                       state.orderMode ?? state.settings!.tabSetting!.orderingMode,
                       state.type ?? state.settings!.tabSetting!.viewType,
                   );
-                  print('qqqqqqqqq $response');
                   if(response != null){
                     Timer(Duration(seconds: 2), () async {
                       await Get.offAll(() => HomeTabs(tabIndex: 0,));
