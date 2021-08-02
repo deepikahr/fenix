@@ -28,10 +28,12 @@ class CartScreen extends HookWidget {
     final homeState = useProvider(homeTabsProvider);
     final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
+    final settingsState = useProvider(settingsProvider);
 
     useEffect(() {
       if (isMounted()) {
         context.read(cartScreenProvider.notifier);
+        // context.read(settingsProvider.notifier).fetchSettings();
       }
       return;
     }, const []);
@@ -42,7 +44,7 @@ class CartScreen extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading
+            homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
         ),
         body:
         cart == null || !DB().isLoggedIn() || cart.products.length == 0
@@ -191,6 +193,7 @@ class CartScreen extends HookWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+
                     HtmlWidget(
                       cart.products[i].description!,
                       textStyle: textDarkLightSmallBR(context),

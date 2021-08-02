@@ -37,6 +37,7 @@ class ProductDetails extends HookWidget {
     final cartState = useProvider(cartScreenProvider);
     final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
+    final settingsState = useProvider(settingsProvider);
 
     useEffect(() {
       if (isMounted()) {
@@ -44,6 +45,7 @@ class ProductDetails extends HookWidget {
           notifier.fetchProductDetails(productId!);
         });
         context.read(cartScreenProvider.notifier);
+        // context.read(settingsProvider.notifier).fetchSettings();
       }
       return;
     }, const []);
@@ -54,7 +56,7 @@ class ProductDetails extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading
+          homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
       ),
       body: Stack(
         children: [

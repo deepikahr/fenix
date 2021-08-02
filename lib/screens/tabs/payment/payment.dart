@@ -17,6 +17,17 @@ class Payment extends HookWidget {
   Widget build(BuildContext context) {
 
     final homeState = useProvider(homeTabsProvider);
+    final settingsState = useProvider(settingsProvider);
+    final isMounted = useIsMounted();
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () async {
+        if (isMounted()) {
+          // await context.read(settingsProvider.notifier).fetchSettings();
+        }
+      });
+      return;
+    }, const []);
 
     return Scaffold(
         backgroundColor: light,
@@ -24,7 +35,7 @@ class Payment extends HookWidget {
         drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading
+          homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
       ),
       body: ListView(
         children: [

@@ -22,5 +22,6 @@ class URL {
   static const CALL_WAITER_LIST = '/notifications/list';
 
   static const LANGUAGES = '/languages/list';
+  static const GET_LOCALIZATION_JSON = '/languages/user';
 
 }

@@ -115,6 +115,23 @@ class ApiHelper {
     return output;
   }
 
+  Future<Map<String, dynamic>?> getForMapResponse<U extends BaseModel>(
+      String url,
+      {U? reqModel,
+        ValueSetter<ErrorResponse>? errorListener,
+        bool autoErrorHandle = true,
+        ValueSetter<ApiResponse<Map<String, dynamic>?>>?
+        responseListener}) async {
+    Response res;
+    try {
+      res = await _getDio().get(url, queryParameters: reqModel?.toMap());
+    } on DioError catch (e) {
+      return _handleError(e, autoErrorHandle, errorListener);
+    }
+    final output = _handleResponseForMap(res, responseListener);
+    return output;
+  }
+
   Future<T?> post<T extends BaseModel, U extends BaseModel?>(String url,
       {required U reqModel,
         required T resModel,
@@ -377,4 +394,26 @@ class ApiHelper {
     }
     return baseRes.response_data;
   }
+
+  Map<String, dynamic>? _handleResponseForMap(Response? res,
+      ValueSetter<ApiResponse<Map<String, dynamic>?>>? responseListener) {
+    if (res == null) {
+      customDialog(
+        status: DIALOG_STATUS.FAIL,
+        title: 'SERVER_NOT_RESPONDING'.tr,
+      );
+      return null;
+    }
+
+    final baseRes = BaseResponse.fromJson(res.data);
+    if (!(baseRes.response_data is LinkedHashMap)) {
+      throw '🎇🎇🎇 This is only used for ResponseType `Object`, but here it is used for ResponseType `${baseRes.response_data.runtimeType}`';
+    }
+    final output = baseRes.response_data;
+    if (responseListener != null) {
+      responseListener(ApiResponse(output, baseRes.response_code!));
+    }
+    return output;
+  }
+
 }

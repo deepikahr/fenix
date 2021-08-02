@@ -9,27 +9,33 @@ import 'normalText.dart';
 
 
 Widget primaryButton(BuildContext context, title, onPressed, loading) {
-  return Container(
-    width: 164,
-    // height: 46,
-    //   #00000029
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: dark.withOpacity(0.2),
-          // offset: Offset(0.5, 0.5),
-          blurRadius: 4.0,
-          spreadRadius: 1.0,
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: Container(
+      width: 164,
+      // height: 46,
+      //   #00000029
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: dark.withOpacity(0.2),
+            offset: Offset(0.0, 10.0),
+            blurRadius: 2.0,
+            spreadRadius: 1.0,
+          ),
+        ],
+      ),
+      child: GFButton(
+        size: GFSize.LARGE,
+        borderShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12)
         ),
-      ],
-    ),
-    child: GFButton(
-      size: GFSize.LARGE,
-      color: primary(),
-      onPressed: onPressed,
-      child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
-        title,
-        style: textWhiteLargeBM(context),
+        color: primary(),
+        onPressed: onPressed,
+        child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
+          title,
+          style: textWhiteLargeBM(context),
+        ),
       ),
     ),
   );

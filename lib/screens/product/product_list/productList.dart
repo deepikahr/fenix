@@ -30,11 +30,13 @@ class ProductList extends HookWidget {
     final notifier = useProvider(productListProvider.notifier);
     final isMounted = useIsMounted();
     final cart = useProvider(cartProvider);
+    final settingsState = useProvider(settingsProvider);
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await notifier.fetchProductData(categoryId);
+          // await context.read(settingsProvider.notifier).fetchSettings();
         });
       }
       return;
@@ -46,7 +48,7 @@ class ProductList extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading
+          homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
       ),
       body: Stack(
         children: [

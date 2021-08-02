@@ -318,7 +318,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
 
             state = state.copyWith.productDetails!(
                 totalQuantity: product.totalQuantity,
-                isSameProductMultipleTime: product.isSameProductMultipleTime
+                isSameProductMultipleTime: product.isSameProductMultipleTime,
+                modified: db.getOrderId() == null ? false : true
                 );
 
     } else {
@@ -327,7 +328,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
 
             state = state.copyWith.productDetails!(
                 totalQuantity: product.totalQuantity,
-                isSameProductMultipleTime: product.isSameProductMultipleTime
+                isSameProductMultipleTime: product.isSameProductMultipleTime,
+                modified: db.getOrderId() == null ? false : true
             );
 
     }
@@ -351,6 +353,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
             isLastVariant: true,
             totalQuantity: product.quantity,
             totalProductPrice: product.sellingPrice.toDouble(),
+              modified: db.getOrderId() == null ? false : true
           )
         ],
       );
@@ -377,6 +380,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
           isLastVariant: true,
           totalQuantity: product.quantity,
           totalProductPrice: product.sellingPrice.toDouble(),
+            modified: db.getOrderId() == null ? false : true
         )
       ]);
       await cartState.updateCart(cart);

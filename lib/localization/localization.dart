@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
 class Localization extends Translations {
+  final Map<String, Map<String, String>>? json;
+  Localization(this.json);
   @override
-  Map<String, Map<String, String>> get keys => {
-        'en_US': {
+  Map<String, Map<String, String>> get keys =>
+      json ??
+          {
+            'en': {
           'HELLO': 'Hello',
           'LOGIN': 'Login to Continue',
           'TABLE_NUMBER': 'Table number',
@@ -16,7 +20,7 @@ class Localization extends Translations {
           'UPDATE': 'Update',
           'OK': 'ok',
           'PLEASE_SELECT_MENU': 'Please select menu',
-          'CONNECTION_CODE': 'connection code',
+          'CONNECTION_CODE': 'Connection code',
           'TABLE_CAPACITY': 'Table capacity',
           'SELECT_COLOR': 'Select color',
           'SELECT_MENU': 'Select menu',
@@ -24,7 +28,7 @@ class Localization extends Translations {
           'CATEGORY_REPRESENTATION': 'Category representation',
           'LIST': 'list',
           'GRID': 'grid',
-          'CATEGORY_HEADER': 'Category header',
+          'RESET_CATEGORY': 'Reset Category',
           'ORDERING_MODE': 'Ordering mode',
           'ENABLE_CALL_TO_WAITER': 'Enable call to waiter',
           'PAY_WHEN_YOU_MAKE_THE_COMMAND_(KIOSK TYPE)': 'Pay when you make the command (KIOSK TYPE)',

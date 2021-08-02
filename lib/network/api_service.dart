@@ -2,6 +2,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_request_models/change_password_request/change_password_request.dart';
+import 'package:fenix_user/models/api_request_models/localizationDataRequest/localizationDataRequest.dart';
 import 'package:fenix_user/models/api_request_models/login_verify_request/login_verify_request.dart';
 import 'package:fenix_user/models/api_request_models/pagination_request/pagination_request.dart';
 import 'package:fenix_user/models/api_request_models/settings_update_request/settings_update_request.dart';
@@ -243,5 +244,21 @@ class API {
     );
   }
 
+  Future<Map<String, Map<String, String>>?> getLocalizationData(
+      String? code, {
+        ValueSetter<ErrorResponse>? errorListener,
+        bool autoErrorHandle = true,
+        ValueSetter<ApiResponse<Map<String, Map<String, String>>?>>?
+        responseListener,
+      }) async {
+    final output = await _api.getForMapResponse(
+      URL.GET_LOCALIZATION_JSON,
+      reqModel: LocalizationDataRequest(code: code),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+    );
+    return output
+        ?.map((key, value) => MapEntry(key, Map<String, String>.from(value)));
+  }
 
 }

@@ -1,26 +1,21 @@
 import 'dart:async';
-
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/providers/providers.dart';
-import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
-import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:getwidget/components/rating/gf_rating.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
-
-import '../../../main.dart';
 
 class Settings extends HookWidget {
   double _rating = 3;
@@ -61,6 +56,7 @@ class Settings extends HookWidget {
               BoxShadow(color: Colors.black45, blurRadius: 20)
             ]),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 25),
                 titleTextDarkRegularBW15(context, "MAC 91:75:1a:ec:9a:c7"),
@@ -72,25 +68,23 @@ class Settings extends HookWidget {
           ),
           preferredSize: new Size(MediaQuery.of(context).size.width, 110.0),
         ),
-        body: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              if (state.settings != null && state.menuList != null)
-                contentBlock(context, state.settings!, state.menuList!,
-                    tableNumberEditController, ipAddressEditController, state),
-              if (state.isLoading) GFLoader(type: GFLoaderType.ios)
-            ],
-          ),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            if (state.settings != null && state.menuList != null)
+              contentBlock(context, state.settings!, state.menuList!,
+                  tableNumberEditController, ipAddressEditController, state),
+            if (state.isLoading) Center(child: GFLoader(type: GFLoaderType.ios))
+          ],
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.only(bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              primaryButtonSmall(context, 'CANCEL'.tr, () {
+              primaryButton(context, 'CANCEL'.tr, () {
                 Get.back();
-              }),
+              }, false),
               primaryButton(context, 'UPDATE'.tr, () async {
                 if (state.menuTitle != null || DB().getMenuName() != null) {
                   final response = await context
@@ -184,13 +178,15 @@ class Settings extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               titleTextDarkRegularBS(context, 'CONNECTION_CODE'.tr),
-              GFRating(
-                value: _rating,
-                color: dark,
-                borderColor: dark,
-                size: 25,
-                onChanged: (value) {},
-              ),
+              Row(
+                children: [
+                  Text('*', style: TextStyle(fontSize: 35)),
+                  Text('*', style: TextStyle(fontSize: 35)),
+                  Text('*', style: TextStyle(fontSize: 35)),
+                  Text('*', style: TextStyle(fontSize: 35)),
+                  Text('*', style: TextStyle(fontSize: 35)),
+                ],
+              )
             ],
           ),
           SizedBox(
@@ -305,65 +301,6 @@ class Settings extends HookWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              titleTextDarkRegularBS(context, 'CATEGORY_HEADER'.tr),
-              GFToggle(
-                onChanged: (bool? value) async {
-                  await context.read(settingsProvider.notifier)
-                      .setResetCategory(value!);
-                },
-                enabledThumbColor: primary(),
-                enabledTrackColor: primary().withOpacity(0.3),
-                value: settings.tabSetting!.resetCategory!,
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              titleTextDarkRegularBS(context, 'ORDERING_MODE'.tr),
-              DropdownButton<String>(
-                underline: Container(color: Colors.transparent),
-                iconSize: 20,
-                value: state.orderMode ??settings.tabSetting!.orderingMode,
-                onChanged: (String? value) async {
-                  await context.read(settingsProvider.notifier)
-                      .setOrderMode(value!);
-                },
-                items: <String>['printer', "waiter's app", 'pos link']
-                    .map<DropdownMenuItem<String>>((String item) {
-                  return DropdownMenuItem<String>(
-                    child: Text(
-                      '$item',
-                      style: textDarkRegularBG(context),
-                    ),
-                    value: item,
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Expanded(
-          //         child: titleTextDarkRegularBS(
-          //             context, 'IP ADDRESS FOR WIFI PRINTER IN DIRECT MODE')),
-          //     Container(
-          //       width: 160,
-          //       child: regularTextField(
-          //         context,
-          //         ipAddressTextField(
-          //             context, ipAddressEditController, ipAddressFocusNode,
-          //             (value) {
-          //           FocusScope.of(context).unfocus();
-          //         }),
-          //       ),
-          //     ),
-          //   ],
-          // ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -383,43 +320,103 @@ class Settings extends HookWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: titleTextDarkRegularBS(
-                    context, 'PAY_WHEN_YOU_MAKE_THE_COMMAND_(KIOSK TYPE)'.tr),
-              ),
-              GFToggle(
-                onChanged: (bool? value) async {
-                  await context.read(settingsProvider.notifier)
-                      .setPayOnCommand(value!);
-                },
-                enabledThumbColor: primary(),
-                enabledTrackColor: primary().withOpacity(0.3),
-                value: settings.tabSetting!.payTypeKiosk!,
-              )
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                  child: titleTextDarkRegularBS(
-                      context, 'VALIDATE_PAYMENT_/_COMMANDS_BY_WAITER'.tr)),
-              GFToggle(
-                onChanged: (bool? value) async {
-                  await context.read(settingsProvider.notifier)
-                      .setValidatePayment(value!);
-                },
-                enabledThumbColor: primary(),
-                enabledTrackColor: primary().withOpacity(0.3),
-                value: settings.tabSetting!.validatePaymentByWaiter!,
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     titleTextDarkRegularBS(context, 'RESET_CATEGORY'.tr),
+          //     GFToggle(
+          //       onChanged: (bool? value) async {
+          //         await context.read(settingsProvider.notifier)
+          //             .setResetCategory(value!);
+          //       },
+          //       enabledThumbColor: primary(),
+          //       enabledTrackColor: primary().withOpacity(0.3),
+          //       value: settings.tabSetting!.resetCategory!,
+          //     )
+          //   ],
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     titleTextDarkRegularBS(context, 'ORDERING_MODE'.tr),
+          //     DropdownButton<String>(
+          //       underline: Container(color: Colors.transparent),
+          //       iconSize: 20,
+          //       value: state.orderMode ??settings.tabSetting!.orderingMode,
+          //       onChanged: (String? value) async {
+          //         await context.read(settingsProvider.notifier)
+          //             .setOrderMode(value!);
+          //       },
+          //       items: <String>['printer', "waiter's app", 'pos link']
+          //           .map<DropdownMenuItem<String>>((String item) {
+          //         return DropdownMenuItem<String>(
+          //           child: Text(
+          //             '$item',
+          //             style: textDarkRegularBG(context),
+          //           ),
+          //           value: item,
+          //         );
+          //       }).toList(),
+          //     ),
+          //   ],
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Expanded(
+          //         child: titleTextDarkRegularBS(
+          //             context, 'IP ADDRESS FOR WIFI PRINTER IN DIRECT MODE')),
+          //     Container(
+          //       width: 160,
+          //       child: regularTextField(
+          //         context,
+          //         ipAddressTextField(
+          //             context, ipAddressEditController, ipAddressFocusNode,
+          //             (value) {
+          //           FocusScope.of(context).unfocus();
+          //         }),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+
+          // SizedBox(height: 10),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Expanded(
+          //       child: titleTextDarkRegularBS(
+          //           context, 'PAY_WHEN_YOU_MAKE_THE_COMMAND_(KIOSK TYPE)'.tr),
+          //     ),
+          //     GFToggle(
+          //       onChanged: (bool? value) async {
+          //         await context.read(settingsProvider.notifier)
+          //             .setPayOnCommand(value!);
+          //       },
+          //       enabledThumbColor: primary(),
+          //       enabledTrackColor: primary().withOpacity(0.3),
+          //       value: settings.tabSetting!.payTypeKiosk!,
+          //     )
+          //   ],
+          // ),
+          // SizedBox(height: 10),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Expanded(
+          //         child: titleTextDarkRegularBS(
+          //             context, 'VALIDATE_PAYMENT_/_COMMANDS_BY_WAITER'.tr)),
+          //     GFToggle(
+          //       onChanged: (bool? value) async {
+          //         await context.read(settingsProvider.notifier)
+          //             .setValidatePayment(value!);
+          //       },
+          //       enabledThumbColor: primary(),
+          //       enabledTrackColor: primary().withOpacity(0.3),
+          //       value: settings.tabSetting!.validatePaymentByWaiter!,
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

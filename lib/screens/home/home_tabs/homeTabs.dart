@@ -30,6 +30,7 @@ class HomeTabs extends HookWidget {
   Widget build(BuildContext context) {
 
     final state = useProvider(homeTabsProvider);
+    final settingsState = useProvider(settingsProvider);
     final cart = useProvider(cartProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final isMounted = useIsMounted();
@@ -38,6 +39,7 @@ class HomeTabs extends HookWidget {
       Future.delayed(Duration.zero, () async {
         context.read(homeTabsProvider.notifier).onPageChanged(tabIndex);
         if (isMounted()) {
+          await context.read(settingsProvider.notifier).fetchSettings();
           await context.read(homeTabsProvider.notifier).fetchLanguage();
         }
       });
@@ -56,7 +58,7 @@ class HomeTabs extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            state.languages, state.isLoading
+            state.languages, state.isLoading, settingsState.settings!.tabSetting!.callToWaiter
         ),
       backgroundColor: grey2,
       body: state.isLoading
@@ -76,7 +78,7 @@ class HomeTabs extends HookWidget {
           FABBottomAppBarItem(iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr),
           FABBottomAppBarItem(iconData: "lib/assets/icons/pay.svg", text: 'TO_PAY'.tr),
         ],
-        backgroundColor: white,
+        backgroundColor: grey2,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: cart == null || !DB().isLoggedIn()

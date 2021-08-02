@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
@@ -18,6 +19,8 @@ import 'network/api_service.dart';
 
 final api = API();
 final db = DB();
+Map<String, Map<String, String>>? json;
+
 void main() async {
   await dotenv.load();
   await db.initDatabase();
@@ -61,6 +64,13 @@ Future<void> configLocalNotification() async {
 //   }
 // }
 
+Future<Map<String, Map<String, String>>?> getLocalizationData() async {
+  final res = await api.getLocalizationData(Get.deviceLocale?.languageCode);
+  if (res != null) {
+    json = res;
+  }
+}
+
 class EntryPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
@@ -86,7 +96,7 @@ class EntryPage extends HookWidget {
       ),
       home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0,) :
       db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
-      translations: Localization(),
+      translations: Localization(json),
       locale: Get.deviceLocale,
       fallbackLocale: Locale('en', 'US'),
       defaultTransition: Transition.fadeIn,

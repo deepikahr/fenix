@@ -59,7 +59,9 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
                 .reduce((_, __) => _ + __);
             productsElement = productsElement.copyWith.call(
                 totalQuantity: quantity,
-                isSameProductMultipleTime: productData > 1 ? true : false);
+                isSameProductMultipleTime: productData > 1 ? true : false,
+                modified: db.getOrderId() == null ? false : true
+            );
 
             state = state.copyWith.productData!(
                 data: state.productData!.data!.map((p) {
@@ -103,6 +105,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
             isLastVariant: true,
             totalQuantity: product.quantity,
             totalProductPrice: product.variant!.price!.toDouble() + product.taxInfo!.taxPercentage!/100,
+              modified: db.getOrderId() == null ? false : true
           )
         ],
       );
@@ -129,6 +132,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
           isLastVariant: true,
           totalQuantity: product.quantity,
           totalProductPrice: product.variant!.price!.toDouble() + product.taxInfo!.taxPercentage!/100,
+            modified: db.getOrderId() == null ? false : true
         )
       ]);
       await cartNotifier.updateCart(cart);

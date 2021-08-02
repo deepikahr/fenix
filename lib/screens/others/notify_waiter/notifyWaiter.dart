@@ -21,6 +21,7 @@ class NotifyWaiter extends HookWidget {
 
     final state = useProvider(notifyWaiterProvider);
     final homeState = useProvider(homeTabsProvider);
+    final settingsState = useProvider(settingsProvider);
 
     final notifyWaiterNotifier = useProvider(notifyWaiterProvider.notifier);
     final isMounted = useIsMounted();
@@ -30,6 +31,7 @@ class NotifyWaiter extends HookWidget {
         if (isMounted()) {
           await context.read(notifyWaiterProvider.notifier).fetchNotification();
           await context.read(homeTabsProvider.notifier).fetchLanguage();
+          // await context.read(settingsProvider.notifier).fetchSettings();
         }
       });
       return;
@@ -41,7 +43,7 @@ class NotifyWaiter extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading
+            homeState.languages, homeState.isLoading,  settingsState.settings!.tabSetting!.callToWaiter
         ),
         body: Stack(
           children: [

@@ -10,7 +10,7 @@ import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
-    onSelectLanguage, List<LanguageResponse> languages, isLoading) {
+    onSelectLanguage, List<LanguageResponse> languages, isLoading, callToWaiter) {
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 135.0),
     child: Stack(
@@ -112,7 +112,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     ),
                   ),
                 )),
-            Positioned(
+            callToWaiter ? Positioned(
                 top: 95,
                 left: 100,
                 child: InkWell(
@@ -146,7 +146,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                       ],
                     ),
                   ),
-                )),
+                )) : Container(),
             isLoading ? GFLoader(type: GFLoaderType.ios,) : Positioned(
               right: 40,
               top: 105,
