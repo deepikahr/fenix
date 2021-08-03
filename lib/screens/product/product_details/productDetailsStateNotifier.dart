@@ -11,6 +11,7 @@ import 'package:fenix_user/models/api_response_models/product_response/product_r
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
+import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
@@ -198,6 +199,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       //     },
       //   );
       // });
+      context.read(homeTabsProvider.notifier).onPageChanged(4);
       await Get.to(() => CartScreen());
 
     } else if (product.franchiseId == cartData!.franchiseId) {
@@ -286,6 +288,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       //     },
       //   );
       // });
+      context.read(homeTabsProvider.notifier).onPageChanged(4);
       await Get.to(() => CartScreen());
     } else {
       await customDialog(

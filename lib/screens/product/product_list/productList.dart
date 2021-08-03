@@ -3,15 +3,21 @@ import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
+import 'package:fenix_user/screens/home/home/home.dart';
 import 'package:fenix_user/screens/product/product_details/productDetails.dart';
+import 'package:fenix_user/screens/tabs/cart/cart.dart';
+import 'package:fenix_user/screens/tabs/category/category.dart';
+import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/card.dart';
+import 'package:fenix_user/widgets/fab_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:fenix_user/widgets/buttons.dart';
 
 final db = DB();
 
@@ -42,15 +48,28 @@ class ProductList extends HookWidget {
       return;
     }, const []);
 
+    var screens = <Widget>[
+      Home(),
+      Category(),
+      Category(),
+      OrderDetails(),
+    ];
+
+    print('xxxxx ${homeState.currentIndex} ${homeState.pageChanged}');
+
     return Scaffold(
       backgroundColor: grey2,
       key: _scaffoldKey,
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
+          homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState
       ),
-      body: Stack(
+      body: homeState.isLoading
+          ? Center(child: GFLoader(type: GFLoaderType.ios))
+          : homeState.currentIndex == 0 ? Home() : homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
+      homeState.currentIndex == 3 ? OrderDetails() : homeState.currentIndex == 4 ? CartScreen() :
+      homeState.currentIndex == 5 ? Stack(
         children: [
           state.productTotal == 0 ? Container(
             alignment: Alignment.topCenter,
@@ -72,7 +91,22 @@ class ProductList extends HookWidget {
           if(state.isLoading)
             GFLoader(type: GFLoaderType.ios)
         ],
-      ),
+      ) : Container(),
+      bottomNavigationBar: customBottomBar((index) async {
+        context.read(homeTabsProvider.notifier).onPageChanged(index);
+      },),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: cart == null || !DB().isLoggedIn()
+          ? buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      })
+          : buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      }),
     );
   }
 
@@ -96,6 +130,7 @@ class ProductList extends HookWidget {
           itemCount: product!.length,
           itemBuilder: (context, index) => InkWell(
               onTap: () {
+                context.read(homeTabsProvider.notifier).onPageChanged(6);
                 Get.to(() => ProductDetails(
                   productId: product[index].id,
                 ));
@@ -154,10 +189,11 @@ class ProductList extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 510),
+            childAspectRatio: MediaQuery.of(context).size.width / 810),
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
+              context.read(homeTabsProvider.notifier).onPageChanged(6);
               Get.to(() => ProductDetails( productId: product[index].id,));
             },
             child: gridDishCard(context, product[index], notifier, state, categoryImage,
@@ -243,8 +279,8 @@ class ProductList extends HookWidget {
                       color: GFColors.DARK,
                       type: GFButtonType.outline,
                       onPressed: () async {
-                        Get.back();
-                        await Get.to(() => Cart());
+                        // Get.back();
+                        await Get.to(() => CartScreen());
                         context.read(productListProvider.notifier).updateQuantity();
                       },
                       child: Text(

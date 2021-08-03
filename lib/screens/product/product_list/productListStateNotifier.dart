@@ -94,7 +94,10 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
     printWrapped('11111');
     if (cartData == null) {
       print('222222 ');
-      final cart = Cart(
+      final totalPrice = product.variant!.price!.toDouble();
+      final productTax = totalPrice * product.taxInfo!.taxPercentage!/100;
+      print('ssssssssssssssss  $totalPrice $productTax ${product.description} ${product.productDescription}');
+      var cart = Cart(
         franchiseId: product.franchiseId,
         franchiseName: product.franchiseName,
         vendorId: product.vendorId,
@@ -102,13 +105,24 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
         userId: db.getId(),
         products: [
           product.copyWith(
+            description: product.productDescription,
             isLastVariant: true,
             totalQuantity: product.quantity,
-            totalProductPrice: product.variant!.price!.toDouble() + product.taxInfo!.taxPercentage!/100,
+            totalProductPrice: totalPrice,
+              tax: productTax,
               modified: db.getOrderId() == null ? false : true
           )
         ],
       );
+      final cartTotal = cart.products
+          .map((e) => e.totalProductPrice * e.quantity)
+          .reduce((_, __) => _ + __);
+      final taxTotal = cart.products
+          .map((e) => e.tax)
+          .reduce((_, __) => _ + __);
+      print('tttttt $taxTotal');
+      final grandTotal = cartTotal + taxTotal;
+      cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       await cartNotifier.updateCart(cart);
       updateQuantity(newCart: cart,);
     } else if (product.franchiseId != cartData?.franchiseId) {
@@ -126,15 +140,29 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
       );
     } else if (!cartData!.products.any((element) => element.id == product.id)) {
       print('44444');
-      final cart = cartData?.copyWith(products: [
+      final totalPrice = product.variant!.price!.toDouble();
+      final productTax = totalPrice * product.taxInfo!.taxPercentage!/100;
+      print('ssssssssssssssss  $totalPrice $productTax ');
+      var cart = cartData?.copyWith(products: [
         ...cartData?.products ?? [],
         product.copyWith(
+          description: product.productDescription,
           isLastVariant: true,
           totalQuantity: product.quantity,
-          totalProductPrice: product.variant!.price!.toDouble() + product.taxInfo!.taxPercentage!/100,
+          totalProductPrice: totalPrice,
+            tax: productTax,
             modified: db.getOrderId() == null ? false : true
         )
       ]);
+      final cartTotal = cart!.products
+          .map((e) => e.totalProductPrice * e.quantity)
+          .reduce((_, __) => _ + __);
+      final taxTotal = cart.products
+          .map((e) => e.tax)
+          .reduce((_, __) => _ + __);
+      print('tttttt $taxTotal');
+      final grandTotal = cartTotal + taxTotal;
+      cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       await cartNotifier.updateCart(cart);
       updateQuantity(newCart: cart, );
     } else {

@@ -18,11 +18,13 @@ class _$HomeTabsStateTearOff {
 
   _Default call(
       {bool isLoading = false,
+      bool pageChanged = false,
       int currentIndex = 0,
       String? selectedLanguage,
       List<LanguageResponse> languages = const []}) {
     return _Default(
       isLoading: isLoading,
+      pageChanged: pageChanged,
       currentIndex: currentIndex,
       selectedLanguage: selectedLanguage,
       languages: languages,
@@ -36,6 +38,7 @@ const $HomeTabsState = _$HomeTabsStateTearOff();
 /// @nodoc
 mixin _$HomeTabsState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get pageChanged => throw _privateConstructorUsedError;
   int get currentIndex => throw _privateConstructorUsedError;
   String? get selectedLanguage => throw _privateConstructorUsedError;
   List<LanguageResponse> get languages => throw _privateConstructorUsedError;
@@ -52,6 +55,7 @@ abstract class $HomeTabsStateCopyWith<$Res> {
       _$HomeTabsStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
+      bool pageChanged,
       int currentIndex,
       String? selectedLanguage,
       List<LanguageResponse> languages});
@@ -69,6 +73,7 @@ class _$HomeTabsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? pageChanged = freezed,
     Object? currentIndex = freezed,
     Object? selectedLanguage = freezed,
     Object? languages = freezed,
@@ -77,6 +82,10 @@ class _$HomeTabsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pageChanged: pageChanged == freezed
+          ? _value.pageChanged
+          : pageChanged // ignore: cast_nullable_to_non_nullable
               as bool,
       currentIndex: currentIndex == freezed
           ? _value.currentIndex
@@ -101,6 +110,7 @@ abstract class _$DefaultCopyWith<$Res> implements $HomeTabsStateCopyWith<$Res> {
   @override
   $Res call(
       {bool isLoading,
+      bool pageChanged,
       int currentIndex,
       String? selectedLanguage,
       List<LanguageResponse> languages});
@@ -118,6 +128,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? pageChanged = freezed,
     Object? currentIndex = freezed,
     Object? selectedLanguage = freezed,
     Object? languages = freezed,
@@ -126,6 +137,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pageChanged: pageChanged == freezed
+          ? _value.pageChanged
+          : pageChanged // ignore: cast_nullable_to_non_nullable
               as bool,
       currentIndex: currentIndex == freezed
           ? _value.currentIndex
@@ -148,6 +163,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
 class _$_Default implements _Default {
   const _$_Default(
       {this.isLoading = false,
+      this.pageChanged = false,
       this.currentIndex = 0,
       this.selectedLanguage,
       this.languages = const []});
@@ -155,6 +171,9 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool pageChanged;
   @JsonKey(defaultValue: 0)
   @override
   final int currentIndex;
@@ -166,7 +185,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'HomeTabsState(isLoading: $isLoading, currentIndex: $currentIndex, selectedLanguage: $selectedLanguage, languages: $languages)';
+    return 'HomeTabsState(isLoading: $isLoading, pageChanged: $pageChanged, currentIndex: $currentIndex, selectedLanguage: $selectedLanguage, languages: $languages)';
   }
 
   @override
@@ -176,6 +195,9 @@ class _$_Default implements _Default {
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
+            (identical(other.pageChanged, pageChanged) ||
+                const DeepCollectionEquality()
+                    .equals(other.pageChanged, pageChanged)) &&
             (identical(other.currentIndex, currentIndex) ||
                 const DeepCollectionEquality()
                     .equals(other.currentIndex, currentIndex)) &&
@@ -191,6 +213,7 @@ class _$_Default implements _Default {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(pageChanged) ^
       const DeepCollectionEquality().hash(currentIndex) ^
       const DeepCollectionEquality().hash(selectedLanguage) ^
       const DeepCollectionEquality().hash(languages);
@@ -204,12 +227,15 @@ class _$_Default implements _Default {
 abstract class _Default implements HomeTabsState {
   const factory _Default(
       {bool isLoading,
+      bool pageChanged,
       int currentIndex,
       String? selectedLanguage,
       List<LanguageResponse> languages}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get pageChanged => throw _privateConstructorUsedError;
   @override
   int get currentIndex => throw _privateConstructorUsedError;
   @override

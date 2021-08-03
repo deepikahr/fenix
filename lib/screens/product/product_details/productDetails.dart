@@ -1,3 +1,4 @@
+import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
@@ -5,9 +6,14 @@ import 'package:fenix_user/models/api_response_models/product_details_response/p
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
+import 'package:fenix_user/screens/home/home/home.dart';
+import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
+import 'package:fenix_user/screens/tabs/category/category.dart';
+import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
+import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/network_image.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +62,11 @@ class ProductDetails extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
+          homeState.languages, homeState.isLoading,settingsState.isLoading, settingsState
       ),
-      body: Stack(
+      body: homeState.currentIndex == 0 ? Home() :homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
+      homeState.currentIndex == 3 ? OrderDetails() : homeState.currentIndex == 4 ? CartScreen() :
+      homeState.currentIndex == 5 ? ProductList() : Stack(
         children: [
           if (!state.isLoading && state.productDetails != null)
             productData(context, state.productDetails!, state, notifier,
@@ -66,6 +74,21 @@ class ProductDetails extends HookWidget {
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)
         ],
       ),
+      bottomNavigationBar: customBottomBar((index) async {
+        context.read(homeTabsProvider.notifier).onPageChanged(index);
+      },),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: cart == null || !DB().isLoggedIn()
+          ? buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      })
+          : buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      }),
     );
   }
 
@@ -79,7 +102,7 @@ class ProductDetails extends HookWidget {
                 children: [
                   // networkImageOverlay(MediaQuery.of(context).size.width, 120,),
                   networkImage(product.productImage!.imageUrl!,
-                      MediaQuery.of(context).size.width, 120, 0),
+                      MediaQuery.of(context).size.width, 240, 0),
                   Positioned(
                       top: 0,
                       child: Stack(
@@ -248,7 +271,7 @@ class ProductDetails extends HookWidget {
                       : GFButton(
                           borderShape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
-                              side: BorderSide(color: buttonBorder)),
+                          ),
                           onPressed: () async {
                             context
                                 .read(productDetailsProvider.notifier)
@@ -262,9 +285,9 @@ class ProductDetails extends HookWidget {
                                 productId,
                                 noteEditController.text);
                           },
-                          color: Colors.white,
+                          color: primary(),
                           text: 'ADD'.tr,
-                          textStyle: textPrimaryLargeBM(context),
+                          textStyle: textLightLargeBM(context),
                         ),
                 ],
               ),
@@ -629,6 +652,7 @@ class ProductDetails extends HookWidget {
                   type: GFButtonType.outline,
                   onPressed: () async {
                     Get.back();
+                    context.read(homeTabsProvider.notifier).onPageChanged(4);
                     await Get.to(() => CartScreen());
                     context
                         .read(productDetailsProvider.notifier)

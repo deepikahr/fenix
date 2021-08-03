@@ -72,8 +72,10 @@ class OrderDetails extends HookWidget {
                                   size: 20,
                                   activeBgColor: GFColors.DANGER,
                                   onChanged: (value) {
+                                    context.read(orderDetailsProvider.notifier)
+                                        .divideAccount(value);
                                   },
-                                  value: true,
+                                  value: state.divideAccount,
                                 ),
                                 SizedBox(width: 10),
                                 Text('DIVIDE_THE_ACCOUNT'.tr,
@@ -129,17 +131,14 @@ class OrderDetails extends HookWidget {
                 children: [
                   Row(
                     children: [
-                      GFCheckbox(
+                      state.divideAccount ? GFCheckbox(
                         size: 20,
                         activeBgColor: GFColors.DANGER,
                         onChanged: (value) {
-                          // setState(() {
-                          //   isChecked = value;
-                          // }
-                          // );
+
                         },
                         value: false,
-                      ),
+                      ) : Container(),
                       SizedBox(width: 10),
                       Text('${cartProduct.totalProductPrice}€', style: textBlackLargeBM(context)),
                     ],

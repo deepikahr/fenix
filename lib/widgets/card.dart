@@ -40,8 +40,8 @@ Widget restaurantInfoCard(BuildContext context, title, image) {
       alignment: AlignmentDirectional.center,
       children: [
         image != null
-            ? networkImage(image, MediaQuery.of(context).size.width, 120, 2)
-            : networkImageOverlay(MediaQuery.of(context).size.width, 120),
+            ? networkImage(image, MediaQuery.of(context).size.width, 240, 2)
+            : networkImageOverlay(MediaQuery.of(context).size.width, 240),
         Positioned(
             // left: 0,
             // right: 0,
@@ -84,8 +84,8 @@ Widget restaurantInfoCardGrid(
     child: Stack(
       children: [
         img != null
-            ? networkImage(img, MediaQuery.of(context).size.width, 150, 2)
-            : networkImageOverlay(MediaQuery.of(context).size.width, 150),
+            ? networkImage(img, MediaQuery.of(context).size.width, 300, 2)
+            : networkImageOverlay(MediaQuery.of(context).size.width, 300),
         Positioned(
             left: 25,
             right: 25,
@@ -141,8 +141,8 @@ categoryImage,
             //   'lib/assets/images/refer.png', height: 111, width: 109,
             // ),
             categoryImage != null ?
-            networkImage(categoryImage, 111, 109, 1)
-                : networkImageOverlay(111, 109),
+            networkImage(categoryImage, 218, 218, 1)
+                : networkImageOverlay(218, 218),
             SizedBox(
               width: 8,
             ),
@@ -272,7 +272,7 @@ categoryImage,
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: [
-              Image.asset('lib/assets/images/b2.png', scale: 1.4, color: primary(),),
+              Image.asset('lib/assets/images/b2.png', scale: 0.8, color: primary(),),
               Text(
                 '${product.tags!.first.title}',
                 style: textDarkRegularBSW(context),
@@ -282,11 +282,11 @@ categoryImage,
           )
         ),
         Positioned(
-            top: 40,
+            top: 80,
             child: Container(
               alignment: AlignmentDirectional.center,
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              height: 25,
+              height: 30,
               color: Colors.black45,
               child: Text('${product.variant!.sizeName}',
                 style: textWhite3XSmallBM(context),
@@ -339,15 +339,15 @@ categoryImage,
                   // ),
                   categoryImage != null
                       ? networkImage(categoryImage,
-                          MediaQuery.of(context).size.width, 115, 0)
+                          MediaQuery.of(context).size.width, 230, 0)
                       : networkImageOverlay(
-                          MediaQuery.of(context).size.width, 115),
+                          MediaQuery.of(context).size.width, 230),
                   Positioned(
                       top: 0,
                       child: Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          Image.asset('lib/assets/images/b2.png', scale: 1.2, color: primary(),),
+                          Image.asset('lib/assets/images/b2.png', scale: 0.8, color: primary(),),
                           Text(
                             '${product.tags!.first.title}',
                             style: textDarkRegularBSW(context),
@@ -361,7 +361,7 @@ categoryImage,
                       child: Container(
                         alignment: AlignmentDirectional.center,
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        height: 25,
+                        height: 30,
                         color: Colors.black45,
                         child: Text('${product.variant!.sizeName}',
                           style: textWhite3XSmallBM(context),
@@ -373,7 +373,7 @@ categoryImage,
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.45,
                         color: Colors.black45,
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(12),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,

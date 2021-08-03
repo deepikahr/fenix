@@ -43,8 +43,6 @@ class Settings extends HookWidget {
       return;
     }, const []);
 
-    // print('wwwwwww ${state.menuList}');
-
     return Scaffold(
       key: _scaffoldKey,
         backgroundColor: Colors.white,

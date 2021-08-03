@@ -10,9 +10,9 @@ import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
-    onSelectLanguage, List<LanguageResponse> languages, isLoading, callToWaiter) {
+    onSelectLanguage, List<LanguageResponse> languages, isLoading, settingLoading, settingsState) {
   return PreferredSize(
-    preferredSize: Size(MediaQuery.of(context).size.width, 135.0),
+    preferredSize: Size(MediaQuery.of(context).size.width, 155.0),
     child: Stack(
       children: [
         Stack(
@@ -86,8 +86,8 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     Get.to(() => HomeTabs(tabIndex: 0,),);
                   },
                   child: Container(
-                    width: 60,
-                    height: 60,
+                    width: 70,
+                    height: 70,
                     decoration: BoxDecoration(
                         color: primary(),
                         border: Border.all(color: white, width: 2),
@@ -95,33 +95,33 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                           BoxShadow(
                               color: Colors.black45, blurRadius: 2)
                         ],
-                        borderRadius: BorderRadius.circular(12)),
+                        borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
                           'lib/assets/images/i.png',
-                          width: 30,
+                          width: 40,
                           height: 40,
                         ),
                         Text(
                           'HOME'.tr,
-                          style: TextStyle(color: white, fontSize: 10),
+                          style: TextStyle(color: white, fontSize: 12),
                         )
                       ],
                     ),
                   ),
                 )),
-            callToWaiter ? Positioned(
+            settingLoading ? GFLoader(type: GFLoaderType.ios,) : settingsState.settings!.tabSetting!.callToWaiter ? Positioned(
                 top: 95,
-                left: 100,
+                left: 120,
                 child: InkWell(
                   onTap: () {
                     Get.to(() => NotifyWaiter());
                   },
                   child: Container(
-                    width: 60,
-                    height: 60,
+                    width: 70,
+                    height: 70,
                     decoration: BoxDecoration(
                          color: primary(),
                         border: Border.all(color: white, width: 2),
@@ -129,7 +129,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                           BoxShadow(
                               color: Colors.black45, blurRadius: 2)
                         ],
-                        borderRadius: BorderRadius.circular(12)),
+                        borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -141,7 +141,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                         Text(
                           'TO_CALL'.tr,
                           style:
-                          TextStyle(color: white, fontSize: 10),
+                          TextStyle(color: white, fontSize: 12),
                         )
                       ],
                     ),

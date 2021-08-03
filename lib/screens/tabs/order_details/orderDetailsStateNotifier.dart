@@ -17,4 +17,8 @@ class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
     );
   }
 
+  void divideAccount(bool value) {
+    state = state.copyWith(divideAccount: value);
+  }
+
 }

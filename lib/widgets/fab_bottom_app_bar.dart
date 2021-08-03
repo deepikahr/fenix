@@ -26,8 +26,8 @@ class FABBottomAppBar extends HookWidget {
   FABBottomAppBar({
     this.items,
     this.centerItemText,
-    this.height: 66.0,
-    this.iconSize: 24.0,
+    this.height: 86.0,
+    this.iconSize: 32.0,
     this.backgroundColor,
     this.color,
     this.selectedColor,
@@ -40,7 +40,6 @@ class FABBottomAppBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
 
     final state = useProvider(homeTabsProvider);
 
@@ -89,10 +88,13 @@ class FABBottomAppBar extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: iconSize),
+            SizedBox(height: 24,),
             Text(
               centerItemText ?? '',
               style: TextStyle(color: color),
             ),
+            SizedBox(height: 4),
+            Container(height: 3, color: primary(), width: 56,)
           ],
         ),
       ),
@@ -124,8 +126,8 @@ class FABBottomAppBar extends HookWidget {
                 // ),
             SvgPicture.asset(
                 item!.iconData!,
-                width: 40,
-                height: 40,
+                width: 60,
+                height: 60,
                 // color: selColor,
             ),
                 // Icon(item!.iconData, color: color, size: widget.iconSize),

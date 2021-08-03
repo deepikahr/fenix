@@ -125,6 +125,7 @@ class DrawerPage extends HookWidget {
         itemBuilder: (BuildContext context, int i) {
           return InkWell(
             onTap: () {
+              context.read(homeTabsProvider.notifier).onPageChanged(5);
               Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
             },
             child: Column(

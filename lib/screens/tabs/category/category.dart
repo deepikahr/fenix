@@ -80,6 +80,7 @@ class Category extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
+                context.read(homeTabsProvider.notifier).onPageChanged(5);
                 Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
@@ -99,10 +100,11 @@ class Category extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 245),
+            childAspectRatio: MediaQuery.of(context).size.width / 500),
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
+                context.read(homeTabsProvider.notifier).onPageChanged(5);
                 Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCardGrid(context, category[i].title, category[i].imageUrl));

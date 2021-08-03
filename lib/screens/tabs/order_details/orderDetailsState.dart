@@ -9,5 +9,6 @@ class OrderDetailsState with _$OrderDetailsState {
   const factory OrderDetailsState({
     @Default(false) bool isLoading,
     OrderDetailsResponse? orderDetails,
+    @Default(false) bool divideAccount
   }) = _Default;
 }

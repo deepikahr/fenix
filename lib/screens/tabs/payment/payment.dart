@@ -35,7 +35,7 @@ class Payment extends HookWidget {
         drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
+          homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState
       ),
       body: ListView(
         children: [

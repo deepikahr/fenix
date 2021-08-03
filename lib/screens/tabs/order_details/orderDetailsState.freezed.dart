@@ -16,10 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$OrderDetailsStateTearOff {
   const _$OrderDetailsStateTearOff();
 
-  _Default call({bool isLoading = false, OrderDetailsResponse? orderDetails}) {
+  _Default call(
+      {bool isLoading = false,
+      OrderDetailsResponse? orderDetails,
+      bool divideAccount = false}) {
     return _Default(
       isLoading: isLoading,
       orderDetails: orderDetails,
+      divideAccount: divideAccount,
     );
   }
 }
@@ -31,6 +35,7 @@ const $OrderDetailsState = _$OrderDetailsStateTearOff();
 mixin _$OrderDetailsState {
   bool get isLoading => throw _privateConstructorUsedError;
   OrderDetailsResponse? get orderDetails => throw _privateConstructorUsedError;
+  bool get divideAccount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderDetailsStateCopyWith<OrderDetailsState> get copyWith =>
@@ -42,7 +47,8 @@ abstract class $OrderDetailsStateCopyWith<$Res> {
   factory $OrderDetailsStateCopyWith(
           OrderDetailsState value, $Res Function(OrderDetailsState) then) =
       _$OrderDetailsStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, OrderDetailsResponse? orderDetails});
+  $Res call(
+      {bool isLoading, OrderDetailsResponse? orderDetails, bool divideAccount});
 
   $OrderDetailsResponseCopyWith<$Res>? get orderDetails;
 }
@@ -60,6 +66,7 @@ class _$OrderDetailsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? orderDetails = freezed,
+    Object? divideAccount = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -70,6 +77,10 @@ class _$OrderDetailsStateCopyWithImpl<$Res>
           ? _value.orderDetails
           : orderDetails // ignore: cast_nullable_to_non_nullable
               as OrderDetailsResponse?,
+      divideAccount: divideAccount == freezed
+          ? _value.divideAccount
+          : divideAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -91,7 +102,8 @@ abstract class _$DefaultCopyWith<$Res>
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, OrderDetailsResponse? orderDetails});
+  $Res call(
+      {bool isLoading, OrderDetailsResponse? orderDetails, bool divideAccount});
 
   @override
   $OrderDetailsResponseCopyWith<$Res>? get orderDetails;
@@ -110,6 +122,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$OrderDetailsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? orderDetails = freezed,
+    Object? divideAccount = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -120,6 +133,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$OrderDetailsStateCopyWithImpl<$Res>
           ? _value.orderDetails
           : orderDetails // ignore: cast_nullable_to_non_nullable
               as OrderDetailsResponse?,
+      divideAccount: divideAccount == freezed
+          ? _value.divideAccount
+          : divideAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -127,17 +144,21 @@ class __$DefaultCopyWithImpl<$Res> extends _$OrderDetailsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.orderDetails});
+  const _$_Default(
+      {this.isLoading = false, this.orderDetails, this.divideAccount = false});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
   @override
   final OrderDetailsResponse? orderDetails;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool divideAccount;
 
   @override
   String toString() {
-    return 'OrderDetailsState(isLoading: $isLoading, orderDetails: $orderDetails)';
+    return 'OrderDetailsState(isLoading: $isLoading, orderDetails: $orderDetails, divideAccount: $divideAccount)';
   }
 
   @override
@@ -149,14 +170,18 @@ class _$_Default implements _Default {
                     .equals(other.isLoading, isLoading)) &&
             (identical(other.orderDetails, orderDetails) ||
                 const DeepCollectionEquality()
-                    .equals(other.orderDetails, orderDetails)));
+                    .equals(other.orderDetails, orderDetails)) &&
+            (identical(other.divideAccount, divideAccount) ||
+                const DeepCollectionEquality()
+                    .equals(other.divideAccount, divideAccount)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(orderDetails);
+      const DeepCollectionEquality().hash(orderDetails) ^
+      const DeepCollectionEquality().hash(divideAccount);
 
   @JsonKey(ignore: true)
   @override
@@ -165,13 +190,17 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements OrderDetailsState {
-  const factory _Default({bool isLoading, OrderDetailsResponse? orderDetails}) =
-      _$_Default;
+  const factory _Default(
+      {bool isLoading,
+      OrderDetailsResponse? orderDetails,
+      bool divideAccount}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   OrderDetailsResponse? get orderDetails => throw _privateConstructorUsedError;
+  @override
+  bool get divideAccount => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

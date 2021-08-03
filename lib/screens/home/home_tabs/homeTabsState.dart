@@ -7,6 +7,7 @@ part 'homeTabsState.freezed.dart';
 class HomeTabsState with _$HomeTabsState {
   const factory HomeTabsState({
     @Default(false) bool isLoading,
+    @Default(false) bool pageChanged,
     @Default(0) int currentIndex,
     String? selectedLanguage,
     @Default([]) List<LanguageResponse> languages

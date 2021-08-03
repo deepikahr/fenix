@@ -18,6 +18,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../home/home.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
+import 'package:fenix_user/widgets/buttons.dart';
 
 final db = DB();
 
@@ -58,76 +59,30 @@ class HomeTabs extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            state.languages, state.isLoading, settingsState.settings!.tabSetting!.callToWaiter
+            state.languages, state.isLoading, settingsState.isLoading, settingsState
         ),
       backgroundColor: grey2,
-      body: state.isLoading
+      body:
+      state.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : _screens[state.currentIndex],
-      bottomNavigationBar: FABBottomAppBar(
-        centerItemText: 'ASK_FOR'.tr,
-        color: Colors.grey,
-        selectedColor: primary(),
-        notchedShape: CircularNotchedRectangle(),
-        onTabSelected: (index) async {
-          context.read(homeTabsProvider.notifier).onPageChanged(index);
-        },
-        items: [
-          FABBottomAppBarItem(iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/icons/pay.svg", text: 'TO_PAY'.tr),
-        ],
-        backgroundColor: grey2,
-      ),
+          : state.currentIndex == 0 ? Home() : state.currentIndex == 1 ? Category() : state.currentIndex == 2 ? Category() :
+      state.currentIndex == 3 ? OrderDetails() : state.currentIndex == 4 ? CartScreen()  : Container(),
+      // _screens[state.currentIndex],
+      bottomNavigationBar: customBottomBar((index) async {
+        context.read(homeTabsProvider.notifier).onPageChanged(index);
+      },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: cart == null || !DB().isLoggedIn()
-          ? _buildFab(context, cart)
-          : _buildFab(context, cart),
-    );
-  }
+          ? buildCenterIcon(context, cart, () {
 
-  Widget _buildFab(BuildContext context, Cart? cart) {
-    return SizedBox(
-      width: 54,
-      height: 54,
-      child: Stack(
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              Get.to(() => CartScreen());
-            },
-            backgroundColor: primary(),
-            elevation: 2.0,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Image.asset(
-                'lib/assets/images/pedir.png',
-                width: 60,
-                height: 60,
-                alignment: Alignment.center,
-              ),
-            ),
-          ),
-          cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
-            end: 0,
-            bottom: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: Colors.white, width: 1)
-              ),
-              child: GFBadge(
-                shape: GFBadgeShape.circle,
-                color: Colors.black,
-                textColor: GFColors.WHITE,
-                size: GFSize.SMALL,
-                text: '${cart.products.length}',
-              ),
-            ),
-          )
-        ],
-      ),
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      })
+          : buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      }),
     );
   }
 

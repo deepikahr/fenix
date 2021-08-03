@@ -5,8 +5,12 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
+import 'package:fenix_user/screens/home/home/home.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/screens/others/order_in_progress/orderInProgress.dart';
+import 'package:fenix_user/screens/tabs/category/category.dart';
+import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -38,15 +42,27 @@ class CartScreen extends HookWidget {
       return;
     }, const []);
 
+    var _screens = <Widget>[
+      Home(),
+      Category(),
+      Category(),
+      OrderDetails(),
+    ];
+
+
     return Scaffold(
         backgroundColor: grey2,
         key: _scaffoldKey,
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading, settingsState.settings!.tabSetting!.callToWaiter
+            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState
         ),
-        body:
+        body: homeState.isLoading
+            ? Center(child: GFLoader(type: GFLoaderType.ios))
+            :
+        homeState.currentIndex == 0 ? Home() : homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
+        homeState.currentIndex == 3 ? OrderDetails() : homeState.currentIndex == 4 ?
         cart == null || !DB().isLoggedIn() || cart.products.length == 0
             ? Center(
                 child: Text('CART_IS_EMPTY'.tr),
@@ -123,7 +139,6 @@ class CartScreen extends HookWidget {
                                             .read(cartScreenProvider
                                             .notifier)
                                             .createOrder();
-                                        print('zzzzzzzzzz ${state.orderResponse}');
                                         if (state.orderResponse != null) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -159,7 +174,14 @@ class CartScreen extends HookWidget {
                                                   }
                                                 },
                                        state.isUpdateLoading)
-                                      : Container()
+                                      : DB().getOrderId()!= null ? custombuttonsm(
+                                      context,
+                                      'ADD_MORE_PRODUCTS'.tr,
+                                          () async {
+                                            await Get.to(
+                                                    () => HomeTabs(tabIndex: 0,));
+                                      },
+                                      false) : Container()
                               ),
                             ),
                           ],
@@ -168,17 +190,31 @@ class CartScreen extends HookWidget {
                     ],
                   ),
           ),
-        ));
+        ) : Container(),
+      bottomNavigationBar: customBottomBar((index) async {
+        context.read(homeTabsProvider.notifier).onPageChanged(index);
+        context.read(homeTabsProvider.notifier).nonTab(true);
+      },),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: cart == null || !DB().isLoggedIn()
+          ? buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      })
+          : buildCenterIcon(context, cart, () {
+
+        context.read(homeTabsProvider.notifier).onPageChanged(4);
+        Get.to(() => CartScreen());
+      }),
+    );
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {
-    printWrapped('ss ${cart.products.where((element) =>
-    element.modified)}');
-    // context.read(cartScreenProvider.notifier).updateGrandTotal();
     return Container(
       color: white,
       child: ListView.builder(
-          padding: EdgeInsets.all(14),
+          padding: EdgeInsets.only(top: 12, bottom: 12, left: 12),
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -193,11 +229,15 @@ class CartScreen extends HookWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
-                    HtmlWidget(
-                      cart.products[i].description!,
-                      textStyle: textDarkLightSmallBR(context),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      flex: 14,
+                      child: HtmlWidget(
+                        cart.products[i].description!,
+                        textStyle: textDarkLightSmallBR(context),
+                      ),
                     ),
+
                     Row(
                       children: [
                         Row(

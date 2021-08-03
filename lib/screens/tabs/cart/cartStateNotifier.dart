@@ -108,8 +108,6 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
     UpdateCart updateCart = UpdateCart(orderId: db.getOrderId(), products: cart!.products.where((element) =>
     element.modified).map((e) => createUpdateProduct(e)).toList());
 
-    printWrapped('aaaaaaaaa ${cart!.products}');
-
     final updateResponse = await api.updateOrder(
       updateCart
     );

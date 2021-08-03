@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 const appBarDark = Color(0xFF222831);
 
 Color primary(){
-  print('ccccccccccc ${DB().getThemeColor()}');
   return DB().getThemeColor() == 'red' ? Color(0xFFC92B2B) : DB().getThemeColor() == 'green' ? Color(0xFF5B8E27)
   : DB().getThemeColor() == 'blue' ? Color(0xFF2B80C9) : Color(0xFFED9732);
 }
