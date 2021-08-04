@@ -16,7 +16,7 @@ import 'common/constant.dart';
 import 'database/db.dart';
 import 'localization/localization.dart';
 import 'network/api_service.dart';
-
+//
 final api = API();
 final db = DB();
 Map<String, Map<String, String>>? json;
@@ -103,4 +103,5 @@ class EntryPage extends HookWidget {
     );
   }
 }
+
 

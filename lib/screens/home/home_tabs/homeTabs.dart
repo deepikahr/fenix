@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
@@ -13,12 +15,14 @@ import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/fab_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../home/home.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:fenix_user/widgets/buttons.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 final db = DB();
 
@@ -65,21 +69,20 @@ class HomeTabs extends HookWidget {
       body:
       state.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : state.currentIndex == 0 ? Home() : state.currentIndex == 1 ? Category() : state.currentIndex == 2 ? Category() :
+          : state.currentIndex == 0 ? Home()
+          : state.currentIndex == 1 ? Category() : state.currentIndex == 2 ? Category() :
       state.currentIndex == 3 ? OrderDetails() : state.currentIndex == 4 ? CartScreen()  : Container(),
       // _screens[state.currentIndex],
       bottomNavigationBar: customBottomBar((index) async {
-        context.read(homeTabsProvider.notifier).onPageChanged(index);
+          context.read(homeTabsProvider.notifier).onPageChanged(index);
       },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: cart == null || !DB().isLoggedIn()
           ? buildCenterIcon(context, cart, () {
-
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       })
           : buildCenterIcon(context, cart, () {
-
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       }),
@@ -87,3 +90,4 @@ class HomeTabs extends HookWidget {
   }
 
 }
+

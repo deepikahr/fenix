@@ -11,7 +11,6 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
     state = state.copyWith(isLoading: true);
     state = state.copyWith.call(currentIndex: index);
     state = state.copyWith(isLoading: false);
-    print('xxxxxxxxxxxxxx ${state.currentIndex}');
   }
 
   void nonTab(value) {

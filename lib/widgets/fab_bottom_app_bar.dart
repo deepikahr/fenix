@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -43,13 +45,40 @@ class FABBottomAppBar extends HookWidget {
 
     final state = useProvider(homeTabsProvider);
 
+    onReturn() {
+      return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Are you sure?'),
+          content: Text('Do you want to exit an App'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('No'),
+            ),
+            FlatButton(
+              onPressed: () => exit(0),
+              /*Navigator.of(context).pop(true)*/
+              child: Text('Yes'),
+            ),
+          ],
+        ),
+      );
+    }
+
     List<Widget> item = List.generate(items!.length, (int index) {
       return _buildTabItem(
         item: items![index],
         index: index,
         sel: state.currentIndex,
         onPressed: (int? index) {
-          context.read(homeTabsProvider.notifier).onPageChanged(index);
+          if(index == 0){
+            // context.read(homeTabsProvider.notifier).nonTab(true);
+            // context.read(homeTabsProvider.notifier).onPageChanged(index);
+            onReturn();
+          }else{
+            context.read(homeTabsProvider.notifier).onPageChanged(index);
+          }
         },
       );
     });
