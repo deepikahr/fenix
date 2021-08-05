@@ -1,5 +1,6 @@
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/screens/others/thank_you/thankYou.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:hooks_riverpod/all.dart';
+import 'package:get/get.dart';
 
 class Payment extends HookWidget {
   bool isChecked = false;
@@ -35,7 +37,12 @@ class Payment extends HookWidget {
         drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState
+          homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
+              () {
+            print('aqqqqqqqqqqqqqqqqqqqqqq');
+            context.read(homeTabsProvider.notifier).onPageChanged(0);
+            Get.to(() => HomeTabs(tabIndex: 0));
+          }
       ),
       body: ListView(
         children: [

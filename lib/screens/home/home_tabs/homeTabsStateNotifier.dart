@@ -17,7 +17,6 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
     state = state.copyWith.call(pageChanged: value);
   }
 
-
   void onSelectLanguage(String value) {
     state = state.copyWith(selectedLanguage: value);
     db.saveLanguage(value);

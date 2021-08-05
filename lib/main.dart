@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
@@ -26,6 +27,7 @@ void main() async {
   await db.initDatabase();
   runApp(ProviderScope(child: EntryPage()));
   // await getCurrency();
+   await getLanguage();
 }
 
 Future<void> initializeconfigLocalNotification() async {
@@ -64,6 +66,20 @@ Future<void> configLocalNotification() async {
 //   }
 // }
 
+Future<LanguageResponse?> getLanguage() async {
+  final res = await api.languages();
+  if (res != null) {
+    db.saveLanguage(db.getLanguage() ?? res.first.languageName );
+    db.saveLanguageCode(db.getLanguageCode() ?? res.first.languageCode);
+    // await db.saveCurrency(
+    //     res.currencySetting?.currencySymbol, res.currencySetting?.currencyName);
+  } else {
+    // await db.saveCurrency('Rs', 'India');
+    db.saveLanguage(db.getLanguage() ?? 'English' );
+    db.saveLanguageCode(db.getLanguageCode() ?? 'en');
+  }
+}
+
 Future<Map<String, Map<String, String>>?> getLocalizationData() async {
   final res = await api.getLocalizationData(Get.deviceLocale?.languageCode);
   if (res != null) {
@@ -78,8 +94,6 @@ class EntryPage extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         db.saveThemeColor(db.getThemeColor() ?? 'red' );
-        db.saveLanguage(db.getLanguage() ?? 'English' );
-        db.saveLanguageCode(db.getLanguageCode() ?? 'en' );
         Future.delayed(Duration.zero, () {
           initializeconfigLocalNotification();
         });

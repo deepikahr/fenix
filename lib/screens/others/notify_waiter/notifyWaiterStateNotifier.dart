@@ -13,11 +13,9 @@ class NotifyWaiterStateNotifier extends StateNotifier<NotifyWaiterState> {
 
   Future<String?> callWaiter(String? title, String? description) async {
     state = state.copyWith.call(isLoading: true);
-
     final CallWaiterRequest callWaiter = CallWaiterRequest(
       title: title, description: description
     );
-
     final response = await api.callWaiter(callWaiter);
     state = state.copyWith.call(isLoading: false);
     return response;

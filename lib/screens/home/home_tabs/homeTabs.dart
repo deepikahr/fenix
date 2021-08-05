@@ -62,8 +62,13 @@ class HomeTabs extends HookWidget {
       key: _scaffoldKey,
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            state.languages, state.isLoading, settingsState.isLoading, settingsState
+              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(state.languages[value].languageName!),
+            state.languages, state.isLoading, settingsState.isLoading, settingsState,
+              () {
+            print('aqqqqqqqqqqqqqqqqqqqqqq');
+            context.read(homeTabsProvider.notifier).onPageChanged(0);
+            Get.to(() => HomeTabs(tabIndex: 0));
+          }
         ),
       backgroundColor: grey2,
       body:

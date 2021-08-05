@@ -56,7 +56,12 @@ class CartScreen extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState
+            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
+                () {
+              print('aqqqqqqqqqqqqqqqqqqqqqq');
+              context.read(homeTabsProvider.notifier).onPageChanged(0);
+              Get.to(() => HomeTabs(tabIndex: 0));
+            }
         ),
         body: homeState.isLoading
             ? Center(child: GFLoader(type: GFLoaderType.ios))

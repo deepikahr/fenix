@@ -1,6 +1,7 @@
 import 'package:fenix_user/models/api_response_models/notification_response/notification_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -26,6 +27,12 @@ class NotifyWaiter extends HookWidget {
     final notifyWaiterNotifier = useProvider(notifyWaiterProvider.notifier);
     final isMounted = useIsMounted();
 
+    List notifyList = [
+      'HELP WITH THE NAPKIN RACK',
+      'ASK SOMETHING',
+      'REQUEST NAPKINS'
+    ];
+
     useEffect(() {
       Future.delayed(Duration.zero, () async {
         if (isMounted()) {
@@ -43,7 +50,12 @@ class NotifyWaiter extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState
+            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
+                () {
+              print('aqqqqqqqqqqqqqqqqqqqqqq');
+              context.read(homeTabsProvider.notifier).onPageChanged(0);
+              Get.to(() => HomeTabs(tabIndex: 0));
+            }
         ),
         body: Stack(
           children: [
@@ -57,8 +69,8 @@ class NotifyWaiter extends HookWidget {
                       child: Text('${'NOTICE_TO_THE_WAITER'.tr}',
                           style: textBlackLargeBM(context))),
                   SizedBox(height: 20),
-                  if ((state.notification.length) > 0)
-                  requestBlock(context, state.notification),
+                  // if ((state.notification.length) > 0)
+                  requestBlock(context, notifyList),
                 ],
               ),
             ),
@@ -67,7 +79,7 @@ class NotifyWaiter extends HookWidget {
         ));
   }
 
-  requestBlock(BuildContext context, List<NotificationResponse> notification) {
+  requestBlock(BuildContext context, notification) {
     return ListView.builder(
         physics: ScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -77,8 +89,8 @@ class NotifyWaiter extends HookWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              custombuttonsmFW(context, notification[i].title, () async {
-                final response = await context.read(notifyWaiterProvider.notifier).callWaiter(notification[i].title, notification[i].description);
+              custombuttonsmFW(context, notification[i], () async {
+                final response = await context.read(notifyWaiterProvider.notifier).callWaiter(notification[i], notification[i]);
                 if(response != null)
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$response')));
               }),

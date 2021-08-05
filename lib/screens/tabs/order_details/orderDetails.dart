@@ -22,7 +22,9 @@ class OrderDetails extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () {
-          notifier.fetchOrderDetails();
+          if(DB().getOrderId() != null){
+            notifier.fetchOrderDetails();
+          }
         });
       }
       return;
@@ -31,6 +33,7 @@ class OrderDetails extends HookWidget {
     return Scaffold(
         body: ListView(
           children: [
+            DB().getOrderId() == null ? Center(child: Text('CART_IS_EMPTY'.tr)) :
             state.orderDetails == null || !DB().isLoggedIn()
                 ? state.isLoading ? GFLoader(type: GFLoaderType.ios) : Center(
               child: Text('CART_IS_EMPTY'.tr),

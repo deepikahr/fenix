@@ -9,13 +9,11 @@ class LanguageResponse with BaseModel<LanguageResponse>, _$LanguageResponse {
 
   const factory LanguageResponse(
       {@JsonKey(name: '_id') String? id,
-      String? title,
       int? isDefault,
       String? languageCode,
       String? languageName,
-      String? filePath,
-      String? imageId,
-      String? imageUrl}) = _LanguageResponse;
+      String? flagCode
+      }) = _LanguageResponse;
 
   factory LanguageResponse.fromJson(Map<String, dynamic> json) =>
       _$LanguageResponseFromJson(json);

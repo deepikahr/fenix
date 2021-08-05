@@ -1,4 +1,5 @@
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
@@ -10,7 +11,8 @@ import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
-    onSelectLanguage, List<LanguageResponse> languages, isLoading, settingLoading, settingsState) {
+    onSelectLanguage, List<LanguageResponse> languages, isLoading, settingLoading, settingsState, onHomeSelect) {
+  printWrapped('xxxxxxxxxxxxxxxxxxxxxxxxxx ${db.getLanguage()}');
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 155.0),
     child: Stack(
@@ -57,7 +59,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
             ),
             Positioned(
               top: 35,
-              right: 20,
+              right: 10,
               child: Row(
                 children: [
                   RotatedBox(
@@ -82,9 +84,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                 top: 95,
                 left: 20,
                 child: InkWell(
-                  onTap: () {
-                    Get.to(() => HomeTabs(tabIndex: 0,),);
-                  },
+                  onTap: onHomeSelect,
                   child: Container(
                     width: 70,
                     height: 70,
@@ -148,7 +148,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                   ),
                 )) : Container(),
             isLoading ? GFLoader(type: GFLoaderType.ios,) : Positioned(
-              right: 40,
+              right: 10,
               top: 105,
               child: DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
@@ -159,17 +159,16 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                   return languages.map<Widget>((item) {
                     return Column(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: Image.network(
-                            item.imageUrl!,
-                            width: 50,
-                            height: 36,
-                            fit: BoxFit.fill,
+                        Container(
+                          margin: EdgeInsets.only(bottom: 1),
+                          padding: EdgeInsets.symmetric(horizontal: 6),
+                          decoration: BoxDecoration(
+                            color: white,
+                            borderRadius: BorderRadius.circular(8)
                           ),
-                        ),
+                            child: Text('${item.flagCode}', style: TextStyle(fontSize: 30),)),
                         Text(
-                          item.languageName!,
+                          item.languageName ?? '',
                           style: textDarkRegularBGS(context),
                         ),
                       ],
@@ -180,20 +179,11 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                   db.saveLanguageCode(item.languageCode);
                   return DropdownMenuItem(
                     value: item.languageName,
-                    child:
+                    child: Center(child: Text('${item.flagCode}', style: TextStyle(fontSize: 35),)),
                     // Text(
                     //   '${item.languageName}',
                     //   style: textDarkRegularBG(context),
                     // ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.network(
-                        item.imageUrl!,
-                        width: 50,
-                        height: 36,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
                   );
                 }).toList(),
               ),

@@ -4,6 +4,7 @@ import 'package:fenix_user/models/api_response_models/product_details_response/p
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home/home.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/product/product_details/productDetails.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/screens/tabs/category/category.dart';
@@ -63,7 +64,12 @@ class ProductList extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState
+          homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
+              () {
+            print('aqqqqqqqqqqqqqqqqqqqqqq');
+            context.read(homeTabsProvider.notifier).onPageChanged(0);
+            Get.to(() => HomeTabs(tabIndex: 0));
+          }
       ),
       body: homeState.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))

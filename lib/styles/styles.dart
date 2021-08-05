@@ -723,7 +723,7 @@ TextStyle textDarkRegularBW(context) {
 TextStyle textDarkRegularBW40(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 40.0,
+    fontSize: 46.0,
     color: white,
     fontFamily: 'BarlowBold',
   );

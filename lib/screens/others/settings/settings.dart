@@ -172,24 +172,24 @@ class Settings extends HookWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              titleTextDarkRegularBS(context, 'CONNECTION_CODE'.tr),
-              Row(
-                children: [
-                  Text('*', style: TextStyle(fontSize: 35)),
-                  Text('*', style: TextStyle(fontSize: 35)),
-                  Text('*', style: TextStyle(fontSize: 35)),
-                  Text('*', style: TextStyle(fontSize: 35)),
-                  Text('*', style: TextStyle(fontSize: 35)),
-                ],
-              )
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     titleTextDarkRegularBS(context, 'CONNECTION_CODE'.tr),
+          //     Row(
+          //       children: [
+          //         Text('*', style: TextStyle(fontSize: 35)),
+          //         Text('*', style: TextStyle(fontSize: 35)),
+          //         Text('*', style: TextStyle(fontSize: 35)),
+          //         Text('*', style: TextStyle(fontSize: 35)),
+          //         Text('*', style: TextStyle(fontSize: 35)),
+          //       ],
+          //     )
+          //   ],
+          // ),
+          // SizedBox(
+          //   height: 8,
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

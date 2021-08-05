@@ -7,6 +7,7 @@ import 'package:fenix_user/models/api_response_models/variant_response/variant_r
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home/home.dart';
+import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/screens/tabs/category/category.dart';
@@ -62,7 +63,12 @@ class ProductDetails extends HookWidget {
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading,settingsState.isLoading, settingsState
+          homeState.languages, homeState.isLoading,settingsState.isLoading, settingsState,
+              () {
+            print('aqqqqqqqqqqqqqqqqqqqqqq');
+            context.read(homeTabsProvider.notifier).onPageChanged(0);
+            Get.to(() => HomeTabs(tabIndex: 0));
+          }
       ),
       body: homeState.currentIndex == 0 ? Home() :homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
       homeState.currentIndex == 3 ? OrderDetails() : homeState.currentIndex == 4 ? CartScreen() :
