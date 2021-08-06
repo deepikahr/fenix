@@ -30,7 +30,6 @@ class Home extends HookWidget {
       return;
     }, const []);
 
-
     return Scaffold(
       backgroundColor: grey2,
       body: Container(
@@ -101,6 +100,8 @@ class Home extends HookWidget {
             return InkWell(
               onTap: () {
                 context.read(homeTabsProvider.notifier).onPageChanged(5);
+                db.saveCategoryId(category[i].id);
+                db.saveCategoryImage(category[i].imageUrl);
                 Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),

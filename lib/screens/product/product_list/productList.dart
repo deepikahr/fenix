@@ -42,7 +42,7 @@ class ProductList extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchProductData(categoryId);
+          await notifier.fetchProductData(db.getCategoryId() ?? categoryId);
           // await context.read(settingsProvider.notifier).fetchSettings();
         });
       }
@@ -56,8 +56,6 @@ class ProductList extends HookWidget {
       OrderDetails(),
     ];
 
-    print('xxxxx ${homeState.currentIndex} ${homeState.pageChanged}');
-
     return Scaffold(
       backgroundColor: grey2,
       key: _scaffoldKey,
@@ -66,7 +64,6 @@ class ProductList extends HookWidget {
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
           homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
               () {
-            print('aqqqqqqqqqqqqqqqqqqqqqq');
             context.read(homeTabsProvider.notifier).onPageChanged(0);
             Get.to(() => HomeTabs(tabIndex: 0));
           }
@@ -104,12 +101,10 @@ class ProductList extends HookWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: cart == null || !DB().isLoggedIn()
           ? buildCenterIcon(context, cart, () {
-
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       })
           : buildCenterIcon(context, cart, () {
-
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       }),

@@ -9,6 +9,7 @@ import 'package:fenix_user/screens/home/home/home.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/screens/others/order_in_progress/orderInProgress.dart';
+import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/screens/tabs/category/category.dart';
 import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -16,6 +17,7 @@ import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
@@ -58,7 +60,6 @@ class CartScreen extends HookWidget {
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
             homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
                 () {
-              print('aqqqqqqqqqqqqqqqqqqqqqq');
               context.read(homeTabsProvider.notifier).onPageChanged(0);
               Get.to(() => HomeTabs(tabIndex: 0));
             }
@@ -75,7 +76,7 @@ class CartScreen extends HookWidget {
             :
         SingleChildScrollView(
           child: Container(
-            color: grey2,
+            color: white,
             margin: EdgeInsets.all(8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -96,9 +97,7 @@ class CartScreen extends HookWidget {
                             style: textBlackLargeBM(context)),
                       ),
                       Container(
-                        // color: white,
-                        // margin: EdgeInsets.all(8),
-
+                        color: grey2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -130,63 +129,76 @@ class CartScreen extends HookWidget {
                             // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
                             Container(
                               color: grey2,
-                              padding: const EdgeInsets.only(top: 28.0),
-                              child: Center(
-                                  child: state.isLoading || state.isUpdateLoading
-                                      ? GFLoader(type: GFLoaderType.ios)
-                                      :
-                                  DB().getOrderId()  == null ?
+                              padding: const EdgeInsets.only(top: 28.0, left: 24, right: 24),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
                                   custombuttonsm(
-                                      context,
-                                      'PLACE_ORDER'.tr,
-                                          () async {
-                                        await context
-                                            .read(cartScreenProvider
-                                            .notifier)
-                                            .createOrder();
-                                        if (state.orderResponse != null) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                              content: Text('${state.orderResponse!.message}')));
-                                        }
-                                        Timer(Duration(seconds: 2),
-                                                () async {
-                                              await Get.to(
-                                                      () => OrdersInProcess());
-                                            });
-                                      },
-                                      state.isLoading)
-                                      :
-                                  cart.products.where((element) =>
-                                  element.modified).isNotEmpty && DB().getOrderId() != null  ? custombuttonsm(
-                                          context,
-                                          'MODIFY_ORDER'.tr,
-                                          () async {
-                                                  final updateResponse = await context
-                                                      .read(cartScreenProvider
-                                                          .notifier)
-                                                      .updateOrder();
-                                                  if (updateResponse != null) {
-                                                    ScaffoldMessenger.of(context)
-                                                        .showSnackBar(SnackBar(
-                                                            content: Text(
-                                                                '${updateResponse}')));
-                                                    Timer(Duration(seconds: 2),
-                                                        () async {
-                                                      await Get.to(
-                                                          () => OrdersInProcess());
-                                                    });
-                                                  }
-                                                },
-                                       state.isUpdateLoading)
-                                      : DB().getOrderId()!= null ? custombuttonsm(
                                       context,
                                       'ADD_MORE_PRODUCTS'.tr,
                                           () async {
-                                            await Get.to(
-                                                    () => HomeTabs(tabIndex: 0,));
+                                            context.read(homeTabsProvider.notifier).onPageChanged(5);
+                                            Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
                                       },
-                                      false) : Container()
+                                      state.isLoading
+                                  ),
+                                  state.isLoading || state.isUpdateLoading
+                                          ? GFLoader(type: GFLoaderType.ios)
+                                          :
+                                      DB().getOrderId()  == null ?
+                                      custombuttonsm(
+                                          context,
+                                          'PLACE_ORDER'.tr,
+                                              () async {
+                                            await context
+                                                .read(cartScreenProvider
+                                                .notifier)
+                                                .createOrder();
+                                            if (state.orderResponse != null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                  content: Text('${state.orderResponse!.message}')));
+                                            }
+                                            Timer(Duration(seconds: 2),
+                                                    () async {
+                                                  await Get.to(
+                                                          () => OrdersInProcess());
+                                                });
+                                          },
+                                          state.isLoading)
+                                          :
+                                      cart.products.where((element) =>
+                                      element.modified).isNotEmpty && DB().getOrderId() != null  ? custombuttonsm(
+                                              context,
+                                              'MODIFY_ORDER'.tr,
+                                              () async {
+                                                      final updateResponse = await context
+                                                          .read(cartScreenProvider
+                                                              .notifier)
+                                                          .updateOrder();
+                                                      if (updateResponse != null) {
+                                                        ScaffoldMessenger.of(context)
+                                                            .showSnackBar(SnackBar(
+                                                                content: Text(
+                                                                    '${updateResponse}')));
+                                                        Timer(Duration(seconds: 2),
+                                                            () async {
+                                                          await Get.to(
+                                                              () => OrdersInProcess());
+                                                        });
+                                                      }
+                                                    },
+                                           state.isUpdateLoading)
+                                          : DB().getOrderId()!= null ? custombuttonsm(
+                                          context,
+                                          'ADD_MORE_PRODUCTS'.tr,
+                                              () async {
+                                                await Get.to(
+                                                        () => HomeTabs(tabIndex: 0,));
+                                          },
+                                          false) : Container()
+
+                                ],
                               ),
                             ),
                           ],

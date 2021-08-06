@@ -37,7 +37,6 @@ class Thankyou extends HookWidget {
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
             homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
                 () {
-              print('aqqqqqqqqqqqqqqqqqqqqqq');
               context.read(homeTabsProvider.notifier).onPageChanged(0);
               Get.to(() => HomeTabs(tabIndex: 0));
             }

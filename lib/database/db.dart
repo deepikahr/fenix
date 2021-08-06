@@ -166,6 +166,28 @@ class DB {
     return language;
   }
 
+  void saveCategoryId(categoryId) {
+    final box = Hive.box('user');
+    box.put('categoryId', categoryId);
+  }
+
+  String? getCategoryId() {
+    final box = Hive.box('user');
+    String? categoryId = box.get('categoryId');
+    return categoryId;
+  }
+
+  void saveCategoryImage(categoryImage) {
+    final box = Hive.box('user');
+    box.put('categoryImage', categoryImage);
+  }
+
+  String? getCategoryImage() {
+    final box = Hive.box('user');
+    String? categoryImage = box.get('categoryImage');
+    return categoryImage;
+  }
+
   Future<void> logOut() async {
     final box = Hive.box('user');
     await box.delete('token');

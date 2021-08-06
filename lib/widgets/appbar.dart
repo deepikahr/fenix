@@ -12,7 +12,6 @@ import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
     onSelectLanguage, List<LanguageResponse> languages, isLoading, settingLoading, settingsState, onHomeSelect) {
-  printWrapped('xxxxxxxxxxxxxxxxxxxxxxxxxx ${db.getLanguage()}');
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 155.0),
     child: Stack(
