@@ -41,13 +41,13 @@ class HomeTabs extends HookWidget {
     final isMounted = useIsMounted();
 
     useEffect(() {
-      Future.delayed(Duration.zero, () async {
-        context.read(homeTabsProvider.notifier).onPageChanged(tabIndex);
-        if (isMounted()) {
+      if (isMounted()) {
+        Future.delayed(Duration.zero, () async {
+          context.read(homeTabsProvider.notifier).onPageChanged(tabIndex);
           await context.read(settingsProvider.notifier).fetchSettings();
           await context.read(homeTabsProvider.notifier).fetchLanguage();
-        }
-      });
+        });
+      }
       return;
     }, const []);
 

@@ -32,12 +32,12 @@ class Category extends HookWidget {
     final isMounted = useIsMounted();
 
     useEffect(() {
-      Future.delayed(Duration.zero, () async {
-        if (isMounted()) {
+      if (isMounted()) {
+        Future.delayed(Duration.zero, () async {
           await context.read(categoryProvider.notifier).
           fetchCategory(homeState.currentIndex == 1 ? 'BEVERAGE_CATEGORY' : 'FOOD_CATEGORY', 1, 10);
-        }
-      });
+        });
+      }
       return;
     }, const []);
 

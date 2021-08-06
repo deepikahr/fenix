@@ -51,7 +51,6 @@ class CartScreen extends HookWidget {
       OrderDetails(),
     ];
 
-
     return Scaffold(
         backgroundColor: grey2,
         key: _scaffoldKey,
@@ -67,8 +66,9 @@ class CartScreen extends HookWidget {
         body: homeState.isLoading
             ? Center(child: GFLoader(type: GFLoaderType.ios))
             :
-        homeState.currentIndex == 0 ? Home() : homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
-        homeState.currentIndex == 3 ? OrderDetails() : homeState.currentIndex == 4 ?
+        // homeState.currentIndex == 0 ? Home() : homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
+        // homeState.currentIndex == 3 ? OrderDetails() :
+        homeState.currentIndex == 4 ?
         cart == null || !DB().isLoggedIn() || cart.products.length == 0
             ? Center(
                 child: Text('CART_IS_EMPTY'.tr),
@@ -140,7 +140,7 @@ class CartScreen extends HookWidget {
                                             context.read(homeTabsProvider.notifier).onPageChanged(5);
                                             Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
                                       },
-                                      state.isLoading
+                                      false
                                   ),
                                   state.isLoading || state.isUpdateLoading
                                           ? GFLoader(type: GFLoaderType.ios)
@@ -189,14 +189,15 @@ class CartScreen extends HookWidget {
                                                       }
                                                     },
                                            state.isUpdateLoading)
-                                          : DB().getOrderId()!= null ? custombuttonsm(
-                                          context,
-                                          'ADD_MORE_PRODUCTS'.tr,
-                                              () async {
-                                                await Get.to(
-                                                        () => HomeTabs(tabIndex: 0,));
-                                          },
-                                          false) : Container()
+                                          // : DB().getOrderId()!= null ? custombuttonsm(
+                                          // context,
+                                          // 'ADD_MORE_PRODUCTS'.tr,
+                                          //     () async {
+                                          //       await Get.to(
+                                          //               () => HomeTabs(tabIndex: 0,));
+                                          // },
+                                          // false)
+                                          : Container()
 
                                 ],
                               ),
@@ -215,12 +216,9 @@ class CartScreen extends HookWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: cart == null || !DB().isLoggedIn()
           ? buildCenterIcon(context, cart, () {
-
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
-      })
-          : buildCenterIcon(context, cart, () {
-
+      }) : buildCenterIcon(context, cart, () {
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       }),

@@ -169,45 +169,47 @@ Widget customBottomBar(onSelect){
 }
 
 Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
-  return SizedBox(
-    width: 68,
-    height: 68,
-    child: FittedBox(
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          FloatingActionButton(
-            onPressed: onTap,
-            backgroundColor: primary(),
-            elevation: 2.0,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Image.asset(
-                'lib/assets/images/pedir.png',
-                width: 80,
-                height: 80,
-                alignment: Alignment.center,
+  return InkWell(
+    onTap: onTap,
+    child: SizedBox(
+      width: 68,
+      height: 68,
+      child: FittedBox(
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            GFAvatar(
+              // onPressed: onTap,
+              backgroundColor: primary(),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Image.asset(
+                  'lib/assets/images/pedir.png',
+                  width: 120,
+                  height: 120,
+                  alignment: Alignment.center,
+                ),
               ),
             ),
-          ),
-          cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
-            end: 0,
-            bottom: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: Colors.white, width: 1)
+            cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
+              end: 0,
+              bottom: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: Colors.white, width: 1)
+                ),
+                child: GFBadge(
+                  shape: GFBadgeShape.circle,
+                  color: Colors.black,
+                  textColor: GFColors.WHITE,
+                  size: GFSize.SMALL,
+                  text: '${cart.products.length}',
+                ),
               ),
-              child: GFBadge(
-                shape: GFBadgeShape.circle,
-                color: Colors.black,
-                textColor: GFColors.WHITE,
-                size: GFSize.SMALL,
-                text: '${cart.products.length}',
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     ),
   );

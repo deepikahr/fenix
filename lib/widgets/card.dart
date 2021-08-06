@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
-    decoration: BoxDecoration(
+    // decoration: BoxDecoration(
       // boxShadow: [
       //   BoxShadow(
       //     color: dark.withOpacity(0.2),
@@ -23,11 +23,11 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
       //     spreadRadius: 1.0,
       //   ),
       // ],
-    ),
+    // ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        networkImage(image, MediaQuery.of(context).size.width *  0.9, 455, 5)
+        networkImage(image, MediaQuery.of(context).size.width * 0.7, 455, 5)
       ],
     ),
   );

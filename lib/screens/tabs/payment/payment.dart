@@ -23,11 +23,11 @@ class Payment extends HookWidget {
     final isMounted = useIsMounted();
 
     useEffect(() {
-      Future.delayed(Duration.zero, () async {
-        if (isMounted()) {
+      if (isMounted()) {
+        Future.delayed(Duration.zero, () async {
           // await context.read(settingsProvider.notifier).fetchSettings();
-        }
-      });
+        });
+      }
       return;
     }, const []);
 

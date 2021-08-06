@@ -281,6 +281,7 @@ class ProductDetails extends HookWidget {
                             context
                                 .read(productDetailsProvider.notifier)
                                 .showAddButton(false);
+                            context.read(homeTabsProvider.notifier).onPageChanged(4);
                             await notifier.saveCart(
                                 context,
                                 state.selectedAddOnItems,

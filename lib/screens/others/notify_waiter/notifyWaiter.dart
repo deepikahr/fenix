@@ -34,13 +34,14 @@ class NotifyWaiter extends HookWidget {
     ];
 
     useEffect(() {
-      Future.delayed(Duration.zero, () async {
-        if (isMounted()) {
+      if (isMounted()) {
+        Future.delayed(Duration.zero, () async {
           await context.read(notifyWaiterProvider.notifier).fetchNotification();
           await context.read(homeTabsProvider.notifier).fetchLanguage();
           // await context.read(settingsProvider.notifier).fetchSettings();
-        }
-      });
+        });
+      }
+
       return;
     }, const []);
 

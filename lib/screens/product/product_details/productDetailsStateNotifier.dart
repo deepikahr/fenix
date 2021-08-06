@@ -199,7 +199,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       //     },
       //   );
       // });
-      context.read(homeTabsProvider.notifier).onPageChanged(4);
+      // context.read(homeTabsProvider.notifier).onPageChanged(4);
       await Get.to(() => CartScreen());
 
     } else if (product.franchiseId == cartData!.franchiseId) {
@@ -288,7 +288,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       //     },
       //   );
       // });
-      context.read(homeTabsProvider.notifier).onPageChanged(4);
+      // context.read(homeTabsProvider.notifier).onPageChanged(4);
       await Get.to(() => CartScreen());
     } else {
       await customDialog(
