@@ -108,7 +108,7 @@ class EntryPage extends HookWidget {
         primaryColor: primary(),
         accentColor: primary(),
       ),
-      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0,) :
+      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0) :
       db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
       translations: Localization(json),
       locale: Get.deviceLocale,

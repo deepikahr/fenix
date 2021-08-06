@@ -62,7 +62,9 @@ class HomeTabs extends HookWidget {
       key: _scaffoldKey,
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(state.languages[value].languageName!),
+              (value){
+                context.read(homeTabsProvider.notifier).onSelectLanguage(value);
+              },
             state.languages, state.isLoading, settingsState.isLoading, settingsState,
               () {
             context.read(homeTabsProvider.notifier).onPageChanged(0);
@@ -73,23 +75,21 @@ class HomeTabs extends HookWidget {
       body:
       state.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : state.currentIndex == 0 ? Home()
-          : state.currentIndex == 1 ? Category() : state.currentIndex == 2 ? Category() :
-      state.currentIndex == 3 ? OrderDetails() : state.currentIndex == 4 ? CartScreen()  : Container(),
+          : state.currentIndex == 0  ? Home()
+          : state.currentIndex == 1  ? Category()
+          : state.currentIndex == 2  ? Category()
+          : state.currentIndex == 3  ? OrderDetails()
+          : Home(),
       // _screens[state.currentIndex],
       bottomNavigationBar: customBottomBar((index) async {
+        DB().saveTabIndex(state.currentIndex);
           context.read(homeTabsProvider.notifier).onPageChanged(index);
       },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: cart == null || !DB().isLoggedIn()
-          ? buildCenterIcon(context, cart, () {
+      floatingActionButton: buildCenterIcon(context, cart, () async  {
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       })
-          : buildCenterIcon(context, cart, () {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      }),
     );
   }
 

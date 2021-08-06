@@ -6,6 +6,7 @@ import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
@@ -97,11 +98,12 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                         borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           'lib/assets/images/i.png',
-                          width: 40,
-                          height: 40,
+                          width: 50,
+                          height: 50,
                         ),
                         Text(
                           'HOME'.tr,
@@ -131,11 +133,12 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                         borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           'lib/assets/images/c.png',
-                          width: 40,
-                          height: 40,
+                          width: 50,
+                          height: 50,
                         ),
                         Text(
                           'TO_CALL'.tr,

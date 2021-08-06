@@ -58,22 +58,22 @@ class CartScreen extends HookWidget {
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
             homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
-                () {
+                () async {
               context.read(homeTabsProvider.notifier).onPageChanged(0);
-              Get.to(() => HomeTabs(tabIndex: 0));
+              await Get.to(() => HomeTabs(tabIndex: 0));
             }
         ),
         body: homeState.isLoading
             ? Center(child: GFLoader(type: GFLoaderType.ios))
-            :
-        // homeState.currentIndex == 0 ? Home() : homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
-        // homeState.currentIndex == 3 ? OrderDetails() :
-        homeState.currentIndex == 4 ?
+            : homeState.currentIndex == 0 ? Home()
+            : homeState.currentIndex == 1 ? Category()
+            : homeState.currentIndex == 2 ? Category()
+            : homeState.currentIndex == 3 ? OrderDetails()
+            : homeState.currentIndex == 4 ?
         cart == null || !DB().isLoggedIn() || cart.products.length == 0
             ? Center(
                 child: Text('CART_IS_EMPTY'.tr),
-              )
-            :
+              ) :
         SingleChildScrollView(
           child: Container(
             color: white,
@@ -211,21 +211,18 @@ class CartScreen extends HookWidget {
         ) : Container(),
       bottomNavigationBar: customBottomBar((index) async {
         context.read(homeTabsProvider.notifier).onPageChanged(index);
-        context.read(homeTabsProvider.notifier).nonTab(true);
+        // context.read(homeTabsProvider.notifier).nonTab(true);
       },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: cart == null || !DB().isLoggedIn()
-          ? buildCenterIcon(context, cart, () {
+      floatingActionButton: buildCenterIcon(context, cart, () {
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
-      }) : buildCenterIcon(context, cart, () {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      }),
+      })
     );
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {
+    // printWrapped('1111111111111111111111111111111 $cart');
     return Container(
       color: white,
       child: ListView.builder(
@@ -239,7 +236,7 @@ class CartScreen extends HookWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(cart.products[i].productName!,
+                Text(cart.products[i].productName ?? '',
                     style: textBlackLargeBM20(context)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -248,11 +245,10 @@ class CartScreen extends HookWidget {
                       fit: FlexFit.tight,
                       flex: 14,
                       child: HtmlWidget(
-                        cart.products[i].description!,
+                        cart.products[i].description ?? '',
                         textStyle: textDarkLightSmallBR(context),
                       ),
                     ),
-
                     Row(
                       children: [
                         Row(
@@ -279,7 +275,7 @@ class CartScreen extends HookWidget {
                                     ),
                                   ),
                                 )),
-                            Text('${cartProduct.totalQuantity}',
+                            Text('${cartProduct.quantity}',
                                 style: textBlackLargeBM(context)),
                             InkWell(
                               onTap: () {

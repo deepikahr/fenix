@@ -69,10 +69,15 @@ class ProductDetails extends HookWidget {
             Get.to(() => HomeTabs(tabIndex: 0));
           }
       ),
-      body: homeState.currentIndex == 0 ? Home() :homeState.currentIndex == 1 ? Category() : homeState.currentIndex == 2 ? Category() :
-      homeState.currentIndex == 3 ? OrderDetails() : homeState.currentIndex == 4 ? CartScreen() :
-      homeState.currentIndex == 5 ? ProductList() : Stack(
-        children: [
+      body: homeState.isLoading
+          ? Center(child: GFLoader(type: GFLoaderType.ios))
+          : homeState.currentIndex == 0  ? Home()
+          : homeState.currentIndex == 1 ? Category()
+          : homeState.currentIndex == 2 ? Category()
+          : homeState.currentIndex == 3  ? OrderDetails()
+          : homeState.currentIndex == 5  ? ProductList()
+          : Stack(
+          children: [
           if (!state.isLoading && state.productDetails != null)
             productData(context, state.productDetails!, state, notifier,
                 noteEditController, cart),
@@ -83,17 +88,10 @@ class ProductDetails extends HookWidget {
         context.read(homeTabsProvider.notifier).onPageChanged(index);
       },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: cart == null || !DB().isLoggedIn()
-          ? buildCenterIcon(context, cart, () {
-
+      floatingActionButton:buildCenterIcon(context, cart, () {
         context.read(homeTabsProvider.notifier).onPageChanged(4);
         Get.to(() => CartScreen());
       })
-          : buildCenterIcon(context, cart, () {
-
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      }),
     );
   }
 

@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
-    // decoration: BoxDecoration(
+    decoration: BoxDecoration(
       // boxShadow: [
       //   BoxShadow(
       //     color: dark.withOpacity(0.2),
@@ -23,11 +23,11 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
       //     spreadRadius: 1.0,
       //   ),
       // ],
-    // ),
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        networkImage(image, MediaQuery.of(context).size.width * 0.7, 455, 5)
+        networkImage(image, MediaQuery.of(context).size.width *0.8 , 220 , 5)
       ],
     ),
   );
@@ -40,8 +40,8 @@ Widget restaurantInfoCard(BuildContext context, title, image) {
       alignment: AlignmentDirectional.center,
       children: [
         image != null
-            ? networkImage(image, MediaQuery.of(context).size.width, 240, 2)
-            : networkImageOverlay(MediaQuery.of(context).size.width, 240),
+            ? networkImage(image, MediaQuery.of(context).size.width,  170, 2)
+            : networkImageOverlay(MediaQuery.of(context).size.width,  170),
         Positioned(
             // left: 0,
             // right: 0,
@@ -141,8 +141,8 @@ categoryImage,
             //   'lib/assets/images/refer.png', height: 111, width: 109,
             // ),
             categoryImage != null ?
-            networkImage(categoryImage, 218, 218, 1)
-                : networkImageOverlay(218, 218),
+            networkImage(categoryImage, 218, 150, 1)
+                : networkImageOverlay(218, 150),
             SizedBox(
               width: 8,
             ),
@@ -339,9 +339,9 @@ categoryImage,
                   // ),
                   categoryImage != null
                       ? networkImage(categoryImage,
-                          MediaQuery.of(context).size.width, 230, 0)
+                          MediaQuery.of(context).size.width, 170, 0)
                       : networkImageOverlay(
-                          MediaQuery.of(context).size.width, 230),
+                          MediaQuery.of(context).size.width, 170),
                   Positioned(
                       top: 0,
                       child: Stack(

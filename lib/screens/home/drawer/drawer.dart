@@ -88,7 +88,7 @@ class DrawerPage extends HookWidget {
               ),
               if ((homeState.homeData?.category.length ?? 0) > 0)
                 categoryBlock(context, homeState.homeData?.category),
-              if(homeState.isLoading) GFLoader(type: GFLoaderType.ios,),
+              // if(homeState.isLoading) GFLoader(type: GFLoaderType.ios,),
               InkWell(
                 onTap:  (){Get.to(() => ChangePasswordPage());},
                 child: Container(
@@ -98,7 +98,7 @@ class DrawerPage extends HookWidget {
               ),
               Divider(),
               InkWell(
-                onTap:  (){
+                onTap: (){
                   if (DB().isLoggedIn()) {
                     context.read(drawerProvider.notifier).logout();
                   } else {
@@ -126,6 +126,8 @@ class DrawerPage extends HookWidget {
           return InkWell(
             onTap: () {
               context.read(homeTabsProvider.notifier).onPageChanged(5);
+              db.saveCategoryId(category[i].id);
+              db.saveCategoryImage(category[i].imageUrl);
               Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
             },
             child: Column(

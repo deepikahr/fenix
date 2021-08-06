@@ -1,3 +1,4 @@
+import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,9 +14,9 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
     state = state.copyWith(isLoading: false);
   }
 
-  void nonTab(value) {
-    state = state.copyWith.call(pageChanged: value);
-  }
+  // void nonTab(value) {
+  //   state = state.copyWith.call(pageChanged: value);
+  // }
 
   void onSelectLanguage(String value) {
     state = state.copyWith(selectedLanguage: value);

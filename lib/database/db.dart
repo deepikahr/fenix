@@ -188,6 +188,17 @@ class DB {
     return categoryImage;
   }
 
+  void saveTabIndex(tabIndex) {
+    final box = Hive.box('user');
+    box.put('tabIndex', tabIndex);
+  }
+
+  int? getTabIndex() {
+    final box = Hive.box('user');
+    int? tabIndex = box.get('tabIndex');
+    return tabIndex;
+  }
+
   Future<void> logOut() async {
     final box = Hive.box('user');
     await box.delete('token');

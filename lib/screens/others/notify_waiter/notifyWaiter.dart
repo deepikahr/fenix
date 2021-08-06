@@ -74,7 +74,7 @@ class NotifyWaiter extends HookWidget {
                 ],
               ),
             ),
-            if (state.isLoading) GFLoader(type: GFLoaderType.ios)
+            // if (state.isLoading) GFLoader(type: GFLoaderType.ios)
           ],
         ));
   }

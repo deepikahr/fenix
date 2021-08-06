@@ -32,7 +32,7 @@ class Home extends HookWidget {
 
     return Scaffold(
       backgroundColor: grey2,
-      body: Container(
+      body: state.isLoading ?  GFLoader(type: GFLoaderType.ios) : Container(
         color: grey2,
         child: Stack(
           children: [
@@ -45,7 +45,7 @@ class Home extends HookWidget {
                 // SizedBox(height: 8,),
                 if ((state.homeData?.category.length ?? 0) > 0)
                   db.getType() == 'list' ?
-                  categoryBlock(context, state.homeData?.category) :
+                  categoryBlock(context, state.homeData?.category, state) :
                   categoryListGrid(context, state.homeData?.category),
               ],
             ),
@@ -87,7 +87,7 @@ class Home extends HookWidget {
     );
   }
 
-  Widget categoryBlock(BuildContext context, List<CategoryResponse>? category) {
+  Widget categoryBlock(BuildContext context, List<CategoryResponse>? category, state) {
     return Container(
       margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       // padding: EdgeInsets.symmetric(vertical: 1),
@@ -121,11 +121,14 @@ class Home extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 500),
+            childAspectRatio: MediaQuery.of(context).size.width / 350),
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
+
                 context.read(homeTabsProvider.notifier).onPageChanged(5);
+                db.saveCategoryId(category[i].id);
+                db.saveCategoryImage(category[i].imageUrl);
                 Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCardGrid(context, category[i].title!, category[i].imageUrl!));
