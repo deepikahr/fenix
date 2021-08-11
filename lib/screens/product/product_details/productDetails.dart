@@ -15,6 +15,7 @@ import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
+import 'package:fenix_user/widgets/counterBox.dart';
 import 'package:fenix_user/widgets/network_image.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 class ProductDetails extends HookWidget {
   final String? productId;
@@ -58,41 +60,59 @@ class ProductDetails extends HookWidget {
     }, const []);
 
     return Scaffold(
-      backgroundColor: grey2,
-      key: _scaffoldKey,
-      drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading,settingsState.isLoading, settingsState,
-              () {
-            context.read(homeTabsProvider.notifier).onPageChanged(0);
-            Get.to(() => HomeTabs(tabIndex: 0));
-          }
-      ),
-      body: homeState.isLoading
-          ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : homeState.currentIndex == 0  ? Home()
-          : homeState.currentIndex == 1 ? Category()
-          : homeState.currentIndex == 2 ? Category()
-          : homeState.currentIndex == 3  ? OrderDetails()
-          : homeState.currentIndex == 5  ? ProductList()
-          : Stack(
-          children: [
-          if (!state.isLoading && state.productDetails != null)
-            productData(context, state.productDetails!, state, notifier,
-                noteEditController, cart),
-          if (state.isLoading) GFLoader(type: GFLoaderType.ios)
-        ],
-      ),
-      bottomNavigationBar: customBottomBar((index) async {
-        context.read(homeTabsProvider.notifier).onPageChanged(index);
-      },),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:buildCenterIcon(context, cart, () {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      })
-    );
+        backgroundColor: grey2,
+        key: _scaffoldKey,
+        drawer: DrawerPage(),
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!),
+            homeState.languages,
+            homeState.isLoading,
+            settingsState.isLoading,
+            settingsState, () {
+          context.read(homeTabsProvider.notifier).onPageChanged(0);
+          Get.to(() => HomeTabs(tabIndex: 0));
+        }),
+        body: homeState.isLoading
+            ? Center(child: GFLoader(type: GFLoaderType.ios))
+            : homeState.currentIndex == 0
+                ? Home()
+                : homeState.currentIndex == 1
+                    ? Category()
+                    : homeState.currentIndex == 2
+                        ? Category()
+                        : homeState.currentIndex == 3
+                            ? OrderDetails()
+                            : homeState.currentIndex == 5
+                                ? ProductList()
+                                : Stack(
+                                    children: [
+                                      if (!state.isLoading &&
+                                          state.productDetails != null)
+                                        productData(
+                                            context,
+                                            state.productDetails!,
+                                            state,
+                                            notifier,
+                                            noteEditController,
+                                            cart),
+                                      if (state.isLoading)
+                                        GFLoader(type: GFLoaderType.ios)
+                                    ],
+                                  ),
+        bottomNavigationBar: customBottomBar(
+          (index) async {
+            context.read(homeTabsProvider.notifier).onPageChanged(index);
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: buildCenterIcon(context, cart, () {
+          context.read(homeTabsProvider.notifier).onPageChanged(4);
+          Get.to(() => CartScreen());
+        }));
   }
 
   Widget productData(BuildContext context, ProductDetailsResponse product,
@@ -165,164 +185,151 @@ class ProductDetails extends HookWidget {
                   )
                 ],
               ),
-        Container(
-          color: white,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-          child: Column(
+        StickyHeader(
+          header: Container(
+            color: white,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: titleTextDarkRegularBR(
+                            context, '${product.productName}')),
+                  ],
+                ),
+                SizedBox(
+                  height: 6,
+                ),
+                // titleTextDarkLightSmallBR(context, '${product.productDescription}'),
+                HtmlWidget(
+                  product.productDescription!,
+                  textStyle: textDarkLightSmallBR(context),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '${product.totalProductPrice.toStringAsFixed(2)}€',
+                      style: textDarkRegularBS(context),
+                    ),
+                    product.totalQuantity > 0 && !state.showAddButton
+                        ?
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        counterIcon(
+                          'remove',
+                              () {
+                            print('aaaaaaaa');
+                            if (product.isSameProductMultipleTime == true) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      showMulitipleTimeProductPopUp(
+                                          context, cart));
+                            } else {
+                              print('bbbbbb');
+                              notifier.updateProductsQuantity(
+                                  product, false);
+                            }
+                          },
+                        ),
+                        Text(product.totalQuantity.toString(),
+                            style: textBlackLargeBM(context)),
+                        counterIcon(
+                          'add',
+                              () async {
+                            if (product.isCustomizable) {
+                              print('aaaaaaaa uppp');
+                              await showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      showPopUp(context, product, () async {
+                                        Get.back();
+                                        await notifier
+                                            .findLastUpdateProduct(
+                                            product,
+                                            true,
+                                            product.restaurantName);
+                                      }, cart));
+                            } else {
+                              print('bbbbbb upp');
+                              await notifier.findLastUpdateProduct(
+                                  product, true, product.restaurantName);
+                            }
+                          },
+                        ),
+                      ],
+                    )
+                        :
+                    Container(
+                      width: 100,
+                      child: GFButton(
+                        elevation: 3,
+                        size: GFSize.LARGE,
+                        borderShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        onPressed: () async {
+                          context
+                              .read(productDetailsProvider.notifier)
+                              .showAddButton(false);
+                          context
+                              .read(homeTabsProvider.notifier)
+                              .onPageChanged(4);
+                          await notifier.saveCart(
+                              context,
+                              state.selectedAddOnItems,
+                              state
+                                  .productDetails!.variants[state.groupValue],
+                              state.productDetails!,
+                              productId,
+                              noteEditController.text);
+                        },
+                        color: primary(),
+                        text: 'ADD'.tr,
+                        textStyle: textLightLargeBM(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          content: ListView(
+            physics: ScrollPhysics(),
+            shrinkWrap: true,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: titleTextDarkRegularBR(
-                          context, '${product.productName}')),
-                ],
+              SizedBox(
+                height: 12,
+              ),
+              allergenList(context, product.allergens ?? []),
+              sizeBlock(context, state.groupValue, product.variants ?? [], state),
+              optionBlockExtra(state.productDetails?.addOnItems ?? [],
+                  state.selectedAddOnItems, state),
+              SizedBox(
+                height: 4,
+              ),
+              titleTextDark17RegularBR(
+                context,
+                'INSTRUCTIONS'.tr,
               ),
               SizedBox(
-                height: 6,
+                height: 8,
               ),
-              // titleTextDarkLightSmallBR(context, '${product.productDescription}'),
-              HtmlWidget(
-                product.productDescription!,
-                textStyle: textDarkLightSmallBR(context),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '${product.totalProductPrice.toStringAsFixed(2)}€',
-                    style: textDarkRegularBS(context),
-                  ),
-                  product.totalQuantity > 0 && !state.showAddButton
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  print('aaaaaaaa');
-                                  if (product.isSameProductMultipleTime ==
-                                      true) {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            showMulitipleTimeProductPopUp(
-                                                context, cart));
-                                  } else {
-                                    print('bbbbbb');
-                                    notifier.updateProductsQuantity(
-                                        product, false);
-                                  }
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 35,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                        color: white,
-                                        border:
-                                            Border.all(color: dark, width: 1),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: dark,
-                                    ),
-                                  ),
-                                )),
-                            Text(product.totalQuantity.toString(),
-                                style: textBlackLargeBM(context)),
-                            InkWell(
-                              onTap: () async {
-                                if (product.isCustomizable) {
-                                  print('aaaaaaaa uppp');
-                                  await showDialog(
-                                      context: context,
-                                      builder: (context) =>
-                                          showPopUp(context, product, () async {
-                                            Get.back();
-                                            await notifier
-                                                .findLastUpdateProduct(
-                                                    product,
-                                                    true,
-                                                    product.restaurantName);
-                                          }, cart));
-                                } else {
-                                  print('bbbbbb upp');
-                                  await notifier.findLastUpdateProduct(
-                                      product, true, product.restaurantName);
-                                }
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                      color: white,
-                                      border: Border.all(color: dark, width: 1),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: Icon(
-                                    Icons.add,
-                                    color: dark,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : GFButton(
-                          borderShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                          ),
-                          onPressed: () async {
-                            context
-                                .read(productDetailsProvider.notifier)
-                                .showAddButton(false);
-                            context.read(homeTabsProvider.notifier).onPageChanged(4);
-                            await notifier.saveCart(
-                                context,
-                                state.selectedAddOnItems,
-                                state
-                                    .productDetails!.variants[state.groupValue],
-                                state.productDetails!,
-                                productId,
-                                noteEditController.text);
-                          },
-                          color: primary(),
-                          text: 'ADD'.tr,
-                          textStyle: textLightLargeBM(context),
-                        ),
-                ],
+              noteTextField(
+                context,
+                noteEditController,
+                noteFocusNode,
+                    (value) {
+                  FocusScope.of(context).unfocus();
+                  formKey.currentState!.validate();
+                },
               ),
             ],
           ),
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        allergenList(context, product.allergens ?? []),
-        sizeBlock(context, state.groupValue, product.variants ?? [], state),
-        optionBlockExtra(state.productDetails?.addOnItems ?? [],
-            state.selectedAddOnItems, state),
-        SizedBox(
-          height: 4,
-        ),
-        titleTextDark17RegularBR(
-          context,
-          'INSTRUCTIONS'.tr,
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        noteTextField(
-          context,
-          noteEditController,
-          noteFocusNode,
-          (value) {
-            FocusScope.of(context).unfocus();
-            formKey.currentState!.validate();
-          },
         ),
       ],
     );
@@ -441,7 +448,6 @@ class ProductDetails extends HookWidget {
   checkCounter(BuildContext context, selectedAddOnItems, addOnItems, i) {
     selectedAddOnItems!.forEach((data) {
       if (data.id == addOnItems[i].id) {
-        print('ddddd ');
         context.read(productDetailsProvider.notifier).showCounter(true);
       }
     });
@@ -451,7 +457,6 @@ class ProductDetails extends HookWidget {
 
   Widget optionBlockExtra(List<AddOnCategory> addOnCategory,
       Set<AddOnItem>? selectedAddOnItems, state) {
-    print('aaaaaaaaa $selectedAddOnItems');
 
     return Container(
       child: ListView.builder(
@@ -529,32 +534,15 @@ class ProductDetails extends HookWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      InkWell(
-                                          onTap: () {
+                                      counterIcon(
+                                          'remove', () {
                                             context
                                                 .read(productDetailsProvider
                                                     .notifier)
                                                 .updateAddonItemQuantity(
                                                     addOnItems[i], false);
                                           },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              width: 35,
-                                              height: 35,
-                                              decoration: BoxDecoration(
-                                                  color: white,
-                                                  border: Border.all(
-                                                      color: dark, width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50)),
-                                              child: Icon(
-                                                Icons.remove,
-                                                color: dark,
-                                              ),
-                                            ),
-                                          )),
+                                         ),
                                       Text(
                                           selectedAddOnItems
                                               .toList()
@@ -566,31 +554,14 @@ class ProductDetails extends HookWidget {
                                               .quantity
                                               .toString(),
                                           style: textBlackLargeBM(context)),
-                                      InkWell(
-                                        onTap: () async {
+                                      counterIcon(
+                                        'add', () async {
                                           context
                                               .read(productDetailsProvider
                                                   .notifier)
                                               .updateAddonItemQuantity(
                                                   addOnItems[i], true);
                                         },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            width: 35,
-                                            height: 35,
-                                            decoration: BoxDecoration(
-                                                color: white,
-                                                border: Border.all(
-                                                    color: dark, width: 1),
-                                                borderRadius:
-                                                    BorderRadius.circular(50)),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: dark,
-                                            ),
-                                          ),
-                                        ),
                                       ),
                                     ],
                                   )

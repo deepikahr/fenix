@@ -38,3 +38,27 @@ Widget counterBlock(countertext, Function(bool) onChanged) {
     ]),
   );
 }
+
+Widget counterIcon(type, onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: 45,
+        height: 45,
+        decoration: BoxDecoration(
+            color: white,
+            border:
+            Border.all(color: dark, width: 1),
+            borderRadius:
+            BorderRadius.circular(50)),
+        child: Icon(
+          type == 'remove' ? Icons.remove : Icons.add,
+          color: dark,
+        ),
+      ),
+    ),
+  );
+}
+

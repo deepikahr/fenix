@@ -54,7 +54,7 @@ class Localization extends Translations {
           'SELECTED PRODUCTS': 'Selected Products',
           'CART_IS_EMPTY': 'Cart is empty',
           'PLACE_ORDER': 'Place order',
-          'MODIFY_ORDER': 'Modify order',
+          'MODIFY_ORDER': 'Modify a shipment',
                     'ADD_MORE_PRODUCTS': 'Add more products',
           'OK,_PAYMENT_METHODS': 'Ok, Payment Methods',
           'TOTAL_SELECTION': 'Total Selection',

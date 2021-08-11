@@ -14,7 +14,7 @@ import 'normalText.dart';
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
     onSelectLanguage, List<LanguageResponse> languages, isLoading, settingLoading, settingsState, onHomeSelect) {
   return PreferredSize(
-    preferredSize: Size(MediaQuery.of(context).size.width, 155.0),
+    preferredSize: Size(MediaQuery.of(context).size.width, 165.0),
     child: Stack(
       children: [
         Stack(
@@ -86,8 +86,8 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                 child: InkWell(
                   onTap: onHomeSelect,
                   child: Container(
-                    width: 70,
-                    height: 70,
+                    width: 85,
+                    height: 85,
                     decoration: BoxDecoration(
                         color: primary(),
                         border: Border.all(color: white, width: 2),
@@ -95,19 +95,19 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                           BoxShadow(
                               color: Colors.black45, blurRadius: 2)
                         ],
-                        borderRadius: BorderRadius.circular(16)),
+                        borderRadius: BorderRadius.circular(18)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           'lib/assets/images/i.png',
-                          width: 50,
-                          height: 50,
+                          width: 55,
+                          height: 55,
                         ),
                         Text(
                           'HOME'.tr,
-                          style: TextStyle(color: white, fontSize: 12),
+                          style: TextStyle(color: white, fontSize: 14),
                         )
                       ],
                     ),
@@ -121,8 +121,8 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     Get.to(() => NotifyWaiter());
                   },
                   child: Container(
-                    width: 70,
-                    height: 70,
+                    width: 85,
+                    height: 85,
                     decoration: BoxDecoration(
                          color: primary(),
                         border: Border.all(color: white, width: 2),
@@ -130,20 +130,23 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                           BoxShadow(
                               color: Colors.black45, blurRadius: 2)
                         ],
-                        borderRadius: BorderRadius.circular(16)),
+                        borderRadius: BorderRadius.circular(18)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'lib/assets/images/c.png',
-                          width: 50,
-                          height: 50,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 18.0),
+                          child: Image.asset(
+                            'lib/assets/images/c.png',
+                            width: 55,
+                            height: 55,
+                          ),
                         ),
                         Text(
                           'TO_CALL'.tr,
                           style:
-                          TextStyle(color: white, fontSize: 12),
+                          TextStyle(color: white, fontSize: 14),
                         )
                       ],
                     ),
@@ -181,7 +184,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                   db.saveLanguageCode(item.languageCode);
                   return DropdownMenuItem(
                     value: item.languageName,
-                    child: Center(child: Text('${item.flagCode}', style: TextStyle(fontSize: 35),)),
+                    child: Center(child: Text('${item.flagCode}', style: TextStyle(fontSize: 45),)),
                     // Text(
                     //   '${item.languageName}',
                     //   style: textDarkRegularBG(context),

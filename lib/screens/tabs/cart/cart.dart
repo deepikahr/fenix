@@ -15,6 +15,7 @@ import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
+import 'package:fenix_user/widgets/counterBox.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -129,7 +130,7 @@ class CartScreen extends HookWidget {
                             // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
                             Container(
                               color: grey2,
-                              padding: const EdgeInsets.only(top: 28.0, left: 24, right: 24),
+                              padding: const EdgeInsets.only(top: 28.0, ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -254,50 +255,21 @@ class CartScreen extends HookWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                                onTap: () {
+                            counterIcon(
+                                'remove', () {
                                   context
                                       .read(cartScreenProvider.notifier)
                                       .updateQuantity(cartProduct, false);
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                        color: white,
-                                        border: Border.all(color: dark, width: 1),
-                                        borderRadius: BorderRadius.circular(50)),
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: dark,
-                                    ),
-                                  ),
-                                )),
+                               ),
                             Text('${cartProduct.quantity}',
                                 style: textBlackLargeBM(context)),
-                            InkWell(
-                              onTap: () {
+                            counterIcon(
+                              'add', () {
                                 context
                                     .read(cartScreenProvider.notifier)
                                     .updateQuantity(cartProduct, true);
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: 25,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                      color: white,
-                                      border: Border.all(color: dark, width: 1),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: Icon(
-                                    Icons.add,
-                                    color: dark,
-                                  ),
-                                ),
-                              ),
                             ),
                           ],
                         ),

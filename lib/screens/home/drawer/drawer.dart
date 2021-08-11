@@ -37,54 +37,42 @@ class DrawerPage extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 110,
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    decoration: new BoxDecoration(color: secondary1, boxShadow: [
-                      BoxShadow(color: Colors.black45, blurRadius: 20)
-                    ]),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 20,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Settings(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: primary(),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Icon(
-                          Icons.settings,
-                          color: secondary1,
-                          size: 40,
-                        ),
+              Container(
+                alignment: AlignmentDirectional.center,
+                width: MediaQuery.of(context).size.width,
+                height: 110,
+                margin: EdgeInsets.only(top: 16),
+                padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                decoration: new BoxDecoration(color: secondary1, boxShadow: [
+                  BoxShadow(color: Colors.black45, blurRadius: 20)
+                ]),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: primary(),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Icon(
+                        Icons.settings,
+                        color: secondary1,
+                        size: 40,
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 45,
-                    left: 50,
-                    right: 50,
-                    child: Column(
+                    SizedBox(width: 16,),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         titleTextDarkRegularBW(context, Constants.restaurantName),
                         titleTextDarkRegularBW17(context, Constants.restaurantAddress),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               if ((homeState.homeData?.category.length ?? 0) > 0)
                 categoryBlock(context, homeState.homeData?.category),

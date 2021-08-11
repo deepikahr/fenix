@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:get/get.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({this.iconData, this.text});
@@ -72,9 +73,7 @@ class FABBottomAppBar extends HookWidget {
         index: index,
         sel: state.currentIndex,
         onPressed: (int? index) {
-          if(index == 0){
-            // context.read(homeTabsProvider.notifier).nonTab(true);
-            // context.read(homeTabsProvider.notifier).onPageChanged(index);
+          if(index == 0 && state.currentIndex == 0){
             onReturn();
           }else{
             context.read(homeTabsProvider.notifier).onPageChanged(index);

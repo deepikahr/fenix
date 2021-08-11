@@ -1,6 +1,7 @@
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/styles/styles.dart';
+import 'package:fenix_user/widgets/counterBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -15,6 +16,7 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
     decoration: BoxDecoration(
+      color: Colors.black12
       // boxShadow: [
       //   BoxShadow(
       //     color: dark.withOpacity(0.2),
@@ -170,7 +172,7 @@ categoryImage,
                     textStyle: textDarkLightSmallBR(context),
                   ),
                   SizedBox(
-                    height: 12,
+                    height: 60,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -204,48 +206,10 @@ categoryImage,
                             mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWell(
-                                  onTap: onRemove,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: 35,
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                          color: white,
-                                          border: Border.all(
-                                              color: dark, width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(
-                                                  50)),
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: dark,
-                                      ),
-                                    ),
-                                  )),
+                              counterIcon('remove', onRemove),
                               Text(product.totalQuantity.toString(),
                                   style: textBlackLargeBM(context)),
-                              InkWell(
-                                onTap: onUpdate,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 35,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                        color: white,
-                                        border: Border.all(
-                                            color: dark, width: 1),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: dark,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              counterIcon('add', onUpdate),
                             ],
                           )
                           : Padding(
@@ -444,48 +408,10 @@ categoryImage,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                      onTap: onRemove,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: white,
-                                              border: Border.all(
-                                                  color: dark, width: 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      50)),
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: dark,
-                                          ),
-                                        ),
-                                      )),
+                                  counterIcon('remove', onRemove),
                                   Text(product.totalQuantity.toString(),
                                       style: textBlackLargeBM(context)),
-                                  InkWell(
-                                    onTap: onUpdate,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                            color: white,
-                                            border: Border.all(
-                                                color: dark, width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: dark,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  counterIcon('add', onUpdate),
                                 ],
                               ))
                           : Padding(

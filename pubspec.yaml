@@ -44,6 +44,7 @@ dependencies:
   pin_code_fields: ^7.0.0
   fluttertoast: ^8.0.8
   double_back_to_close_app: ^2.0.1
+  sticky_headers: ^0.2.0
   flutter_html:
 
 dev_dependencies:
