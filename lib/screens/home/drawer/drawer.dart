@@ -2,6 +2,7 @@ import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/auth/access_settings/accessSettings.dart';
 import 'package:fenix_user/screens/auth/change_password/changePassword.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
@@ -50,16 +51,21 @@ class DrawerPage extends HookWidget {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: primary(),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Icon(
-                        Icons.settings,
-                        color: secondary1,
-                        size: 40,
+                    InkWell(
+                      onTap: () {
+                        Get.offAll(() => AccessSettings());
+                      },
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: primary(),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Icon(
+                          Icons.settings,
+                          color: secondary1,
+                          size: 40,
+                        ),
                       ),
                     ),
                     SizedBox(width: 16,),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
+import 'package:fenix_user/screens/auth/access_settings/accessSettings.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:fenix_user/screens/others/settings/settings.dart';
@@ -109,7 +110,7 @@ class EntryPage extends HookWidget {
         accentColor: primary(),
       ),
       home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0) :
-      db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
+      db.isLoggedIn() && db.getMenuName() == null  ? AccessSettings() : LoginPage(),
       translations: Localization(json),
       locale: Get.deviceLocale,
       fallbackLocale: Locale('en', 'US'),

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/screens/auth/access_settings/accessSettingsState.dart';
+import 'package:fenix_user/screens/auth/access_settings/accessSettingsStateNotifier.dart';
 import 'package:fenix_user/screens/auth/change_password/changePasswordState.dart';
 import 'package:fenix_user/screens/auth/change_password/changePasswordStateNotifier.dart';
 import 'package:fenix_user/screens/auth/login/loginState.dart';
@@ -67,6 +69,13 @@ StateNotifierProvider.autoDispose<ChangePasswordStateNotifier, ChangePasswordSta
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return ChangePasswordStateNotifier(api, db);
+});
+
+final accessSettingsProvider =
+StateNotifierProvider.autoDispose<AccessSettingsStateNotifier, AccessSettingsState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return AccessSettingsStateNotifier(api, db);
 });
 
 final settingsProvider =

@@ -14,6 +14,7 @@ class Localization extends Translations {
           'FRANCHISE_CODE':'Franchise code',
           'PASSCODE': 'Passcode',
           'SUBMIT': 'Submit',
+                    'ACCESS_SETTINGS': 'Access settings',
           'SESSION EXPIRED': 'Session Expired',
           'SERVER_NOT_RESPONDING': 'Server not responding',
           'CANCEL': 'Cancel',

@@ -199,6 +199,17 @@ class DB {
     return tabIndex;
   }
 
+  void saveFranchiseCode(franchiseCode) {
+    final box = Hive.box('user');
+    box.put('franchiseCode', franchiseCode);
+  }
+
+  int? getFranchiseCode() {
+    final box = Hive.box('user');
+    int? franchiseCode = box.get('franchiseCode');
+    return franchiseCode;
+  }
+
   Future<void> logOut() async {
     final box = Hive.box('user');
     await box.delete('token');
