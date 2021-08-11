@@ -178,7 +178,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
           .map((e) => e.tax)
           .reduce((_, __) => _ + __);
       print('tttttt $taxTotal');
-      final grandTotal = cartTotal + taxTotal;
+      // final grandTotal = cartTotal + taxTotal;
+      final grandTotal = cartTotal;
       cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
 
       state.productDetails!.copyWith.call(selectedAddOnItems : selectedAddOnItems.toList(), variant : selectedVariant,
@@ -268,7 +269,8 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       final taxTotal = cartData!.products
           .map((e) => e.tax)
           .reduce((_, __) => _ + __);
-      final grandTotal = cartTotal + taxTotal;
+      // final grandTotal = cartTotal + taxTotal;
+      final grandTotal = cartTotal;
       cart = cartData?.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       // cart = cartData?.copyWith(subTotal: cartTotal);
 

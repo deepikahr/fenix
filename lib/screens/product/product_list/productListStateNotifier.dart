@@ -121,7 +121,8 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
           .map((e) => e.tax)
           .reduce((_, __) => _ + __);
       print('tttttt $taxTotal');
-      final grandTotal = cartTotal + taxTotal;
+      // final grandTotal = cartTotal + taxTotal;
+      final grandTotal = cartTotal;
       cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       await cartNotifier.updateCart(cart);
       updateQuantity(newCart: cart,);
@@ -161,7 +162,8 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
           .map((e) => e.tax)
           .reduce((_, __) => _ + __);
       print('tttttt $taxTotal');
-      final grandTotal = cartTotal + taxTotal;
+      // final grandTotal = cartTotal + taxTotal;
+      final grandTotal = cartTotal;
       cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       await cartNotifier.updateCart(cart);
       updateQuantity(newCart: cart, );

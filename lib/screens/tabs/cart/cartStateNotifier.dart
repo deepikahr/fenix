@@ -73,7 +73,8 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       )
           .reduce((_, __) => _ + __);
       final subTotal = total;
-      final grandTotal = total + tax;
+      // final grandTotal = total + tax;
+      final grandTotal = total;
 
       await cartState.updateCart(cart?.copyWith(
         subTotal: subTotal,

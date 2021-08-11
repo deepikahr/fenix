@@ -114,10 +114,10 @@ class CartScreen extends HookWidget {
                                       'Total: ${cart.subTotal.toStringAsFixed(2)}',
                                       style: textPrimaryXXSmall(context)
                                   ),
-                                  Text(
-                                      'Tax: ${cart.taxTotal.toStringAsFixed(2)}',
-                                      style: textPrimaryXXSmall(context)
-                                  ),
+                                  // Text(
+                                  //     'Tax: ${cart.taxTotal.toStringAsFixed(2)}',
+                                  //     style: textPrimaryXXSmall(context)
+                                  // ),
                                   Text(
                                       'Grand Total: ${cart.grandTotal.toStringAsFixed(2)}',
                                       style: textPrimaryXXSmallDark(context)
@@ -310,10 +310,10 @@ class CartScreen extends HookWidget {
                                 ),
                               )
                             : Container(),
-                        Text(
-                            'Tax: ${cartProduct.taxInfo!.taxPercentage} %',
-                            style: textPrimaryXXSmall(context)
-                        ),
+                        // Text(
+                        //     'Tax: ${cartProduct.taxInfo!.taxPercentage} %',
+                        //     style: textPrimaryXXSmall(context)
+                        // ),
                   ],
                 ),
                 SizedBox(height: 12,),
