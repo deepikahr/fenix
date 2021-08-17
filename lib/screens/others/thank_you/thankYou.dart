@@ -5,16 +5,13 @@ import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Thankyou extends HookWidget {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-
     final homeState = useProvider(homeTabsProvider);
     final settingsState = useProvider(settingsProvider);
     final isMounted = useIsMounted();
@@ -22,7 +19,6 @@ class Thankyou extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          // await context.read(settingsProvider.notifier).fetchSettings();
           await context.read(homeTabsProvider.notifier).fetchLanguage();
         });
       }
@@ -33,14 +29,19 @@ class Thankyou extends HookWidget {
         backgroundColor: Colors.white,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
-                () {
-              context.read(homeTabsProvider.notifier).onPageChanged(0);
-              Get.to(() => HomeTabs(tabIndex: 0));
-            }
-        ),
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!),
+            homeState.languages,
+            homeState.isLoading,
+            settingsState.isLoading,
+            settingsState, () {
+          context.read(homeTabsProvider.notifier).onPageChanged(0);
+          Get.to(() => HomeTabs(tabIndex: 0));
+        }),
         body: ListView(
           children: [
             Container(
@@ -73,7 +74,6 @@ class Thankyou extends HookWidget {
               ),
             )
           ],
-        )
-    );
+        ));
   }
 }

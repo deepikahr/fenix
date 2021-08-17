@@ -1,6 +1,5 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/home_response/home_response.dart';
-import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'homeState.dart';
@@ -18,5 +17,4 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
       isLoading: false,
     );
   }
-
 }

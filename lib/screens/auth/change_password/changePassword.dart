@@ -4,7 +4,6 @@ import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/access_settings/accessSettings.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
-import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -14,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 
 class ChangePasswordPage extends HookWidget {
   final oldPasswordFocusNode = FocusNode();
@@ -33,12 +31,12 @@ class ChangePasswordPage extends HookWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0),
         child: Container(
-          decoration: new BoxDecoration(color: secondary1, boxShadow: [
-            BoxShadow(color: Colors.black45, blurRadius: 20)
-          ]),
+          decoration: new BoxDecoration(
+              color: secondary1,
+              boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 20)]),
           child: AppBar(
             backgroundColor: appBarDark,
-            leading:   InkWell(
+            leading: InkWell(
               onTap: () {
                 Navigator.push(
                   context,
@@ -50,8 +48,7 @@ class ChangePasswordPage extends HookWidget {
               child: Container(
                 margin: EdgeInsets.only(left: 16, top: 16),
                 decoration: BoxDecoration(
-                    color: primary(),
-                    borderRadius: BorderRadius.circular(8)),
+                    color: primary(), borderRadius: BorderRadius.circular(8)),
                 child: Icon(
                   Icons.settings,
                   color: secondary1,
@@ -64,7 +61,9 @@ class ChangePasswordPage extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 titleTextDarkRegularBW(context, Constants.restaurantName),
                 titleTextDarkRegularBW17(context, Constants.restaurantAddress),
               ],
@@ -78,9 +77,17 @@ class ChangePasswordPage extends HookWidget {
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(height: 65,),
-              Center(child: Text('CHANGE_PASSCODE'.tr, style: textDarkLargeBM(context),)),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 65,
+              ),
+              Center(
+                  child: Text(
+                'CHANGE_PASSCODE'.tr,
+                style: textDarkLargeBM(context),
+              )),
+              SizedBox(
+                height: 25,
+              ),
               regularTextField(
                 context,
                 oldPasswordTextField(
@@ -88,9 +95,8 @@ class ChangePasswordPage extends HookWidget {
                   formKey,
                   oldPasswordEditController,
                   oldPasswordFocusNode,
-                      (value) {
-                        FocusScope.of(context)
-                            .requestFocus(newPasswordFocusNode);
+                  (value) {
+                    FocusScope.of(context).requestFocus(newPasswordFocusNode);
                     formKey.currentState!.validate();
                   },
                 ),
@@ -105,7 +111,7 @@ class ChangePasswordPage extends HookWidget {
                   formKey2,
                   newPasswordEditController,
                   newPasswordFocusNode,
-                      (value) {
+                  (value) {
                     FocusScope.of(context).unfocus();
                     formKey2.currentState!.validate();
                   },
@@ -115,14 +121,15 @@ class ChangePasswordPage extends HookWidget {
                 height: 66,
               ),
               primaryButton(context, 'SUBMIT'.tr, () async {
-                if (formKey.currentState!.validate() && formKey2.currentState!.validate()) {
-                  final response =
-                  await context.read(changePasswordProvider.notifier).submit(
-                    oldPasswordEditController.text,
-                    newPasswordEditController.text,
-                  );
+                if (formKey.currentState!.validate() &&
+                    formKey2.currentState!.validate()) {
+                  final response = await context
+                      .read(changePasswordProvider.notifier)
+                      .submit(
+                        oldPasswordEditController.text,
+                        newPasswordEditController.text,
+                      );
                   if (response != null) {
-
                     Timer(Duration(seconds: 2), () async {
                       await Get.offAll(() => LoginPage());
                     });
@@ -152,12 +159,12 @@ class ChangePasswordPage extends HookWidget {
   }
 
   Widget oldPasswordTextField(
-      BuildContext context,
-      GlobalKey<FormFieldState> key,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    GlobalKey<FormFieldState> key,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       key: key,
       keyboardType: TextInputType.phone,
@@ -172,18 +179,17 @@ class ChangePasswordPage extends HookWidget {
           labelStyle: textDarkLightSmallBR(context),
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: InputBorder.none,
-          counterText: ''
-      ),
+          counterText: ''),
     );
   }
 
   Widget newPasswordTextField(
-      BuildContext context,
-      GlobalKey<FormFieldState> key,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    GlobalKey<FormFieldState> key,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       key: key,
       keyboardType: TextInputType.phone,
@@ -198,9 +204,7 @@ class ChangePasswordPage extends HookWidget {
           labelStyle: textDarkLightSmallBR(context),
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: InputBorder.none,
-          counterText: ''
-      ),
+          counterText: ''),
     );
   }
 }
-

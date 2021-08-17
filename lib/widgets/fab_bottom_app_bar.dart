@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:getwidget/components/button/gf_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:get/get.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({this.iconData, this.text});
@@ -15,7 +14,6 @@ class FABBottomAppBarItem {
 }
 
 class FABBottomAppBar extends HookWidget {
-
   final List<FABBottomAppBarItem?>? items;
   final String? centerItemText;
   final double? height;
@@ -40,10 +38,8 @@ class FABBottomAppBar extends HookWidget {
     assert(this.items!.length == 2 || this.items!.length == 4);
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     final state = useProvider(homeTabsProvider);
 
     onReturn() {
@@ -53,11 +49,13 @@ class FABBottomAppBar extends HookWidget {
           title: Text('Are you sure?'),
           content: Text('Do you want to exit an App'),
           actions: <Widget>[
-            FlatButton(
+            GFButton(
+              color: Colors.transparent,
               onPressed: () => Navigator.of(context).pop(false),
               child: Text('No'),
             ),
-            FlatButton(
+            GFButton(
+              color: Colors.transparent,
               onPressed: () => exit(0),
               /*Navigator.of(context).pop(true)*/
               child: Text('Yes'),
@@ -73,9 +71,9 @@ class FABBottomAppBar extends HookWidget {
         index: index,
         sel: state.currentIndex,
         onPressed: (int? index) {
-          if(index == 0 && state.currentIndex == 0){
+          if (index == 0 && state.currentIndex == 0) {
             onReturn();
-          }else{
+          } else {
             context.read(homeTabsProvider.notifier).onPageChanged(index);
           }
         },
@@ -116,13 +114,19 @@ class FABBottomAppBar extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: iconSize),
-            SizedBox(height: 24,),
+            SizedBox(
+              height: 24,
+            ),
             Text(
               centerItemText ?? '',
               style: TextStyle(color: color),
             ),
             SizedBox(height: 4),
-            Container(height: 3, color: primary(), width: 56,)
+            Container(
+              height: 3,
+              color: primary(),
+              width: 56,
+            )
           ],
         ),
       ),
@@ -152,12 +156,12 @@ class FABBottomAppBar extends HookWidget {
                 //   width: 50,
                 //   height: 50,
                 // ),
-            SvgPicture.asset(
-                item!.iconData!,
-                width: 60,
-                height: 60,
-                // color: selColor,
-            ),
+                SvgPicture.asset(
+                  item!.iconData!,
+                  width: 60,
+                  height: 60,
+                  // color: selColor,
+                ),
                 // Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(
                   item.text!,
@@ -170,5 +174,4 @@ class FABBottomAppBar extends HookWidget {
       ),
     );
   }
-
 }

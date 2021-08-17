@@ -1,13 +1,9 @@
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
-import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/counterBox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:intl/intl.dart';
-import 'buttons.dart';
 import 'network_image.dart';
 import 'normalText.dart';
 import 'package:get/get.dart';
@@ -290,6 +286,7 @@ Widget gridDishCard(
   void Function()? onUpdate,
   void Function()? onRemove,
 ) {
+  print(product.totalQuantity);
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 8, right: 8),
     decoration: BoxDecoration(

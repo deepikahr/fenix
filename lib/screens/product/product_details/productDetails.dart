@@ -1,4 +1,3 @@
-import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
@@ -22,16 +21,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
+// ignore: must_be_immutable
 class ProductDetails extends HookWidget {
   final String? productId;
   ProductDetails({this.productId});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool isChecked = false;
 
   final noteFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
@@ -43,8 +42,6 @@ class ProductDetails extends HookWidget {
     final homeState = useProvider(homeTabsProvider);
     final notifier = useProvider(productDetailsProvider.notifier);
     final cart = useProvider(cartProvider);
-    final cartState = useProvider(cartScreenProvider);
-    final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
     final settingsState = useProvider(settingsProvider);
 
@@ -109,9 +106,10 @@ class ProductDetails extends HookWidget {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: buildCenterIcon(context, cart, () {
+        floatingActionButton: buildCenterIcon(context, cart, () async {
           context.read(homeTabsProvider.notifier).onPageChanged(4);
           Get.to(() => CartScreen());
+          await notifier.fetchProductDetails(productId!);
         }));
   }
 
@@ -215,84 +213,83 @@ class ProductDetails extends HookWidget {
                       style: textDarkRegularBS(context),
                     ),
                     product.totalQuantity > 0 && !state.showAddButton
-                        ?
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        counterIcon(
-                          'remove',
-                              () {
-                            print('aaaaaaaa');
-                            if (product.isSameProductMultipleTime == true) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      showMulitipleTimeProductPopUp(
-                                          context, cart));
-                            } else {
-                              print('bbbbbb');
-                              notifier.updateProductsQuantity(
-                                  product, false);
-                            }
-                          },
-                        ),
-                        Text(product.totalQuantity.toString(),
-                            style: textBlackLargeBM(context)),
-                        counterIcon(
-                          'add',
-                              () async {
-                            if (product.isCustomizable) {
-                              print('aaaaaaaa uppp');
-                              await showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      showPopUp(context, product, () async {
-                                        Get.back();
-                                        await notifier
-                                            .findLastUpdateProduct(
-                                            product,
-                                            true,
-                                            product.restaurantName);
-                                      }, cart));
-                            } else {
-                              print('bbbbbb upp');
-                              await notifier.findLastUpdateProduct(
-                                  product, true, product.restaurantName);
-                            }
-                          },
-                        ),
-                      ],
-                    )
-                        :
-                    Container(
-                      width: 100,
-                      child: GFButton(
-                        elevation: 3,
-                        size: GFSize.LARGE,
-                        borderShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        onPressed: () async {
-                          context
-                              .read(productDetailsProvider.notifier)
-                              .showAddButton(false);
-                          context
-                              .read(homeTabsProvider.notifier)
-                              .onPageChanged(4);
-                          await notifier.saveCart(
-                              context,
-                              state.selectedAddOnItems,
-                              state
-                                  .productDetails!.variants[state.groupValue],
-                              state.productDetails!,
-                              productId,
-                              noteEditController.text);
-                        },
-                        color: primary(),
-                        text: 'ADD'.tr,
-                        textStyle: textLightLargeBM(context),
-                      ),
-                    ),
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              counterIcon(
+                                'remove',
+                                () {
+                                  print('aaaaaaaa');
+                                  if (product.isSameProductMultipleTime ==
+                                      true) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            showMulitipleTimeProductPopUp(
+                                                context, cart, notifier));
+                                  } else {
+                                    print('bbbbbb');
+                                    notifier.updateProductsQuantity(
+                                        product, false);
+                                  }
+                                },
+                              ),
+                              Text(product.totalQuantity.toString(),
+                                  style: textBlackLargeBM(context)),
+                              counterIcon(
+                                'add',
+                                () async {
+                                  if (product.isCustomizable) {
+                                    print('aaaaaaaa uppp');
+                                    await showDialog(
+                                        context: context,
+                                        builder: (context) => showPopUp(
+                                                context, product, () async {
+                                              Get.back();
+                                              await notifier
+                                                  .findLastUpdateProduct(
+                                                      product,
+                                                      true,
+                                                      product.restaurantName);
+                                            }, cart));
+                                  } else {
+                                    print('bbbbbb upp');
+                                    await notifier.findLastUpdateProduct(
+                                        product, true, product.restaurantName);
+                                  }
+                                },
+                              ),
+                            ],
+                          )
+                        : Container(
+                            width: 100,
+                            child: GFButton(
+                              elevation: 3,
+                              size: GFSize.LARGE,
+                              borderShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              onPressed: () async {
+                                context
+                                    .read(productDetailsProvider.notifier)
+                                    .showAddButton(false);
+                                context
+                                    .read(homeTabsProvider.notifier)
+                                    .onPageChanged(4);
+                                await notifier.saveCart(
+                                    context,
+                                    state.selectedAddOnItems,
+                                    state.productDetails!
+                                        .variants[state.groupValue],
+                                    state.productDetails!,
+                                    productId,
+                                    noteEditController.text);
+                              },
+                              color: primary(),
+                              text: 'ADD'.tr,
+                              textStyle: textLightLargeBM(context),
+                            ),
+                          ),
                   ],
                 ),
               ],
@@ -306,7 +303,8 @@ class ProductDetails extends HookWidget {
                 height: 12,
               ),
               allergenList(context, product.allergens ?? []),
-              sizeBlock(context, state.groupValue, product.variants ?? [], state),
+              sizeBlock(
+                  context, state.groupValue, product.variants ?? [], state),
               optionBlockExtra(state.productDetails?.addOnItems ?? [],
                   state.selectedAddOnItems, state),
               SizedBox(
@@ -323,7 +321,7 @@ class ProductDetails extends HookWidget {
                 context,
                 noteEditController,
                 noteFocusNode,
-                    (value) {
+                (value) {
                   FocusScope.of(context).unfocus();
                   formKey.currentState!.validate();
                 },
@@ -457,7 +455,6 @@ class ProductDetails extends HookWidget {
 
   Widget optionBlockExtra(List<AddOnCategory> addOnCategory,
       Set<AddOnItem>? selectedAddOnItems, state) {
-
     return Container(
       child: ListView.builder(
           physics: ScrollPhysics(),
@@ -535,14 +532,15 @@ class ProductDetails extends HookWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       counterIcon(
-                                          'remove', () {
-                                            context
-                                                .read(productDetailsProvider
-                                                    .notifier)
-                                                .updateAddonItemQuantity(
-                                                    addOnItems[i], false);
-                                          },
-                                         ),
+                                        'remove',
+                                        () {
+                                          context
+                                              .read(productDetailsProvider
+                                                  .notifier)
+                                              .updateAddonItemQuantity(
+                                                  addOnItems[i], false);
+                                        },
+                                      ),
                                       Text(
                                           selectedAddOnItems
                                               .toList()
@@ -555,7 +553,8 @@ class ProductDetails extends HookWidget {
                                               .toString(),
                                           style: textBlackLargeBM(context)),
                                       counterIcon(
-                                        'add', () async {
+                                        'add',
+                                        () async {
                                           context
                                               .read(productDetailsProvider
                                                   .notifier)
@@ -589,7 +588,8 @@ class ProductDetails extends HookWidget {
     );
   }
 
-  Widget showMulitipleTimeProductPopUp(BuildContext context, Cart? cart) {
+  Widget showMulitipleTimeProductPopUp(
+      BuildContext context, Cart? cart, notifier) {
     return Dialog(
       child: Container(
         height: 165,
@@ -629,9 +629,7 @@ class ProductDetails extends HookWidget {
                     Get.back();
                     context.read(homeTabsProvider.notifier).onPageChanged(4);
                     await Get.to(() => CartScreen());
-                    context
-                        .read(productDetailsProvider.notifier)
-                        .updateQuantity();
+                    await notifier.updateQuantity();
                   },
                   child: Text(
                     'CART'.tr.toUpperCase(),

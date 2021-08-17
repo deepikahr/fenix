@@ -28,7 +28,7 @@ class _$ProductResponseTearOff {
       String? productName,
       String? productDescription,
       String? franchiseName,
-      int averageRating = 0,
+      double averageRating = 0,
       String? franchiseId,
       String? categoryName,
       String? category,
@@ -36,9 +36,9 @@ class _$ProductResponseTearOff {
       String? vendorId,
       String? menuId,
       String? restaurantName,
-      int originalPrice = 0,
-      int sellingPrice = 0,
-      int discount = 0,
+      double originalPrice = 0,
+      double sellingPrice = 0,
+      double discount = 0,
       int? ranking,
       String? sizeName,
       bool? isVeg,
@@ -111,7 +111,7 @@ mixin _$ProductResponse {
   String? get productName => throw _privateConstructorUsedError;
   String? get productDescription => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
-  int get averageRating => throw _privateConstructorUsedError;
+  double get averageRating => throw _privateConstructorUsedError;
   String? get franchiseId => throw _privateConstructorUsedError;
   String? get categoryName => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
@@ -119,9 +119,9 @@ mixin _$ProductResponse {
   String? get vendorId => throw _privateConstructorUsedError;
   String? get menuId => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
-  int get originalPrice => throw _privateConstructorUsedError;
-  int get sellingPrice => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   int? get ranking => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   bool? get isVeg => throw _privateConstructorUsedError;
@@ -158,7 +158,7 @@ abstract class $ProductResponseCopyWith<$Res> {
       String? productName,
       String? productDescription,
       String? franchiseName,
-      int averageRating,
+      double averageRating,
       String? franchiseId,
       String? categoryName,
       String? category,
@@ -166,9 +166,9 @@ abstract class $ProductResponseCopyWith<$Res> {
       String? vendorId,
       String? menuId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
-      int discount,
+      double originalPrice,
+      double sellingPrice,
+      double discount,
       int? ranking,
       String? sizeName,
       bool? isVeg,
@@ -268,7 +268,7 @@ class _$ProductResponseCopyWithImpl<$Res>
       averageRating: averageRating == freezed
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       franchiseId: franchiseId == freezed
           ? _value.franchiseId
           : franchiseId // ignore: cast_nullable_to_non_nullable
@@ -300,15 +300,15 @@ class _$ProductResponseCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       ranking: ranking == freezed
           ? _value.ranking
           : ranking // ignore: cast_nullable_to_non_nullable
@@ -414,7 +414,7 @@ abstract class _$ProductResponseCopyWith<$Res>
       String? productName,
       String? productDescription,
       String? franchiseName,
-      int averageRating,
+      double averageRating,
       String? franchiseId,
       String? categoryName,
       String? category,
@@ -422,9 +422,9 @@ abstract class _$ProductResponseCopyWith<$Res>
       String? vendorId,
       String? menuId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
-      int discount,
+      double originalPrice,
+      double sellingPrice,
+      double discount,
       int? ranking,
       String? sizeName,
       bool? isVeg,
@@ -528,7 +528,7 @@ class __$ProductResponseCopyWithImpl<$Res>
       averageRating: averageRating == freezed
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       franchiseId: franchiseId == freezed
           ? _value.franchiseId
           : franchiseId // ignore: cast_nullable_to_non_nullable
@@ -560,15 +560,15 @@ class __$ProductResponseCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       ranking: ranking == freezed
           ? _value.ranking
           : ranking // ignore: cast_nullable_to_non_nullable
@@ -697,7 +697,7 @@ class _$_ProductResponse extends _ProductResponse {
   final String? franchiseName;
   @JsonKey(defaultValue: 0)
   @override
-  final int averageRating;
+  final double averageRating;
   @override
   final String? franchiseId;
   @override
@@ -714,13 +714,13 @@ class _$_ProductResponse extends _ProductResponse {
   final String? restaurantName;
   @JsonKey(defaultValue: 0)
   @override
-  final int originalPrice;
+  final double originalPrice;
   @JsonKey(defaultValue: 0)
   @override
-  final int sellingPrice;
+  final double sellingPrice;
   @JsonKey(defaultValue: 0)
   @override
-  final int discount;
+  final double discount;
   @override
   final int? ranking;
   @override
@@ -909,7 +909,7 @@ abstract class _ProductResponse extends ProductResponse {
       String? productName,
       String? productDescription,
       String? franchiseName,
-      int averageRating,
+      double averageRating,
       String? franchiseId,
       String? categoryName,
       String? category,
@@ -917,9 +917,9 @@ abstract class _ProductResponse extends ProductResponse {
       String? vendorId,
       String? menuId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
-      int discount,
+      double originalPrice,
+      double sellingPrice,
+      double discount,
       int? ranking,
       String? sizeName,
       bool? isVeg,
@@ -957,7 +957,7 @@ abstract class _ProductResponse extends ProductResponse {
   @override
   String? get franchiseName => throw _privateConstructorUsedError;
   @override
-  int get averageRating => throw _privateConstructorUsedError;
+  double get averageRating => throw _privateConstructorUsedError;
   @override
   String? get franchiseId => throw _privateConstructorUsedError;
   @override
@@ -973,11 +973,11 @@ abstract class _ProductResponse extends ProductResponse {
   @override
   String? get restaurantName => throw _privateConstructorUsedError;
   @override
-  int get originalPrice => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
   @override
-  int get sellingPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
   @override
-  int get discount => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   @override
   int? get ranking => throw _privateConstructorUsedError;
   @override

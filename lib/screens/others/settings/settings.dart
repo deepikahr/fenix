@@ -14,11 +14,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Settings extends HookWidget {
-  double _rating = 3;
   final tableNumberFocusNode = FocusNode();
   final ipAddressFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
@@ -44,15 +43,15 @@ class Settings extends HookWidget {
     }, const []);
 
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: PreferredSize(
           child: Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.symmetric(vertical: 15),
-            decoration: new BoxDecoration(color: secondary1, boxShadow: [
-              BoxShadow(color: Colors.black45, blurRadius: 20)
-            ]),
+            decoration: new BoxDecoration(
+                color: secondary1,
+                boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 20)]),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -88,17 +87,25 @@ class Settings extends HookWidget {
                   final response = await context
                       .read(settingsProvider.notifier)
                       .updateSettings(
-                      state.resetCategory ?? state.settings!.tabSetting!.resetCategory,
-                      state.enableCall ?? state.settings!.tabSetting!.callToWaiter,
-                      state.payOnCommand ?? state.settings!.tabSetting!.payTypeKiosk,
-                      state.validatePayment ?? state.settings!.tabSetting!.validatePaymentByWaiter,
-                      state.themeColor ?? state.settings!.tabSetting!.themeColour,
-                      state.orderMode ?? state.settings!.tabSetting!.orderingMode,
-                      state.type ?? state.settings!.tabSetting!.viewType,
-                  );
-                  if(response != null){
+                        state.resetCategory ??
+                            state.settings!.tabSetting!.resetCategory,
+                        state.enableCall ??
+                            state.settings!.tabSetting!.callToWaiter,
+                        state.payOnCommand ??
+                            state.settings!.tabSetting!.payTypeKiosk,
+                        state.validatePayment ??
+                            state.settings!.tabSetting!.validatePaymentByWaiter,
+                        state.themeColor ??
+                            state.settings!.tabSetting!.themeColour,
+                        state.orderMode ??
+                            state.settings!.tabSetting!.orderingMode,
+                        state.type ?? state.settings!.tabSetting!.viewType,
+                      );
+                  if (response != null) {
                     Timer(Duration(seconds: 2), () async {
-                      await Get.offAll(() => HomeTabs(tabIndex: 0,));
+                      await Get.offAll(() => HomeTabs(
+                            tabIndex: 0,
+                          ));
                     });
 
                     await showDialog(
@@ -116,15 +123,14 @@ class Settings extends HookWidget {
                       },
                     );
                   }
-                }else{
+                } else {
                   await showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
                         actions: [
-                          flatPrimaryUnderlineButton(
-                              context, 'OK'.tr, (){
-                                Get.back();
+                          flatPrimaryUnderlineButton(context, 'OK'.tr, () {
+                            Get.back();
                           })
                         ],
                         insetPadding: EdgeInsets.zero,
@@ -220,13 +226,12 @@ class Settings extends HookWidget {
                 ),
                 value: state.themeColor ?? settings.tabSetting!.themeColour,
                 onChanged: (value) async {
-                  await context.read(settingsProvider.notifier)
+                  await context
+                      .read(settingsProvider.notifier)
                       .setThemeColor(value!);
                 },
-                items: <String>[
-                  'red',
-                  'green','blue', 'yellow'
-                ].map<DropdownMenuItem<String>>((String item) {
+                items: <String>['red', 'green', 'blue', 'yellow']
+                    .map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
                     child: Text(
                       '$item',
@@ -255,7 +260,8 @@ class Settings extends HookWidget {
                 onChanged: (value) async {
                   for (var i = 0; i < menuList!.length; i++) {
                     if (menuList[i].title == value) {
-                      await context.read(settingsProvider.notifier)
+                      await context
+                          .read(settingsProvider.notifier)
                           .setMenu(menuList[i].id!, value);
                     }
                   }
@@ -281,8 +287,7 @@ class Settings extends HookWidget {
                 iconSize: 20,
                 value: state.type ?? settings.tabSetting!.viewType,
                 onChanged: (String? value) async {
-                  await context.read(settingsProvider.notifier)
-                      .setType(value!);
+                  await context.read(settingsProvider.notifier).setType(value!);
                 },
                 items: <String>[
                   'LIST'.tr,
@@ -304,12 +309,13 @@ class Settings extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: titleTextDarkRegularBS(
-                    context, 'ENABLE_CALL_TO_WAITER'.tr),
+                child:
+                    titleTextDarkRegularBS(context, 'ENABLE_CALL_TO_WAITER'.tr),
               ),
               GFToggle(
                 onChanged: (bool? value) async {
-                  await context.read(settingsProvider.notifier)
+                  await context
+                      .read(settingsProvider.notifier)
                       .setEnableCall(value!);
                 },
                 enabledThumbColor: primary(),

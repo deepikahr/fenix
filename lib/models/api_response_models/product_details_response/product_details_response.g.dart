@@ -22,8 +22,8 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
         ?.map((e) => e as String)
         .toList(),
     status: json['status'] as bool?,
-    averageRating: json['averageRating'] as int? ?? 0,
-    totalRating: json['totalRating'] as int?,
+    averageRating: (json['averageRating'] as num?)?.toDouble() ?? 0,
+    totalRating: (json['totalRating'] as num?)?.toDouble(),
     noOfUsersRated: json['noOfUsersRated'] as int?,
     allergens:
         (json['allergens'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -35,7 +35,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
         .toList(),
     isCopy: json['isCopy'] as bool?,
     id: json['_id'] as String?,
-    offerPercentage: json['offerPercentage'] as int?,
+    offerPercentage: (json['offerPercentage'] as num?)?.toDouble(),
     franchiseId: json['franchiseId'] as String?,
     category: json['category'] as String?,
     productName: json['productName'] as String?,
@@ -59,7 +59,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     restaurantName: json['restaurantName'] as String?,
     originalPrice: (json['originalPrice'] as num?)?.toDouble() ?? 0,
     sellingPrice: (json['sellingPrice'] as num?)?.toDouble() ?? 0,
-    discount: json['discount'] as int? ?? 0,
+    discount: (json['discount'] as num?)?.toDouble() ?? 0,
     sizeName: json['sizeName'] as String?,
     description: json['description'] as String?,
     selectedAddOnItems: (json['selectedAddOnItems'] as List<dynamic>?)

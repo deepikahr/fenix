@@ -1,21 +1,14 @@
 import 'dart:async';
-
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
-import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
-import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/network/api_service.dart';
-import 'package:fenix_user/screens/tabs/cart/cart.dart';
-import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'productListState.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
-import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:get/get.dart';
 
 class ProductListStateNotifier extends StateNotifier<ProductListState> {
@@ -36,9 +29,10 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
       categoryTitle: response!.categoryTitle,
       productData: response.product,
       products: response.product!.data,
-      productTotal: response.product!.total ,
+      productTotal: response.product!.total,
       isLoading: false,
     );
+    updateQuantity(newCart: cartData);
   }
 
   void onSelectLanguage(String value) {
@@ -46,57 +40,58 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
   }
 
   void updateQuantity({Cart? newCart}) {
+    print('llllllllllll');
     newCart ??= cartData;
     if (state.products!.isNotEmpty &&
         newCart != null &&
         newCart.products.isNotEmpty) {
-          state.products!.forEach((productsElement) {
-            final quantity = newCart!.products
-                .map((e) => (e.id == productsElement.id) ? e.quantity : 0)
-                .reduce((_, __) => _ + __);
-            final productData = newCart.products
-                .map((e) => (e.id == productsElement.id) ? 1 : 0)
-                .reduce((_, __) => _ + __);
-            productsElement = productsElement.copyWith.call(
-                totalQuantity: quantity,
-                isSameProductMultipleTime: productData > 1 ? true : false,
-                modified: db.getOrderId() == null ? false : true
-            );
+      state.products!.forEach((productsElement) {
+        final quantity = newCart!.products
+            .map((e) => (e.id == productsElement.id) ? e.quantity : 0)
+            .reduce((_, __) => _ + __);
+        final productData = newCart.products
+            .map((e) => (e.id == productsElement.id) ? 1 : 0)
+            .reduce((_, __) => _ + __);
+        productsElement = productsElement.copyWith.call(
+            totalQuantity: quantity,
+            isSameProductMultipleTime: productData > 1 ? true : false,
+            modified: db.getOrderId() == null ? false : true);
 
-            state = state.copyWith.productData!(
-                data: state.productData!.data!.map((p) {
-                  if (p.id == productsElement.id) {
-                    return productsElement;
-                  }
-                  return p;
-                }).toList());
+        state = state.copyWith.productData!(
+            data: state.productData!.data!.map((p) {
+          if (p.id == productsElement.id) {
+            return productsElement;
+          }
+          return p;
+        }).toList());
       });
     } else {
       state.products!.forEach((productsElement) {
-            productsElement = productsElement.copyWith
-                .call(totalQuantity: 0, isSameProductMultipleTime: false);
-            state = state.copyWith.productData!(
-                data: state.productData!.data!.map((p) {
-                  if (p.id == productsElement.id) {
-                    return productsElement;
-                  }
-                  return p;
-                }).toList());
-          });
+        productsElement = productsElement.copyWith
+            .call(totalQuantity: 0, isSameProductMultipleTime: false);
+        state = state.copyWith.productData!(
+            data: state.productData!.data!.map((p) {
+          if (p.id == productsElement.id) {
+            return productsElement;
+          }
+          return p;
+        }).toList());
+      });
     }
   }
 
   Future<void> findLastUpdateProduct(
-      ProductDetailsResponse product,
-      bool increased,
-      String? restaurantName,
-      ) async {
+    ProductDetailsResponse product,
+    bool increased,
+    String? restaurantName,
+  ) async {
     printWrapped('11111');
     if (cartData == null) {
       print('222222 ');
       final totalPrice = product.variant!.price!.toDouble();
-      final productTax = totalPrice * product.taxInfo!.taxPercentage!/100;
-      print('ssssssssssssssss  $totalPrice $productTax ${product.description} ${product.productDescription}');
+      final productTax = totalPrice * product.taxInfo!.taxPercentage! / 100;
+      print(
+          'ssssssssssssssss  $totalPrice $productTax ${product.description} ${product.productDescription}');
       var cart = Cart(
         franchiseId: product.franchiseId,
         franchiseName: product.franchiseName,
@@ -105,33 +100,34 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
         userId: db.getId(),
         products: [
           product.copyWith(
-            description: product.productDescription,
-            isLastVariant: true,
-            totalQuantity: product.quantity,
-            totalProductPrice: totalPrice,
+              description: product.productDescription,
+              isLastVariant: true,
+              totalQuantity: product.quantity,
+              totalProductPrice: totalPrice,
               tax: productTax,
-              modified: db.getOrderId() == null ? false : true
-          )
+              modified: db.getOrderId() == null ? false : true)
         ],
       );
       final cartTotal = cart.products
           .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
-      final taxTotal = cart.products
-          .map((e) => e.tax)
-          .reduce((_, __) => _ + __);
+      final taxTotal =
+          cart.products.map((e) => e.tax).reduce((_, __) => _ + __);
       print('tttttt $taxTotal');
       // final grandTotal = cartTotal + taxTotal;
       final grandTotal = cartTotal;
-      cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
+      cart = cart.copyWith(
+          subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       await cartNotifier.updateCart(cart);
-      updateQuantity(newCart: cart,);
+      updateQuantity(
+        newCart: cart,
+      );
     } else if (product.franchiseId != cartData?.franchiseId) {
       print('333');
       await customDialog(
         status: DIALOG_STATUS.WARNING,
         title:
-        '${'SOME_PRODUCTS_ARE_ALREADY_ADDED_IN'} ${cartData?.franchiseName} ${'FIRST_CLEAN_YOUR_CART'}',
+            '${'SOME_PRODUCTS_ARE_ALREADY_ADDED_IN'} ${cartData?.franchiseName} ${'FIRST_CLEAN_YOUR_CART'}',
         textConfirm: 'CLEAN_CART',
         onConfirmListener: () {
           cartNotifier.deleteCart();
@@ -142,35 +138,36 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
     } else if (!cartData!.products.any((element) => element.id == product.id)) {
       print('44444');
       final totalPrice = product.variant!.price!.toDouble();
-      final productTax = totalPrice * product.taxInfo!.taxPercentage!/100;
+      final productTax = totalPrice * product.taxInfo!.taxPercentage! / 100;
       print('ssssssssssssssss  $totalPrice $productTax ');
       var cart = cartData?.copyWith(products: [
         ...cartData?.products ?? [],
         product.copyWith(
-          description: product.productDescription,
-          isLastVariant: true,
-          totalQuantity: product.quantity,
-          totalProductPrice: totalPrice,
+            description: product.productDescription,
+            isLastVariant: true,
+            totalQuantity: product.quantity,
+            totalProductPrice: totalPrice,
             tax: productTax,
-            modified: db.getOrderId() == null ? false : true
-        )
+            modified: db.getOrderId() == null ? false : true)
       ]);
       final cartTotal = cart!.products
           .map((e) => e.totalProductPrice * e.quantity)
           .reduce((_, __) => _ + __);
-      final taxTotal = cart.products
-          .map((e) => e.tax)
-          .reduce((_, __) => _ + __);
+      final taxTotal =
+          cart.products.map((e) => e.tax).reduce((_, __) => _ + __);
       print('tttttt $taxTotal');
       // final grandTotal = cartTotal + taxTotal;
       final grandTotal = cartTotal;
-      cart = cart.copyWith(subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
+      cart = cart.copyWith(
+          subTotal: cartTotal, taxTotal: taxTotal, grandTotal: grandTotal);
       await cartNotifier.updateCart(cart);
-      updateQuantity(newCart: cart, );
+      updateQuantity(
+        newCart: cart,
+      );
     } else {
       print('5555');
       cartData?.products.forEach(
-            (element) async {
+        (element) async {
           if (element.id == product.id && element.isLastVariant == true) {
             final newProduct = element.copyWith(
                 quantity: element.quantity + (increased ? 1 : -1));
@@ -186,13 +183,17 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
 
               Cart? cart = cartData!.copyWith(products: products);
               await cartNotifier.updateCart(cart);
-              updateQuantity(newCart: cart,);
+              updateQuantity(
+                newCart: cart,
+              );
             } else {
               print('555 22');
               Cart? cart = cartData!
                   .copyWith(products: cartData!.products..remove(element));
               await cartNotifier.updateCart(cart);
-              updateQuantity(newCart: cart,);
+              updateQuantity(
+                newCart: cart,
+              );
               if (cart.products.isEmpty) {
                 await cartNotifier.deleteCart();
               }
@@ -211,7 +212,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
       final element = cartData!.products[i];
       if (element.id == product.id) {
         final newProduct =
-        element.copyWith(quantity: element.quantity + (increased ? 1 : -1));
+            element.copyWith(quantity: element.quantity + (increased ? 1 : -1));
         if (newProduct.quantity > 0) {
           Cart? cart = cartData!.copyWith(
             products: cartData!.products
@@ -222,7 +223,7 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
           updateQuantity(newCart: cart);
         } else {
           Cart? cart =
-          cartData!.copyWith(products: cartData!.products..remove(element));
+              cartData!.copyWith(products: cartData!.products..remove(element));
           await cartNotifier.updateCart(cart);
           updateQuantity(newCart: cart);
           if (cart.products.isEmpty) {
@@ -232,5 +233,4 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
       }
     }
   }
-
 }

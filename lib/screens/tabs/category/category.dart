@@ -1,13 +1,9 @@
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
-import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/styles/styles.dart';
-import 'package:fenix_user/widgets/appbar.dart';
-import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/card.dart';
-import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -20,12 +16,8 @@ import '../../../database/db.dart';
 final db = DB();
 
 class Category extends HookWidget {
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
-
     final homeState = useProvider(homeTabsProvider);
     final state = useProvider(categoryProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -34,8 +26,12 @@ class Category extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await context.read(categoryProvider.notifier).
-          fetchCategory(homeState.currentIndex == 1 ? 'BEVERAGE_CATEGORY' : 'FOOD_CATEGORY', 1, 10);
+          await context.read(categoryProvider.notifier).fetchCategory(
+              homeState.currentIndex == 1
+                  ? 'BEVERAGE_CATEGORY'
+                  : 'FOOD_CATEGORY',
+              1,
+              10);
         });
       }
       return;
@@ -46,23 +42,23 @@ class Category extends HookWidget {
       key: _scaffoldKey,
       drawer: DrawerPage(),
       body: Container(
-            color: light,
-            child: Stack(
+        color: light,
+        child: Stack(
+          children: [
+            ListView(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
               children: [
-                ListView(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  children: [
-                    if ((state.category?.length ?? 0) > 0)
-                    db.getType() == 'list' ?
-                    categoryBlock(context, state.category) :
-                    categoryListGrid(context, state.category),
-                  ],
-                ),
-                if (state.isLoading) GFLoader(type: GFLoaderType.ios)
+                if ((state.category?.length ?? 0) > 0)
+                  db.getType() == 'list'
+                      ? categoryBlock(context, state.category)
+                      : categoryListGrid(context, state.category),
               ],
             ),
+            if (state.isLoading) GFLoader(type: GFLoaderType.ios)
+          ],
+        ),
       ),
     );
   }
@@ -83,16 +79,19 @@ class Category extends HookWidget {
                 context.read(homeTabsProvider.notifier).onPageChanged(5);
                 db.saveCategoryId(category[i].id);
                 db.saveCategoryImage(category[i].imageUrl);
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                Get.to(() => ProductList(
+                    categoryId: category[i].id,
+                    categoryImage: category[i].imageUrl));
               },
-              child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
+              child: restaurantInfoCard(
+                  context, category[i].title, category[i].imageUrl),
             );
           }),
     );
   }
 
   Widget categoryListGrid(
-      BuildContext context, List<CategoryResponse>? category) =>
+          BuildContext context, List<CategoryResponse>? category) =>
       GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
@@ -109,10 +108,12 @@ class Category extends HookWidget {
                 context.read(homeTabsProvider.notifier).onPageChanged(5);
                 db.saveCategoryId(category[i].id);
                 db.saveCategoryImage(category[i].imageUrl);
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                Get.to(() => ProductList(
+                    categoryId: category[i].id,
+                    categoryImage: category[i].imageUrl));
               },
-              child: restaurantInfoCardGrid(context, category[i].title, category[i].imageUrl));
+              child: restaurantInfoCardGrid(
+                  context, category[i].title, category[i].imageUrl));
         },
       );
-
 }

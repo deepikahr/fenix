@@ -1,15 +1,9 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
-import 'package:fenix_user/screens/home/home/home.dart';
-import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
-import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
-import 'package:fenix_user/screens/tabs/cart/cart.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-
 import 'fab_bottom_app_bar.dart';
-import 'normalText.dart';
 import 'package:get/get.dart';
 
 Widget primaryButton(BuildContext context, title, onPressed, loading) {
@@ -31,15 +25,16 @@ Widget primaryButton(BuildContext context, title, onPressed, loading) {
       ),
       child: GFButton(
         size: GFSize.LARGE,
-        borderShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12)
-        ),
+        borderShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         color: primary(),
         onPressed: onPressed,
-        child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
-          title,
-          style: textWhiteLargeBM(context),
-        ),
+        child: loading
+            ? GFLoader(type: GFLoaderType.ios)
+            : Text(
+                title,
+                style: textWhiteLargeBM(context),
+              ),
       ),
     ),
   );
@@ -78,10 +73,14 @@ Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
     color: primary(),
     onPressed: onPressed,
-    child: isloading ? GFLoader(type: GFLoaderType.ios,) : Text(
-      title,
-      style: textWhiteLargeBM(context),
-    ),
+    child: isloading
+        ? GFLoader(
+            type: GFLoaderType.ios,
+          )
+        : Text(
+            title,
+            style: textWhiteLargeBM(context),
+          ),
   );
 }
 
@@ -116,8 +115,6 @@ Widget flatPrimaryUnderlineButton(
   );
 }
 
-
-
 Widget tabIconButton(BuildContext context, iconData, cartData) {
   return Stack(
     alignment: AlignmentDirectional.center,
@@ -151,7 +148,7 @@ BottomNavigationBarItem bottomBarTabItem(
       label: label, icon: tabIconButton(context, iconData, cartData));
 }
 
-Widget customBottomBar(onSelect){
+Widget customBottomBar(onSelect) {
   return FABBottomAppBar(
     centerItemText: 'ASK_FOR'.tr,
     color: Colors.grey,
@@ -159,10 +156,14 @@ Widget customBottomBar(onSelect){
     notchedShape: CircularNotchedRectangle(),
     onTabSelected: onSelect,
     items: [
-      FABBottomAppBarItem(iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr),
-      FABBottomAppBarItem(iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr),
-      FABBottomAppBarItem(iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr),
-      FABBottomAppBarItem(iconData: "lib/assets/icons/pay.svg", text: 'TO_PAY'.tr),
+      FABBottomAppBarItem(
+          iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr),
+      FABBottomAppBarItem(
+          iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr),
+      FABBottomAppBarItem(
+          iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr),
+      FABBottomAppBarItem(
+          iconData: "lib/assets/icons/pay.svg", text: 'TO_PAY'.tr),
     ],
     backgroundColor: Colors.grey.shade200,
   );
@@ -191,23 +192,24 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
                 ),
               ),
             ),
-            cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
-              end: 0,
-              bottom: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.white, width: 1)
-                ),
-                child: GFBadge(
-                  shape: GFBadgeShape.circle,
-                  color: Colors.black,
-                  textColor: GFColors.WHITE,
-                  size: GFSize.SMALL,
-                  text: '${cart.products.length}',
-                ),
-              ),
-            )
+            cart == null || !DB().isLoggedIn() || cart.products.length == 0
+                ? Container()
+                : PositionedDirectional(
+                    end: 0,
+                    bottom: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(color: Colors.white, width: 1)),
+                      child: GFBadge(
+                        shape: GFBadgeShape.circle,
+                        color: Colors.black,
+                        textColor: GFColors.WHITE,
+                        size: GFSize.SMALL,
+                        text: '${cart.products.length}',
+                      ),
+                    ),
+                  )
           ],
         ),
       ),

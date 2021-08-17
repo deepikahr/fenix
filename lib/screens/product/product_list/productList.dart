@@ -12,7 +12,6 @@ import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/card.dart';
-import 'package:fenix_user/widgets/fab_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
@@ -47,13 +46,6 @@ class ProductList extends HookWidget {
       }
       return;
     }, const []);
-
-    var screens = <Widget>[
-      Home(),
-      Category(),
-      Category(),
-      OrderDetails(),
-    ];
 
     return Scaffold(
         backgroundColor: grey2,
@@ -131,9 +123,10 @@ class ProductList extends HookWidget {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: buildCenterIcon(context, cart, () {
+        floatingActionButton: buildCenterIcon(context, cart, () async {
           context.read(homeTabsProvider.notifier).onPageChanged(4);
-          Get.to(() => CartScreen());
+          await Get.to(() => CartScreen());
+          await notifier.fetchProductData(db.getCategoryId() ?? categoryId);
         }));
   }
 
@@ -193,7 +186,7 @@ class ProductList extends HookWidget {
                             Get.back();
                             await notifier.findLastUpdateProduct(product[index],
                                 true, product[index].restaurantName);
-                          }, cart));
+                          }, cart, notifier));
                 } else {
                   await notifier.findLastUpdateProduct(
                       product[index], true, product[index].restaurantName);
@@ -203,8 +196,8 @@ class ProductList extends HookWidget {
                 if (product[index].isSameProductMultipleTime == true) {
                   showDialog(
                       context: context,
-                      builder: (context) =>
-                          showMulitipleTimeProductPopUp(context, cart));
+                      builder: (context) => showMulitipleTimeProductPopUp(
+                          context, cart, notifier));
                 } else {
                   notifier.updateProductsQuantity(product[index], false);
                 }
@@ -264,7 +257,7 @@ class ProductList extends HookWidget {
                                   product[index],
                                   true,
                                   product[index].restaurantName);
-                            }, cart));
+                            }, cart, notifier));
                   } else {
                     await notifier.findLastUpdateProduct(
                         product[index], true, product[index].restaurantName);
@@ -274,8 +267,8 @@ class ProductList extends HookWidget {
                   if (product[index].isSameProductMultipleTime == true) {
                     showDialog(
                         context: context,
-                        builder: (context) =>
-                            showMulitipleTimeProductPopUp(context, cart));
+                        builder: (context) => showMulitipleTimeProductPopUp(
+                            context, cart, notifier));
                   } else {
                     notifier.updateProductsQuantity(product[index], false);
                   }
@@ -284,7 +277,8 @@ class ProductList extends HookWidget {
         },
       );
 
-  Widget showMulitipleTimeProductPopUp(BuildContext context, Cart? cart) {
+  Widget showMulitipleTimeProductPopUp(
+      BuildContext context, Cart? cart, notifier) {
     return Dialog(
       child: Container(
         height: 165,
@@ -323,7 +317,8 @@ class ProductList extends HookWidget {
                   onPressed: () async {
                     // Get.back();
                     await Get.to(() => CartScreen());
-                    context.read(productListProvider.notifier).updateQuantity();
+                    await notifier
+                        .fetchProductData(db.getCategoryId() ?? categoryId);
                   },
                   child: Text(
                     'CART'.tr.toUpperCase(),
@@ -340,7 +335,7 @@ class ProductList extends HookWidget {
   }
 
   Widget showPopUp(BuildContext context, ProductDetailsResponse product,
-      Function() onRepeat, Cart? cart) {
+      Function() onRepeat, Cart? cart, notifier) {
     return Dialog(
       child: Container(
         height: 165,
@@ -381,7 +376,7 @@ class ProductList extends HookWidget {
 
                     context.read(homeTabsProvider.notifier).onPageChanged(6);
                     await Get.to(() => ProductDetails(productId: product.id!));
-                    context.read(productListProvider.notifier).updateQuantity();
+                    await notifier.updateQuantity();
                   },
                   child: Text(
                     'NEW'.tr.toUpperCase(),

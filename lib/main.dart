@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/screens/auth/access_settings/accessSettings.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
-import 'package:fenix_user/screens/others/settings/settings.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
@@ -18,6 +15,7 @@ import 'common/constant.dart';
 import 'database/db.dart';
 import 'localization/localization.dart';
 import 'network/api_service.dart';
+
 //
 final api = API();
 final db = DB();
@@ -28,7 +26,7 @@ void main() async {
   await db.initDatabase();
   runApp(ProviderScope(child: EntryPage()));
   // await getCurrency();
-   await getLanguage();
+  await getLanguage();
 }
 
 Future<void> initializeconfigLocalNotification() async {
@@ -48,7 +46,7 @@ Future<void> configLocalNotification() async {
       .promptUserForPushNotificationPermission(fallbackToSettings: true);
   if (allowed) {
     var status =
-    await (OneSignal.shared.getDeviceState() as FutureOr<OSDeviceState>);
+        await (OneSignal.shared.getDeviceState() as FutureOr<OSDeviceState>);
     var playerId = status.userId;
     if (playerId != null) {
       await updatePlayerId(playerId);
@@ -70,13 +68,13 @@ Future<void> configLocalNotification() async {
 Future<LanguageResponse?> getLanguage() async {
   final res = await api.languages();
   if (res != null) {
-    db.saveLanguage(db.getLanguage() ?? res.first.languageName );
+    db.saveLanguage(db.getLanguage() ?? res.first.languageName);
     db.saveLanguageCode(db.getLanguageCode() ?? res.first.languageCode);
     // await db.saveCurrency(
     //     res.currencySetting?.currencySymbol, res.currencySetting?.currencyName);
   } else {
     // await db.saveCurrency('Rs', 'India');
-    db.saveLanguage(db.getLanguage() ?? 'English' );
+    db.saveLanguage(db.getLanguage() ?? 'English');
     db.saveLanguageCode(db.getLanguageCode() ?? 'en');
   }
 }
@@ -94,7 +92,7 @@ class EntryPage extends HookWidget {
     final isMounted = useIsMounted();
     useEffect(() {
       if (isMounted()) {
-        db.saveThemeColor(db.getThemeColor() ?? 'red' );
+        db.saveThemeColor(db.getThemeColor() ?? 'red');
         Future.delayed(Duration.zero, () {
           initializeconfigLocalNotification();
         });
@@ -109,8 +107,11 @@ class EntryPage extends HookWidget {
         primaryColor: primary(),
         accentColor: primary(),
       ),
-      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0) :
-      db.isLoggedIn() && db.getMenuName() == null  ? AccessSettings() : LoginPage(),
+      home: db.isLoggedIn() && db.getMenuName() != null
+          ? HomeTabs(tabIndex: 0)
+          : db.isLoggedIn() && db.getMenuName() == null
+              ? AccessSettings()
+              : LoginPage(),
       translations: Localization(json),
       locale: Get.deviceLocale,
       fallbackLocale: Locale('en', 'US'),
@@ -118,5 +119,3 @@ class EntryPage extends HookWidget {
     );
   }
 }
-
-

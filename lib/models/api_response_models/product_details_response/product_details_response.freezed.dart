@@ -27,15 +27,15 @@ class _$ProductDetailsResponseTearOff {
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int averageRating = 0,
-      int? totalRating,
+      double averageRating = 0,
+      double? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
       @JsonKey(name: '_id') String? id,
-      int? offerPercentage,
+      double? offerPercentage,
       String? franchiseId,
       String? category,
       String? productName,
@@ -55,7 +55,7 @@ class _$ProductDetailsResponseTearOff {
       String? restaurantName,
       double originalPrice = 0,
       double sellingPrice = 0,
-      int discount = 0,
+      double discount = 0,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems = const [],
@@ -143,8 +143,8 @@ mixin _$ProductDetailsResponse {
   List<IngredientsModel>? get ingredients => throw _privateConstructorUsedError;
   List<String>? get addOnCategories => throw _privateConstructorUsedError;
   bool? get status => throw _privateConstructorUsedError;
-  int get averageRating => throw _privateConstructorUsedError;
-  int? get totalRating => throw _privateConstructorUsedError;
+  double get averageRating => throw _privateConstructorUsedError;
+  double? get totalRating => throw _privateConstructorUsedError;
   int? get noOfUsersRated => throw _privateConstructorUsedError;
   List<String>? get allergens => throw _privateConstructorUsedError;
   List<String>? get relatedProducts => throw _privateConstructorUsedError;
@@ -152,7 +152,7 @@ mixin _$ProductDetailsResponse {
   bool? get isCopy => throw _privateConstructorUsedError;
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
-  int? get offerPercentage => throw _privateConstructorUsedError;
+  double? get offerPercentage => throw _privateConstructorUsedError;
   String? get franchiseId => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
   String? get productName => throw _privateConstructorUsedError;
@@ -173,7 +173,7 @@ mixin _$ProductDetailsResponse {
   String? get restaurantName => throw _privateConstructorUsedError;
   double get originalPrice => throw _privateConstructorUsedError;
   double get sellingPrice => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
@@ -210,15 +210,15 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int averageRating,
-      int? totalRating,
+      double averageRating,
+      double? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
       @JsonKey(name: '_id') String? id,
-      int? offerPercentage,
+      double? offerPercentage,
       String? franchiseId,
       String? category,
       String? productName,
@@ -238,7 +238,7 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       String? restaurantName,
       double originalPrice,
       double sellingPrice,
-      int discount,
+      double discount,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems,
@@ -349,11 +349,11 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       averageRating: averageRating == freezed
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       totalRating: totalRating == freezed
           ? _value.totalRating
           : totalRating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       noOfUsersRated: noOfUsersRated == freezed
           ? _value.noOfUsersRated
           : noOfUsersRated // ignore: cast_nullable_to_non_nullable
@@ -381,7 +381,7 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       offerPercentage: offerPercentage == freezed
           ? _value.offerPercentage
           : offerPercentage // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       franchiseId: franchiseId == freezed
           ? _value.franchiseId
           : franchiseId // ignore: cast_nullable_to_non_nullable
@@ -461,7 +461,7 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -580,15 +580,15 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int averageRating,
-      int? totalRating,
+      double averageRating,
+      double? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
       @JsonKey(name: '_id') String? id,
-      int? offerPercentage,
+      double? offerPercentage,
       String? franchiseId,
       String? category,
       String? productName,
@@ -608,7 +608,7 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       String? restaurantName,
       double originalPrice,
       double sellingPrice,
-      int discount,
+      double discount,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems,
@@ -724,11 +724,11 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       averageRating: averageRating == freezed
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       totalRating: totalRating == freezed
           ? _value.totalRating
           : totalRating // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       noOfUsersRated: noOfUsersRated == freezed
           ? _value.noOfUsersRated
           : noOfUsersRated // ignore: cast_nullable_to_non_nullable
@@ -756,7 +756,7 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       offerPercentage: offerPercentage == freezed
           ? _value.offerPercentage
           : offerPercentage // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       franchiseId: franchiseId == freezed
           ? _value.franchiseId
           : franchiseId // ignore: cast_nullable_to_non_nullable
@@ -836,7 +836,7 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -981,9 +981,9 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final bool? status;
   @JsonKey(defaultValue: 0)
   @override
-  final int averageRating;
+  final double averageRating;
   @override
-  final int? totalRating;
+  final double? totalRating;
   @override
   final int? noOfUsersRated;
   @override
@@ -998,7 +998,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   @JsonKey(name: '_id')
   final String? id;
   @override
-  final int? offerPercentage;
+  final double? offerPercentage;
   @override
   final String? franchiseId;
   @override
@@ -1042,7 +1042,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final double sellingPrice;
   @JsonKey(defaultValue: 0)
   @override
-  final int discount;
+  final double discount;
   @override
   final String? sizeName;
   @override
@@ -1268,15 +1268,15 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       List<IngredientsModel>? ingredients,
       List<String>? addOnCategories,
       bool? status,
-      int averageRating,
-      int? totalRating,
+      double averageRating,
+      double? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
       @JsonKey(name: '_id') String? id,
-      int? offerPercentage,
+      double? offerPercentage,
       String? franchiseId,
       String? category,
       String? productName,
@@ -1296,7 +1296,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       String? restaurantName,
       double originalPrice,
       double sellingPrice,
-      int discount,
+      double discount,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems,
@@ -1330,9 +1330,9 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   bool? get status => throw _privateConstructorUsedError;
   @override
-  int get averageRating => throw _privateConstructorUsedError;
+  double get averageRating => throw _privateConstructorUsedError;
   @override
-  int? get totalRating => throw _privateConstructorUsedError;
+  double? get totalRating => throw _privateConstructorUsedError;
   @override
   int? get noOfUsersRated => throw _privateConstructorUsedError;
   @override
@@ -1347,7 +1347,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   @override
-  int? get offerPercentage => throw _privateConstructorUsedError;
+  double? get offerPercentage => throw _privateConstructorUsedError;
   @override
   String? get franchiseId => throw _privateConstructorUsedError;
   @override
@@ -1388,7 +1388,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   double get sellingPrice => throw _privateConstructorUsedError;
   @override
-  int get discount => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   @override
   String? get sizeName => throw _privateConstructorUsedError;
   @override

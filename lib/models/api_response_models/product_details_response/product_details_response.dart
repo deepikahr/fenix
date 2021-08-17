@@ -24,8 +24,8 @@ class ProductDetailsResponse
       List<String>? addOnCategories,
       bool? status,
       @Default(0)
-          int averageRating,
-      int? totalRating,
+          double averageRating,
+      double? totalRating,
       int? noOfUsersRated,
       List<String>? allergens,
       List<String>? relatedProducts,
@@ -33,7 +33,7 @@ class ProductDetailsResponse
       bool? isCopy,
       @JsonKey(name: '_id')
           String? id,
-      int? offerPercentage,
+      double? offerPercentage,
       String? franchiseId,
       String? category,
       String? productName,
@@ -58,7 +58,7 @@ class ProductDetailsResponse
       @Default(0)
           double sellingPrice,
       @Default(0)
-          int discount,
+          double discount,
       String? sizeName,
       String? description,
       @Default([])

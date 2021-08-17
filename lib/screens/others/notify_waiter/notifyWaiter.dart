@@ -1,4 +1,3 @@
-import 'package:fenix_user/models/api_response_models/notification_response/notification_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
@@ -7,24 +6,17 @@ import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:getwidget/components/loader/gf_loader.dart';
-import 'package:getwidget/types/gf_loader_type.dart';
-import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotifyWaiter extends HookWidget {
-
-  bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
-    final state = useProvider(notifyWaiterProvider);
     final homeState = useProvider(homeTabsProvider);
     final settingsState = useProvider(settingsProvider);
 
-    final notifyWaiterNotifier = useProvider(notifyWaiterProvider.notifier);
     final isMounted = useIsMounted();
 
     List notifyList = [
@@ -49,14 +41,19 @@ class NotifyWaiter extends HookWidget {
         backgroundColor: light,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
-                () {
-              context.read(homeTabsProvider.notifier).onPageChanged(0);
-              Get.to(() => HomeTabs(tabIndex: 0));
-            }
-        ),
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!),
+            homeState.languages,
+            homeState.isLoading,
+            settingsState.isLoading,
+            settingsState, () {
+          context.read(homeTabsProvider.notifier).onPageChanged(0);
+          Get.to(() => HomeTabs(tabIndex: 0));
+        }),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -90,14 +87,16 @@ class NotifyWaiter extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               custombuttonsmFW(context, notification[i], () async {
-                final response = await context.read(notifyWaiterProvider.notifier).callWaiter(notification[i], notification[i]);
-                if(response != null)
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$response')));
+                final response = await context
+                    .read(notifyWaiterProvider.notifier)
+                    .callWaiter(notification[i], notification[i]);
+                if (response != null)
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('$response')));
               }),
               SizedBox(height: 30),
             ],
           );
         });
   }
-
 }

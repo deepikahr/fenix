@@ -1,4 +1,3 @@
-import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
@@ -23,9 +22,7 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
 
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
     final newProduct = product.copyWith(
-      quantity: product.quantity + (increased ? 1 : -1),
-      modified: true
-    );
+        quantity: product.quantity + (increased ? 1 : -1), modified: true);
     if (newProduct.quantity > 0) {
       var products = cart!.products;
       products = products.map((p) {
@@ -36,7 +33,6 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       }).toList();
 
       await cartState.updateCart(cart?.copyWith(products: products));
-
     } else {
       await cartState.updateCart(
           cart?.copyWith(products: cart!.products..remove(product)));
@@ -50,37 +46,29 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> removeProduct(ProductDetailsResponse product) async {
-    await cartState.updateCart(
-        cart?.copyWith(products: cart!.products..remove(product)));
+    await cartState
+        .updateCart(cart?.copyWith(products: cart!.products..remove(product)));
     await updateGrandTotal();
   }
 
   Future<void> updateGrandTotal() async {
-
     if (cart != null) {
-      final total = cart!.products
-          .map(
-            (e) {
-              return e.totalProductPrice * e.quantity;
-            },
-      )
-          .reduce((_, __) => _ + __);
-      final tax = cart!.products
-          .map(
-            (e) {
+      final total = cart!.products.map(
+        (e) {
+          return e.totalProductPrice * e.quantity;
+        },
+      ).reduce((_, __) => _ + __);
+      final tax = cart!.products.map(
+        (e) {
           return e.tax;
         },
-      )
-          .reduce((_, __) => _ + __);
+      ).reduce((_, __) => _ + __);
       final subTotal = total;
       // final grandTotal = total + tax;
       final grandTotal = total;
 
       await cartState.updateCart(cart?.copyWith(
-        subTotal: subTotal,
-        grandTotal: grandTotal,
-        taxTotal: tax
-      ));
+          subTotal: subTotal, grandTotal: grandTotal, taxTotal: tax));
     }
   }
 
@@ -91,14 +79,14 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       cart!,
     );
     db.saveOrderId(response!.id);
-    state = state.copyWith.call(
-      isLoading: false,
-      orderResponse: response
-    );
+    state = state.copyWith.call(isLoading: false, orderResponse: response);
   }
 
-  UpdateProduct createUpdateProduct(ProductDetailsResponse product){
-    return UpdateProduct(productId: product.id, sizeName: product.sizeName, quantity: product.quantity,
+  UpdateProduct createUpdateProduct(ProductDetailsResponse product) {
+    return UpdateProduct(
+        productId: product.id,
+        sizeName: product.sizeName,
+        quantity: product.quantity,
         addOnItems: product.selectedAddOnItems);
   }
 
@@ -106,16 +94,17 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
     // updateGrandTotal();
     state = state.copyWith.call(isUpdateLoading: true);
 
-    UpdateCart updateCart = UpdateCart(orderId: db.getOrderId(), products: cart!.products.where((element) =>
-    element.modified).map((e) => createUpdateProduct(e)).toList());
+    UpdateCart updateCart = UpdateCart(
+        orderId: db.getOrderId(),
+        products: cart!.products
+            .where((element) => element.modified)
+            .map((e) => createUpdateProduct(e))
+            .toList());
 
-    final updateResponse = await api.updateOrder(
-      updateCart
-    );
+    final updateResponse = await api.updateOrder(updateCart);
     state = state.copyWith.call(
-        isUpdateLoading: false,
+      isUpdateLoading: false,
     );
     return updateResponse;
   }
-
 }

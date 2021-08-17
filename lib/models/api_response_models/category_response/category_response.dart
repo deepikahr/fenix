@@ -1,4 +1,3 @@
-import 'package:fenix_user/models/api_response_models/image_response/image_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../base_model.dart';
 part 'category_response.freezed.dart';
@@ -8,16 +7,15 @@ part 'category_response.g.dart';
 class CategoryResponse with BaseModel<CategoryResponse>, _$CategoryResponse {
   const CategoryResponse._();
 
-  const factory CategoryResponse({
-    @JsonKey(name: '_id') String? id,
-    String? franchiseId,
-    String? title,
-    String? description,
-    String? imageUrl,
-    String? imageId,
-    String? filePath,
-    String? topCategory
-  }) = _CategoryResponse;
+  const factory CategoryResponse(
+      {@JsonKey(name: '_id') String? id,
+      String? franchiseId,
+      String? title,
+      String? description,
+      String? imageUrl,
+      String? imageId,
+      String? filePath,
+      String? topCategory}) = _CategoryResponse;
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$CategoryResponseFromJson(json);
@@ -32,5 +30,3 @@ class CategoryResponse with BaseModel<CategoryResponse>, _$CategoryResponse {
     return toJson();
   }
 }
-
-

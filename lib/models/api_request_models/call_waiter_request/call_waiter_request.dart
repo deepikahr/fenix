@@ -1,6 +1,4 @@
-import 'package:fenix_user/models/api_response_models/tab_setting_response/tab_setting_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import '../../base_model.dart';
 
 part 'call_waiter_request.freezed.dart';
@@ -10,10 +8,8 @@ part 'call_waiter_request.g.dart';
 class CallWaiterRequest with BaseModel<CallWaiterRequest>, _$CallWaiterRequest {
   const CallWaiterRequest._();
 
-  const factory CallWaiterRequest({
-    String? title,
-    String? description
-  }) = _CallWaiterRequest;
+  const factory CallWaiterRequest({String? title, String? description}) =
+      _CallWaiterRequest;
 
   factory CallWaiterRequest.fromJson(Map<String, dynamic> json) =>
       _$CallWaiterRequestFromJson(json);
