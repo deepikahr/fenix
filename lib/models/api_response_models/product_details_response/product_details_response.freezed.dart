@@ -53,8 +53,8 @@ class _$ProductDetailsResponseTearOff {
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice = 0,
-      int sellingPrice = 0,
+      double originalPrice = 0,
+      double sellingPrice = 0,
       int discount = 0,
       String? sizeName,
       String? description,
@@ -171,8 +171,8 @@ mixin _$ProductDetailsResponse {
   String? get updatedAt => throw _privateConstructorUsedError;
   String? get categoryId => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
-  int get originalPrice => throw _privateConstructorUsedError;
-  int get sellingPrice => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
   int get discount => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -236,8 +236,8 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
+      double originalPrice,
+      double sellingPrice,
       int discount,
       String? sizeName,
       String? description,
@@ -453,11 +453,11 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -606,8 +606,8 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
+      double originalPrice,
+      double sellingPrice,
       int discount,
       String? sizeName,
       String? description,
@@ -828,11 +828,11 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -1036,10 +1036,10 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final String? restaurantName;
   @JsonKey(defaultValue: 0)
   @override
-  final int originalPrice;
+  final double originalPrice;
   @JsonKey(defaultValue: 0)
   @override
-  final int sellingPrice;
+  final double sellingPrice;
   @JsonKey(defaultValue: 0)
   @override
   final int discount;
@@ -1294,8 +1294,8 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
+      double originalPrice,
+      double sellingPrice,
       int discount,
       String? sizeName,
       String? description,
@@ -1384,9 +1384,9 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   String? get restaurantName => throw _privateConstructorUsedError;
   @override
-  int get originalPrice => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
   @override
-  int get sellingPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
   @override
   int get discount => throw _privateConstructorUsedError;
   @override

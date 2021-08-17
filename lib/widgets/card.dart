@@ -15,21 +15,20 @@ import 'package:get/get.dart';
 Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
   return Container(
     margin: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 26),
-    decoration: BoxDecoration(
-      color: Colors.black12
-      // boxShadow: [
-      //   BoxShadow(
-      //     color: dark.withOpacity(0.2),
-      //     // offset: Offset(0.5, 0.5),
-      //     blurRadius: 4.0,
-      //     spreadRadius: 1.0,
-      //   ),
-      // ],
-    ),
+    decoration: BoxDecoration(color: Colors.black12
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: dark.withOpacity(0.2),
+        //     // offset: Offset(0.5, 0.5),
+        //     blurRadius: 4.0,
+        //     spreadRadius: 1.0,
+        //   ),
+        // ],
+        ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        networkImage(image, MediaQuery.of(context).size.width *0.8 , 220 , 5)
+        networkImage(image, MediaQuery.of(context).size.width * 0.8, 220, 5)
       ],
     ),
   );
@@ -42,8 +41,8 @@ Widget restaurantInfoCard(BuildContext context, title, image) {
       alignment: AlignmentDirectional.center,
       children: [
         image != null
-            ? networkImage(image, MediaQuery.of(context).size.width,  170, 2)
-            : networkImageOverlay(MediaQuery.of(context).size.width,  170),
+            ? networkImage(image, MediaQuery.of(context).size.width, 170, 2)
+            : networkImageOverlay(MediaQuery.of(context).size.width, 170),
         Positioned(
             // left: 0,
             // right: 0,
@@ -117,21 +116,18 @@ Widget dishesInfoCard(
   ProductDetailsResponse product,
   notifier,
   state,
-categoryImage,
+  categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
 ) {
   return Container(
     decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(16),
-      ),
-       boxShadow: [
-        BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)
-      ]
-    ),
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(16),
+        ),
+        boxShadow: [BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)]),
     margin: EdgeInsets.only(bottom: 16, left: 16, right: 16),
     child: Stack(
       children: [
@@ -142,8 +138,8 @@ categoryImage,
             // Image.asset(
             //   'lib/assets/images/refer.png', height: 111, width: 109,
             // ),
-            categoryImage != null ?
-            networkImage(categoryImage, 218, 150, 1)
+            categoryImage != null
+                ? networkImage(categoryImage, 218, 150, 1)
                 : networkImageOverlay(218, 150),
             SizedBox(
               width: 8,
@@ -177,41 +173,48 @@ categoryImage,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null ? Text(
-                        '${product.variant!.price}€',
-                        style: textDarkRegularBS(context),) : Container(),
-                      product.productImage!.imageUrl != null ?
-                      Icon(Icons.camera_alt_rounded, color: primary(),) : Container(),
-                      product.allergens!.length > 0 ? InkWell(
-                        onTap: () async {
-                          // await showDialog(
-                          //     context: context,
-                          //     builder: (context) =>
-                          //         allergenDialog(context, product));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
+                      categoryImage != null
+                          ? Text(
+                              '${product.variant!.price}€',
+                              style: textDarkRegularBS(context),
+                            )
+                          : Container(),
+                      product.productImage!.imageUrl != null
+                          ? Icon(
+                              Icons.camera_alt_rounded,
                               color: primary(),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Text(
-                            'ALLERGENS'.tr,
-                            style: textWhiteRegularBM(),
-                          ),
-                        ),
-                      ) : Container(),
-
+                            )
+                          : Container(),
+                      product.allergens!.length > 0
+                          ? InkWell(
+                              onTap: () async {
+                                // await showDialog(
+                                //     context: context,
+                                //     builder: (context) =>
+                                //         allergenDialog(context, product));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    color: primary(),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(
+                                  'ALLERGENS'.tr,
+                                  style: textWhiteRegularBM(),
+                                ),
+                              ),
+                            )
+                          : Container(),
                       product.totalQuantity > 0
                           ? Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: [
-                              counterIcon('remove', onRemove),
-                              Text(product.totalQuantity.toString(),
-                                  style: textBlackLargeBM(context)),
-                              counterIcon('add', onUpdate),
-                            ],
-                          )
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                counterIcon('remove', onRemove),
+                                Text(product.totalQuantity.toString(),
+                                    style: textBlackLargeBM(context)),
+                                counterIcon('add', onUpdate),
+                              ],
+                            )
                           : Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: GFButton(
@@ -232,19 +235,22 @@ categoryImage,
           ],
         ),
         Positioned(
-          top: 0,
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Image.asset('lib/assets/images/b2.png', scale: 0.8, color: primary(),),
-              Text(
-                '${product.tags!.first.title}',
-                style: textDarkRegularBSW(context),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          )
-        ),
+            top: 0,
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Image.asset(
+                  'lib/assets/images/b2.png',
+                  scale: 0.8,
+                  color: primary(),
+                ),
+                Text(
+                  '${product.tags!.first.title}',
+                  style: textDarkRegularBSW(context),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )),
         Positioned(
             top: 80,
             child: Container(
@@ -252,18 +258,23 @@ categoryImage,
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               height: 30,
               color: Colors.black45,
-              child: Text('${product.variant!.sizeName}',
+              child: Text(
+                '${product.variant!.sizeName}',
                 style: textWhite3XSmallBM(context),
-                textAlign: TextAlign.center,),
-            )
-        ),
-        categoryImage == null ? Positioned(
-          bottom: 10, left: 30, right: 0,
-          child: Text(
-            '${product.variant!.price}€',
-            style: textWhiteLargeBMM(context),
-          ),
-        ) : Container()
+                textAlign: TextAlign.center,
+              ),
+            )),
+        categoryImage == null
+            ? Positioned(
+                bottom: 10,
+                left: 30,
+                right: 0,
+                child: Text(
+                  '${product.variant!.price}€',
+                  style: textWhiteLargeBMM(context),
+                ),
+              )
+            : Container()
       ],
     ),
   );
@@ -274,7 +285,7 @@ Widget gridDishCard(
   ProductDetailsResponse product,
   notifier,
   state,
-categoryImage,
+  categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
@@ -284,10 +295,7 @@ categoryImage,
     decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)
-        ]
-    ),
+        boxShadow: [BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)]),
     child: Column(
       children: [
         Column(
@@ -311,27 +319,33 @@ categoryImage,
                       child: Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          Image.asset('lib/assets/images/b2.png', scale: 0.8, color: primary(),),
+                          Image.asset(
+                            'lib/assets/images/b2.png',
+                            scale: 0.8,
+                            color: primary(),
+                          ),
                           Text(
                             '${product.tags!.first.title}',
                             style: textDarkRegularBSW(context),
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      )
-                  ),
+                      )),
                   Positioned(
-                      top: 0, right: 0,
+                      top: 0,
+                      right: 0,
                       child: Container(
                         alignment: AlignmentDirectional.center,
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         height: 30,
                         color: Colors.black45,
-                        child: Text('${product.variant!.sizeName}',
+                        child: Text(
+                          '${product.variant!.sizeName}',
                           style: textWhite3XSmallBM(context),
-                          textAlign: TextAlign.center,),
-                      )
-                  ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
                   Positioned(
                       bottom: 0,
                       child: Container(
@@ -349,14 +363,15 @@ categoryImage,
                               overflow: TextOverflow.ellipsis,
                               // textAlign: TextAlign.center,
                             ),
-                            categoryImage == null ? Text(
-                              '${product.variant!.price}€',
-                              style: textWhiteLargeBMM(context),
-                            ) : Container()
+                            categoryImage == null
+                                ? Text(
+                                    '${product.variant!.price}€',
+                                    style: textWhiteLargeBMM(context),
+                                  )
+                                : Container()
                           ],
                         ),
                       )),
-
                 ],
               ),
             ),
@@ -373,47 +388,55 @@ categoryImage,
                   SizedBox(
                     height: 6,
                   ),
-                  product.allergens!.length > 0 ? InkWell(
-                    onTap: () async {
-                      // await showDialog(
-                      //     context: context,
-                      //     builder: (context) =>
-                      //         allergenDialog(context, product));
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                          color: primary(), borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'ALLERGENS'.tr,
-                        style: textWhiteRegularBM(),
-                      ),
-                    ),
-                  ) : Container(),
+                  product.allergens!.length > 0
+                      ? InkWell(
+                          onTap: () async {
+                            // await showDialog(
+                            //     context: context,
+                            //     builder: (context) =>
+                            //         allergenDialog(context, product));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: primary(),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              'ALLERGENS'.tr,
+                              style: textWhiteRegularBM(),
+                            ),
+                          ),
+                        )
+                      : Container(),
                   SizedBox(
                     height: 6,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null ? Text(
-                        '${product.variant!.price}€',
-                        style: textDarkRegularBS(context),
-                      ) : Container(),
-                      product.productImage!.imageUrl != null ?
-                      Icon(Icons.camera_alt_rounded, color: primary(),) : Container(),
+                      categoryImage != null
+                          ? Text(
+                              '${product.variant!.price}€',
+                              style: textDarkRegularBS(context),
+                            )
+                          : Container(),
+                      product.productImage!.imageUrl != null
+                          ? Icon(
+                              Icons.camera_alt_rounded,
+                              color: primary(),
+                            )
+                          : Container(),
                       product.totalQuantity > 0
                           ? Container(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  counterIcon('remove', onRemove),
-                                  Text(product.totalQuantity.toString(),
-                                      style: textBlackLargeBM(context)),
-                                  counterIcon('add', onUpdate),
-                                ],
-                              ))
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                counterIcon('remove', onRemove),
+                                Text(product.totalQuantity.toString(),
+                                    style: textBlackLargeBM(context)),
+                                counterIcon('add', onUpdate),
+                              ],
+                            ))
                           : Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: GFButton(
@@ -439,8 +462,7 @@ categoryImage,
   );
 }
 
-
-Widget allergenDialog(BuildContext context,  ProductDetailsResponse product){
+Widget allergenDialog(BuildContext context, ProductDetailsResponse product) {
   return Dialog(
     child: Container(
       height: 165,

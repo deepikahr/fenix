@@ -12,7 +12,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
 class AccessSettings extends HookWidget {
   final tableNumberFocusNode = FocusNode();
   final franchiseCodeFocusNode = FocusNode();
@@ -21,8 +20,6 @@ class AccessSettings extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tableNumberEditController = useTextEditingController();
-    final franchiseCodeEditController = useTextEditingController();
     final passwordEditController = useTextEditingController();
 
     final state = useProvider(accessSettingsProvider);
@@ -31,30 +28,19 @@ class AccessSettings extends HookWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80.0),
         child: Container(
-          decoration: new BoxDecoration(color: secondary1, boxShadow: [
-            BoxShadow(color: Colors.black45, blurRadius: 20)
-          ]),
+          decoration: new BoxDecoration(
+              color: secondary1,
+              boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 20)]),
           child: AppBar(
             backgroundColor: appBarDark,
-            leading:  InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Settings(),
-                  ),
-                );
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: 16, top: 16),
-                decoration: BoxDecoration(
-                    color: primary(),
-                    borderRadius: BorderRadius.circular(8)),
-                child: Icon(
-                  Icons.settings,
-                  color: secondary1,
-                  size: 30,
-                ),
+            leading: Container(
+              margin: EdgeInsets.only(left: 16, top: 16),
+              decoration: BoxDecoration(
+                  color: primary(), borderRadius: BorderRadius.circular(8)),
+              child: Icon(
+                Icons.settings,
+                color: secondary1,
+                size: 30,
               ),
             ),
             centerTitle: true,
@@ -62,7 +48,9 @@ class AccessSettings extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 titleTextDarkRegularBW(context, Constants.restaurantName),
                 titleTextDarkRegularBW17(context, Constants.restaurantAddress),
               ],
@@ -78,9 +66,17 @@ class AccessSettings extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 65,),
-              Center(child: Text('ACCESS_SETTINGS'.tr, style: textDarkLargeBM(context),)),
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 65,
+              ),
+              Center(
+                  child: Text(
+                'ACCESS_SETTINGS'.tr,
+                style: textDarkLargeBM(context),
+              )),
+              SizedBox(
+                height: 25,
+              ),
               // regularTextField(
               //   context,
               //   tableNumberTextField(
@@ -112,7 +108,7 @@ class AccessSettings extends HookWidget {
                   formKey,
                   passwordEditController,
                   passwordFocusNode,
-                      (value) {
+                  (value) {
                     FocusScope.of(context).unfocus();
                     formKey.currentState!.validate();
                   },
@@ -123,14 +119,15 @@ class AccessSettings extends HookWidget {
               ),
               primaryButton(context, 'SUBMIT'.tr, () async {
                 if (formKey.currentState!.validate()) {
-                  final response =
-                  await context.read(accessSettingsProvider.notifier).submit(
-                    int.parse(DB().getTableNumber()!),
-                    DB().getFranchiseCode()!,
-                    // int.parse(tableNumberEditController.text),
-                    // int.parse(franchiseCodeEditController.text),
-                    passwordEditController.text,
-                  );
+                  final response = await context
+                      .read(accessSettingsProvider.notifier)
+                      .submit(
+                        int.parse(DB().getTableNumber()!),
+                        DB().getFranchiseCode()!,
+                        // int.parse(tableNumberEditController.text),
+                        // int.parse(franchiseCodeEditController.text),
+                        passwordEditController.text,
+                      );
                   if (response != null) {
                     await Get.offAll(() => Settings());
                   }
@@ -146,11 +143,11 @@ class AccessSettings extends HookWidget {
   }
 
   Widget tableNumberTextField(
-      BuildContext context,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       keyboardType: TextInputType.number,
       controller: controller,
@@ -167,11 +164,11 @@ class AccessSettings extends HookWidget {
   }
 
   Widget franchiseCodeTextField(
-      BuildContext context,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       keyboardType: TextInputType.number,
       controller: controller,
@@ -188,12 +185,12 @@ class AccessSettings extends HookWidget {
   }
 
   Widget passwordTextField(
-      BuildContext context,
-      GlobalKey<FormFieldState> key,
-      controller,
-      FocusNode focusNode,
-      ValueChanged<String> onFieldSubmitted,
-      ) {
+    BuildContext context,
+    GlobalKey<FormFieldState> key,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
     return TextFormField(
       key: key,
       keyboardType: TextInputType.phone,
@@ -208,9 +205,7 @@ class AccessSettings extends HookWidget {
           labelStyle: textDarkLightSmallBR(context),
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: InputBorder.none,
-          counterText: ''
-      ),
+          counterText: ''),
     );
   }
 }
-

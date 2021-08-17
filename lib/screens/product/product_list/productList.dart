@@ -31,7 +31,6 @@ class ProductList extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final state = useProvider(productListProvider);
     final homeState = useProvider(homeTabsProvider);
     final notifier = useProvider(productListProvider.notifier);
@@ -57,156 +56,125 @@ class ProductList extends HookWidget {
     ];
 
     return Scaffold(
-      backgroundColor: grey2,
-      key: _scaffoldKey,
-      drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
-              () {
-            context.read(homeTabsProvider.notifier).onPageChanged(0);
-            Get.to(() => HomeTabs(tabIndex: 0));
-          }
-      ),
-      body: homeState.isLoading
-          ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : homeState.currentIndex == 0  ? Home()
-          : homeState.currentIndex == 1  ? Category()
-          : homeState.currentIndex == 2  ? Category()
-          : homeState.currentIndex == 3  ? OrderDetails()
-          : homeState.currentIndex == 5  ?
-      Stack(
-        children: [
-          state.productTotal == 0 ? Container(
-            alignment: Alignment.topCenter,
-            child: Text('NO_PRODUCT'.tr),
-          ) :
-          ListView(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            children: [
-              if ((state.productData?.data!.length ?? 0) > 0)
-              categoryList(context, state.categoryTitle!),
-              SizedBox(height: 10),
-              if ((state.products?.length ?? 0) > 0)
-              db.getType() == 'list' ?
-              productList(state.productData!.data!, notifier, state, cart) :
-              productListGrid(context, state.productData!.data!, notifier, state, cart),
-            ],
-          ),
-          if(state.isLoading)
-            GFLoader(type: GFLoaderType.ios)
-        ],
-      ) : Home(),
-      bottomNavigationBar: customBottomBar((index) async {
-        context.read(homeTabsProvider.notifier).onPageChanged(index);
-      },),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:buildCenterIcon(context, cart, () {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      })
-    );
+        backgroundColor: grey2,
+        key: _scaffoldKey,
+        drawer: DrawerPage(),
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!),
+            homeState.languages,
+            homeState.isLoading,
+            settingsState.isLoading,
+            settingsState, () {
+          context.read(homeTabsProvider.notifier).onPageChanged(0);
+          Get.to(() => HomeTabs(tabIndex: 0));
+        }),
+        body: homeState.isLoading
+            ? Center(child: GFLoader(type: GFLoaderType.ios))
+            : homeState.currentIndex == 0
+                ? Home()
+                : homeState.currentIndex == 1
+                    ? Category()
+                    : homeState.currentIndex == 2
+                        ? Category()
+                        : homeState.currentIndex == 3
+                            ? OrderDetails()
+                            : homeState.currentIndex == 5
+                                ? Stack(
+                                    children: [
+                                      state.productTotal == 0
+                                          ? Container(
+                                              alignment: Alignment.topCenter,
+                                              child: Text('NO_PRODUCT'.tr),
+                                            )
+                                          : ListView(
+                                              shrinkWrap: true,
+                                              physics: ScrollPhysics(),
+                                              children: [
+                                                if ((state.productData?.data!
+                                                            .length ??
+                                                        0) >
+                                                    0)
+                                                  categoryList(context,
+                                                      state.categoryTitle!),
+                                                SizedBox(height: 10),
+                                                if ((state.products?.length ??
+                                                        0) >
+                                                    0)
+                                                  db.getType() == 'list'
+                                                      ? productList(
+                                                          state.productData!
+                                                              .data!,
+                                                          notifier,
+                                                          state,
+                                                          cart)
+                                                      : productListGrid(
+                                                          context,
+                                                          state.productData!
+                                                              .data!,
+                                                          notifier,
+                                                          state,
+                                                          cart),
+                                              ],
+                                            ),
+                                      if (state.isLoading)
+                                        GFLoader(type: GFLoaderType.ios)
+                                    ],
+                                  )
+                                : Home(),
+        bottomNavigationBar: customBottomBar(
+          (index) async {
+            context.read(homeTabsProvider.notifier).onPageChanged(index);
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: buildCenterIcon(context, cart, () {
+          context.read(homeTabsProvider.notifier).onPageChanged(4);
+          Get.to(() => CartScreen());
+        }));
   }
 
   Widget categoryList(context, String category) => Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(right: 15.0),
-        child: Text(
-          category,
-          style: textDarkRegularBS(context),
-        ),
-      )
-    ],
-  );
-
-  Widget productList(List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
-      ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: product!.length,
-          itemBuilder: (context, index) => InkWell(
-              onTap: () {
-
-                context.read(homeTabsProvider.notifier).onPageChanged(6);
-                Get.to(() => ProductDetails(
-                  productId: product[index].id,
-                ));
-              },
-              child: dishesInfoCard(context, product[index], notifier, state, categoryImage,
-                    () async {
-                if (product[index].isCustomizable) {
-
-                  context.read(homeTabsProvider.notifier).onPageChanged(6);
-                  await Get.to(() => ProductDetails(
-                    productId: product[index].id,
-                  ));
-                  notifier.updateQuantity();
-                } else {
-                  await notifier.findLastUpdateProduct(
-                    product[index],
-                    true,
-                    product[index].franchiseName,
-                  );
-                }
-              },
-                    () async {
-                  if (product[index].isCustomizable) {
-                    await showDialog(
-                        context: context,
-                        builder: (context) =>
-                            showPopUp(context, product[index], () async {
-                              Get.back();
-                              await notifier.findLastUpdateProduct(
-                                  product[index], true, product[index].restaurantName);
-                            }, cart));
-                  } else {
-                    await notifier.findLastUpdateProduct(
-                        product[index], true, product[index].restaurantName);
-                  }
-                },
-                    () {
-                  if (product[index].isSameProductMultipleTime == true) {
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            showMulitipleTimeProductPopUp(context, cart));
-                  } else {
-                    notifier.updateProductsQuantity(product[index], false);
-                  }
-                },
-              )),
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: Text(
+              category,
+              style: textDarkRegularBS(context),
+            ),
+          )
+        ],
       );
 
-  Widget productListGrid(
-      BuildContext context, List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
-      GridView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+  Widget productList(
+          List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
+      ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: product!.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 0,
-            crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 610),
-        itemBuilder: (context, index) {
-          return InkWell(
+        itemBuilder: (context, index) => InkWell(
             onTap: () {
-
               context.read(homeTabsProvider.notifier).onPageChanged(6);
-              Get.to(() => ProductDetails( productId: product[index].id,));
-            },
-            child: gridDishCard(context, product[index], notifier, state, categoryImage,
-                  () async {
-                if (product[index].isCustomizable) {
-
-                  context.read(homeTabsProvider.notifier).onPageChanged(6);
-                  await Get.to(() => ProductDetails(
+              Get.to(() => ProductDetails(
                     productId: product[index].id,
                   ));
+            },
+            child: dishesInfoCard(
+              context,
+              product[index],
+              notifier,
+              state,
+              categoryImage,
+              () async {
+                if (product[index].isCustomizable) {
+                  context.read(homeTabsProvider.notifier).onPageChanged(6);
+                  await Get.to(() => ProductDetails(
+                        productId: product[index].id,
+                      ));
                   notifier.updateQuantity();
                 } else {
                   await notifier.findLastUpdateProduct(
@@ -216,22 +184,22 @@ class ProductList extends HookWidget {
                   );
                 }
               },
-                  () async {
+              () async {
                 if (product[index].isCustomizable) {
                   await showDialog(
                       context: context,
                       builder: (context) =>
                           showPopUp(context, product[index], () async {
                             Get.back();
-                            await notifier.findLastUpdateProduct(
-                                product[index], true, product[index].restaurantName);
+                            await notifier.findLastUpdateProduct(product[index],
+                                true, product[index].restaurantName);
                           }, cart));
                 } else {
                   await notifier.findLastUpdateProduct(
                       product[index], true, product[index].restaurantName);
                 }
               },
-                  () {
+              () {
                 if (product[index].isSameProductMultipleTime == true) {
                   showDialog(
                       context: context,
@@ -241,11 +209,80 @@ class ProductList extends HookWidget {
                   notifier.updateProductsQuantity(product[index], false);
                 }
               },
-            )
-          );
-        },
+            )),
       );
 
+  Widget productListGrid(BuildContext context,
+          List<ProductDetailsResponse>? product, notifier, state, Cart? cart) =>
+      GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: product!.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: MediaQuery.of(context).size.width / 650),
+        itemBuilder: (context, index) {
+          return InkWell(
+              onTap: () {
+                context.read(homeTabsProvider.notifier).onPageChanged(6);
+                Get.to(() => ProductDetails(
+                      productId: product[index].id,
+                    ));
+              },
+              child: gridDishCard(
+                context,
+                product[index],
+                notifier,
+                state,
+                categoryImage,
+                () async {
+                  if (product[index].isCustomizable) {
+                    context.read(homeTabsProvider.notifier).onPageChanged(6);
+                    await Get.to(() => ProductDetails(
+                          productId: product[index].id,
+                        ));
+                    notifier.updateQuantity();
+                  } else {
+                    await notifier.findLastUpdateProduct(
+                      product[index],
+                      true,
+                      product[index].franchiseName,
+                    );
+                  }
+                },
+                () async {
+                  if (product[index].isCustomizable) {
+                    await showDialog(
+                        context: context,
+                        builder: (context) =>
+                            showPopUp(context, product[index], () async {
+                              Get.back();
+                              await notifier.findLastUpdateProduct(
+                                  product[index],
+                                  true,
+                                  product[index].restaurantName);
+                            }, cart));
+                  } else {
+                    await notifier.findLastUpdateProduct(
+                        product[index], true, product[index].restaurantName);
+                  }
+                },
+                () {
+                  if (product[index].isSameProductMultipleTime == true) {
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            showMulitipleTimeProductPopUp(context, cart));
+                  } else {
+                    notifier.updateProductsQuantity(product[index], false);
+                  }
+                },
+              ));
+        },
+      );
 
   Widget showMulitipleTimeProductPopUp(BuildContext context, Cart? cart) {
     return Dialog(
@@ -265,35 +302,35 @@ class ProductList extends HookWidget {
               children: [
                 Expanded(
                     child: GFButton(
-                      blockButton: true,
-                      size: GFSize.LARGE,
-                      color: primary(),
-                      type: GFButtonType.outline,
-                      onPressed: () => Get.back(),
-                      child: Text(
-                        'CANCEL'.tr.toUpperCase(),
-                        style: textPrimarySmallBM(context),
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
+                  blockButton: true,
+                  size: GFSize.LARGE,
+                  color: primary(),
+                  type: GFButtonType.outline,
+                  onPressed: () => Get.back(),
+                  child: Text(
+                    'CANCEL'.tr.toUpperCase(),
+                    style: textPrimarySmallBM(context),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
                 SizedBox(width: 10),
                 Expanded(
                     child: GFButton(
-                      blockButton: true,
-                      size: GFSize.LARGE,
-                      color: GFColors.DARK,
-                      type: GFButtonType.outline,
-                      onPressed: () async {
-                        // Get.back();
-                        await Get.to(() => CartScreen());
-                        context.read(productListProvider.notifier).updateQuantity();
-                      },
-                      child: Text(
-                        'CART'.tr.toUpperCase(),
-                        style: textBlackSmallBM(context),
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
+                  blockButton: true,
+                  size: GFSize.LARGE,
+                  color: GFColors.DARK,
+                  type: GFButtonType.outline,
+                  onPressed: () async {
+                    // Get.back();
+                    await Get.to(() => CartScreen());
+                    context.read(productListProvider.notifier).updateQuantity();
+                  },
+                  child: Text(
+                    'CART'.tr.toUpperCase(),
+                    style: textBlackSmallBM(context),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
               ],
             )
           ],
@@ -302,8 +339,8 @@ class ProductList extends HookWidget {
     );
   }
 
-  Widget showPopUp(
-      BuildContext context, ProductDetailsResponse product, Function() onRepeat, Cart? cart) {
+  Widget showPopUp(BuildContext context, ProductDetailsResponse product,
+      Function() onRepeat, Cart? cart) {
     return Dialog(
       child: Container(
         height: 165,
@@ -321,37 +358,37 @@ class ProductList extends HookWidget {
               children: [
                 Expanded(
                     child: GFButton(
-                      blockButton: true,
-                      size: GFSize.LARGE,
-                      color: primary(),
-                      type: GFButtonType.outline,
-                      onPressed: onRepeat,
-                      child: Text(
-                        'REPEAT_LAST'.tr.toUpperCase(),
-                        style: textPrimarySmallBM(context),
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
+                  blockButton: true,
+                  size: GFSize.LARGE,
+                  color: primary(),
+                  type: GFButtonType.outline,
+                  onPressed: onRepeat,
+                  child: Text(
+                    'REPEAT_LAST'.tr.toUpperCase(),
+                    style: textPrimarySmallBM(context),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
                 SizedBox(width: 10),
                 Expanded(
                     child: GFButton(
-                      blockButton: true,
-                      size: GFSize.LARGE,
-                      color: GFColors.DARK,
-                      type: GFButtonType.outline,
-                      onPressed: () async {
-                        Get.back();
+                  blockButton: true,
+                  size: GFSize.LARGE,
+                  color: GFColors.DARK,
+                  type: GFButtonType.outline,
+                  onPressed: () async {
+                    Get.back();
 
-                        context.read(homeTabsProvider.notifier).onPageChanged(6);
-                        await Get.to(() => ProductDetails(productId: product.id!));
-                        context.read(productListProvider.notifier).updateQuantity();
-                      },
-                      child: Text(
-                        'NEW'.tr.toUpperCase(),
-                        style: textBlackSmallBM(context),
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
+                    context.read(homeTabsProvider.notifier).onPageChanged(6);
+                    await Get.to(() => ProductDetails(productId: product.id!));
+                    context.read(productListProvider.notifier).updateQuantity();
+                  },
+                  child: Text(
+                    'NEW'.tr.toUpperCase(),
+                    style: textBlackSmallBM(context),
+                    textAlign: TextAlign.center,
+                  ),
+                )),
               ],
             )
           ],
@@ -359,6 +396,4 @@ class ProductList extends HookWidget {
       ),
     );
   }
-
-
 }

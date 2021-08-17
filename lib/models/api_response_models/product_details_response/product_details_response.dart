@@ -6,72 +6,88 @@ import 'package:fenix_user/models/api_response_models/tag_response/tag_response.
 import 'package:fenix_user/models/api_response_models/tax_info_model/tax_info_model.dart';
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../base_model.dart';
 
 part 'product_details_response.freezed.dart';
 part 'product_details_response.g.dart';
 
 @freezed
-class ProductDetailsResponse with BaseModel<ProductDetailsResponse>, _$ProductDetailsResponse {
+class ProductDetailsResponse
+    with BaseModel<ProductDetailsResponse>, _$ProductDetailsResponse {
   const ProductDetailsResponse._();
 
-  const factory ProductDetailsResponse({
-    ImageResponse? productImage,
-    TaxInfoModel? taxInfo,
-    List<IngredientsModel>? ingredients,
-    List<String>? addOnCategories,
-    bool? status,
-    @Default(0) int averageRating,
-    int? totalRating,
-    int? noOfUsersRated,
-    List<String>? allergens,
-    List<String>? relatedProducts,
-    List<TagResponse>? tags,
-    bool? isCopy,
-    @JsonKey(name: '_id') String? id,
-    int? offerPercentage,
-    String? franchiseId,
-    String? category,
-    String? productName,
-    String? productDescription,
-    bool? isVeg,
-    List<VariantResponse>? variants,
-    @JsonKey(name: 'addOnItems')
-    @Default([]) List<AddOnCategory>? addOnItems,
-    String? subCategory,
-    int? ranking,
-    String? menuId,
-    String? vendorId,
-    String? categoryName,
-    String? franchiseName,
-    String? createdAt,
-    String? updatedAt,
-
-    String? categoryId,
-    String? restaurantName,
-    @Default(0) int originalPrice,
-    @Default(0) int sellingPrice,
-    @Default(0) int discount,
-    String? sizeName,
-    String? description,
-    @Default([]) List<AddOnItem> selectedAddOnItems,
-    @Default(0) int preparationTime,
-    @Default(0) double totalProductPrice,
-    @Default(0) double tax,
-    @Default(1) int quantity,
-    String? productId,
-    @Default(0) double rate,
-    String? rateDescription,
-    @Default(false) bool isLastVariant,
-    @Default(true) bool isCustomizable,
-    @Default(0) int totalQuantity,
-    @Default(false) bool isSameProductMultipleTime,
-    VariantResponse? variant,
-    String? productInstructions,
-    @JsonKey(ignore: true) @Default(false) bool modified
-
-  }) =
-  _ProductDetailsResponse;
+  const factory ProductDetailsResponse(
+      {ImageResponse? productImage,
+      TaxInfoModel? taxInfo,
+      List<IngredientsModel>? ingredients,
+      List<String>? addOnCategories,
+      bool? status,
+      @Default(0)
+          int averageRating,
+      int? totalRating,
+      int? noOfUsersRated,
+      List<String>? allergens,
+      List<String>? relatedProducts,
+      List<TagResponse>? tags,
+      bool? isCopy,
+      @JsonKey(name: '_id')
+          String? id,
+      int? offerPercentage,
+      String? franchiseId,
+      String? category,
+      String? productName,
+      String? productDescription,
+      bool? isVeg,
+      List<VariantResponse>? variants,
+      @JsonKey(name: 'addOnItems')
+      @Default([])
+          List<AddOnCategory>? addOnItems,
+      String? subCategory,
+      int? ranking,
+      String? menuId,
+      String? vendorId,
+      String? categoryName,
+      String? franchiseName,
+      String? createdAt,
+      String? updatedAt,
+      String? categoryId,
+      String? restaurantName,
+      @Default(0)
+          double originalPrice,
+      @Default(0)
+          double sellingPrice,
+      @Default(0)
+          int discount,
+      String? sizeName,
+      String? description,
+      @Default([])
+          List<AddOnItem> selectedAddOnItems,
+      @Default(0)
+          int preparationTime,
+      @Default(0)
+          double totalProductPrice,
+      @Default(0)
+          double tax,
+      @Default(1)
+          int quantity,
+      String? productId,
+      @Default(0)
+          double rate,
+      String? rateDescription,
+      @Default(false)
+          bool isLastVariant,
+      @Default(true)
+          bool isCustomizable,
+      @Default(0)
+          int totalQuantity,
+      @Default(false)
+          bool isSameProductMultipleTime,
+      VariantResponse? variant,
+      String? productInstructions,
+      @JsonKey(ignore: true)
+      @Default(false)
+          bool modified}) = _ProductDetailsResponse;
 
   factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductDetailsResponseFromJson(json);

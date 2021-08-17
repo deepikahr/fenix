@@ -23,7 +23,7 @@ class _$VariantResponseTearOff {
   _VariantResponse call(
       {@JsonKey(name: '_id') String? id,
       String? size,
-      int? price,
+      double? price,
       String? sizeName,
       bool? isDefaultVariant,
       bool? outOfStock}) {
@@ -50,7 +50,7 @@ mixin _$VariantResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   String? get size => throw _privateConstructorUsedError;
-  int? get price => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   bool? get isDefaultVariant => throw _privateConstructorUsedError;
   bool? get outOfStock => throw _privateConstructorUsedError;
@@ -69,7 +69,7 @@ abstract class $VariantResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: '_id') String? id,
       String? size,
-      int? price,
+      double? price,
       String? sizeName,
       bool? isDefaultVariant,
       bool? outOfStock});
@@ -105,7 +105,7 @@ class _$VariantResponseCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -132,7 +132,7 @@ abstract class _$VariantResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: '_id') String? id,
       String? size,
-      int? price,
+      double? price,
       String? sizeName,
       bool? isDefaultVariant,
       bool? outOfStock});
@@ -170,7 +170,7 @@ class __$VariantResponseCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -208,7 +208,7 @@ class _$_VariantResponse extends _VariantResponse {
   @override
   final String? size;
   @override
-  final int? price;
+  final double? price;
   @override
   final String? sizeName;
   @override
@@ -267,7 +267,7 @@ abstract class _VariantResponse extends VariantResponse {
   const factory _VariantResponse(
       {@JsonKey(name: '_id') String? id,
       String? size,
-      int? price,
+      double? price,
       String? sizeName,
       bool? isDefaultVariant,
       bool? outOfStock}) = _$_VariantResponse;
@@ -282,7 +282,7 @@ abstract class _VariantResponse extends VariantResponse {
   @override
   String? get size => throw _privateConstructorUsedError;
   @override
-  int? get price => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
   @override
   String? get sizeName => throw _privateConstructorUsedError;
   @override

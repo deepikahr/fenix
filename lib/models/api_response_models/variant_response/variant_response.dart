@@ -1,5 +1,3 @@
-import 'package:fenix_user/models/api_response_models/image_response/image_response.dart';
-import 'package:fenix_user/models/api_response_models/tag_response/tag_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -11,15 +9,13 @@ part 'variant_response.g.dart';
 class VariantResponse with BaseModel<VariantResponse>, _$VariantResponse {
   const VariantResponse._();
 
-  const factory VariantResponse({
-    @JsonKey(name: '_id') String? id,
-    String? size,
-    int? price,
-    String? sizeName,
-    bool? isDefaultVariant,
-    bool? outOfStock
-  }) =
-  _VariantResponse;
+  const factory VariantResponse(
+      {@JsonKey(name: '_id') String? id,
+      String? size,
+      double? price,
+      String? sizeName,
+      bool? isDefaultVariant,
+      bool? outOfStock}) = _VariantResponse;
 
   factory VariantResponse.fromJson(Map<String, dynamic> json) =>
       _$VariantResponseFromJson(json);
@@ -34,6 +30,3 @@ class VariantResponse with BaseModel<VariantResponse>, _$VariantResponse {
     return toJson();
   }
 }
-
-
-
