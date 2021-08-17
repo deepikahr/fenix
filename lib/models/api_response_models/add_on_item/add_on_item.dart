@@ -31,4 +31,3 @@ class AddOnItem with BaseModel<AddOnItem>, _$AddOnItem {
     return toJson();
   }
 }
-

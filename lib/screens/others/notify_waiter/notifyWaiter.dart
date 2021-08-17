@@ -8,21 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/components/loader/gf_loader.dart';
 import 'package:getwidget/types/gf_loader_type.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:get/get.dart';
 
 class NotifyWaiter extends HookWidget {
-
-  bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
     final state = useProvider(notifyWaiterProvider);
     final homeState = useProvider(homeTabsProvider);
 
-    final notifyWaiterNotifier = useProvider(notifyWaiterProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
@@ -39,10 +36,14 @@ class NotifyWaiter extends HookWidget {
         backgroundColor: light,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading
-        ),
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!),
+            homeState.languages,
+            homeState.isLoading),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -56,7 +57,7 @@ class NotifyWaiter extends HookWidget {
                           style: textBlackLargeBM(context))),
                   SizedBox(height: 20),
                   if ((state.notification.length) > 0)
-                  requestBlock(context, state.notification),
+                    requestBlock(context, state.notification),
                 ],
               ),
             ),
@@ -76,14 +77,17 @@ class NotifyWaiter extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               custombuttonsmFW(context, notification[i].title, () async {
-                final response = await context.read(notifyWaiterProvider.notifier).callWaiter(notification[i].title, notification[i].description);
-                if(response != null)
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$response')));
+                final response = await context
+                    .read(notifyWaiterProvider.notifier)
+                    .callWaiter(
+                        notification[i].title, notification[i].description);
+                if (response != null)
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('$response')));
               }),
               SizedBox(height: 30),
             ],
           );
         });
   }
-
 }

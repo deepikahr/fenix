@@ -11,7 +11,7 @@ class PaginationRequest with BaseModel<PaginationRequest>, _$PaginationRequest {
   const PaginationRequest._();
 
   const factory PaginationRequest({@Default(10) int limit, int? page}) =
-  _PaginationRequest;
+      _PaginationRequest;
 
   factory PaginationRequest.fromJson(Map<String, dynamic> json) =>
       _$PaginationRequestFromJson(json);

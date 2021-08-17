@@ -6,7 +6,8 @@ part 'order_status_history.freezed.dart';
 part 'order_status_history.g.dart';
 
 @freezed
-class OrderStatusHistory with BaseModel<OrderStatusHistory>, _$OrderStatusHistory {
+class OrderStatusHistory
+    with BaseModel<OrderStatusHistory>, _$OrderStatusHistory {
   const OrderStatusHistory._();
 
   const factory OrderStatusHistory({
@@ -29,4 +30,3 @@ class OrderStatusHistory with BaseModel<OrderStatusHistory>, _$OrderStatusHistor
     return toJson();
   }
 }
-

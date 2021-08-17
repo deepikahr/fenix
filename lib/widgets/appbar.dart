@@ -25,7 +25,6 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                 ),
                 Container(
                   height: 8,
-                  // color: white,
                   decoration: new BoxDecoration(color: white, boxShadow: [
                     BoxShadow(color: grey.withOpacity(0.5), blurRadius: 10)
                   ]),
@@ -70,7 +69,8 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                       ),
                     ),
                   ),
-                  Text(DB().getTableNumber()!.toString(), style: textDarkRegularBW40(context)),
+                  Text(DB().getTableNumber()!.toString(),
+                      style: textDarkRegularBW40(context)),
                 ],
               ),
             ),
@@ -83,7 +83,11 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                 left: 20,
                 child: InkWell(
                   onTap: () {
-                    Get.to(() => HomeTabs(tabIndex: 0,),);
+                    Get.to(
+                      () => HomeTabs(
+                        tabIndex: 0,
+                      ),
+                    );
                   },
                   child: Container(
                     width: 60,
@@ -92,8 +96,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                         color: primary(),
                         border: Border.all(color: white, width: 2),
                         boxShadow: [
-                          BoxShadow(
-                              color: Colors.black45, blurRadius: 2)
+                          BoxShadow(color: Colors.black45, blurRadius: 2)
                         ],
                         borderRadius: BorderRadius.circular(12)),
                     child: Column(
@@ -123,11 +126,10 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                         color: primary(),
+                        color: primary(),
                         border: Border.all(color: white, width: 2),
                         boxShadow: [
-                          BoxShadow(
-                              color: Colors.black45, blurRadius: 2)
+                          BoxShadow(color: Colors.black45, blurRadius: 2)
                         ],
                         borderRadius: BorderRadius.circular(12)),
                     child: Column(
@@ -140,69 +142,55 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                         ),
                         Text(
                           'TO_CALL'.tr,
-                          style:
-                          TextStyle(color: white, fontSize: 10),
+                          style: TextStyle(color: white, fontSize: 10),
                         )
                       ],
                     ),
                   ),
                 )),
-            isLoading ? GFLoader(type: GFLoaderType.ios,) : Positioned(
-              right: 40,
-              top: 105,
-              child: DropdownButton<String>(
-                underline: Container(color: Colors.transparent),
-                iconSize: 0,
-                value: db.getLanguage() ?? languages.first.languageName,
-                onChanged: onSelectLanguage,
-                selectedItemBuilder: (BuildContext context) {
-                  return languages.map<Widget>((item) {
-                    return Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: Image.network(
-                            item.imageUrl!,
-                            width: 50,
-                            height: 36,
-                            fit: BoxFit.fill,
+            isLoading
+                ? GFLoader(
+                    type: GFLoaderType.ios,
+                  )
+                : Positioned(
+                    right: 40,
+                    top: 105,
+                    child: DropdownButton<String>(
+                      underline: Container(color: Colors.transparent),
+                      iconSize: 0,
+                      value: db.getLanguage() ?? languages.first.languageName,
+                      onChanged: onSelectLanguage,
+                      selectedItemBuilder: (BuildContext context) {
+                        return languages.map<Widget>((item) {
+                          return Column(
+                            children: [
+                              Text(
+                                '${item.flagCode ?? ""}',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                item.languageName!,
+                                style: textDarkRegularBGS(context),
+                              ),
+                            ],
+                          );
+                        }).toList();
+                      },
+                      items: languages.map((item) {
+                        db.saveLanguageCode(item.languageCode);
+                        return DropdownMenuItem(
+                          value: item.languageName,
+                          child: Text(
+                            '${item.flagCode ?? ""}',
+                            style: TextStyle(fontSize: 30),
                           ),
-                        ),
-                        Text(
-                          item.languageName!,
-                          style: textDarkRegularBGS(context),
-                        ),
-                      ],
-                    );
-                  }).toList();
-                },
-                items: languages.map((item) {
-                  db.saveLanguageCode(item.languageCode);
-                  return DropdownMenuItem(
-                    value: item.languageName,
-                    child:
-                    // Text(
-                    //   '${item.languageName}',
-                    //   style: textDarkRegularBG(context),
-                    // ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.network(
-                        item.imageUrl!,
-                        width: 50,
-                        height: 36,
-                        fit: BoxFit.fill,
-                      ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
-              ),
-            )
+                  )
           ],
         )
       ],
     ),
   );
 }
-
-

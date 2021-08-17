@@ -1,9 +1,5 @@
-import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
-import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
-import 'package:fenix_user/screens/product/product_details/productDetails.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import '../../base_model.dart';
 
 part 'cart.freezed.dart';
@@ -40,7 +36,6 @@ class Cart with BaseModel<Cart>, _$Cart {
     return toJson();
   }
 }
-
 
 // "cart": [{
 // "productName": "Veg Pizza",

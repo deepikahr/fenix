@@ -6,6 +6,6 @@ import 'paymentState.dart';
 class PaymentStateNotifier extends StateNotifier<PaymentState> {
   final API api;
   final DB db;
-  PaymentStateNotifier(this.api, this.db) : super(PaymentState(isLoading: true));
-
+  PaymentStateNotifier(this.api, this.db)
+      : super(PaymentState(isLoading: true));
 }

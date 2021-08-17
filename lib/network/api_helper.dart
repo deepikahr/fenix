@@ -69,10 +69,10 @@ class ApiHelper {
 
   Future<T?> get<T extends BaseModel, U extends BaseModel>(String url,
       {U? reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<T>>? responseListener}) async {
+      required T resModel,
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<T>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().get(url, queryParameters: reqModel?.toMap());
@@ -84,12 +84,12 @@ class ApiHelper {
   }
 
   Future<List<T>?>
-  getForArrayResponse<T extends BaseModel, U extends BaseModel>(String url,
-      {U? reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
+      getForArrayResponse<T extends BaseModel, U extends BaseModel>(String url,
+          {U? reqModel,
+          required T resModel,
+          ValueSetter<ErrorResponse>? errorListener,
+          bool autoErrorHandle = true,
+          ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().get(url, queryParameters: reqModel?.toMap());
@@ -102,9 +102,9 @@ class ApiHelper {
 
   Future<String?> getForStringResponse<U extends BaseModel>(String url,
       {U? reqModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<String?>>? responseListener}) async {
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<String?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().get(url, queryParameters: reqModel?.toMap());
@@ -117,10 +117,10 @@ class ApiHelper {
 
   Future<T?> post<T extends BaseModel, U extends BaseModel?>(String url,
       {required U reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<T>>? responseListener}) async {
+      required T resModel,
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<T>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().post(url, data: reqModel?.toMap());
@@ -132,12 +132,12 @@ class ApiHelper {
   }
 
   Future<List<T>?>
-  postForArrayResponse<T extends BaseModel, U extends BaseModel>(String url,
-      {required U reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
+      postForArrayResponse<T extends BaseModel, U extends BaseModel>(String url,
+          {required U reqModel,
+          required T resModel,
+          ValueSetter<ErrorResponse>? errorListener,
+          bool autoErrorHandle = true,
+          ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().post(url, queryParameters: reqModel.toMap());
@@ -152,9 +152,9 @@ class ApiHelper {
 
   Future<String?> postForStringResponse<U extends BaseModel?>(String url,
       {required U reqModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<String?>>? responseListener}) async {
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<String?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().post(url, data: reqModel?.toMap());
@@ -167,10 +167,10 @@ class ApiHelper {
 
   Future<T?> imageUpload<T extends BaseModel>(String url,
       {required FormData reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<T>>? responseListener}) async {
+      required T resModel,
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<T>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().post(url, data: reqModel);
@@ -183,10 +183,10 @@ class ApiHelper {
 
   Future<T?> put<T extends BaseModel, U extends BaseModel>(String url,
       {U? reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<T>>? responseListener}) async {
+      required T resModel,
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<T>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().put(url, data: reqModel?.toMap());
@@ -199,12 +199,12 @@ class ApiHelper {
   }
 
   Future<List<T>?>
-  putForArrayResponse<T extends BaseModel, U extends BaseModel>(String url,
-      {U? reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
+      putForArrayResponse<T extends BaseModel, U extends BaseModel>(String url,
+          {U? reqModel,
+          required T resModel,
+          ValueSetter<ErrorResponse>? errorListener,
+          bool autoErrorHandle = true,
+          ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().post(url, queryParameters: reqModel?.toMap());
@@ -218,9 +218,9 @@ class ApiHelper {
 
   Future<String?> putForStringResponse<U extends BaseModel>(String url,
       {U? reqModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<String?>>? responseListener}) async {
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<String?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().put(url, data: reqModel?.toMap());
@@ -235,10 +235,10 @@ class ApiHelper {
 
   Future<T?> delete<T extends BaseModel, U extends BaseModel>(String url,
       {U? reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<T>>? responseListener}) async {
+      required T resModel,
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<T>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().delete(url, data: reqModel?.toMap());
@@ -253,9 +253,9 @@ class ApiHelper {
 
   Future<String?> deleteForStringResponse<U extends BaseModel>(String url,
       {U? reqModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<String?>>? responseListener}) async {
+      ValueSetter<ErrorResponse>? errorListener,
+      bool autoErrorHandle = true,
+      ValueSetter<ApiResponse<String?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().delete(url, data: reqModel?.toMap());
@@ -267,13 +267,13 @@ class ApiHelper {
   }
 
   Future<List<T>?>
-  deleteForArrayResponse<T extends BaseModel, U extends BaseModel>(
-      String url,
-      {U? reqModel,
-        required T resModel,
-        ValueSetter<ErrorResponse>? errorListener,
-        bool autoErrorHandle = true,
-        ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
+      deleteForArrayResponse<T extends BaseModel, U extends BaseModel>(
+          String url,
+          {U? reqModel,
+          required T resModel,
+          ValueSetter<ErrorResponse>? errorListener,
+          bool autoErrorHandle = true,
+          ValueSetter<ApiResponse<List<T>?>>? responseListener}) async {
     Response res;
     try {
       res = await _getDio().delete(url, queryParameters: reqModel?.toMap());

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -26,9 +24,16 @@ class DB {
     await Hive.close();
   }
 
-  Future<void> storeUserData(String token, String role, String id, String franchiseId, String vendorId) async {
+  Future<void> storeUserData(String token, String role, String id,
+      String franchiseId, String vendorId) async {
     final box = Hive.box('user');
-    await box.putAll({'token': token, 'role': role, 'id': id, 'franchiseId': franchiseId, 'vendorId': vendorId});
+    await box.putAll({
+      'token': token,
+      'role': role,
+      'id': id,
+      'franchiseId': franchiseId,
+      'vendorId': vendorId
+    });
   }
 
   bool isLoggedIn() {
@@ -172,5 +177,4 @@ class DB {
     await box.delete('role');
     await box.delete('id');
   }
-
 }

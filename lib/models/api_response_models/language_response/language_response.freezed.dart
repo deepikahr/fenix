@@ -22,22 +22,16 @@ class _$LanguageResponseTearOff {
 
   _LanguageResponse call(
       {@JsonKey(name: '_id') String? id,
-      String? title,
       int? isDefault,
       String? languageCode,
       String? languageName,
-      String? filePath,
-      String? imageId,
-      String? imageUrl}) {
+      String? flagCode}) {
     return _LanguageResponse(
       id: id,
-      title: title,
       isDefault: isDefault,
       languageCode: languageCode,
       languageName: languageName,
-      filePath: filePath,
-      imageId: imageId,
-      imageUrl: imageUrl,
+      flagCode: flagCode,
     );
   }
 
@@ -53,13 +47,10 @@ const $LanguageResponse = _$LanguageResponseTearOff();
 mixin _$LanguageResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
-  String? get title => throw _privateConstructorUsedError;
   int? get isDefault => throw _privateConstructorUsedError;
   String? get languageCode => throw _privateConstructorUsedError;
   String? get languageName => throw _privateConstructorUsedError;
-  String? get filePath => throw _privateConstructorUsedError;
-  String? get imageId => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get flagCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,13 +65,10 @@ abstract class $LanguageResponseCopyWith<$Res> {
       _$LanguageResponseCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: '_id') String? id,
-      String? title,
       int? isDefault,
       String? languageCode,
       String? languageName,
-      String? filePath,
-      String? imageId,
-      String? imageUrl});
+      String? flagCode});
 }
 
 /// @nodoc
@@ -95,22 +83,15 @@ class _$LanguageResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? title = freezed,
     Object? isDefault = freezed,
     Object? languageCode = freezed,
     Object? languageName = freezed,
-    Object? filePath = freezed,
-    Object? imageId = freezed,
-    Object? imageUrl = freezed,
+    Object? flagCode = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
               as String?,
       isDefault: isDefault == freezed
           ? _value.isDefault
@@ -124,17 +105,9 @@ class _$LanguageResponseCopyWithImpl<$Res>
           ? _value.languageName
           : languageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      filePath: filePath == freezed
-          ? _value.filePath
-          : filePath // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageId: imageId == freezed
-          ? _value.imageId
-          : imageId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      flagCode: flagCode == freezed
+          ? _value.flagCode
+          : flagCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -149,13 +122,10 @@ abstract class _$LanguageResponseCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: '_id') String? id,
-      String? title,
       int? isDefault,
       String? languageCode,
       String? languageName,
-      String? filePath,
-      String? imageId,
-      String? imageUrl});
+      String? flagCode});
 }
 
 /// @nodoc
@@ -172,22 +142,15 @@ class __$LanguageResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? title = freezed,
     Object? isDefault = freezed,
     Object? languageCode = freezed,
     Object? languageName = freezed,
-    Object? filePath = freezed,
-    Object? imageId = freezed,
-    Object? imageUrl = freezed,
+    Object? flagCode = freezed,
   }) {
     return _then(_LanguageResponse(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
               as String?,
       isDefault: isDefault == freezed
           ? _value.isDefault
@@ -201,17 +164,9 @@ class __$LanguageResponseCopyWithImpl<$Res>
           ? _value.languageName
           : languageName // ignore: cast_nullable_to_non_nullable
               as String?,
-      filePath: filePath == freezed
-          ? _value.filePath
-          : filePath // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageId: imageId == freezed
-          ? _value.imageId
-          : imageId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      flagCode: flagCode == freezed
+          ? _value.flagCode
+          : flagCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -222,13 +177,10 @@ class __$LanguageResponseCopyWithImpl<$Res>
 class _$_LanguageResponse extends _LanguageResponse {
   const _$_LanguageResponse(
       {@JsonKey(name: '_id') this.id,
-      this.title,
       this.isDefault,
       this.languageCode,
       this.languageName,
-      this.filePath,
-      this.imageId,
-      this.imageUrl})
+      this.flagCode})
       : super._();
 
   factory _$_LanguageResponse.fromJson(Map<String, dynamic> json) =>
@@ -238,23 +190,17 @@ class _$_LanguageResponse extends _LanguageResponse {
   @JsonKey(name: '_id')
   final String? id;
   @override
-  final String? title;
-  @override
   final int? isDefault;
   @override
   final String? languageCode;
   @override
   final String? languageName;
   @override
-  final String? filePath;
-  @override
-  final String? imageId;
-  @override
-  final String? imageUrl;
+  final String? flagCode;
 
   @override
   String toString() {
-    return 'LanguageResponse(id: $id, title: $title, isDefault: $isDefault, languageCode: $languageCode, languageName: $languageName, filePath: $filePath, imageId: $imageId, imageUrl: $imageUrl)';
+    return 'LanguageResponse(id: $id, isDefault: $isDefault, languageCode: $languageCode, languageName: $languageName, flagCode: $flagCode)';
   }
 
   @override
@@ -263,8 +209,6 @@ class _$_LanguageResponse extends _LanguageResponse {
         (other is _LanguageResponse &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.title, title) ||
-                const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.isDefault, isDefault) ||
                 const DeepCollectionEquality()
                     .equals(other.isDefault, isDefault)) &&
@@ -274,28 +218,19 @@ class _$_LanguageResponse extends _LanguageResponse {
             (identical(other.languageName, languageName) ||
                 const DeepCollectionEquality()
                     .equals(other.languageName, languageName)) &&
-            (identical(other.filePath, filePath) ||
+            (identical(other.flagCode, flagCode) ||
                 const DeepCollectionEquality()
-                    .equals(other.filePath, filePath)) &&
-            (identical(other.imageId, imageId) ||
-                const DeepCollectionEquality()
-                    .equals(other.imageId, imageId)) &&
-            (identical(other.imageUrl, imageUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.imageUrl, imageUrl)));
+                    .equals(other.flagCode, flagCode)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(isDefault) ^
       const DeepCollectionEquality().hash(languageCode) ^
       const DeepCollectionEquality().hash(languageName) ^
-      const DeepCollectionEquality().hash(filePath) ^
-      const DeepCollectionEquality().hash(imageId) ^
-      const DeepCollectionEquality().hash(imageUrl);
+      const DeepCollectionEquality().hash(flagCode);
 
   @JsonKey(ignore: true)
   @override
@@ -311,13 +246,10 @@ class _$_LanguageResponse extends _LanguageResponse {
 abstract class _LanguageResponse extends LanguageResponse {
   const factory _LanguageResponse(
       {@JsonKey(name: '_id') String? id,
-      String? title,
       int? isDefault,
       String? languageCode,
       String? languageName,
-      String? filePath,
-      String? imageId,
-      String? imageUrl}) = _$_LanguageResponse;
+      String? flagCode}) = _$_LanguageResponse;
   const _LanguageResponse._() : super._();
 
   factory _LanguageResponse.fromJson(Map<String, dynamic> json) =
@@ -327,19 +259,13 @@ abstract class _LanguageResponse extends LanguageResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   @override
-  String? get title => throw _privateConstructorUsedError;
-  @override
   int? get isDefault => throw _privateConstructorUsedError;
   @override
   String? get languageCode => throw _privateConstructorUsedError;
   @override
   String? get languageName => throw _privateConstructorUsedError;
   @override
-  String? get filePath => throw _privateConstructorUsedError;
-  @override
-  String? get imageId => throw _privateConstructorUsedError;
-  @override
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get flagCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LanguageResponseCopyWith<_LanguageResponse> get copyWith =>

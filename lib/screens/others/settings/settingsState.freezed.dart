@@ -28,7 +28,8 @@ class _$SettingsStateTearOff {
       bool? resetCategory,
       bool? enableCall,
       bool? payOnCommand,
-      bool? validatePayment}) {
+      bool? validatePayment,
+      double rating = 3}) {
     return _Default(
       isLoading: isLoading,
       isUpdateLoading: isUpdateLoading,
@@ -42,6 +43,7 @@ class _$SettingsStateTearOff {
       enableCall: enableCall,
       payOnCommand: payOnCommand,
       validatePayment: validatePayment,
+      rating: rating,
     );
   }
 }
@@ -63,6 +65,7 @@ mixin _$SettingsState {
   bool? get enableCall => throw _privateConstructorUsedError;
   bool? get payOnCommand => throw _privateConstructorUsedError;
   bool? get validatePayment => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -86,7 +89,8 @@ abstract class $SettingsStateCopyWith<$Res> {
       bool? resetCategory,
       bool? enableCall,
       bool? payOnCommand,
-      bool? validatePayment});
+      bool? validatePayment,
+      double rating});
 
   $SettingsResponseCopyWith<$Res>? get settings;
 }
@@ -114,6 +118,7 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object? enableCall = freezed,
     Object? payOnCommand = freezed,
     Object? validatePayment = freezed,
+    Object? rating = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -164,6 +169,10 @@ class _$SettingsStateCopyWithImpl<$Res>
           ? _value.validatePayment
           : validatePayment // ignore: cast_nullable_to_non_nullable
               as bool?,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 
@@ -196,7 +205,8 @@ abstract class _$DefaultCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
       bool? resetCategory,
       bool? enableCall,
       bool? payOnCommand,
-      bool? validatePayment});
+      bool? validatePayment,
+      double rating});
 
   @override
   $SettingsResponseCopyWith<$Res>? get settings;
@@ -225,6 +235,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
     Object? enableCall = freezed,
     Object? payOnCommand = freezed,
     Object? validatePayment = freezed,
+    Object? rating = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -275,6 +286,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
           ? _value.validatePayment
           : validatePayment // ignore: cast_nullable_to_non_nullable
               as bool?,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -294,7 +309,8 @@ class _$_Default implements _Default {
       this.resetCategory,
       this.enableCall,
       this.payOnCommand,
-      this.validatePayment});
+      this.validatePayment,
+      this.rating = 3});
 
   @JsonKey(defaultValue: false)
   @override
@@ -322,10 +338,13 @@ class _$_Default implements _Default {
   final bool? payOnCommand;
   @override
   final bool? validatePayment;
+  @JsonKey(defaultValue: 3)
+  @override
+  final double rating;
 
   @override
   String toString() {
-    return 'SettingsState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment)';
+    return 'SettingsState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment, rating: $rating)';
   }
 
   @override
@@ -366,7 +385,9 @@ class _$_Default implements _Default {
                     .equals(other.payOnCommand, payOnCommand)) &&
             (identical(other.validatePayment, validatePayment) ||
                 const DeepCollectionEquality()
-                    .equals(other.validatePayment, validatePayment)));
+                    .equals(other.validatePayment, validatePayment)) &&
+            (identical(other.rating, rating) ||
+                const DeepCollectionEquality().equals(other.rating, rating)));
   }
 
   @override
@@ -383,7 +404,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(resetCategory) ^
       const DeepCollectionEquality().hash(enableCall) ^
       const DeepCollectionEquality().hash(payOnCommand) ^
-      const DeepCollectionEquality().hash(validatePayment);
+      const DeepCollectionEquality().hash(validatePayment) ^
+      const DeepCollectionEquality().hash(rating);
 
   @JsonKey(ignore: true)
   @override
@@ -404,7 +426,8 @@ abstract class _Default implements SettingsState {
       bool? resetCategory,
       bool? enableCall,
       bool? payOnCommand,
-      bool? validatePayment}) = _$_Default;
+      bool? validatePayment,
+      double rating}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -430,6 +453,8 @@ abstract class _Default implements SettingsState {
   bool? get payOnCommand => throw _privateConstructorUsedError;
   @override
   bool? get validatePayment => throw _privateConstructorUsedError;
+  @override
+  double get rating => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

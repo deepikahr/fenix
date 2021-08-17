@@ -6,6 +6,6 @@ import 'orderInProgressState.dart';
 class OrderInProgressStateNotifier extends StateNotifier<OrderInProgressState> {
   final API api;
   final DB db;
-  OrderInProgressStateNotifier(this.api, this.db) : super(OrderInProgressState(isLoading: true));
-
+  OrderInProgressStateNotifier(this.api, this.db)
+      : super(OrderInProgressState(isLoading: true));
 }

@@ -23,9 +23,8 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
 
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
     final newProduct = product.copyWith(
-      totalQuantity: product.totalQuantity + (increased ? 1 : -1),
-      modified: true
-    );
+        totalQuantity: product.totalQuantity + (increased ? 1 : -1),
+        modified: true);
     if (newProduct.totalQuantity > 0) {
       var products = cart!.products;
       products = products.map((p) {
@@ -36,7 +35,6 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       }).toList();
 
       await cartState.updateCart(cart?.copyWith(products: products));
-
     } else {
       await cartState.updateCart(
           cart?.copyWith(products: cart!.products..remove(product)));
@@ -50,22 +48,19 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> removeProduct(ProductDetailsResponse product) async {
-    await cartState.updateCart(
-        cart?.copyWith(products: cart!.products..remove(product)));
+    await cartState
+        .updateCart(cart?.copyWith(products: cart!.products..remove(product)));
     await updateGrandTotal();
   }
 
   Future<void> updateGrandTotal() async {
-
     if (cart != null) {
-      final total = cart!.products
-          .map(
-            (e) {
-              return e.totalProductPrice * e.totalQuantity;
-            },
-      )
-          .reduce((_, __) => _ + __);
-      final grandTotal = total ;
+      final total = cart!.products.map(
+        (e) {
+          return e.totalProductPrice * e.totalQuantity;
+        },
+      ).reduce((_, __) => _ + __);
+      final grandTotal = total;
 
       await cartState.updateCart(cart?.copyWith(
         subTotal: total,
@@ -81,14 +76,14 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
       cart!,
     );
     db.saveOrderId(response!.id);
-    state = state.copyWith.call(
-      isLoading: false,
-      orderResponse: response
-    );
+    state = state.copyWith.call(isLoading: false, orderResponse: response);
   }
 
-  UpdateProduct createUpdateProduct(ProductDetailsResponse product){
-    return UpdateProduct(productId: product.id, sizeName: product.sizeName, quantity: product.quantity,
+  UpdateProduct createUpdateProduct(ProductDetailsResponse product) {
+    return UpdateProduct(
+        productId: product.id,
+        sizeName: product.sizeName,
+        quantity: product.quantity,
         addOnItems: product.selectedAddOnItems);
   }
 
@@ -96,18 +91,19 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
     updateGrandTotal();
     state = state.copyWith.call(isUpdateLoading: true);
 
-    UpdateCart updateCart = UpdateCart(orderId: db.getOrderId(), products: cart!.products.where((element) =>
-    element.modified).map((e) => createUpdateProduct(e)).toList());
+    UpdateCart updateCart = UpdateCart(
+        orderId: db.getOrderId(),
+        products: cart!.products
+            .where((element) => element.modified)
+            .map((e) => createUpdateProduct(e))
+            .toList());
 
     printWrapped('aaaaaaaaa ${cart!.products}');
 
-    final updateResponse = await api.updateOrder(
-      updateCart
-    );
+    final updateResponse = await api.updateOrder(updateCart);
     state = state.copyWith.call(
-        isUpdateLoading: false,
+      isUpdateLoading: false,
     );
     return updateResponse;
   }
-
 }

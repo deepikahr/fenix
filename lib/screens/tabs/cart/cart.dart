@@ -1,31 +1,26 @@
 import 'dart:async';
-
-import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
-import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/screens/others/order_in_progress/orderInProgress.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
-import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:get/get.dart';
 
 class CartScreen extends HookWidget {
-  bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final cart = useProvider(cartProvider);
     final state = useProvider(cartScreenProvider);
     final homeState = useProvider(homeTabsProvider);
-    final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
@@ -39,22 +34,24 @@ class CartScreen extends HookWidget {
         backgroundColor: grey2,
         key: _scaffoldKey,
         drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading
-        ),
-        body:
-        cart == null || !DB().isLoggedIn() || cart.products.length == 0
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) => context
+                .read(homeTabsProvider.notifier)
+                .onSelectLanguage(value!),
+            homeState.languages,
+            homeState.isLoading),
+        body: cart == null || !DB().isLoggedIn() || cart.products.length == 0
             ? Center(
                 child: Text('CART_IS_EMPTY'.tr),
               )
-            :
-        SingleChildScrollView(
-          child: Container(
-            color: white,
-            margin: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            : SingleChildScrollView(
+                child: Container(
+                  color: white,
+                  margin: EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
@@ -67,7 +64,9 @@ class CartScreen extends HookWidget {
                           ),
                         ),
                         padding: EdgeInsets.all(14),
-                        margin: EdgeInsets.only(top: 16,),
+                        margin: EdgeInsets.only(
+                          top: 16,
+                        ),
                         child: Text('SELECTED PRODUCTS'.tr,
                             style: textBlackLargeBM(context)),
                       ),
@@ -89,54 +88,60 @@ class CartScreen extends HookWidget {
                                       ? GFLoader(type: GFLoaderType.ios)
                                       : custombuttonsm(
                                           context,
-                                          DB().getOrderId() == null ?
-                                          'PLACE_ORDER'.tr
+                                          DB().getOrderId() == null
+                                              ? 'PLACE_ORDER'.tr
                                               : 'MODIFY_ORDER'.tr,
                                           DB().getOrderId() == null
-                                              ?
-                                              () async {
+                                              ? () async {
                                                   await context
                                                       .read(cartScreenProvider
                                                           .notifier)
                                                       .createOrder();
-                                                  print('zzzzzzzzzz ${state.orderResponse}');
-                                                  if (state.orderResponse != null) {
-                                                    ScaffoldMessenger.of(context)
+                                                  if (state.orderResponse !=
+                                                      null) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
                                                         .showSnackBar(SnackBar(
-                                                            content: Text('${state.orderResponse!.message}')));
+                                                            content: Text(
+                                                                '${state.orderResponse!.message}')));
                                                     Timer(Duration(seconds: 2),
                                                         () async {
-                                                      await Get.to(
-                                                          () => OrdersInProcess());
+                                                      await Get.to(() =>
+                                                          OrdersInProcess());
                                                     });
                                                   }
                                                 }
                                               : () async {
-                                                  final updateResponse = await context
-                                                      .read(cartScreenProvider
-                                                          .notifier)
-                                                      .updateOrder();
+                                                  final updateResponse =
+                                                      await context
+                                                          .read(
+                                                              cartScreenProvider
+                                                                  .notifier)
+                                                          .updateOrder();
                                                   if (updateResponse != null) {
-                                                    ScaffoldMessenger.of(context)
+                                                    ScaffoldMessenger.of(
+                                                            context)
                                                         .showSnackBar(SnackBar(
                                                             content: Text(
-                                                                '${updateResponse}')));
+                                                                '$updateResponse')));
                                                     Timer(Duration(seconds: 2),
                                                         () async {
-                                                      await Get.to(
-                                                          () => OrdersInProcess());
+                                                      await Get.to(() =>
+                                                          OrdersInProcess());
                                                     });
                                                   }
                                                 },
-                                        DB().getOrderId() == null ? state.isLoading : state.isUpdateLoading)),
+                                          DB().getOrderId() == null
+                                              ? state.isLoading
+                                              : state.isUpdateLoading)),
                             ),
                           ],
                         ),
                       )
                     ],
                   ),
-          ),
-        ));
+                ),
+              ));
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {
@@ -246,7 +251,9 @@ class CartScreen extends HookWidget {
                   ),
                 ],
               ),
-              Divider(height: 1,),
+              Divider(
+                height: 1,
+              ),
             ],
           );
         });

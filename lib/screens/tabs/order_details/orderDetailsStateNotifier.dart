@@ -6,7 +6,8 @@ import 'orderDetailsState.dart';
 class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
   final API api;
   final DB db;
-  OrderDetailsStateNotifier(this.api, this.db) : super(OrderDetailsState(isLoading: true));
+  OrderDetailsStateNotifier(this.api, this.db)
+      : super(OrderDetailsState(isLoading: true));
 
   Future<void> fetchOrderDetails() async {
     state = state.copyWith.call(isLoading: true);
@@ -16,5 +17,4 @@ class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
       orderDetails: res,
     );
   }
-
 }

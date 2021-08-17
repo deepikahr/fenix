@@ -11,8 +11,7 @@ class IngredientsModel with BaseModel<IngredientsModel>, _$IngredientsModel {
   const factory IngredientsModel({
     @JsonKey(name: '_id') String? id,
     String? title,
-  }) =
-  _IngredientsModel;
+  }) = _IngredientsModel;
 
   factory IngredientsModel.fromJson(Map<String, dynamic> json) =>
       _$IngredientsModelFromJson(json);
@@ -27,4 +26,3 @@ class IngredientsModel with BaseModel<IngredientsModel>, _$IngredientsModel {
     return toJson();
   }
 }
-

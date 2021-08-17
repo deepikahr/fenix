@@ -1,16 +1,12 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
-import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
 import 'package:fenix_user/screens/tabs/cart/cart.dart';
-import 'package:fenix_user/screens/product/product_details/productDetails.dart';
-import 'package:fenix_user/screens/product/product_list/productList.dart';
 import 'package:fenix_user/screens/tabs/category/category.dart';
 import 'package:fenix_user/screens/tabs/order_details/orderDetails.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/appbar.dart';
-import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/fab_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
@@ -22,13 +18,12 @@ import 'package:get/get.dart';
 final db = DB();
 
 class HomeTabs extends HookWidget {
-  final int tabIndex;
+  final int? tabIndex;
 
-  HomeTabs({this.tabIndex = 0});
+  HomeTabs({this.tabIndex});
 
   @override
   Widget build(BuildContext context) {
-
     final state = useProvider(homeTabsProvider);
     final cart = useProvider(cartProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -36,7 +31,7 @@ class HomeTabs extends HookWidget {
 
     useEffect(() {
       Future.delayed(Duration.zero, () async {
-        context.read(homeTabsProvider.notifier).onPageChanged(tabIndex);
+        context.read(homeTabsProvider.notifier).onPageChanged(tabIndex ?? 0);
         if (isMounted()) {
           await context.read(homeTabsProvider.notifier).fetchLanguage();
         }
@@ -54,10 +49,13 @@ class HomeTabs extends HookWidget {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            state.languages, state.isLoading
-        ),
+      appBar: fenixAppbar(
+          context,
+          _scaffoldKey,
+          (value) =>
+              context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+          state.languages,
+          state.isLoading),
       backgroundColor: grey2,
       body: state.isLoading
           ? Center(child: GFLoader(type: GFLoaderType.ios))
@@ -71,10 +69,14 @@ class HomeTabs extends HookWidget {
           context.read(homeTabsProvider.notifier).onPageChanged(index);
         },
         items: [
-          FABBottomAppBarItem(iconData: "lib/assets/images/1.png", text: 'RETURN'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/2.png", text: 'DRINKS'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/3.png", text: 'FOOD'.tr),
-          FABBottomAppBarItem(iconData: "lib/assets/images/4.png", text: 'TO_PAY'.tr),
+          FABBottomAppBarItem(
+              iconData: "lib/assets/images/1.png", text: 'RETURN'.tr),
+          FABBottomAppBarItem(
+              iconData: "lib/assets/images/2.png", text: 'DRINKS'.tr),
+          FABBottomAppBarItem(
+              iconData: "lib/assets/images/3.png", text: 'FOOD'.tr),
+          FABBottomAppBarItem(
+              iconData: "lib/assets/images/4.png", text: 'TO_PAY'.tr),
         ],
         backgroundColor: white,
       ),
@@ -107,26 +109,26 @@ class HomeTabs extends HookWidget {
               ),
             ),
           ),
-          cart == null || !DB().isLoggedIn() || cart.products.length == 0 ? Container() : PositionedDirectional(
-            end: 0,
-            bottom: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: Colors.white, width: 1)
-              ),
-              child: GFBadge(
-                shape: GFBadgeShape.circle,
-                color: Colors.black,
-                textColor: GFColors.WHITE,
-                size: GFSize.SMALL,
-                text: '${cart.products.length}',
-              ),
-            ),
-          )
+          cart == null || !DB().isLoggedIn() || cart.products.length == 0
+              ? Container()
+              : PositionedDirectional(
+                  end: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.white, width: 1)),
+                    child: GFBadge(
+                      shape: GFBadgeShape.circle,
+                      color: Colors.black,
+                      textColor: GFColors.WHITE,
+                      size: GFSize.SMALL,
+                      text: '${cart.products.length}',
+                    ),
+                  ),
+                )
         ],
       ),
     );
   }
-
 }

@@ -8,11 +8,10 @@ part 'banner_response.g.dart';
 class BannerResponse with BaseModel<BannerResponse>, _$BannerResponse {
   const BannerResponse._();
 
-  const factory BannerResponse({
-    @JsonKey(name: '_id') String? id,
-    ImageResponse? image,
-    String? title
-  }) = _BannerResponse;
+  const factory BannerResponse(
+      {@JsonKey(name: '_id') String? id,
+      ImageResponse? image,
+      String? title}) = _BannerResponse;
 
   factory BannerResponse.fromJson(Map<String, dynamic> json) =>
       _$BannerResponseFromJson(json);
@@ -27,5 +26,3 @@ class BannerResponse with BaseModel<BannerResponse>, _$BannerResponse {
     return toJson();
   }
 }
-
-

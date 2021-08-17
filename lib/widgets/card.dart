@@ -1,12 +1,8 @@
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
-import 'package:fenix_user/models/api_response_models/product_response/product_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:intl/intl.dart';
-import 'buttons.dart';
 import 'network_image.dart';
 import 'normalText.dart';
 import 'package:get/get.dart';
@@ -27,7 +23,7 @@ Widget carouselCard(BuildContext context, image, title, subTitle, buttonTitle) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        networkImage(image, MediaQuery.of(context).size.width *  0.9, 455, 5)
+        networkImage(image, MediaQuery.of(context).size.width * 0.9, 455, 5)
       ],
     ),
   );
@@ -113,21 +109,18 @@ Widget dishesInfoCard(
   ProductDetailsResponse product,
   notifier,
   state,
-categoryImage,
+  categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
 ) {
   return Container(
     decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(16),
-      ),
-       boxShadow: [
-        BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)
-      ]
-    ),
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(16),
+        ),
+        boxShadow: [BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)]),
     margin: EdgeInsets.only(bottom: 16, left: 16, right: 16),
     child: Stack(
       children: [
@@ -138,8 +131,8 @@ categoryImage,
             // Image.asset(
             //   'lib/assets/images/refer.png', height: 111, width: 109,
             // ),
-            categoryImage != null ?
-            networkImage(categoryImage, 111, 109, 1)
+            categoryImage != null
+                ? networkImage(categoryImage, 111, 109, 1)
                 : networkImageOverlay(111, 109),
             SizedBox(
               width: 8,
@@ -173,37 +166,65 @@ categoryImage,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null ? Text(
-                        '${product.variant!.price}€',
-                        style: textDarkRegularBS(context),) : Container(),
-                      product.productImage!.imageUrl != null ?
-                      Icon(Icons.camera_alt_rounded, color: primary(),) : Container(),
-                      product.allergens!.length > 0 ? InkWell(
-                        onTap: () async {
-                          // await showDialog(
-                          //     context: context,
-                          //     builder: (context) =>
-                          //         allergenDialog(context, product));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
+                      categoryImage != null
+                          ? Text(
+                              '${product.variant!.price}€',
+                              style: textDarkRegularBS(context),
+                            )
+                          : Container(),
+                      product.productImage!.imageUrl != null
+                          ? Icon(
+                              Icons.camera_alt_rounded,
                               color: primary(),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Text(
-                            'ALLERGENS'.tr,
-                            style: textWhiteRegularBM(),
-                          ),
-                        ),
-                      ) : Container(),
-
+                            )
+                          : Container(),
+                      product.allergens!.length > 0
+                          ? InkWell(
+                              onTap: () async {
+                                // await showDialog(
+                                //     context: context,
+                                //     builder: (context) =>
+                                //         allergenDialog(context, product));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    color: primary(),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(
+                                  'ALLERGENS'.tr,
+                                  style: textWhiteRegularBM(),
+                                ),
+                              ),
+                            )
+                          : Container(),
                       product.totalQuantity > 0
                           ? Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                  onTap: onRemove,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                    onTap: onRemove,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                            color: white,
+                                            border: Border.all(
+                                                color: dark, width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        child: Icon(
+                                          Icons.remove,
+                                          color: dark,
+                                        ),
+                                      ),
+                                    )),
+                                Text(product.totalQuantity.toString(),
+                                    style: textBlackLargeBM(context)),
+                                InkWell(
+                                  onTap: onUpdate,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
@@ -211,41 +232,19 @@ categoryImage,
                                       height: 35,
                                       decoration: BoxDecoration(
                                           color: white,
-                                          border: Border.all(
-                                              color: dark, width: 1),
+                                          border:
+                                              Border.all(color: dark, width: 1),
                                           borderRadius:
-                                              BorderRadius.circular(
-                                                  50)),
+                                              BorderRadius.circular(50)),
                                       child: Icon(
-                                        Icons.remove,
+                                        Icons.add,
                                         color: dark,
                                       ),
                                     ),
-                                  )),
-                              Text(product.totalQuantity.toString(),
-                                  style: textBlackLargeBM(context)),
-                              InkWell(
-                                onTap: onUpdate,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 35,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                        color: white,
-                                        border: Border.all(
-                                            color: dark, width: 1),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: dark,
-                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
+                              ],
+                            )
                           : Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: GFButton(
@@ -266,19 +265,22 @@ categoryImage,
           ],
         ),
         Positioned(
-          top: 0,
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Image.asset('lib/assets/images/b2.png', scale: 1.4, color: primary(),),
-              Text(
-                '${product.tags!.first.title}',
-                style: textDarkRegularBSW(context),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          )
-        ),
+            top: 0,
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Image.asset(
+                  'lib/assets/images/b2.png',
+                  scale: 1.4,
+                  color: primary(),
+                ),
+                Text(
+                  '${product.tags!.first.title}',
+                  style: textDarkRegularBSW(context),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )),
         Positioned(
             top: 40,
             child: Container(
@@ -286,18 +288,23 @@ categoryImage,
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               height: 25,
               color: Colors.black45,
-              child: Text('${product.variant!.sizeName}',
+              child: Text(
+                '${product.variant!.sizeName}',
                 style: textWhite3XSmallBM(context),
-                textAlign: TextAlign.center,),
-            )
-        ),
-        categoryImage == null ? Positioned(
-          bottom: 10, left: 30, right: 0,
-          child: Text(
-            '${product.variant!.price}€',
-            style: textWhiteLargeBMM(context),
-          ),
-        ) : Container()
+                textAlign: TextAlign.center,
+              ),
+            )),
+        categoryImage == null
+            ? Positioned(
+                bottom: 10,
+                left: 30,
+                right: 0,
+                child: Text(
+                  '${product.variant!.price}€',
+                  style: textWhiteLargeBMM(context),
+                ),
+              )
+            : Container()
       ],
     ),
   );
@@ -308,7 +315,7 @@ Widget gridDishCard(
   ProductDetailsResponse product,
   notifier,
   state,
-categoryImage,
+  categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
@@ -318,10 +325,7 @@ categoryImage,
     decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)
-        ]
-    ),
+        boxShadow: [BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)]),
     child: Column(
       children: [
         Column(
@@ -345,27 +349,33 @@ categoryImage,
                       child: Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
-                          Image.asset('lib/assets/images/b2.png', scale: 1.2, color: primary(),),
+                          Image.asset(
+                            'lib/assets/images/b2.png',
+                            scale: 1.2,
+                            color: primary(),
+                          ),
                           Text(
                             '${product.tags!.first.title}',
                             style: textDarkRegularBSW(context),
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      )
-                  ),
+                      )),
                   Positioned(
-                      top: 0, right: 0,
+                      top: 0,
+                      right: 0,
                       child: Container(
                         alignment: AlignmentDirectional.center,
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         height: 25,
                         color: Colors.black45,
-                        child: Text('${product.variant!.sizeName}',
+                        child: Text(
+                          '${product.variant!.sizeName}',
                           style: textWhite3XSmallBM(context),
-                          textAlign: TextAlign.center,),
-                      )
-                  ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
                   Positioned(
                       bottom: 0,
                       child: Container(
@@ -383,14 +393,15 @@ categoryImage,
                               overflow: TextOverflow.ellipsis,
                               // textAlign: TextAlign.center,
                             ),
-                            categoryImage == null ? Text(
-                              '${product.variant!.price}€',
-                              style: textWhiteLargeBMM(context),
-                            ) : Container()
+                            categoryImage == null
+                                ? Text(
+                                    '${product.variant!.price}€',
+                                    style: textWhiteLargeBMM(context),
+                                  )
+                                : Container()
                           ],
                         ),
                       )),
-
                 ],
               ),
             ),
@@ -407,65 +418,51 @@ categoryImage,
                   SizedBox(
                     height: 6,
                   ),
-                  product.allergens!.length > 0 ? InkWell(
-                    onTap: () async {
-                      // await showDialog(
-                      //     context: context,
-                      //     builder: (context) =>
-                      //         allergenDialog(context, product));
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                          color: primary(), borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'ALLERGENS'.tr,
-                        style: textWhiteRegularBM(),
-                      ),
-                    ),
-                  ) : Container(),
+                  product.allergens!.length > 0
+                      ? InkWell(
+                          onTap: () async {
+                            // await showDialog(
+                            //     context: context,
+                            //     builder: (context) =>
+                            //         allergenDialog(context, product));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: primary(),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              'ALLERGENS'.tr,
+                              style: textWhiteRegularBM(),
+                            ),
+                          ),
+                        )
+                      : Container(),
                   SizedBox(
                     height: 6,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null ? Text(
-                        '${product.variant!.price}€',
-                        style: textDarkRegularBS(context),
-                      ) : Container(),
-                      product.productImage!.imageUrl != null ?
-                      Icon(Icons.camera_alt_rounded, color: primary(),) : Container(),
+                      categoryImage != null
+                          ? Text(
+                              '${product.variant!.price}€',
+                              style: textDarkRegularBS(context),
+                            )
+                          : Container(),
+                      product.productImage!.imageUrl != null
+                          ? Icon(
+                              Icons.camera_alt_rounded,
+                              color: primary(),
+                            )
+                          : Container(),
                       product.totalQuantity > 0
                           ? Container(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                      onTap: onRemove,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: white,
-                                              border: Border.all(
-                                                  color: dark, width: 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      50)),
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: dark,
-                                          ),
-                                        ),
-                                      )),
-                                  Text(product.totalQuantity.toString(),
-                                      style: textBlackLargeBM(context)),
-                                  InkWell(
-                                    onTap: onUpdate,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                    onTap: onRemove,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
@@ -478,14 +475,35 @@ categoryImage,
                                             borderRadius:
                                                 BorderRadius.circular(50)),
                                         child: Icon(
-                                          Icons.add,
+                                          Icons.remove,
                                           color: dark,
                                         ),
                                       ),
+                                    )),
+                                Text(product.totalQuantity.toString(),
+                                    style: textBlackLargeBM(context)),
+                                InkWell(
+                                  onTap: onUpdate,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                          color: white,
+                                          border:
+                                              Border.all(color: dark, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: dark,
+                                      ),
                                     ),
                                   ),
-                                ],
-                              ))
+                                ),
+                              ],
+                            ))
                           : Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: GFButton(
@@ -511,8 +529,7 @@ categoryImage,
   );
 }
 
-
-Widget allergenDialog(BuildContext context,  ProductDetailsResponse product){
+Widget allergenDialog(BuildContext context, ProductDetailsResponse product) {
   return Dialog(
     child: Container(
       height: 165,

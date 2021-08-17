@@ -13,15 +13,16 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       int tableNumber, int franchiseCode, String? password) async {
     state = state.copyWith(isLoading: true);
 
-    final response = await api.loginVerify(tableNumber, franchiseCode, password);
+    final response =
+        await api.loginVerify(tableNumber, franchiseCode, password);
 
     if (response != null) {
-      await db.storeUserData(response.token!, response.role!, response.id!, response.franchiseId!, response.vendorId!);
+      await db.storeUserData(response.token!, response.role!, response.id!,
+          response.franchiseId!, response.vendorId!);
     }
 
     state = state.copyWith.call(isLoading: false);
 
     return response;
   }
-
 }

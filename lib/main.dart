@@ -42,7 +42,7 @@ Future<void> configLocalNotification() async {
       .promptUserForPushNotificationPermission(fallbackToSettings: true);
   if (allowed) {
     var status =
-    await (OneSignal.shared.getDeviceState() as FutureOr<OSDeviceState>);
+        await (OneSignal.shared.getDeviceState() as FutureOr<OSDeviceState>);
     var playerId = status.userId;
     if (playerId != null) {
       await updatePlayerId(playerId);
@@ -67,9 +67,9 @@ class EntryPage extends HookWidget {
     final isMounted = useIsMounted();
     useEffect(() {
       if (isMounted()) {
-        db.saveThemeColor(db.getThemeColor() ?? 'red' );
-        db.saveLanguage(db.getLanguage() ?? 'English' );
-        db.saveLanguageCode(db.getLanguageCode() ?? 'en' );
+        db.saveThemeColor(db.getThemeColor() ?? 'red');
+        db.saveLanguage(db.getLanguage() ?? 'English');
+        db.saveLanguageCode(db.getLanguageCode() ?? 'en');
         Future.delayed(Duration.zero, () {
           initializeconfigLocalNotification();
         });
@@ -84,8 +84,13 @@ class EntryPage extends HookWidget {
         primaryColor: primary(),
         accentColor: primary(),
       ),
-      home: db.isLoggedIn() && db.getMenuName() != null ? HomeTabs(tabIndex: 0,) :
-      db.isLoggedIn() && db.getMenuName() == null  ? Settings() : LoginPage(),
+      home: db.isLoggedIn() && db.getMenuName() != null
+          ? HomeTabs(
+              tabIndex: 0,
+            )
+          : db.isLoggedIn() && db.getMenuName() == null
+              ? Settings()
+              : LoginPage(),
       translations: Localization(),
       locale: Get.deviceLocale,
       fallbackLocale: Locale('en', 'US'),
@@ -93,4 +98,3 @@ class EntryPage extends HookWidget {
     );
   }
 }
-

@@ -8,8 +8,8 @@ class MenuResponse with BaseModel<MenuResponse>, _$MenuResponse {
   const MenuResponse._();
 
   const factory MenuResponse({
-  @JsonKey(name: '_id') String? id,
-  String? title,
+    @JsonKey(name: '_id') String? id,
+    String? title,
   }) = _MenuResponse;
 
   factory MenuResponse.fromJson(Map<String, dynamic> json) =>

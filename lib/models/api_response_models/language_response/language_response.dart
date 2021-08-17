@@ -7,15 +7,13 @@ part 'language_response.g.dart';
 class LanguageResponse with BaseModel<LanguageResponse>, _$LanguageResponse {
   const LanguageResponse._();
 
-  const factory LanguageResponse(
-      {@JsonKey(name: '_id') String? id,
-      String? title,
-      int? isDefault,
-      String? languageCode,
-      String? languageName,
-      String? filePath,
-      String? imageId,
-      String? imageUrl}) = _LanguageResponse;
+  const factory LanguageResponse({
+    @JsonKey(name: '_id') String? id,
+    int? isDefault,
+    String? languageCode,
+    String? languageName,
+    String? flagCode,
+  }) = _LanguageResponse;
 
   factory LanguageResponse.fromJson(Map<String, dynamic> json) =>
       _$LanguageResponseFromJson(json);

@@ -7,7 +7,8 @@ import 'categoryState.dart';
 class CategoryStateNotifier extends StateNotifier<CategoryState> {
   final API api;
   final DB db;
-  CategoryStateNotifier(this.api, this.db) : super(CategoryState(isLoading: true));
+  CategoryStateNotifier(this.api, this.db)
+      : super(CategoryState(isLoading: true));
 
   Future<CategoryResponse?> fetchCategory(type, page, limit) async {
     state = state.copyWith.call(isLoading: true);
@@ -17,6 +18,4 @@ class CategoryStateNotifier extends StateNotifier<CategoryState> {
       isLoading: false,
     );
   }
-
-
 }

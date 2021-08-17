@@ -18,101 +18,96 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class DrawerPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
-
     final homeState = useProvider(homeProvider);
-    final state = useProvider(drawerProvider);
-    final isMounted = useIsMounted();
-
-    useEffect(() {
-      Future.delayed(Duration.zero, () async {
-        if (isMounted()) {
-          await context.read(homeProvider.notifier).fetchHome();
-        }
-      });
-      return;
-    }, const []);
 
     return Container(
       child: Drawer(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 110,
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    decoration: new BoxDecoration(color: secondary1, boxShadow: [
-                      BoxShadow(color: Colors.black45, blurRadius: 20)
-                    ]),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 20,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Settings(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: primary(),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Icon(
-                          Icons.settings,
-                          color: secondary1,
-                          size: 40,
-                        ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 110,
+                padding: EdgeInsets.symmetric(vertical: 15),
+                decoration: new BoxDecoration(color: secondary1, boxShadow: [
+                  BoxShadow(color: Colors.black45, blurRadius: 20)
+                ]),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 20,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Settings(),
                       ),
+                    );
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: primary(),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Icon(
+                      Icons.settings,
+                      color: secondary1,
+                      size: 40,
                     ),
                   ),
-                  Positioned(
-                    top: 45,
-                    left: 50,
-                    right: 50,
-                    child: Column(
-                      children: [
-                        titleTextDarkRegularBW(context, Constants.restaurantName),
-                        titleTextDarkRegularBW17(context, Constants.restaurantAddress),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              if ((homeState.homeData?.category.length ?? 0) > 0)
-                categoryBlock(context, homeState.homeData?.category),
-              if(homeState.isLoading) GFLoader(type: GFLoaderType.ios,),
-              InkWell(
-                onTap:  (){Get.to(() => ChangePasswordPage());},
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
                 ),
               ),
-              Divider(),
-              InkWell(
-                onTap:  (){
-                  if (DB().isLoggedIn()) {
-                    context.read(drawerProvider.notifier).logout();
-                  } else {
-                    Get.to(() => LoginPage());
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: titleTextDarkRegularBB20(context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
+              Positioned(
+                top: 45,
+                left: 50,
+                right: 50,
+                child: Column(
+                  children: [
+                    titleTextDarkRegularBW(context, Constants.restaurantName),
+                    titleTextDarkRegularBW17(
+                        context, Constants.restaurantAddress),
+                  ],
                 ),
               ),
-              Divider(),
             ],
-          )),
+          ),
+          if ((homeState.homeData?.category.length ?? 0) > 0)
+            categoryBlock(context, homeState.homeData?.category),
+          if (homeState.isLoading)
+            GFLoader(
+              type: GFLoaderType.ios,
+            ),
+          InkWell(
+            onTap: () {
+              Get.to(() => ChangePasswordPage());
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
+            ),
+          ),
+          Divider(),
+          InkWell(
+            onTap: () {
+              if (DB().isLoggedIn()) {
+                context.read(drawerProvider.notifier).logout();
+              } else {
+                Get.to(() => LoginPage());
+              }
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: titleTextDarkRegularBB20(
+                  context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
+            ),
+          ),
+          Divider(),
+        ],
+      )),
     );
   }
 
@@ -125,7 +120,9 @@ class DrawerPage extends HookWidget {
         itemBuilder: (BuildContext context, int i) {
           return InkWell(
             onTap: () {
-              Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+              Get.to(() => ProductList(
+                  categoryId: category[i].id,
+                  categoryImage: category[i].imageUrl));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -141,5 +138,4 @@ class DrawerPage extends HookWidget {
           );
         });
   }
-
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 
 class Constants {
   // app name
-  static String appName = 'Restaurant Sass';
+  static String appName = 'fenix_user';
 
   // restaurant name
   static String restaurantName = "GASTROBAR";

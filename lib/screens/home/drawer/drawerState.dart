@@ -5,8 +5,6 @@ part 'drawerState.freezed.dart';
 
 @freezed
 class DrawerState with _$DrawerState {
-  const factory DrawerState({
-    @Default(false) bool isLoading,
-    HomeResponse? homeData
-  }) = _Default;
+  const factory DrawerState(
+      {@Default(false) bool isLoading, HomeResponse? homeData}) = _Default;
 }

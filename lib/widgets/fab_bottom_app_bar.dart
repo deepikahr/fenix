@@ -11,7 +11,6 @@ class FABBottomAppBarItem {
 }
 
 class FABBottomAppBar extends HookWidget {
-
   final List<FABBottomAppBarItem?>? items;
   final String? centerItemText;
   final double? height;
@@ -36,11 +35,8 @@ class FABBottomAppBar extends HookWidget {
     assert(this.items!.length == 2 || this.items!.length == 4);
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
     final state = useProvider(homeTabsProvider);
 
     List<Widget> item = List.generate(items!.length, (int index) {
@@ -133,5 +129,4 @@ class FABBottomAppBar extends HookWidget {
       ),
     );
   }
-
 }

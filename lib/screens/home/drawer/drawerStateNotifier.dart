@@ -1,5 +1,4 @@
 import 'package:fenix_user/database/db.dart';
-import 'package:fenix_user/models/api_response_models/home_response/home_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,10 +21,11 @@ class DrawerStateNotifier extends StateNotifier<DrawerState> {
 
   Future<void> logout() async {
     if (db.isLoggedIn()) {
-        await db.logOut();
-        state = state.copyWith(isLoading: true);
-        await Get.offAll(() => HomeTabs(tabIndex: 0,));
+      await db.logOut();
+      state = state.copyWith(isLoading: true);
+      await Get.offAll(() => HomeTabs(
+            tabIndex: 0,
+          ));
     }
   }
-
 }

@@ -58,8 +58,8 @@ Widget regularTextField(BuildContext context, textField) {
   return Container(
       // height: 49,
       decoration: BoxDecoration(
-          color: dark.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(4),
+        color: dark.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(4),
         boxShadow: [
           BoxShadow(
             color: dark.withOpacity(0.05),
@@ -78,9 +78,9 @@ Widget regularTextField(BuildContext context, textField) {
 Widget blockTextField(BuildContext context, textField) {
   return Container(
       decoration: BoxDecoration(
-          color: dark.withOpacity(0.04),
-          border: Border.all(color: dark.withOpacity(0.16)),
-          borderRadius: BorderRadius.circular(4),
+        color: dark.withOpacity(0.04),
+        border: Border.all(color: dark.withOpacity(0.16)),
+        borderRadius: BorderRadius.circular(4),
         boxShadow: [
           BoxShadow(
             color: dark.withOpacity(0.05),
@@ -100,9 +100,9 @@ Widget blockTextFieldForm(BuildContext context, textField) {
   return Container(
       height: 49,
       decoration: BoxDecoration(
-          color: dark.withOpacity(0.04),
-          border: Border.all(color: dark.withOpacity(0.16)),
-          borderRadius: BorderRadius.circular(4),
+        color: dark.withOpacity(0.04),
+        border: Border.all(color: dark.withOpacity(0.16)),
+        borderRadius: BorderRadius.circular(4),
         boxShadow: [
           BoxShadow(
             color: dark.withOpacity(0.05),

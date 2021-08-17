@@ -53,9 +53,9 @@ class _$ProductDetailsResponseTearOff {
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice = 0,
-      int sellingPrice = 0,
-      int discount = 0,
+      double originalPrice = .0,
+      double sellingPrice = .0,
+      double discount = .0,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems = const [],
@@ -171,9 +171,9 @@ mixin _$ProductDetailsResponse {
   String? get updatedAt => throw _privateConstructorUsedError;
   String? get categoryId => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
-  int get originalPrice => throw _privateConstructorUsedError;
-  int get sellingPrice => throw _privateConstructorUsedError;
-  int get discount => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   String? get sizeName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
@@ -236,9 +236,9 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
-      int discount,
+      double originalPrice,
+      double sellingPrice,
+      double discount,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems,
@@ -453,15 +453,15 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -606,9 +606,9 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
-      int discount,
+      double originalPrice,
+      double sellingPrice,
+      double discount,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems,
@@ -828,15 +828,15 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discount: discount == freezed
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sizeName: sizeName == freezed
           ? _value.sizeName
           : sizeName // ignore: cast_nullable_to_non_nullable
@@ -944,9 +944,9 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       this.updatedAt,
       this.categoryId,
       this.restaurantName,
-      this.originalPrice = 0,
-      this.sellingPrice = 0,
-      this.discount = 0,
+      this.originalPrice = .0,
+      this.sellingPrice = .0,
+      this.discount = .0,
       this.sizeName,
       this.description,
       this.selectedAddOnItems = const [],
@@ -1034,15 +1034,15 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final String? categoryId;
   @override
   final String? restaurantName;
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: .0)
   @override
-  final int originalPrice;
-  @JsonKey(defaultValue: 0)
+  final double originalPrice;
+  @JsonKey(defaultValue: .0)
   @override
-  final int sellingPrice;
-  @JsonKey(defaultValue: 0)
+  final double sellingPrice;
+  @JsonKey(defaultValue: .0)
   @override
-  final int discount;
+  final double discount;
   @override
   final String? sizeName;
   @override
@@ -1294,9 +1294,9 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       String? updatedAt,
       String? categoryId,
       String? restaurantName,
-      int originalPrice,
-      int sellingPrice,
-      int discount,
+      double originalPrice,
+      double sellingPrice,
+      double discount,
       String? sizeName,
       String? description,
       List<AddOnItem> selectedAddOnItems,
@@ -1384,11 +1384,11 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   String? get restaurantName => throw _privateConstructorUsedError;
   @override
-  int get originalPrice => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
   @override
-  int get sellingPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
   @override
-  int get discount => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   @override
   String? get sizeName => throw _privateConstructorUsedError;
   @override

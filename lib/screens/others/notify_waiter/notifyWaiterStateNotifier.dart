@@ -8,14 +8,14 @@ import 'notifyWaiterState.dart';
 class NotifyWaiterStateNotifier extends StateNotifier<NotifyWaiterState> {
   final API api;
   final DB db;
-  NotifyWaiterStateNotifier(this.api, this.db) : super(NotifyWaiterState(isLoading: true));
+  NotifyWaiterStateNotifier(this.api, this.db)
+      : super(NotifyWaiterState(isLoading: true));
 
   Future<String?> callWaiter(String? title, String? description) async {
     state = state.copyWith.call(isLoading: true);
 
-    final CallWaiterRequest callWaiter = CallWaiterRequest(
-      title: title, description: description
-    );
+    final CallWaiterRequest callWaiter =
+        CallWaiterRequest(title: title, description: description);
 
     final response = await api.callWaiter(callWaiter);
     state = state.copyWith.call(isLoading: false);
@@ -30,6 +30,4 @@ class NotifyWaiterStateNotifier extends StateNotifier<NotifyWaiterState> {
       isLoading: false,
     );
   }
-
-
 }

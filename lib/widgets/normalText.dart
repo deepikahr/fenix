@@ -238,7 +238,7 @@ Widget infoRow(BuildContext context, icon, title) {
 }
 
 Widget ratingDistanceRow(
-    BuildContext context, double rating, String distance) {
+    BuildContext context, double? rating, String distance) {
   return Row(
     children: [
       rating != null && rating > 0

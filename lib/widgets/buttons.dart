@@ -1,12 +1,6 @@
-import 'package:fenix_user/screens/home/home/home.dart';
-import 'package:fenix_user/screens/home/home_tabs/homeTabs.dart';
-import 'package:fenix_user/screens/others/notify_waiter/notifyWaiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-
-import 'normalText.dart';
-
 
 Widget primaryButton(BuildContext context, title, onPressed, loading) {
   return Container(
@@ -27,10 +21,12 @@ Widget primaryButton(BuildContext context, title, onPressed, loading) {
       size: GFSize.LARGE,
       color: primary(),
       onPressed: onPressed,
-      child: loading ? GFLoader(type: GFLoaderType.ios) : Text(
-        title,
-        style: textWhiteLargeBM(context),
-      ),
+      child: loading
+          ? GFLoader(type: GFLoaderType.ios)
+          : Text(
+              title,
+              style: textWhiteLargeBM(context),
+            ),
     ),
   );
 }
@@ -68,10 +64,14 @@ Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
     color: primary(),
     onPressed: onPressed,
-    child: isloading ? GFLoader(type: GFLoaderType.ios,) : Text(
-      title,
-      style: textWhiteLargeBM(context),
-    ),
+    child: isloading
+        ? GFLoader(
+            type: GFLoaderType.ios,
+          )
+        : Text(
+            title,
+            style: textWhiteLargeBM(context),
+          ),
   );
 }
 
@@ -106,8 +106,6 @@ Widget flatPrimaryUnderlineButton(
   );
 }
 
-
-
 Widget tabIconButton(BuildContext context, iconData, cartData) {
   return Stack(
     alignment: AlignmentDirectional.center,
@@ -140,4 +138,3 @@ BottomNavigationBarItem bottomBarTabItem(
   return BottomNavigationBarItem(
       label: label, icon: tabIconButton(context, iconData, cartData));
 }
-

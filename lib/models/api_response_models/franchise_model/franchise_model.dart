@@ -7,11 +7,10 @@ part 'franchise_model.g.dart';
 class FranchiseModel with BaseModel<FranchiseModel>, _$FranchiseModel {
   const FranchiseModel._();
 
-  const factory FranchiseModel({
-    @JsonKey(name: '_id') String? id,
-    String? franchiseName,
-    String? restaurantName
-  }) = _FranchiseModel;
+  const factory FranchiseModel(
+      {@JsonKey(name: '_id') String? id,
+      String? franchiseName,
+      String? restaurantName}) = _FranchiseModel;
 
   factory FranchiseModel.fromJson(Map<String, dynamic> json) =>
       _$FranchiseModelFromJson(json);

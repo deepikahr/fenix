@@ -22,5 +22,4 @@ class URL {
   static const CALL_WAITER_LIST = '/notifications/list';
 
   static const LANGUAGES = '/languages/list';
-
 }

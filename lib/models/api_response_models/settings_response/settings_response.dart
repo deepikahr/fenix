@@ -11,17 +11,15 @@ part 'settings_response.g.dart';
 class SettingsResponse with BaseModel<SettingsResponse>, _$SettingsResponse {
   const SettingsResponse._();
 
-  const factory SettingsResponse({
-    TabSettingResponse?  tabSetting,
-    @JsonKey(name: '_id') String? id,
-    FranchiseModel? franchiseId,
-    String? vendorId,
-    String? tableName,
-    int? tableCapacity,
-    int? tableNumber,
-    int? franchiseCode
-  }) =
-  _SettingsResponse;
+  const factory SettingsResponse(
+      {TabSettingResponse? tabSetting,
+      @JsonKey(name: '_id') String? id,
+      FranchiseModel? franchiseId,
+      String? vendorId,
+      String? tableName,
+      int? tableCapacity,
+      int? tableNumber,
+      int? franchiseCode}) = _SettingsResponse;
 
   factory SettingsResponse.fromJson(Map<String, dynamic> json) =>
       _$SettingsResponseFromJson(json);
@@ -36,4 +34,3 @@ class SettingsResponse with BaseModel<SettingsResponse>, _$SettingsResponse {
     return toJson();
   }
 }
-

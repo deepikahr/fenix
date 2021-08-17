@@ -6,6 +6,6 @@ import 'thankYouState.dart';
 class ThankYouStateNotifier extends StateNotifier<ThankYouState> {
   final API api;
   final DB db;
-  ThankYouStateNotifier(this.api, this.db) : super(ThankYouState(isLoading: true));
-
+  ThankYouStateNotifier(this.api, this.db)
+      : super(ThankYouState(isLoading: true));
 }

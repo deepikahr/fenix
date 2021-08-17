@@ -6,13 +6,12 @@ part 'productDetailsState.freezed.dart';
 
 @freezed
 class ProductDetailsState with _$ProductDetailsState {
-  const factory ProductDetailsState({
-    @Default(false) bool isLoading,
-    ProductDetailsResponse? productDetails,
-    Set<AddOnItem>? selectedAddOnItems,
-    @Default(0) int groupValue,
-    @Default(false) bool showAddButton,
-    @Default(false) bool showCounter,
-    String? selectedLanguage
-  }) = _Default;
+  const factory ProductDetailsState(
+      {@Default(false) bool isLoading,
+      ProductDetailsResponse? productDetails,
+      Set<AddOnItem>? selectedAddOnItems,
+      @Default(0) int groupValue,
+      @Default(false) bool showAddButton,
+      @Default(false) bool showCounter,
+      String? selectedLanguage}) = _Default;
 }

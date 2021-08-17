@@ -30,7 +30,6 @@ class Home extends HookWidget {
       return;
     }, const []);
 
-
     return Scaffold(
       backgroundColor: grey2,
       body: Container(
@@ -45,9 +44,9 @@ class Home extends HookWidget {
                   bannerBlock(context, state.homeData?.banners),
                 // SizedBox(height: 8,),
                 if ((state.homeData?.category.length ?? 0) > 0)
-                  db.getType() == 'list' ?
-                  categoryBlock(context, state.homeData?.category) :
-                  categoryListGrid(context, state.homeData?.category),
+                  db.getType() == 'list'
+                      ? categoryBlock(context, state.homeData?.category)
+                      : categoryListGrid(context, state.homeData?.category),
               ],
             ),
             if (state.isLoading) GFLoader(type: GFLoaderType.ios)
@@ -100,16 +99,19 @@ class Home extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                Get.to(() => ProductList(
+                    categoryId: category[i].id,
+                    categoryImage: category[i].imageUrl));
               },
-              child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
+              child: restaurantInfoCard(
+                  context, category[i].title, category[i].imageUrl),
             );
           }),
     );
   }
 
   Widget categoryListGrid(
-      BuildContext context, List<CategoryResponse>? category) =>
+          BuildContext context, List<CategoryResponse>? category) =>
       GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 6),
         shrinkWrap: true,
@@ -123,10 +125,12 @@ class Home extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                Get.to(() => ProductList(
+                    categoryId: category[i].id,
+                    categoryImage: category[i].imageUrl));
               },
-              child: restaurantInfoCardGrid(context, category[i].title!, category[i].imageUrl!));
+              child: restaurantInfoCardGrid(
+                  context, category[i].title!, category[i].imageUrl!));
         },
       );
-
 }

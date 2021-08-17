@@ -105,15 +105,15 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 }
 
 String processImage(
-    String? value, {
-      int? height,
-      int? width,
-      String? aspectRatio,
-      bool crop = true,
-      bool blur = false,
-    }) {
+  String? value, {
+  int? height,
+  int? width,
+  String? aspectRatio,
+  bool crop = true,
+  bool blur = false,
+}) {
   return value?.replaceAll('/tr:dpr-auto,tr:w-auto/',
-      '/tr:dpr-auto,w-$width,h-$height,ar-$aspectRatio${blur ? ',bl-4' : ''}${crop ? ',fo-auto' : ''},pr-true,f-auto/') ??
+          '/tr:dpr-auto,w-$width,h-$height,ar-$aspectRatio${blur ? ',bl-4' : ''}${crop ? ',fo-auto' : ''},pr-true,f-auto/') ??
       'https://via.placeholder.com/${width ?? 100}x${height ?? 100}';
 }
 

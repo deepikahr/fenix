@@ -42,14 +42,15 @@ final homeTabsProvider =
 });
 
 final homeProvider =
-StateNotifierProvider.autoDispose<HomeStateNotifier, HomeState>((ref) {
+    StateNotifierProvider.autoDispose<HomeStateNotifier, HomeState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return HomeStateNotifier(api, db);
 });
 
 final categoryProvider =
-StateNotifierProvider.autoDispose<CategoryStateNotifier, CategoryState>((ref) {
+    StateNotifierProvider.autoDispose<CategoryStateNotifier, CategoryState>(
+        (ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return CategoryStateNotifier(api, db);
@@ -62,30 +63,31 @@ final loginProvider =
   return LoginStateNotifier(api, db);
 });
 
-final changePasswordProvider =
-StateNotifierProvider.autoDispose<ChangePasswordStateNotifier, ChangePasswordState>((ref) {
+final changePasswordProvider = StateNotifierProvider.autoDispose<
+    ChangePasswordStateNotifier, ChangePasswordState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return ChangePasswordStateNotifier(api, db);
 });
 
 final settingsProvider =
-StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>((ref) {
+    StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>(
+        (ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return SettingsStateNotifier(api, db);
 });
 
-final productListProvider =
-StateNotifierProvider.autoDispose<ProductListStateNotifier, ProductListState>((ref) {
+final productListProvider = StateNotifierProvider.autoDispose<
+    ProductListStateNotifier, ProductListState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   final cartState = ref.watch(cartProvider.notifier);
   return ProductListStateNotifier(api, db, cartState);
 });
 
-final productDetailsProvider =
-StateNotifierProvider.autoDispose<ProductDetailsStateNotifier, ProductDetailsState>((ref) {
+final productDetailsProvider = StateNotifierProvider.autoDispose<
+    ProductDetailsStateNotifier, ProductDetailsState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   final cartState = ref.watch(cartProvider.notifier);
@@ -93,16 +95,16 @@ StateNotifierProvider.autoDispose<ProductDetailsStateNotifier, ProductDetailsSta
 });
 
 final cartScreenProvider =
-StateNotifierProvider.autoDispose<CartScreenStateNotifier, CartScreenState>(
+    StateNotifierProvider.autoDispose<CartScreenStateNotifier, CartScreenState>(
         (ref) {
-      final api = ref.watch(apiProvider);
-      final db = ref.watch(dbProvider);
-      final cartState = ref.watch(cartProvider.notifier);
-      return CartScreenStateNotifier(api, db, cartState);
-    });
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  final cartState = ref.watch(cartProvider.notifier);
+  return CartScreenStateNotifier(api, db, cartState);
+});
 
 final cartProvider = StateNotifierProvider<CartNotifier, Cart?>(
-      (ref) {
+  (ref) {
     final box = Hive.box('user');
     final dbCart = box.get('cart');
     Cart? cart;
@@ -113,23 +115,32 @@ final cartProvider = StateNotifierProvider<CartNotifier, Cart?>(
   },
 );
 
-final orderDetailsProvider =
-StateNotifierProvider.autoDispose<OrderDetailsStateNotifier, OrderDetailsState>((ref) {
+final orderDetailsProvider = StateNotifierProvider.autoDispose<
+    OrderDetailsStateNotifier, OrderDetailsState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
-  return OrderDetailsStateNotifier(api, db,);
+  return OrderDetailsStateNotifier(
+    api,
+    db,
+  );
 });
 
-final notifyWaiterProvider =
-StateNotifierProvider.autoDispose<NotifyWaiterStateNotifier, NotifyWaiterState>((ref) {
+final notifyWaiterProvider = StateNotifierProvider.autoDispose<
+    NotifyWaiterStateNotifier, NotifyWaiterState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
-  return NotifyWaiterStateNotifier(api, db,);
+  return NotifyWaiterStateNotifier(
+    api,
+    db,
+  );
 });
 
 final drawerProvider =
-StateNotifierProvider.autoDispose<DrawerStateNotifier, DrawerState>((ref) {
+    StateNotifierProvider.autoDispose<DrawerStateNotifier, DrawerState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
-  return DrawerStateNotifier(api, db,);
+  return DrawerStateNotifier(
+    api,
+    db,
+  );
 });

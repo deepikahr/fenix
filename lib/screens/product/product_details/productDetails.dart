@@ -14,17 +14,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class ProductDetails extends HookWidget {
+  final noteFocusNode = FocusNode();
   final String? productId;
   ProductDetails({this.productId});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool isChecked = false;
 
-  final noteFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
 
   @override
@@ -34,8 +35,6 @@ class ProductDetails extends HookWidget {
     final homeState = useProvider(homeTabsProvider);
     final notifier = useProvider(productDetailsProvider.notifier);
     final cart = useProvider(cartProvider);
-    final cartState = useProvider(cartScreenProvider);
-    final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
@@ -52,10 +51,13 @@ class ProductDetails extends HookWidget {
       backgroundColor: grey2,
       key: _scaffoldKey,
       drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading
-      ),
+      appBar: fenixAppbar(
+          context,
+          _scaffoldKey,
+          (value) =>
+              context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
+          homeState.languages,
+          homeState.isLoading),
       body: Stack(
         children: [
           if (!state.isLoading && state.productDetails != null)
@@ -171,7 +173,6 @@ class ProductDetails extends HookWidget {
                           children: [
                             InkWell(
                                 onTap: () {
-                                  print('aaaaaaaa');
                                   if (product.isSameProductMultipleTime ==
                                       true) {
                                     showDialog(
@@ -180,7 +181,6 @@ class ProductDetails extends HookWidget {
                                             showMulitipleTimeProductPopUp(
                                                 context, cart));
                                   } else {
-                                    print('bbbbbb');
                                     notifier.updateProductsQuantity(
                                         product, false);
                                   }
@@ -207,7 +207,6 @@ class ProductDetails extends HookWidget {
                             InkWell(
                               onTap: () async {
                                 if (product.isCustomizable) {
-                                  print('aaaaaaaa uppp');
                                   await showDialog(
                                       context: context,
                                       builder: (context) =>
@@ -220,7 +219,6 @@ class ProductDetails extends HookWidget {
                                                     product.restaurantName);
                                           }, cart));
                                 } else {
-                                  print('bbbbbb upp');
                                   await notifier.findLastUpdateProduct(
                                       product, true, product.restaurantName);
                                 }
@@ -412,7 +410,6 @@ class ProductDetails extends HookWidget {
   checkCounter(BuildContext context, selectedAddOnItems, addOnItems, i) {
     selectedAddOnItems!.forEach((data) {
       if (data.id == addOnItems[i].id) {
-        print('ddddd ');
         context.read(productDetailsProvider.notifier).showCounter(true);
       }
     });
@@ -422,8 +419,6 @@ class ProductDetails extends HookWidget {
 
   Widget optionBlockExtra(List<AddOnCategory> addOnCategory,
       Set<AddOnItem>? selectedAddOnItems, state) {
-    print('aaaaaaaaa $selectedAddOnItems');
-
     return Container(
       child: ListView.builder(
           physics: ScrollPhysics(),

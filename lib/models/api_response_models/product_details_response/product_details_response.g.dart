@@ -57,9 +57,9 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     updatedAt: json['updatedAt'] as String?,
     categoryId: json['categoryId'] as String?,
     restaurantName: json['restaurantName'] as String?,
-    originalPrice: json['originalPrice'] as int? ?? 0,
-    sellingPrice: json['sellingPrice'] as int? ?? 0,
-    discount: json['discount'] as int? ?? 0,
+    originalPrice: (json['originalPrice'] as num?)?.toDouble() ?? 0.0,
+    sellingPrice: (json['sellingPrice'] as num?)?.toDouble() ?? 0.0,
+    discount: (json['discount'] as num?)?.toDouble() ?? 0.0,
     sizeName: json['sizeName'] as String?,
     description: json['description'] as String?,
     selectedAddOnItems: (json['selectedAddOnItems'] as List<dynamic>?)

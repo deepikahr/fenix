@@ -1,3 +1,1 @@
-class AuthenticationService {
-
-}
+class AuthenticationService {}
