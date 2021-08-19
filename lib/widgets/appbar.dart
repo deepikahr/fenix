@@ -12,7 +12,8 @@ import 'package:getwidget/getwidget.dart';
 import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
-    onSelectLanguage, List<LanguageResponse> languages, isLoading, settingLoading, settingsState, onHomeSelect) {
+    onSelectLanguage, List<LanguageResponse> languages, isLoading,  settingsLoading,
+callWaiter, onHomeSelect) {
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 165.0),
     child: Stack(
@@ -113,7 +114,7 @@ PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
                     ),
                   ),
                 )),
-            settingLoading ? GFLoader(type: GFLoaderType.ios,) : settingsState.settings!.tabSetting!.callToWaiter ? Positioned(
+            settingsLoading ? GFLoader(type: GFLoaderType.ios,) : callWaiter ? Positioned(
                 top: 95,
                 left: 120,
                 child: InkWell(

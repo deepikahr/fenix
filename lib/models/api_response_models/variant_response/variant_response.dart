@@ -14,7 +14,7 @@ class VariantResponse with BaseModel<VariantResponse>, _$VariantResponse {
   const factory VariantResponse({
     @JsonKey(name: '_id') String? id,
     String? size,
-    int? price,
+    double? price,
     String? sizeName,
     bool? isDefaultVariant,
     bool? outOfStock

@@ -168,6 +168,7 @@ Widget customBottomBar(onSelect){
   );
 }
 
+
 Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
   return InkWell(
     onTap: onTap,

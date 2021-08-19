@@ -15,8 +15,11 @@ class OrdersInProcess extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final homeState = useProvider(homeTabsProvider);
-    final settingsState = useProvider(settingsProvider);
+    final currentIndex = useProvider(homeTabsProvider).currentIndex;
+    final languages = useProvider(homeTabsProvider).languages;
+    final homeLoading = useProvider(homeTabsProvider).isLoading;
+    final settingsStateLoading = useProvider(settingsProvider).isLoading;
+     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
 
     return Scaffold(
         backgroundColor: light,
@@ -24,7 +27,8 @@ class OrdersInProcess extends HookWidget {
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
+            languages, homeLoading, settingsStateLoading,
+            callWaiter,
                 () {
               context.read(homeTabsProvider.notifier).onPageChanged(0);
               Get.to(() => HomeTabs(tabIndex: 0));

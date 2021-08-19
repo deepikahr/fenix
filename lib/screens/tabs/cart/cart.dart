@@ -28,14 +28,18 @@ import 'package:get/get.dart';
 class CartScreen extends HookWidget {
   bool isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+
     final cart = useProvider(cartProvider);
     final state = useProvider(cartScreenProvider);
-    final homeState = useProvider(homeTabsProvider);
-    final cartNotifier = useProvider(cartScreenProvider.notifier);
+    final currentIndex = useProvider(homeTabsProvider).currentIndex;
+    final languages = useProvider(homeTabsProvider).languages;
+    final homeLoading = useProvider(homeTabsProvider).isLoading;
     final isMounted = useIsMounted();
-    final settingsState = useProvider(settingsProvider);
+    final settingsStateLoading = useProvider(settingsProvider).isLoading;
+     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
 
     useEffect(() {
       if (isMounted()) {
@@ -45,171 +49,184 @@ class CartScreen extends HookWidget {
       return;
     }, const []);
 
-    var _screens = <Widget>[
-      Home(),
-      Category(),
-      Category(),
-      OrderDetails(),
-    ];
-
     return Scaffold(
         backgroundColor: grey2,
         key: _scaffoldKey,
         drawer: DrawerPage(),
         appBar: fenixAppbar(context, _scaffoldKey,
                 (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            homeState.languages, homeState.isLoading, settingsState.isLoading, settingsState,
+            languages, homeLoading,  settingsStateLoading,
+            callWaiter,
                 () async {
               context.read(homeTabsProvider.notifier).onPageChanged(0);
               await Get.to(() => HomeTabs(tabIndex: 0));
             }
         ),
-        body: homeState.isLoading
-            ? Center(child: GFLoader(type: GFLoaderType.ios))
-            : homeState.currentIndex == 0 ? Home()
-            : homeState.currentIndex == 1 ? Category()
-            : homeState.currentIndex == 2 ? Category()
-            : homeState.currentIndex == 3 ? OrderDetails()
-            : homeState.currentIndex == 4 ?
-        cart == null || !DB().isLoggedIn() || cart.products.length == 0
-            ? Center(
-                child: Text('CART_IS_EMPTY'.tr),
-              ) :
-        SingleChildScrollView(
-          child: Container(
-            color: white,
-            margin: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(
+          children: [
+            ListView(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              children: [
+                if (currentIndex == 0)
+                  Home(),
+                if (currentIndex == 1)
+                  Category(),
+                if (currentIndex == 2)
+                  Category(),
+                if (currentIndex == 3)
+                  OrderDetails(),
+                if (currentIndex == 4)
+                  ListView(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        decoration: BoxDecoration(
-                          color: grey2,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ),
-                        ),
-                        padding: EdgeInsets.all(14),
-                        margin: EdgeInsets.only(top: 16,),
-                        child: Text('SELECTED PRODUCTS'.tr,
-                            style: textBlackLargeBM(context)),
-                      ),
-                      Container(
-                        color: grey2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            cartItemBlock(context, cart, state),
-                            Container(
-                              margin: EdgeInsets.only(top: 16),
-                              padding: EdgeInsets.all(14),
-                              color: white,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      'Total: ${cart.subTotal.toStringAsFixed(2)}',
-                                      style: textPrimaryXXSmall(context)
+                      cart == null || !DB().isLoggedIn()
+                          ? Center(
+                        child: Text('CART_IS_EMPTY'.tr),
+                      ) : SingleChildScrollView(
+                          child: Container(
+                            color: white,
+                            margin: EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  decoration: BoxDecoration(
+                                    color: grey2,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(8),
+                                      bottomRight: Radius.circular(8),
+                                    ),
                                   ),
-                                  // Text(
-                                  //     'Tax: ${cart.taxTotal.toStringAsFixed(2)}',
-                                  //     style: textPrimaryXXSmall(context)
-                                  // ),
-                                  Text(
-                                      'Grand Total: ${cart.grandTotal.toStringAsFixed(2)}',
-                                      style: textPrimaryXXSmallDark(context)
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // totalRow(context, 'Sub Total',
-                            //     cart.subTotal.toStringAsFixed(2)),
-                            // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
-                            Container(
-                              color: grey2,
-                              padding: const EdgeInsets.only(top: 28.0, ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  custombuttonsm(
-                                      context,
-                                      'ADD_MORE_PRODUCTS'.tr,
-                                          () async {
-                                            context.read(homeTabsProvider.notifier).onPageChanged(5);
-                                            Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
-                                      },
-                                      false
-                                  ),
-                                  state.isLoading || state.isUpdateLoading
-                                          ? GFLoader(type: GFLoaderType.ios)
-                                          :
-                                      DB().getOrderId()  == null ?
-                                      custombuttonsm(
-                                          context,
-                                          'PLACE_ORDER'.tr,
-                                              () async {
-                                            await context
-                                                .read(cartScreenProvider
-                                                .notifier)
-                                                .createOrder();
-                                            if (state.orderResponse != null) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                  content: Text('${state.orderResponse!.message}')));
-                                            }
-                                            Timer(Duration(seconds: 2),
+                                  padding: EdgeInsets.all(14),
+                                  margin: EdgeInsets.only(top: 16,),
+                                  child: Text('SELECTED PRODUCTS'.tr,
+                                      style: textBlackLargeBM(context)),
+                                ),
+                                Container(
+                                  color: grey2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      cartItemBlock(context, cart, state),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 16),
+                                        padding: EdgeInsets.all(14),
+                                        color: white,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                                'Total: ${cart.subTotal.toStringAsFixed(2)}',
+                                                style: textPrimaryXXSmall(context)
+                                            ),
+                                            // Text(
+                                            //     'Tax: ${cart.taxTotal.toStringAsFixed(2)}',
+                                            //     style: textPrimaryXXSmall(context)
+                                            // ),
+                                            Text(
+                                                'Grand Total: ${cart.grandTotal.toStringAsFixed(2)}',
+                                                style: textPrimaryXXSmallDark(context)
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      // totalRow(context, 'Sub Total',
+                                      //     cart.subTotal.toStringAsFixed(2)),
+                                      // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
+                                      Container(
+                                        color: grey2,
+                                        padding: const EdgeInsets.only(top: 28.0, ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            custombuttonsm(
+                                                context,
+                                                'ADD_MORE_PRODUCTS'.tr,
                                                     () async {
-                                                  await Get.to(
-                                                          () => OrdersInProcess());
-                                                });
-                                          },
-                                          state.isLoading)
-                                          :
-                                      cart.products.where((element) =>
-                                      element.modified).isNotEmpty && DB().getOrderId() != null  ? custombuttonsm(
-                                              context,
-                                              'MODIFY_ORDER'.tr,
-                                              () async {
-                                                      final updateResponse = await context
-                                                          .read(cartScreenProvider
-                                                              .notifier)
-                                                          .updateOrder();
-                                                      if (updateResponse != null) {
-                                                        ScaffoldMessenger.of(context)
-                                                            .showSnackBar(SnackBar(
-                                                                content: Text(
-                                                                    '${updateResponse}')));
-                                                        Timer(Duration(seconds: 2),
+                                                  context.read(homeTabsProvider.notifier).onPageChanged(5);
+                                                  Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
+                                                },
+                                                false
+                                            ),
+                                            state.isLoading || state.isUpdateLoading
+                                                ? GFLoader(type: GFLoaderType.ios)
+                                                :
+                                            DB().getOrderId()  == null ?
+                                            custombuttonsm(
+                                                context,
+                                                'PLACE_ORDER'.tr,
+                                                    () async {
+                                                  await context
+                                                      .read(cartScreenProvider
+                                                      .notifier)
+                                                      .createOrder();
+                                                  if (state.orderResponse != null) {
+                                                    ScaffoldMessenger.of(context)
+                                                        .showSnackBar(SnackBar(
+                                                        content: Text('${state.orderResponse!.message}')));
+                                                  }
+                                                  Timer(Duration(seconds: 2),
+                                                          () async {
+                                                        await Get.to(
+                                                                () => OrdersInProcess());
+                                                      });
+                                                },
+                                                state.isLoading)
+                                                :
+                                            cart.products.where((element) =>
+                                            element.modified).isNotEmpty && DB().getOrderId() != null  ? custombuttonsm(
+                                                context,
+                                                'MODIFY_ORDER'.tr,
+                                                    () async {
+                                                  final updateResponse = await context
+                                                      .read(cartScreenProvider
+                                                      .notifier)
+                                                      .updateOrder();
+                                                  if (updateResponse != null) {
+                                                    ScaffoldMessenger.of(context)
+                                                        .showSnackBar(SnackBar(
+                                                        content: Text(
+                                                            '${updateResponse}')));
+                                                    Timer(Duration(seconds: 2),
                                                             () async {
                                                           await Get.to(
-                                                              () => OrdersInProcess());
+                                                                  () => OrdersInProcess());
                                                         });
-                                                      }
-                                                    },
-                                           state.isUpdateLoading)
-                                          // : DB().getOrderId()!= null ? custombuttonsm(
-                                          // context,
-                                          // 'ADD_MORE_PRODUCTS'.tr,
-                                          //     () async {
-                                          //       await Get.to(
-                                          //               () => HomeTabs(tabIndex: 0,));
-                                          // },
-                                          // false)
-                                          : Container()
+                                                  }
+                                                },
+                                                state.isUpdateLoading)
+                                            // : DB().getOrderId()!= null ? custombuttonsm(
+                                            // context,
+                                            // 'ADD_MORE_PRODUCTS'.tr,
+                                            //     () async {
+                                            //       await Get.to(
+                                            //               () => HomeTabs(tabIndex: 0,));
+                                            // },
+                                            // false)
+                                                : Container()
 
-                                ],
-                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          ),
+                        )
+                    ],
+                  )
                     ],
                   ),
-          ),
-        ) : Container(),
+            if (state.isLoading)
+              GFLoader(type: GFLoaderType.ios)
+              ],
+            ),
       bottomNavigationBar: customBottomBar((index) async {
         context.read(homeTabsProvider.notifier).onPageChanged(index);
         // context.read(homeTabsProvider.notifier).nonTab(true);

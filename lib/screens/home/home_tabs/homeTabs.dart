@@ -33,10 +33,11 @@ class HomeTabs extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final state = useProvider(homeTabsProvider);
-    final settingsState = useProvider(settingsProvider);
+    final settingsStateLoading = useProvider(settingsProvider).isLoading;
+    final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
     final cart = useProvider(cartProvider);
+    final cartCount = useProvider(cartProvider)?.cartCount;
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final isMounted = useIsMounted();
 
@@ -51,47 +52,54 @@ class HomeTabs extends HookWidget {
       return;
     }, const []);
 
-    var _screens = <Widget>[
-      Home(),
-      Category(),
-      Category(),
-      OrderDetails(),
-    ];
-
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value){
-                context.read(homeTabsProvider.notifier).onSelectLanguage(value);
-              },
-            state.languages, state.isLoading, settingsState.isLoading, settingsState,
-              () {
-            context.read(homeTabsProvider.notifier).onPageChanged(0);
-            Get.to(() => HomeTabs(tabIndex: 0));
-          }
+        key: _scaffoldKey,
+        drawer: DrawerPage(),
+        appBar: fenixAppbar(
+            context,
+            _scaffoldKey,
+            (value) {
+              context.read(homeTabsProvider.notifier).onSelectLanguage(value);
+            },
+            state.languages,
+            state.isLoading,
+            settingsStateLoading,
+            callWaiter,
+            () {
+              context.read(homeTabsProvider.notifier).onPageChanged(0);
+              Get.to(() => HomeTabs(tabIndex: 0));
+            }),
+        backgroundColor: grey2,
+        body:  Stack(
+          children: [
+            ListView(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              children: [
+                if (state.currentIndex == 0)
+                  Home(),
+                if (state.currentIndex == 1)
+                  Category(),
+                if (state.currentIndex == 2)
+                  Category(),
+                if (state.currentIndex == 3)
+                  OrderDetails(),
+              ],
+            ),
+            if (state.isLoading)
+              GFLoader(type: GFLoaderType.ios)
+          ],
         ),
-      backgroundColor: grey2,
-      body:
-      state.isLoading
-          ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : state.currentIndex == 0  ? Home()
-          : state.currentIndex == 1  ? Category()
-          : state.currentIndex == 2  ? Category()
-          : state.currentIndex == 3  ? OrderDetails()
-          : Home(),
-      // _screens[state.currentIndex],
-      bottomNavigationBar: customBottomBar((index) async {
-        DB().saveTabIndex(state.currentIndex);
-          context.read(homeTabsProvider.notifier).onPageChanged(index);
-      },),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: buildCenterIcon(context, cart, () async  {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      })
-    );
+        bottomNavigationBar: customBottomBar(
+          (index) async {
+            DB().saveTabIndex(state.currentIndex);
+            context.read(homeTabsProvider.notifier).onPageChanged(index);
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: buildCenterIcon(context, cart, () async {
+          context.read(homeTabsProvider.notifier).onPageChanged(4);
+          Get.to(() => CartScreen());
+        }));
   }
-
 }
-

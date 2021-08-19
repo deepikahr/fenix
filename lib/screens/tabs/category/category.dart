@@ -21,12 +21,10 @@ final db = DB();
 
 class Category extends HookWidget {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
 
-    final homeState = useProvider(homeTabsProvider);
+    final currentIndex = useProvider(homeTabsProvider).currentIndex;
     final state = useProvider(categoryProvider);
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final isMounted = useIsMounted();
@@ -35,34 +33,29 @@ class Category extends HookWidget {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await context.read(categoryProvider.notifier).
-          fetchCategory(homeState.currentIndex == 1 ? 'BEVERAGE_CATEGORY' : 'FOOD_CATEGORY', 1, 10);
+          fetchCategory(currentIndex == 1 ? 'BEVERAGE_CATEGORY' : 'FOOD_CATEGORY', 1, 10);
         });
       }
       return;
     }, const []);
 
-    return Scaffold(
-      backgroundColor: light,
-      key: _scaffoldKey,
-      drawer: DrawerPage(),
-      body: Container(
-            color: light,
-            child: Stack(
-              children: [
-                ListView(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  children: [
-                    if ((state.category?.length ?? 0) > 0)
-                    db.getType() == 'list' ?
-                    categoryBlock(context, state.category) :
-                    categoryListGrid(context, state.category),
-                  ],
-                ),
-                if (state.isLoading) GFLoader(type: GFLoaderType.ios)
-              ],
-            ),
+    return Container(
+      color: light,
+      child: Stack(
+        children: [
+          ListView(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            children: [
+              if ((state.category?.length ?? 0) > 0)
+              db.getType() == 'list' ?
+              categoryBlock(context, state.category) :
+              categoryListGrid(context, state.category),
+            ],
+          ),
+          if (state.isLoading) GFLoader(type: GFLoaderType.ios)
+        ],
       ),
     );
   }

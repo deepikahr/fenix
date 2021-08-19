@@ -20,7 +20,7 @@ class DrawerPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final homeState = useProvider(homeProvider);
+    final category = useProvider(homeProvider).homeData!.category;
     final state = useProvider(drawerProvider);
     final isMounted = useIsMounted();
 
@@ -80,8 +80,8 @@ class DrawerPage extends HookWidget {
                   ],
                 ),
               ),
-              if ((homeState.homeData?.category.length ?? 0) > 0)
-                categoryBlock(context, homeState.homeData?.category),
+              if ((category.length) > 0)
+                categoryBlock(context, category),
               // if(homeState.isLoading) GFLoader(type: GFLoaderType.ios,),
               InkWell(
                 onTap:  (){Get.to(() => ChangePasswordPage());},

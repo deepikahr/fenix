@@ -30,9 +30,7 @@ class Home extends HookWidget {
       return;
     }, const []);
 
-    return Scaffold(
-      backgroundColor: grey2,
-      body: state.isLoading ?  GFLoader(type: GFLoaderType.ios) : Container(
+    return Container(
         color: grey2,
         child: Stack(
           children: [
@@ -52,8 +50,7 @@ class Home extends HookWidget {
             if (state.isLoading) GFLoader(type: GFLoaderType.ios)
           ],
         ),
-      ),
-    );
+      );
   }
 
   Widget bannerBlock(BuildContext context, List<BannerResponse>? banners) {

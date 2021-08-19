@@ -377,7 +377,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
           Get.back();
         },
       );
-    } else if (!cartData!.products.any((element) => element.id == product.id)) {
+    } else if (!cartData!.products.any((element) => element.id == product.id && element.addOnItems != product.addOnItems)) {
       print('44444');
       final cart = cartData?.copyWith(products: [
         ...cartData?.products ?? [],
@@ -394,7 +394,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       print('5555');
       cartData?.products.forEach(
             (element) async {
-          if (element.id == product.id && element.isLastVariant == true) {
+          if (element.id == product.id && element.isLastVariant == true && element.addOnItems != product.addOnItems) {
             final newProduct = element.copyWith(
                 quantity: element.quantity + (increased ? 1 : -1));
             if (newProduct.quantity > 0) {

@@ -29,8 +29,8 @@ class _$CartProductTearOff {
       String? productName,
       String? categoryName,
       String? categoryId,
-      int originalPrice = 0,
-      int sellingPrice = 0,
+      double originalPrice = 0,
+      double sellingPrice = 0,
       String? description,
       double totalProductPrice = 0,
       dynamic quantity = 1,
@@ -77,8 +77,8 @@ mixin _$CartProduct {
   String? get productName => throw _privateConstructorUsedError;
   String? get categoryName => throw _privateConstructorUsedError;
   String? get categoryId => throw _privateConstructorUsedError;
-  int get originalPrice => throw _privateConstructorUsedError;
-  int get sellingPrice => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   double get totalProductPrice => throw _privateConstructorUsedError;
   dynamic get quantity => throw _privateConstructorUsedError;
@@ -106,8 +106,8 @@ abstract class $CartProductCopyWith<$Res> {
       String? productName,
       String? categoryName,
       String? categoryId,
-      int originalPrice,
-      int sellingPrice,
+      double originalPrice,
+      double sellingPrice,
       String? description,
       double totalProductPrice,
       dynamic quantity,
@@ -182,11 +182,11 @@ class _$CartProductCopyWithImpl<$Res> implements $CartProductCopyWith<$Res> {
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -253,8 +253,8 @@ abstract class _$CartProductCopyWith<$Res>
       String? productName,
       String? categoryName,
       String? categoryId,
-      int originalPrice,
-      int sellingPrice,
+      double originalPrice,
+      double sellingPrice,
       String? description,
       double totalProductPrice,
       dynamic quantity,
@@ -333,11 +333,11 @@ class __$CartProductCopyWithImpl<$Res> extends _$CartProductCopyWithImpl<$Res>
       originalPrice: originalPrice == freezed
           ? _value.originalPrice
           : originalPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -409,10 +409,10 @@ class _$_CartProduct extends _CartProduct {
   final String? categoryId;
   @JsonKey(defaultValue: 0)
   @override
-  final int originalPrice;
+  final double originalPrice;
   @JsonKey(defaultValue: 0)
   @override
-  final int sellingPrice;
+  final double sellingPrice;
   @override
   final String? description;
   @JsonKey(defaultValue: 0)
@@ -527,8 +527,8 @@ abstract class _CartProduct extends CartProduct {
       String? productName,
       String? categoryName,
       String? categoryId,
-      int originalPrice,
-      int sellingPrice,
+      double originalPrice,
+      double sellingPrice,
       String? description,
       double totalProductPrice,
       dynamic quantity,
@@ -559,9 +559,9 @@ abstract class _CartProduct extends CartProduct {
   @override
   String? get categoryId => throw _privateConstructorUsedError;
   @override
-  int get originalPrice => throw _privateConstructorUsedError;
+  double get originalPrice => throw _privateConstructorUsedError;
   @override
-  int get sellingPrice => throw _privateConstructorUsedError;
+  double get sellingPrice => throw _privateConstructorUsedError;
   @override
   String? get description => throw _privateConstructorUsedError;
   @override

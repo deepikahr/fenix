@@ -38,7 +38,7 @@ final apiProvider = Provider((ref) => API());
 final dbProvider = Provider((ref) => DB());
 
 final homeTabsProvider =
-    StateNotifierProvider.autoDispose<HomeTabsStateNotifier, HomeTabsState>(
+    StateNotifierProvider<HomeTabsStateNotifier, HomeTabsState>(
         (ref) {
   return HomeTabsStateNotifier();
 });
@@ -79,7 +79,7 @@ StateNotifierProvider.autoDispose<AccessSettingsStateNotifier, AccessSettingsSta
 });
 
 final settingsProvider =
-StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>((ref) {
+StateNotifierProvider<SettingsStateNotifier, SettingsState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return SettingsStateNotifier(api, db);

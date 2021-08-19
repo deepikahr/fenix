@@ -33,11 +33,14 @@ class ProductList extends HookWidget {
   Widget build(BuildContext context) {
 
     final state = useProvider(productListProvider);
-    final homeState = useProvider(homeTabsProvider);
+    final currentIndex = useProvider(homeTabsProvider).currentIndex;
+    final languages = useProvider(homeTabsProvider).languages;
+    final homeLoading = useProvider(homeTabsProvider).isLoading;
     final notifier = useProvider(productListProvider.notifier);
     final isMounted = useIsMounted();
     final cart = useProvider(cartProvider);
-    final settingsState = useProvider(settingsProvider);
+    final settingsStateLoading = useProvider(settingsProvider).isLoading;
+     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
 
     useEffect(() {
       if (isMounted()) {
@@ -49,55 +52,65 @@ class ProductList extends HookWidget {
       return;
     }, const []);
 
-    var screens = <Widget>[
-      Home(),
-      Category(),
-      Category(),
-      OrderDetails(),
-    ];
-
     return Scaffold(
       backgroundColor: grey2,
       key: _scaffoldKey,
       drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey,
               (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          homeState.languages, homeState.isLoading,settingsState.isLoading,  settingsState,
+          languages, homeLoading, settingsStateLoading,
+          callWaiter,
               () {
             context.read(homeTabsProvider.notifier).onPageChanged(0);
             Get.to(() => HomeTabs(tabIndex: 0));
           }
       ),
-      body: homeState.isLoading
-          ? Center(child: GFLoader(type: GFLoaderType.ios))
-          : homeState.currentIndex == 0  ? Home()
-          : homeState.currentIndex == 1  ? Category()
-          : homeState.currentIndex == 2  ? Category()
-          : homeState.currentIndex == 3  ? OrderDetails()
-          : homeState.currentIndex == 5  ?
+      body:
       Stack(
         children: [
-          state.productTotal == 0 ? Container(
-            alignment: Alignment.topCenter,
-            child: Text('NO_PRODUCT'.tr),
-          ) :
           ListView(
             shrinkWrap: true,
             physics: ScrollPhysics(),
             children: [
-              if ((state.productData?.data!.length ?? 0) > 0)
-              categoryList(context, state.categoryTitle!),
-              SizedBox(height: 10),
-              if ((state.products?.length ?? 0) > 0)
-              db.getType() == 'list' ?
-              productList(state.productData!.data!, notifier, state, cart) :
-              productListGrid(context, state.productData!.data!, notifier, state, cart),
+              if (currentIndex == 0)
+                Home(),
+              if (currentIndex == 1)
+                Category(),
+              if (currentIndex == 2)
+                Category(),
+              if (currentIndex == 3)
+                OrderDetails(),
+              if (currentIndex == 5)
+                Stack(
+                  children: [
+                    if(state.productTotal == 0)
+                      Container(
+                          alignment: Alignment.topCenter,
+                          child: Text('NO_PRODUCT'.tr)
+                      ),
+                    if(state.productTotal != 0)
+                    ListView(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          children: [
+                            if ((state.productData?.data!.length ?? 0) > 0)
+                              categoryList(context, state.categoryTitle!),
+                            SizedBox(height: 10),
+                            if ((state.products?.length ?? 0) > 0)
+                              db.getType() == 'list' ?
+                              productList(state.productData!.data!, notifier, state, cart) :
+                              productListGrid(context, state.productData!.data!, notifier, state, cart),
+                          ],
+                        ),
+                  ],
+                ),
+
             ],
           ),
-          if(state.isLoading)
+          if (state.isLoading)
             GFLoader(type: GFLoaderType.ios)
         ],
-      ) : Home(),
+      ),
       bottomNavigationBar: customBottomBar((index) async {
         context.read(homeTabsProvider.notifier).onPageChanged(index);
       },),
@@ -191,7 +204,7 @@ class ProductList extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 610),
+            childAspectRatio: MediaQuery.of(context).size.width / 620),
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {

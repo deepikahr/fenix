@@ -49,8 +49,8 @@ class ProductDetailsResponse with BaseModel<ProductDetailsResponse>, _$ProductDe
 
     String? categoryId,
     String? restaurantName,
-    @Default(0) int originalPrice,
-    @Default(0) int sellingPrice,
+    @Default(0) double originalPrice,
+    @Default(0) double sellingPrice,
     @Default(0) int discount,
     String? sizeName,
     String? description,
