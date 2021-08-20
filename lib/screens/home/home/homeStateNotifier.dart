@@ -19,4 +19,10 @@ class HomeStateNotifier extends StateNotifier<HomeState> {
     );
   }
 
+  void onPageChanged(index) {
+    state = state.copyWith(isLoading: true);
+    state = state.copyWith.call(currentIndex: index);
+    state = state.copyWith(isLoading: false);
+  }
+
 }

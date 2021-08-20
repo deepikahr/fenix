@@ -10,41 +10,24 @@ import 'package:get/get.dart';
 
 class Thankyou extends HookWidget {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
 
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
-    final languages = useProvider(homeTabsProvider).languages;
-    final homeLoading = useProvider(homeTabsProvider).isLoading;
-    final settingsStateLoading = useProvider(settingsProvider).isLoading;
-     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
     final isMounted = useIsMounted();
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          // await context.read(settingsProvider.notifier).fetchSettings();
-          await context.read(homeTabsProvider.notifier).fetchLanguage();
+
         });
       }
       return;
     }, const []);
 
-    return Scaffold(
-        backgroundColor: Colors.white,
-        key: _scaffoldKey,
-        drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            languages, homeLoading,settingsStateLoading,  callWaiter,
-                () {
-              context.read(homeTabsProvider.notifier).onPageChanged(0);
-              Get.to(() => HomeTabs(tabIndex: 0));
-            }
-        ),
-        body: ListView(
+    return Container(
+        color: Colors.white,
+        child: ListView(
           children: [
             Container(
               margin: EdgeInsets.all(15),

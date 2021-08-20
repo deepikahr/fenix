@@ -101,7 +101,8 @@ class OrderDetails extends HookWidget {
                 child: Center(
                     child:
                     custombuttonsm(context, 'OK,_PAYMENT_METHODS'.tr, () {
-                      Get.to(() => Payment());
+                      context.read(homeTabsProvider.notifier).onPageChanged(8);
+                      // Get.to(() => Payment());
                     }, false)),
               ),
               //   ],

@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$PaymentStateTearOff {
   const _$PaymentStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call({bool isLoading = false, int currentIndex = 0}) {
     return _Default(
       isLoading: isLoading,
+      currentIndex: currentIndex,
     );
   }
 }
@@ -29,6 +30,7 @@ const $PaymentState = _$PaymentStateTearOff();
 /// @nodoc
 mixin _$PaymentState {
   bool get isLoading => throw _privateConstructorUsedError;
+  int get currentIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PaymentStateCopyWith<PaymentState> get copyWith =>
@@ -40,7 +42,7 @@ abstract class $PaymentStateCopyWith<$Res> {
   factory $PaymentStateCopyWith(
           PaymentState value, $Res Function(PaymentState) then) =
       _$PaymentStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, int currentIndex});
 }
 
 /// @nodoc
@@ -54,12 +56,17 @@ class _$PaymentStateCopyWithImpl<$Res> implements $PaymentStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -69,7 +76,7 @@ abstract class _$DefaultCopyWith<$Res> implements $PaymentStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, int currentIndex});
 }
 
 /// @nodoc
@@ -84,12 +91,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$PaymentStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -97,15 +109,18 @@ class __$DefaultCopyWithImpl<$Res> extends _$PaymentStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default({this.isLoading = false, this.currentIndex = 0});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int currentIndex;
 
   @override
   String toString() {
-    return 'PaymentState(isLoading: $isLoading)';
+    return 'PaymentState(isLoading: $isLoading, currentIndex: $currentIndex)';
   }
 
   @override
@@ -114,12 +129,17 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.currentIndex, currentIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentIndex, currentIndex)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(currentIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -128,10 +148,12 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements PaymentState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default({bool isLoading, int currentIndex}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  int get currentIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

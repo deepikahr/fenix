@@ -21,6 +21,12 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
   CartScreenStateNotifier(this.api, this.db, this.cartState)
       : super(CartScreenState());
 
+  void onPageChanged(index) {
+    state = state.copyWith(isLoading: true);
+    state = state.copyWith.call(currentIndex: index);
+    state = state.copyWith(isLoading: false);
+  }
+
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
     final newProduct = product.copyWith(
       quantity: product.quantity + (increased ? 1 : -1),

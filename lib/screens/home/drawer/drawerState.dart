@@ -7,6 +7,7 @@ part 'drawerState.freezed.dart';
 class DrawerState with _$DrawerState {
   const factory DrawerState({
     @Default(false) bool isLoading,
-    HomeResponse? homeData
+    HomeResponse? homeData,
+    @Default(0) int currentIndex,
   }) = _Default;
 }

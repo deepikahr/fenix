@@ -19,12 +19,13 @@ class Home extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final state = useProvider(homeProvider);
+    final notifier = useProvider(homeProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await context.read(homeProvider.notifier).fetchHome();
+            await notifier.fetchHome();
         });
       }
       return;
@@ -99,7 +100,7 @@ class Home extends HookWidget {
                 context.read(homeTabsProvider.notifier).onPageChanged(5);
                 db.saveCategoryId(category[i].id);
                 db.saveCategoryImage(category[i].imageUrl);
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                // Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
             );
@@ -122,11 +123,10 @@ class Home extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
-
                 context.read(homeTabsProvider.notifier).onPageChanged(5);
                 db.saveCategoryId(category[i].id);
                 db.saveCategoryImage(category[i].imageUrl);
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                // Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCardGrid(context, category[i].title!, category[i].imageUrl!));
         },

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
@@ -33,92 +36,56 @@ class ProductList extends HookWidget {
   Widget build(BuildContext context) {
 
     final state = useProvider(productListProvider);
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
-    final languages = useProvider(homeTabsProvider).languages;
-    final homeLoading = useProvider(homeTabsProvider).isLoading;
     final notifier = useProvider(productListProvider.notifier);
     final isMounted = useIsMounted();
     final cart = useProvider(cartProvider);
-    final settingsStateLoading = useProvider(settingsProvider).isLoading;
-     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchProductData(db.getCategoryId() ?? categoryId);
-          // await context.read(settingsProvider.notifier).fetchSettings();
+          if(db.getCategoryId() != null || categoryId != null){
+            printWrapped('aaaaaaaa $cart');
+            await context.read(productListProvider.notifier).fetchProductData(db.getCategoryId() ?? categoryId);
+          }
         });
+        context.read(cartProvider.notifier);
       }
       return;
     }, const []);
 
-    return Scaffold(
-      backgroundColor: grey2,
+    return Container(
       key: _scaffoldKey,
-      drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          languages, homeLoading, settingsStateLoading,
-          callWaiter,
-              () {
-            context.read(homeTabsProvider.notifier).onPageChanged(0);
-            Get.to(() => HomeTabs(tabIndex: 0));
-          }
-      ),
-      body:
+      color: grey2,
+      child:
       Stack(
         children: [
-          ListView(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
+          Stack(
             children: [
-              if (currentIndex == 0)
-                Home(),
-              if (currentIndex == 1)
-                Category(),
-              if (currentIndex == 2)
-                Category(),
-              if (currentIndex == 3)
-                OrderDetails(),
-              if (currentIndex == 5)
-                Stack(
+              if(state.productTotal == 0)
+                Container(
+                    alignment: Alignment.topCenter,
+                    child: Text('NO_PRODUCT'.tr)
+                ),
+              if(state.productTotal != 0)
+                ListView(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
                   children: [
-                    if(state.productTotal == 0)
-                      Container(
-                          alignment: Alignment.topCenter,
-                          child: Text('NO_PRODUCT'.tr)
-                      ),
-                    if(state.productTotal != 0)
-                    ListView(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          children: [
-                            if ((state.productData?.data!.length ?? 0) > 0)
-                              categoryList(context, state.categoryTitle!),
-                            SizedBox(height: 10),
-                            if ((state.products?.length ?? 0) > 0)
-                              db.getType() == 'list' ?
-                              productList(state.productData!.data!, notifier, state, cart) :
-                              productListGrid(context, state.productData!.data!, notifier, state, cart),
-                          ],
-                        ),
+                    if ((state.productData?.data!.length ?? 0) > 0)
+                      categoryList(context, state.categoryTitle!),
+                    SizedBox(height: 10),
+                    if ((state.products?.length ?? 0) > 0)
+                      db.getType() == 'list' ?
+                      productList(state.productData!.data!, notifier, state, cart) :
+                      productListGrid(context, state.productData!.data!, notifier, state, cart),
                   ],
                 ),
-
             ],
           ),
           if (state.isLoading)
             GFLoader(type: GFLoaderType.ios)
         ],
       ),
-      bottomNavigationBar: customBottomBar((index) async {
-        context.read(homeTabsProvider.notifier).onPageChanged(index);
-      },),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:buildCenterIcon(context, cart, () {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      })
     );
   }
 
@@ -142,20 +109,21 @@ class ProductList extends HookWidget {
           itemCount: product!.length,
           itemBuilder: (context, index) => InkWell(
               onTap: () {
-
-                context.read(homeTabsProvider.notifier).onPageChanged(6);
-                Get.to(() => ProductDetails(
-                  productId: product[index].id,
-                ));
+                db.saveProductId(product[index].id);
+                  context.read(homeTabsProvider.notifier).onPageChanged(6);
+                // Get.to(() => ProductDetails(
+                //   productId: product[index].id,
+                // ));
               },
               child: dishesInfoCard(context, product[index], notifier, state, categoryImage,
                     () async {
                 if (product[index].isCustomizable) {
+                  db.saveProductId(product[index].id);
+                    context.read(homeTabsProvider.notifier).onPageChanged(6);
 
-                  context.read(homeTabsProvider.notifier).onPageChanged(6);
-                  await Get.to(() => ProductDetails(
-                    productId: product[index].id,
-                  ));
+                  // await Get.to(() => ProductDetails(
+                  //   productId: product[index].id,
+                  // ));
                   notifier.updateQuantity();
                 } else {
                   await notifier.findLastUpdateProduct(
@@ -208,18 +176,21 @@ class ProductList extends HookWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
+              db.saveProductId(product[index].id);
+                context.read(homeTabsProvider.notifier).onPageChanged(6);
 
-              context.read(homeTabsProvider.notifier).onPageChanged(6);
-              Get.to(() => ProductDetails( productId: product[index].id,));
+              // Get.to(() => ProductDetails( productId: product[index].id,));
             },
             child: gridDishCard(context, product[index], notifier, state, categoryImage,
                   () async {
                 if (product[index].isCustomizable) {
+                  db.saveProductId(product[index].id);
 
-                  context.read(homeTabsProvider.notifier).onPageChanged(6);
-                  await Get.to(() => ProductDetails(
-                    productId: product[index].id,
-                  ));
+                    context.read(homeTabsProvider.notifier).onPageChanged(6);
+
+                  // await Get.to(() => ProductDetails(
+                  //   productId: product[index].id,
+                  // ));
                   notifier.updateQuantity();
                 } else {
                   await notifier.findLastUpdateProduct(
@@ -298,7 +269,8 @@ class ProductList extends HookWidget {
                       type: GFButtonType.outline,
                       onPressed: () async {
                         // Get.back();
-                        await Get.to(() => CartScreen());
+                        context.read(homeTabsProvider.notifier).onPageChanged(4);
+                        // await Get.to(() => CartScreen());
                         context.read(productListProvider.notifier).updateQuantity();
                       },
                       child: Text(
@@ -354,9 +326,9 @@ class ProductList extends HookWidget {
                       type: GFButtonType.outline,
                       onPressed: () async {
                         Get.back();
-
                         context.read(homeTabsProvider.notifier).onPageChanged(6);
-                        await Get.to(() => ProductDetails(productId: product.id!));
+                        db.saveProductId(product.id);
+                        // await Get.to(() => ProductDetails(productId: product.id!));
                         context.read(productListProvider.notifier).updateQuantity();
                       },
                       child: Text(

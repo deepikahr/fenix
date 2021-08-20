@@ -21,13 +21,17 @@ class _$HomeTabsStateTearOff {
       bool pageChanged = false,
       int currentIndex = 0,
       String? selectedLanguage,
-      List<LanguageResponse> languages = const []}) {
+      List<LanguageResponse> languages = const [],
+      SettingsResponse? settings,
+      bool settingsIsLoading = false}) {
     return _Default(
       isLoading: isLoading,
       pageChanged: pageChanged,
       currentIndex: currentIndex,
       selectedLanguage: selectedLanguage,
       languages: languages,
+      settings: settings,
+      settingsIsLoading: settingsIsLoading,
     );
   }
 }
@@ -42,6 +46,8 @@ mixin _$HomeTabsState {
   int get currentIndex => throw _privateConstructorUsedError;
   String? get selectedLanguage => throw _privateConstructorUsedError;
   List<LanguageResponse> get languages => throw _privateConstructorUsedError;
+  SettingsResponse? get settings => throw _privateConstructorUsedError;
+  bool get settingsIsLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeTabsStateCopyWith<HomeTabsState> get copyWith =>
@@ -58,7 +64,11 @@ abstract class $HomeTabsStateCopyWith<$Res> {
       bool pageChanged,
       int currentIndex,
       String? selectedLanguage,
-      List<LanguageResponse> languages});
+      List<LanguageResponse> languages,
+      SettingsResponse? settings,
+      bool settingsIsLoading});
+
+  $SettingsResponseCopyWith<$Res>? get settings;
 }
 
 /// @nodoc
@@ -77,6 +87,8 @@ class _$HomeTabsStateCopyWithImpl<$Res>
     Object? currentIndex = freezed,
     Object? selectedLanguage = freezed,
     Object? languages = freezed,
+    Object? settings = freezed,
+    Object? settingsIsLoading = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -99,7 +111,26 @@ class _$HomeTabsStateCopyWithImpl<$Res>
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
               as List<LanguageResponse>,
+      settings: settings == freezed
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as SettingsResponse?,
+      settingsIsLoading: settingsIsLoading == freezed
+          ? _value.settingsIsLoading
+          : settingsIsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
+  }
+
+  @override
+  $SettingsResponseCopyWith<$Res>? get settings {
+    if (_value.settings == null) {
+      return null;
+    }
+
+    return $SettingsResponseCopyWith<$Res>(_value.settings!, (value) {
+      return _then(_value.copyWith(settings: value));
+    });
   }
 }
 
@@ -113,7 +144,12 @@ abstract class _$DefaultCopyWith<$Res> implements $HomeTabsStateCopyWith<$Res> {
       bool pageChanged,
       int currentIndex,
       String? selectedLanguage,
-      List<LanguageResponse> languages});
+      List<LanguageResponse> languages,
+      SettingsResponse? settings,
+      bool settingsIsLoading});
+
+  @override
+  $SettingsResponseCopyWith<$Res>? get settings;
 }
 
 /// @nodoc
@@ -132,6 +168,8 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
     Object? currentIndex = freezed,
     Object? selectedLanguage = freezed,
     Object? languages = freezed,
+    Object? settings = freezed,
+    Object? settingsIsLoading = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -154,6 +192,14 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
               as List<LanguageResponse>,
+      settings: settings == freezed
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as SettingsResponse?,
+      settingsIsLoading: settingsIsLoading == freezed
+          ? _value.settingsIsLoading
+          : settingsIsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -166,7 +212,9 @@ class _$_Default implements _Default {
       this.pageChanged = false,
       this.currentIndex = 0,
       this.selectedLanguage,
-      this.languages = const []});
+      this.languages = const [],
+      this.settings,
+      this.settingsIsLoading = false});
 
   @JsonKey(defaultValue: false)
   @override
@@ -182,10 +230,15 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: const [])
   @override
   final List<LanguageResponse> languages;
+  @override
+  final SettingsResponse? settings;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool settingsIsLoading;
 
   @override
   String toString() {
-    return 'HomeTabsState(isLoading: $isLoading, pageChanged: $pageChanged, currentIndex: $currentIndex, selectedLanguage: $selectedLanguage, languages: $languages)';
+    return 'HomeTabsState(isLoading: $isLoading, pageChanged: $pageChanged, currentIndex: $currentIndex, selectedLanguage: $selectedLanguage, languages: $languages, settings: $settings, settingsIsLoading: $settingsIsLoading)';
   }
 
   @override
@@ -206,7 +259,13 @@ class _$_Default implements _Default {
                     .equals(other.selectedLanguage, selectedLanguage)) &&
             (identical(other.languages, languages) ||
                 const DeepCollectionEquality()
-                    .equals(other.languages, languages)));
+                    .equals(other.languages, languages)) &&
+            (identical(other.settings, settings) ||
+                const DeepCollectionEquality()
+                    .equals(other.settings, settings)) &&
+            (identical(other.settingsIsLoading, settingsIsLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.settingsIsLoading, settingsIsLoading)));
   }
 
   @override
@@ -216,7 +275,9 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(pageChanged) ^
       const DeepCollectionEquality().hash(currentIndex) ^
       const DeepCollectionEquality().hash(selectedLanguage) ^
-      const DeepCollectionEquality().hash(languages);
+      const DeepCollectionEquality().hash(languages) ^
+      const DeepCollectionEquality().hash(settings) ^
+      const DeepCollectionEquality().hash(settingsIsLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -230,7 +291,9 @@ abstract class _Default implements HomeTabsState {
       bool pageChanged,
       int currentIndex,
       String? selectedLanguage,
-      List<LanguageResponse> languages}) = _$_Default;
+      List<LanguageResponse> languages,
+      SettingsResponse? settings,
+      bool settingsIsLoading}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -242,6 +305,10 @@ abstract class _Default implements HomeTabsState {
   String? get selectedLanguage => throw _privateConstructorUsedError;
   @override
   List<LanguageResponse> get languages => throw _privateConstructorUsedError;
+  @override
+  SettingsResponse? get settings => throw _privateConstructorUsedError;
+  @override
+  bool get settingsIsLoading => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

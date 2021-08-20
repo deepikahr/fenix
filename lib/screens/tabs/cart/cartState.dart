@@ -9,6 +9,7 @@ class CartScreenState with _$CartScreenState {
     @Default(false) bool isLoading,
     @Default(false) bool isUpdateLoading,
     OrderResponse? orderResponse,
+    @Default(0) int currentIndex,
     // @Default([]) List<String> modifiedProducts,
     String? selectedLanguage
   }) = _Default;

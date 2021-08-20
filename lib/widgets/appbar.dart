@@ -13,7 +13,7 @@ import 'normalText.dart';
 
 PreferredSizeWidget fenixAppbar(BuildContext context, _scaffoldKey,
     onSelectLanguage, List<LanguageResponse> languages, isLoading,  settingsLoading,
-callWaiter, onHomeSelect) {
+callWaiter, onHomeSelect, onNotifySelect) {
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 165.0),
     child: Stack(
@@ -118,9 +118,7 @@ callWaiter, onHomeSelect) {
                 top: 95,
                 left: 120,
                 child: InkWell(
-                  onTap: () {
-                    Get.to(() => NotifyWaiter());
-                  },
+                  onTap: onNotifySelect,
                   child: Container(
                     width: 85,
                     height: 85,

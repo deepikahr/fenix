@@ -1,5 +1,6 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
+import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../main.dart';
@@ -14,10 +15,6 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
     state = state.copyWith(isLoading: false);
   }
 
-  // void nonTab(value) {
-  //   state = state.copyWith.call(pageChanged: value);
-  // }
-
   void onSelectLanguage(String value) {
     state = state.copyWith(selectedLanguage: value);
     db.saveLanguage(value);
@@ -29,6 +26,15 @@ class HomeTabsStateNotifier extends StateNotifier<HomeTabsState> {
     state = state.copyWith.call(
       languages: response!,
       isLoading: false,
+    );
+  }
+
+  Future<SettingsResponse?> fetchSettings() async {
+    state = state.copyWith.call(isLoading: true);
+    final response = await api.settings();
+    state = state.copyWith.call(
+      settings: response,
+      settingsIsLoading: false,
     );
   }
 

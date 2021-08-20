@@ -177,6 +177,17 @@ class DB {
     return categoryId;
   }
 
+  void saveProductId(productId) {
+    final box = Hive.box('user');
+    box.put('productId', productId);
+  }
+
+  String? getProductId() {
+    final box = Hive.box('user');
+    String? productId = box.get('productId');
+    return productId;
+  }
+
   void saveCategoryImage(categoryImage) {
     final box = Hive.box('user');
     box.put('categoryImage', categoryImage);

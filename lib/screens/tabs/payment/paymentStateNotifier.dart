@@ -8,4 +8,10 @@ class PaymentStateNotifier extends StateNotifier<PaymentState> {
   final DB db;
   PaymentStateNotifier(this.api, this.db) : super(PaymentState(isLoading: true));
 
+  void onPageChanged(index) {
+    state = state.copyWith(isLoading: true);
+    state = state.copyWith.call(currentIndex: index);
+    state = state.copyWith(isLoading: false);
+  }
+
 }

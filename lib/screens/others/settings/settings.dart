@@ -18,7 +18,7 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
 
 class Settings extends HookWidget {
-  double _rating = 3;
+
   final tableNumberFocusNode = FocusNode();
   final ipAddressFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();

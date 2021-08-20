@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
@@ -26,112 +28,66 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
+final db = DB();
+
 class ProductDetails extends HookWidget {
   final String? productId;
   ProductDetails({this.productId});
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isChecked = false;
 
   final noteFocusNode = FocusNode();
   final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final noteEditController = useTextEditingController();
     final state = useProvider(productDetailsProvider);
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
-    final languages = useProvider(homeTabsProvider).languages;
-    final homeLoading = useProvider(homeTabsProvider).isLoading;
     final notifier = useProvider(productDetailsProvider.notifier);
     final cart = useProvider(cartProvider);
-    final cartState = useProvider(cartScreenProvider);
-    final cartNotifier = useProvider(cartScreenProvider.notifier);
     final isMounted = useIsMounted();
-    final settingsStateLoading = useProvider(settingsProvider).isLoading;
-     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () {
-          notifier.fetchProductDetails(productId!);
+          if(db.getProductId() != null || productId != null){
+            notifier.fetchProductDetails(db.getProductId() ?? productId!);
+          }
         });
         context.read(cartScreenProvider.notifier);
-        // context.read(settingsProvider.notifier).fetchSettings();
       }
       return;
     }, const []);
 
-    return Scaffold(
-        backgroundColor: grey2,
-        key: _scaffoldKey,
-        drawer: DrawerPage(),
-        appBar: fenixAppbar(
-            context,
-            _scaffoldKey,
-            (value) => context
-                .read(homeTabsProvider.notifier)
-                .onSelectLanguage(value!),
-            languages,
-            homeLoading,
-            settingsStateLoading,
-            callWaiter, () {
-          context.read(homeTabsProvider.notifier).onPageChanged(0);
-          Get.to(() => HomeTabs(tabIndex: 0));
-        }),
-        body:
-        Stack(
+    return Container(
+      key: _scaffoldKey,
+        color: grey2,
+        child: Stack(
           children: [
             ListView(
               shrinkWrap: true,
               physics: ScrollPhysics(),
               children: [
-                if (currentIndex == 0)
-                  Home(),
-                if (currentIndex == 1)
-                  Category(),
-                if (currentIndex == 2)
-                  Category(),
-                if (currentIndex == 3)
-                  OrderDetails(),
-                if (currentIndex == 5)
-                  ProductList(),
-                if (currentIndex == 6)
-                  ListView(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    children: [
-                      if (!state.isLoading &&
-                          state.productDetails != null)
-                        productData(
-                            context,
-                            state.productDetails!,
-                            state,
-                            notifier,
-                            noteEditController,
-                            cart),
-                    ],
-                  )
+                if (!state.isLoading &&
+                    state.productDetails != null)
+                  productData(
+                      context,
+                      state.productDetails!,
+                      state,
+                      notifier,
+                      noteEditController,
+                  ),
               ],
             ),
             if (state.isLoading)
               GFLoader(type: GFLoaderType.ios)
           ],
         ),
-        bottomNavigationBar: customBottomBar(
-          (index) async {
-            context.read(homeTabsProvider.notifier).onPageChanged(index);
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: buildCenterIcon(context, cart, () {
-          context.read(homeTabsProvider.notifier).onPageChanged(4);
-          Get.to(() => CartScreen());
-        }));
+    );
   }
 
   Widget productData(BuildContext context, ProductDetailsResponse product,
-      state, notifier, noteEditController, cart) {
+      state, notifier, noteEditController) {
     return ListView(
       shrinkWrap: true,
       physics: ScrollPhysics(),
@@ -245,7 +201,7 @@ class ProductDetails extends HookWidget {
                                   context: context,
                                   builder: (context) =>
                                       showMulitipleTimeProductPopUp(
-                                          context, cart));
+                                          context,));
                             } else {
                               print('bbbbbb');
                               notifier.updateProductsQuantity(
@@ -270,7 +226,7 @@ class ProductDetails extends HookWidget {
                                             product,
                                             true,
                                             product.restaurantName);
-                                      }, cart));
+                                      },));
                             } else {
                               print('bbbbbb upp');
                               await notifier.findLastUpdateProduct(
@@ -293,16 +249,13 @@ class ProductDetails extends HookWidget {
                           context
                               .read(productDetailsProvider.notifier)
                               .showAddButton(false);
-                          context
-                              .read(homeTabsProvider.notifier)
-                              .onPageChanged(4);
                           await notifier.saveCart(
                               context,
                               state.selectedAddOnItems,
                               state
                                   .productDetails!.variants[state.groupValue],
                               state.productDetails!,
-                              productId,
+                              db.getProductId() ?? productId ,
                               noteEditController.text);
                         },
                         color: primary(),
@@ -606,7 +559,7 @@ class ProductDetails extends HookWidget {
     );
   }
 
-  Widget showMulitipleTimeProductPopUp(BuildContext context, Cart? cart) {
+  Widget showMulitipleTimeProductPopUp(BuildContext context, ) {
     return Dialog(
       child: Container(
         height: 165,
@@ -644,8 +597,8 @@ class ProductDetails extends HookWidget {
                   type: GFButtonType.outline,
                   onPressed: () async {
                     Get.back();
-                    context.read(homeTabsProvider.notifier).onPageChanged(4);
-                    await Get.to(() => CartScreen());
+                    // context.read(homeTabsProvider.notifier).onPageChanged(4);
+                    // await Get.to(() => CartScreen());
                     context
                         .read(productDetailsProvider.notifier)
                         .updateQuantity();
@@ -665,7 +618,7 @@ class ProductDetails extends HookWidget {
   }
 
   Widget showPopUp(BuildContext context, ProductDetailsResponse product,
-      Function() onRepeat, Cart? cart) {
+      Function() onRepeat, ) {
     return Dialog(
       child: Container(
         height: 165,
@@ -706,8 +659,8 @@ class ProductDetails extends HookWidget {
                         .read(productDetailsProvider.notifier)
                         .showAddButton(true);
                     Get.back();
-                    await Get.to(
-                        () => ProductDetails(productId: product.productId!));
+                    // await Get.to(
+                    //     () => ProductDetails(productId: product.productId!));
                     context.read(productListProvider.notifier).updateQuantity();
                   },
                   child: Text(

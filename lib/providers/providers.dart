@@ -28,6 +28,8 @@ import 'package:fenix_user/screens/tabs/category/categoryState.dart';
 import 'package:fenix_user/screens/tabs/category/categoryStateNotifier.dart';
 import 'package:fenix_user/screens/tabs/order_details/orderDetailsState.dart';
 import 'package:fenix_user/screens/tabs/order_details/orderDetailsStateNotifier.dart';
+import 'package:fenix_user/screens/tabs/payment/paymentState.dart';
+import 'package:fenix_user/screens/tabs/payment/paymentStateNotifier.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:fenix_user/network/api_service.dart';
@@ -38,7 +40,7 @@ final apiProvider = Provider((ref) => API());
 final dbProvider = Provider((ref) => DB());
 
 final homeTabsProvider =
-    StateNotifierProvider<HomeTabsStateNotifier, HomeTabsState>(
+    StateNotifierProvider.autoDispose<HomeTabsStateNotifier, HomeTabsState>(
         (ref) {
   return HomeTabsStateNotifier();
 });
@@ -79,7 +81,7 @@ StateNotifierProvider.autoDispose<AccessSettingsStateNotifier, AccessSettingsSta
 });
 
 final settingsProvider =
-StateNotifierProvider<SettingsStateNotifier, SettingsState>((ref) {
+StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return SettingsStateNotifier(api, db);
@@ -141,4 +143,11 @@ StateNotifierProvider.autoDispose<DrawerStateNotifier, DrawerState>((ref) {
   final api = ref.watch(apiProvider);
   final db = ref.watch(dbProvider);
   return DrawerStateNotifier(api, db,);
+});
+
+final paymentProvider =
+StateNotifierProvider.autoDispose<PaymentStateNotifier, PaymentState>((ref) {
+  final api = ref.watch(apiProvider);
+  final db = ref.watch(dbProvider);
+  return PaymentStateNotifier(api, db,);
 });

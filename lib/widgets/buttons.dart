@@ -145,11 +145,6 @@ Widget tabIconButton(BuildContext context, iconData, cartData) {
   );
 }
 
-BottomNavigationBarItem bottomBarTabItem(
-    BuildContext context, label, iconData, cartData) {
-  return BottomNavigationBarItem(
-      label: label, icon: tabIconButton(context, iconData, cartData));
-}
 
 Widget customBottomBar(onSelect){
   return FABBottomAppBar(

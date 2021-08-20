@@ -6,5 +6,6 @@ part 'paymentState.freezed.dart';
 class PaymentState with _$PaymentState {
   const factory PaymentState({
     @Default(false) bool isLoading,
+    @Default(0) int currentIndex,
   }) = _Default;
 }

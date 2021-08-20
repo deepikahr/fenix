@@ -9,32 +9,12 @@ import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
 
 class OrdersInProcess extends HookWidget {
-
-  bool isChecked = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
 
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
-    final languages = useProvider(homeTabsProvider).languages;
-    final homeLoading = useProvider(homeTabsProvider).isLoading;
-    final settingsStateLoading = useProvider(settingsProvider).isLoading;
-     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
-
-    return Scaffold(
-        backgroundColor: light,
-        key: _scaffoldKey,
-        drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            languages, homeLoading, settingsStateLoading,
-            callWaiter,
-                () {
-              context.read(homeTabsProvider.notifier).onPageChanged(0);
-              Get.to(() => HomeTabs(tabIndex: 0));
-            }
-        ),
-        body: Column(
+    return Container(
+        color: light,
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

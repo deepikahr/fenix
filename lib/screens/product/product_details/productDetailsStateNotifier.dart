@@ -41,6 +41,12 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
     );
   }
 
+  // void onPageChanged(index) {
+  //   state = state.copyWith(isLoading: true);
+  //   state = state.copyWith.call(currentIndex: index);
+  //   state = state.copyWith(isLoading: false);
+  // }
+
   void showAddButton(bool value) {
     state = state.copyWith(showAddButton: value);
   }
@@ -201,7 +207,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       //   );
       // });
       // context.read(homeTabsProvider.notifier).onPageChanged(4);
-      await Get.to(() => CartScreen());
+      // await Get.to(() => CartScreen());
 
     } else if (product.franchiseId == cartData!.franchiseId) {
       var addOnItemsPrice = .0;
@@ -291,7 +297,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       //   );
       // });
       // context.read(homeTabsProvider.notifier).onPageChanged(4);
-      await Get.to(() => CartScreen());
+      // await Get.to(() => CartScreen());
     } else {
       await customDialog(
         status: DIALOG_STATUS.WARNING,
@@ -394,7 +400,7 @@ class ProductDetailsStateNotifier extends StateNotifier<ProductDetailsState> {
       print('5555');
       cartData?.products.forEach(
             (element) async {
-          if (element.id == product.id && element.isLastVariant == true && element.addOnItems != product.addOnItems) {
+          if (element.id == product.id && element.isLastVariant == true) {
             final newProduct = element.copyWith(
                 quantity: element.quantity + (increased ? 1 : -1));
             if (newProduct.quantity > 0) {

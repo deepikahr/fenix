@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/drawer/drawer.dart';
@@ -24,16 +26,17 @@ class Category extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
     final state = useProvider(categoryProvider);
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final homeState = useProvider(homeTabsProvider);
     final isMounted = useIsMounted();
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await context.read(categoryProvider.notifier).
-          fetchCategory(currentIndex == 1 ? 'BEVERAGE_CATEGORY' : 'FOOD_CATEGORY', 1, 10);
+            await context.read(categoryProvider.notifier).
+            fetchCategory(
+                homeState.currentIndex == 1 ? 'BEVERAGE_CATEGORY' : homeState.currentIndex == 2 ? 'FOOD_CATEGORY' : '',
+                1, 10);
         });
       }
       return;
@@ -73,10 +76,11 @@ class Category extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                context.read(homeTabsProvider.notifier).onPageChanged(5);
+
                 db.saveCategoryId(category[i].id);
                 db.saveCategoryImage(category[i].imageUrl);
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                  context.read(homeTabsProvider.notifier).onPageChanged(5);
+                // Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCard(context, category[i].title, category[i].imageUrl),
             );
@@ -99,10 +103,11 @@ class Category extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
               onTap: () {
-                context.read(homeTabsProvider.notifier).onPageChanged(5);
                 db.saveCategoryId(category[i].id);
                 db.saveCategoryImage(category[i].imageUrl);
-                Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+                  context.read(homeTabsProvider.notifier).onPageChanged(5);
+
+                // Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
               },
               child: restaurantInfoCardGrid(context, category[i].title, category[i].imageUrl));
         },

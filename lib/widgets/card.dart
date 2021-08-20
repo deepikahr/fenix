@@ -278,6 +278,7 @@ categoryImage,
   void Function()? onAdd,
   void Function()? onUpdate,
   void Function()? onRemove,
+
 ) {
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 8, right: 8),

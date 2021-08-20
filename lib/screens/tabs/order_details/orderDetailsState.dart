@@ -9,6 +9,7 @@ class OrderDetailsState with _$OrderDetailsState {
   const factory OrderDetailsState({
     @Default(false) bool isLoading,
     OrderDetailsResponse? orderDetails,
-    @Default(false) bool divideAccount
+    @Default(false) bool divideAccount,
+    @Default(0) int currentIndex,
   }) = _Default;
 }

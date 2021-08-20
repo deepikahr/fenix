@@ -20,11 +20,13 @@ class _$CartScreenStateTearOff {
       {bool isLoading = false,
       bool isUpdateLoading = false,
       OrderResponse? orderResponse,
+      int currentIndex = 0,
       String? selectedLanguage}) {
     return _Default(
       isLoading: isLoading,
       isUpdateLoading: isUpdateLoading,
       orderResponse: orderResponse,
+      currentIndex: currentIndex,
       selectedLanguage: selectedLanguage,
     );
   }
@@ -37,7 +39,8 @@ const $CartScreenState = _$CartScreenStateTearOff();
 mixin _$CartScreenState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isUpdateLoading => throw _privateConstructorUsedError;
-  OrderResponse? get orderResponse =>
+  OrderResponse? get orderResponse => throw _privateConstructorUsedError;
+  int get currentIndex =>
       throw _privateConstructorUsedError; // @Default([]) List<String> modifiedProducts,
   String? get selectedLanguage => throw _privateConstructorUsedError;
 
@@ -55,6 +58,7 @@ abstract class $CartScreenStateCopyWith<$Res> {
       {bool isLoading,
       bool isUpdateLoading,
       OrderResponse? orderResponse,
+      int currentIndex,
       String? selectedLanguage});
 
   $OrderResponseCopyWith<$Res>? get orderResponse;
@@ -74,6 +78,7 @@ class _$CartScreenStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isUpdateLoading = freezed,
     Object? orderResponse = freezed,
+    Object? currentIndex = freezed,
     Object? selectedLanguage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -89,6 +94,10 @@ class _$CartScreenStateCopyWithImpl<$Res>
           ? _value.orderResponse
           : orderResponse // ignore: cast_nullable_to_non_nullable
               as OrderResponse?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       selectedLanguage: selectedLanguage == freezed
           ? _value.selectedLanguage
           : selectedLanguage // ignore: cast_nullable_to_non_nullable
@@ -118,6 +127,7 @@ abstract class _$DefaultCopyWith<$Res>
       {bool isLoading,
       bool isUpdateLoading,
       OrderResponse? orderResponse,
+      int currentIndex,
       String? selectedLanguage});
 
   @override
@@ -138,6 +148,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$CartScreenStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? isUpdateLoading = freezed,
     Object? orderResponse = freezed,
+    Object? currentIndex = freezed,
     Object? selectedLanguage = freezed,
   }) {
     return _then(_Default(
@@ -153,6 +164,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$CartScreenStateCopyWithImpl<$Res>
           ? _value.orderResponse
           : orderResponse // ignore: cast_nullable_to_non_nullable
               as OrderResponse?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       selectedLanguage: selectedLanguage == freezed
           ? _value.selectedLanguage
           : selectedLanguage // ignore: cast_nullable_to_non_nullable
@@ -168,6 +183,7 @@ class _$_Default implements _Default {
       {this.isLoading = false,
       this.isUpdateLoading = false,
       this.orderResponse,
+      this.currentIndex = 0,
       this.selectedLanguage});
 
   @JsonKey(defaultValue: false)
@@ -178,12 +194,15 @@ class _$_Default implements _Default {
   final bool isUpdateLoading;
   @override
   final OrderResponse? orderResponse;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int currentIndex;
   @override // @Default([]) List<String> modifiedProducts,
   final String? selectedLanguage;
 
   @override
   String toString() {
-    return 'CartScreenState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, orderResponse: $orderResponse, selectedLanguage: $selectedLanguage)';
+    return 'CartScreenState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, orderResponse: $orderResponse, currentIndex: $currentIndex, selectedLanguage: $selectedLanguage)';
   }
 
   @override
@@ -199,6 +218,9 @@ class _$_Default implements _Default {
             (identical(other.orderResponse, orderResponse) ||
                 const DeepCollectionEquality()
                     .equals(other.orderResponse, orderResponse)) &&
+            (identical(other.currentIndex, currentIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentIndex, currentIndex)) &&
             (identical(other.selectedLanguage, selectedLanguage) ||
                 const DeepCollectionEquality()
                     .equals(other.selectedLanguage, selectedLanguage)));
@@ -210,6 +232,7 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(isUpdateLoading) ^
       const DeepCollectionEquality().hash(orderResponse) ^
+      const DeepCollectionEquality().hash(currentIndex) ^
       const DeepCollectionEquality().hash(selectedLanguage);
 
   @JsonKey(ignore: true)
@@ -223,6 +246,7 @@ abstract class _Default implements CartScreenState {
       {bool isLoading,
       bool isUpdateLoading,
       OrderResponse? orderResponse,
+      int currentIndex,
       String? selectedLanguage}) = _$_Default;
 
   @override
@@ -231,6 +255,8 @@ abstract class _Default implements CartScreenState {
   bool get isUpdateLoading => throw _privateConstructorUsedError;
   @override
   OrderResponse? get orderResponse => throw _privateConstructorUsedError;
+  @override
+  int get currentIndex => throw _privateConstructorUsedError;
   @override // @Default([]) List<String> modifiedProducts,
   String? get selectedLanguage => throw _privateConstructorUsedError;
   @override

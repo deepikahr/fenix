@@ -20,14 +20,14 @@ class DrawerPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
 
-    final category = useProvider(homeProvider).homeData!.category;
     final state = useProvider(drawerProvider);
+    final notifier = useProvider(drawerProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await context.read(homeProvider.notifier).fetchHome();
+          await notifier.fetchHome();
         });
       }
       return;
@@ -80,9 +80,9 @@ class DrawerPage extends HookWidget {
                   ],
                 ),
               ),
-              if ((category.length) > 0)
-                categoryBlock(context, category),
-              // if(homeState.isLoading) GFLoader(type: GFLoaderType.ios,),
+              if ((state.homeData?.category.length ?? 0) > 0)
+                categoryBlock(context, state.homeData?.category),
+                // if(homeState.isLoading) GFLoader(type: GFLoaderType.ios,),
               InkWell(
                 onTap:  (){Get.to(() => ChangePasswordPage());},
                 child: Container(
@@ -122,7 +122,7 @@ class DrawerPage extends HookWidget {
               context.read(homeTabsProvider.notifier).onPageChanged(5);
               db.saveCategoryId(category[i].id);
               db.saveCategoryImage(category[i].imageUrl);
-              Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
+              // Get.to(() => ProductList(categoryId: category[i].id, categoryImage: category[i].imageUrl));
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

@@ -24,7 +24,8 @@ class _$ProductListStateTearOff {
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue = 0,
-      String? selectedLanguage}) {
+      String? selectedLanguage,
+      int currentIndex = 0}) {
     return _Default(
       isLoading: isLoading,
       categoryTitle: categoryTitle,
@@ -34,6 +35,7 @@ class _$ProductListStateTearOff {
       selectedAddOnItems: selectedAddOnItems,
       groupValue: groupValue,
       selectedLanguage: selectedLanguage,
+      currentIndex: currentIndex,
     );
   }
 }
@@ -52,6 +54,7 @@ mixin _$ProductListState {
   Set<AddOnItem>? get selectedAddOnItems => throw _privateConstructorUsedError;
   int get groupValue => throw _privateConstructorUsedError;
   String? get selectedLanguage => throw _privateConstructorUsedError;
+  int get currentIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductListStateCopyWith<ProductListState> get copyWith =>
@@ -71,7 +74,8 @@ abstract class $ProductListStateCopyWith<$Res> {
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue,
-      String? selectedLanguage});
+      String? selectedLanguage,
+      int currentIndex});
 
   $ProductModelCopyWith<$Res>? get productData;
 }
@@ -95,6 +99,7 @@ class _$ProductListStateCopyWithImpl<$Res>
     Object? selectedAddOnItems = freezed,
     Object? groupValue = freezed,
     Object? selectedLanguage = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -129,6 +134,10 @@ class _$ProductListStateCopyWithImpl<$Res>
           ? _value.selectedLanguage
           : selectedLanguage // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -158,7 +167,8 @@ abstract class _$DefaultCopyWith<$Res>
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue,
-      String? selectedLanguage});
+      String? selectedLanguage,
+      int currentIndex});
 
   @override
   $ProductModelCopyWith<$Res>? get productData;
@@ -183,6 +193,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
     Object? selectedAddOnItems = freezed,
     Object? groupValue = freezed,
     Object? selectedLanguage = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -217,6 +228,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
           ? _value.selectedLanguage
           : selectedLanguage // ignore: cast_nullable_to_non_nullable
               as String?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -232,7 +247,8 @@ class _$_Default implements _Default {
       this.productTotal,
       this.selectedAddOnItems,
       this.groupValue = 0,
-      this.selectedLanguage});
+      this.selectedLanguage,
+      this.currentIndex = 0});
 
   @JsonKey(defaultValue: false)
   @override
@@ -252,10 +268,13 @@ class _$_Default implements _Default {
   final int groupValue;
   @override
   final String? selectedLanguage;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int currentIndex;
 
   @override
   String toString() {
-    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, productData: $productData, products: $products, productTotal: $productTotal, selectedAddOnItems: $selectedAddOnItems, groupValue: $groupValue, selectedLanguage: $selectedLanguage)';
+    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, productData: $productData, products: $products, productTotal: $productTotal, selectedAddOnItems: $selectedAddOnItems, groupValue: $groupValue, selectedLanguage: $selectedLanguage, currentIndex: $currentIndex)';
   }
 
   @override
@@ -285,7 +304,10 @@ class _$_Default implements _Default {
                     .equals(other.groupValue, groupValue)) &&
             (identical(other.selectedLanguage, selectedLanguage) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectedLanguage, selectedLanguage)));
+                    .equals(other.selectedLanguage, selectedLanguage)) &&
+            (identical(other.currentIndex, currentIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentIndex, currentIndex)));
   }
 
   @override
@@ -298,7 +320,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(productTotal) ^
       const DeepCollectionEquality().hash(selectedAddOnItems) ^
       const DeepCollectionEquality().hash(groupValue) ^
-      const DeepCollectionEquality().hash(selectedLanguage);
+      const DeepCollectionEquality().hash(selectedLanguage) ^
+      const DeepCollectionEquality().hash(currentIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -315,7 +338,8 @@ abstract class _Default implements ProductListState {
       int? productTotal,
       Set<AddOnItem>? selectedAddOnItems,
       int groupValue,
-      String? selectedLanguage}) = _$_Default;
+      String? selectedLanguage,
+      int currentIndex}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -334,6 +358,8 @@ abstract class _Default implements ProductListState {
   int get groupValue => throw _privateConstructorUsedError;
   @override
   String? get selectedLanguage => throw _privateConstructorUsedError;
+  @override
+  int get currentIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

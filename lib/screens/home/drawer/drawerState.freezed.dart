@@ -16,10 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$DrawerStateTearOff {
   const _$DrawerStateTearOff();
 
-  _Default call({bool isLoading = false, HomeResponse? homeData}) {
+  _Default call(
+      {bool isLoading = false, HomeResponse? homeData, int currentIndex = 0}) {
     return _Default(
       isLoading: isLoading,
       homeData: homeData,
+      currentIndex: currentIndex,
     );
   }
 }
@@ -31,6 +33,7 @@ const $DrawerState = _$DrawerStateTearOff();
 mixin _$DrawerState {
   bool get isLoading => throw _privateConstructorUsedError;
   HomeResponse? get homeData => throw _privateConstructorUsedError;
+  int get currentIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DrawerStateCopyWith<DrawerState> get copyWith =>
@@ -42,7 +45,7 @@ abstract class $DrawerStateCopyWith<$Res> {
   factory $DrawerStateCopyWith(
           DrawerState value, $Res Function(DrawerState) then) =
       _$DrawerStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, HomeResponse? homeData});
+  $Res call({bool isLoading, HomeResponse? homeData, int currentIndex});
 
   $HomeResponseCopyWith<$Res>? get homeData;
 }
@@ -59,6 +62,7 @@ class _$DrawerStateCopyWithImpl<$Res> implements $DrawerStateCopyWith<$Res> {
   $Res call({
     Object? isLoading = freezed,
     Object? homeData = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -69,6 +73,10 @@ class _$DrawerStateCopyWithImpl<$Res> implements $DrawerStateCopyWith<$Res> {
           ? _value.homeData
           : homeData // ignore: cast_nullable_to_non_nullable
               as HomeResponse?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -89,7 +97,7 @@ abstract class _$DefaultCopyWith<$Res> implements $DrawerStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, HomeResponse? homeData});
+  $Res call({bool isLoading, HomeResponse? homeData, int currentIndex});
 
   @override
   $HomeResponseCopyWith<$Res>? get homeData;
@@ -108,6 +116,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$DrawerStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? homeData = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -118,6 +127,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$DrawerStateCopyWithImpl<$Res>
           ? _value.homeData
           : homeData // ignore: cast_nullable_to_non_nullable
               as HomeResponse?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -125,17 +138,21 @@ class __$DefaultCopyWithImpl<$Res> extends _$DrawerStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.homeData});
+  const _$_Default(
+      {this.isLoading = false, this.homeData, this.currentIndex = 0});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
   @override
   final HomeResponse? homeData;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int currentIndex;
 
   @override
   String toString() {
-    return 'DrawerState(isLoading: $isLoading, homeData: $homeData)';
+    return 'DrawerState(isLoading: $isLoading, homeData: $homeData, currentIndex: $currentIndex)';
   }
 
   @override
@@ -147,14 +164,18 @@ class _$_Default implements _Default {
                     .equals(other.isLoading, isLoading)) &&
             (identical(other.homeData, homeData) ||
                 const DeepCollectionEquality()
-                    .equals(other.homeData, homeData)));
+                    .equals(other.homeData, homeData)) &&
+            (identical(other.currentIndex, currentIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentIndex, currentIndex)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(homeData);
+      const DeepCollectionEquality().hash(homeData) ^
+      const DeepCollectionEquality().hash(currentIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -163,12 +184,15 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements DrawerState {
-  const factory _Default({bool isLoading, HomeResponse? homeData}) = _$_Default;
+  const factory _Default(
+      {bool isLoading, HomeResponse? homeData, int currentIndex}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   HomeResponse? get homeData => throw _privateConstructorUsedError;
+  @override
+  int get currentIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

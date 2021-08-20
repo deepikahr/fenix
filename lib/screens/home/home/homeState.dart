@@ -9,5 +9,6 @@ class HomeState with _$HomeState {
   const factory HomeState({
     @Default(false) bool isLoading,
     HomeResponse? homeData,
+    @Default(0) int currentIndex,
   }) = _Default;
 }

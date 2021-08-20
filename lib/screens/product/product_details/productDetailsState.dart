@@ -13,6 +13,7 @@ class ProductDetailsState with _$ProductDetailsState {
     @Default(0) int groupValue,
     @Default(false) bool showAddButton,
     @Default(false) bool showCounter,
-    String? selectedLanguage
+    String? selectedLanguage,
+    @Default(0) int currentIndex,
   }) = _Default;
 }

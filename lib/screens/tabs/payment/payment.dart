@@ -14,40 +14,26 @@ import 'package:get/get.dart';
 
 class Payment extends HookWidget {
   bool isChecked = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
-    final languages = useProvider(homeTabsProvider).languages;
-    final homeLoading = useProvider(homeTabsProvider).isLoading;
-    final settingsStateLoading = useProvider(settingsProvider).isLoading;
-     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
     final isMounted = useIsMounted();
+    final state = useProvider(paymentProvider);
+    final notifier = useProvider(paymentProvider.notifier);
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          // await context.read(settingsProvider.notifier).fetchSettings();
+
         });
       }
       return;
     }, const []);
 
-    return Scaffold(
-        backgroundColor: light,
-        key: _scaffoldKey,
-        drawer: DrawerPage(),
-      appBar: fenixAppbar(context, _scaffoldKey,
-              (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-          languages, homeLoading, settingsStateLoading, callWaiter,
-              () {
-            print('aqqqqqqqqqqqqqqqqqqqqqq');
-            context.read(homeTabsProvider.notifier).onPageChanged(0);
-            Get.to(() => HomeTabs(tabIndex: 0));
-          }
-      ),
-      body: ListView(
+    return Container(
+        color: light,
+      child: ListView(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -55,37 +41,20 @@ class Payment extends HookWidget {
             children: [
               SizedBox(height: 30),
               custombuttonsmFW(context, 'PAGAR AQUÍ, EN PILARBOX', () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Thankyou(),
-                  ),
-                );
+                context.read(homeTabsProvider.notifier).onPageChanged(9);
               }),
               SizedBox(height: 30),
               custombuttonsmFW(context, 'PAGAR EN METÁLICO', () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Thankyou(),
-                  ),
-                );
+                context.read(homeTabsProvider.notifier).onPageChanged(9);
               }),
               SizedBox(height: 30),
               custombuttonsmFW(context, 'PAGAR CON DATAFONO', () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Thankyou(),
-                  ),
-                );
+                context.read(homeTabsProvider.notifier).onPageChanged(9);
               }),
             ],
           )
         ],
       ),
-
-
     );
   }
 }

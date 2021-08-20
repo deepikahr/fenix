@@ -38,12 +38,12 @@ class AccessSettings extends HookWidget {
             backgroundColor: appBarDark,
             leading:  InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Settings(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Settings(),
+                //   ),
+                // );
               },
               child: Container(
                 margin: EdgeInsets.only(left: 16, top: 16),

@@ -41,6 +41,12 @@ class ProductListStateNotifier extends StateNotifier<ProductListState> {
     );
   }
 
+  // void onPageChanged(index) {
+  //   state = state.copyWith(isLoading: true);
+  //   state = state.copyWith.call(currentIndex: index);
+  //   state = state.copyWith(isLoading: false);
+  // }
+
   void onSelectLanguage(String value) {
     state = state.copyWith(selectedLanguage: value);
   }

@@ -17,6 +17,12 @@ class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
     );
   }
 
+  void onPageChanged(index) {
+    state = state.copyWith(isLoading: true);
+    state = state.copyWith.call(currentIndex: index);
+    state = state.copyWith(isLoading: false);
+  }
+
   void divideAccount(bool value) {
     state = state.copyWith(divideAccount: value);
   }

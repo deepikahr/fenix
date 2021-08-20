@@ -73,6 +73,7 @@ class FABBottomAppBar extends HookWidget {
         index: index,
         sel: state.currentIndex,
         onPressed: (int? index) {
+          print('zzzzzzzzzzz $index');
           if(index == 0 && state.currentIndex == 0){
             onReturn();
           }else{

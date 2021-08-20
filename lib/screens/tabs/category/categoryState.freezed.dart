@@ -17,10 +17,13 @@ class _$CategoryStateTearOff {
   const _$CategoryStateTearOff();
 
   _Default call(
-      {bool isLoading = false, List<CategoryResponse>? category = const []}) {
+      {bool isLoading = false,
+      List<CategoryResponse>? category = const [],
+      int currentIndex = 1}) {
     return _Default(
       isLoading: isLoading,
       category: category,
+      currentIndex: currentIndex,
     );
   }
 }
@@ -32,6 +35,7 @@ const $CategoryState = _$CategoryStateTearOff();
 mixin _$CategoryState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<CategoryResponse>? get category => throw _privateConstructorUsedError;
+  int get currentIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryStateCopyWith<CategoryState> get copyWith =>
@@ -43,7 +47,8 @@ abstract class $CategoryStateCopyWith<$Res> {
   factory $CategoryStateCopyWith(
           CategoryState value, $Res Function(CategoryState) then) =
       _$CategoryStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, List<CategoryResponse>? category});
+  $Res call(
+      {bool isLoading, List<CategoryResponse>? category, int currentIndex});
 }
 
 /// @nodoc
@@ -59,6 +64,7 @@ class _$CategoryStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? category = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -69,6 +75,10 @@ class _$CategoryStateCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as List<CategoryResponse>?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -78,7 +88,8 @@ abstract class _$DefaultCopyWith<$Res> implements $CategoryStateCopyWith<$Res> {
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, List<CategoryResponse>? category});
+  $Res call(
+      {bool isLoading, List<CategoryResponse>? category, int currentIndex});
 }
 
 /// @nodoc
@@ -94,6 +105,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? category = freezed,
+    Object? currentIndex = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -104,6 +116,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as List<CategoryResponse>?,
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -111,7 +127,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false, this.category = const []});
+  const _$_Default(
+      {this.isLoading = false,
+      this.category = const [],
+      this.currentIndex = 1});
 
   @JsonKey(defaultValue: false)
   @override
@@ -119,10 +138,13 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: const [])
   @override
   final List<CategoryResponse>? category;
+  @JsonKey(defaultValue: 1)
+  @override
+  final int currentIndex;
 
   @override
   String toString() {
-    return 'CategoryState(isLoading: $isLoading, category: $category)';
+    return 'CategoryState(isLoading: $isLoading, category: $category, currentIndex: $currentIndex)';
   }
 
   @override
@@ -134,14 +156,18 @@ class _$_Default implements _Default {
                     .equals(other.isLoading, isLoading)) &&
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
-                    .equals(other.category, category)));
+                    .equals(other.category, category)) &&
+            (identical(other.currentIndex, currentIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentIndex, currentIndex)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(category);
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(currentIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +176,17 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements CategoryState {
-  const factory _Default({bool isLoading, List<CategoryResponse>? category}) =
-      _$_Default;
+  const factory _Default(
+      {bool isLoading,
+      List<CategoryResponse>? category,
+      int currentIndex}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   List<CategoryResponse>? get category => throw _privateConstructorUsedError;
+  @override
+  int get currentIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

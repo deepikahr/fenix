@@ -21,62 +21,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:get/get.dart';
 
 class CartScreen extends HookWidget {
   bool isChecked = false;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
 
     final cart = useProvider(cartProvider);
     final state = useProvider(cartScreenProvider);
-    final currentIndex = useProvider(homeTabsProvider).currentIndex;
-    final languages = useProvider(homeTabsProvider).languages;
-    final homeLoading = useProvider(homeTabsProvider).isLoading;
     final isMounted = useIsMounted();
-    final settingsStateLoading = useProvider(settingsProvider).isLoading;
-     final callWaiter = useProvider(settingsProvider).settings?.tabSetting?.callToWaiter;
 
     useEffect(() {
       if (isMounted()) {
         context.read(cartScreenProvider.notifier);
-        // context.read(settingsProvider.notifier).fetchSettings();
       }
       return;
     }, const []);
 
-    return Scaffold(
-        backgroundColor: grey2,
-        key: _scaffoldKey,
-        drawer: DrawerPage(),
-        appBar: fenixAppbar(context, _scaffoldKey,
-                (value) => context.read(homeTabsProvider.notifier).onSelectLanguage(value!),
-            languages, homeLoading,  settingsStateLoading,
-            callWaiter,
-                () async {
-              context.read(homeTabsProvider.notifier).onPageChanged(0);
-              await Get.to(() => HomeTabs(tabIndex: 0));
-            }
-        ),
-        body: Stack(
+    return Container(
+      color: grey2,
+        child: Stack(
           children: [
-            ListView(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              children: [
-                if (currentIndex == 0)
-                  Home(),
-                if (currentIndex == 1)
-                  Category(),
-                if (currentIndex == 2)
-                  Category(),
-                if (currentIndex == 3)
-                  OrderDetails(),
-                if (currentIndex == 4)
                   ListView(
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
@@ -148,7 +118,7 @@ class CartScreen extends HookWidget {
                                                 'ADD_MORE_PRODUCTS'.tr,
                                                     () async {
                                                   context.read(homeTabsProvider.notifier).onPageChanged(5);
-                                                  Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
+                                                  // Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
                                                 },
                                                 false
                                             ),
@@ -165,18 +135,19 @@ class CartScreen extends HookWidget {
                                                       .notifier)
                                                       .createOrder();
                                                   if (state.orderResponse != null) {
-                                                    ScaffoldMessenger.of(context)
-                                                        .showSnackBar(SnackBar(
-                                                        content: Text('${state.orderResponse!.message}')));
+                                                    Fluttertoast.showToast(msg: '${state.orderResponse!.message}');
+                                                    // ScaffoldMessenger.of(context)
+                                                    //     .showSnackBar(SnackBar(
+                                                    //     content: Text('${state.orderResponse!.message}')));
                                                   }
                                                   Timer(Duration(seconds: 2),
                                                           () async {
-                                                        await Get.to(
-                                                                () => OrdersInProcess());
+                                                            context.read(homeTabsProvider.notifier).onPageChanged(7);
+                                                        // await Get.to(
+                                                        //         () => OrdersInProcess());
                                                       });
-                                                },
-                                                state.isLoading)
-                                                :
+                                                },state.isLoading) :
+
                                             cart.products.where((element) =>
                                             element.modified).isNotEmpty && DB().getOrderId() != null  ? custombuttonsm(
                                                 context,
@@ -187,14 +158,16 @@ class CartScreen extends HookWidget {
                                                       .notifier)
                                                       .updateOrder();
                                                   if (updateResponse != null) {
-                                                    ScaffoldMessenger.of(context)
-                                                        .showSnackBar(SnackBar(
-                                                        content: Text(
-                                                            '${updateResponse}')));
+                                                    Fluttertoast.showToast(msg: '${updateResponse}');
+                                                    // ScaffoldMessenger.of(context)
+                                                    //     .showSnackBar(SnackBar(
+                                                    //     content: Text(
+                                                    //         '${updateResponse}')));
                                                     Timer(Duration(seconds: 2),
                                                             () async {
-                                                          await Get.to(
-                                                                  () => OrdersInProcess());
+                                                              context.read(homeTabsProvider.notifier).onPageChanged(7);
+                                                          // await Get.to(
+                                                          //         () => OrdersInProcess());
                                                         });
                                                   }
                                                 },
@@ -220,22 +193,11 @@ class CartScreen extends HookWidget {
                           ),
                         )
                     ],
-                  )
-                    ],
                   ),
             if (state.isLoading)
               GFLoader(type: GFLoaderType.ios)
               ],
             ),
-      bottomNavigationBar: customBottomBar((index) async {
-        context.read(homeTabsProvider.notifier).onPageChanged(index);
-        // context.read(homeTabsProvider.notifier).nonTab(true);
-      },),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: buildCenterIcon(context, cart, () {
-        context.read(homeTabsProvider.notifier).onPageChanged(4);
-        Get.to(() => CartScreen());
-      })
     );
   }
 

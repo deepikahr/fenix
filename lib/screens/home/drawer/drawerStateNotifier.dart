@@ -11,21 +11,27 @@ class DrawerStateNotifier extends StateNotifier<DrawerState> {
   final DB db;
   DrawerStateNotifier(this.api, this.db) : super(DrawerState());
 
-  // Future<HomeResponse?> fetchHome() async {
-  //   state = state.copyWith.call(isLoading: true);
-  //   final response = await api.home();
-  //   state = state.copyWith.call(
-  //     homeData: response,
-  //     isLoading: false,
-  //   );
-  // }
-
   Future<void> logout() async {
     if (db.isLoggedIn()) {
         await db.logOut();
         state = state.copyWith(isLoading: true);
         await Get.offAll(() => HomeTabs(tabIndex: 0,));
     }
+  }
+
+  Future<HomeResponse?> fetchHome() async {
+    state = state.copyWith.call(isLoading: true);
+    final response = await api.home();
+    state = state.copyWith.call(
+      homeData: response,
+      isLoading: false,
+    );
+  }
+
+  void onPageChanged(index) {
+    state = state.copyWith(isLoading: true);
+    state = state.copyWith.call(currentIndex: index);
+    state = state.copyWith(isLoading: false);
   }
 
 }
