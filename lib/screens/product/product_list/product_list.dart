@@ -107,7 +107,7 @@ class ProductList extends HookWidget {
                       .read(homeTabsProvider.notifier)
                       .showScreen(ProductDetails(products[index].id ?? ''));
                 } else {
-                  await notifier.addProduct(
+                  await notifier.addOrRemoveProduct(
                     products[index],
                     true,
                   );
@@ -120,13 +120,13 @@ class ProductList extends HookWidget {
                       builder: (context) =>
                           showPopUp(context, products[index], () async {
                             Get.back();
-                            await notifier.addProduct(
+                            await notifier.addOrRemoveProduct(
                               products[index],
                               true,
                             );
                           }));
                 } else {
-                  await notifier.addProduct(
+                  await notifier.addOrRemoveProduct(
                     products[index],
                     true,
                   );
@@ -139,7 +139,7 @@ class ProductList extends HookWidget {
                     builder: (context) => showMultipleTimeProductPopUp(context),
                   );
                 } else {
-                  notifier.addProduct(products[index], false);
+                  notifier.addOrRemoveProduct(products[index], false);
                 }
               },
             )),
@@ -178,7 +178,7 @@ class ProductList extends HookWidget {
                         .read(homeTabsProvider.notifier)
                         .showScreen(ProductDetails(products[index].id ?? ''));
                   } else {
-                    await notifier.addProduct(
+                    await notifier.addOrRemoveProduct(
                       products[index],
                       true,
                     );
@@ -193,7 +193,7 @@ class ProductList extends HookWidget {
                         products[index],
                         () async {
                           Get.back();
-                          await notifier.addProduct(
+                          await notifier.addOrRemoveProduct(
                             products[index],
                             true,
                           );
@@ -201,7 +201,7 @@ class ProductList extends HookWidget {
                       ),
                     );
                   } else {
-                    await notifier.addProduct(products[index], true);
+                    await notifier.addOrRemoveProduct(products[index], true);
                   }
                 },
                 () {
@@ -211,7 +211,7 @@ class ProductList extends HookWidget {
                         builder: (context) =>
                             showMultipleTimeProductPopUp(context));
                   } else {
-                    notifier.addProduct(products[index], false);
+                    notifier.addOrRemoveProduct(products[index], false);
                   }
                 },
               ));

@@ -46,7 +46,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     }
   }
 
-  Future<void> addProduct(
+  Future<void> addOrRemoveProduct(
       ProductDetailsResponse product, bool isIncreased) async {
     if (cartState == null) {
       await _createCartWithFirstProduct(product);
