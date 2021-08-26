@@ -35,11 +35,12 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   Future<void> fetchProductDetails(String productId) async {
     state = state.copyWith.call(isLoading: true);
     final res = await api.productDetails(productId);
-    if (ref.mounted)
-      state = state.copyWith.call(
-        isLoading: false,
-        productDetails: res,
-      );
+    if (ref.mounted) {
+      state = state.copyWith.call(isLoading: false, productDetails: res);
+      _updateProduct((cartState != null && cartState!.products.isNotEmpty
+          ? cartState!.products
+          : []));
+    }
   }
 
   void showAddButton(bool value) {
@@ -55,13 +56,15 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   }
 
   void addSelectedAddOnItem(AddOnItem addOnItem, AddOnCategory addOnCategory) {
-    state = state.copyWith
-        .call(selectedAddOnItems: state.selectedAddOnItems?..add(addOnItem));
+    state = state.copyWith.call(
+        selectedAddOnItems: state.selectedAddOnItems?..add(addOnItem),
+        showAddButton: false);
   }
 
   void removeAddOnItem(AddOnItem addOnItem) {
-    state = state.copyWith
-        .call(selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem));
+    state = state.copyWith.call(
+        selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem),
+        showAddButton: false);
   }
 
   void onSelectLanguage(String value) {
@@ -72,11 +75,16 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       ProductDetailsResponse product, bool isIncreased) async {
     if (cartState == null) {
       await _createCartWithFirstProduct(product);
-    } else if (cartState?.products.any((element) => element.id != product.id) ??
-        false) {
-      await _addProductInExistingCart(product);
-    } else {
+    } else if (cartState?.products.any((element) =>
+            element.id == product.id &&
+            element.variant?.sizeName ==
+                product.variants?[state.groupValue].sizeName &&
+            element.selectedAddOnItems
+                .equals(state.selectedAddOnItems?.toList() ?? [])) ??
+        true) {
       await _updateQuantityOfLastVariant(product, isIncreased);
+    } else {
+      await _addProductInExistingCart(product);
     }
   }
 
@@ -85,7 +93,15 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     product = product.copyWith.call(
       variantQuantity: 1,
       isLastUsedVariant: true,
-      totalProductPrice: product.variant?.price ?? 0,
+      totalProductPrice: (product.variants?[state.groupValue].price ?? 0) +
+          ((state.selectedAddOnItems!.toList().isNotEmpty)
+              ? state.selectedAddOnItems!
+                  .toList()
+                  .map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity))
+                  .reduce((_, __) => _ + __)
+              : 0),
+      variant: product.variants?[state.groupValue],
+      selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
     );
     final cart = Cart(
       franchiseId: product.franchiseId,
@@ -100,17 +116,35 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   }
 
   Future<void> _addProductInExistingCart(ProductDetailsResponse product) async {
-    final totalPrice = product.variant?.price ?? 0;
-    var newCart = cartState?.copyWith.call(
+    final totalPrice = (product.variants?[state.groupValue].price ?? 0) +
+        ((state.selectedAddOnItems!.toList().isNotEmpty)
+            ? state.selectedAddOnItems!
+                .toList()
+                .map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity))
+                .reduce((_, __) => _ + __)
+            : 0);
+    final data = cartState?.copyWith(
+        products: cartState!.products.map((p) {
+      if (p.id == product.id) {
+        return p.copyWith(isLastUsedVariant: false);
+      } else {
+        return p;
+      }
+    }).toList());
+
+    var newCart = data?.copyWith.call(
       products: [
-        ...cartState?.products ?? [],
+        ...data.products,
         product.copyWith.call(
           variantQuantity: 1,
           isLastUsedVariant: true,
           totalProductPrice: totalPrice,
+          variant: product.variants?[state.groupValue],
+          selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
         ),
       ],
     );
+
     _updateProduct(newCart?.products ?? []);
     await cartNotifier.updateCart(newCart);
   }
@@ -122,7 +156,6 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     final p = cartState?.products.singleWhereOrNull(
       (e) => e.id == product.id && e.isLastUsedVariant,
     );
-
     if (p != null) {
       final i = cartState!.products.indexOf(p);
 
@@ -157,6 +190,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
                 cp.id == state.productDetails?.id ? cp.variantQuantity : 0)
             .reduce((_, __) => _ + __)
         : 0;
+
     final isSameProductMultipleTimes = (newCartProducts.isNotEmpty)
         ? newCartProducts.any((cp) =>
             cp.id == state.productDetails?.id &&
@@ -164,12 +198,54 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
                 !cp.selectedAddOnItems
                     .equals(state.productDetails?.selectedAddOnItems ?? [])))
         : false;
+
+    final p = cartState?.products.singleWhereOrNull(
+      (e) => e.id == state.productDetails?.id && e.isLastUsedVariant,
+    );
+
+    if (p != null && p.selectedAddOnItems.isEmpty) {
+      state = state.copyWith(selectedAddOnItems: p.selectedAddOnItems.toSet());
+    }
+
+    for (var i = 0; i < (state.productDetails!.variants!.length); i++) {
+      if (state.productDetails!.variants?[i].sizeName == p?.variant?.sizeName) {
+        state = state.copyWith(groupValue: i);
+      }
+    }
     if (state.productDetails != null) {
       state = state.copyWith.productDetails!(
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
         modified: cartState != null,
       );
+      state = state.copyWith(
+          showAddButton:
+              state.productDetails!.totalQuantity > 0 ? true : false);
+    }
+  }
+
+  void updateAddonItemQuantity(AddOnItem addOnItem, increased) async {
+    var selectedAddon = List.empty(growable: true);
+    selectedAddon = state.selectedAddOnItems!.toList(growable: true);
+
+    AddOnItem item = selectedAddon.toList().singleWhere(
+        (element) => element.id == addOnItem.id,
+        orElse: () => AddOnItem());
+
+    for (var i = 0; i < (selectedAddon.length); i++) {
+      if (selectedAddon[i].id == addOnItem.id) {
+        final AddOnItem newAddon = addOnItem.copyWith(
+            quantity: increased
+                ? item.quantity + 1
+                : item.quantity >= 2
+                    ? item.quantity - 1
+                    : 1);
+
+        selectedAddon[i] = newAddon;
+        state = state.copyWith.call(
+            selectedAddOnItems: selectedAddon.toSet() as Set<AddOnItem>,
+            showAddButton: false);
+      }
     }
   }
 }

@@ -170,10 +170,10 @@ class ProductDetails extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${product.totalProductPrice.toStringAsFixed(2)}€',
+                      '${((product.variants?[state.groupValue].price ?? 0) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}€',
                       style: textDarkRegularBS(context),
                     ),
-                    product.totalQuantity > 0
+                    state.showAddButton
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -231,14 +231,7 @@ class ProductDetails extends HookWidget {
                                 context
                                     .read(productDetailsProvider.notifier)
                                     .showAddButton(false);
-                                await notifier.saveCart(
-                                    context,
-                                    state.selectedAddOnItems,
-                                    state.productDetails!
-                                        .variants![state.groupValue],
-                                    state.productDetails!,
-                                    productId,
-                                    noteEditController.text);
+                                await notifier.addProduct(product, true);
                               },
                               color: primary(),
                               text: 'ADD'.tr,
@@ -558,9 +551,9 @@ class ProductDetails extends HookWidget {
                   type: GFButtonType.outline,
                   onPressed: () async {
                     Get.back();
-                    context
-                        .read(productDetailsProvider.notifier)
-                        .updateQuantity();
+                    // context
+                    // .read(productDetailsProvider.notifier)
+                    // .updateQuantity();
                   },
                   child: Text(
                     'CART'.tr.toUpperCase(),
@@ -623,9 +616,9 @@ class ProductDetails extends HookWidget {
                     Get.back();
                     // await Get.to(
                     //     () => ProductDetails(productId: product.productId!));
-                    context
-                        .read(productDetailsProvider.notifier)
-                        .updateQuantity();
+                    // context
+                    //     .read(productDetailsProvider.notifier)
+                    //     .updateQuantity();
                   },
                   child: Text(
                     'NEW'.tr.toUpperCase(),

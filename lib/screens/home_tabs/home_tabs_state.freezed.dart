@@ -18,7 +18,7 @@ class _$HomeTabsStateTearOff {
 
   _Default call(
       {bool isLoading = false,
-      Widget currentScreen = const Center(child: const Text('Nothing to show')),
+      Widget currentScreen = const Center(child: Text('Nothing to show')),
       int bottomBarIndex = 0}) {
     return _Default(
       isLoading: isLoading,
@@ -127,13 +127,13 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
 class _$_Default implements _Default {
   const _$_Default(
       {this.isLoading = false,
-      this.currentScreen = const Center(child: const Text('Nothing to show')),
+      this.currentScreen = const Center(child: Text('Nothing to show')),
       this.bottomBarIndex = 0});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
-  @JsonKey(defaultValue: const Center(child: const Text('Nothing to show')))
+  @JsonKey(defaultValue: const Center(child: Text('Nothing to show')))
   @override
   final Widget currentScreen;
   @JsonKey(defaultValue: 0)
