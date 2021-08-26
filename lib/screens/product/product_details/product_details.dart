@@ -35,8 +35,14 @@ class ProductDetails extends HookWidget {
 
     useEffect(() {
       if (isMounted()) {
-        Future.delayed(Duration.zero, () {
-          notifier.fetchProductDetails(productId);
+        Future.delayed(Duration.zero, () async {
+          final res = await notifier.fetchProductDetails(productId);
+          if (res != null) {
+            final cartProduct = notifier.getProductFromCartWithSameVariant(res);
+            if (cartProduct != null) {
+              notifier.updateProductWithCartProduct(cartProduct);
+            }
+          }
         });
       }
       return;
@@ -173,7 +179,7 @@ class ProductDetails extends HookWidget {
                       '${((product.variants?[state.groupValue].price ?? 0) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}€',
                       style: textDarkRegularBS(context),
                     ),
-                    state.showAddButton
+                    !state.showAddButton
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -193,7 +199,7 @@ class ProductDetails extends HookWidget {
                                   }
                                 },
                               ),
-                              Text(product.totalQuantity.toString(),
+                              Text('${product.variantQuantity}',
                                   style: textBlackLargeBM(context)),
                               counterIcon(
                                 'add',
@@ -230,7 +236,7 @@ class ProductDetails extends HookWidget {
                               onPressed: () async {
                                 context
                                     .read(productDetailsProvider.notifier)
-                                    .showAddButton(false);
+                                    .showAddButton(true);
                                 await notifier.addProduct(product, true);
                               },
                               color: primary(),
@@ -612,13 +618,8 @@ class ProductDetails extends HookWidget {
                   onPressed: () async {
                     context
                         .read(productDetailsProvider.notifier)
-                        .showAddButton(true);
+                        .showAddButton(false);
                     Get.back();
-                    // await Get.to(
-                    //     () => ProductDetails(productId: product.productId!));
-                    // context
-                    //     .read(productDetailsProvider.notifier)
-                    //     .updateQuantity();
                   },
                   child: Text(
                     'NEW'.tr.toUpperCase(),

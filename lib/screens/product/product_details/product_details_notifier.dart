@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:collection/collection.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -32,7 +34,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   ProductDetailsNotifier(this.ref)
       : super(ProductDetailsState(selectedAddOnItems: <AddOnItem>{}));
 
-  Future<void> fetchProductDetails(String productId) async {
+  Future<ProductDetailsResponse?> fetchProductDetails(String productId) async {
     state = state.copyWith.call(isLoading: true);
     final res = await api.productDetails(productId);
     if (ref.mounted) {
@@ -41,9 +43,11 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
           ? cartState!.products
           : []));
     }
+    return res;
   }
 
   void showAddButton(bool value) {
+    print(value);
     state = state.copyWith(showAddButton: value);
   }
 
@@ -56,15 +60,13 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   }
 
   void addSelectedAddOnItem(AddOnItem addOnItem, AddOnCategory addOnCategory) {
-    state = state.copyWith.call(
-        selectedAddOnItems: state.selectedAddOnItems?..add(addOnItem),
-        showAddButton: false);
+    state = state.copyWith
+        .call(selectedAddOnItems: state.selectedAddOnItems?..add(addOnItem));
   }
 
   void removeAddOnItem(AddOnItem addOnItem) {
-    state = state.copyWith.call(
-        selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem),
-        showAddButton: false);
+    state = state.copyWith
+        .call(selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem));
   }
 
   void onSelectLanguage(String value) {
@@ -203,24 +205,17 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       (e) => e.id == state.productDetails?.id && e.isLastUsedVariant,
     );
 
-    if (p != null && p.selectedAddOnItems.isEmpty) {
-      state = state.copyWith(selectedAddOnItems: p.selectedAddOnItems.toSet());
-    }
-
-    for (var i = 0; i < (state.productDetails!.variants!.length); i++) {
-      if (state.productDetails!.variants?[i].sizeName == p?.variant?.sizeName) {
-        state = state.copyWith(groupValue: i);
-      }
-    }
     if (state.productDetails != null) {
       state = state.copyWith.productDetails!(
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
         modified: cartState != null,
       );
-      state = state.copyWith(
-          showAddButton:
-              state.productDetails!.totalQuantity > 0 ? true : false);
+      showAddButton(
+        state.productDetails!.variantQuantity < 1 ||
+            p?.selectedAddOnItems == state.productDetails?.selectedAddOnItems ||
+            p?.variant == state.productDetails?.variants?[state.groupValue],
+      );
     }
   }
 
@@ -242,10 +237,33 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
                     : 1);
 
         selectedAddon[i] = newAddon;
-        state = state.copyWith.call(
-            selectedAddOnItems: selectedAddon.toSet() as Set<AddOnItem>,
-            showAddButton: false);
+        state = state.copyWith
+            .call(selectedAddOnItems: selectedAddon.toSet() as Set<AddOnItem>);
       }
+    }
+  }
+
+  ProductDetailsResponse? getProductFromCartWithSameVariant(
+      ProductDetailsResponse product) {
+    return cartState?.products.singleWhereOrNull((cp) =>
+        cp.id == product.id &&
+        cp.variant == product.variants?[state.groupValue] &&
+        cp.selectedAddOnItems.equals(state.selectedAddOnItems?.toList() ?? []));
+  }
+
+  updateProductWithCartProduct(ProductDetailsResponse cartProduct) {
+    if (state.productDetails != null) {
+      print('variantQuantity---------${cartProduct.variantQuantity}');
+      state = state.copyWith.productDetails!(
+        variantQuantity: cartProduct.variantQuantity,
+        selectedAddOnItems: cartProduct.selectedAddOnItems,
+      );
+      if (state.productDetails!.variants != null &&
+          cartProduct.variant != null) {
+        onSizeSelect(
+            state.productDetails!.variants!.indexOf(cartProduct.variant!));
+      }
+      _updateProduct([]);
     }
   }
 }
