@@ -1,4 +1,5 @@
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/category/category.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -34,13 +35,11 @@ class HomeTabs extends HookWidget {
           if (index == 0) {
             context.read(homeTabsProvider.notifier).showScreen(Home());
           } else if (index == 1) {
-            context.read(homeTabsProvider.notifier).showScreen(Center(
-                  child: Text('Drink section is not yet ready'),
-                ));
+            context.read(homeTabsProvider.notifier).showScreen(
+                CategoryScreen(UniqueKey(), CATEGORY_TYPE.beverageCategory));
           } else if (index == 2) {
-            context.read(homeTabsProvider.notifier).showScreen(Center(
-                  child: Text('Food section is not yet ready'),
-                ));
+            context.read(homeTabsProvider.notifier).showScreen(
+                CategoryScreen(UniqueKey(), CATEGORY_TYPE.foodCategory));
           } else if (index == 3) {
             context.read(homeTabsProvider.notifier).showScreen(Center(
                   child: Text('Cart is not yet ready'),

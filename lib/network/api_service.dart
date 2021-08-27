@@ -1,10 +1,10 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_request_models/category_request/category_request.dart';
 import 'package:fenix_user/models/api_request_models/change_password_request/change_password_request.dart';
 import 'package:fenix_user/models/api_request_models/localizationDataRequest/localizationDataRequest.dart';
 import 'package:fenix_user/models/api_request_models/login_verify_request/login_verify_request.dart';
-import 'package:fenix_user/models/api_request_models/pagination_request/pagination_request.dart';
 import 'package:fenix_user/models/api_request_models/settings_update_request/settings_update_request.dart';
 import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
 import 'package:fenix_user/models/api_response_model.dart';
@@ -21,6 +21,7 @@ import 'package:fenix_user/models/api_response_models/product_data_response/prod
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/network/urls.dart';
+import 'package:fenix_user/screens/category/category.dart';
 import 'package:flutter/foundation.dart';
 
 import 'api_helper.dart';
@@ -229,13 +230,14 @@ class API {
     );
   }
 
-  Future<List<CategoryResponse>?> category(String type, int page, int limit,
+  Future<List<CategoryResponse>?> category(CATEGORY_TYPE type, int page,
       {ValueSetter<ErrorResponse>? errorListener,
+      int limit = 10,
       ValueSetter<ApiResponse<List<CategoryResponse>?>>? responseListener,
       bool autoErrorHandle = true}) async {
     return _api.getForArrayResponse(
-      URL.CATEGORY + type,
-      reqModel: PaginationRequest(page: page, limit: limit),
+      URL.CATEGORY,
+      reqModel: CategoryRequest(topCategory: type, page: page, limit: limit),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,

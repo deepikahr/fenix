@@ -4,6 +4,8 @@ import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_state.dart';
+import 'package:fenix_user/screens/category/category_state.dart';
+import 'package:fenix_user/screens/category/category_state_notifier.dart';
 import 'package:fenix_user/screens/home/home_notifier.dart';
 import 'package:fenix_user/screens/home/home_state.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
@@ -45,4 +47,10 @@ final productListProvider =
 final productDetailsProvider = StateNotifierProvider.autoDispose<
     ProductDetailsNotifier, ProductDetailsState>((ref) {
   return ProductDetailsNotifier(ref);
+});
+
+final categoryProvider =
+    StateNotifierProvider.autoDispose<CategoryStateNotifier, CategoryState>(
+        (ref) {
+  return CategoryStateNotifier(ref);
 });

@@ -1,8 +1,7 @@
 import 'dart:collection';
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/models/api_response_model.dart';
 import 'package:fenix_user/models/api_response_models/base_response/base_response.dart';
 import 'package:fenix_user/models/api_response_models/error_response/error_response.dart';
@@ -38,7 +37,7 @@ class ApiHelper {
           print('\n🎇🎇🎇 REQUEST 🎇🎇🎇');
           print('🎇🎇🎇 url: ${options.uri}');
           print('🎇🎇🎇 headers: ${options.headers}');
-          log('🎇🎇🎇 data: ${options.data}');
+          printWrapped('🎇🎇🎇 data: ${options.data}');
           print('🎇🎇🎇 method: ${options.method}');
           print('🎇🎇🎇 queryParameters: ${options.queryParameters}');
           handler.next(options);
@@ -47,7 +46,7 @@ class ApiHelper {
           print('\n🎇🎇🎇 RESPONSE 🎇🎇🎇');
           print('🎇🎇🎇 url: ${res.requestOptions.uri}');
           print('🎇🎇🎇 status code: ${res.statusCode}');
-          log('🎇🎇🎇 response: ${res.data}');
+          printWrapped('🎇🎇🎇 response: ${res.data}');
           handler.next(res);
         },
         onError: (e, handler) {
