@@ -1,5 +1,6 @@
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/category/category.dart';
+import 'package:fenix_user/screens/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -23,6 +24,8 @@ class HomeTabs extends HookWidget {
     }, const []);
 
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerPage(),
       appBar: fenixAppbar(context, _scaffoldKey, (value) {}, [], false, false,
           false, () {}, () {}),
       body: state.currentScreen,
