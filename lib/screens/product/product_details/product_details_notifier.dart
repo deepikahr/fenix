@@ -38,10 +38,12 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     state = state.copyWith.call(isLoading: true);
     final res = await api.productDetails(productId);
     if (ref.mounted) {
-      state = state.copyWith.call(isLoading: false, productDetails: res);
-      _updateProduct((cartState != null && cartState!.products.isNotEmpty
-          ? cartState!.products
-          : []));
+      state = state.copyWith.call(
+        isLoading: false,
+        productDetails: res,
+        groupValue: res?.variants.indexWhere((v) => v.isDefaultVariant) ?? 0,
+      );
+      _updateProduct(cartState?.products ?? []);
     }
     return res;
   }
@@ -80,10 +82,10 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     } else if (cartState?.products.any((element) =>
             element.id == product.id &&
             element.variant?.sizeName ==
-                product.variants?[state.groupValue].sizeName &&
+                product.variants[state.groupValue].sizeName &&
             element.selectedAddOnItems
                 .equals(state.selectedAddOnItems?.toList() ?? [])) ??
-        true) {
+        false) {
       await _updateQuantityOfLastVariant(product, isIncreased);
     } else {
       await _addProductInExistingCart(product);
@@ -95,14 +97,14 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     product = product.copyWith.call(
       variantQuantity: 1,
       isLastUsedVariant: true,
-      totalProductPrice: (product.variants?[state.groupValue].price ?? 0) +
+      totalProductPrice: (product.variants[state.groupValue].price) +
           ((state.selectedAddOnItems!.toList().isNotEmpty)
               ? state.selectedAddOnItems!
                   .toList()
                   .map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity))
                   .reduce((_, __) => _ + __)
               : 0),
-      variant: product.variants?[state.groupValue],
+      variant: product.variants[state.groupValue],
       selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
     );
     final cart = Cart(
@@ -113,16 +115,17 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       userId: db.getId(),
       products: [product],
     );
+    state = state.copyWith(productDetails: product);
     _updateProduct(cart.products);
     await cartNotifier.updateCart(cart);
   }
 
   Future<void> _addProductInExistingCart(ProductDetailsResponse product) async {
-    final totalPrice = (product.variants?[state.groupValue].price ?? 0) +
+    final totalPrice = (product.variants[state.groupValue].price) +
         ((state.selectedAddOnItems!.toList().isNotEmpty)
             ? state.selectedAddOnItems!
                 .toList()
-                .map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity))
+                .map((i) => ((i.addOnItemPrice ?? 0) * i.quantity))
                 .reduce((_, __) => _ + __)
             : 0);
     final data = cartState?.copyWith(
@@ -141,7 +144,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
           variantQuantity: 1,
           isLastUsedVariant: true,
           totalProductPrice: totalPrice,
-          variant: product.variants?[state.groupValue],
+          variant: product.variants[state.groupValue],
           selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
         ),
       ],
@@ -167,6 +170,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       if (newProduct.variantQuantity > 0) {
         final newProducts = cartState!.products..[i] = newProduct;
         Cart? newCart = cartState!.copyWith(products: newProducts);
+        state = state.copyWith(productDetails: newProduct);
         _updateProduct(newCart.products);
         await cartNotifier.updateCart(newCart);
       } else {
@@ -196,7 +200,8 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     final isSameProductMultipleTimes = (newCartProducts.isNotEmpty)
         ? newCartProducts.any((cp) =>
             cp.id == state.productDetails?.id &&
-            (cp.sizeName != state.productDetails?.sizeName ||
+            (cp.variant?.sizeName !=
+                    state.productDetails?.variants[state.groupValue].sizeName ||
                 !cp.selectedAddOnItems
                     .equals(state.productDetails?.selectedAddOnItems ?? [])))
         : false;
@@ -211,11 +216,11 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         isSameProductMultipleTime: isSameProductMultipleTimes,
         modified: cartState != null,
       );
-      showAddButton(
-        state.productDetails!.variantQuantity < 1 ||
-            p?.selectedAddOnItems == state.productDetails?.selectedAddOnItems ||
-            p?.variant == state.productDetails?.variants?[state.groupValue],
-      );
+      showAddButton(state.productDetails!.variantQuantity < 1
+          // ||
+          // p?.selectedAddOnItems == state.productDetails?.selectedAddOnItems ||
+          // p?.variant == state.productDetails?.variants?[state.groupValue],
+          );
     }
   }
 
@@ -247,21 +252,21 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       ProductDetailsResponse product) {
     return cartState?.products.singleWhereOrNull((cp) =>
         cp.id == product.id &&
-        cp.variant == product.variants?[state.groupValue] &&
+        cp.variant?.sizeName == product.variants[state.groupValue].sizeName &&
         cp.selectedAddOnItems.equals(state.selectedAddOnItems?.toList() ?? []));
   }
 
   updateProductWithCartProduct(ProductDetailsResponse cartProduct) {
     if (state.productDetails != null) {
-      print('variantQuantity---------${cartProduct.variantQuantity}');
+      log('variantQuantity---------${cartProduct.variantQuantity}');
       state = state.copyWith.productDetails!(
         variantQuantity: cartProduct.variantQuantity,
         selectedAddOnItems: cartProduct.selectedAddOnItems,
       );
-      if (state.productDetails!.variants != null &&
+      if (state.productDetails!.variants.isNotEmpty &&
           cartProduct.variant != null) {
-        onSizeSelect(
-            state.productDetails!.variants!.indexOf(cartProduct.variant!));
+        onSizeSelect(state.productDetails!.variants
+            .indexWhere((v) => v.sizeName == cartProduct.variant?.sizeName));
       }
       _updateProduct([]);
     }

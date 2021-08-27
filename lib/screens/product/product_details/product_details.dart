@@ -89,7 +89,6 @@ class ProductDetails extends HookWidget {
         product.productImage!.imageUrl != null
             ? Stack(
                 children: [
-                  // networkImageOverlay(MediaQuery.of(context).size.width, 120,),
                   networkImage(product.productImage!.imageUrl!,
                       MediaQuery.of(context).size.width, 240, 0),
                   Positioned(
@@ -115,7 +114,7 @@ class ProductDetails extends HookWidget {
                         color: darkLight,
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          '${product.variants!.first.sizeName}',
+                          '${product.variants[state.groupValue].sizeName}',
                           style: textDarkRegularBSW(context),
                           textAlign: TextAlign.center,
                         ),
@@ -134,7 +133,7 @@ class ProductDetails extends HookWidget {
                         color: primary(),
                       ),
                       Text(
-                        '${product.tags!.first.title}',
+                        '${product.tags?.first.title}',
                         style: textDarkRegularBSW(context),
                         textAlign: TextAlign.center,
                       ),
@@ -144,7 +143,7 @@ class ProductDetails extends HookWidget {
                     color: darkLight,
                     padding: EdgeInsets.all(4),
                     child: Text(
-                      '${product.variants!.first.sizeName}',
+                      '${product.variants[state.groupValue].sizeName}',
                       style: textDarkRegularBSW(context),
                       textAlign: TextAlign.center,
                     ),
@@ -176,7 +175,7 @@ class ProductDetails extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${((product.variants?[state.groupValue].price ?? 0) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}€',
+                      '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}€',
                       style: textDarkRegularBS(context),
                     ),
                     !state.showAddButton
@@ -204,23 +203,23 @@ class ProductDetails extends HookWidget {
                               counterIcon(
                                 'add',
                                 () async {
-                                  if (product.isCustomizable) {
-                                    await showDialog(
-                                        context: context,
-                                        builder: (context) => showPopUp(
-                                              context,
-                                              product,
-                                              () async {
-                                                Get.back();
-                                                await notifier.addProduct(
-                                                  product,
-                                                  true,
-                                                );
-                                              },
-                                            ));
-                                  } else {
+                                  // if (product.isCustomizable) {
+                                  //   await showDialog(
+                                  //       context: context,
+                                  //       builder: (context) => showPopUp(
+                                  //             context,
+                                  //             product,
+                                  //             () async {
+                                  //               Get.back();
+                                  //               await notifier.addProduct(
+                                  //                 product,
+                                  //                 true,
+                                  //               );
+                                  //             },
+                                  //           ));
+                                  // } else {
                                     await notifier.addProduct(product, true);
-                                  }
+                                  // }
                                 },
                               ),
                             ],
@@ -257,8 +256,7 @@ class ProductDetails extends HookWidget {
                 height: 12,
               ),
               allergenList(context, product.allergens ?? []),
-              sizeBlock(
-                  context, state.groupValue, product.variants ?? [], state),
+              sizeBlock(context, state.groupValue, product.variants, state),
               optionBlockExtra(state.productDetails?.addOnItems ?? [],
                   state.selectedAddOnItems, state),
               SizedBox(

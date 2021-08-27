@@ -39,7 +39,8 @@ class ProductDetailsResponse
       String? productName,
       String? productDescription,
       bool? isVeg,
-      List<VariantResponse>? variants,
+      @Default([])
+          List<VariantResponse> variants,
       @JsonKey(name: 'addOnItems')
       @Default([])
           List<AddOnCategory>? addOnItems,
@@ -59,7 +60,6 @@ class ProductDetailsResponse
           double sellingPrice,
       @Default(0)
           double discount,
-      String? sizeName,
       @Default([])
           List<AddOnItem> selectedAddOnItems,
       @Default(0)
@@ -74,7 +74,7 @@ class ProductDetailsResponse
       String? rateDescription,
       @Default(false)
           bool isLastUsedVariant,
-      @Default(true)
+      @Default(false)
           bool isCustomizable,
       @Default(0)
           int totalQuantity,

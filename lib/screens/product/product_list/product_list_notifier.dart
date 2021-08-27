@@ -138,7 +138,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       final isSameProductMultipleTimes = (newCartProducts.isNotEmpty)
           ? newCartProducts.any((cp) =>
               cp.id == p.id &&
-              (cp.sizeName != p.sizeName ||
+              (cp.variant?.sizeName != p.variant?.sizeName ||
                   !cp.selectedAddOnItems.equals(p.selectedAddOnItems)))
           : false;
       return p.copyWith(

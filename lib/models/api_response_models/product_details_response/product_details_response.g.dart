@@ -42,8 +42,9 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     productDescription: json['productDescription'] as String?,
     isVeg: json['isVeg'] as bool?,
     variants: (json['variants'] as List<dynamic>?)
-        ?.map((e) => VariantResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
+            ?.map((e) => VariantResponse.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
     addOnItems: (json['addOnItems'] as List<dynamic>?)
         ?.map((e) => AddOnCategory.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -60,7 +61,6 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     originalPrice: (json['originalPrice'] as num?)?.toDouble() ?? 0,
     sellingPrice: (json['sellingPrice'] as num?)?.toDouble() ?? 0,
     discount: (json['discount'] as num?)?.toDouble() ?? 0,
-    sizeName: json['sizeName'] as String?,
     selectedAddOnItems: (json['selectedAddOnItems'] as List<dynamic>?)
             ?.map((e) => AddOnItem.fromJson(e as Map<String, dynamic>))
             .toList() ??
@@ -72,7 +72,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     rate: (json['rate'] as num?)?.toDouble() ?? 0,
     rateDescription: json['rateDescription'] as String?,
     isLastUsedVariant: json['isLastUsedVariant'] as bool? ?? false,
-    isCustomizable: json['isCustomizable'] as bool? ?? true,
+    isCustomizable: json['isCustomizable'] as bool? ?? false,
     totalQuantity: json['totalQuantity'] as int? ?? 0,
     variantQuantity: json['variantQuantity'] as int? ?? 0,
     isSameProductMultipleTime:
@@ -121,7 +121,6 @@ Map<String, dynamic> _$_$_ProductDetailsResponseToJson(
       'originalPrice': instance.originalPrice,
       'sellingPrice': instance.sellingPrice,
       'discount': instance.discount,
-      'sizeName': instance.sizeName,
       'selectedAddOnItems': instance.selectedAddOnItems,
       'preparationTime': instance.preparationTime,
       'totalProductPrice': instance.totalProductPrice,
