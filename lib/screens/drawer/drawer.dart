@@ -3,6 +3,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/access_setting/access_setting.dart';
+import 'package:fenix_user/screens/auth/change_password/change_password.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -81,7 +82,7 @@ class DrawerPage extends HookWidget {
             categoryBlock(context, state.homeData?.category),
           InkWell(
             onTap: () {
-              // Get.to(() => ChangePasswordPage());
+              Get.to(() => ChangePasswordPage());
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),

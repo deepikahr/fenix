@@ -4,6 +4,8 @@ import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/screens/auth/access_setting/access_setting_state.dart';
 import 'package:fenix_user/screens/auth/access_setting/access_setting_state_notifier.dart';
+import 'package:fenix_user/screens/auth/change_password/change_password_state.dart';
+import 'package:fenix_user/screens/auth/change_password/change_password_state_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_state.dart';
 import 'package:fenix_user/screens/category/category_state.dart';
@@ -75,4 +77,9 @@ final drawerProvider =
 final accessSettingsProvider = StateNotifierProvider.autoDispose<
     AccessSettingsStateNotifier, AccessSettingsState>((ref) {
   return AccessSettingsStateNotifier(ref);
+});
+
+final changePasswordProvider = StateNotifierProvider.autoDispose<
+    ChangePasswordStateNotifier, ChangePasswordState>((ref) {
+  return ChangePasswordStateNotifier(ref);
 });
