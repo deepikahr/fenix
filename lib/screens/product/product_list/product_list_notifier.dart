@@ -33,7 +33,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
   ) : super(ProductListState());
 
   Future<ProductDataResponse?> fetchProductData(String categoryId) async {
-    state = state.copyWith.call(isLoading: true);
+    state = state.copyWith.call(isLoading: true, products: []);
     final response = await api.productList(categoryId);
     if (ref.mounted) {
       state = state.copyWith.call(

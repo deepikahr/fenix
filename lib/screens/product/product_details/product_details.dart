@@ -38,7 +38,8 @@ class ProductDetails extends HookWidget {
         Future.delayed(Duration.zero, () async {
           final res = await notifier.fetchProductDetails(productId);
           if (res != null) {
-            final cartProduct = notifier.getProductFromCartWithSameVariant(res);
+            final cartProduct = notifier
+                .getProductFromCartWithSameVariantOrLastUsedVariant(res);
             if (cartProduct != null) {
               notifier.updateProductWithCartProduct(cartProduct);
             }
@@ -218,7 +219,7 @@ class ProductDetails extends HookWidget {
                                   //             },
                                   //           ));
                                   // } else {
-                                    await notifier.addProduct(product, true);
+                                  await notifier.addProduct(product, true);
                                   // }
                                 },
                               ),
@@ -386,14 +387,6 @@ class ProductDetails extends HookWidget {
         ],
       ),
     );
-  }
-
-  checkCounter(BuildContext context, selectedAddOnItems, addOnItems, i) {
-    selectedAddOnItems!.forEach((data) {
-      if (data.id == addOnItems[i].id) {
-        context.read(productDetailsProvider.notifier).showCounter(true);
-      }
-    });
   }
 
   AddOnItem? estateSelected;

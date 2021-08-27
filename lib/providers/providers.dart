@@ -8,6 +8,8 @@ import 'package:fenix_user/screens/auth/change_password/change_password_state.da
 import 'package:fenix_user/screens/auth/change_password/change_password_state_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_state.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen_state.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen_notifier.dart';
 import 'package:fenix_user/screens/category/category_state.dart';
 import 'package:fenix_user/screens/category/category_state_notifier.dart';
 import 'package:fenix_user/screens/drawer/drawer_state.dart';
@@ -82,4 +84,8 @@ final accessSettingsProvider = StateNotifierProvider.autoDispose<
 final changePasswordProvider = StateNotifierProvider.autoDispose<
     ChangePasswordStateNotifier, ChangePasswordState>((ref) {
   return ChangePasswordStateNotifier(ref);
+});
+
+final cartScreenProvider = StateNotifierProvider.autoDispose<CartScreenNotifier, CartScreenState>((ref) {
+  return CartScreenNotifier(ref);
 });

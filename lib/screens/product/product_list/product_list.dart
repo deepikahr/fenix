@@ -17,7 +17,8 @@ class ProductList extends HookWidget {
   final String categoryImage;
   final String categoryId;
 
-  ProductList(this.categoryId, this.categoryImage);
+  ProductList(this.categoryId, this.categoryImage, {Key? key})
+      : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 

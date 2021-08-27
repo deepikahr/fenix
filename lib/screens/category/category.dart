@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +13,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 enum CATEGORY_TYPE {
   @JsonValue('BEVERAGE_CATEGORY')
@@ -79,10 +80,10 @@ class CategoryScreen extends HookWidget {
                 i, pageNumber, () => notifier.fetch(categoryType));
             return InkWell(
               onTap: () {
-                notifier.showScreen(ProductList(
-                  category[i].id ?? '',
-                  category[i].imageUrl ?? '',
-                ));
+                context.read(homeTabsProvider.notifier).showScreen(ProductList(
+                      category[i].id ?? '',
+                      category[i].imageUrl ?? '',
+                    ));
               },
               child: restaurantInfoCard(
                 context,
@@ -108,7 +109,10 @@ class CategoryScreen extends HookWidget {
             childAspectRatio: MediaQuery.of(context).size.width / 500),
         itemBuilder: (context, i) {
           handleScrollWithIndex(
-              i, pageNumber, () => notifier.fetch(categoryType));
+            i,
+            pageNumber,
+            () => notifier.fetch(categoryType),
+          );
           return InkWell(
               onTap: () {
                 notifier.showScreen(ProductList(

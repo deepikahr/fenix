@@ -1,4 +1,5 @@
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/category/category.dart';
 import 'package:fenix_user/screens/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home.dart';
@@ -44,15 +45,13 @@ class HomeTabs extends HookWidget {
             context.read(homeTabsProvider.notifier).showScreen(
                 CategoryScreen(UniqueKey(), CATEGORY_TYPE.foodCategory));
           } else if (index == 3) {
-            context.read(homeTabsProvider.notifier).showScreen(Center(
-                  child: Text('Cart is not yet ready'),
-                ));
+            context.read(homeTabsProvider.notifier).showScreen(CartScreen());
           }
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: buildCenterIcon(context, cart, () async {
-        // context.read(homeTabsProvider.notifier).showScreen(CartScreen());
+        context.read(homeTabsProvider.notifier).showScreen(CartScreen());
       }),
     );
   }

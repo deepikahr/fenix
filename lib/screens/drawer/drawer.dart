@@ -10,8 +10,8 @@ import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DrawerPage extends HookWidget {
@@ -48,7 +48,7 @@ class DrawerPage extends HookWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.offAll(() => AccessSettings());
+                    Get.to(() => AccessSettings());
                   },
                   child: Container(
                     width: 50,
@@ -78,13 +78,16 @@ class DrawerPage extends HookWidget {
               ],
             ),
           ),
-          if ((state.homeData?.category.length ?? 0) > 0)
+          if ((state.homeData?.category.length ?? 0) > 0) ...[
             categoryBlock(context, state.homeData?.category),
+            Divider()
+          ],
           InkWell(
             onTap: () {
               Get.to(() => ChangePasswordPage());
             },
             child: Container(
+              width: double.maxFinite,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
             ),
@@ -99,6 +102,7 @@ class DrawerPage extends HookWidget {
               }
             },
             child: Container(
+              width: double.maxFinite,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: titleTextDarkRegularBB20(
                   context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
@@ -111,31 +115,36 @@ class DrawerPage extends HookWidget {
   }
 
   Widget categoryBlock(BuildContext context, List<CategoryResponse>? category) {
-    return ListView.builder(
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: category!.length,
-        itemBuilder: (BuildContext context, int i) {
-          return InkWell(
-            onTap: () {
-              Get.to(() => ProductList(
-                    category[i].id ?? '',
-                    category[i].imageUrl ?? '',
-                  ));
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: titleTextDarkRegularBB20(context, category[i].title),
-                ),
-                Divider(),
-              ],
-            ),
-          );
-        });
+    return ListView.separated(
+      physics: ScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: category!.length,
+      itemBuilder: (BuildContext context, int i) {
+        return InkWell(
+          onTap: () {
+            Get.back();
+            context.read(homeTabsProvider.notifier).showScreen(ProductList(
+                  category[i].id ?? '',
+                  category[i].imageUrl ?? '',
+                  key: UniqueKey(),
+                ));
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                child: titleTextDarkRegularBB20(context, category[i].title),
+              ),
+            ],
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider();
+      },
+    );
   }
 }

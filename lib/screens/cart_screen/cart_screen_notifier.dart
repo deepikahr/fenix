@@ -11,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'cart_screen_state.dart';
 
-class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
+class CartScreenNotifier extends StateNotifier<CartScreenState> {
   final ProviderReference ref;
   API get api {
     return ref.read(apiProvider);
@@ -29,7 +29,7 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
     return ref.read(cartProvider);
   }
 
-  CartScreenStateNotifier(this.ref) : super(CartScreenState());
+  CartScreenNotifier(this.ref) : super(CartScreenState());
 
   void onPageChanged(index) {
     state = state.copyWith(isLoading: true);
@@ -82,7 +82,6 @@ class CartScreenStateNotifier extends StateNotifier<CartScreenState> {
         },
       ).reduce((_, __) => _ + __);
       final subTotal = total;
-      // final grandTotal = total + tax;
       final grandTotal = total;
 
       await cartState.updateCart(cart?.copyWith(

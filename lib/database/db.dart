@@ -161,6 +161,28 @@ class DB {
     return franchiseCode;
   }
 
+  void saveOrderId(orderId) {
+    final box = Hive.box('user');
+    box.put('orderId', orderId);
+  }
+
+  String? getOrderId() {
+    final box = Hive.box('user');
+    String? orderId = box.get('orderId');
+    return orderId;
+  }
+
+  void saveOrderNumber(orderNumber) {
+    final box = Hive.box('user');
+    box.put('orderNumber', orderNumber);
+  }
+
+  String? getOrderNumber() {
+    final box = Hive.box('user');
+    String? orderNumber = box.get('orderNumber');
+    return orderNumber;
+  }
+
   Future<void> logOut() async {
     final box = Hive.box('user');
     await box.delete('cart');
