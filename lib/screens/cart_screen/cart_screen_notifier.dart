@@ -40,7 +40,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
     final newProduct = product.copyWith(
         variantQuantity: product.variantQuantity + (increased ? 1 : -1),
-        modified: true);
+        modified: db.getOrderId() != null);
     if (newProduct.variantQuantity > 0) {
       var products = cart!.products;
       products = products.map((p) {
@@ -57,7 +57,6 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
 
       if (cart!.products.isEmpty) {
         await cartState.deleteCart();
-        await cartState.updateCart(null);
       }
     }
     await updateGrandTotal();
@@ -70,7 +69,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> updateGrandTotal() async {
-    if (cart != null) {
+    if (cart?.products.isNotEmpty ?? false) {
       final total = cart!.products.map(
         (e) {
           return e.totalProductPrice * e.variantQuantity;

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/home/home.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/counterBox.dart';
@@ -24,7 +26,9 @@ class CartScreen extends HookWidget {
 
     useEffect(() {
       if (isMounted()) {
-        context.read(cartScreenProvider.notifier);
+        Future.delayed(Duration.zero, () async {
+          await context.read(cartScreenProvider.notifier).updateGrandTotal();
+        });
       }
       return;
     }, const []);
@@ -82,10 +86,6 @@ class CartScreen extends HookWidget {
                                         Text(
                                             'Total: ${cart.subTotal.toStringAsFixed(2)}',
                                             style: textPrimaryXXSmall(context)),
-                                        // Text(
-                                        //     'Tax: ${cart.taxTotal.toStringAsFixed(2)}',
-                                        //     style: textPrimaryXXSmall(context)
-                                        // ),
                                         Text(
                                             'Grand Total: ${cart.grandTotal.toStringAsFixed(2)}',
                                             style: textPrimaryXXSmallDark(
@@ -93,9 +93,6 @@ class CartScreen extends HookWidget {
                                       ],
                                     ),
                                   ),
-                                  // totalRow(context, 'Sub Total',
-                                  //     cart.subTotal.toStringAsFixed(2)),
-                                  // totalRow(context, 'Grand Total', cart.grandTotal.toStringAsFixed(2)),
                                   Container(
                                     color: grey2,
                                     padding: const EdgeInsets.only(
@@ -109,10 +106,9 @@ class CartScreen extends HookWidget {
                                             context, 'ADD_MORE_PRODUCTS'.tr,
                                             () async {
                                           // TODO(krishna):
-                                          // context
-                                          //     .read(homeTabsProvider.notifier)
-                                          //     .onPageChanged(5);
-                                          // Get.to(() => ProductList(categoryId: DB().getCategoryId(), categoryImage: DB().getCategoryImage()));
+                                          context
+                                              .read(homeTabsProvider.notifier)
+                                              .showScreen(Home());
                                         }, false),
                                         state.isLoading || state.isUpdateLoading
                                             ? GFLoader(type: GFLoaderType.ios)
@@ -129,29 +125,21 @@ class CartScreen extends HookWidget {
                                                       Fluttertoast.showToast(
                                                           msg:
                                                               '${state.orderResponse!.message}');
-                                                      // ScaffoldMessenger.of(context)
-                                                      //     .showSnackBar(SnackBar(
-                                                      //     content: Text('${state.orderResponse!.message}')));
                                                     }
                                                     Timer(Duration(seconds: 2),
                                                         () async {
-                                                      // TODO(krishna):
-                                                      // context
-                                                      //     .read(homeTabsProvider
-                                                      //         .notifier)
-                                                      //     .showScreen(OrdersInProcess());
-
-                                                      // await Get.to(
-                                                      //         () => OrdersInProcess());
+                                                      context
+                                                          .read(homeTabsProvider
+                                                              .notifier)
+                                                          .showScreen(
+                                                              OrdersInProcess());
                                                     });
                                                   }, state.isLoading)
-                                                : cart.products
-                                                            .where((element) =>
-                                                                element
-                                                                    .modified)
-                                                            .isNotEmpty &&
+                                                : (cart.products.any(
+                                                            (element) => element
+                                                                .modified) &&
                                                         DB().getOrderId() !=
-                                                            null
+                                                            null)
                                                     ? custombuttonsm(context,
                                                         'MODIFY_ORDER'.tr,
                                                         () async {
@@ -165,44 +153,29 @@ class CartScreen extends HookWidget {
                                                           Fluttertoast.showToast(
                                                               msg:
                                                                   '${updateResponse}');
-                                                          // ScaffoldMessenger.of(context)
-                                                          //     .showSnackBar(SnackBar(
-                                                          //     content: Text(
-                                                          //         '${updateResponse}')));
                                                           Timer(
                                                               Duration(
                                                                   seconds: 2),
                                                               () async {
-                                                            // TODO(krishna):
-                                                            // context
-                                                            //     .read(homeTabsProvider
-                                                            //         .notifier)
-                                                            //     .onPageChanged(
-                                                            //         7);
-                                                            // await Get.to(
-                                                            //         () => OrdersInProcess());
+                                                            context
+                                                                .read(homeTabsProvider
+                                                                    .notifier)
+                                                                .showScreen(
+                                                                    OrdersInProcess());
                                                           });
                                                         }
                                                       }, state.isUpdateLoading)
-                                                    // : DB().getOrderId()!= null ? custombuttonsm(
-                                                    // context,
-                                                    // 'ADD_MORE_PRODUCTS'.tr,
-                                                    //     () async {
-                                                    //       await Get.to(
-                                                    //               () => HomeTabs(tabIndex: 0,));
-                                                    // },
-                                                    // false)
                                                     : Container()
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
-                    )
+                    ),
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)
@@ -291,18 +264,15 @@ class CartScreen extends HookWidget {
                             margin: EdgeInsets.symmetric(horizontal: 16),
                             padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                                color: primary(),
-                                borderRadius: BorderRadius.circular(5)),
+                              color: primary(),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                             child: Text(
                               'ALLERGENS'.tr,
                               style: textWhiteRegularBM(),
                             ),
                           )
                         : Container(),
-                    // Text(
-                    //     'Tax: ${cartProduct.taxInfo!.taxPercentage} %',
-                    //     style: textPrimaryXXSmall(context)
-                    // ),
                   ],
                 ),
                 SizedBox(

@@ -144,7 +144,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       return p.copyWith(
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
-        modified: cartState != null,
+        modified: db.getOrderId() != null,
       );
     }).toList();
 

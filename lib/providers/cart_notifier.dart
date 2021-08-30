@@ -27,5 +27,6 @@ class CartNotifier extends StateNotifier<Cart?> {
   Future<void> _deleteCart() async {
     final box = Hive.box('user');
     await box.delete('cart');
+    await box.deleteAll(['cart', 'orderNumber', 'orderId']);
   }
 }

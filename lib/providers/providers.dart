@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/network/api_service.dart';
@@ -8,8 +10,8 @@ import 'package:fenix_user/screens/auth/change_password/change_password_state.da
 import 'package:fenix_user/screens/auth/change_password/change_password_state_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_notifier.dart';
 import 'package:fenix_user/screens/auth/login/login_state.dart';
-import 'package:fenix_user/screens/cart_screen/cart_screen_state.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen_notifier.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen_state.dart';
 import 'package:fenix_user/screens/category/category_state.dart';
 import 'package:fenix_user/screens/category/category_state_notifier.dart';
 import 'package:fenix_user/screens/drawer/drawer_state.dart';
@@ -24,13 +26,20 @@ import 'package:fenix_user/screens/product/product_list/product_list_notifier.da
 import 'package:fenix_user/screens/product/product_list/product_list_state.dart';
 import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:fenix_user/screens/settings/settings_state_notifier.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final apiProvider = Provider((ref) => API());
 final dbProvider = Provider((ref) => DB());
 
 final cartProvider = StateNotifierProvider<CartNotifier, Cart?>((ref) {
-  return CartNotifier();
+  final box = Hive.box('user');
+  final dbCart = box.get('cart');
+  Cart? cart;
+  if (dbCart != null) {
+    cart = Cart.fromJson(json.decode(dbCart));
+  }
+  return CartNotifier(cart: cart);
 });
 
 final homeTabsProvider =
@@ -86,6 +95,8 @@ final changePasswordProvider = StateNotifierProvider.autoDispose<
   return ChangePasswordStateNotifier(ref);
 });
 
-final cartScreenProvider = StateNotifierProvider.autoDispose<CartScreenNotifier, CartScreenState>((ref) {
+final cartScreenProvider =
+    StateNotifierProvider.autoDispose<CartScreenNotifier, CartScreenState>(
+        (ref) {
   return CartScreenNotifier(ref);
 });

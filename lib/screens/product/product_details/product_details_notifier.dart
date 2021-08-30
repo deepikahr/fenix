@@ -105,7 +105,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
               : 0),
       variant: product.variants[state.groupValue],
       selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
-      modified: cartState != null,
+      modified: db.getOrderId() != null,
     );
     final cart = Cart(
       franchiseId: product.franchiseId,
@@ -143,7 +143,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       totalProductPrice: totalPrice,
       variant: product.variants[state.groupValue],
       selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
-      modified: cartState != null,
+      modified: db.getOrderId() != null,
     );
 
     var newCart = data?.copyWith.call(
@@ -222,7 +222,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         variantQuantity: cp?.variantQuantity ?? 0,
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
-        modified: cartState != null,
+        modified: db.getOrderId() != null,
       );
 
       showAddButton(state.productDetails!.variantQuantity < 1);

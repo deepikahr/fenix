@@ -185,9 +185,7 @@ class DB {
 
   Future<void> logOut() async {
     final box = Hive.box('user');
-    await box.delete('cart');
-    await box.delete('token');
-    await box.delete('role');
-    await box.delete('id');
+    await box
+        .deleteAll(['cart', 'token', 'role', 'id', 'orderNumber', 'orderId']);
   }
 }
