@@ -11,7 +11,8 @@ class BannerResponse with BaseModel<BannerResponse>, _$BannerResponse {
   const factory BannerResponse({
     @JsonKey(name: '_id') String? id,
     ImageResponse? image,
-    String? title
+    String? title,
+    String? productId,
   }) = _BannerResponse;
 
   factory BannerResponse.fromJson(Map<String, dynamic> json) =>
@@ -27,5 +28,3 @@ class BannerResponse with BaseModel<BannerResponse>, _$BannerResponse {
     return toJson();
   }
 }
-
-

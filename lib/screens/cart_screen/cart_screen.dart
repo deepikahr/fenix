@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -257,7 +258,8 @@ class CartScreen extends HookWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('${cartProduct.totalProductPrice.toStringAsFixed(2)}€',
+                    Text(
+                        '${cartProduct.totalProductPrice.toStringAsFixed(2)}${Constants.currency}',
                         style: textBlackLargeBM(context)),
                     cartProduct.allergens!.isNotEmpty
                         ? Container(

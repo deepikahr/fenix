@@ -34,7 +34,7 @@ class _$OrderDetailsResponseTearOff {
       String? userId,
       String? currencyCode,
       String? currencySymbol,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       int? orderID,
       String? createdAt,
       String? updatedAt}) {
@@ -83,7 +83,7 @@ mixin _$OrderDetailsResponse {
   String? get userId => throw _privateConstructorUsedError;
   String? get currencyCode => throw _privateConstructorUsedError;
   String? get currencySymbol => throw _privateConstructorUsedError;
-  String? get orderStatus => throw _privateConstructorUsedError;
+  ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
   int? get orderID => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
@@ -113,7 +113,7 @@ abstract class $OrderDetailsResponseCopyWith<$Res> {
       String? userId,
       String? currencyCode,
       String? currencySymbol,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       int? orderID,
       String? createdAt,
       String? updatedAt});
@@ -204,7 +204,7 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
       orderStatus: orderStatus == freezed
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ORDER_STATUS?,
       orderID: orderID == freezed
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
@@ -242,7 +242,7 @@ abstract class _$OrderDetailsResponseCopyWith<$Res>
       String? userId,
       String? currencyCode,
       String? currencySymbol,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       int? orderID,
       String? createdAt,
       String? updatedAt});
@@ -335,7 +335,7 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
       orderStatus: orderStatus == freezed
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ORDER_STATUS?,
       orderID: orderID == freezed
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
@@ -407,7 +407,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
   @override
   final String? currencySymbol;
   @override
-  final String? orderStatus;
+  final ORDER_STATUS? orderStatus;
   @override
   final int? orderID;
   @override
@@ -522,7 +522,7 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
       String? userId,
       String? currencyCode,
       String? currencySymbol,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       int? orderID,
       String? createdAt,
       String? updatedAt}) = _$_OrderDetailsResponse;
@@ -559,7 +559,7 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
   @override
   String? get currencySymbol => throw _privateConstructorUsedError;
   @override
-  String? get orderStatus => throw _privateConstructorUsedError;
+  ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
   @override
   int? get orderID => throw _privateConstructorUsedError;
   @override

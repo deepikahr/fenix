@@ -5,6 +5,9 @@ class Constants {
   // app name
   static String appName = 'Restaurant Sass';
 
+  // app name
+  static String currency = '€';
+
   // restaurant name
   static String restaurantName = "GASTROBAR";
 
@@ -34,4 +37,10 @@ class Constants {
   static String emailVarification = r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+';
 
   static String mobileVerification = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+
+  static List notifyList = [
+    'HELP WITH THE NAPKIN RACK',
+    'ASK SOMETHING',
+    'REQUEST NAPKINS'
+  ];
 }

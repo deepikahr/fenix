@@ -20,6 +20,10 @@ import 'package:fenix_user/screens/home/home_notifier.dart';
 import 'package:fenix_user/screens/home/home_state.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_state.dart';
+import 'package:fenix_user/screens/notify_waiter/notify_waiter_state.dart';
+import 'package:fenix_user/screens/notify_waiter/notify_waiter_state_notifier.dart';
+import 'package:fenix_user/screens/order_details/order_details_state.dart';
+import 'package:fenix_user/screens/order_details/order_details_state_notifier.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_notifier.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_state.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
@@ -99,4 +103,14 @@ final cartScreenProvider =
     StateNotifierProvider.autoDispose<CartScreenNotifier, CartScreenState>(
         (ref) {
   return CartScreenNotifier(ref);
+});
+
+final notifyWaiterProvider = StateNotifierProvider.autoDispose<
+    NotifyWaiterStateNotifier, NotifyWaiterState>((ref) {
+  return NotifyWaiterStateNotifier(ref);
+});
+
+final orderDetailsProvider = StateNotifierProvider.autoDispose<
+    OrderDetailsStateNotifier, OrderDetailsState>((ref) {
+  return OrderDetailsStateNotifier(ref);
 });

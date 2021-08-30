@@ -13,6 +13,7 @@ _$_BannerResponse _$_$_BannerResponseFromJson(Map<String, dynamic> json) {
         ? null
         : ImageResponse.fromJson(json['image'] as Map<String, dynamic>),
     title: json['title'] as String?,
+    productId: json['productId'] as String?,
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$_$_BannerResponseToJson(_$_BannerResponse instance) =>
       '_id': instance.id,
       'image': instance.image,
       'title': instance.title,
+      'productId': instance.productId,
     };

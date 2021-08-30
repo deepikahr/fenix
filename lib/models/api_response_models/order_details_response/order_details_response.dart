@@ -6,28 +6,40 @@ import '../../base_model.dart';
 part 'order_details_response.freezed.dart';
 part 'order_details_response.g.dart';
 
+enum ORDER_STATUS {
+  @JsonValue('PENDING')
+  pending,
+  @JsonValue('CONFIRMED')
+  confirmed,
+  @JsonValue('COMPLETED')
+  completed,
+  @JsonValue('CANCELLED')
+  cancelled,
+}
+
 @freezed
-class OrderDetailsResponse with BaseModel<OrderDetailsResponse>, _$OrderDetailsResponse {
+class OrderDetailsResponse
+    with BaseModel<OrderDetailsResponse>, _$OrderDetailsResponse {
   const OrderDetailsResponse._();
 
   const factory OrderDetailsResponse({
     @JsonKey(name: '_id') String? id,
-  bool? isAcceptedByDeliveryBoy,
-  @Default([]) List<CartProduct> cart,
-  double? grandTotal,
-  double? subTotal,
-  String? paymentType,
-  String? restaurantName,
-  String? franchiseName,
-  String? franchiseId,
-  String? vendorId,
-  String? userId,
-  String? currencyCode,
-  String? currencySymbol,
-  String? orderStatus,
-  int? orderID,
-  String? createdAt,
-  String? updatedAt,
+    bool? isAcceptedByDeliveryBoy,
+    @Default([]) List<CartProduct> cart,
+    double? grandTotal,
+    double? subTotal,
+    String? paymentType,
+    String? restaurantName,
+    String? franchiseName,
+    String? franchiseId,
+    String? vendorId,
+    String? userId,
+    String? currencyCode,
+    String? currencySymbol,
+    ORDER_STATUS? orderStatus,
+    int? orderID,
+    String? createdAt,
+    String? updatedAt,
   }) = _OrderDetailsResponse;
 
   factory OrderDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -43,5 +55,3 @@ class OrderDetailsResponse with BaseModel<OrderDetailsResponse>, _$OrderDetailsR
     return toJson();
   }
 }
-
-

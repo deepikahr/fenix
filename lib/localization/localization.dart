@@ -73,7 +73,11 @@ class Localization extends Translations {
           'THANK_YOU_VERY_MUCH,': 'Thank you very much,',
           'WE_WAIT_FOR_YOU_SOON.': 'We wait for you soon.',
           'CHANGE_PASSCODE': 'Change passcode',
-          'LOGOUT': 'Logout'
+          'LOGOUT': 'Logout',
+          'ORDER_PENDING': 'Order Pending',
+          'ORDER_CONFIRMED': 'Order Confirmed',
+          'ORDER_COMPLETED': 'Order Completed',
+          'ORDER_CANCELLED': 'Order Cancelled'
         }
       };
 }

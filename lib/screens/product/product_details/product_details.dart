@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
@@ -176,7 +177,7 @@ class ProductDetails extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}€',
+                      '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
                     !state.showAddButton
@@ -372,7 +373,7 @@ class ProductDetails extends HookWidget {
                   children: [
                     Text('${variants[i].sizeName} -  ',
                         style: textDarkRegularBR(context)),
-                    Text('${variants[i].price}€',
+                    Text('${variants[i].price}${Constants.currency}',
                         style: textBlackLargeBM(context)),
                   ],
                 ),
@@ -447,7 +448,8 @@ class ProductDetails extends HookWidget {
                               children: [
                                 Text('${addOnItems[i].addOnItemName} - ',
                                     style: textDarkRegularBR(context)),
-                                Text('${addOnItems[i].addOnItemPrice}€',
+                                Text(
+                                    '${addOnItems[i].addOnItemPrice}${Constants.currency}',
                                     style: textBlackLargeBM(context)),
                               ],
                             ),

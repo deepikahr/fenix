@@ -2,6 +2,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/banner_response/banner_response.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/product/product_details/product_details.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
@@ -61,7 +62,14 @@ class Home extends HookWidget {
     var list = banners.map(
       (banner) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            print('banner $banner');
+            if (banner.productId != null) {
+              context
+                  .read(homeTabsProvider.notifier)
+                  .showScreen(ProductDetails(banner.productId ?? ''));
+            }
+          },
           child: carouselCard(
             context,
             banner.image!.imageUrl,

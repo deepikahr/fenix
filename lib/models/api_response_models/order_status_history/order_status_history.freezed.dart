@@ -23,7 +23,7 @@ class _$OrderStatusHistoryTearOff {
   _OrderStatusHistory call(
       {@JsonKey(name: '_id') String? id,
       int? timestamp,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       String? message}) {
     return _OrderStatusHistory(
       id: id,
@@ -46,7 +46,7 @@ mixin _$OrderStatusHistory {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError;
-  String? get orderStatus => throw _privateConstructorUsedError;
+  ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $OrderStatusHistoryCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: '_id') String? id,
       int? timestamp,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       String? message});
 }
 
@@ -95,7 +95,7 @@ class _$OrderStatusHistoryCopyWithImpl<$Res>
       orderStatus: orderStatus == freezed
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ORDER_STATUS?,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -114,7 +114,7 @@ abstract class _$OrderStatusHistoryCopyWith<$Res>
   $Res call(
       {@JsonKey(name: '_id') String? id,
       int? timestamp,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       String? message});
 }
 
@@ -148,7 +148,7 @@ class __$OrderStatusHistoryCopyWithImpl<$Res>
       orderStatus: orderStatus == freezed
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ORDER_STATUS?,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -176,7 +176,7 @@ class _$_OrderStatusHistory extends _OrderStatusHistory {
   @override
   final int? timestamp;
   @override
-  final String? orderStatus;
+  final ORDER_STATUS? orderStatus;
   @override
   final String? message;
 
@@ -224,7 +224,7 @@ abstract class _OrderStatusHistory extends OrderStatusHistory {
   const factory _OrderStatusHistory(
       {@JsonKey(name: '_id') String? id,
       int? timestamp,
-      String? orderStatus,
+      ORDER_STATUS? orderStatus,
       String? message}) = _$_OrderStatusHistory;
   const _OrderStatusHistory._() : super._();
 
@@ -237,7 +237,7 @@ abstract class _OrderStatusHistory extends OrderStatusHistory {
   @override
   int? get timestamp => throw _privateConstructorUsedError;
   @override
-  String? get orderStatus => throw _privateConstructorUsedError;
+  ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
   @override
   String? get message => throw _privateConstructorUsedError;
   @override

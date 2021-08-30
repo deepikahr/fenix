@@ -115,10 +115,10 @@ class CategoryScreen extends HookWidget {
           );
           return InkWell(
               onTap: () {
-                notifier.showScreen(ProductList(
-                  category[i].id ?? '',
-                  category[i].imageUrl ?? '',
-                ));
+                context.read(homeTabsProvider.notifier).showScreen(ProductList(
+                      category[i].id ?? '',
+                      category[i].imageUrl ?? '',
+                    ));
               },
               child: restaurantInfoCardGrid(
                 context,

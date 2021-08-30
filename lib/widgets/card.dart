@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -160,7 +161,7 @@ Widget dishesInfoCard(
                     children: [
                       categoryImage != null
                           ? Text(
-                              '${product.variant!.price}€',
+                              '${product.variant!.price}${Constants.currency}',
                               style: textDarkRegularBS(context),
                             )
                           : Container(),
@@ -250,7 +251,7 @@ Widget dishesInfoCard(
                 left: 30,
                 right: 0,
                 child: Text(
-                  '${product.variant!.price}€',
+                  '${product.variant!.price}${Constants.currency}',
                   style: textWhiteLargeBMM(context),
                 ),
               )
@@ -340,7 +341,7 @@ Widget gridDishCard(
                             ),
                             categoryImage == null
                                 ? Text(
-                                    '${product.variant!.price}€',
+                                    '${product.variant!.price}${Constants.currency}',
                                     style: textWhiteLargeBMM(context),
                                   )
                                 : Container()
@@ -386,7 +387,7 @@ Widget gridDishCard(
                     children: [
                       categoryImage != null
                           ? Text(
-                              '${product.variant!.price}€',
+                              '${product.variant!.price}${Constants.currency}',
                               style: textDarkRegularBS(context),
                             )
                           : Container(),

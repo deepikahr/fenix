@@ -27,7 +27,7 @@ class Thankyou extends HookWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    stops: [0.1, 0.5, 0.7, 0.9],
+                    // stops: [0.1, 0.5, 0.7, 0.9],
                     colors: [
                       Color(0xFF359D59),
                       Color(0xFF1B4F2D),

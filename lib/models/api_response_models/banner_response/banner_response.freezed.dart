@@ -21,11 +21,15 @@ class _$BannerResponseTearOff {
   const _$BannerResponseTearOff();
 
   _BannerResponse call(
-      {@JsonKey(name: '_id') String? id, ImageResponse? image, String? title}) {
+      {@JsonKey(name: '_id') String? id,
+      ImageResponse? image,
+      String? title,
+      String? productId}) {
     return _BannerResponse(
       id: id,
       image: image,
       title: title,
+      productId: productId,
     );
   }
 
@@ -43,6 +47,7 @@ mixin _$BannerResponse {
   String? get id => throw _privateConstructorUsedError;
   ImageResponse? get image => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  String? get productId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +61,10 @@ abstract class $BannerResponseCopyWith<$Res> {
           BannerResponse value, $Res Function(BannerResponse) then) =
       _$BannerResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: '_id') String? id, ImageResponse? image, String? title});
+      {@JsonKey(name: '_id') String? id,
+      ImageResponse? image,
+      String? title,
+      String? productId});
 
   $ImageResponseCopyWith<$Res>? get image;
 }
@@ -75,6 +83,7 @@ class _$BannerResponseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? image = freezed,
     Object? title = freezed,
+    Object? productId = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -88,6 +97,10 @@ class _$BannerResponseCopyWithImpl<$Res>
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -112,7 +125,10 @@ abstract class _$BannerResponseCopyWith<$Res>
       __$BannerResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: '_id') String? id, ImageResponse? image, String? title});
+      {@JsonKey(name: '_id') String? id,
+      ImageResponse? image,
+      String? title,
+      String? productId});
 
   @override
   $ImageResponseCopyWith<$Res>? get image;
@@ -134,6 +150,7 @@ class __$BannerResponseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? image = freezed,
     Object? title = freezed,
+    Object? productId = freezed,
   }) {
     return _then(_BannerResponse(
       id: id == freezed
@@ -148,6 +165,10 @@ class __$BannerResponseCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -156,7 +177,7 @@ class __$BannerResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BannerResponse extends _BannerResponse {
   const _$_BannerResponse(
-      {@JsonKey(name: '_id') this.id, this.image, this.title})
+      {@JsonKey(name: '_id') this.id, this.image, this.title, this.productId})
       : super._();
 
   factory _$_BannerResponse.fromJson(Map<String, dynamic> json) =>
@@ -169,10 +190,12 @@ class _$_BannerResponse extends _BannerResponse {
   final ImageResponse? image;
   @override
   final String? title;
+  @override
+  final String? productId;
 
   @override
   String toString() {
-    return 'BannerResponse(id: $id, image: $image, title: $title)';
+    return 'BannerResponse(id: $id, image: $image, title: $title, productId: $productId)';
   }
 
   @override
@@ -184,7 +207,10 @@ class _$_BannerResponse extends _BannerResponse {
             (identical(other.image, image) ||
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.title, title) ||
-                const DeepCollectionEquality().equals(other.title, title)));
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.productId, productId) ||
+                const DeepCollectionEquality()
+                    .equals(other.productId, productId)));
   }
 
   @override
@@ -192,7 +218,8 @@ class _$_BannerResponse extends _BannerResponse {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(image) ^
-      const DeepCollectionEquality().hash(title);
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(productId);
 
   @JsonKey(ignore: true)
   @override
@@ -209,7 +236,8 @@ abstract class _BannerResponse extends BannerResponse {
   const factory _BannerResponse(
       {@JsonKey(name: '_id') String? id,
       ImageResponse? image,
-      String? title}) = _$_BannerResponse;
+      String? title,
+      String? productId}) = _$_BannerResponse;
   const _BannerResponse._() : super._();
 
   factory _BannerResponse.fromJson(Map<String, dynamic> json) =
@@ -222,6 +250,8 @@ abstract class _BannerResponse extends BannerResponse {
   ImageResponse? get image => throw _privateConstructorUsedError;
   @override
   String? get title => throw _privateConstructorUsedError;
+  @override
+  String? get productId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BannerResponseCopyWith<_BannerResponse> get copyWith =>
