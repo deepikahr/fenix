@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.3
-  getwidget: ^2.0.3
+  getwidget: ^2.0.4
   flutter_svg: ^0.22.0
   hooks_riverpod: ^0.14.0
   dotted_line: ^3.0.0
@@ -210,6 +210,7 @@ flutter:
     - lib/assets/icons/foods.svg
     - lib/assets/icons/pay.svg
     - lib/assets/icons/return.svg
+    - lib/assets/icons/toPay.svg
 
     - lib/assets/icons/profile/about.png
     - lib/assets/icons/profile/cookie.png

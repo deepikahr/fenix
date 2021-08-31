@@ -23,4 +23,10 @@ class URL {
 
   static const LANGUAGES = '/languages/list';
   static const GET_LOCALIZATION_JSON = '/languages/user';
+
+  static const String DELIVERY_BOY_SEND_MESSAGE_TO_USER_SOCKET =
+      "message-delivery-boy-to-user";
+  static const String USER_SEND_MESSAGE_TO_DELIVERY_BOY_SOCKET_LISTEN =
+      "message-delivery-boy-user-";
+
 }

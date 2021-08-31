@@ -20,6 +20,7 @@ class HomeTabs extends HookWidget {
     final state = useProvider(homeTabsProvider);
     final notifier = useProvider(homeTabsProvider.notifier);
     final cart = useProvider(cartProvider);
+    final orders = useProvider(orderDetailsProvider);
     final isMounted = useIsMounted();
 
     useEffect(() {
@@ -69,6 +70,7 @@ class HomeTabs extends HookWidget {
             notifier.showScreen(OrderDetails());
           }
         },
+          orders.orderDetails?.cart.length == null ? '0' : orders.orderDetails?.cart.length
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: buildCenterIcon(context, cart, () async {

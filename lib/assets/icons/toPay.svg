@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="115.268" height="121.176" viewBox="0 0 115.268 121.176">
+  <g id="ICONO_PAGAR" data-name="ICONO PAGAR" transform="translate(-19.483 -46.062)">
+    <path id="Path_66" data-name="Path 66" d="M316.3,335.538v9.816a14.967,14.967,0,1,0,29.934,0l0-98.738V288.74" transform="translate(-214.984 -196.584)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <path id="Path_67" data-name="Path 67" d="M137.97,240.055V155.62h86.923" transform="translate(-93.713 -106.058)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <path id="Path_68" data-name="Path 68" d="M149.813,426.947v10.216a14.97,14.97,0,0,0,14.965,14.968H86.445A14.971,14.971,0,0,1,71.48,437.163v-13.4" transform="translate(-48.497 -288.403)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <path id="Path_69" data-name="Path 69" d="M71.48,419.05c5.6,0,5.6,4.851,11.2,4.851s5.6-4.851,11.2-4.851,5.6,4.851,11.2,4.851,5.593-4.851,11.2-4.851,5.6,4.851,11.2,4.851,5.593-4.851,11.2-4.851,5.6,4.851,11.2,4.851" transform="translate(-48.497 -285.2)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <line id="Line_4" data-name="Line 4" x2="45.006" transform="translate(65.25 76.436)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <line id="Line_5" data-name="Line 5" x2="45.006" transform="translate(65.25 96.555)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <line id="Line_6" data-name="Line 6" x2="45.006" transform="translate(65.25 116.675)" fill="none" stroke="#2c2c2c" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+  </g>
+</svg>
