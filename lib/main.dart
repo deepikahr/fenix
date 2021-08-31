@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
