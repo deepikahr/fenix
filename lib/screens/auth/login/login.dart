@@ -36,13 +36,8 @@ class LoginPage extends HookWidget {
           child: AppBar(
             backgroundColor: appBarDark,
             leading: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Settings(),
-                  ),
-                );
+              onTap: () async {
+                await Get.offAll(() => Settings());
               },
               child: Container(
                 margin: EdgeInsets.only(left: 16, top: 16),
@@ -138,8 +133,6 @@ class LoginPage extends HookWidget {
                   }
                 }
               }, state.isLoading),
-
-              // if (state.isLoading) GFLoader(type: GFLoaderType.ios),
             ],
           ),
         ),

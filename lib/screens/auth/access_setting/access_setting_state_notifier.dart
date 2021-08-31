@@ -26,8 +26,15 @@ class AccessSettingsStateNotifier extends StateNotifier<AccessSettingsState> {
         await api.loginVerify(tableNumber, franchiseCode, password);
 
     if (response != null) {
-      await db.storeUserData(response.token!, response.role!, response.id!,
-          response.franchiseId!, response.vendorId!);
+      await db.storeUserData(
+        response.token!,
+        response.role!,
+        response.id!,
+        response.franchiseId!,
+        response.vendorId!,
+        response.restaurantName!,
+        response.franchiseName!,
+      );
     }
 
     state = state.copyWith.call(isLoading: false);

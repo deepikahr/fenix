@@ -9,8 +9,11 @@ part 'call_waiter_request.g.dart';
 class CallWaiterRequest with BaseModel<CallWaiterRequest>, _$CallWaiterRequest {
   const CallWaiterRequest._();
 
-  const factory CallWaiterRequest({String? title, String? description}) =
-      _CallWaiterRequest;
+  const factory CallWaiterRequest({
+    String? title,
+    String? description,
+    String? orderId,
+  }) = _CallWaiterRequest;
 
   factory CallWaiterRequest.fromJson(Map<String, dynamic> json) =>
       _$CallWaiterRequestFromJson(json);

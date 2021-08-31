@@ -25,16 +25,36 @@ class DB {
     await Hive.close();
   }
 
-  Future<void> storeUserData(String token, String role, String id,
-      String franchiseId, String vendorId) async {
+  Future<void> storeUserData(
+      String token,
+      String role,
+      String id,
+      String franchiseId,
+      String vendorId,
+      String restaurantName,
+      String franchiseName) async {
     final box = Hive.box('user');
     await box.putAll({
       'token': token,
       'role': role,
       'id': id,
       'franchiseId': franchiseId,
-      'vendorId': vendorId
+      'vendorId': vendorId,
+      'restaurantName': restaurantName,
+      'franchiseName': franchiseName
     });
+  }
+
+  String? getFranchiseName() {
+    final box = Hive.box('user');
+    String? franchiseName = box.get('franchiseName');
+    return franchiseName;
+  }
+
+  String? getRestaurantName() {
+    final box = Hive.box('user');
+    String? restaurantName = box.get('restaurantName');
+    return restaurantName;
   }
 
   bool isLoggedIn() {

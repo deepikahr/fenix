@@ -25,9 +25,10 @@ class OrderDetailsResponse
   const factory OrderDetailsResponse({
     @JsonKey(name: '_id') String? id,
     bool? isAcceptedByDeliveryBoy,
+    @Default(0) double amountPaid,
     @Default([]) List<CartProduct> cart,
-    double? grandTotal,
-    double? subTotal,
+    @Default(0) double grandTotal,
+    @Default(0) double subTotal,
     String? paymentType,
     String? restaurantName,
     String? franchiseName,
@@ -38,6 +39,7 @@ class OrderDetailsResponse
     String? currencySymbol,
     ORDER_STATUS? orderStatus,
     int? orderID,
+    int? tableNumber,
     String? createdAt,
     String? updatedAt,
   }) = _OrderDetailsResponse;

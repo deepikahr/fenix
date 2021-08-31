@@ -23,9 +23,10 @@ class _$OrderDetailsResponseTearOff {
   _OrderDetailsResponse call(
       {@JsonKey(name: '_id') String? id,
       bool? isAcceptedByDeliveryBoy,
+      double amountPaid = 0,
       List<CartProduct> cart = const [],
-      double? grandTotal,
-      double? subTotal,
+      double grandTotal = 0,
+      double subTotal = 0,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -36,11 +37,13 @@ class _$OrderDetailsResponseTearOff {
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
       int? orderID,
+      int? tableNumber,
       String? createdAt,
       String? updatedAt}) {
     return _OrderDetailsResponse(
       id: id,
       isAcceptedByDeliveryBoy: isAcceptedByDeliveryBoy,
+      amountPaid: amountPaid,
       cart: cart,
       grandTotal: grandTotal,
       subTotal: subTotal,
@@ -54,6 +57,7 @@ class _$OrderDetailsResponseTearOff {
       currencySymbol: currencySymbol,
       orderStatus: orderStatus,
       orderID: orderID,
+      tableNumber: tableNumber,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
@@ -72,9 +76,10 @@ mixin _$OrderDetailsResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   bool? get isAcceptedByDeliveryBoy => throw _privateConstructorUsedError;
+  double get amountPaid => throw _privateConstructorUsedError;
   List<CartProduct> get cart => throw _privateConstructorUsedError;
-  double? get grandTotal => throw _privateConstructorUsedError;
-  double? get subTotal => throw _privateConstructorUsedError;
+  double get grandTotal => throw _privateConstructorUsedError;
+  double get subTotal => throw _privateConstructorUsedError;
   String? get paymentType => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
@@ -85,6 +90,7 @@ mixin _$OrderDetailsResponse {
   String? get currencySymbol => throw _privateConstructorUsedError;
   ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
   int? get orderID => throw _privateConstructorUsedError;
+  int? get tableNumber => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
 
@@ -102,9 +108,10 @@ abstract class $OrderDetailsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: '_id') String? id,
       bool? isAcceptedByDeliveryBoy,
+      double amountPaid,
       List<CartProduct> cart,
-      double? grandTotal,
-      double? subTotal,
+      double grandTotal,
+      double subTotal,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -115,6 +122,7 @@ abstract class $OrderDetailsResponseCopyWith<$Res> {
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
       int? orderID,
+      int? tableNumber,
       String? createdAt,
       String? updatedAt});
 }
@@ -132,6 +140,7 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? isAcceptedByDeliveryBoy = freezed,
+    Object? amountPaid = freezed,
     Object? cart = freezed,
     Object? grandTotal = freezed,
     Object? subTotal = freezed,
@@ -145,6 +154,7 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
     Object? currencySymbol = freezed,
     Object? orderStatus = freezed,
     Object? orderID = freezed,
+    Object? tableNumber = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -157,6 +167,10 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
           ? _value.isAcceptedByDeliveryBoy
           : isAcceptedByDeliveryBoy // ignore: cast_nullable_to_non_nullable
               as bool?,
+      amountPaid: amountPaid == freezed
+          ? _value.amountPaid
+          : amountPaid // ignore: cast_nullable_to_non_nullable
+              as double,
       cart: cart == freezed
           ? _value.cart
           : cart // ignore: cast_nullable_to_non_nullable
@@ -164,11 +178,11 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
       grandTotal: grandTotal == freezed
           ? _value.grandTotal
           : grandTotal // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       subTotal: subTotal == freezed
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
@@ -208,6 +222,10 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
       orderID: orderID == freezed
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tableNumber: tableNumber == freezed
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
               as int?,
       createdAt: createdAt == freezed
           ? _value.createdAt
@@ -231,9 +249,10 @@ abstract class _$OrderDetailsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey(name: '_id') String? id,
       bool? isAcceptedByDeliveryBoy,
+      double amountPaid,
       List<CartProduct> cart,
-      double? grandTotal,
-      double? subTotal,
+      double grandTotal,
+      double subTotal,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -244,6 +263,7 @@ abstract class _$OrderDetailsResponseCopyWith<$Res>
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
       int? orderID,
+      int? tableNumber,
       String? createdAt,
       String? updatedAt});
 }
@@ -263,6 +283,7 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? isAcceptedByDeliveryBoy = freezed,
+    Object? amountPaid = freezed,
     Object? cart = freezed,
     Object? grandTotal = freezed,
     Object? subTotal = freezed,
@@ -276,6 +297,7 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
     Object? currencySymbol = freezed,
     Object? orderStatus = freezed,
     Object? orderID = freezed,
+    Object? tableNumber = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -288,6 +310,10 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
           ? _value.isAcceptedByDeliveryBoy
           : isAcceptedByDeliveryBoy // ignore: cast_nullable_to_non_nullable
               as bool?,
+      amountPaid: amountPaid == freezed
+          ? _value.amountPaid
+          : amountPaid // ignore: cast_nullable_to_non_nullable
+              as double,
       cart: cart == freezed
           ? _value.cart
           : cart // ignore: cast_nullable_to_non_nullable
@@ -295,11 +321,11 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
       grandTotal: grandTotal == freezed
           ? _value.grandTotal
           : grandTotal // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       subTotal: subTotal == freezed
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
@@ -340,6 +366,10 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
               as int?,
+      tableNumber: tableNumber == freezed
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -358,9 +388,10 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
   const _$_OrderDetailsResponse(
       {@JsonKey(name: '_id') this.id,
       this.isAcceptedByDeliveryBoy,
+      this.amountPaid = 0,
       this.cart = const [],
-      this.grandTotal,
-      this.subTotal,
+      this.grandTotal = 0,
+      this.subTotal = 0,
       this.paymentType,
       this.restaurantName,
       this.franchiseName,
@@ -371,6 +402,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       this.currencySymbol,
       this.orderStatus,
       this.orderID,
+      this.tableNumber,
       this.createdAt,
       this.updatedAt})
       : super._();
@@ -383,13 +415,18 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
   final String? id;
   @override
   final bool? isAcceptedByDeliveryBoy;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double amountPaid;
   @JsonKey(defaultValue: const [])
   @override
   final List<CartProduct> cart;
+  @JsonKey(defaultValue: 0)
   @override
-  final double? grandTotal;
+  final double grandTotal;
+  @JsonKey(defaultValue: 0)
   @override
-  final double? subTotal;
+  final double subTotal;
   @override
   final String? paymentType;
   @override
@@ -411,13 +448,15 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
   @override
   final int? orderID;
   @override
+  final int? tableNumber;
+  @override
   final String? createdAt;
   @override
   final String? updatedAt;
 
   @override
   String toString() {
-    return 'OrderDetailsResponse(id: $id, isAcceptedByDeliveryBoy: $isAcceptedByDeliveryBoy, cart: $cart, grandTotal: $grandTotal, subTotal: $subTotal, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, currencyCode: $currencyCode, currencySymbol: $currencySymbol, orderStatus: $orderStatus, orderID: $orderID, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'OrderDetailsResponse(id: $id, isAcceptedByDeliveryBoy: $isAcceptedByDeliveryBoy, amountPaid: $amountPaid, cart: $cart, grandTotal: $grandTotal, subTotal: $subTotal, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, currencyCode: $currencyCode, currencySymbol: $currencySymbol, orderStatus: $orderStatus, orderID: $orderID, tableNumber: $tableNumber, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -429,6 +468,9 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
             (identical(other.isAcceptedByDeliveryBoy, isAcceptedByDeliveryBoy) ||
                 const DeepCollectionEquality().equals(
                     other.isAcceptedByDeliveryBoy, isAcceptedByDeliveryBoy)) &&
+            (identical(other.amountPaid, amountPaid) ||
+                const DeepCollectionEquality()
+                    .equals(other.amountPaid, amountPaid)) &&
             (identical(other.cart, cart) ||
                 const DeepCollectionEquality().equals(other.cart, cart)) &&
             (identical(other.grandTotal, grandTotal) ||
@@ -466,12 +508,12 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
             (identical(other.orderID, orderID) ||
                 const DeepCollectionEquality()
                     .equals(other.orderID, orderID)) &&
+            (identical(other.tableNumber, tableNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.tableNumber, tableNumber)) &&
             (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                const DeepCollectionEquality().equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)));
   }
 
   @override
@@ -479,6 +521,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(isAcceptedByDeliveryBoy) ^
+      const DeepCollectionEquality().hash(amountPaid) ^
       const DeepCollectionEquality().hash(cart) ^
       const DeepCollectionEquality().hash(grandTotal) ^
       const DeepCollectionEquality().hash(subTotal) ^
@@ -492,6 +535,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       const DeepCollectionEquality().hash(currencySymbol) ^
       const DeepCollectionEquality().hash(orderStatus) ^
       const DeepCollectionEquality().hash(orderID) ^
+      const DeepCollectionEquality().hash(tableNumber) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt);
 
@@ -511,9 +555,10 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
   const factory _OrderDetailsResponse(
       {@JsonKey(name: '_id') String? id,
       bool? isAcceptedByDeliveryBoy,
+      double amountPaid,
       List<CartProduct> cart,
-      double? grandTotal,
-      double? subTotal,
+      double grandTotal,
+      double subTotal,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -524,6 +569,7 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
       int? orderID,
+      int? tableNumber,
       String? createdAt,
       String? updatedAt}) = _$_OrderDetailsResponse;
   const _OrderDetailsResponse._() : super._();
@@ -537,11 +583,13 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
   @override
   bool? get isAcceptedByDeliveryBoy => throw _privateConstructorUsedError;
   @override
+  double get amountPaid => throw _privateConstructorUsedError;
+  @override
   List<CartProduct> get cart => throw _privateConstructorUsedError;
   @override
-  double? get grandTotal => throw _privateConstructorUsedError;
+  double get grandTotal => throw _privateConstructorUsedError;
   @override
-  double? get subTotal => throw _privateConstructorUsedError;
+  double get subTotal => throw _privateConstructorUsedError;
   @override
   String? get paymentType => throw _privateConstructorUsedError;
   @override
@@ -562,6 +610,8 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
   ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
   @override
   int? get orderID => throw _privateConstructorUsedError;
+  @override
+  int? get tableNumber => throw _privateConstructorUsedError;
   @override
   String? get createdAt => throw _privateConstructorUsedError;
   @override

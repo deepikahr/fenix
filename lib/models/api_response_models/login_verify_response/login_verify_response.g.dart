@@ -14,6 +14,8 @@ _$_LoginVerifyResponse _$_$_LoginVerifyResponseFromJson(
     id: json['id'] as String?,
     franchiseId: json['franchiseId'] as String?,
     vendorId: json['vendorId'] as String?,
+    restaurantName: json['restaurantName'] as String?,
+    franchiseName: json['franchiseName'] as String?,
   );
 }
 
@@ -25,4 +27,6 @@ Map<String, dynamic> _$_$_LoginVerifyResponseToJson(
       'id': instance.id,
       'franchiseId': instance.franchiseId,
       'vendorId': instance.vendorId,
+      'restaurantName': instance.restaurantName,
+      'franchiseName': instance.franchiseName,
     };

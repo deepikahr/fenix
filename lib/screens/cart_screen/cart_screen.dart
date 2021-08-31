@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -12,7 +11,6 @@ import 'package:fenix_user/widgets/counterBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
@@ -85,10 +83,10 @@ class CartScreen extends HookWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                            'Total: ${cart.subTotal.toStringAsFixed(2)}',
+                                            '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
                                             style: textPrimaryXXSmall(context)),
                                         Text(
-                                            'Grand Total: ${cart.grandTotal.toStringAsFixed(2)}',
+                                            '${'GRAND_TOTAL'.tr}: ${cart.grandTotal.toStringAsFixed(2)}${Constants.currency}',
                                             style: textPrimaryXXSmallDark(
                                                 context)),
                                       ],
@@ -186,7 +184,6 @@ class CartScreen extends HookWidget {
   }
 
   cartItemBlock(BuildContext context, Cart cart, state) {
-    // printWrapped('1111111111111111111111111111111 $cart');
     return Container(
       color: white,
       child: ListView.builder(
@@ -208,9 +205,9 @@ class CartScreen extends HookWidget {
                     Flexible(
                       fit: FlexFit.tight,
                       flex: 14,
-                      child: HtmlWidget(
-                        cart.products[i].productDescription ?? '',
-                        textStyle: textDarkLightSmallBR(context),
+                      child: Text(
+                        "${cart.products[i].variant?.sizeName ?? ''} - ${cart.products[i].variant?.price ?? ''}${Constants.currency}",
+                        style: textDarkLightSmallBR(context),
                       ),
                     ),
                     Row(
@@ -252,9 +249,23 @@ class CartScreen extends HookWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
+                ListView.builder(
+                    padding: EdgeInsets.all(5.0),
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: cartProduct.selectedAddOnItems.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(
+                          "${cartProduct.selectedAddOnItems[i].addOnItemName ?? ''} x ${cartProduct.selectedAddOnItems[i].quantity} - ${(cartProduct.selectedAddOnItems[i].quantity) * (cartProduct.selectedAddOnItems[i].addOnItemPrice ?? 0)}${Constants.currency}",
+                          style: textDarkLightSmallBR(context),
+                        ),
+                      );
+                    }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [

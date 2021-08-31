@@ -65,6 +65,7 @@ class Localization extends Translations {
           'VAT_INCLUDE_TOTAL': 'VAT include Total',
           'SUB_TOTAL': 'Sub Total',
           'GRAND_TOTAL': 'Grand Total',
+          'TOTAL': 'Total',
           'ORDER_ID': 'Order ID',
           'NOTICE_TO_THE_WAITER': 'Notify to the waiter',
           'YOUR_ORDER_IS': 'Your order is',
@@ -77,7 +78,8 @@ class Localization extends Translations {
           'ORDER_PENDING': 'Order Pending',
           'ORDER_CONFIRMED': 'Order Confirmed',
           'ORDER_COMPLETED': 'Order Completed',
-          'ORDER_CANCELLED': 'Order Cancelled'
+          'ORDER_CANCELLED': 'Order Cancelled',
+          'CREATE_ORDER_FIRST': 'Create Order First'
         }
       };
 }

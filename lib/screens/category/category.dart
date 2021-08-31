@@ -34,7 +34,6 @@ class CategoryScreen extends HookWidget {
     final isMounted = useIsMounted();
 
     useEffect(() {
-      print(categoryType);
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await notifier.fetchCategory(categoryType);

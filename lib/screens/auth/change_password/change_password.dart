@@ -146,7 +146,6 @@ class ChangePasswordPage extends HookWidget {
                   }
                 }
               }, state.isLoading),
-              // if (state.isLoading) GFLoader(type: GFLoaderType.ios),
             ],
           ),
         ),

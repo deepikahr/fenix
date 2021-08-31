@@ -11,12 +11,13 @@ _$_OrderDetailsResponse _$_$_OrderDetailsResponseFromJson(
   return _$_OrderDetailsResponse(
     id: json['_id'] as String?,
     isAcceptedByDeliveryBoy: json['isAcceptedByDeliveryBoy'] as bool?,
+    amountPaid: (json['amountPaid'] as num?)?.toDouble() ?? 0,
     cart: (json['cart'] as List<dynamic>?)
             ?.map((e) => CartProduct.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
-    grandTotal: (json['grandTotal'] as num?)?.toDouble(),
-    subTotal: (json['subTotal'] as num?)?.toDouble(),
+    grandTotal: (json['grandTotal'] as num?)?.toDouble() ?? 0,
+    subTotal: (json['subTotal'] as num?)?.toDouble() ?? 0,
     paymentType: json['paymentType'] as String?,
     restaurantName: json['restaurantName'] as String?,
     franchiseName: json['franchiseName'] as String?,
@@ -28,6 +29,7 @@ _$_OrderDetailsResponse _$_$_OrderDetailsResponseFromJson(
     orderStatus:
         _$enumDecodeNullable(_$ORDER_STATUSEnumMap, json['orderStatus']),
     orderID: json['orderID'] as int?,
+    tableNumber: json['tableNumber'] as int?,
     createdAt: json['createdAt'] as String?,
     updatedAt: json['updatedAt'] as String?,
   );
@@ -38,6 +40,7 @@ Map<String, dynamic> _$_$_OrderDetailsResponseToJson(
     <String, dynamic>{
       '_id': instance.id,
       'isAcceptedByDeliveryBoy': instance.isAcceptedByDeliveryBoy,
+      'amountPaid': instance.amountPaid,
       'cart': instance.cart,
       'grandTotal': instance.grandTotal,
       'subTotal': instance.subTotal,
@@ -51,6 +54,7 @@ Map<String, dynamic> _$_$_OrderDetailsResponseToJson(
       'currencySymbol': instance.currencySymbol,
       'orderStatus': _$ORDER_STATUSEnumMap[instance.orderStatus],
       'orderID': instance.orderID,
+      'tableNumber': instance.tableNumber,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };

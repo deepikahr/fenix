@@ -9,8 +9,9 @@ import 'login_state.dart';
 class LoginNotifier extends StateNotifier<LoginState> {
   final ProviderReference ref;
   API get api {
-   return ref.read(apiProvider);
+    return ref.read(apiProvider);
   }
+
   DB get db {
     return ref.read(dbProvider);
   }
@@ -25,8 +26,15 @@ class LoginNotifier extends StateNotifier<LoginState> {
         await api.loginVerify(tableNumber, franchiseCode, password);
 
     if (response != null) {
-      await db.storeUserData(response.token!, response.role!, response.id!,
-          response.franchiseId!, response.vendorId!);
+      await db.storeUserData(
+        response.token!,
+        response.role!,
+        response.id!,
+        response.franchiseId!,
+        response.vendorId!,
+        response.restaurantName!,
+        response.franchiseName!,
+      );
       db.saveTableNumber(tableNumber);
       db.saveFranchiseCode(franchiseCode);
     }

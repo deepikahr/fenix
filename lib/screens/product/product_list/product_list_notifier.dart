@@ -50,7 +50,8 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       ProductDetailsResponse product, bool isIncreased) async {
     if (cartState == null) {
       await _createCartWithFirstProduct(product);
-    } else if (cartState?.products.any((element) => element.id != product.id) ??
+    } else if (cartState?.products
+            .every((element) => element.id != product.id) ??
         false) {
       await _addProductInExistingCart(product);
     } else {
@@ -64,12 +65,13 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       variantQuantity: 1,
       isLastUsedVariant: true,
       totalProductPrice: product.variant?.price ?? 0,
+      productId: product.id,
     );
     final cart = Cart(
-      franchiseId: product.franchiseId,
-      franchiseName: product.franchiseName,
-      vendorId: product.vendorId,
-      restaurantName: product.restaurantName,
+      franchiseId: db.getFranchiseId(),
+      franchiseName: db.getFranchiseName(),
+      vendorId: db.getVendorId(),
+      restaurantName: db.getRestaurantName(),
       userId: db.getId(),
       products: [product],
     );

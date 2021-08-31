@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/product/product_details/product_details.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -256,7 +257,10 @@ class ProductList extends HookWidget {
                   color: GFColors.DARK,
                   type: GFButtonType.outline,
                   onPressed: () async {
-                    // context.read(homeTabsProvider.notifier).showScreen(CartScreen());
+                    Get.back();
+                    context
+                        .read(homeTabsProvider.notifier)
+                        .showScreen(CartScreen());
                   },
                   child: Text(
                     'CART'.tr.toUpperCase(),
@@ -313,6 +317,7 @@ class ProductList extends HookWidget {
                   color: GFColors.DARK,
                   type: GFButtonType.outline,
                   onPressed: () async {
+                    Get.back();
                     context
                         .read(homeTabsProvider.notifier)
                         .showScreen(ProductDetails(product.id ?? ''));

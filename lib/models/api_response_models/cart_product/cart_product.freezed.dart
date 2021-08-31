@@ -23,37 +23,43 @@ class _$CartProductTearOff {
   _CartProduct call(
       {@JsonKey(name: '_id') String? id,
       ImageResponse? productImage,
+      VariantResponse? variant,
       TaxInfoModel? taxInfo,
-      List<AddOnItem> addOnItems = const [],
-      List<OrderStatusHistory> orderStatusHistory = const [],
+      bool? isPaid,
+      List<TagResponse>? tags,
+      List<AddOnItem> selectedAddOnItems = const [],
+      String? category,
       String? productName,
+      bool? isVeg,
+      String? subCategory,
+      String? menuId,
       String? categoryName,
-      String? categoryId,
-      double originalPrice = 0,
-      double sellingPrice = 0,
-      String? description,
+      String? productDescription,
       double totalProductPrice = 0,
-      dynamic quantity = 1,
+      dynamic variantQuantity = 1,
+      double tax = 0,
       String? productId,
-      String? paymentStatus,
-      String? orderStatus}) {
+      String? productInstructions}) {
     return _CartProduct(
       id: id,
       productImage: productImage,
+      variant: variant,
       taxInfo: taxInfo,
-      addOnItems: addOnItems,
-      orderStatusHistory: orderStatusHistory,
+      isPaid: isPaid,
+      tags: tags,
+      selectedAddOnItems: selectedAddOnItems,
+      category: category,
       productName: productName,
+      isVeg: isVeg,
+      subCategory: subCategory,
+      menuId: menuId,
       categoryName: categoryName,
-      categoryId: categoryId,
-      originalPrice: originalPrice,
-      sellingPrice: sellingPrice,
-      description: description,
+      productDescription: productDescription,
       totalProductPrice: totalProductPrice,
-      quantity: quantity,
+      variantQuantity: variantQuantity,
+      tax: tax,
       productId: productId,
-      paymentStatus: paymentStatus,
-      orderStatus: orderStatus,
+      productInstructions: productInstructions,
     );
   }
 
@@ -70,21 +76,23 @@ mixin _$CartProduct {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   ImageResponse? get productImage => throw _privateConstructorUsedError;
+  VariantResponse? get variant => throw _privateConstructorUsedError;
   TaxInfoModel? get taxInfo => throw _privateConstructorUsedError;
-  List<AddOnItem> get addOnItems => throw _privateConstructorUsedError;
-  List<OrderStatusHistory> get orderStatusHistory =>
-      throw _privateConstructorUsedError;
+  bool? get isPaid => throw _privateConstructorUsedError;
+  List<TagResponse>? get tags => throw _privateConstructorUsedError;
+  List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   String? get productName => throw _privateConstructorUsedError;
+  bool? get isVeg => throw _privateConstructorUsedError;
+  String? get subCategory => throw _privateConstructorUsedError;
+  String? get menuId => throw _privateConstructorUsedError;
   String? get categoryName => throw _privateConstructorUsedError;
-  String? get categoryId => throw _privateConstructorUsedError;
-  double get originalPrice => throw _privateConstructorUsedError;
-  double get sellingPrice => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
+  String? get productDescription => throw _privateConstructorUsedError;
   double get totalProductPrice => throw _privateConstructorUsedError;
-  dynamic get quantity => throw _privateConstructorUsedError;
+  dynamic get variantQuantity => throw _privateConstructorUsedError;
+  double get tax => throw _privateConstructorUsedError;
   String? get productId => throw _privateConstructorUsedError;
-  String? get paymentStatus => throw _privateConstructorUsedError;
-  String? get orderStatus => throw _privateConstructorUsedError;
+  String? get productInstructions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -100,22 +108,26 @@ abstract class $CartProductCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: '_id') String? id,
       ImageResponse? productImage,
+      VariantResponse? variant,
       TaxInfoModel? taxInfo,
-      List<AddOnItem> addOnItems,
-      List<OrderStatusHistory> orderStatusHistory,
+      bool? isPaid,
+      List<TagResponse>? tags,
+      List<AddOnItem> selectedAddOnItems,
+      String? category,
       String? productName,
+      bool? isVeg,
+      String? subCategory,
+      String? menuId,
       String? categoryName,
-      String? categoryId,
-      double originalPrice,
-      double sellingPrice,
-      String? description,
+      String? productDescription,
       double totalProductPrice,
-      dynamic quantity,
+      dynamic variantQuantity,
+      double tax,
       String? productId,
-      String? paymentStatus,
-      String? orderStatus});
+      String? productInstructions});
 
   $ImageResponseCopyWith<$Res>? get productImage;
+  $VariantResponseCopyWith<$Res>? get variant;
   $TaxInfoModelCopyWith<$Res>? get taxInfo;
 }
 
@@ -131,20 +143,23 @@ class _$CartProductCopyWithImpl<$Res> implements $CartProductCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? productImage = freezed,
+    Object? variant = freezed,
     Object? taxInfo = freezed,
-    Object? addOnItems = freezed,
-    Object? orderStatusHistory = freezed,
+    Object? isPaid = freezed,
+    Object? tags = freezed,
+    Object? selectedAddOnItems = freezed,
+    Object? category = freezed,
     Object? productName = freezed,
+    Object? isVeg = freezed,
+    Object? subCategory = freezed,
+    Object? menuId = freezed,
     Object? categoryName = freezed,
-    Object? categoryId = freezed,
-    Object? originalPrice = freezed,
-    Object? sellingPrice = freezed,
-    Object? description = freezed,
+    Object? productDescription = freezed,
     Object? totalProductPrice = freezed,
-    Object? quantity = freezed,
+    Object? variantQuantity = freezed,
+    Object? tax = freezed,
     Object? productId = freezed,
-    Object? paymentStatus = freezed,
-    Object? orderStatus = freezed,
+    Object? productInstructions = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -155,61 +170,73 @@ class _$CartProductCopyWithImpl<$Res> implements $CartProductCopyWith<$Res> {
           ? _value.productImage
           : productImage // ignore: cast_nullable_to_non_nullable
               as ImageResponse?,
+      variant: variant == freezed
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as VariantResponse?,
       taxInfo: taxInfo == freezed
           ? _value.taxInfo
           : taxInfo // ignore: cast_nullable_to_non_nullable
               as TaxInfoModel?,
-      addOnItems: addOnItems == freezed
-          ? _value.addOnItems
-          : addOnItems // ignore: cast_nullable_to_non_nullable
+      isPaid: isPaid == freezed
+          ? _value.isPaid
+          : isPaid // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tags: tags == freezed
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<TagResponse>?,
+      selectedAddOnItems: selectedAddOnItems == freezed
+          ? _value.selectedAddOnItems
+          : selectedAddOnItems // ignore: cast_nullable_to_non_nullable
               as List<AddOnItem>,
-      orderStatusHistory: orderStatusHistory == freezed
-          ? _value.orderStatusHistory
-          : orderStatusHistory // ignore: cast_nullable_to_non_nullable
-              as List<OrderStatusHistory>,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
       productName: productName == freezed
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isVeg: isVeg == freezed
+          ? _value.isVeg
+          : isVeg // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      subCategory: subCategory == freezed
+          ? _value.subCategory
+          : subCategory // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menuId: menuId == freezed
+          ? _value.menuId
+          : menuId // ignore: cast_nullable_to_non_nullable
               as String?,
       categoryName: categoryName == freezed
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String?,
-      categoryId: categoryId == freezed
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originalPrice: originalPrice == freezed
-          ? _value.originalPrice
-          : originalPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      sellingPrice: sellingPrice == freezed
-          ? _value.sellingPrice
-          : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      productDescription: productDescription == freezed
+          ? _value.productDescription
+          : productDescription // ignore: cast_nullable_to_non_nullable
               as String?,
       totalProductPrice: totalProductPrice == freezed
           ? _value.totalProductPrice
           : totalProductPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      quantity: quantity == freezed
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
+      variantQuantity: variantQuantity == freezed
+          ? _value.variantQuantity
+          : variantQuantity // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      tax: tax == freezed
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as double,
       productId: productId == freezed
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as String?,
-      paymentStatus: paymentStatus == freezed
-          ? _value.paymentStatus
-          : paymentStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
-      orderStatus: orderStatus == freezed
-          ? _value.orderStatus
-          : orderStatus // ignore: cast_nullable_to_non_nullable
+      productInstructions: productInstructions == freezed
+          ? _value.productInstructions
+          : productInstructions // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -222,6 +249,17 @@ class _$CartProductCopyWithImpl<$Res> implements $CartProductCopyWith<$Res> {
 
     return $ImageResponseCopyWith<$Res>(_value.productImage!, (value) {
       return _then(_value.copyWith(productImage: value));
+    });
+  }
+
+  @override
+  $VariantResponseCopyWith<$Res>? get variant {
+    if (_value.variant == null) {
+      return null;
+    }
+
+    return $VariantResponseCopyWith<$Res>(_value.variant!, (value) {
+      return _then(_value.copyWith(variant: value));
     });
   }
 
@@ -247,23 +285,28 @@ abstract class _$CartProductCopyWith<$Res>
   $Res call(
       {@JsonKey(name: '_id') String? id,
       ImageResponse? productImage,
+      VariantResponse? variant,
       TaxInfoModel? taxInfo,
-      List<AddOnItem> addOnItems,
-      List<OrderStatusHistory> orderStatusHistory,
+      bool? isPaid,
+      List<TagResponse>? tags,
+      List<AddOnItem> selectedAddOnItems,
+      String? category,
       String? productName,
+      bool? isVeg,
+      String? subCategory,
+      String? menuId,
       String? categoryName,
-      String? categoryId,
-      double originalPrice,
-      double sellingPrice,
-      String? description,
+      String? productDescription,
       double totalProductPrice,
-      dynamic quantity,
+      dynamic variantQuantity,
+      double tax,
       String? productId,
-      String? paymentStatus,
-      String? orderStatus});
+      String? productInstructions});
 
   @override
   $ImageResponseCopyWith<$Res>? get productImage;
+  @override
+  $VariantResponseCopyWith<$Res>? get variant;
   @override
   $TaxInfoModelCopyWith<$Res>? get taxInfo;
 }
@@ -282,20 +325,23 @@ class __$CartProductCopyWithImpl<$Res> extends _$CartProductCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? productImage = freezed,
+    Object? variant = freezed,
     Object? taxInfo = freezed,
-    Object? addOnItems = freezed,
-    Object? orderStatusHistory = freezed,
+    Object? isPaid = freezed,
+    Object? tags = freezed,
+    Object? selectedAddOnItems = freezed,
+    Object? category = freezed,
     Object? productName = freezed,
+    Object? isVeg = freezed,
+    Object? subCategory = freezed,
+    Object? menuId = freezed,
     Object? categoryName = freezed,
-    Object? categoryId = freezed,
-    Object? originalPrice = freezed,
-    Object? sellingPrice = freezed,
-    Object? description = freezed,
+    Object? productDescription = freezed,
     Object? totalProductPrice = freezed,
-    Object? quantity = freezed,
+    Object? variantQuantity = freezed,
+    Object? tax = freezed,
     Object? productId = freezed,
-    Object? paymentStatus = freezed,
-    Object? orderStatus = freezed,
+    Object? productInstructions = freezed,
   }) {
     return _then(_CartProduct(
       id: id == freezed
@@ -306,58 +352,71 @@ class __$CartProductCopyWithImpl<$Res> extends _$CartProductCopyWithImpl<$Res>
           ? _value.productImage
           : productImage // ignore: cast_nullable_to_non_nullable
               as ImageResponse?,
+      variant: variant == freezed
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as VariantResponse?,
       taxInfo: taxInfo == freezed
           ? _value.taxInfo
           : taxInfo // ignore: cast_nullable_to_non_nullable
               as TaxInfoModel?,
-      addOnItems: addOnItems == freezed
-          ? _value.addOnItems
-          : addOnItems // ignore: cast_nullable_to_non_nullable
+      isPaid: isPaid == freezed
+          ? _value.isPaid
+          : isPaid // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tags: tags == freezed
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<TagResponse>?,
+      selectedAddOnItems: selectedAddOnItems == freezed
+          ? _value.selectedAddOnItems
+          : selectedAddOnItems // ignore: cast_nullable_to_non_nullable
               as List<AddOnItem>,
-      orderStatusHistory: orderStatusHistory == freezed
-          ? _value.orderStatusHistory
-          : orderStatusHistory // ignore: cast_nullable_to_non_nullable
-              as List<OrderStatusHistory>,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
       productName: productName == freezed
           ? _value.productName
           : productName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isVeg: isVeg == freezed
+          ? _value.isVeg
+          : isVeg // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      subCategory: subCategory == freezed
+          ? _value.subCategory
+          : subCategory // ignore: cast_nullable_to_non_nullable
+              as String?,
+      menuId: menuId == freezed
+          ? _value.menuId
+          : menuId // ignore: cast_nullable_to_non_nullable
               as String?,
       categoryName: categoryName == freezed
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String?,
-      categoryId: categoryId == freezed
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originalPrice: originalPrice == freezed
-          ? _value.originalPrice
-          : originalPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      sellingPrice: sellingPrice == freezed
-          ? _value.sellingPrice
-          : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      productDescription: productDescription == freezed
+          ? _value.productDescription
+          : productDescription // ignore: cast_nullable_to_non_nullable
               as String?,
       totalProductPrice: totalProductPrice == freezed
           ? _value.totalProductPrice
           : totalProductPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      quantity: quantity == freezed ? _value.quantity : quantity,
+      variantQuantity:
+          variantQuantity == freezed ? _value.variantQuantity : variantQuantity,
+      tax: tax == freezed
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as double,
       productId: productId == freezed
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as String?,
-      paymentStatus: paymentStatus == freezed
-          ? _value.paymentStatus
-          : paymentStatus // ignore: cast_nullable_to_non_nullable
-              as String?,
-      orderStatus: orderStatus == freezed
-          ? _value.orderStatus
-          : orderStatus // ignore: cast_nullable_to_non_nullable
+      productInstructions: productInstructions == freezed
+          ? _value.productInstructions
+          : productInstructions // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -369,20 +428,23 @@ class _$_CartProduct extends _CartProduct {
   const _$_CartProduct(
       {@JsonKey(name: '_id') this.id,
       this.productImage,
+      this.variant,
       this.taxInfo,
-      this.addOnItems = const [],
-      this.orderStatusHistory = const [],
+      this.isPaid,
+      this.tags,
+      this.selectedAddOnItems = const [],
+      this.category,
       this.productName,
+      this.isVeg,
+      this.subCategory,
+      this.menuId,
       this.categoryName,
-      this.categoryId,
-      this.originalPrice = 0,
-      this.sellingPrice = 0,
-      this.description,
+      this.productDescription,
       this.totalProductPrice = 0,
-      this.quantity = 1,
+      this.variantQuantity = 1,
+      this.tax = 0,
       this.productId,
-      this.paymentStatus,
-      this.orderStatus})
+      this.productInstructions})
       : super._();
 
   factory _$_CartProduct.fromJson(Map<String, dynamic> json) =>
@@ -394,43 +456,47 @@ class _$_CartProduct extends _CartProduct {
   @override
   final ImageResponse? productImage;
   @override
+  final VariantResponse? variant;
+  @override
   final TaxInfoModel? taxInfo;
+  @override
+  final bool? isPaid;
+  @override
+  final List<TagResponse>? tags;
   @JsonKey(defaultValue: const [])
   @override
-  final List<AddOnItem> addOnItems;
-  @JsonKey(defaultValue: const [])
+  final List<AddOnItem> selectedAddOnItems;
   @override
-  final List<OrderStatusHistory> orderStatusHistory;
+  final String? category;
   @override
   final String? productName;
   @override
+  final bool? isVeg;
+  @override
+  final String? subCategory;
+  @override
+  final String? menuId;
+  @override
   final String? categoryName;
   @override
-  final String? categoryId;
-  @JsonKey(defaultValue: 0)
-  @override
-  final double originalPrice;
-  @JsonKey(defaultValue: 0)
-  @override
-  final double sellingPrice;
-  @override
-  final String? description;
+  final String? productDescription;
   @JsonKey(defaultValue: 0)
   @override
   final double totalProductPrice;
   @JsonKey(defaultValue: 1)
   @override
-  final dynamic quantity;
+  final dynamic variantQuantity;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double tax;
   @override
   final String? productId;
   @override
-  final String? paymentStatus;
-  @override
-  final String? orderStatus;
+  final String? productInstructions;
 
   @override
   String toString() {
-    return 'CartProduct(id: $id, productImage: $productImage, taxInfo: $taxInfo, addOnItems: $addOnItems, orderStatusHistory: $orderStatusHistory, productName: $productName, categoryName: $categoryName, categoryId: $categoryId, originalPrice: $originalPrice, sellingPrice: $sellingPrice, description: $description, totalProductPrice: $totalProductPrice, quantity: $quantity, productId: $productId, paymentStatus: $paymentStatus, orderStatus: $orderStatus)';
+    return 'CartProduct(id: $id, productImage: $productImage, variant: $variant, taxInfo: $taxInfo, isPaid: $isPaid, tags: $tags, selectedAddOnItems: $selectedAddOnItems, category: $category, productName: $productName, isVeg: $isVeg, subCategory: $subCategory, menuId: $menuId, categoryName: $categoryName, productDescription: $productDescription, totalProductPrice: $totalProductPrice, variantQuantity: $variantQuantity, tax: $tax, productId: $productId, productInstructions: $productInstructions)';
   }
 
   @override
@@ -442,48 +508,52 @@ class _$_CartProduct extends _CartProduct {
             (identical(other.productImage, productImage) ||
                 const DeepCollectionEquality()
                     .equals(other.productImage, productImage)) &&
+            (identical(other.variant, variant) ||
+                const DeepCollectionEquality()
+                    .equals(other.variant, variant)) &&
             (identical(other.taxInfo, taxInfo) ||
                 const DeepCollectionEquality()
                     .equals(other.taxInfo, taxInfo)) &&
-            (identical(other.addOnItems, addOnItems) ||
+            (identical(other.isPaid, isPaid) ||
+                const DeepCollectionEquality().equals(other.isPaid, isPaid)) &&
+            (identical(other.tags, tags) ||
+                const DeepCollectionEquality().equals(other.tags, tags)) &&
+            (identical(other.selectedAddOnItems, selectedAddOnItems) ||
                 const DeepCollectionEquality()
-                    .equals(other.addOnItems, addOnItems)) &&
-            (identical(other.orderStatusHistory, orderStatusHistory) ||
+                    .equals(other.selectedAddOnItems, selectedAddOnItems)) &&
+            (identical(other.category, category) ||
                 const DeepCollectionEquality()
-                    .equals(other.orderStatusHistory, orderStatusHistory)) &&
+                    .equals(other.category, category)) &&
             (identical(other.productName, productName) ||
                 const DeepCollectionEquality()
                     .equals(other.productName, productName)) &&
+            (identical(other.isVeg, isVeg) ||
+                const DeepCollectionEquality().equals(other.isVeg, isVeg)) &&
+            (identical(other.subCategory, subCategory) ||
+                const DeepCollectionEquality()
+                    .equals(other.subCategory, subCategory)) &&
+            (identical(other.menuId, menuId) ||
+                const DeepCollectionEquality().equals(other.menuId, menuId)) &&
             (identical(other.categoryName, categoryName) ||
                 const DeepCollectionEquality()
                     .equals(other.categoryName, categoryName)) &&
-            (identical(other.categoryId, categoryId) ||
+            (identical(other.productDescription, productDescription) ||
                 const DeepCollectionEquality()
-                    .equals(other.categoryId, categoryId)) &&
-            (identical(other.originalPrice, originalPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.originalPrice, originalPrice)) &&
-            (identical(other.sellingPrice, sellingPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.sellingPrice, sellingPrice)) &&
-            (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
+                    .equals(other.productDescription, productDescription)) &&
             (identical(other.totalProductPrice, totalProductPrice) ||
                 const DeepCollectionEquality()
                     .equals(other.totalProductPrice, totalProductPrice)) &&
-            (identical(other.quantity, quantity) ||
+            (identical(other.variantQuantity, variantQuantity) ||
                 const DeepCollectionEquality()
-                    .equals(other.quantity, quantity)) &&
+                    .equals(other.variantQuantity, variantQuantity)) &&
+            (identical(other.tax, tax) ||
+                const DeepCollectionEquality().equals(other.tax, tax)) &&
             (identical(other.productId, productId) ||
                 const DeepCollectionEquality()
                     .equals(other.productId, productId)) &&
-            (identical(other.paymentStatus, paymentStatus) ||
+            (identical(other.productInstructions, productInstructions) ||
                 const DeepCollectionEquality()
-                    .equals(other.paymentStatus, paymentStatus)) &&
-            (identical(other.orderStatus, orderStatus) ||
-                const DeepCollectionEquality()
-                    .equals(other.orderStatus, orderStatus)));
+                    .equals(other.productInstructions, productInstructions)));
   }
 
   @override
@@ -491,20 +561,23 @@ class _$_CartProduct extends _CartProduct {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(productImage) ^
+      const DeepCollectionEquality().hash(variant) ^
       const DeepCollectionEquality().hash(taxInfo) ^
-      const DeepCollectionEquality().hash(addOnItems) ^
-      const DeepCollectionEquality().hash(orderStatusHistory) ^
+      const DeepCollectionEquality().hash(isPaid) ^
+      const DeepCollectionEquality().hash(tags) ^
+      const DeepCollectionEquality().hash(selectedAddOnItems) ^
+      const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(productName) ^
+      const DeepCollectionEquality().hash(isVeg) ^
+      const DeepCollectionEquality().hash(subCategory) ^
+      const DeepCollectionEquality().hash(menuId) ^
       const DeepCollectionEquality().hash(categoryName) ^
-      const DeepCollectionEquality().hash(categoryId) ^
-      const DeepCollectionEquality().hash(originalPrice) ^
-      const DeepCollectionEquality().hash(sellingPrice) ^
-      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(productDescription) ^
       const DeepCollectionEquality().hash(totalProductPrice) ^
-      const DeepCollectionEquality().hash(quantity) ^
+      const DeepCollectionEquality().hash(variantQuantity) ^
+      const DeepCollectionEquality().hash(tax) ^
       const DeepCollectionEquality().hash(productId) ^
-      const DeepCollectionEquality().hash(paymentStatus) ^
-      const DeepCollectionEquality().hash(orderStatus);
+      const DeepCollectionEquality().hash(productInstructions);
 
   @JsonKey(ignore: true)
   @override
@@ -521,20 +594,23 @@ abstract class _CartProduct extends CartProduct {
   const factory _CartProduct(
       {@JsonKey(name: '_id') String? id,
       ImageResponse? productImage,
+      VariantResponse? variant,
       TaxInfoModel? taxInfo,
-      List<AddOnItem> addOnItems,
-      List<OrderStatusHistory> orderStatusHistory,
+      bool? isPaid,
+      List<TagResponse>? tags,
+      List<AddOnItem> selectedAddOnItems,
+      String? category,
       String? productName,
+      bool? isVeg,
+      String? subCategory,
+      String? menuId,
       String? categoryName,
-      String? categoryId,
-      double originalPrice,
-      double sellingPrice,
-      String? description,
+      String? productDescription,
       double totalProductPrice,
-      dynamic quantity,
+      dynamic variantQuantity,
+      double tax,
       String? productId,
-      String? paymentStatus,
-      String? orderStatus}) = _$_CartProduct;
+      String? productInstructions}) = _$_CartProduct;
   const _CartProduct._() : super._();
 
   factory _CartProduct.fromJson(Map<String, dynamic> json) =
@@ -546,34 +622,39 @@ abstract class _CartProduct extends CartProduct {
   @override
   ImageResponse? get productImage => throw _privateConstructorUsedError;
   @override
+  VariantResponse? get variant => throw _privateConstructorUsedError;
+  @override
   TaxInfoModel? get taxInfo => throw _privateConstructorUsedError;
   @override
-  List<AddOnItem> get addOnItems => throw _privateConstructorUsedError;
+  bool? get isPaid => throw _privateConstructorUsedError;
   @override
-  List<OrderStatusHistory> get orderStatusHistory =>
-      throw _privateConstructorUsedError;
+  List<TagResponse>? get tags => throw _privateConstructorUsedError;
+  @override
+  List<AddOnItem> get selectedAddOnItems => throw _privateConstructorUsedError;
+  @override
+  String? get category => throw _privateConstructorUsedError;
   @override
   String? get productName => throw _privateConstructorUsedError;
   @override
+  bool? get isVeg => throw _privateConstructorUsedError;
+  @override
+  String? get subCategory => throw _privateConstructorUsedError;
+  @override
+  String? get menuId => throw _privateConstructorUsedError;
+  @override
   String? get categoryName => throw _privateConstructorUsedError;
   @override
-  String? get categoryId => throw _privateConstructorUsedError;
-  @override
-  double get originalPrice => throw _privateConstructorUsedError;
-  @override
-  double get sellingPrice => throw _privateConstructorUsedError;
-  @override
-  String? get description => throw _privateConstructorUsedError;
+  String? get productDescription => throw _privateConstructorUsedError;
   @override
   double get totalProductPrice => throw _privateConstructorUsedError;
   @override
-  dynamic get quantity => throw _privateConstructorUsedError;
+  dynamic get variantQuantity => throw _privateConstructorUsedError;
+  @override
+  double get tax => throw _privateConstructorUsedError;
   @override
   String? get productId => throw _privateConstructorUsedError;
   @override
-  String? get paymentStatus => throw _privateConstructorUsedError;
-  @override
-  String? get orderStatus => throw _privateConstructorUsedError;
+  String? get productInstructions => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CartProductCopyWith<_CartProduct> get copyWith =>

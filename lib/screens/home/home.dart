@@ -63,7 +63,6 @@ class Home extends HookWidget {
       (banner) {
         return InkWell(
           onTap: () {
-            print('banner $banner');
             if (banner.productId != null) {
               context
                   .read(homeTabsProvider.notifier)

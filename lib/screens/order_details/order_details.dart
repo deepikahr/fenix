@@ -92,7 +92,7 @@ class OrderDetails extends HookWidget {
                                         padding:
                                             const EdgeInsets.only(left: 0.0),
                                         child: Text(
-                                            '${state.orderDetails!.subTotal!.toStringAsFixed(2)}${Constants.currency} ${'VAT_INCLUDE_TOTAL'.tr}',
+                                            '${state.orderDetails!.subTotal.toStringAsFixed(2)}${Constants.currency} ${'VAT_INCLUDE_TOTAL'.tr}',
                                             style:
                                                 textBlackLargeBM20G(context)),
                                       ),
@@ -126,7 +126,7 @@ class OrderDetails extends HookWidget {
                                         height: 10,
                                       ),
                                       Text(
-                                          '${state.orderDetails!.grandTotal!.toStringAsFixed(2)}${Constants.currency} ${'TOTAL_SELECTION'.tr}',
+                                          '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency} ${'TOTAL_SELECTION'.tr}',
                                           style: textBlackLargeBM20G(context)),
                                     ],
                                   ),
@@ -155,47 +155,74 @@ class OrderDetails extends HookWidget {
 
   cartItemBlock(BuildContext context, List<CartProduct> cart, state) {
     return ListView.builder(
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: cart.length,
-        itemBuilder: (BuildContext context, int i) {
-          final cartProduct = cart.elementAt(i);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 26.0),
-                child: Text(cartProduct.productName!,
-                    style: textBlackLargeBM20(context)),
+      physics: ScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: cart.length,
+      itemBuilder: (BuildContext context, int i) {
+        final cartProduct = cart.elementAt(i);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 26.0),
+              child: Text(cartProduct.productName!,
+                  style: textBlackLargeBM20(context)),
+            ),
+            SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 26.0),
+              child: Text(
+                "${cartProduct.variant?.sizeName ?? ''} - ${cartProduct.variant?.price ?? ''}${Constants.currency}",
+                style: textDarkLightSmallBR(context),
               ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      state.divideAccount
-                          ? GFCheckbox(
-                              size: 20,
-                              activeBgColor: GFColors.DANGER,
-                              onChanged: (value) {},
-                              value: false,
-                            )
-                          : Container(),
-                      SizedBox(width: 10),
-                      Text(
-                          '${cartProduct.totalProductPrice}${Constants.currency}',
-                          style: textBlackLargeBM(context)),
-                    ],
-                  ),
-                  Text('${cartProduct.quantity}',
-                      style: textBlackLargeBM(context)),
-                ],
-              ),
-              Divider()
-            ],
-          );
-        });
+            ),
+            SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 26.0),
+              child: ListView.builder(
+                  padding: EdgeInsets.all(5.0),
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: cartProduct.selectedAddOnItems.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 5),
+                      child: Text(
+                        "${cartProduct.selectedAddOnItems[i].addOnItemName ?? ''} x ${cartProduct.selectedAddOnItems[i].quantity} - ${(cartProduct.selectedAddOnItems[i].quantity) * (cartProduct.selectedAddOnItems[i].addOnItemPrice ?? 0)}${Constants.currency}",
+                        style: textDarkLightSmallBR(context),
+                      ),
+                    );
+                  }),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    state.divideAccount
+                        ? GFCheckbox(
+                            size: 20,
+                            activeBgColor: GFColors.DANGER,
+                            onChanged: (value) {},
+                            value: false,
+                          )
+                        : Container(height: 20, width: 20),
+                    SizedBox(width: 10),
+                    Text(
+                        '${cartProduct.totalProductPrice}${Constants.currency}',
+                        style: textBlackLargeBM(context)),
+                  ],
+                ),
+                Text('${cartProduct.variantQuantity}',
+                    style: textBlackLargeBM(context)),
+              ],
+            ),
+            Divider()
+          ],
+        );
+      },
+    );
   }
 }

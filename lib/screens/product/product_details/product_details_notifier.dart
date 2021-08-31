@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:collection/collection.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -91,9 +89,9 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   }
 
   Future<void> _createCartWithFirstProduct(
-    ProductDetailsResponse product,
-  ) async {
+      ProductDetailsResponse product) async {
     product = product.copyWith.call(
+      productId: product.id,
       variantQuantity: 1,
       isLastUsedVariant: true,
       totalProductPrice: (product.variants[state.groupValue].price) +
@@ -108,10 +106,10 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       modified: db.getOrderId() != null,
     );
     final cart = Cart(
-      franchiseId: product.franchiseId,
-      franchiseName: product.franchiseName,
-      vendorId: product.vendorId,
-      restaurantName: product.restaurantName,
+      franchiseId: db.getFranchiseId(),
+      franchiseName: db.getFranchiseName(),
+      vendorId: db.getVendorId(),
+      restaurantName: db.getRestaurantName(),
       userId: db.getId(),
       products: [product],
     );
@@ -144,6 +142,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       variant: product.variants[state.groupValue],
       selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
       modified: db.getOrderId() != null,
+      productId: product.id,
     );
 
     var newCart = data?.copyWith.call(
@@ -277,7 +276,6 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
 
   void updateProductWithCartProduct(ProductDetailsResponse cartProduct) {
     if (state.productDetails != null) {
-      log('variantQuantity---------${cartProduct.variantQuantity}');
       state = state.copyWith.productDetails!(
         variantQuantity: cartProduct.variantQuantity,
         isSameProductMultipleTime: cartProduct.isSameProductMultipleTime,

@@ -25,13 +25,17 @@ class _$LoginVerifyResponseTearOff {
       String? role,
       String? id,
       String? franchiseId,
-      String? vendorId}) {
+      String? vendorId,
+      String? restaurantName,
+      String? franchiseName}) {
     return _LoginVerifyResponse(
       token: token,
       role: role,
       id: id,
       franchiseId: franchiseId,
       vendorId: vendorId,
+      restaurantName: restaurantName,
+      franchiseName: franchiseName,
     );
   }
 
@@ -50,6 +54,8 @@ mixin _$LoginVerifyResponse {
   String? get id => throw _privateConstructorUsedError;
   String? get franchiseId => throw _privateConstructorUsedError;
   String? get vendorId => throw _privateConstructorUsedError;
+  String? get restaurantName => throw _privateConstructorUsedError;
+  String? get franchiseName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,7 +73,9 @@ abstract class $LoginVerifyResponseCopyWith<$Res> {
       String? role,
       String? id,
       String? franchiseId,
-      String? vendorId});
+      String? vendorId,
+      String? restaurantName,
+      String? franchiseName});
 }
 
 /// @nodoc
@@ -86,6 +94,8 @@ class _$LoginVerifyResponseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? franchiseId = freezed,
     Object? vendorId = freezed,
+    Object? restaurantName = freezed,
+    Object? franchiseName = freezed,
   }) {
     return _then(_value.copyWith(
       token: token == freezed
@@ -108,6 +118,14 @@ class _$LoginVerifyResponseCopyWithImpl<$Res>
           ? _value.vendorId
           : vendorId // ignore: cast_nullable_to_non_nullable
               as String?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      franchiseName: franchiseName == freezed
+          ? _value.franchiseName
+          : franchiseName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -124,7 +142,9 @@ abstract class _$LoginVerifyResponseCopyWith<$Res>
       String? role,
       String? id,
       String? franchiseId,
-      String? vendorId});
+      String? vendorId,
+      String? restaurantName,
+      String? franchiseName});
 }
 
 /// @nodoc
@@ -145,6 +165,8 @@ class __$LoginVerifyResponseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? franchiseId = freezed,
     Object? vendorId = freezed,
+    Object? restaurantName = freezed,
+    Object? franchiseName = freezed,
   }) {
     return _then(_LoginVerifyResponse(
       token: token == freezed
@@ -167,6 +189,14 @@ class __$LoginVerifyResponseCopyWithImpl<$Res>
           ? _value.vendorId
           : vendorId // ignore: cast_nullable_to_non_nullable
               as String?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      franchiseName: franchiseName == freezed
+          ? _value.franchiseName
+          : franchiseName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -175,7 +205,13 @@ class __$LoginVerifyResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_LoginVerifyResponse extends _LoginVerifyResponse {
   const _$_LoginVerifyResponse(
-      {this.token, this.role, this.id, this.franchiseId, this.vendorId})
+      {this.token,
+      this.role,
+      this.id,
+      this.franchiseId,
+      this.vendorId,
+      this.restaurantName,
+      this.franchiseName})
       : super._();
 
   factory _$_LoginVerifyResponse.fromJson(Map<String, dynamic> json) =>
@@ -191,10 +227,14 @@ class _$_LoginVerifyResponse extends _LoginVerifyResponse {
   final String? franchiseId;
   @override
   final String? vendorId;
+  @override
+  final String? restaurantName;
+  @override
+  final String? franchiseName;
 
   @override
   String toString() {
-    return 'LoginVerifyResponse(token: $token, role: $role, id: $id, franchiseId: $franchiseId, vendorId: $vendorId)';
+    return 'LoginVerifyResponse(token: $token, role: $role, id: $id, franchiseId: $franchiseId, vendorId: $vendorId, restaurantName: $restaurantName, franchiseName: $franchiseName)';
   }
 
   @override
@@ -212,7 +252,13 @@ class _$_LoginVerifyResponse extends _LoginVerifyResponse {
                     .equals(other.franchiseId, franchiseId)) &&
             (identical(other.vendorId, vendorId) ||
                 const DeepCollectionEquality()
-                    .equals(other.vendorId, vendorId)));
+                    .equals(other.vendorId, vendorId)) &&
+            (identical(other.restaurantName, restaurantName) ||
+                const DeepCollectionEquality()
+                    .equals(other.restaurantName, restaurantName)) &&
+            (identical(other.franchiseName, franchiseName) ||
+                const DeepCollectionEquality()
+                    .equals(other.franchiseName, franchiseName)));
   }
 
   @override
@@ -222,7 +268,9 @@ class _$_LoginVerifyResponse extends _LoginVerifyResponse {
       const DeepCollectionEquality().hash(role) ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(franchiseId) ^
-      const DeepCollectionEquality().hash(vendorId);
+      const DeepCollectionEquality().hash(vendorId) ^
+      const DeepCollectionEquality().hash(restaurantName) ^
+      const DeepCollectionEquality().hash(franchiseName);
 
   @JsonKey(ignore: true)
   @override
@@ -242,7 +290,9 @@ abstract class _LoginVerifyResponse extends LoginVerifyResponse {
       String? role,
       String? id,
       String? franchiseId,
-      String? vendorId}) = _$_LoginVerifyResponse;
+      String? vendorId,
+      String? restaurantName,
+      String? franchiseName}) = _$_LoginVerifyResponse;
   const _LoginVerifyResponse._() : super._();
 
   factory _LoginVerifyResponse.fromJson(Map<String, dynamic> json) =
@@ -258,6 +308,10 @@ abstract class _LoginVerifyResponse extends LoginVerifyResponse {
   String? get franchiseId => throw _privateConstructorUsedError;
   @override
   String? get vendorId => throw _privateConstructorUsedError;
+  @override
+  String? get restaurantName => throw _privateConstructorUsedError;
+  @override
+  String? get franchiseName => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LoginVerifyResponseCopyWith<_LoginVerifyResponse> get copyWith =>

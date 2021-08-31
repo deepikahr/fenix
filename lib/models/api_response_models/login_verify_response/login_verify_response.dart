@@ -6,11 +6,19 @@ part 'login_verify_response.freezed.dart';
 part 'login_verify_response.g.dart';
 
 @freezed
-class LoginVerifyResponse with BaseModel<LoginVerifyResponse>, _$LoginVerifyResponse {
+class LoginVerifyResponse
+    with BaseModel<LoginVerifyResponse>, _$LoginVerifyResponse {
   const LoginVerifyResponse._();
 
-  const factory LoginVerifyResponse({String? token, String? role, String? id, String? franchiseId, String? vendorId}) =
-  _LoginVerifyResponse;
+  const factory LoginVerifyResponse({
+    String? token,
+    String? role,
+    String? id,
+    String? franchiseId,
+    String? vendorId,
+    String? restaurantName,
+    String? franchiseName,
+  }) = _LoginVerifyResponse;
 
   factory LoginVerifyResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginVerifyResponseFromJson(json);
@@ -25,4 +33,3 @@ class LoginVerifyResponse with BaseModel<LoginVerifyResponse>, _$LoginVerifyResp
     return toJson();
   }
 }
-

@@ -10,6 +10,7 @@ _$_CallWaiterRequest _$_$_CallWaiterRequestFromJson(Map<String, dynamic> json) {
   return _$_CallWaiterRequest(
     title: json['title'] as String?,
     description: json['description'] as String?,
+    orderId: json['orderId'] as String?,
   );
 }
 
@@ -18,4 +19,5 @@ Map<String, dynamic> _$_$_CallWaiterRequestToJson(
     <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
+      'orderId': instance.orderId,
     };

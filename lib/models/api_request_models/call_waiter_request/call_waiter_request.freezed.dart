@@ -20,10 +20,12 @@ CallWaiterRequest _$CallWaiterRequestFromJson(Map<String, dynamic> json) {
 class _$CallWaiterRequestTearOff {
   const _$CallWaiterRequestTearOff();
 
-  _CallWaiterRequest call({String? title, String? description}) {
+  _CallWaiterRequest call(
+      {String? title, String? description, String? orderId}) {
     return _CallWaiterRequest(
       title: title,
       description: description,
+      orderId: orderId,
     );
   }
 
@@ -39,6 +41,7 @@ const $CallWaiterRequest = _$CallWaiterRequestTearOff();
 mixin _$CallWaiterRequest {
   String? get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get orderId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +54,7 @@ abstract class $CallWaiterRequestCopyWith<$Res> {
   factory $CallWaiterRequestCopyWith(
           CallWaiterRequest value, $Res Function(CallWaiterRequest) then) =
       _$CallWaiterRequestCopyWithImpl<$Res>;
-  $Res call({String? title, String? description});
+  $Res call({String? title, String? description, String? orderId});
 }
 
 /// @nodoc
@@ -67,6 +70,7 @@ class _$CallWaiterRequestCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? description = freezed,
+    Object? orderId = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -76,6 +80,10 @@ class _$CallWaiterRequestCopyWithImpl<$Res>
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      orderId: orderId == freezed
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -88,7 +96,7 @@ abstract class _$CallWaiterRequestCopyWith<$Res>
           _CallWaiterRequest value, $Res Function(_CallWaiterRequest) then) =
       __$CallWaiterRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String? title, String? description});
+  $Res call({String? title, String? description, String? orderId});
 }
 
 /// @nodoc
@@ -106,6 +114,7 @@ class __$CallWaiterRequestCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? description = freezed,
+    Object? orderId = freezed,
   }) {
     return _then(_CallWaiterRequest(
       title: title == freezed
@@ -116,6 +125,10 @@ class __$CallWaiterRequestCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      orderId: orderId == freezed
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -123,7 +136,8 @@ class __$CallWaiterRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CallWaiterRequest extends _CallWaiterRequest {
-  const _$_CallWaiterRequest({this.title, this.description}) : super._();
+  const _$_CallWaiterRequest({this.title, this.description, this.orderId})
+      : super._();
 
   factory _$_CallWaiterRequest.fromJson(Map<String, dynamic> json) =>
       _$_$_CallWaiterRequestFromJson(json);
@@ -132,10 +146,12 @@ class _$_CallWaiterRequest extends _CallWaiterRequest {
   final String? title;
   @override
   final String? description;
+  @override
+  final String? orderId;
 
   @override
   String toString() {
-    return 'CallWaiterRequest(title: $title, description: $description)';
+    return 'CallWaiterRequest(title: $title, description: $description, orderId: $orderId)';
   }
 
   @override
@@ -146,14 +162,17 @@ class _$_CallWaiterRequest extends _CallWaiterRequest {
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
-                    .equals(other.description, description)));
+                    .equals(other.description, description)) &&
+            (identical(other.orderId, orderId) ||
+                const DeepCollectionEquality().equals(other.orderId, orderId)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(description);
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(orderId);
 
   @JsonKey(ignore: true)
   @override
@@ -167,8 +186,10 @@ class _$_CallWaiterRequest extends _CallWaiterRequest {
 }
 
 abstract class _CallWaiterRequest extends CallWaiterRequest {
-  const factory _CallWaiterRequest({String? title, String? description}) =
-      _$_CallWaiterRequest;
+  const factory _CallWaiterRequest(
+      {String? title,
+      String? description,
+      String? orderId}) = _$_CallWaiterRequest;
   const _CallWaiterRequest._() : super._();
 
   factory _CallWaiterRequest.fromJson(Map<String, dynamic> json) =
@@ -178,6 +199,8 @@ abstract class _CallWaiterRequest extends CallWaiterRequest {
   String? get title => throw _privateConstructorUsedError;
   @override
   String? get description => throw _privateConstructorUsedError;
+  @override
+  String? get orderId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CallWaiterRequestCopyWith<_CallWaiterRequest> get copyWith =>

@@ -6,6 +6,7 @@ import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.da
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/counterBox.dart';
@@ -21,6 +22,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 
 import 'product_details_state.dart';
 
+// ignore: must_be_immutable
 class ProductDetails extends HookWidget {
   final String productId;
 
@@ -180,7 +182,7 @@ class ProductDetails extends HookWidget {
                       '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
-                    !state.showAddButton
+                    !state.showAddButton && product.variantQuantity > 0
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -510,9 +512,7 @@ class ProductDetails extends HookWidget {
     );
   }
 
-  Widget showMultipleTimeProductPopUp(
-    BuildContext context,
-  ) {
+  Widget showMultipleTimeProductPopUp(BuildContext context) {
     return Dialog(
       child: Container(
         height: 165,
@@ -550,9 +550,9 @@ class ProductDetails extends HookWidget {
                   type: GFButtonType.outline,
                   onPressed: () async {
                     Get.back();
-                    // context
-                    // .read(productDetailsProvider.notifier)
-                    // .updateQuantity();
+                    context
+                        .read(homeTabsProvider.notifier)
+                        .showScreen(CartScreen());
                   },
                   child: Text(
                     'CART'.tr.toUpperCase(),

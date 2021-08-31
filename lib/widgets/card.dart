@@ -364,39 +364,39 @@ Widget gridDishCard(
                   SizedBox(
                     height: 6,
                   ),
-                  product.allergens!.length > 0
-                      ? InkWell(
-                          onTap: () async {},
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: primary(),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(
-                              'ALLERGENS'.tr,
-                              style: textWhiteRegularBM(),
-                            ),
-                          ),
-                        )
-                      : Container(),
+                  // product.allergens!.length > 0
+                  //     ? InkWell(
+                  //         onTap: () async {},
+                  //         child: Container(
+                  //           padding: EdgeInsets.all(4),
+                  //           decoration: BoxDecoration(
+                  //               color: primary(),
+                  //               borderRadius: BorderRadius.circular(5)),
+                  //           child: Text(
+                  //             'ALLERGENS'.tr,
+                  //             style: textWhiteRegularBM(),
+                  //           ),
+                  //         ),
+                  //       )
+                  //     : Container(),
                   SizedBox(
                     height: 6,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null
-                          ? Text(
-                              '${product.variant!.price}${Constants.currency}',
-                              style: textDarkRegularBS(context),
-                            )
-                          : Container(),
-                      product.productImage!.imageUrl != null
-                          ? Icon(
-                              Icons.camera_alt_rounded,
-                              color: primary(),
-                            )
-                          : Container(),
+                      // categoryImage != null
+                      //     ? Text(
+                      //         '${product.variant!.price}${Constants.currency}',
+                      //         style: textDarkRegularBS(context),
+                      //       )
+                      //     : Container(),
+                      // product.productImage!.imageUrl != null
+                      //     ? Icon(
+                      //         Icons.camera_alt_rounded,
+                      //         color: primary(),
+                      //       )
+                      //     : Container(),
                       product.totalQuantity > 0
                           ? Container(
                               child: Row(
