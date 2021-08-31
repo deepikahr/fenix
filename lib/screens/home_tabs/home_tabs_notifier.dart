@@ -5,6 +5,7 @@ import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_state.dart';
+import 'package:fenix_user/screens/order_details/order_details_state_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -6,11 +6,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
 
 class FABBottomAppBarItem {
-  FABBottomAppBarItem({this.iconData, this.text});
+  FABBottomAppBarItem({this.iconData, this.text, this.total});
   String? iconData;
   String? text;
+  String? total;
 }
 
 class FABBottomAppBar extends HookWidget {
@@ -136,6 +138,7 @@ class FABBottomAppBar extends HookWidget {
     ValueChanged<int>? onPressed,
   }) {
     Color? selColor = sel == index ? selectedColor! : color;
+    print('aaaaaaaaaa ${item!.total}');
     return Expanded(
       child: SizedBox(
         height: height,
@@ -150,11 +153,45 @@ class FABBottomAppBar extends HookWidget {
                 SizedBox(
                   height: 6,
                 ),
-                SvgPicture.asset(
-                  item!.iconData!,
-                  width: 60,
-                  height: 60,
-                ),
+                item.total == '0'
+                    ? SvgPicture.asset(
+                        item.iconData!,
+                        width: 60,
+                        height: 60,
+                        // color: selColor,
+                      )
+                    : GFIconBadge(
+                        position: GFBadgePosition.topEnd(top: -4, end: -10),
+                        child: SvgPicture.asset(
+                          item.iconData!,
+                          width: 60,
+                          height: 60,
+                          // color: selColor,
+                        ),
+                        counterChild: Container(
+                            alignment: AlignmentDirectional.center,
+                            height: 22,
+                            width: 22,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(color: Colors.black, width: 3),
+                              color: Colors.white,
+                            ),
+                            child: Text(
+                              '${item.total}',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            )
+                            // GFBadge(
+                            //   shape: GFBadgeShape.circle,
+                            //   color: Colors.white,
+                            //   textColor: Colors.black,
+                            //   size: GFSize.SMALL,
+                            //   text: item.total,
+                            // ),
+                            )),
                 SizedBox(
                   height: 6,
                 ),

@@ -10,7 +10,7 @@ class SocketService {
     });
   }
 
-  IO.Socket getSocket() {
+  IO.Socket? getSocket() {
     return socket;
   }
 

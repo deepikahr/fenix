@@ -147,7 +147,7 @@ Widget tabIconButton(BuildContext context, iconData, cartData) {
   );
 }
 
-Widget customBottomBar(int currentIndex, onSelect) {
+Widget customBottomBar(int currentIndex, onSelect, total) {
   return FABBottomAppBar(
     centerItemText: 'ASK_FOR'.tr,
     color: Colors.grey,
@@ -156,13 +156,13 @@ Widget customBottomBar(int currentIndex, onSelect) {
     onTabSelected: onSelect,
     items: [
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr),
+          iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr, total: '0'),
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr),
+          iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr, total: '0'),
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr),
+          iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr, total: '0'),
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/pay.svg", text: 'TO_PAY'.tr),
+          iconData: "lib/assets/icons/toPay.svg", text: 'TO_PAY'.tr, total: total.toString()),
     ],
     backgroundColor: Colors.grey.shade200,
     currentIndex: currentIndex,
