@@ -57,7 +57,7 @@ double screenWidth(context) {
 TextStyle textDarkLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -66,7 +66,7 @@ TextStyle textDarkLargeBM(context) {
 TextStyle textLightLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: light,
     fontFamily: 'BarlowMedium',
   );
@@ -75,7 +75,7 @@ TextStyle textLightLargeBM(context) {
 TextStyle textPrimaryLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: primary(),
     fontFamily: 'BarlowMedium',
   );
@@ -84,7 +84,7 @@ TextStyle textPrimaryLargeBM(context) {
 TextStyle textBlackLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: Colors.black,
     fontFamily: 'BarlowMedium',
   );
@@ -93,7 +93,7 @@ TextStyle textBlackLargeBM(context) {
 TextStyle textBlackLargeBM20(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 20.0,
+    fontSize: 22.0,
     color: Colors.black,
     fontFamily: 'BarlowMedium',
   );
@@ -102,7 +102,7 @@ TextStyle textBlackLargeBM20(context) {
 TextStyle textBlackLargeBM20G(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 20.0,
+    fontSize: 22.0,
     color: Color(0xFF5F5F5F),
     fontFamily: 'BarlowMedium',
   );
@@ -111,7 +111,7 @@ TextStyle textBlackLargeBM20G(context) {
 TextStyle textDarkXXLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 24.0,
+    fontSize: 26.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -120,7 +120,7 @@ TextStyle textDarkXXLargeBM(context) {
 TextStyle textDarkLargeBMD(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 24.0,
+    fontSize: 26.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -129,7 +129,7 @@ TextStyle textDarkLargeBMD(context) {
 TextStyle textDarkSmallBROP(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark.withOpacity(0.6),
     fontFamily: 'BarlowRegular',
   );
@@ -138,7 +138,7 @@ TextStyle textDarkSmallBROP(context) {
 TextStyle textWhiteLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: Colors.white,
     fontFamily: 'BarlowBold',
   );
@@ -147,7 +147,7 @@ TextStyle textWhiteLargeBM(context) {
 TextStyle textWhiteLargeBMM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: Colors.white,
     fontFamily: 'BarlowMedium',
   );
@@ -156,7 +156,7 @@ TextStyle textWhiteLargeBMM(context) {
 TextStyle textWhiteRegularBM() {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 13.0,
+    fontSize: 15.0,
     color: white,
     fontFamily: 'BarlowMedium',
   );
@@ -165,7 +165,7 @@ TextStyle textWhiteRegularBM() {
 TextStyle textWhiteLightRegularBM() {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 13.0,
+    fontSize: 15.0,
     color: white.withOpacity(0.8),
     fontFamily: 'BarlowMedium',
   );
@@ -174,7 +174,7 @@ TextStyle textWhiteLightRegularBM() {
 TextStyle textWhiteXSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 12.0,
+    fontSize: 16.0,
     color: Colors.white,
     fontFamily: 'BarlowMedium',
   );
@@ -183,7 +183,7 @@ TextStyle textWhiteXSmallBM(context) {
 TextStyle textWhite3XSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: whiteLight2,
     fontFamily: 'BarlowMedium',
   );
@@ -193,7 +193,7 @@ TextStyle textWhite3XSmallBM(context) {
 TextStyle textWhiteXXSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 10.0,
+    fontSize: 12.0,
     color: Colors.white,
     fontFamily: 'BarlowMedium',
   );
@@ -202,7 +202,7 @@ TextStyle textWhiteXXSmallBM(context) {
 TextStyle textWhiteXXSmall(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 15.0,
+    fontSize: 17.0,
     color: Colors.white,
     fontFamily: 'BarlowMedium',
   );
@@ -211,7 +211,7 @@ TextStyle textWhiteXXSmall(context) {
 TextStyle textPrimaryXXSmall(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 15.0,
+    fontSize: 17.0,
     color: primary(),
     fontFamily: 'BarlowMedium',
   );
@@ -220,7 +220,7 @@ TextStyle textPrimaryXXSmall(context) {
 TextStyle textPrimaryXXSmallDark(context) {
   return TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: primary(),
     fontFamily: 'BarlowMedium',
   );
@@ -230,7 +230,7 @@ TextStyle textPrimaryXXSmallDark(context) {
 TextStyle textDarkSmallUnderlineBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark,
     decoration: TextDecoration.underline,
     fontFamily: 'BarlowMedium',
@@ -240,7 +240,7 @@ TextStyle textDarkSmallUnderlineBM(context) {
 TextStyle textPrimarySmallUnderlineBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: primary(),
     decoration: TextDecoration.underline,
     fontFamily: 'BarlowMedium',
@@ -250,7 +250,7 @@ TextStyle textPrimarySmallUnderlineBM(context) {
 TextStyle textBrownSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: brown,
     fontFamily: 'BarlowMedium',
   );
@@ -259,7 +259,7 @@ TextStyle textBrownSmallBM(context) {
 TextStyle textDarkSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -267,7 +267,7 @@ TextStyle textDarkSmallBM(context) {
 
 TextStyle textDarkLightXSmallBLS(context) {
   return TextStyle(
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: blackN,
     fontFamily: 'BarlowLight',
   );
@@ -276,7 +276,7 @@ TextStyle textDarkLightXSmallBLS(context) {
 TextStyle textDarkLight2SmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: darkLight2,
     fontFamily: 'BarlowMedium',
   );
@@ -285,7 +285,7 @@ TextStyle textDarkLight2SmallBM(context) {
 TextStyle textDarkLightSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: darkLight,
     fontFamily: 'BarlowMedium',
   );
@@ -294,7 +294,7 @@ TextStyle textDarkLightSmallBM(context) {
 TextStyle textPrimarySmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: primary(),
     fontFamily: 'BarlowMedium',
   );
@@ -303,7 +303,7 @@ TextStyle textPrimarySmallBM(context) {
 TextStyle textBlackSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -312,7 +312,7 @@ TextStyle textBlackSmallBM(context) {
 TextStyle textGreenSmallBM({context}) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: green,
     fontFamily: 'BarlowMedium',
   );
@@ -321,7 +321,7 @@ TextStyle textGreenSmallBM({context}) {
 TextStyle textGreenMediumBM({context}) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: green,
     fontFamily: 'BarlowMedium',
   );
@@ -330,16 +330,24 @@ TextStyle textGreenMediumBM({context}) {
 TextStyle textDarkLightRegularBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: darkLight,
     fontFamily: 'BarlowMedium',
   );
 }
 
+TextStyle tabIconTextBM(selectedColor) {
+  return TextStyle(
+    color: selectedColor,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'BarlowMedium',);
+}
+
 TextStyle textDarkLight2RegularBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: darkLight2,
     fontFamily: 'BarlowMedium',
   );
@@ -348,7 +356,7 @@ TextStyle textDarkLight2RegularBM(context) {
 TextStyle textDarkRegularBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -357,7 +365,7 @@ TextStyle textDarkRegularBM(context) {
 TextStyle textDarkRegularBM10(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 10.0,
+    fontSize: 12.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -366,7 +374,7 @@ TextStyle textDarkRegularBM10(context) {
 TextStyle textDark15RegularBR({context}) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 15.0,
+    fontSize: 17.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -375,7 +383,7 @@ TextStyle textDark15RegularBR({context}) {
 TextStyle textDark17RegularBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontSize: 19.0,
     color: dark,
     fontFamily: 'BarlowMedium',
   );
@@ -386,7 +394,7 @@ TextStyle textDark17RegularBR(context) {
 TextStyle textDarkSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark,
     fontFamily: 'BarlowRegular',
   );
@@ -395,7 +403,7 @@ TextStyle textDarkSmallBR(context) {
 TextStyle textDarkXSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: dark,
     fontFamily: 'BarlowRegular',
   );
@@ -404,7 +412,7 @@ TextStyle textDarkXSmallBR(context) {
 TextStyle textDarkRegularBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: dark,
     fontFamily: 'BarlowRegular',
   );
@@ -413,7 +421,7 @@ TextStyle textDarkRegularBR(context) {
 TextStyle textDarkRegularBRW(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: white,
     fontFamily: 'BarlowBold',
   );
@@ -422,7 +430,7 @@ TextStyle textDarkRegularBRW(context) {
 TextStyle textDarkRegularBR14(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark,
     fontFamily: 'BarlowRegular',
   );
@@ -431,7 +439,7 @@ TextStyle textDarkRegularBR14(context) {
 TextStyle textDarkLightRegularBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 16.0,
+    fontSize: 18.0,
     color: darkLight,
     fontFamily: 'BarlowRegular',
   );
@@ -440,7 +448,7 @@ TextStyle textDarkLightRegularBR(context) {
 TextStyle textDarkLightSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: darkLight,
     fontFamily: 'BarlowRegular',
   );
@@ -449,7 +457,7 @@ TextStyle textDarkLightSmallBR(context) {
 TextStyle textDarkLightSmallBR9(context) {
   return TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 9.0,
+    fontSize: 11.0,
     color: darkLight,
     fontFamily: 'BarlowRegular',
   );
@@ -458,7 +466,7 @@ TextStyle textDarkLightSmallBR9(context) {
 TextStyle textDarkLightXXXSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 10.0,
+    fontSize: 12.0,
     color: darkLight,
     fontFamily: 'BarlowRegular',
   );
@@ -467,7 +475,7 @@ TextStyle textDarkLightXXXSmallBR(context) {
 TextStyle textWhiteLightXSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: whiteLight,
     fontFamily: 'BarlowRegular',
   );
@@ -476,7 +484,7 @@ TextStyle textWhiteLightXSmallBR(context) {
 TextStyle textDarkLight2SmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: darkLight2,
     fontFamily: 'BarlowRegular',
   );
@@ -485,7 +493,7 @@ TextStyle textDarkLight2SmallBR(context) {
 TextStyle textDarkLight2XSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: darkLight2,
     fontFamily: 'BarlowRegular',
   );
@@ -494,7 +502,7 @@ TextStyle textDarkLight2XSmallBR(context) {
 TextStyle textDarkLight2XSmallLineThroughBR(context) {
   return TextStyle(
       fontWeight: FontWeight.w500,
-      fontSize: 12.0,
+      fontSize: 14.0,
       color: darkLight2,
       fontFamily: 'BarlowRegular',
       decoration: TextDecoration.lineThrough);
@@ -503,7 +511,7 @@ TextStyle textDarkLight2XSmallLineThroughBR(context) {
 TextStyle textDarkLightXSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: darkLight,
     fontFamily: 'BarlowRegular',
   );
@@ -512,7 +520,7 @@ TextStyle textDarkLightXSmallBR(context) {
 TextStyle textPrimaryLightXSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: primaryLight,
     fontFamily: 'BarlowRegular',
   );
@@ -521,7 +529,7 @@ TextStyle textPrimaryLightXSmallBR(context) {
 TextStyle textDarkLight3SmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: darkLight3,
     fontFamily: 'BarlowRegular',
   );
@@ -530,7 +538,7 @@ TextStyle textDarkLight3SmallBR(context) {
 TextStyle textWhiteLight3SmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: whiteLight3,
     fontFamily: 'BarlowRegular',
   );
@@ -539,7 +547,7 @@ TextStyle textWhiteLight3SmallBR(context) {
 TextStyle textWhiteSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: Colors.white,
     fontFamily: 'BarlowRegular',
   );
@@ -548,7 +556,7 @@ TextStyle textWhiteSmallBR(context) {
 TextStyle textPrimarySmallUnderlineBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: primary(),
     decoration: TextDecoration.underline,
     fontFamily: 'BarlowRegular',
@@ -558,7 +566,7 @@ TextStyle textPrimarySmallUnderlineBR(context) {
 TextStyle textRedLightXSmallBR(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: red.withOpacity(0.60),
     fontFamily: 'BarlowRegular',
   );
@@ -569,7 +577,7 @@ TextStyle textRedLightXSmallBR(context) {
 TextStyle textDarkRegularBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 20.0,
+    fontSize: 22.0,
     color: dark,
     fontFamily: 'BarlowSemiBold',
   );
@@ -578,7 +586,7 @@ TextStyle textDarkRegularBS(context) {
 TextStyle textDarkRegularBSW(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontSize: 19.0,
     color: white,
     fontFamily: 'BarlowSemiBold',
   );
@@ -587,7 +595,7 @@ TextStyle textDarkRegularBSW(context) {
 TextStyle textDarkRegularBG(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontSize: 19.0,
     color: Color(0xFF6F757E),
     fontFamily: 'BarlowSemiBold',
   );
@@ -614,7 +622,7 @@ TextStyle textDarkRegularLargeBS(context) {
 TextStyle textDarkXXSmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 10.0,
+    fontSize: 12.0,
     color: dark,
     fontFamily: 'BarlowSemiBold',
   );
@@ -623,7 +631,7 @@ TextStyle textDarkXXSmallBS(context) {
 TextStyle textDarkXXDarkBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 24.0,
+    fontSize: 26.0,
     color: dark,
     fontFamily: 'BarlowSemiBold',
   );
@@ -632,7 +640,7 @@ TextStyle textDarkXXDarkBS(context) {
 TextStyle textPrimaryXXXLargeBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 32.0,
+    fontSize: 34.0,
     color: primary(),
     fontFamily: 'BarlowSemiBold',
   );
@@ -641,7 +649,7 @@ TextStyle textPrimaryXXXLargeBS(context) {
 TextStyle textLightRegularBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontSize: 19.0,
     color: light,
     fontFamily: 'BarlowSemiBold',
   );
@@ -650,7 +658,7 @@ TextStyle textLightRegularBS(context) {
 TextStyle textPrimarySmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: primary(),
     fontFamily: 'BarlowSemiBold',
   );
@@ -659,7 +667,7 @@ TextStyle textPrimarySmallBS(context) {
 TextStyle textGreySmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: grey,
     fontFamily: 'BarlowSemiBold',
   );
@@ -668,7 +676,7 @@ TextStyle textGreySmallBS(context) {
 TextStyle textGreenSmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: green,
     fontFamily: 'BarlowSemiBold',
   );
@@ -677,7 +685,7 @@ TextStyle textGreenSmallBS(context) {
 TextStyle textDarkSmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.0,
+    fontSize: 16.0,
     color: dark,
     fontFamily: 'BarlowSemiBold',
   );
@@ -686,7 +694,7 @@ TextStyle textDarkSmallBS(context) {
 TextStyle textWhiteRegularBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 17.0,
+    fontSize: 19.0,
     color: Colors.white,
     fontFamily: 'BarlowSemiBold',
   );
@@ -696,7 +704,7 @@ TextStyle textWhiteRegularBS(context) {
 TextStyle textDarkRegularBB(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 17.0,
+    fontSize: 19.0,
     color: dark,
     fontFamily: 'BarlowBold',
   );
@@ -705,7 +713,7 @@ TextStyle textDarkRegularBB(context) {
 TextStyle textDarkRegularBB20(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 20.0,
+    fontSize: 22.0,
     color: dark,
     fontFamily: 'BarlowBold',
   );
@@ -723,7 +731,7 @@ TextStyle textDarkRegularBW(context) {
 TextStyle textDarkRegularBW40(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 46.0,
+    fontSize: 48.0,
     color: white,
     fontFamily: 'BarlowBold',
   );
@@ -741,7 +749,7 @@ TextStyle textDarkRegularBW17(context) {
 TextStyle textDarkRegularBW15(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 15.0,
+    fontSize: 17.0,
     color: white.withOpacity(0.7),
     fontFamily: 'BarlowBold',
   );
@@ -750,7 +758,7 @@ TextStyle textDarkRegularBW15(context) {
 TextStyle textGreenXXXLBB(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 32.0,
+    fontSize: 34.0,
     color: green,
     fontFamily: 'BarlowBold',
   );
@@ -759,7 +767,7 @@ TextStyle textGreenXXXLBB(context) {
 TextStyle textDarkXXXLBB(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 32.0,
+    fontSize: 34.0,
     color: dark,
     fontFamily: 'BarlowBold',
   );
@@ -768,7 +776,7 @@ TextStyle textDarkXXXLBB(context) {
 TextStyle textblackXLBB(context) {
   return TextStyle(
     fontWeight: FontWeight.w800,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: Colors.black,
     fontFamily: 'BarlowBold',
   );
@@ -779,7 +787,7 @@ TextStyle textblackXLBB(context) {
 TextStyle textDarkLightXSmallBL(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 14.0,
     color: darkLight,
     fontFamily: 'BarlowLight',
   );
@@ -790,7 +798,7 @@ TextStyle textDarkLightXSmallBL(context) {
 TextStyle textLightXXLargeRR(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 18.0,
+    fontSize: 20.0,
     color: Colors.white,
     fontFamily: 'RighteousRegular',
   );
@@ -799,7 +807,7 @@ TextStyle textLightXXLargeRR(context) {
 TextStyle textPrimarySmallBSLineThrough(context) {
   return TextStyle(
       fontWeight: FontWeight.w600,
-      fontSize: 10.0,
+      fontSize: 12.0,
       color: primary(),
       fontFamily: 'BarlowSemiBold',
       decoration: TextDecoration.underline);

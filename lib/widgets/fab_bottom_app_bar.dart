@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -113,7 +115,7 @@ class FABBottomAppBar extends HookWidget {
             ),
             Text(
               centerItemText ?? '',
-              style: TextStyle(color: color),
+              style: tabIconTextBM(color),
             ),
             SizedBox(height: 4),
             Container(
@@ -145,14 +147,20 @@ class FABBottomAppBar extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(
+                  height: 6,
+                ),
                 SvgPicture.asset(
                   item!.iconData!,
                   width: 60,
                   height: 60,
                 ),
+                SizedBox(
+                  height: 6,
+                ),
                 Text(
                   item.text!,
-                  style: TextStyle(color: selColor),
+                  style: tabIconTextBM(selColor),
                 )
               ],
             ),
