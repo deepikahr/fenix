@@ -160,7 +160,7 @@ class ProductList extends HookWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 620),
+            childAspectRatio: MediaQuery.of(context).size.width / 640),
         itemBuilder: (context, index) {
           return InkWell(
               onTap: () {
