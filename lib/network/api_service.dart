@@ -5,6 +5,7 @@ import 'package:fenix_user/models/api_request_models/category_request/category_r
 import 'package:fenix_user/models/api_request_models/change_password_request/change_password_request.dart';
 import 'package:fenix_user/models/api_request_models/localizationDataRequest/localizationDataRequest.dart';
 import 'package:fenix_user/models/api_request_models/login_verify_request/login_verify_request.dart';
+import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_request_models/settings_update_request/settings_update_request.dart';
 import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
 import 'package:fenix_user/models/api_response_model.dart';
@@ -260,5 +261,20 @@ class API {
     );
     return output
         ?.map((key, value) => MapEntry(key, Map<String, String>.from(value)));
+  }
+
+  Future<String?> paymentRequest(
+    PaymentRequest paymentRequest, {
+    ValueSetter<ErrorResponse>? errorListener,
+    ValueSetter<ApiResponse<String?>>? responseListener,
+    bool autoErrorHandle = true,
+  }) async {
+    return _api.postForStringResponse(
+      URL.PAYMENT_REQUEST,
+      reqModel: paymentRequest,
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+    );
   }
 }

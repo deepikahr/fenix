@@ -23,4 +23,8 @@ class URL {
 
   static const LANGUAGES = '/languages/list';
   static const GET_LOCALIZATION_JSON = '/languages/user';
+
+  static const PAYMENT_REQUEST = '/payment-notification/new-payment-request';
+  static const PAYMENT_REQUEST_EVENT = '/Payment-Request-Complete-ORDER_ID';
+  static const ORDER_STATUS_REQUEST_EVENT = 'Order-Status-Update-ORDER_ID';
 }

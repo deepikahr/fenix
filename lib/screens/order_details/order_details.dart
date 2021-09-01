@@ -2,12 +2,17 @@ import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
+import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
+import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/screens/payment/payment_screen.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,9 +26,26 @@ class OrderDetails extends HookWidget {
 
     useEffect(() {
       if (isMounted()) {
-        Future.delayed(Duration.zero, () {
+        Future.delayed(Duration.zero, () async {
           if (DB().getOrderId() != null) {
-            notifier.fetchOrderDetails();
+            final res = await notifier.fetchOrderDetails();
+            if (res != null) {
+              if (res.orderStatus == PAYMENT_STATUS.completed) {
+                await CartNotifier().deleteCart();
+                await DB().removeOrderId();
+                await Get.offAll(() => HomeTabs());
+              } else if (res.orderStatus == ORDER_STATUS.pending) {
+                context
+                    .read(homeTabsProvider.notifier)
+                    .showScreen(OrdersInProcess());
+              } else if (res.orderStatus == ORDER_STATUS.cancelled) {
+                Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
+                await DB().removeOrderId();
+                context
+                    .read(homeTabsProvider.notifier)
+                    .showScreen(CartScreen());
+              }
+            }
           }
         });
       }
@@ -139,7 +161,8 @@ class OrderDetails extends HookWidget {
                                           () {
                                     context
                                         .read(homeTabsProvider.notifier)
-                                        .showScreen(Payment());
+                                        .showScreen(
+                                            Payment(state.orderDetails));
                                   }, false)),
                                 ),
                               ],

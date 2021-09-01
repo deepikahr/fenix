@@ -17,6 +17,15 @@ enum ORDER_STATUS {
   cancelled,
 }
 
+enum PAYMENT_STATUS {
+  @JsonValue('PENDING')
+  pending,
+  @JsonValue('COMPLETED')
+  completed,
+  @JsonValue('IN_PROGRESS')
+  inProgress,
+}
+
 @freezed
 class OrderDetailsResponse
     with BaseModel<OrderDetailsResponse>, _$OrderDetailsResponse {
@@ -38,6 +47,7 @@ class OrderDetailsResponse
     String? currencyCode,
     String? currencySymbol,
     ORDER_STATUS? orderStatus,
+    PAYMENT_STATUS? paymentStatus,
     int? orderID,
     int? tableNumber,
     String? createdAt,

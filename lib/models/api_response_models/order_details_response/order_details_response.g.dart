@@ -28,6 +28,8 @@ _$_OrderDetailsResponse _$_$_OrderDetailsResponseFromJson(
     currencySymbol: json['currencySymbol'] as String?,
     orderStatus:
         _$enumDecodeNullable(_$ORDER_STATUSEnumMap, json['orderStatus']),
+    paymentStatus:
+        _$enumDecodeNullable(_$PAYMENT_STATUSEnumMap, json['paymentStatus']),
     orderID: json['orderID'] as int?,
     tableNumber: json['tableNumber'] as int?,
     createdAt: json['createdAt'] as String?,
@@ -53,6 +55,7 @@ Map<String, dynamic> _$_$_OrderDetailsResponseToJson(
       'currencyCode': instance.currencyCode,
       'currencySymbol': instance.currencySymbol,
       'orderStatus': _$ORDER_STATUSEnumMap[instance.orderStatus],
+      'paymentStatus': _$PAYMENT_STATUSEnumMap[instance.paymentStatus],
       'orderID': instance.orderID,
       'tableNumber': instance.tableNumber,
       'createdAt': instance.createdAt,
@@ -101,4 +104,10 @@ const _$ORDER_STATUSEnumMap = {
   ORDER_STATUS.confirmed: 'CONFIRMED',
   ORDER_STATUS.completed: 'COMPLETED',
   ORDER_STATUS.cancelled: 'CANCELLED',
+};
+
+const _$PAYMENT_STATUSEnumMap = {
+  PAYMENT_STATUS.pending: 'PENDING',
+  PAYMENT_STATUS.completed: 'COMPLETED',
+  PAYMENT_STATUS.inProgress: 'IN_PROGRESS',
 };

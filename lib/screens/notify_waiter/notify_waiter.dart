@@ -53,7 +53,7 @@ class NotifyWaiter extends HookWidget {
               final response =
                   await notifier.callWaiter(notification[i], notification[i]);
               if (response != null) Fluttertoast.showToast(msg: '$response');
-            }),
+            }, false),
             SizedBox(height: 30),
           ],
         );

@@ -85,16 +85,22 @@ Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
   );
 }
 
-Widget custombuttonsmFW(BuildContext context, title, onPressed) {
-  return MaterialButton(
+Widget custombuttonsmFW(BuildContext context, title, onPressed, isLoading) {
+  return Container(
     height: 46,
-    minWidth: 244,
-    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
-    color: primary(),
-    onPressed: onPressed,
-    child: Text(
-      title,
-      style: textWhiteLargeBM(context),
+    margin: EdgeInsets.only(left: 10, right: 10),
+    width: MediaQuery.of(context).size.width,
+    child: MaterialButton(
+      shape:
+          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
+      color: primary(),
+      onPressed: onPressed,
+      child: isLoading
+          ? GFLoader(type: GFLoaderType.ios)
+          : Text(
+              title,
+              style: textWhiteLargeBM(context),
+            ),
     ),
   );
 }
@@ -102,8 +108,6 @@ Widget custombuttonsmFW(BuildContext context, title, onPressed) {
 Widget flatPrimaryUnderlineButton(
     BuildContext context, title, Function() onPressed) {
   return Container(
-    // width: 164,
-    // height: 46,
     child: GFButton(
       size: GFSize.LARGE,
       type: GFButtonType.transparent,

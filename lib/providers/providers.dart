@@ -24,6 +24,12 @@ import 'package:fenix_user/screens/notify_waiter/notify_waiter_state.dart';
 import 'package:fenix_user/screens/notify_waiter/notify_waiter_state_notifier.dart';
 import 'package:fenix_user/screens/order_details/order_details_state.dart';
 import 'package:fenix_user/screens/order_details/order_details_state_notifier.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process_state_notifier.dart';
+import 'package:fenix_user/screens/payment/payment_screen_state.dart';
+import 'package:fenix_user/screens/payment/payment_screen_state_notifier.dart';
+import 'package:fenix_user/screens/payment_in_processs/payment_in_processs_state.dart';
+import 'package:fenix_user/screens/payment_in_processs/payment_in_processs_state_notifier.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_notifier.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_state.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
@@ -113,4 +119,19 @@ final notifyWaiterProvider = StateNotifierProvider.autoDispose<
 final orderDetailsProvider = StateNotifierProvider.autoDispose<
     OrderDetailsStateNotifier, OrderDetailsState>((ref) {
   return OrderDetailsStateNotifier(ref);
+});
+
+final paymentScreenProvider = StateNotifierProvider.autoDispose<
+    PaymentScreenStateNotifier, PaymentScreenState>((ref) {
+  return PaymentScreenStateNotifier(ref);
+});
+
+final paymentInProcess = StateNotifierProvider.autoDispose<
+    PaymentInProcessStateNotifier, PaymentInProcessState>((ref) {
+  return PaymentInProcessStateNotifier(ref);
+});
+
+final orderInProcess = StateNotifierProvider.autoDispose<
+    OrderInProcessStateNotifier, OrderInProcessState>((ref) {
+  return OrderInProcessStateNotifier(ref);
 });

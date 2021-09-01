@@ -76,6 +76,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> updateGrandTotal() async {
+    // db.removeOrderId();
     if (cart?.products.isNotEmpty ?? false) {
       final total = cart!.products.map(
         (e) {

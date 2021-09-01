@@ -192,6 +192,11 @@ class DB {
     return orderId;
   }
 
+  Future<void> removeOrderId() async {
+    final box = Hive.box('user');
+    await box.delete('orderId');
+  }
+
   void saveOrderNumber(orderNumber) {
     final box = Hive.box('user');
     box.put('orderNumber', orderNumber);

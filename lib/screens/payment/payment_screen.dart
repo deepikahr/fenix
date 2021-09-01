@@ -1,24 +1,21 @@
+import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
+import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
-import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
+import 'package:fenix_user/screens/payment_in_processs/payment_in_processs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:get/get.dart';
 
 class Payment extends HookWidget {
-  bool isChecked = false;
-
+  final OrderDetailsResponse? order;
+  Payment(this.order);
   @override
   Widget build(BuildContext context) {
-    final isMounted = useIsMounted();
-
-    useEffect(() {
-      if (isMounted()) {
-        Future.delayed(Duration.zero, () async {});
-      }
-      return;
-    }, const []);
+    final state = useProvider(paymentScreenProvider);
+    final notifier = useProvider(paymentScreenProvider.notifier);
 
     return Container(
       color: light,
@@ -29,17 +26,50 @@ class Payment extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 30),
-              custombuttonsmFW(context, 'PAGAR AQUÍ, EN PILARBOX', () {
-                context.read(homeTabsProvider.notifier).showScreen(Thankyou());
-              }),
+              custombuttonsmFW(
+                context,
+                'PAY_IN_CASH'.tr,
+                () async {
+                  final res = await notifier.requestPayment(
+                    order,
+                    PAYMENT_TPES.payInCash,
+                  );
+                  if (res != null) {
+                    context
+                        .read(homeTabsProvider.notifier)
+                        .showScreen(PaymentInProcess(order));
+                  }
+                },
+                state.isLoading && state.buttonName == PAYMENT_TPES.payInCash
+                    ? true
+                    : false,
+              ),
               SizedBox(height: 30),
-              custombuttonsmFW(context, 'PAGAR EN METÁLICO', () {
-                context.read(homeTabsProvider.notifier).showScreen(Thankyou());
-              }),
-              SizedBox(height: 30),
-              custombuttonsmFW(context, 'PAGAR CON DATAFONO', () {
-                context.read(homeTabsProvider.notifier).showScreen(Thankyou());
-              }),
+              // custombuttonsmFW(
+              //   context,
+              //   'PAY_WITH_CARD'.tr,
+              //   () {
+              //     // context
+              //     //     .read(homeTabsProvider.notifier)
+              //     //     .showScreen(Thankyou());
+              //   },
+              //   state.isLoading && state.buttonName == PAYMENT_TPES.payWithCard
+              //       ? true
+              //       : false,
+              // ),
+              // SizedBox(height: 30),
+              // custombuttonsmFW(
+              //   context,
+              //   'NFC'.tr,
+              //   () {
+              //     // context
+              //     //     .read(homeTabsProvider.notifier)
+              //     //     .showScreen(Thankyou());
+              //   },
+              //   state.isLoading && state.buttonName == PAYMENT_TPES.nfc
+              //       ? true
+              //       : false,
+              // ),
             ],
           )
         ],

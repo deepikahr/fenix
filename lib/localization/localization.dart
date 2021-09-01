@@ -79,7 +79,12 @@ class Localization extends Translations {
           'ORDER_CONFIRMED': 'Order Confirmed',
           'ORDER_COMPLETED': 'Order Completed',
           'ORDER_CANCELLED': 'Order Cancelled',
-          'CREATE_ORDER_FIRST': 'Create Order First'
+          'CREATE_ORDER_FIRST': 'Create Order First',
+          'PAY_IN_CASH': 'Pay in cash',
+          'PAY_WITH_CARD': '',
+          'NFC': '',
+          'YOUR_PAYMENT_IS': 'Your payment is',
+          'ORDER_IS_CANCELLED': 'Your order is cancelled..'
         }
       };
 }

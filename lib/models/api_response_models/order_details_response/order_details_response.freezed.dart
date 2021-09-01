@@ -36,6 +36,7 @@ class _$OrderDetailsResponseTearOff {
       String? currencyCode,
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
+      PAYMENT_STATUS? paymentStatus,
       int? orderID,
       int? tableNumber,
       String? createdAt,
@@ -56,6 +57,7 @@ class _$OrderDetailsResponseTearOff {
       currencyCode: currencyCode,
       currencySymbol: currencySymbol,
       orderStatus: orderStatus,
+      paymentStatus: paymentStatus,
       orderID: orderID,
       tableNumber: tableNumber,
       createdAt: createdAt,
@@ -89,6 +91,7 @@ mixin _$OrderDetailsResponse {
   String? get currencyCode => throw _privateConstructorUsedError;
   String? get currencySymbol => throw _privateConstructorUsedError;
   ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
+  PAYMENT_STATUS? get paymentStatus => throw _privateConstructorUsedError;
   int? get orderID => throw _privateConstructorUsedError;
   int? get tableNumber => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
@@ -121,6 +124,7 @@ abstract class $OrderDetailsResponseCopyWith<$Res> {
       String? currencyCode,
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
+      PAYMENT_STATUS? paymentStatus,
       int? orderID,
       int? tableNumber,
       String? createdAt,
@@ -153,6 +157,7 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
     Object? currencyCode = freezed,
     Object? currencySymbol = freezed,
     Object? orderStatus = freezed,
+    Object? paymentStatus = freezed,
     Object? orderID = freezed,
     Object? tableNumber = freezed,
     Object? createdAt = freezed,
@@ -219,6 +224,10 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
               as ORDER_STATUS?,
+      paymentStatus: paymentStatus == freezed
+          ? _value.paymentStatus
+          : paymentStatus // ignore: cast_nullable_to_non_nullable
+              as PAYMENT_STATUS?,
       orderID: orderID == freezed
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
@@ -262,6 +271,7 @@ abstract class _$OrderDetailsResponseCopyWith<$Res>
       String? currencyCode,
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
+      PAYMENT_STATUS? paymentStatus,
       int? orderID,
       int? tableNumber,
       String? createdAt,
@@ -296,6 +306,7 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
     Object? currencyCode = freezed,
     Object? currencySymbol = freezed,
     Object? orderStatus = freezed,
+    Object? paymentStatus = freezed,
     Object? orderID = freezed,
     Object? tableNumber = freezed,
     Object? createdAt = freezed,
@@ -362,6 +373,10 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
               as ORDER_STATUS?,
+      paymentStatus: paymentStatus == freezed
+          ? _value.paymentStatus
+          : paymentStatus // ignore: cast_nullable_to_non_nullable
+              as PAYMENT_STATUS?,
       orderID: orderID == freezed
           ? _value.orderID
           : orderID // ignore: cast_nullable_to_non_nullable
@@ -401,6 +416,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       this.currencyCode,
       this.currencySymbol,
       this.orderStatus,
+      this.paymentStatus,
       this.orderID,
       this.tableNumber,
       this.createdAt,
@@ -446,6 +462,8 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
   @override
   final ORDER_STATUS? orderStatus;
   @override
+  final PAYMENT_STATUS? paymentStatus;
+  @override
   final int? orderID;
   @override
   final int? tableNumber;
@@ -456,7 +474,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
 
   @override
   String toString() {
-    return 'OrderDetailsResponse(id: $id, isAcceptedByDeliveryBoy: $isAcceptedByDeliveryBoy, amountPaid: $amountPaid, cart: $cart, grandTotal: $grandTotal, subTotal: $subTotal, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, currencyCode: $currencyCode, currencySymbol: $currencySymbol, orderStatus: $orderStatus, orderID: $orderID, tableNumber: $tableNumber, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'OrderDetailsResponse(id: $id, isAcceptedByDeliveryBoy: $isAcceptedByDeliveryBoy, amountPaid: $amountPaid, cart: $cart, grandTotal: $grandTotal, subTotal: $subTotal, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, currencyCode: $currencyCode, currencySymbol: $currencySymbol, orderStatus: $orderStatus, paymentStatus: $paymentStatus, orderID: $orderID, tableNumber: $tableNumber, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -505,14 +523,15 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
             (identical(other.orderStatus, orderStatus) ||
                 const DeepCollectionEquality()
                     .equals(other.orderStatus, orderStatus)) &&
+            (identical(other.paymentStatus, paymentStatus) ||
+                const DeepCollectionEquality()
+                    .equals(other.paymentStatus, paymentStatus)) &&
             (identical(other.orderID, orderID) ||
                 const DeepCollectionEquality()
                     .equals(other.orderID, orderID)) &&
             (identical(other.tableNumber, tableNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.tableNumber, tableNumber)) &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality().equals(other.createdAt, createdAt)) &&
+                const DeepCollectionEquality().equals(other.tableNumber, tableNumber)) &&
+            (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)));
   }
 
@@ -534,6 +553,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       const DeepCollectionEquality().hash(currencyCode) ^
       const DeepCollectionEquality().hash(currencySymbol) ^
       const DeepCollectionEquality().hash(orderStatus) ^
+      const DeepCollectionEquality().hash(paymentStatus) ^
       const DeepCollectionEquality().hash(orderID) ^
       const DeepCollectionEquality().hash(tableNumber) ^
       const DeepCollectionEquality().hash(createdAt) ^
@@ -568,6 +588,7 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
       String? currencyCode,
       String? currencySymbol,
       ORDER_STATUS? orderStatus,
+      PAYMENT_STATUS? paymentStatus,
       int? orderID,
       int? tableNumber,
       String? createdAt,
@@ -608,6 +629,8 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
   String? get currencySymbol => throw _privateConstructorUsedError;
   @override
   ORDER_STATUS? get orderStatus => throw _privateConstructorUsedError;
+  @override
+  PAYMENT_STATUS? get paymentStatus => throw _privateConstructorUsedError;
   @override
   int? get orderID => throw _privateConstructorUsedError;
   @override

@@ -1,3 +1,4 @@
+import 'package:fenix_user/network/socket.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/category/category.dart';
@@ -21,10 +22,11 @@ class HomeTabs extends HookWidget {
     final notifier = useProvider(homeTabsProvider.notifier);
     final cart = useProvider(cartProvider);
     final isMounted = useIsMounted();
-
+    SocketService socketService = SocketService();
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
+          await socketService.socketInitialize();
           notifier.showScreen(Home());
           await notifier.fetchSettings();
           await notifier.fetchLanguage();
