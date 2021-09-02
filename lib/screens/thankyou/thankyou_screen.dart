@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,7 +13,11 @@ class Thankyou extends HookWidget {
 
     useEffect(() {
       if (isMounted()) {
-        Future.delayed(Duration.zero, () async {});
+        Future.delayed(Duration.zero, () async {
+          Timer(Duration(seconds: 5), () async {
+            Get.offAll(() => HomeTabs());
+          });
+        });
       }
       return;
     }, const []);
@@ -27,7 +34,6 @@ class Thankyou extends HookWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    // stops: [0.1, 0.5, 0.7, 0.9],
                     colors: [
                       Color(0xFF359D59),
                       Color(0xFF1B4F2D),

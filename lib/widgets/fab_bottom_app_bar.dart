@@ -1,10 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({this.iconData, this.text});
@@ -45,17 +44,16 @@ class FABBottomAppBar extends HookWidget {
       return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Are you sure?'),
-          content: Text('Do you want to exit an App'),
+          title: Text('ARE_YOU_SURE'.tr),
+          content: Text('DO_YOU_WANT_TO_EXIT_AN_APP'.tr),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text('No'),
+              child: Text('NO'.tr),
             ),
             TextButton(
               onPressed: () => exit(0),
-              /*Navigator.of(context).pop(true)*/
-              child: Text('Yes'),
+              child: Text('YES'.tr),
             ),
           ],
         ),
@@ -68,7 +66,6 @@ class FABBottomAppBar extends HookWidget {
         index: index,
         sel: currentIndex,
         onPressed: (int index) {
-          log('index: $index, currentIndex: $currentIndex');
           if (index == 0 && currentIndex == 0) {
             onReturn();
           } else {
@@ -84,7 +81,6 @@ class FABBottomAppBar extends HookWidget {
         boxShadow: [
           BoxShadow(
             color: dark.withOpacity(0.1),
-            // offset: Offset(0.5, 0.5),
             blurRadius: 4.0,
             spreadRadius: 4.0,
           ),
@@ -149,18 +145,11 @@ class FABBottomAppBar extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Image.asset(
-                //   item!.iconData!,
-                //   width: 50,
-                //   height: 50,
-                // ),
                 SvgPicture.asset(
                   item!.iconData!,
                   width: 60,
                   height: 60,
-                  // color: selColor,
                 ),
-                // Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(
                   item.text!,
                   style: TextStyle(color: selColor),

@@ -7,9 +7,9 @@ import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
-import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
+import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -44,17 +44,14 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     var listenTo =
         URL.ORDER_STATUS_REQUEST_EVENT.replaceAll('ORDER_ID', orderId!);
     SocketService().getSocket().on(listenTo, (data) async {
-      print(';l;;;;;;;;;;;;;;;;;;;; $data');
       if (data != null) {
         request = OrderSocketRequest.fromJson(data);
         if (request != null) {
           if (request.orderStatus == ORDER_STATUS.completed) {
-            await CartNotifier().deleteCart();
-            await DB().removeOrderId();
-            await Get.offAll(() => HomeTabs());
+            cleanCart(notifier);
           } else if (request.orderStatus == ORDER_STATUS.cancelled) {
             Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
-            await DB().removeOrderId();
+            await db.removeOrderId();
             notifier.showScreen(CartScreen());
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
             notifier.showScreen(OrderDetails());
@@ -62,5 +59,11 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
         }
       }
     });
+  }
+
+  cleanCart(notifier) async {
+    await cartState.deleteCart();
+    await db.removeOrderId();
+    notifier.showScreen(Thankyou());
   }
 }

@@ -81,10 +81,26 @@ class Localization extends Translations {
           'ORDER_CANCELLED': 'Order Cancelled',
           'CREATE_ORDER_FIRST': 'Create Order First',
           'PAY_IN_CASH': 'Pay in cash',
-          'PAY_WITH_CARD': '',
-          'NFC': '',
+          'PAY_WITH_CARD': 'Pay with dataphone',
+          'NFC': 'Pay here, in pilarbox',
           'YOUR_PAYMENT_IS': 'Your payment is',
-          'ORDER_IS_CANCELLED': 'Your order is cancelled..'
+          'ORDER_IS_CANCELLED': 'Your order is cancelled..',
+          'ARE_YOU_SURE': 'Are you sure?',
+          'DO_YOU_WANT_TO_EXIT_AN_APP': 'Do you want to exit an App',
+          'NO': 'No',
+          'YES': 'Yes',
+          'VIEW_ALL': 'View all',
+          'FROM': 'From',
+          'OTHER': 'Other',
+          'TABLE_NUMBER_CANT_EMPTY': 'Table number cant empty',
+          'FRANCHISE_CODE_CANT_EMPTY': 'Franchise code cant empty',
+          'PASSWORD_CANT_EMPTY': 'Password cant empty',
+          'PLEASE_ENTER_VALID_PASSWORD':
+              'Password length at least 6 characters',
+          'HELP_WITH_THE_NAPKIN_RACK': 'Help with then napkin rack',
+          'ASK_SOMETHING': 'Ask something',
+          'REQUEST_NAPKINS': 'Request napkings',
+          'REQUEST': 'Request'
         }
       };
 }

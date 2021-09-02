@@ -20,10 +20,6 @@ class SocketService {
     });
   }
 
-  emitBeforeDisconnect(userId) {
-    socket.emit('onExit', {'id': userId});
-  }
-
   socketDisconnect() {
     socket.on('disconnect', (_) {
       socket.clearListeners();

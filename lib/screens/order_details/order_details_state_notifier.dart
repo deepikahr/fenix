@@ -4,6 +4,7 @@ import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/order_details/order_details_state.dart';
+import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
@@ -32,5 +33,11 @@ class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
 
   void divideAccount(bool value) {
     state = state.copyWith(divideAccount: value);
+  }
+
+  cleanCart(notifier) async {
+    await cartState.deleteCart();
+    await db.removeOrderId();
+    notifier.showScreen(Thankyou());
   }
 }

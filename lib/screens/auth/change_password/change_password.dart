@@ -168,7 +168,7 @@ class ChangePasswordPage extends HookWidget {
       focusNode: focusNode,
       maxLength: 6,
       obscureText: true,
-      validator: validateOtp,
+      validator: validatePassword,
       decoration: InputDecoration(
           labelText: 'CURRENT PASSCODE'.tr,
           labelStyle: textDarkLightSmallBR(context),
@@ -193,7 +193,7 @@ class ChangePasswordPage extends HookWidget {
       focusNode: focusNode,
       maxLength: 6,
       obscureText: true,
-      validator: validateOtp,
+      validator: validatePassword,
       decoration: InputDecoration(
           labelText: 'NEW PASSCODE'.tr,
           labelStyle: textDarkLightSmallBR(context),

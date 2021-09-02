@@ -21,57 +21,57 @@ class Payment extends HookWidget {
       color: light,
       child: ListView(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 30),
-              custombuttonsmFW(
-                context,
-                'PAY_IN_CASH'.tr,
-                () async {
-                  final res = await notifier.requestPayment(
-                    order,
-                    PAYMENT_TPES.payInCash,
-                  );
-                  if (res != null) {
-                    context
-                        .read(homeTabsProvider.notifier)
-                        .showScreen(PaymentInProcess(order));
-                  }
-                },
-                state.isLoading && state.buttonName == PAYMENT_TPES.payInCash
-                    ? true
-                    : false,
-              ),
-              SizedBox(height: 30),
-              // custombuttonsmFW(
-              //   context,
-              //   'PAY_WITH_CARD'.tr,
-              //   () {
-              //     // context
-              //     //     .read(homeTabsProvider.notifier)
-              //     //     .showScreen(Thankyou());
-              //   },
-              //   state.isLoading && state.buttonName == PAYMENT_TPES.payWithCard
-              //       ? true
-              //       : false,
-              // ),
-              // SizedBox(height: 30),
-              // custombuttonsmFW(
-              //   context,
-              //   'NFC'.tr,
-              //   () {
-              //     // context
-              //     //     .read(homeTabsProvider.notifier)
-              //     //     .showScreen(Thankyou());
-              //   },
-              //   state.isLoading && state.buttonName == PAYMENT_TPES.nfc
-              //       ? true
-              //       : false,
-              // ),
-            ],
-          )
+          SizedBox(height: 80),
+          custombuttonsmFW(
+            context,
+            'PAY_IN_CASH'.tr,
+            () async {
+              if (!state.isLoading && state.buttonName == null) {
+                final res = await notifier.requestPayment(
+                  order,
+                  PAYMENT_TPES.payInCash,
+                );
+                if (res != null) {
+                  context
+                      .read(homeTabsProvider.notifier)
+                      .showScreen(PaymentInProcess(order));
+                }
+              }
+            },
+            state.isLoading && state.buttonName == PAYMENT_TPES.payInCash
+                ? true
+                : false,
+          ),
+          SizedBox(height: 40),
+          custombuttonsmFW(
+            context,
+            'PAY_WITH_CARD'.tr,
+            () async {
+              if (!state.isLoading && state.buttonName == null) {
+                final res = await notifier.requestPayment(
+                  order,
+                  PAYMENT_TPES.payWithCard,
+                );
+                if (res != null) {
+                  context
+                      .read(homeTabsProvider.notifier)
+                      .showScreen(PaymentInProcess(order));
+                }
+              }
+            },
+            state.isLoading && state.buttonName == PAYMENT_TPES.payWithCard
+                ? true
+                : false,
+          ),
+          SizedBox(height: 40),
+          custombuttonsmFW(
+            context,
+            'NFC'.tr,
+            () {},
+            state.isLoading && state.buttonName == PAYMENT_TPES.nfc
+                ? true
+                : false,
+          ),
         ],
       ),
     );

@@ -39,8 +39,9 @@ class Constants {
   static String mobileVerification = r'(^(?:[+0]9)?[0-9]{10,12}$)';
 
   static List notifyList = [
-    'HELP WITH THE NAPKIN RACK',
-    'ASK SOMETHING',
-    'REQUEST NAPKINS'
+    'HELP_WITH_THE_NAPKIN_RACK',
+    'ASK_SOMETHING',
+    'REQUEST_NAPKINS',
+    'OTHER'
   ];
 }

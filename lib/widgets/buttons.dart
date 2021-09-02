@@ -88,7 +88,7 @@ Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
 Widget custombuttonsmFW(BuildContext context, title, onPressed, isLoading) {
   return Container(
     height: 46,
-    margin: EdgeInsets.only(left: 10, right: 10),
+    margin: EdgeInsets.only(left: 40, right: 40),
     width: MediaQuery.of(context).size.width,
     child: MaterialButton(
       shape:
@@ -98,7 +98,7 @@ Widget custombuttonsmFW(BuildContext context, title, onPressed, isLoading) {
       child: isLoading
           ? GFLoader(type: GFLoaderType.ios)
           : Text(
-              title,
+              title ?? '',
               style: textWhiteLargeBM(context),
             ),
     ),

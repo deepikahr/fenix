@@ -18,12 +18,12 @@ class _$NotifyWaiterStateTearOff {
 
   _Default call(
       {bool isLoading = false,
-      String? selectedLanguage,
-      List<NotificationResponse> notification = const []}) {
+      bool isRequestLoading = false,
+      String? buttonName}) {
     return _Default(
       isLoading: isLoading,
-      selectedLanguage: selectedLanguage,
-      notification: notification,
+      isRequestLoading: isRequestLoading,
+      buttonName: buttonName,
     );
   }
 }
@@ -34,9 +34,8 @@ const $NotifyWaiterState = _$NotifyWaiterStateTearOff();
 /// @nodoc
 mixin _$NotifyWaiterState {
   bool get isLoading => throw _privateConstructorUsedError;
-  String? get selectedLanguage => throw _privateConstructorUsedError;
-  List<NotificationResponse> get notification =>
-      throw _privateConstructorUsedError;
+  bool get isRequestLoading => throw _privateConstructorUsedError;
+  String? get buttonName => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NotifyWaiterStateCopyWith<NotifyWaiterState> get copyWith =>
@@ -48,10 +47,7 @@ abstract class $NotifyWaiterStateCopyWith<$Res> {
   factory $NotifyWaiterStateCopyWith(
           NotifyWaiterState value, $Res Function(NotifyWaiterState) then) =
       _$NotifyWaiterStateCopyWithImpl<$Res>;
-  $Res call(
-      {bool isLoading,
-      String? selectedLanguage,
-      List<NotificationResponse> notification});
+  $Res call({bool isLoading, bool isRequestLoading, String? buttonName});
 }
 
 /// @nodoc
@@ -66,22 +62,22 @@ class _$NotifyWaiterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? selectedLanguage = freezed,
-    Object? notification = freezed,
+    Object? isRequestLoading = freezed,
+    Object? buttonName = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      selectedLanguage: selectedLanguage == freezed
-          ? _value.selectedLanguage
-          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+      isRequestLoading: isRequestLoading == freezed
+          ? _value.isRequestLoading
+          : isRequestLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      buttonName: buttonName == freezed
+          ? _value.buttonName
+          : buttonName // ignore: cast_nullable_to_non_nullable
               as String?,
-      notification: notification == freezed
-          ? _value.notification
-          : notification // ignore: cast_nullable_to_non_nullable
-              as List<NotificationResponse>,
     ));
   }
 }
@@ -92,10 +88,7 @@ abstract class _$DefaultCopyWith<$Res>
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {bool isLoading,
-      String? selectedLanguage,
-      List<NotificationResponse> notification});
+  $Res call({bool isLoading, bool isRequestLoading, String? buttonName});
 }
 
 /// @nodoc
@@ -110,22 +103,22 @@ class __$DefaultCopyWithImpl<$Res> extends _$NotifyWaiterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? selectedLanguage = freezed,
-    Object? notification = freezed,
+    Object? isRequestLoading = freezed,
+    Object? buttonName = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      selectedLanguage: selectedLanguage == freezed
-          ? _value.selectedLanguage
-          : selectedLanguage // ignore: cast_nullable_to_non_nullable
+      isRequestLoading: isRequestLoading == freezed
+          ? _value.isRequestLoading
+          : isRequestLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      buttonName: buttonName == freezed
+          ? _value.buttonName
+          : buttonName // ignore: cast_nullable_to_non_nullable
               as String?,
-      notification: notification == freezed
-          ? _value.notification
-          : notification // ignore: cast_nullable_to_non_nullable
-              as List<NotificationResponse>,
     ));
   }
 }
@@ -134,22 +127,20 @@ class __$DefaultCopyWithImpl<$Res> extends _$NotifyWaiterStateCopyWithImpl<$Res>
 
 class _$_Default implements _Default {
   const _$_Default(
-      {this.isLoading = false,
-      this.selectedLanguage,
-      this.notification = const []});
+      {this.isLoading = false, this.isRequestLoading = false, this.buttonName});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: false)
   @override
-  final String? selectedLanguage;
-  @JsonKey(defaultValue: const [])
+  final bool isRequestLoading;
   @override
-  final List<NotificationResponse> notification;
+  final String? buttonName;
 
   @override
   String toString() {
-    return 'NotifyWaiterState(isLoading: $isLoading, selectedLanguage: $selectedLanguage, notification: $notification)';
+    return 'NotifyWaiterState(isLoading: $isLoading, isRequestLoading: $isRequestLoading, buttonName: $buttonName)';
   }
 
   @override
@@ -159,20 +150,20 @@ class _$_Default implements _Default {
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
-            (identical(other.selectedLanguage, selectedLanguage) ||
+            (identical(other.isRequestLoading, isRequestLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectedLanguage, selectedLanguage)) &&
-            (identical(other.notification, notification) ||
+                    .equals(other.isRequestLoading, isRequestLoading)) &&
+            (identical(other.buttonName, buttonName) ||
                 const DeepCollectionEquality()
-                    .equals(other.notification, notification)));
+                    .equals(other.buttonName, buttonName)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(selectedLanguage) ^
-      const DeepCollectionEquality().hash(notification);
+      const DeepCollectionEquality().hash(isRequestLoading) ^
+      const DeepCollectionEquality().hash(buttonName);
 
   @JsonKey(ignore: true)
   @override
@@ -182,17 +173,14 @@ class _$_Default implements _Default {
 
 abstract class _Default implements NotifyWaiterState {
   const factory _Default(
-      {bool isLoading,
-      String? selectedLanguage,
-      List<NotificationResponse> notification}) = _$_Default;
+      {bool isLoading, bool isRequestLoading, String? buttonName}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
-  String? get selectedLanguage => throw _privateConstructorUsedError;
+  bool get isRequestLoading => throw _privateConstructorUsedError;
   @override
-  List<NotificationResponse> get notification =>
-      throw _privateConstructorUsedError;
+  String? get buttonName => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

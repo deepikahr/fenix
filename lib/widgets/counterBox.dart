@@ -49,10 +49,8 @@ Widget counterIcon(type, onTap) {
         height: 45,
         decoration: BoxDecoration(
             color: white,
-            border:
-            Border.all(color: dark, width: 1),
-            borderRadius:
-            BorderRadius.circular(50)),
+            border: Border.all(color: dark, width: 1),
+            borderRadius: BorderRadius.circular(50)),
         child: Icon(
           type == 'remove' ? Icons.remove : Icons.add,
           color: dark,
@@ -61,4 +59,3 @@ Widget counterIcon(type, onTap) {
     ),
   );
 }
-

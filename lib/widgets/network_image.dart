@@ -21,19 +21,21 @@ Widget networkImage(String url, double width, double height, double radius) {
   );
 }
 
-Widget networkImageOverlay(double width, double height, ) {
+Widget networkImageOverlay(
+  double width,
+  double height,
+) {
   return Container(
     width: width,
     height: height,
     decoration: BoxDecoration(
       image: DecorationImage(
           fit: BoxFit.cover,
-          colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.9), BlendMode.darken),
+          colorFilter: new ColorFilter.mode(
+              Colors.black.withOpacity(0.9), BlendMode.darken),
           image: AssetImage(
             'lib/assets/images/refer.png',
-          )
-      ),
+          )),
     ),
   );
 }
-

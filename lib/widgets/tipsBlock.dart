@@ -1,7 +1,7 @@
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 Widget tipsRow(
@@ -80,7 +80,7 @@ Widget othersTipBlock(controller, Function(double) onSelected) {
       ],
       textAlign: TextAlign.center,
       decoration: InputDecoration(
-        hintText: 'Other',
+        hintText: '${'OTHER'.tr}',
         hintStyle: TextStyle(color: Colors.black12),
         border: InputBorder.none,
       ),

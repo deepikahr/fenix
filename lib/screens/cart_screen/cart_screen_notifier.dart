@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
@@ -97,7 +94,6 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<OrderResponse?> createOrder() async {
-    printWrapped("cart------------------------------${jsonEncode(cart)}");
     state = state.copyWith.call(isLoading: true);
     final response = await api.createOrder(
       cart!,

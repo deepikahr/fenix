@@ -1,9 +1,7 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
-import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
-import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +22,7 @@ class OrdersInProcess extends HookWidget {
           final order = await notifier.fetchOrderDetails();
           if (order != null) {
             if (order.orderStatus == ORDER_STATUS.completed) {
-              await CartNotifier().deleteCart();
-              await DB().removeOrderId();
-              await Get.offAll(() => HomeTabs());
+              await notifier.cleanCart(context.read(homeTabsProvider.notifier));
             } else if (order.orderStatus == ORDER_STATUS.cancelled) {
               Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
               await DB().removeOrderId();

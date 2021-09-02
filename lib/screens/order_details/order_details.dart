@@ -2,12 +2,11 @@ import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
-import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
-import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/screens/payment/payment_screen.dart';
+import 'package:fenix_user/screens/payment_in_processs/payment_in_processs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +29,9 @@ class OrderDetails extends HookWidget {
           if (DB().getOrderId() != null) {
             final res = await notifier.fetchOrderDetails();
             if (res != null) {
-              if (res.orderStatus == PAYMENT_STATUS.completed) {
-                await CartNotifier().deleteCart();
-                await DB().removeOrderId();
-                await Get.offAll(() => HomeTabs());
+              if (res.orderStatus == ORDER_STATUS.completed) {
+                await notifier
+                    .cleanCart(context.read(homeTabsProvider.notifier));
               } else if (res.orderStatus == ORDER_STATUS.pending) {
                 context
                     .read(homeTabsProvider.notifier)
@@ -44,6 +42,10 @@ class OrderDetails extends HookWidget {
                 context
                     .read(homeTabsProvider.notifier)
                     .showScreen(CartScreen());
+              } else if (res.paymentStatus == PAYMENT_STATUS.inProgress) {
+                context
+                    .read(homeTabsProvider.notifier)
+                    .showScreen(PaymentInProcess(res));
               }
             }
           }
@@ -153,18 +155,23 @@ class OrderDetails extends HookWidget {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 28.0),
-                                  child: Center(
-                                      child: custombuttonsm(
-                                          context, 'OK,_PAYMENT_METHODS'.tr,
-                                          () {
-                                    context
-                                        .read(homeTabsProvider.notifier)
-                                        .showScreen(
-                                            Payment(state.orderDetails));
-                                  }, false)),
-                                ),
+                                if (state.orderDetails !=
+                                        ORDER_STATUS.cancelled ||
+                                    state.orderDetails !=
+                                        ORDER_STATUS.completed ||
+                                    state.orderDetails != ORDER_STATUS.pending)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 28.0),
+                                    child: Center(
+                                        child: custombuttonsm(
+                                            context, 'OK,_PAYMENT_METHODS'.tr,
+                                            () {
+                                      context
+                                          .read(homeTabsProvider.notifier)
+                                          .showScreen(
+                                              Payment(state.orderDetails));
+                                    }, false)),
+                                  ),
                               ],
                             ),
                           )

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotifyWaiter extends HookWidget {
@@ -17,29 +16,24 @@ class NotifyWaiter extends HookWidget {
 
     return Container(
       color: light,
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 30),
-                Center(
-                    child: Text('${'NOTICE_TO_THE_WAITER'.tr}',
-                        style: textBlackLargeBM(context))),
-                SizedBox(height: 20),
-                requestBlock(context, Constants.notifyList, notifier),
-              ],
-            ),
-          ),
-          if (state.isLoading) GFLoader(type: GFLoaderType.ios)
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 30),
+            Center(
+                child: Text('${'NOTICE_TO_THE_WAITER'.tr}',
+                    style: textBlackLargeBM(context))),
+            SizedBox(height: 20),
+            requestBlock(context, Constants.notifyList, notifier, state),
+          ],
+        ),
       ),
     );
   }
 
-  requestBlock(BuildContext context, notification, notifier) {
+  requestBlock(BuildContext context, notification, notifier, state) {
     return ListView.builder(
       physics: ScrollPhysics(),
       scrollDirection: Axis.vertical,
@@ -49,11 +43,21 @@ class NotifyWaiter extends HookWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            custombuttonsmFW(context, notification[i] ?? '', () async {
-              final response =
-                  await notifier.callWaiter(notification[i], notification[i]);
-              if (response != null) Fluttertoast.showToast(msg: '$response');
-            }, false),
+            custombuttonsmFW(
+              context,
+              '${notification[i]}'.tr,
+              () async {
+                if (!state.isRequestLoading && state.buttonName == null) {
+                  final response = await notifier.callWaiter(
+                      'REQUEST'.tr, '${notification[i]}'.tr, notification[i]);
+                  if (response != null)
+                    Fluttertoast.showToast(msg: '$response');
+                }
+              },
+              state.isRequestLoading && state.buttonName == notification[i]
+                  ? true
+                  : false,
+            ),
             SizedBox(height: 30),
           ],
         );

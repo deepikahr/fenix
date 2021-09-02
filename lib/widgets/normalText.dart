@@ -2,7 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-
+import 'package:get/get.dart';
 import 'counterBox.dart';
 
 Widget introText(BuildContext context, title1, title2) {
@@ -201,7 +201,7 @@ Widget titleViewAllRow(BuildContext context, String title, Function onClick) {
         InkWell(
           onTap: onClick as void Function(),
           child: Text(
-            'View all',
+            'VIEW_ALL'.tr,
             style: textDark15RegularBR(context: context),
           ),
         ),
@@ -268,7 +268,7 @@ Widget restaurantLocationRow(
     BuildContext context, String restaurant, String location) {
   return RichText(
     text: TextSpan(
-      text: 'From  ',
+      text: '${'FROM'.tr} ',
       style: textDarkSmallBR(context),
       children: <TextSpan>[
         TextSpan(text: '$restaurant, ', style: textDarkSmallBM(context)),

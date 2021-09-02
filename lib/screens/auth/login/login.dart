@@ -151,7 +151,7 @@ class LoginPage extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       onFieldSubmitted: onFieldSubmitted,
-      validator: validateFirstName,
+      validator: validateTableNumber,
       decoration: InputDecoration(
         labelText: 'TABLE_NUMBER'.tr,
         labelStyle: textDarkLightSmallBR(context),
@@ -172,7 +172,7 @@ class LoginPage extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       onFieldSubmitted: onFieldSubmitted,
-      validator: validateLastName,
+      validator: validateFranchiseCode,
       decoration: InputDecoration(
         labelText: 'FRANCHISE_CODE'.tr,
         labelStyle: textDarkLightSmallBR(context),
@@ -197,7 +197,7 @@ class LoginPage extends HookWidget {
       focusNode: focusNode,
       maxLength: 6,
       obscureText: true,
-      validator: validateOtp,
+      validator: validatePassword,
       decoration: InputDecoration(
           labelText: 'PASSCODE'.tr,
           labelStyle: textDarkLightSmallBR(context),
