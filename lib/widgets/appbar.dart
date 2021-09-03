@@ -65,7 +65,7 @@ PreferredSizeWidget fenixAppbar(
             ),
             Positioned(
               top: 35,
-              right: 10,
+              right: 16,
               child: Row(
                 children: [
                   RotatedBox(
@@ -108,12 +108,12 @@ PreferredSizeWidget fenixAppbar(
                       children: [
                         Image.asset(
                           'lib/assets/images/i.png',
-                          width: 55,
-                          height: 55,
+                          width: 50,
+                          height: 50,
                         ),
                         Text(
                           'HOME'.tr,
-                          style: TextStyle(color: white, fontSize: 14),
+                          style: TextStyle(color: white, fontSize: 16),
                         )
                       ],
                     ),
@@ -148,13 +148,13 @@ PreferredSizeWidget fenixAppbar(
                                   padding: const EdgeInsets.only(left: 18.0),
                                   child: Image.asset(
                                     'lib/assets/images/c.png',
-                                    width: 55,
-                                    height: 55,
+                                    width: 50,
+                                    height: 50,
                                   ),
                                 ),
                                 Text(
                                   'TO_CALL'.tr,
-                                  style: TextStyle(color: white, fontSize: 14),
+                                  style: TextStyle(color: white, fontSize: 16),
                                 )
                               ],
                             ),
@@ -166,50 +166,54 @@ PreferredSizeWidget fenixAppbar(
                     type: GFLoaderType.ios,
                   )
                 : Positioned(
-                    right: 10,
+                    right: 16,
                     top: 105,
-                    child: DropdownButton<String>(
-                      underline: Container(color: Colors.transparent),
-                      iconSize: 0,
-                      value: DB().getLanguage() ?? languages.first.languageName,
-                      onChanged: onSelectLanguage,
-                      selectedItemBuilder: (BuildContext context) {
-                        return languages.map<Widget>((item) {
-                          return Column(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(bottom: 1),
-                                  padding: EdgeInsets.symmetric(horizontal: 6),
-                                  decoration: BoxDecoration(
-                                      color: white,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Text(
-                                    '${item.flagCode}',
-                                    style: TextStyle(fontSize: 30),
-                                  )),
-                              Text(
-                                item.languageName ?? '',
-                                style: textDarkRegularBGS(context),
+                    child: Container(
+                      child: DropdownButton<String>(
+                        underline: Container(color: Colors.transparent),
+                        iconSize: 0,
+                        value: DB().getLanguage() ?? languages.first.languageName,
+                        onChanged: onSelectLanguage,
+                        selectedItemBuilder: (BuildContext context) {
+                          return languages.map<Widget>((item) {
+                            return Container(
+                              child: Column(
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(bottom: 1),
+                                      padding: EdgeInsets.symmetric(horizontal: 6),
+                                      decoration: BoxDecoration(
+                                          color: white,
+                                          borderRadius: BorderRadius.circular(8)),
+                                      child: Text(
+                                        '${item.flagCode}',
+                                        style: TextStyle(fontSize: 30),
+                                      )),
+                                  Text(
+                                    item.languageName ?? '',
+                                    style: textDarkRegularBGS(context),
+                                  ),
+                                ],
                               ),
-                            ],
+                            );
+                          }).toList();
+                        },
+                        items: languages.map((item) {
+                          DB().saveLanguageCode(item.languageCode);
+                          return DropdownMenuItem(
+                            value: item.languageName,
+                            child: Center(
+                                child: Text(
+                              '${item.flagCode}',
+                              style: TextStyle(fontSize: 45),
+                            )),
+                            // Text(
+                            //   '${item.languageName}',
+                            //   style: textDarkRegularBG(context),
+                            // ),
                           );
-                        }).toList();
-                      },
-                      items: languages.map((item) {
-                        DB().saveLanguageCode(item.languageCode);
-                        return DropdownMenuItem(
-                          value: item.languageName,
-                          child: Center(
-                              child: Text(
-                            '${item.flagCode}',
-                            style: TextStyle(fontSize: 45),
-                          )),
-                          // Text(
-                          //   '${item.languageName}',
-                          //   style: textDarkRegularBG(context),
-                          // ),
-                        );
-                      }).toList(),
+                        }).toList(),
+                      ),
                     ),
                   )
           ],
