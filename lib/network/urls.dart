@@ -18,6 +18,7 @@ class URL {
   static const UPDATE_ORDER = '/orders/item/update';
   static const ORDER_DETAILS = '/orders/detail/';
 
+
   static const CALL_WAITER = '/notifications/request';
   static const CALL_WAITER_LIST = '/notifications/list';
 
