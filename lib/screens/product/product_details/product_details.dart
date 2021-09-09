@@ -59,7 +59,73 @@ class ProductDetails extends HookWidget {
           ListView(
             shrinkWrap: true,
             physics: ScrollPhysics(),
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
             children: [
+              if (!state.isLoading && state.productDetails != null)
+                state.productDetails!.productImage!.imageUrl != null
+                    ? Stack(
+                  children: [
+                    networkImage(state.productDetails!.productImage!.imageUrl!,
+                        MediaQuery.of(context).size.width, 240, 0),
+                    Positioned(
+                        top: 0,
+                        child: Stack(
+                          alignment: AlignmentDirectional.center,
+                          children: [
+                            Image.asset(
+                              'lib/assets/images/b2.png',
+                              scale: 1,
+                              color: primary(),
+                            ),
+                            Text(
+                              '${state.productDetails!.tags!.first.title}',
+                              style: textDarkRegularBSW(context),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        )),
+                    Positioned(
+                        bottom: 0,
+                        child: Container(
+                          color: darkLight,
+                          padding: EdgeInsets.all(4),
+                          child: Text(
+                            '${state.productDetails!.variants[state.groupValue].sizeName}',
+                            style: textDarkRegularBSW(context),
+                            textAlign: TextAlign.center,
+                          ),
+                        )),
+                  ],
+                )
+                    : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Image.asset(
+                          'lib/assets/images/b2.png',
+                          scale: 1,
+                          color: primary(),
+                        ),
+                        Text(
+                          '${state.productDetails!.tags?.first.title}',
+                          style: textDarkRegularBSW(context),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      color: darkLight,
+                      padding: EdgeInsets.all(4),
+                      child: Text(
+                        '${state.productDetails!.variants[state.groupValue].sizeName}',
+                        style: textDarkRegularBSW(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
               if (!state.isLoading && state.productDetails != null)
                 productData(
                   context,
@@ -78,84 +144,17 @@ class ProductDetails extends HookWidget {
   }
 
   Widget productData(
-    BuildContext context,
-    ProductDetailsResponse product,
-    ProductDetailsState state,
-    ProductDetailsNotifier notifier,
-    TextEditingController noteEditController,
-    FocusNode noteFocusNode,
-  ) {
-    return ListView(
-      shrinkWrap: true,
-      physics: ScrollPhysics(),
-      padding: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
-      children: [
-        product.productImage!.imageUrl != null
-            ? Stack(
-                children: [
-                  networkImage(product.productImage!.imageUrl!,
-                      MediaQuery.of(context).size.width, 240, 0),
-                  Positioned(
-                      top: 0,
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Image.asset(
-                            'lib/assets/images/b2.png',
-                            scale: 1,
-                            color: primary(),
-                          ),
-                          Text(
-                            '${product.tags!.first.title}',
-                            style: textDarkRegularBSW(context),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      )),
-                  Positioned(
-                      bottom: 0,
-                      child: Container(
-                        color: darkLight,
-                        padding: EdgeInsets.all(4),
-                        child: Text(
-                          '${product.variants[state.groupValue].sizeName}',
-                          style: textDarkRegularBSW(context),
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Image.asset(
-                        'lib/assets/images/b2.png',
-                        scale: 1,
-                        color: primary(),
-                      ),
-                      Text(
-                        '${product.tags?.first.title}',
-                        style: textDarkRegularBSW(context),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  Container(
-                    color: darkLight,
-                    padding: EdgeInsets.all(4),
-                    child: Text(
-                      '${product.variants[state.groupValue].sizeName}',
-                      style: textDarkRegularBSW(context),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                ],
-              ),
-        StickyHeader(
-          header: Container(
+      BuildContext context,
+      ProductDetailsResponse product,
+      ProductDetailsState state,
+      ProductDetailsNotifier notifier,
+      TextEditingController noteEditController,
+      FocusNode noteFocusNode,
+      ) {
+    return StickyHeader(
+      header: Column(
+        children: [
+          Container(
             color: white,
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
             child: Column(
@@ -184,116 +183,116 @@ class ProductDetails extends HookWidget {
                     ),
                     !state.showAddButton && product.variantQuantity > 0
                         ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              counterIcon(
-                                'remove',
-                                () {
-                                  if (product.isSameProductMultipleTime ==
-                                      true) {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            showMultipleTimeProductPopUp(
-                                              context,
-                                            ));
-                                  } else {
-                                    notifier.addProduct(product, false);
-                                  }
-                                },
-                              ),
-                              Text('${product.variantQuantity}',
-                                  style: textBlackLargeBM(context)),
-                              counterIcon(
-                                'add',
-                                () async {
-                                  // if (product.isCustomizable) {
-                                  //   await showDialog(
-                                  //       context: context,
-                                  //       builder: (context) => showPopUp(
-                                  //             context,
-                                  //             product,
-                                  //             () async {
-                                  //               Get.back();
-                                  //               await notifier.addProduct(
-                                  //                 product,
-                                  //                 true,
-                                  //               );
-                                  //             },
-                                  //           ));
-                                  // } else {
-                                  await notifier.addProduct(product, true);
-                                  // }
-                                },
-                              ),
-                            ],
-                          )
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        counterIcon(
+                          'remove',
+                              () {
+                            if (product.isSameProductMultipleTime ==
+                                true) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      showMultipleTimeProductPopUp(
+                                        context,
+                                      ));
+                            } else {
+                              notifier.addProduct(product, false);
+                            }
+                          },
+                        ),
+                        Text('${product.variantQuantity}',
+                            style: textBlackLargeBM(context)),
+                        counterIcon(
+                          'add',
+                              () async {
+                            // if (product.isCustomizable) {
+                            //   await showDialog(
+                            //       context: context,
+                            //       builder: (context) => showPopUp(
+                            //             context,
+                            //             product,
+                            //             () async {
+                            //               Get.back();
+                            //               await notifier.addProduct(
+                            //                 product,
+                            //                 true,
+                            //               );
+                            //             },
+                            //           ));
+                            // } else {
+                            await notifier.addProduct(product, true);
+                            // }
+                          },
+                        ),
+                      ],
+                    )
                         : Container(
-                            width: 100,
-                            child: GFButton(
-                              elevation: 3,
-                              size: GFSize.LARGE,
-                              borderShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              onPressed: () async {
-                                context
-                                    .read(productDetailsProvider.notifier)
-                                    .showAddButton(true);
-                                await notifier.addProduct(product, true);
-                              },
-                              color: primary(),
-                              text: 'ADD'.tr,
-                              textStyle: textLightLargeBM(context),
-                            ),
-                          ),
+                      width: 100,
+                      child: GFButton(
+                        elevation: 3,
+                        size: GFSize.LARGE,
+                        borderShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        onPressed: () async {
+                          context
+                              .read(productDetailsProvider.notifier)
+                              .showAddButton(true);
+                          await notifier.addProduct(product, true);
+                        },
+                        color: primary(),
+                        text: 'ADD'.tr,
+                        textStyle: textLightLargeBM(context),
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          content: ListView(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            children: [
-              SizedBox(
-                height: 12,
-              ),
-              allergenList(context, product.allergens ?? []),
-              sizeBlock(context, state.groupValue, product.variants, state),
-              optionBlockExtra(state.productDetails?.addOnItems ?? [],
-                  state.selectedAddOnItems, state),
-              SizedBox(
-                height: 4,
-              ),
-              titleTextDark17RegularBR(
-                context,
-                'INSTRUCTIONS'.tr,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              noteTextField(
-                context,
-                noteEditController,
-                noteFocusNode,
-                (value) {
-                  FocusScope.of(context).unfocus();
-                },
-              ),
-            ],
+        ],
+      ),
+      content: ListView(
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
+        children: [
+          SizedBox(
+            height: 12,
           ),
-        ),
-      ],
+          allergenList(context, product.allergens ?? []),
+          sizeBlock(context, state.groupValue, product.variants, state),
+          optionBlockExtra(state.productDetails?.addOnItems ?? [],
+              state.selectedAddOnItems, state),
+          SizedBox(
+            height: 4,
+          ),
+          titleTextDark17RegularBR(
+            context,
+            'INSTRUCTIONS'.tr,
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          noteTextField(
+            context,
+            noteEditController,
+            noteFocusNode,
+                (value) {
+              FocusScope.of(context).unfocus();
+            },
+          ),
+        ],
+      ),
     );
   }
 
   Widget noteTextField(
-    BuildContext context,
-    controller,
-    FocusNode focusNode,
-    ValueChanged<String> onFieldSubmitted,
-  ) {
+      BuildContext context,
+      controller,
+      FocusNode focusNode,
+      ValueChanged<String> onFieldSubmitted,
+      ) {
     return TextFormField(
       keyboardType: TextInputType.text,
       controller: controller,
@@ -423,19 +422,19 @@ class ProductDetails extends HookWidget {
                         leading: Checkbox(
                           activeColor: green,
                           value: selectedAddOnItems!
-                                  .toList()
-                                  .singleWhere(
-                                      (element) =>
-                                          element.id == addOnItems[i].id,
-                                      orElse: () => AddOnItem())
-                                  .id !=
+                              .toList()
+                              .singleWhere(
+                                  (element) =>
+                              element.id == addOnItems[i].id,
+                              orElse: () => AddOnItem())
+                              .id !=
                               null,
                           onChanged: (value) {
                             if (value!) {
                               context
                                   .read(productDetailsProvider.notifier)
                                   .addSelectedAddOnItem(
-                                      addOnItems[i], addOnCategory[index]);
+                                  addOnItems[i], addOnCategory[index]);
                             } else {
                               context
                                   .read(productDetailsProvider.notifier)
@@ -456,50 +455,50 @@ class ProductDetails extends HookWidget {
                               ],
                             ),
                             selectedAddOnItems
+                                .toList()
+                                .singleWhere(
+                                    (element) =>
+                                element.id == addOnItems[i].id,
+                                orElse: () => AddOnItem())
+                                .id !=
+                                null
+                                ? Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                counterIcon(
+                                  'remove',
+                                      () {
+                                    context
+                                        .read(productDetailsProvider
+                                        .notifier)
+                                        .updateAddonItemQuantity(
+                                        addOnItems[i], false);
+                                  },
+                                ),
+                                Text(
+                                    selectedAddOnItems
                                         .toList()
                                         .singleWhere(
                                             (element) =>
-                                                element.id == addOnItems[i].id,
-                                            orElse: () => AddOnItem())
-                                        .id !=
-                                    null
-                                ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      counterIcon(
-                                        'remove',
-                                        () {
-                                          context
-                                              .read(productDetailsProvider
-                                                  .notifier)
-                                              .updateAddonItemQuantity(
-                                                  addOnItems[i], false);
-                                        },
-                                      ),
-                                      Text(
-                                          selectedAddOnItems
-                                              .toList()
-                                              .singleWhere(
-                                                  (element) =>
-                                                      element.id ==
-                                                      addOnItems[i].id,
-                                                  orElse: () => AddOnItem())
-                                              .quantity
-                                              .toString(),
-                                          style: textBlackLargeBM(context)),
-                                      counterIcon(
-                                        'add',
-                                        () async {
-                                          context
-                                              .read(productDetailsProvider
-                                                  .notifier)
-                                              .updateAddonItemQuantity(
-                                                  addOnItems[i], true);
-                                        },
-                                      ),
-                                    ],
-                                  )
+                                        element.id ==
+                                            addOnItems[i].id,
+                                        orElse: () => AddOnItem())
+                                        .quantity
+                                        .toString(),
+                                    style: textBlackLargeBM(context)),
+                                counterIcon(
+                                  'add',
+                                      () async {
+                                    context
+                                        .read(productDetailsProvider
+                                        .notifier)
+                                        .updateAddonItemQuantity(
+                                        addOnItems[i], true);
+                                  },
+                                ),
+                              ],
+                            )
                                 : Container(),
                           ],
                         ),
@@ -530,36 +529,36 @@ class ProductDetails extends HookWidget {
               children: [
                 Expanded(
                     child: GFButton(
-                  blockButton: true,
-                  size: GFSize.LARGE,
-                  color: primary(),
-                  type: GFButtonType.outline,
-                  onPressed: () => Get.back(),
-                  child: Text(
-                    'CANCEL'.tr.toUpperCase(),
-                    style: textPrimarySmallBM(context),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: primary(),
+                      type: GFButtonType.outline,
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        'CANCEL'.tr.toUpperCase(),
+                        style: textPrimarySmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
                 SizedBox(width: 10),
                 Expanded(
                     child: GFButton(
-                  blockButton: true,
-                  size: GFSize.LARGE,
-                  color: GFColors.DARK,
-                  type: GFButtonType.outline,
-                  onPressed: () async {
-                    Get.back();
-                    context
-                        .read(homeTabsProvider.notifier)
-                        .showScreen(CartScreen());
-                  },
-                  child: Text(
-                    'CART'.tr.toUpperCase(),
-                    style: textBlackSmallBM(context),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: GFColors.DARK,
+                      type: GFButtonType.outline,
+                      onPressed: () async {
+                        Get.back();
+                        context
+                            .read(homeTabsProvider.notifier)
+                            .showScreen(CartScreen());
+                      },
+                      child: Text(
+                        'CART'.tr.toUpperCase(),
+                        style: textBlackSmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
               ],
             )
           ],
@@ -569,10 +568,10 @@ class ProductDetails extends HookWidget {
   }
 
   Widget showPopUp(
-    BuildContext context,
-    ProductDetailsResponse product,
-    Function() onRepeat,
-  ) {
+      BuildContext context,
+      ProductDetailsResponse product,
+      Function() onRepeat,
+      ) {
     return Dialog(
       child: Container(
         height: 165,
@@ -590,36 +589,36 @@ class ProductDetails extends HookWidget {
               children: [
                 Expanded(
                     child: GFButton(
-                  blockButton: true,
-                  size: GFSize.LARGE,
-                  color: primary(),
-                  type: GFButtonType.outline,
-                  onPressed: onRepeat,
-                  child: Text(
-                    'REPEAT_LAST'.tr.toUpperCase(),
-                    style: textPrimarySmallBM(context),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: primary(),
+                      type: GFButtonType.outline,
+                      onPressed: onRepeat,
+                      child: Text(
+                        'REPEAT_LAST'.tr.toUpperCase(),
+                        style: textPrimarySmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
                 SizedBox(width: 10),
                 Expanded(
                     child: GFButton(
-                  blockButton: true,
-                  size: GFSize.LARGE,
-                  color: GFColors.DARK,
-                  type: GFButtonType.outline,
-                  onPressed: () async {
-                    context
-                        .read(productDetailsProvider.notifier)
-                        .showAddButton(false);
-                    Get.back();
-                  },
-                  child: Text(
-                    'NEW'.tr.toUpperCase(),
-                    style: textBlackSmallBM(context),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
+                      blockButton: true,
+                      size: GFSize.LARGE,
+                      color: GFColors.DARK,
+                      type: GFButtonType.outline,
+                      onPressed: () async {
+                        context
+                            .read(productDetailsProvider.notifier)
+                            .showAddButton(false);
+                        Get.back();
+                      },
+                      child: Text(
+                        'NEW'.tr.toUpperCase(),
+                        style: textBlackSmallBM(context),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
               ],
             )
           ],
