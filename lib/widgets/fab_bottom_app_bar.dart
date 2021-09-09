@@ -138,7 +138,6 @@ class FABBottomAppBar extends HookWidget {
     ValueChanged<int>? onPressed,
   }) {
     Color? selColor = sel == index ? selectedColor! : color;
-    print('aaaaaaaaaa ${item!.total}');
     return Expanded(
       child: SizedBox(
         height: height,
@@ -158,9 +157,9 @@ class FABBottomAppBar extends HookWidget {
                 SizedBox(
                   height: 6,
                 ),
-                item.total == '0'
+                item?.total == '0'
                     ? SvgPicture.asset(
-                        item.iconData!,
+                        item!.iconData!,
                         width: 60,
                         height: 60,
                         // color: selColor,
@@ -168,7 +167,7 @@ class FABBottomAppBar extends HookWidget {
                     : GFIconBadge(
                         position: GFBadgePosition.topEnd(top: -4, end: -10),
                         child: SvgPicture.asset(
-                          item.iconData!,
+                          item!.iconData!,
                           width: 60,
                           height: 60,
                           // color: selColor,

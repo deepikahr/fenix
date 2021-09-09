@@ -100,7 +100,8 @@ class Localization extends Translations {
           'HELP_WITH_THE_NAPKIN_RACK': 'Help with then napkin rack',
           'ASK_SOMETHING': 'Ask something',
           'REQUEST_NAPKINS': 'Request napkings',
-          'REQUEST': 'Request'
+          'REQUEST': 'Request',
+          'SESSION_EXPIRED': 'Session Expired',
         }
       };
 }
