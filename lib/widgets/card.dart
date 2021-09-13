@@ -38,14 +38,14 @@ Widget restaurantInfoCard(BuildContext context, title, image) {
             // right: 0,
             bottom: 0,
             child: Container(
-              width: 120,
+              width: 160,
               alignment: AlignmentDirectional.center,
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                   color: darkLight,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(22),
-                      topRight: Radius.circular(22))),
+                      topLeft: Radius.circular(4),
+                      topRight: Radius.circular(4))),
               child: Text(
                 title,
                 style: textDarkRegularBRW(context),
@@ -87,8 +87,8 @@ Widget restaurantInfoCardGrid(
               decoration: BoxDecoration(
                   color: darkLight,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(22),
-                      topRight: Radius.circular(22))),
+                      topLeft: Radius.circular(4),
+                      topRight: Radius.circular(4))),
               child: Text(
                 name!,
                 style: textDarkRegularBRW(context),
