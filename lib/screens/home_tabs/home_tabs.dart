@@ -1,3 +1,4 @@
+import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/network/socket.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
@@ -72,7 +73,8 @@ class HomeTabs extends HookWidget {
             notifier.showScreen(OrderDetails());
           }
         },
-          orders.orderDetails?.cart.length == null ? '0' : orders.orderDetails?.cart.length
+          orders.orderDetails?.cart.length != null && DB().getOrderId() != null ?
+          orders.orderDetails?.cart.length : '0'
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: buildCenterIcon(context, cart, () async {
