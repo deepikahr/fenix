@@ -63,15 +63,15 @@ class Payment extends HookWidget {
                 ? true
                 : false,
           ),
-          SizedBox(height: 40),
-          custombuttonsmFW(
-            context,
-            'NFC'.tr,
-            () {},
-            state.isLoading && state.buttonName == PAYMENT_TPES.nfc
-                ? true
-                : false,
-          ),
+          // SizedBox(height: 40),
+          // custombuttonsmFW(
+          //   context,
+          //   'NFC'.tr,
+          //   () {},
+          //   state.isLoading && state.buttonName == PAYMENT_TPES.nfc
+          //       ? true
+          //       : false,
+          // ),
         ],
       ),
     );
