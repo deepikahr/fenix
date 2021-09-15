@@ -22,6 +22,7 @@ class Localization extends Translations {
           'OK': 'ok',
           'PLEASE_SELECT_MENU': 'Please select menu',
           'CONNECTION_CODE': 'Connection code',
+          'TOTAL_10%_VAT_INCLUDED': '10% VAT INCLUDED',
           'TABLE_CAPACITY': 'Table capacity',
           'SELECT_COLOR': 'Select color',
           'SELECT_MENU': 'Select menu',

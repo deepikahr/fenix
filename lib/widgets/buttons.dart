@@ -69,7 +69,7 @@ Widget primaryButtonSmall(BuildContext context, title, onPressed) {
 
 Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
   return MaterialButton(
-    height: 36,
+    height: 46,
     // minWidth: 340,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
     color: primary(),
@@ -156,13 +156,19 @@ Widget customBottomBar(int currentIndex, onSelect, total) {
     onTabSelected: onSelect,
     items: [
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/return.svg", text: 'RETURN'.tr, total: '0'),
+          iconData: "lib/assets/icons/return.svg",
+          text: 'RETURN'.tr,
+          total: '0'),
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/drinks.svg", text: 'DRINKS'.tr, total: '0'),
+          iconData: "lib/assets/icons/drinks.svg",
+          text: 'DRINKS'.tr,
+          total: '0'),
       FABBottomAppBarItem(
           iconData: "lib/assets/icons/foods.svg", text: 'FOOD'.tr, total: '0'),
       FABBottomAppBarItem(
-          iconData: "lib/assets/icons/toPay.svg", text: 'TO_PAY'.tr, total: total.toString()),
+          iconData: "lib/assets/icons/toPay.svg",
+          text: 'TO_PAY'.tr,
+          total: total.toString()),
     ],
     backgroundColor: Colors.grey.shade200,
     currentIndex: currentIndex,

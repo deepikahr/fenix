@@ -100,7 +100,7 @@ class OrderDetails extends HookWidget {
                                               textDarkLight3SmallBR(context)),
                                   ],
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(height: 20),
                                 cartItemBlock(
                                     context, state.orderDetails!.cart, state),
                                 if (state.isLoading)
@@ -108,52 +108,68 @@ class OrderDetails extends HookWidget {
                                 Container(
                                   padding: EdgeInsets.all(12),
                                   color: light,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 0.0),
-                                        child: Text(
-                                            '${state.orderDetails!.subTotal.toStringAsFixed(2)}${Constants.currency} ${'VAT_INCLUDE_TOTAL'.tr}',
-                                            style:
-                                                textBlackLargeBM20G(context)),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              GFCheckbox(
-                                                size: 20,
-                                                activeBgColor: GFColors.DANGER,
-                                                onChanged: (value) {
-                                                  context
-                                                      .read(orderDetailsProvider
-                                                          .notifier)
-                                                      .divideAccount(value);
-                                                },
-                                                value: state.divideAccount,
-                                              ),
-                                              SizedBox(width: 10),
-                                              Text('DIVIDE_THE_ACCOUNT'.tr,
-                                                  style: textBlackLargeBM20(
-                                                      context)),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
+                                      // Text(
+                                      //     '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
+                                      //     style: textPrimaryXXSmall(context)),
+                                      Text('${'TOTAL_10%_VAT_INCLUDED'.tr} :',
+                                          style:
+                                              textPrimaryXXSmallDark(context)),
                                       Text(
-                                          '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency} ${'TOTAL_SELECTION'.tr}',
-                                          style: textBlackLargeBM20G(context)),
+                                          '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency}',
+                                          style:
+                                              textPrimaryXXSmallDark(context)),
                                     ],
                                   ),
+                                  //  Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding:
+                                  //           const EdgeInsets.only(left: 0.0),
+                                  //       child: Text(
+                                  //           '${state.orderDetails!.subTotal.toStringAsFixed(2)}${Constants.currency} ${'VAT_INCLUDE_TOTAL'.tr}',
+                                  //           style:
+                                  //               textBlackLargeBM20G(context)),
+                                  //     ),
+                                  //     // SizedBox(height: 10),
+                                  //     Row(
+                                  //       mainAxisAlignment:
+                                  //           MainAxisAlignment.spaceBetween,
+                                  //       children: [
+                                  //         Row(
+                                  //           children: [
+                                  // GFCheckbox(
+                                  //   size: 20,
+                                  //   activeBgColor: GFColors.DANGER,
+                                  //   onChanged: (value) {
+                                  //     context
+                                  //         .read(orderDetailsProvider
+                                  //             .notifier)
+                                  //         .divideAccount(value);
+                                  //   },
+                                  //   value: state.divideAccount,
+                                  // ),
+                                  // SizedBox(width: 10),
+                                  // Text('DIVIDE_THE_ACCOUNT'.tr,
+                                  //     style: textBlackLargeBM20(
+                                  //         context)),
+                                  //           ],
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //     SizedBox(
+                                  //       height: 10,
+                                  //     ),
+                                  //     Text(
+                                  //         '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency} ${'TOTAL_SELECTION'.tr}',
+                                  //         style: textBlackLargeBM20G(context)),
+                                  //   ],
+                                  // ),
                                 ),
                                 if (state.orderDetails !=
                                         ORDER_STATUS.cancelled ||
