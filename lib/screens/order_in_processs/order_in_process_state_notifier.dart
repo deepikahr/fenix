@@ -7,9 +7,12 @@ import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
+import 'package:fenix_user/screens/home/home.dart';
+import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
 import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
+import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +41,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     return res;
   }
 
-  getOrderStatus(String? orderId, notifier) async {
+  getOrderStatus(String? orderId, HomeTabsNotifier notifier) async {
     var request;
     SocketService().getSocket().clearListeners();
     var listenTo =
@@ -53,8 +56,18 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
             await db.removeOrderId();
             notifier.showScreen(CartScreen());
+            customDialog(
+              title: 'Order Denied',
+              okText: 'Ok',
+              status: DIALOG_STATUS.WARNING,
+            );
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
-            notifier.showScreen(OrderDetails());
+            notifier.showScreen(Home());
+            customDialog(
+              title: 'Order Confirmed',
+              okText: 'Ok',
+              status: DIALOG_STATUS.WARNING,
+            );
           }
         }
       }
