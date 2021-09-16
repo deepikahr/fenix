@@ -14,7 +14,7 @@ class Thankyou extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          Timer(Duration(seconds: 5), () async {
+          Timer(Duration(seconds: 3), () async {
             Get.offAll(() => HomeTabs());
           });
         });

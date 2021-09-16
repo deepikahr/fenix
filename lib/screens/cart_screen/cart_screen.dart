@@ -128,7 +128,7 @@ class CartScreen extends HookWidget {
                   custombuttonsm(
                       context, 'ADD_MORE_PRODUCTS'.tr,
                           () async {
-                        // TODO(krishna):
+
                         context
                             .read(homeTabsProvider.notifier)
                             .showScreen(Home());
