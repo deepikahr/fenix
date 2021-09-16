@@ -48,10 +48,10 @@ class NotifyWaiter extends HookWidget {
               '${notification[i]}'.tr,
               () async {
                 if (!state.isRequestLoading && state.buttonName == null) {
-                  final response = await notifier.callWaiter(
+                  await notifier.callWaiter(
                       'REQUEST'.tr, '${notification[i]}'.tr, notification[i]);
-                  if (response != null)
-                    Fluttertoast.showToast(msg: '$response');
+                  // if (response != null)
+                  // Fluttertoast.showToast(msg: '$response');
                 }
               },
               state.isRequestLoading && state.buttonName == notification[i]

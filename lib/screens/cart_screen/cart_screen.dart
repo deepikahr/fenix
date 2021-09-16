@@ -35,8 +35,7 @@ class CartScreen extends HookWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       color: grey2,
-      child:
-      Stack(
+      child: Stack(
         children: [
           ListView(
             shrinkWrap: true,
@@ -44,156 +43,139 @@ class CartScreen extends HookWidget {
             children: [
               cart == null || !DB().isLoggedIn()
                   ? Container(
-                alignment: AlignmentDirectional.topCenter,
-                child: Text('CART_IS_EMPTY'.tr),
-              ) :
-              SingleChildScrollView(
-                child: Container(
-                  color: white,
-                  margin: EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        decoration: BoxDecoration(
-                          color: grey2,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ),
-                        ),
-                        padding: EdgeInsets.all(14),
-                        margin: EdgeInsets.only(
-                          top: 16,
-                        ),
-                        child: Text('SELECTED PRODUCTS'.tr,
-                            style: textBlackLargeBM(context)),
-                      ),
-                      Container(
-                        color: grey2,
+                      alignment: AlignmentDirectional.topCenter,
+                      child: Text('CART_IS_EMPTY'.tr),
+                    )
+                  : SingleChildScrollView(
+                      child: Container(
+                        color: white,
+                        margin: EdgeInsets.all(8),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            cartItemBlock(context, cart, state),
                             Container(
-                              margin: EdgeInsets.only(top: 16),
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              decoration: BoxDecoration(
+                                color: grey2,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(8),
+                                  bottomRight: Radius.circular(8),
+                                ),
+                              ),
                               padding: EdgeInsets.all(14),
-                              height: 65,
-                              color: white,
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                              margin: EdgeInsets.only(
+                                top: 16,
+                              ),
+                              child: Text('SELECTED PRODUCTS'.tr,
+                                  style: textBlackLargeBM(context)),
+                            ),
+                            Container(
+                              color: grey2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Text(
-                                  //     '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
-                                  //     style: textPrimaryXXSmall(context)),
-                                  Text(
-                                      '${'TOTAL_10%_VAT_INCLUDED'.tr} :',
-                                      style: textPrimaryXXSmallDark(
-                                          context)),
-                                  Text(
-                                      '${cart.grandTotal.toStringAsFixed(2)}${Constants.currency}',
-                                      style: textPrimaryXXSmallDark(
-                                          context)),
+                                  cartItemBlock(context, cart, state),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 16),
+                                    padding: EdgeInsets.all(14),
+                                    height: 65,
+                                    color: white,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // Text(
+                                        //     '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
+                                        //     style: textPrimaryXXSmall(context)),
+                                        Text('${'TOTAL_10%_VAT_INCLUDED'.tr} :',
+                                            style: textPrimaryXXSmallDark(
+                                                context)),
+                                        Text(
+                                            '${cart.grandTotal.toStringAsFixed(2)}${Constants.currency}',
+                                            style: textPrimaryXXSmallDark(
+                                                context)),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 75,
+                                  )
                                 ],
                               ),
                             ),
-                            Container(height: 75,)
                           ],
                         ),
                       ),
-
-                    ],
-                  ),
-                ),
-              ),
+                    ),
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios),
           cart == null || !DB().isLoggedIn()
-              ? Container() :
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child:  Container(
-              color: grey2,
-              padding: EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-                children: [
-                  custombuttonsm(
-                      context, 'ADD_MORE_PRODUCTS'.tr,
-                          () async {
+              ? Container()
+              : Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: grey2,
+                    padding: EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        custombuttonsm(context, 'ADD_MORE_PRODUCTS'.tr,
+                            () async {
+                          context
+                              .read(homeTabsProvider.notifier)
+                              .showScreen(Home());
+                        }, false),
+                        state.isLoading || state.isUpdateLoading
+                            ? GFLoader(type: GFLoaderType.ios)
+                            : DB().getOrderId() == null
+                                ? custombuttonsm(context, 'PLACE_ORDER'.tr,
+                                    () async {
+                                    final res = await context
+                                        .read(cartScreenProvider.notifier)
+                                        .createOrder();
+                                    if (res != null) {
+                                      //   Fluttertoast.showToast(
+                                      //       msg:
+                                      //           '${state.orderResponse!.message}');
 
-                        context
-                            .read(homeTabsProvider.notifier)
-                            .showScreen(Home());
-                      }, false),
-                  state.isLoading || state.isUpdateLoading
-                      ? GFLoader(type: GFLoaderType.ios)
-                      : DB().getOrderId() == null
-                      ? custombuttonsm(
-                      context, 'PLACE_ORDER'.tr,
-                          () async {
-                        await context
-                            .read(cartScreenProvider
-                            .notifier)
-                            .createOrder();
-                        if (state.orderResponse !=
-                            null) {
-                          Fluttertoast.showToast(
-                              msg:
-                              '${state.orderResponse!.message}');
-                        }
-                        Timer(Duration(seconds: 2),
-                                () async {
-                              context
-                                  .read(homeTabsProvider
-                                  .notifier)
-                                  .showScreen(
-                                  OrdersInProcess());
-                            });
-                      }, state.isLoading)
-                      : (cart.products.any(
-                          (element) => element
-                          .modified) &&
-                      DB().getOrderId() !=
-                          null)
-                      ? custombuttonsm(context,
-                      'MODIFY_ORDER'.tr,
-                          () async {
-                        final updateResponse =
-                        await context
-                            .read(cartScreenProvider
-                            .notifier)
-                            .updateOrder();
-                        if (updateResponse !=
-                            null) {
-                          Fluttertoast.showToast(
-                              msg:
-                              '${updateResponse}');
-                          Timer(
-                              Duration(
-                                  seconds: 2),
-                                  () async {
-                                context
-                                    .read(homeTabsProvider
-                                    .notifier)
-                                    .showScreen(
-                                    OrdersInProcess());
-                              });
-                        }
-                      }, state.isUpdateLoading)
-                      : Container()
-                ],
-              ),
-            ),
-          ),
-
+                                      Timer(Duration(seconds: 2), () async {
+                                        context
+                                            .read(homeTabsProvider.notifier)
+                                            .showScreen(OrdersInProcess(
+                                              key: UniqueKey(),
+                                            ));
+                                      });
+                                    }
+                                  }, state.isLoading)
+                                : (cart.products.any(
+                                            (element) => element.modified) &&
+                                        DB().getOrderId() != null)
+                                    ? custombuttonsm(context, 'MODIFY_ORDER'.tr,
+                                        () async {
+                                        final updateResponse = await context
+                                            .read(cartScreenProvider.notifier)
+                                            .updateOrder();
+                                        if (updateResponse != null) {
+                                          // Fluttertoast.showToast(
+                                          //     msg: '${updateResponse}');
+                                          Timer(Duration(seconds: 2), () async {
+                                            context
+                                                .read(homeTabsProvider.notifier)
+                                                .showScreen(OrdersInProcess(
+                                                  key: UniqueKey(),
+                                                ));
+                                          });
+                                        }
+                                      }, state.isUpdateLoading)
+                                    : Container()
+                      ],
+                    ),
+                  ),
+                ),
         ],
       ),
     );
@@ -233,7 +215,7 @@ class CartScreen extends HookWidget {
                           children: [
                             counterIcon(
                               'remove',
-                                  () {
+                              () {
                                 context
                                     .read(cartScreenProvider.notifier)
                                     .updateQuantity(cartProduct, false);
@@ -243,7 +225,7 @@ class CartScreen extends HookWidget {
                                 style: textBlackLargeBM(context)),
                             counterIcon(
                               'add',
-                                  () {
+                              () {
                                 context
                                     .read(cartScreenProvider.notifier)
                                     .updateQuantity(cartProduct, true);
@@ -290,17 +272,17 @@ class CartScreen extends HookWidget {
                         style: textBlackLargeBM(context)),
                     cartProduct.allergens!.isNotEmpty
                         ? Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      padding: EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: primary(),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        'ALLERGENS'.tr,
-                        style: textWhiteRegularBM(),
-                      ),
-                    )
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: primary(),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
+                              'ALLERGENS'.tr,
+                              style: textWhiteRegularBM(),
+                            ),
+                          )
                         : Container(),
                   ],
                 ),

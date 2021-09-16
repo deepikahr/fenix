@@ -67,7 +67,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             customDialog(
               title: 'Order Confirmed',
               okText: 'Ok',
-              status: DIALOG_STATUS.WARNING,
+              status: DIALOG_STATUS.SUCCESS,
             );
           }
         }

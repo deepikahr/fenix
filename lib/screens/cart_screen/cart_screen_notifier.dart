@@ -100,6 +100,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     );
     db.saveOrderId(response!.id);
     state = state.copyWith.call(isLoading: false, orderResponse: response);
+    return response;
   }
 
   UpdateProduct createUpdateProduct(ProductDetailsResponse product) {

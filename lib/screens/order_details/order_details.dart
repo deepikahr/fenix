@@ -35,7 +35,9 @@ class OrderDetails extends HookWidget {
               } else if (res.orderStatus == ORDER_STATUS.pending) {
                 context
                     .read(homeTabsProvider.notifier)
-                    .showScreen(OrdersInProcess());
+                    .showScreen(OrdersInProcess(
+                      key: UniqueKey(),
+                    ));
               } else if (res.orderStatus == ORDER_STATUS.cancelled) {
                 Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
                 await DB().removeOrderId();

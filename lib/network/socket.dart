@@ -17,14 +17,14 @@ class SocketService {
 
   socketInitialize() {
     socket.on('connect', (_) {
-      print('Grocery Socket Connected to ${Constants.apiUrl}');
+      print('Finex User Socket Connected to ${Constants.apiUrl}');
     });
   }
 
   socketDisconnect() {
     socket.on('disconnect', (_) {
       socket.clearListeners();
-      print('Grocery Socket Disconnected');
+      print('Finex User Socket Disconnected');
     });
   }
 }
