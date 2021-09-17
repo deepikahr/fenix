@@ -11,12 +11,14 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OrdersInProcess extends HookWidget {
+  OrdersInProcess({required Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(orderInProcess.notifier);
     final isMounted = useIsMounted();
-
+    useProvider(orderInProcess);
     useEffect(() {
+      print('Use Effect in OrderInProcess');
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           final order = await notifier.fetchOrderDetails();
@@ -38,6 +40,7 @@ class OrdersInProcess extends HookWidget {
           }
         });
       }
+      return;
     }, const []);
 
     return Stack(

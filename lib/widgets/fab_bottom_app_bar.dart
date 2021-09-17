@@ -45,23 +45,24 @@ class FABBottomAppBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     onReturn() {
-      return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('ARE_YOU_SURE'.tr),
-          content: Text('DO_YOU_WANT_TO_EXIT_AN_APP'.tr),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('NO'.tr),
-            ),
-            TextButton(
-              onPressed: () => exit(0),
-              child: Text('YES'.tr),
-            ),
-          ],
-        ),
-      );
+      exit(0);
+      // return showDialog(
+      //   context: context,
+      //   builder: (context) => AlertDialog(
+      //     title: Text('ARE_YOU_SURE'.tr),
+      //     content: Text('DO_YOU_WANT_TO_EXIT_AN_APP'.tr),
+      //     actions: <Widget>[
+      //       TextButton(
+      //         onPressed: () => Navigator.of(context).pop(false),
+      //         child: Text('NO'.tr),
+      //       ),
+      //       TextButton(
+      //         onPressed: () => exit(0),
+      //         child: Text('YES'.tr),
+      //       ),
+      //     ],
+      //   ),
+      // );
     }
 
     List<Widget> item = List.generate(items!.length, (int index) {
@@ -138,7 +139,6 @@ class FABBottomAppBar extends HookWidget {
     ValueChanged<int>? onPressed,
   }) {
     Color? selColor = sel == index ? selectedColor! : color;
-    print('aaaaaaaaaa ${item!.total}');
     return Expanded(
       child: SizedBox(
         height: height,
@@ -158,9 +158,9 @@ class FABBottomAppBar extends HookWidget {
                 SizedBox(
                   height: 6,
                 ),
-                item.total == '0'
+                item?.total == '0'
                     ? SvgPicture.asset(
-                        item.iconData!,
+                        item!.iconData!,
                         width: 60,
                         height: 60,
                         // color: selColor,
@@ -168,7 +168,7 @@ class FABBottomAppBar extends HookWidget {
                     : GFIconBadge(
                         position: GFBadgePosition.topEnd(top: -4, end: -10),
                         child: SvgPicture.asset(
-                          item.iconData!,
+                          item!.iconData!,
                           width: 60,
                           height: 60,
                           // color: selColor,

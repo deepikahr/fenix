@@ -5,7 +5,6 @@ import 'package:fenix_user/models/api_response_models/menu_response/menu_respons
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
-import 'package:fenix_user/screens/auth/login/login_state.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
@@ -89,9 +88,9 @@ class Settings extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               primaryButton(context, 'CANCEL'.tr, () async {
-                if(state.menuTitle != null || DB().getMenuName() != null){
+                if (state.menuTitle != null || DB().getMenuName() != null) {
                   await Get.offAll(() => HomeTabs());
-                }else {
+                } else {
                   await Get.offAll(() => LoginPage());
                 }
               }, false),

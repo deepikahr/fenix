@@ -18,7 +18,6 @@ class URL {
   static const UPDATE_ORDER = '/orders/item/update';
   static const ORDER_DETAILS = '/orders/detail/';
 
-
   static const CALL_WAITER = '/notifications/request';
   static const CALL_WAITER_LIST = '/notifications/list';
 
@@ -34,4 +33,7 @@ class URL {
       "message-delivery-boy-to-user";
   static const String USER_SEND_MESSAGE_TO_DELIVERY_BOY_SOCKET_LISTEN =
       "message-delivery-boy-user-";
+
+  static const NOTIFI_WAITER_REQUEST_EVENT =
+      'Other-Request-Acknowledged-USER_ID';
 }
