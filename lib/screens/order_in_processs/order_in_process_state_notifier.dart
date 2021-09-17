@@ -93,7 +93,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
         request = CallWaiterRequest.fromJson(data);
         customDialog(
           status: DIALOG_STATUS.SUCCESS,
-          title: request.description,
+          title: 'Waiter Warned',
         );
       }
     });

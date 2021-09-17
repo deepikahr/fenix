@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 const appBarDark = Color(0xFF222831);
 
-Color primary(){
-  return DB().getThemeColor() == 'red' ? Color(0xFFC92B2B) : DB().getThemeColor() == 'green' ? Color(0xFF5B8E27)
-  : DB().getThemeColor() == 'blue' ? Color(0xFF2B80C9) : Color(0xFFED9732);
+Color primary() {
+  return DB().getThemeColor() == 'red'
+      ? Color(0xFFC92B2B)
+      : DB().getThemeColor() == 'green'
+          ? Color(0xFF5B8E27)
+          : DB().getThemeColor() == 'blue'
+              ? Color(0xFF2B80C9)
+              : Color(0xFFED9732);
 }
 
 const secondary = Color(0xFFFFDDDD);
@@ -138,7 +143,7 @@ TextStyle textDarkSmallBROP(context) {
 TextStyle textWhiteLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 20.0,
+    fontSize: 26.0,
     color: Colors.white,
     fontFamily: 'BarlowBold',
   );
@@ -189,7 +194,6 @@ TextStyle textWhite3XSmallBM(context) {
   );
 }
 
-
 TextStyle textWhiteXXSmallBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
@@ -225,7 +229,6 @@ TextStyle textPrimaryXXSmallDark(context) {
     fontFamily: 'BarlowMedium',
   );
 }
-
 
 TextStyle textDarkSmallUnderlineBM(context) {
   return TextStyle(
@@ -341,7 +344,8 @@ TextStyle tabIconTextBM(selectedColor) {
     color: selectedColor,
     fontSize: 18,
     fontWeight: FontWeight.w400,
-    fontFamily: 'BarlowMedium',);
+    fontFamily: 'BarlowMedium',
+  );
 }
 
 TextStyle textDarkLight2RegularBM(context) {
