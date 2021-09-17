@@ -45,23 +45,24 @@ class FABBottomAppBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     onReturn() {
-      return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('ARE_YOU_SURE'.tr),
-          content: Text('DO_YOU_WANT_TO_EXIT_AN_APP'.tr),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('NO'.tr),
-            ),
-            TextButton(
-              onPressed: () => exit(0),
-              child: Text('YES'.tr),
-            ),
-          ],
-        ),
-      );
+      exit(0);
+      // return showDialog(
+      //   context: context,
+      //   builder: (context) => AlertDialog(
+      //     title: Text('ARE_YOU_SURE'.tr),
+      //     content: Text('DO_YOU_WANT_TO_EXIT_AN_APP'.tr),
+      //     actions: <Widget>[
+      //       TextButton(
+      //         onPressed: () => Navigator.of(context).pop(false),
+      //         child: Text('NO'.tr),
+      //       ),
+      //       TextButton(
+      //         onPressed: () => exit(0),
+      //         child: Text('YES'.tr),
+      //       ),
+      //     ],
+      //   ),
+      // );
     }
 
     List<Widget> item = List.generate(items!.length, (int index) {
