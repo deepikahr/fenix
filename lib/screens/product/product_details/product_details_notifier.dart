@@ -88,6 +88,12 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     }
   }
 
+  Future<void> showArrowTowardsCart() async {
+    state = state.copyWith(productAdded: true);
+    await Future.delayed(const Duration(seconds: 4));
+    state = state.copyWith(productAdded: false);
+  }
+
   Future<void> _createCartWithFirstProduct(
       ProductDetailsResponse product) async {
     product = product.copyWith.call(
@@ -226,6 +232,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
 
       showAddButton(state.productDetails!.variantQuantity < 1);
     }
+    showArrowTowardsCart();
   }
 
   void updateAddonItemQuantity(AddOnItem addOnItem, increased) async {

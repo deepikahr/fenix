@@ -8,6 +8,7 @@ part 'product_details_state.freezed.dart';
 class ProductDetailsState with _$ProductDetailsState {
   const factory ProductDetailsState({
     @Default(false) bool isLoading,
+    @Default(false) bool productAdded,
     ProductDetailsResponse? productDetails,
     @Default(false) bool showAddButton,
     @Default(false) bool showCounter,
