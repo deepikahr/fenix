@@ -41,7 +41,9 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         productDetails: res,
         groupValue: res?.variants.indexWhere((v) => v.isDefaultVariant) ?? 0,
       );
-      _updateProduct(cartProducts: cartState?.products ?? []);
+      _updateProduct(
+        cartProducts: cartState?.products ?? [],
+      );
     }
     return res;
   }
@@ -90,7 +92,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
 
   Future<void> showArrowTowardsCart() async {
     state = state.copyWith(productAdded: true);
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
     state = state.copyWith(productAdded: false);
   }
 
@@ -121,7 +123,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     );
     await cartNotifier.updateCart(cart);
     state = state.copyWith(productDetails: product);
-    _updateProduct(cartProducts: cart.products);
+    _updateProduct(cartProducts: cart.products, productUpdated: true);
   }
 
   Future<void> _addProductInExistingCart(ProductDetailsResponse product) async {
@@ -194,7 +196,9 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     }
   }
 
-  void _updateProduct({List<ProductDetailsResponse>? cartProducts}) {
+  void _updateProduct(
+      {List<ProductDetailsResponse>? cartProducts,
+      bool productUpdated = false}) {
     final newCartProducts = (cartProducts?.isEmpty ?? true)
         ? (cartState?.products ?? [])
         : cartProducts;
@@ -232,7 +236,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
 
       showAddButton(state.productDetails!.variantQuantity < 1);
     }
-    showArrowTowardsCart();
+    if (productUpdated) showArrowTowardsCart();
   }
 
   void updateAddonItemQuantity(AddOnItem addOnItem, increased) async {

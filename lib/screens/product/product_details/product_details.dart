@@ -7,7 +7,7 @@ import 'package:fenix_user/models/api_response_models/product_details_response/p
 import 'package:fenix_user/models/api_response_models/variant_response/variant_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
-import 'package:fenix_user/screens/product/product_details/components/arrow_pointed_to_cart.widget.dart';
+import 'package:fenix_user/widgets/arrow_pointed_to_cart.widget.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/counterBox.dart';
