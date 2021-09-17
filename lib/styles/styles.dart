@@ -104,6 +104,15 @@ TextStyle textBlackLargeBM20(context) {
   );
 }
 
+TextStyle textBlackLargeBM32(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 32.0,
+    color: Colors.black,
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 TextStyle textBlackLargeBM20G(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,

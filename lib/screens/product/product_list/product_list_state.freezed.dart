@@ -20,12 +20,14 @@ class _$ProductListStateTearOff {
       {bool isLoading = false,
       String? categoryTitle,
       List<ProductDetailsResponse> products = const [],
-      int totalProducts = 0}) {
+      int totalProducts = 0,
+      dynamic productAdded = false}) {
     return _Default(
       isLoading: isLoading,
       categoryTitle: categoryTitle,
       products: products,
       totalProducts: totalProducts,
+      productAdded: productAdded,
     );
   }
 }
@@ -40,6 +42,7 @@ mixin _$ProductListState {
   List<ProductDetailsResponse> get products =>
       throw _privateConstructorUsedError;
   int get totalProducts => throw _privateConstructorUsedError;
+  dynamic get productAdded => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductListStateCopyWith<ProductListState> get copyWith =>
@@ -55,7 +58,8 @@ abstract class $ProductListStateCopyWith<$Res> {
       {bool isLoading,
       String? categoryTitle,
       List<ProductDetailsResponse> products,
-      int totalProducts});
+      int totalProducts,
+      dynamic productAdded});
 }
 
 /// @nodoc
@@ -73,6 +77,7 @@ class _$ProductListStateCopyWithImpl<$Res>
     Object? categoryTitle = freezed,
     Object? products = freezed,
     Object? totalProducts = freezed,
+    Object? productAdded = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -91,6 +96,10 @@ class _$ProductListStateCopyWithImpl<$Res>
           ? _value.totalProducts
           : totalProducts // ignore: cast_nullable_to_non_nullable
               as int,
+      productAdded: productAdded == freezed
+          ? _value.productAdded
+          : productAdded // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -105,7 +114,8 @@ abstract class _$DefaultCopyWith<$Res>
       {bool isLoading,
       String? categoryTitle,
       List<ProductDetailsResponse> products,
-      int totalProducts});
+      int totalProducts,
+      dynamic productAdded});
 }
 
 /// @nodoc
@@ -123,6 +133,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
     Object? categoryTitle = freezed,
     Object? products = freezed,
     Object? totalProducts = freezed,
+    Object? productAdded = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -141,6 +152,8 @@ class __$DefaultCopyWithImpl<$Res> extends _$ProductListStateCopyWithImpl<$Res>
           ? _value.totalProducts
           : totalProducts // ignore: cast_nullable_to_non_nullable
               as int,
+      productAdded:
+          productAdded == freezed ? _value.productAdded : productAdded,
     ));
   }
 }
@@ -152,7 +165,8 @@ class _$_Default implements _Default {
       {this.isLoading = false,
       this.categoryTitle,
       this.products = const [],
-      this.totalProducts = 0});
+      this.totalProducts = 0,
+      this.productAdded = false});
 
   @JsonKey(defaultValue: false)
   @override
@@ -165,10 +179,13 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: 0)
   @override
   final int totalProducts;
+  @JsonKey(defaultValue: false)
+  @override
+  final dynamic productAdded;
 
   @override
   String toString() {
-    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, products: $products, totalProducts: $totalProducts)';
+    return 'ProductListState(isLoading: $isLoading, categoryTitle: $categoryTitle, products: $products, totalProducts: $totalProducts, productAdded: $productAdded)';
   }
 
   @override
@@ -186,7 +203,10 @@ class _$_Default implements _Default {
                     .equals(other.products, products)) &&
             (identical(other.totalProducts, totalProducts) ||
                 const DeepCollectionEquality()
-                    .equals(other.totalProducts, totalProducts)));
+                    .equals(other.totalProducts, totalProducts)) &&
+            (identical(other.productAdded, productAdded) ||
+                const DeepCollectionEquality()
+                    .equals(other.productAdded, productAdded)));
   }
 
   @override
@@ -195,7 +215,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(categoryTitle) ^
       const DeepCollectionEquality().hash(products) ^
-      const DeepCollectionEquality().hash(totalProducts);
+      const DeepCollectionEquality().hash(totalProducts) ^
+      const DeepCollectionEquality().hash(productAdded);
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +229,8 @@ abstract class _Default implements ProductListState {
       {bool isLoading,
       String? categoryTitle,
       List<ProductDetailsResponse> products,
-      int totalProducts}) = _$_Default;
+      int totalProducts,
+      dynamic productAdded}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -219,6 +241,8 @@ abstract class _Default implements ProductListState {
       throw _privateConstructorUsedError;
   @override
   int get totalProducts => throw _privateConstructorUsedError;
+  @override
+  dynamic get productAdded => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

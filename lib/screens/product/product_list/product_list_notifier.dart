@@ -75,8 +75,14 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       userId: db.getId(),
       products: [product],
     );
-    _updateProducts(cart.products);
+    _updateProducts(cart.products, productFirstTimeAdded: true);
     await cartNotifier.updateCart(cart);
+  }
+
+  Future<void> showArrowTowardsCart() async {
+    state = state.copyWith(productAdded: true);
+    await Future.delayed(const Duration(seconds: 3));
+    state = state.copyWith(productAdded: false);
   }
 
   Future<void> _addProductInExistingCart(ProductDetailsResponse product) async {
@@ -127,7 +133,8 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     }
   }
 
-  void _updateProducts(List<ProductDetailsResponse> cartProducts) {
+  void _updateProducts(List<ProductDetailsResponse> cartProducts,
+      {bool productFirstTimeAdded = false}) {
     final newCartProducts =
         cartProducts.isEmpty ? (cartState?.products ?? []) : cartProducts;
 
@@ -151,5 +158,6 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     }).toList();
 
     state = state.copyWith.call(products: newProducts);
+    if (productFirstTimeAdded) showArrowTowardsCart();
   }
 }

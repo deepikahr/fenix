@@ -7,6 +7,7 @@ import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/product/product_details/product_details.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
+import 'package:fenix_user/widgets/arrow_pointed_to_cart.widget.dart';
 import 'package:fenix_user/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -67,7 +68,8 @@ class ProductList extends HookWidget {
                 ),
             ],
           ),
-          if (state.isLoading) GFLoader(type: GFLoaderType.ios)
+          if (state.isLoading) GFLoader(type: GFLoaderType.ios),
+          if (state.productAdded) ArrowTowardsCart()
         ],
       ),
     );

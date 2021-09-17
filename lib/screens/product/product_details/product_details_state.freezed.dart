@@ -18,6 +18,7 @@ class _$ProductDetailsStateTearOff {
 
   _Default call(
       {bool isLoading = false,
+      bool productAdded = false,
       ProductDetailsResponse? productDetails,
       bool showAddButton = false,
       bool showCounter = false,
@@ -26,6 +27,7 @@ class _$ProductDetailsStateTearOff {
       String? selectedLanguage}) {
     return _Default(
       isLoading: isLoading,
+      productAdded: productAdded,
       productDetails: productDetails,
       showAddButton: showAddButton,
       showCounter: showCounter,
@@ -42,6 +44,7 @@ const $ProductDetailsState = _$ProductDetailsStateTearOff();
 /// @nodoc
 mixin _$ProductDetailsState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get productAdded => throw _privateConstructorUsedError;
   ProductDetailsResponse? get productDetails =>
       throw _privateConstructorUsedError;
   bool get showAddButton => throw _privateConstructorUsedError;
@@ -62,6 +65,7 @@ abstract class $ProductDetailsStateCopyWith<$Res> {
       _$ProductDetailsStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
+      bool productAdded,
       ProductDetailsResponse? productDetails,
       bool showAddButton,
       bool showCounter,
@@ -84,6 +88,7 @@ class _$ProductDetailsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? productAdded = freezed,
     Object? productDetails = freezed,
     Object? showAddButton = freezed,
     Object? showCounter = freezed,
@@ -95,6 +100,10 @@ class _$ProductDetailsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productAdded: productAdded == freezed
+          ? _value.productAdded
+          : productAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       productDetails: productDetails == freezed
           ? _value.productDetails
@@ -144,6 +153,7 @@ abstract class _$DefaultCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
+      bool productAdded,
       ProductDetailsResponse? productDetails,
       bool showAddButton,
       bool showCounter,
@@ -168,6 +178,7 @@ class __$DefaultCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? productAdded = freezed,
     Object? productDetails = freezed,
     Object? showAddButton = freezed,
     Object? showCounter = freezed,
@@ -179,6 +190,10 @@ class __$DefaultCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productAdded: productAdded == freezed
+          ? _value.productAdded
+          : productAdded // ignore: cast_nullable_to_non_nullable
               as bool,
       productDetails: productDetails == freezed
           ? _value.productDetails
@@ -213,6 +228,7 @@ class __$DefaultCopyWithImpl<$Res>
 class _$_Default implements _Default {
   const _$_Default(
       {this.isLoading = false,
+      this.productAdded = false,
       this.productDetails,
       this.showAddButton = false,
       this.showCounter = false,
@@ -223,6 +239,9 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool productAdded;
   @override
   final ProductDetailsResponse? productDetails;
   @JsonKey(defaultValue: false)
@@ -241,7 +260,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'ProductDetailsState(isLoading: $isLoading, productDetails: $productDetails, showAddButton: $showAddButton, showCounter: $showCounter, groupValue: $groupValue, selectedAddOnItems: $selectedAddOnItems, selectedLanguage: $selectedLanguage)';
+    return 'ProductDetailsState(isLoading: $isLoading, productAdded: $productAdded, productDetails: $productDetails, showAddButton: $showAddButton, showCounter: $showCounter, groupValue: $groupValue, selectedAddOnItems: $selectedAddOnItems, selectedLanguage: $selectedLanguage)';
   }
 
   @override
@@ -251,6 +270,9 @@ class _$_Default implements _Default {
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
+            (identical(other.productAdded, productAdded) ||
+                const DeepCollectionEquality()
+                    .equals(other.productAdded, productAdded)) &&
             (identical(other.productDetails, productDetails) ||
                 const DeepCollectionEquality()
                     .equals(other.productDetails, productDetails)) &&
@@ -275,6 +297,7 @@ class _$_Default implements _Default {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(productAdded) ^
       const DeepCollectionEquality().hash(productDetails) ^
       const DeepCollectionEquality().hash(showAddButton) ^
       const DeepCollectionEquality().hash(showCounter) ^
@@ -291,6 +314,7 @@ class _$_Default implements _Default {
 abstract class _Default implements ProductDetailsState {
   const factory _Default(
       {bool isLoading,
+      bool productAdded,
       ProductDetailsResponse? productDetails,
       bool showAddButton,
       bool showCounter,
@@ -300,6 +324,8 @@ abstract class _Default implements ProductDetailsState {
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  bool get productAdded => throw _privateConstructorUsedError;
   @override
   ProductDetailsResponse? get productDetails =>
       throw _privateConstructorUsedError;

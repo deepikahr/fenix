@@ -122,6 +122,7 @@ flutter:
     - lib/assets/images/offerBg.png
     - lib/assets/images/wallet.png
     - lib/assets/images/refer.png
+    - lib/assets/images/downArrow.png
     - lib/assets/images/rating.png
     - lib/assets/images/cookie.png
     - lib/assets/images/img1.png
