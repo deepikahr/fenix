@@ -1,5 +1,6 @@
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,7 +70,7 @@ Widget primaryButtonSmall(BuildContext context, title, onPressed) {
 
 Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
   return MaterialButton(
-    height: 46,
+    height: 52,
     // minWidth: 340,
     shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
     color: primary(),
@@ -212,7 +213,7 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
                         color: Colors.black,
                         textColor: GFColors.WHITE,
                         size: GFSize.SMALL,
-                        text: '${cart.products.length}',
+                        text: '${getQuantityCount(cart.products)}',
                       ),
                     ),
                   )
@@ -221,4 +222,11 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
       ),
     ),
   );
+}
+
+int getQuantityCount(List<ProductDetailsResponse> products) {
+  int _quantity = products
+      .map((e) => e.variantQuantity)
+      .reduce((value, element) => value + element);
+  return _quantity;
 }
