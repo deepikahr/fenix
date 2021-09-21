@@ -61,139 +61,135 @@ class OrderDetails extends HookWidget {
       child: Stack(
         children: [
           if (!state.isLoading)
-            ListView(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              children: [
-                DB().getOrderId() == null
+            DB().getOrderId() == null
+                ? Center(child: Text('CART_IS_EMPTY'.tr))
+                : state.orderDetails == null || !DB().isLoggedIn()
                     ? Center(child: Text('CART_IS_EMPTY'.tr))
-                    : state.orderDetails == null || !DB().isLoggedIn()
-                        ? Center(child: Text('CART_IS_EMPTY'.tr))
-                        : Container(
-                            color: white,
-                            margin: EdgeInsets.all(8),
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
+                    : Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                          color: white,
+                          margin: EdgeInsets.all(8),
+                          padding: EdgeInsets.all(15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      '${'ORDER_ID'.tr}: ${state.orderDetails!.orderID}',
+                                      style: textDarkLight3SmallBR(context)),
+                                  if (state.orderDetails?.orderStatus ==
+                                      ORDER_STATUS.pending)
+                                    Text('ORDER_PENDING'.tr,
+                                        style: textDarkLight3SmallBR(context))
+                                  else if (state.orderDetails?.orderStatus ==
+                                      ORDER_STATUS.confirmed)
+                                    Text('ORDER_CONFIRMED'.tr,
+                                        style: textDarkLight3SmallBR(context))
+                                  else if (state.orderDetails?.orderStatus ==
+                                      ORDER_STATUS.completed)
+                                    Text('ORDER_COMPLETED'.tr,
+                                        style: textDarkLight3SmallBR(context))
+                                  else if (state.orderDetails?.orderStatus ==
+                                      ORDER_STATUS.cancelled)
+                                    Text('ORDER_CANCELLED',
+                                        style: textDarkLight3SmallBR(context)),
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              cartItemBlock(
+                                  context, state.orderDetails!.cart, state),
+                              if (state.isLoading)
+                                GFLoader(type: GFLoaderType.ios),
+                              Container(
+                                padding: EdgeInsets.all(12),
+                                color: light,
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
+                                    // Text(
+                                    //     '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
+                                    //     style: textPrimaryXXSmall(context)),
+                                    Text('${'TOTAL_10%_VAT_INCLUDED'.tr} :',
+                                        style: textPrimaryXXSmallDark(context)),
                                     Text(
-                                        '${'ORDER_ID'.tr}: ${state.orderDetails!.orderID}',
-                                        style: textDarkLight3SmallBR(context)),
-                                    if (state.orderDetails?.orderStatus ==
-                                        ORDER_STATUS.pending)
-                                      Text('ORDER_PENDING'.tr,
-                                          style: textDarkLight3SmallBR(context))
-                                    else if (state.orderDetails?.orderStatus ==
-                                        ORDER_STATUS.confirmed)
-                                      Text('ORDER_CONFIRMED'.tr,
-                                          style: textDarkLight3SmallBR(context))
-                                    else if (state.orderDetails?.orderStatus ==
-                                        ORDER_STATUS.completed)
-                                      Text('ORDER_COMPLETED'.tr,
-                                          style: textDarkLight3SmallBR(context))
-                                    else if (state.orderDetails?.orderStatus ==
-                                        ORDER_STATUS.cancelled)
-                                      Text('ORDER_CANCELLED',
-                                          style:
-                                              textDarkLight3SmallBR(context)),
+                                        '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency}',
+                                        style: textPrimaryXXSmallDark(context)),
                                   ],
                                 ),
-                                SizedBox(height: 20),
-                                cartItemBlock(
-                                    context, state.orderDetails!.cart, state),
-                                if (state.isLoading)
-                                  GFLoader(type: GFLoaderType.ios),
-                                Container(
-                                  padding: EdgeInsets.all(12),
-                                  color: light,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // Text(
-                                      //     '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
-                                      //     style: textPrimaryXXSmall(context)),
-                                      Text('${'TOTAL_10%_VAT_INCLUDED'.tr} :',
-                                          style:
-                                              textPrimaryXXSmallDark(context)),
-                                      Text(
-                                          '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency}',
-                                          style:
-                                              textPrimaryXXSmallDark(context)),
-                                    ],
-                                  ),
-                                  //  Column(
-                                  //   crossAxisAlignment:
-                                  //       CrossAxisAlignment.start,
-                                  //   children: [
-                                  //     Padding(
-                                  //       padding:
-                                  //           const EdgeInsets.only(left: 0.0),
-                                  //       child: Text(
-                                  //           '${state.orderDetails!.subTotal.toStringAsFixed(2)}${Constants.currency} ${'VAT_INCLUDE_TOTAL'.tr}',
-                                  //           style:
-                                  //               textBlackLargeBM20G(context)),
-                                  //     ),
-                                  //     // SizedBox(height: 10),
-                                  //     Row(
-                                  //       mainAxisAlignment:
-                                  //           MainAxisAlignment.spaceBetween,
-                                  //       children: [
-                                  //         Row(
-                                  //           children: [
-                                  // GFCheckbox(
-                                  //   size: 20,
-                                  //   activeBgColor: GFColors.DANGER,
-                                  //   onChanged: (value) {
-                                  //     context
-                                  //         .read(orderDetailsProvider
-                                  //             .notifier)
-                                  //         .divideAccount(value);
-                                  //   },
-                                  //   value: state.divideAccount,
-                                  // ),
-                                  // SizedBox(width: 10),
-                                  // Text('DIVIDE_THE_ACCOUNT'.tr,
-                                  //     style: textBlackLargeBM20(
-                                  //         context)),
-                                  //           ],
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //     SizedBox(
-                                  //       height: 10,
-                                  //     ),
-                                  //     Text(
-                                  //         '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency} ${'TOTAL_SELECTION'.tr}',
-                                  //         style: textBlackLargeBM20G(context)),
-                                  //   ],
-                                  // ),
-                                ),
-                                if (state.orderDetails !=
-                                        ORDER_STATUS.cancelled ||
-                                    state.orderDetails !=
-                                        ORDER_STATUS.completed ||
-                                    state.orderDetails != ORDER_STATUS.pending)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 28.0),
-                                    child: Center(
-                                        child: custombuttonsm(
-                                            context, 'OK,_PAYMENT_METHODS'.tr,
-                                            () {
-                                      context
-                                          .read(homeTabsProvider.notifier)
-                                          .showScreen(
-                                              Payment(state.orderDetails));
-                                    }, false)),
-                                  ),
-                              ],
-                            ),
-                          )
-              ],
+                                //  Column(
+                                //   crossAxisAlignment:
+                                //       CrossAxisAlignment.start,
+                                //   children: [
+                                //     Padding(
+                                //       padding:
+                                //           const EdgeInsets.only(left: 0.0),
+                                //       child: Text(
+                                //           '${state.orderDetails!.subTotal.toStringAsFixed(2)}${Constants.currency} ${'VAT_INCLUDE_TOTAL'.tr}',
+                                //           style:
+                                //               textBlackLargeBM20G(context)),
+                                //     ),
+                                //     // SizedBox(height: 10),
+                                //     Row(
+                                //       mainAxisAlignment:
+                                //           MainAxisAlignment.spaceBetween,
+                                //       children: [
+                                //         Row(
+                                //           children: [
+                                // GFCheckbox(
+                                //   size: 20,
+                                //   activeBgColor: GFColors.DANGER,
+                                //   onChanged: (value) {
+                                //     context
+                                //         .read(orderDetailsProvider
+                                //             .notifier)
+                                //         .divideAccount(value);
+                                //   },
+                                //   value: state.divideAccount,
+                                // ),
+                                // SizedBox(width: 10),
+                                // Text('DIVIDE_THE_ACCOUNT'.tr,
+                                //     style: textBlackLargeBM20(
+                                //         context)),
+                                //           ],
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     SizedBox(
+                                //       height: 10,
+                                //     ),
+                                //     Text(
+                                //         '${state.orderDetails!.grandTotal.toStringAsFixed(2)}${Constants.currency} ${'TOTAL_SELECTION'.tr}',
+                                //         style: textBlackLargeBM20G(context)),
+                                //   ],
+                                // ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+          if (state.orderDetails != ORDER_STATUS.cancelled ||
+              state.orderDetails != ORDER_STATUS.completed ||
+              state.orderDetails != ORDER_STATUS.pending)
+            Positioned(
+              bottom: 50,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 28.0),
+                child: Center(
+                    child:
+                        custombuttonsm(context, 'OK,_PAYMENT_METHODS'.tr, () {
+                  context
+                      .read(homeTabsProvider.notifier)
+                      .showScreen(Payment(state.orderDetails));
+                }, false)),
+              ),
             ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)
         ],
