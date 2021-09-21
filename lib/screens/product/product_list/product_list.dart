@@ -69,7 +69,8 @@ class ProductList extends HookWidget {
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios),
-          if (state.productAdded) ArrowTowardsCart()
+          if (state.productAdded)
+            Align(alignment: Alignment.bottomCenter, child: ArrowTowardsCart())
         ],
       ),
     );

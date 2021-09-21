@@ -158,6 +158,10 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     }).toList();
 
     state = state.copyWith.call(products: newProducts);
-    if (productFirstTimeAdded) showArrowTowardsCart();
+    if (productFirstTimeAdded) {
+      print('Product is added for first Time => $productFirstTimeAdded');
+      showArrowTowardsCart();
+    }
+    ;
   }
 }
