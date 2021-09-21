@@ -86,6 +86,24 @@ Widget custombuttonsm(BuildContext context, title, onPressed, isloading) {
   );
 }
 
+Widget custombuttonsmh50(BuildContext context, title, onPressed, isloading) {
+  return MaterialButton(
+    height: 50,
+    // minWidth: 340,
+    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(12)),
+    color: primary(),
+    onPressed: onPressed,
+    child: isloading
+        ? GFLoader(
+            type: GFLoaderType.ios,
+          )
+        : Text(
+            title,
+            style: textWhiteLargeBM20(context),
+          ),
+  );
+}
+
 Widget custombuttonsmFW(BuildContext context, title, onPressed, isLoading) {
   return Container(
     height: 46,
@@ -148,7 +166,7 @@ Widget tabIconButton(BuildContext context, iconData, cartData) {
   );
 }
 
-Widget customBottomBar(int currentIndex, onSelect, total) {
+Widget customBottomBar(int currentIndex, onSelect, Cart? cart) {
   return FABBottomAppBar(
     centerItemText: 'ASK_FOR'.tr,
     color: Colors.grey,
@@ -169,7 +187,7 @@ Widget customBottomBar(int currentIndex, onSelect, total) {
       FABBottomAppBarItem(
           iconData: "lib/assets/icons/toPay.svg",
           text: 'TO_PAY'.tr,
-          total: total.toString()),
+          total: cart == null ? '0' : '${getQuantityCount(cart.products)}'),
     ],
     backgroundColor: Colors.grey.shade200,
     currentIndex: currentIndex,

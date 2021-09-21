@@ -158,6 +158,15 @@ TextStyle textWhiteLargeBM(context) {
   );
 }
 
+TextStyle textWhiteLargeBM20(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 20.0,
+    color: Colors.white,
+    fontFamily: 'BarlowBold',
+  );
+}
+
 TextStyle textWhiteLargeBMM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,

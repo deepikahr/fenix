@@ -57,25 +57,21 @@ class HomeTabs extends HookWidget {
         },
       ),
       body: state.currentScreen,
-      bottomNavigationBar: customBottomBar(
-        state.bottomBarIndex,
-        (int index) async {
-          notifier.changeBottomBarNavIndex(index);
-          if (index == 0) {
-            notifier.showScreen(Home());
-          } else if (index == 1) {
-            notifier.showScreen(
-                CategoryScreen(UniqueKey(), CATEGORY_TYPE.beverageCategory));
-          } else if (index == 2) {
-            notifier.showScreen(
-                CategoryScreen(UniqueKey(), CATEGORY_TYPE.foodCategory));
-          } else if (index == 3) {
-            notifier.showScreen(OrderDetails());
-          }
-        },
-          orders.orderDetails?.cart.length != null && DB().getOrderId() != null ?
-          orders.orderDetails?.cart.length : '0'
-      ),
+      bottomNavigationBar:
+          customBottomBar(state.bottomBarIndex, (int index) async {
+        notifier.changeBottomBarNavIndex(index);
+        if (index == 0) {
+          notifier.showScreen(Home());
+        } else if (index == 1) {
+          notifier.showScreen(
+              CategoryScreen(UniqueKey(), CATEGORY_TYPE.beverageCategory));
+        } else if (index == 2) {
+          notifier.showScreen(
+              CategoryScreen(UniqueKey(), CATEGORY_TYPE.foodCategory));
+        } else if (index == 3) {
+          notifier.showScreen(OrderDetails());
+        }
+      }, DB().getOrderId() != null ? cart : null),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: buildCenterIcon(context, cart, () async {
         notifier.showScreen(CartScreen());

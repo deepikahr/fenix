@@ -123,7 +123,7 @@ class CartScreen extends HookWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        custombuttonsm(context, 'ADD_MORE_PRODUCTS'.tr,
+                        custombuttonsmh50(context, 'ADD_MORE_PRODUCTS'.tr,
                             () async {
                           context
                               .read(homeTabsProvider.notifier)
@@ -132,7 +132,7 @@ class CartScreen extends HookWidget {
                         state.isLoading || state.isUpdateLoading
                             ? GFLoader(type: GFLoaderType.ios)
                             : DB().getOrderId() == null
-                                ? custombuttonsm(context, 'PLACE_ORDER'.tr,
+                                ? custombuttonsmh50(context, 'PLACE_ORDER'.tr,
                                     () async {
                                     final res = await context
                                         .read(cartScreenProvider.notifier)
@@ -154,8 +154,8 @@ class CartScreen extends HookWidget {
                                 : (cart.products.any(
                                             (element) => element.modified) &&
                                         DB().getOrderId() != null)
-                                    ? custombuttonsm(context, 'MODIFY_ORDER'.tr,
-                                        () async {
+                                    ? custombuttonsmh50(
+                                        context, 'MODIFY_ORDER'.tr, () async {
                                         final updateResponse = await context
                                             .read(cartScreenProvider.notifier)
                                             .updateOrder();
