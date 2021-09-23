@@ -74,9 +74,9 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     state = state.copyWith.call(validatePayment: validatePayment);
   }
 
-  String? get getCachedPrinterIpAddress => db.getPrinterIpAddress();
+  String? get _getCachedPrinterIpAddressFromdb => db.getPrinterIpAddress();
 
-  String? get getCachedPrinterport => db.getPrinterPort()?.toString() ?? null;
+  String? get _getCachedPrinterport => db.getPrinterPort()?.toString() ?? null;
 
   void cachePrinterIpAddress(String? ipAddress) {
     if (ipAddress != null && ipAddress.isNotEmpty) {
@@ -91,9 +91,14 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       db.savePrinterIpAddress(ipAddressSplit[0]);
       if (ipAddressSplit.length > 1) {
         db.savePrinterPort(ipAddressSplit[1]);
+      } else {
+        db.clearPrinterPort();
       }
     }
   }
+
+  String get getCachedIpAddress => '${_getCachedPrinterIpAddressFromdb ?? ''}'
+      '${_getCachedPrinterport == null ? '' : ':${_getCachedPrinterport}'}';
 
   Future<String?> updateSettings(
       bool? resetCategory,

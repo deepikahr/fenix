@@ -77,6 +77,7 @@ class PrinterService {
       {String? waiterName,
       String? ip,
       List<CartProduct> products = const []}) async {
+    print('Products to be printed => $products');
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
     final _printer = NetworkPrinter(_paper, _profile);

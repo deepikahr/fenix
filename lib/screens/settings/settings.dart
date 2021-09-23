@@ -33,9 +33,8 @@ class Settings extends HookWidget {
     final notifier = useProvider(settingsProvider.notifier);
     final isMounted = useIsMounted();
     final tableNumberEditController = useTextEditingController();
-    final ipAddressEditController = useTextEditingController(
-        text:
-            '${notifier.getCachedPrinterIpAddress ?? ''}${notifier.getCachedPrinterport == null ? '' : ':${notifier.getCachedPrinterport}'}');
+    final ipAddressEditController =
+        useTextEditingController(text: notifier.getCachedIpAddress);
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {

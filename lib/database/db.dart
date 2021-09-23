@@ -114,6 +114,11 @@ class DB {
     box.put('printerPort', address);
   }
 
+  void clearPrinterPort() {
+    final box = Hive.box('user');
+    box.delete('printerPort');
+  }
+
   int? getPrinterPort() {
     final box = Hive.box('user');
     String? port = box.get('printerPort');
