@@ -29,6 +29,21 @@ String? validatePassword(String? value) {
   }
 }
 
+String? validateIpAddress(String? value) {
+  if (value != null) {
+    if (value.isNotEmpty) {
+      String pattern =
+          r'\b((?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:(?<!\.)\b|\.)){4}';
+      RegExp regex = RegExp(pattern);
+      if (!regex.hasMatch(value)) {
+        return 'Enter valid Ip address';
+      }
+    }
+  }
+  print("validation Complete $value");
+  return null;
+}
+
 String processImage(
   String? value, {
   int? height,

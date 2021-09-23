@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
@@ -10,6 +11,7 @@ import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
+import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
@@ -26,13 +28,12 @@ class Settings extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tableNumberEditController = useTextEditingController();
-    final ipAddressEditController = useTextEditingController();
-
     final state = useProvider(settingsProvider);
     final notifier = useProvider(settingsProvider.notifier);
     final isMounted = useIsMounted();
-
+    final tableNumberEditController = useTextEditingController();
+    final ipAddressEditController = useTextEditingController(
+        text: notifier.getCachedPrinterIpAddress ?? '');
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
@@ -95,7 +96,9 @@ class Settings extends HookWidget {
                 }
               }, false),
               primaryButton(context, 'UPDATE'.tr, () async {
-                if (state.menuTitle != null || DB().getMenuName() != null) {
+                if ((formKey.currentState?.validate() ?? true) &&
+                    (state.menuTitle != null || DB().getMenuName() != null)) {
+                  notifier.cachePrinterIpAddress(ipAddressEditController.text);
                   final response = await notifier.updateSettings(
                     state.resetCategory ??
                         state.settings!.tabSetting!.resetCategory,
@@ -129,40 +132,44 @@ class Settings extends HookWidget {
                     );
                   }
                 } else {
-                  await showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        actions: [
-                          flatPrimaryUnderlineButton(context, 'OK'.tr, () {
-                            Get.back();
-                          })
-                        ],
-                        insetPadding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        contentPadding: EdgeInsets.zero,
-                        backgroundColor: dark,
-                        content: Container(
-                          width: double.infinity,
-                          height: 176,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 55),
-                                child: Text(
-                                  'PLEASE_SELECT_MENU'.tr,
-                                  style: textWhiteRegularBM(),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
+                  if (!(state.menuTitle != null ||
+                      DB().getMenuName() != null)) {
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          actions: [
+                            flatPrimaryUnderlineButton(context, 'OK'.tr, () {
+                              Get.back();
+                            })
+                          ],
+                          insetPadding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          contentPadding: EdgeInsets.zero,
+                          backgroundColor: dark,
+                          content: Container(
+                            width: double.infinity,
+                            height: 176,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 55),
+                                  child: Text(
+                                    'PLEASE_SELECT_MENU'.tr,
+                                    style: textWhiteRegularBM(),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
+                        );
+                      },
+                    );
+                  }
                 }
               }, state.isUpdateLoading),
             ],
@@ -305,7 +312,55 @@ class Settings extends HookWidget {
               )
             ],
           ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child:
+                    //TODO: localization for Printer ip address
+                    titleTextDarkRegularBS(context, 'Printer IP Adress'.tr),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Form(
+                  key: formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: regularTextField(
+                      context,
+                      ipAddressTextField(
+                          context, ipAddressEditController, ipAddressFocusNode,
+                          (val) {
+                        formKey.currentState?.validate();
+                      })),
+                ),
+              ),
+            ],
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget ipAddressTextField(
+    BuildContext context,
+    controller,
+    FocusNode focusNode,
+    ValueChanged<String> onFieldSubmitted,
+  ) {
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      controller: controller,
+      focusNode: focusNode,
+      onFieldSubmitted: onFieldSubmitted,
+      validator: validateIpAddress,
+      decoration: InputDecoration(
+        labelText: 'IP Adress'.tr,
+        labelStyle: textDarkLightSmallBR(context),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        border: InputBorder.none,
       ),
     );
   }

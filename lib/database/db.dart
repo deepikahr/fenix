@@ -98,6 +98,17 @@ class DB {
     box.put('menuId', menuId);
   }
 
+  void savePrinterIpAddress(String address) {
+    final box = Hive.box('user');
+    box.put('IPaddress', address);
+  }
+
+  String? getPrinterIpAddress() {
+    final box = Hive.box('user');
+    String? ipAddress = box.get('IPaddress');
+    return ipAddress;
+  }
+
   String? getMenuId() {
     final box = Hive.box('user');
     String? menuId = box.get('menuId');
