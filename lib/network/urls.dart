@@ -10,6 +10,10 @@ class URL {
 
   static const HOME = '/categories/home-page/';
   static const CATEGORY = '/categories/type-based';
+  static const SUB_CATEGORY = '/sub-categories/vendor/list';
+
+  // https://api.pilarbar.com/sub-categories/vendor/list?page=1&limit=25&menuId=60d19cd30aa04b2300b2af8b
+  // https://api.pilarbar.com/sub-categories/vendor/list?page=1&limit=10&menuId=60d19cd30aa04b2300b2af8b
 
   static const PRODUCT_LIST = '/products/list/';
   static const PRODUCT_DETAILS = '/products/detail/';

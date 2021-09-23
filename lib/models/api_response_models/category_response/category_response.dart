@@ -9,15 +9,28 @@ part 'category_response.g.dart';
 class CategoryResponse with BaseModel<CategoryResponse>, _$CategoryResponse {
   const CategoryResponse._();
 
-  const factory CategoryResponse(
-      {@JsonKey(name: '_id') String? id,
+  const factory CategoryResponse({
+      @Default(0) int subCategoryCount,
+      @Default(false) bool isDealAvailable,
+      @Default(false) bool status,
+      @Default(false) bool isCopy,
+
+      @JsonKey(name: '_id') String? id,
       String? franchiseId,
       String? title,
       String? description,
       String? imageUrl,
       String? imageId,
       String? filePath,
-      String? topCategory}) = _CategoryResponse;
+      String? topCategory,
+
+      String? vendorId,
+      String? menuId,
+      String? franchiseName,
+      String? createdAt,
+      String? updatedAt,
+
+      }) = _CategoryResponse;
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$CategoryResponseFromJson(json);

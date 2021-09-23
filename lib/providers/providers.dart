@@ -36,6 +36,8 @@ import 'package:fenix_user/screens/product/product_list/product_list_notifier.da
 import 'package:fenix_user/screens/product/product_list/product_list_state.dart';
 import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:fenix_user/screens/settings/settings_state_notifier.dart';
+import 'package:fenix_user/screens/sub_category/sub_category_state.dart';
+import 'package:fenix_user/screens/sub_category/sub_category_state_notifier.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -83,6 +85,12 @@ final categoryProvider =
         (ref) {
   return CategoryStateNotifier(ref);
 });
+
+final subCategoryProvider =
+StateNotifierProvider.autoDispose<SubCategoryStateNotifier, SubCategoryState>(
+        (ref) {
+      return SubCategoryStateNotifier(ref);
+    });
 
 final settingsProvider =
     StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>(

@@ -7,6 +7,7 @@ import 'package:fenix_user/models/api_request_models/localizationDataRequest/loc
 import 'package:fenix_user/models/api_request_models/login_verify_request/login_verify_request.dart';
 import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_request_models/settings_update_request/settings_update_request.dart';
+import 'package:fenix_user/models/api_request_models/sub_category_request/sub_category_request.dart';
 import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
 import 'package:fenix_user/models/api_response_model.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
@@ -21,6 +22,9 @@ import 'package:fenix_user/models/api_response_models/order_response/order_respo
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
+import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
+import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
+import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
 import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/screens/category/category.dart';
 import 'package:flutter/foundation.dart';
@@ -243,6 +247,21 @@ class API {
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
       resModel: CategoryResponse(),
+    );
+  }
+
+  Future<SubCategoryModel?> subCategory(String? menuId, int page,
+      {ValueSetter<ErrorResponse>? errorListener,
+        int limit = 10,
+        ValueSetter<ApiResponse<SubCategoryModel?>>? responseListener,
+        bool autoErrorHandle = true}) async {
+    return _api.get(
+      URL.SUB_CATEGORY,
+      reqModel: SubCategoryRequest(menuId: menuId, page: page, limit: limit),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+      resModel: SubCategoryModel()
     );
   }
 
