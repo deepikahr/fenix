@@ -82,8 +82,8 @@ class PrinterService {
     final _printer = NetworkPrinter(_paper, _profile);
     final ipAddress = db.getPrinterIpAddress();
     if (ipAddress != null && ipAddress.isNotEmpty) {
-      final PosPrintResult res =
-          await _printer.connect(ip ?? ipAddress, port: 9100);
+      final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
+          port: db.getPrinterPort() ?? 9100);
       if (res == PosPrintResult.success) {
         _testReceipt(_printer, waiterName: waiterName, products: products);
         _printer.disconnect();

@@ -13,6 +13,7 @@ import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -33,7 +34,8 @@ class Settings extends HookWidget {
     final isMounted = useIsMounted();
     final tableNumberEditController = useTextEditingController();
     final ipAddressEditController = useTextEditingController(
-        text: notifier.getCachedPrinterIpAddress ?? '');
+        text:
+            '${notifier.getCachedPrinterIpAddress ?? ''}${notifier.getCachedPrinterport == null ? '' : ':${notifier.getCachedPrinterport}'}');
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
@@ -351,7 +353,8 @@ class Settings extends HookWidget {
     ValueChanged<String> onFieldSubmitted,
   ) {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
+      inputFormatters: [FilteringTextInputFormatter.deny(r'^[A-Za-z]')],
       controller: controller,
       focusNode: focusNode,
       onFieldSubmitted: onFieldSubmitted,

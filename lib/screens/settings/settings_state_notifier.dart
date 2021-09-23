@@ -76,9 +76,22 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
 
   String? get getCachedPrinterIpAddress => db.getPrinterIpAddress();
 
+  String? get getCachedPrinterport => db.getPrinterPort()?.toString() ?? null;
+
   void cachePrinterIpAddress(String? ipAddress) {
     if (ipAddress != null && ipAddress.isNotEmpty) {
-      db.savePrinterIpAddress(ipAddress);
+      late final List<String> ipAddressSplit;
+      if (ipAddress.contains(':')) {
+        ipAddressSplit = ipAddress.split(':');
+      } else if (ipAddress.contains('/')) {
+        ipAddressSplit = ipAddress.split('/');
+      } else {
+        ipAddressSplit = [ipAddress];
+      }
+      db.savePrinterIpAddress(ipAddressSplit[0]);
+      if (ipAddressSplit.length > 1) {
+        db.savePrinterPort(ipAddressSplit[1]);
+      }
     }
   }
 

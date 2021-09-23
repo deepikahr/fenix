@@ -100,13 +100,24 @@ class DB {
 
   void savePrinterIpAddress(String address) {
     final box = Hive.box('user');
-    box.put('IPaddress', address);
+    box.put('printerIPaddress', address);
   }
 
   String? getPrinterIpAddress() {
     final box = Hive.box('user');
-    String? ipAddress = box.get('IPaddress');
+    String? ipAddress = box.get('printerIPaddress');
     return ipAddress;
+  }
+
+  void savePrinterPort(String address) {
+    final box = Hive.box('user');
+    box.put('printerPort', address);
+  }
+
+  int? getPrinterPort() {
+    final box = Hive.box('user');
+    String? port = box.get('printerPort');
+    return port != null ? int.parse(port) : null;
   }
 
   String? getMenuId() {
