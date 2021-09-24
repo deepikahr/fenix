@@ -15,11 +15,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:get/get.dart';
 
 class SubCategoryScreen extends HookWidget {
-  final String menuId;
+  final String categoryId;
+  final String categoryTitle;
 
-  SubCategoryScreen(this.menuId, {Key? key}) : super(key: key);
+  SubCategoryScreen(this.categoryId, this.categoryTitle, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class SubCategoryScreen extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchSubCategory(menuId);
+          await notifier.fetchSubCategory(categoryId);
         });
       }
       return;
@@ -40,11 +42,16 @@ class SubCategoryScreen extends HookWidget {
       color: light,
       child: Stack(
         children: [
+          if (!state.isLoading && state.total == 0)
+            Center(
+              child: Text('NO_ITEMS'.tr),
+            ),
           ListView(
             padding: EdgeInsets.symmetric(vertical: 16),
             shrinkWrap: true,
             physics: ScrollPhysics(),
             children: [
+                subCategoryList(context, categoryTitle),
               if ((state.subCategory?.length ?? 0) > 0)
                 DB().getType() == 'list'
                     ? subCategoryBlock(
@@ -59,6 +66,19 @@ class SubCategoryScreen extends HookWidget {
     );
   }
 
+  Widget subCategoryList(context, String? subCategory) => Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(right: 15.0, bottom: 16),
+        child: Text(
+          subCategory ?? '',
+          style: textDarkRegularBS(context),
+        ),
+      )
+    ],
+  );
+
   Widget subCategoryBlock(BuildContext context, List<SubCategoryResponse>? subCategory,
       notifier, pageNumber) {
     return Container(
@@ -70,7 +90,7 @@ class SubCategoryScreen extends HookWidget {
           itemCount: subCategory!.length,
           itemBuilder: (BuildContext context, int i) {
             handleScrollWithIndex(
-                i, pageNumber, () => notifier.fetch(menuId));
+                i, pageNumber, () => notifier.fetch(categoryId));
             return InkWell(
               onTap: () {
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
@@ -104,7 +124,7 @@ class SubCategoryScreen extends HookWidget {
           handleScrollWithIndex(
             i,
             pageNumber,
-                () => notifier.fetch(menuId),
+                () => notifier.fetch(categoryId),
           );
           return InkWell(
               onTap: () {

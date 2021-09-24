@@ -112,7 +112,7 @@ class Home extends HookWidget {
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
                     categories[i].id ?? '', categories[i].imageUrl ?? ''))
                     : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                    categories[i].menuId ?? ''));
+                    categories[i].id ?? '', categories[i].title ?? ''));
               },
               child: restaurantInfoCard(
                 context,
@@ -144,7 +144,7 @@ class Home extends HookWidget {
                     ProductList(
                         categories[i].id ?? '', categories[i].imageUrl ?? ''),
                   ) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                  categories[i].menuId ?? ''));
+                  categories[i].id ?? '', categories[i].title ?? ''));
             },
             child: restaurantInfoCardGrid(
               context,

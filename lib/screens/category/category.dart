@@ -5,6 +5,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
+import 'package:fenix_user/screens/sub_category/sub_category.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,10 +80,12 @@ class CategoryScreen extends HookWidget {
                 i, pageNumber, () => notifier.fetch(categoryType));
             return InkWell(
               onTap: () {
+                category[i].subCategoryCount == 0 ?
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
                       category[i].id ?? '',
                       category[i].imageUrl ?? '',
-                    ));
+                    )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
+                    category[i].id ?? '', category[i].title ?? ''));
               },
               child: restaurantInfoCard(
                 context,
@@ -114,10 +117,12 @@ class CategoryScreen extends HookWidget {
           );
           return InkWell(
               onTap: () {
+                category[i].subCategoryCount == 0 ?
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
                       category[i].id ?? '',
                       category[i].imageUrl ?? '',
-                    ));
+                    )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
+                category[i].id ?? '', category[i].title ?? ''));
               },
               child: restaurantInfoCardGrid(
                 context,

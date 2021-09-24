@@ -13,13 +13,13 @@ class SubCategoryStateNotifier extends StateNotifier<SubCategoryState> {
 
   SubCategoryStateNotifier(this.ref) : super(SubCategoryState());
 
-  Future<SubCategoryModel?> fetchSubCategory(menuId) async {
+  Future<SubCategoryModel?> fetchSubCategory(categoryId) async {
     state = state.copyWith.call(
       isLoading: true,
       subCategory: [],
       total: 0
     );
-    final response = await api.subCategory(menuId, state.pageNumber);
+    final response = await api.subCategory(categoryId, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
         subCategory: response?.data ?? [],

@@ -12,9 +12,9 @@ class SubCategoryRequest with BaseModel<SubCategoryRequest>, _$SubCategoryReques
   const SubCategoryRequest._();
 
   const factory SubCategoryRequest({
-    int? page,
-    @Default(25) int limit,
-    String? menuId,
+    String? category,
+    // int? page,
+    // @Default(10) int limit,
   }) = _SubCategoryRequest;
 
   factory SubCategoryRequest.fromJson(Map<String, dynamic> json) =>

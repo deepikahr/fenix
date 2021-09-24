@@ -1,6 +1,7 @@
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
+import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -42,7 +43,7 @@ class MyApp extends HookWidget {
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        accentColor: primary(),
       ),
       home: DB().isLoggedIn() ? HomeTabs() : LoginPage(),
       locale: Locale('en'),

@@ -250,14 +250,14 @@ class API {
     );
   }
 
-  Future<SubCategoryModel?> subCategory(String? menuId, int page,
+  Future<SubCategoryModel?> subCategory(String? categoryId, int page,
       {ValueSetter<ErrorResponse>? errorListener,
         int limit = 10,
         ValueSetter<ApiResponse<SubCategoryModel?>>? responseListener,
         bool autoErrorHandle = true}) async {
     return _api.get(
       URL.SUB_CATEGORY,
-      reqModel: SubCategoryRequest(menuId: menuId, page: page, limit: limit),
+      reqModel: SubCategoryRequest(category: categoryId),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
