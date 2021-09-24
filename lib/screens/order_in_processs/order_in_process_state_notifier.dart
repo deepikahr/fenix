@@ -74,7 +74,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
               status: DIALOG_STATUS.SUCCESS,
             );
             final res = await fetchOrderDetails();
-            final printResult = await printerService.printReciept(
+            final printResult = await printerService.printKitchenReciept(
               products: res?.cart ?? [],
             );
             if (!printResult) {

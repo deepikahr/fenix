@@ -76,7 +76,7 @@ class PrinterService {
 
   ///printing format for customer reciept
   void _printCustomerReciept(NetworkPrinter printer,
-      {String? waiterName, required List<CartProduct> products}) {
+      {required List<CartProduct> products}) {
     printer.text(Constants.restaurantName,
         styles: PosStyles(
           align: PosAlign.center,
@@ -196,7 +196,7 @@ class PrinterService {
 
   /// reciept format for cook/kitchen
   void _printKitchenReciept(NetworkPrinter printer,
-      {String? waiterName, required List<CartProduct> products}) {
+      {required List<CartProduct> products}) {
     printer.text(
       Constants.restaurantName,
       styles: PosStyles(
@@ -264,10 +264,8 @@ class PrinterService {
     printer.cut();
   }
 
-  Future<bool> printReciept(
-      {String? waiterName,
-      String? ip,
-      List<CartProduct> products = const []}) async {
+  Future<bool> printTestReciept(
+      {String? ip, List<CartProduct> products = const []}) async {
     print('Products to be printed => $products');
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
@@ -277,7 +275,45 @@ class PrinterService {
       final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
           port: db.getPrinterPort() ?? 9100);
       if (res == PosPrintResult.success) {
-        _testReceipt(_printer, waiterName: waiterName, products: products);
+        _testReceipt(_printer, products: products);
+        _printer.disconnect();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<bool> printCustomerReciept(
+      {String? ip, List<CartProduct> products = const []}) async {
+    print('Products to be printed => $products');
+    final _paper = PaperSize.mm80;
+    final _profile = await CapabilityProfile.load();
+    final _printer = NetworkPrinter(_paper, _profile);
+    final ipAddress = db.getPrinterIpAddress();
+    if (ipAddress != null && ipAddress.isNotEmpty) {
+      final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
+          port: db.getPrinterPort() ?? 9100);
+      if (res == PosPrintResult.success) {
+        _printCustomerReciept(_printer, products: products);
+        _printer.disconnect();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<bool> printKitchenReciept(
+      {String? ip, List<CartProduct> products = const []}) async {
+    print('Products to be printed => $products');
+    final _paper = PaperSize.mm80;
+    final _profile = await CapabilityProfile.load();
+    final _printer = NetworkPrinter(_paper, _profile);
+    final ipAddress = db.getPrinterIpAddress();
+    if (ipAddress != null && ipAddress.isNotEmpty) {
+      final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
+          port: db.getPrinterPort() ?? 9100);
+      if (res == PosPrintResult.success) {
+        _printKitchenReciept(_printer, products: products);
         _printer.disconnect();
         return true;
       }

@@ -27,9 +27,7 @@ class PrinterTestScreen extends HookWidget {
                     ipAddressFocusNode, (val) {})),
             primaryButton(context, 'Print', () async {
               loading.value = true;
-              final success = await service.printReciept(
-                waiterName: 'Waiter Someone',
-              );
+              final success = await service.printTestReciept();
               if (success) {
                 print(' - - - - - - - - - - - - - -  - - - - - -  SUCESSSSS');
               } else {
