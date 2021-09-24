@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/network/api_service.dart';
+import 'package:fenix_user/network/printer.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/screens/auth/access_setting/access_setting_state.dart';
 import 'package:fenix_user/screens/auth/access_setting/access_setting_state_notifier.dart';
@@ -41,6 +42,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final apiProvider = Provider((ref) => API());
 final dbProvider = Provider((ref) => DB());
+final printerProvider = Provider((ref) => PrinterService(ref));
 
 final cartProvider = StateNotifierProvider<CartNotifier, Cart?>((ref) {
   final box = Hive.box('user');

@@ -98,6 +98,38 @@ class DB {
     box.put('menuId', menuId);
   }
 
+  void savePrinterIpAddress(String address) {
+    final box = Hive.box('user');
+    box.put('printerIPaddress', address);
+  }
+
+  String? getPrinterIpAddress() {
+    final box = Hive.box('user');
+    String? ipAddress = box.get('printerIPaddress');
+    return ipAddress;
+  }
+
+  void savePrinterPort(String address) {
+    final box = Hive.box('user');
+    box.put('printerPort', address);
+  }
+
+  void clearPrinterPort() {
+    final box = Hive.box('user');
+    box.delete('printerPort');
+  }
+
+  void clearPrinterIpAddress() {
+    final box = Hive.box('user');
+    box.delete('printerIPaddress');
+  }
+
+  int? getPrinterPort() {
+    final box = Hive.box('user');
+    String? port = box.get('printerPort');
+    return port != null ? int.parse(port) : null;
+  }
+
   String? getMenuId() {
     final box = Hive.box('user');
     String? menuId = box.get('menuId');

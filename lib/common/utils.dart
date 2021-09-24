@@ -29,6 +29,32 @@ String? validatePassword(String? value) {
   }
 }
 
+String? validateIpAddress(String? value) {
+  if (value != null) {
+    if (value.isNotEmpty) {
+      late final List<String> split;
+      if (value.contains(':')) {
+        split = value.split(':');
+      } else if (value.contains('/')) {
+        split = value.split('/');
+      } else {
+        split = [value];
+      }
+      String pattern = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}';
+      String portPattern = r'\d{1,5}';
+      RegExp regex = RegExp(pattern);
+      RegExp portRegex = RegExp(portPattern);
+      if (split.length > 1 && !portRegex.hasMatch(split[1])) {
+        return 'Enter Valid port Number';
+      }
+      if (!regex.hasMatch(split[0])) {
+        return 'Enter valid Ip address';
+      }
+    }
+  }
+  return null;
+}
+
 String processImage(
   String? value, {
   int? height,

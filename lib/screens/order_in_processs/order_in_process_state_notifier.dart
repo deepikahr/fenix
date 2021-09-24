@@ -3,6 +3,7 @@ import 'package:fenix_user/models/api_request_models/call_waiter_request/call_wa
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_socket_response/order_socket_response.dart';
 import 'package:fenix_user/network/api_service.dart';
+import 'package:fenix_user/network/printer.dart';
 import 'package:fenix_user/network/socket.dart';
 import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
@@ -10,7 +11,6 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
-import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
@@ -27,6 +27,10 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
 
   API get api {
     return ref.read(apiProvider);
+  }
+
+  PrinterService get printerService {
+    return ref.read(printerProvider);
   }
 
   CartNotifier get cartState {
@@ -69,6 +73,18 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
               okText: 'Ok',
               status: DIALOG_STATUS.SUCCESS,
             );
+            final res = await fetchOrderDetails();
+            final printResult = await printerService.printReciept(
+              type: PrinterRecieptType.KITCHEN,
+              products: res?.cart ?? [],
+            );
+            if (printResult != null) {
+              customDialog(
+                title: printResult,
+                okText: 'Ok',
+                status: DIALOG_STATUS.FAIL,
+              );
+            }
           }
         }
       }

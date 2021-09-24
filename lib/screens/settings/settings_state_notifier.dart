@@ -74,6 +74,34 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     state = state.copyWith.call(validatePayment: validatePayment);
   }
 
+  String? get _getCachedPrinterIpAddressFromdb => db.getPrinterIpAddress();
+
+  String? get _getCachedPrinterport => db.getPrinterPort()?.toString() ?? null;
+
+  void cachePrinterIpAddress(String? ipAddress) {
+    if (ipAddress != null && ipAddress.isNotEmpty) {
+      late final List<String> ipAddressSplit;
+      if (ipAddress.contains(':')) {
+        ipAddressSplit = ipAddress.split(':');
+      } else if (ipAddress.contains('/')) {
+        ipAddressSplit = ipAddress.split('/');
+      } else {
+        ipAddressSplit = [ipAddress];
+      }
+      db.savePrinterIpAddress(ipAddressSplit[0]);
+      if (ipAddressSplit.length > 1) {
+        db.savePrinterPort(ipAddressSplit[1]);
+      } else {
+        db.clearPrinterPort();
+      }
+    } else {
+      db.clearPrinterIpAddress();
+    }
+  }
+
+  String get getCachedIpAddress => '${_getCachedPrinterIpAddressFromdb ?? ''}'
+      '${_getCachedPrinterport == null ? '' : ':${_getCachedPrinterport}'}';
+
   Future<String?> updateSettings(
       bool? resetCategory,
       bool? callToWaiter,

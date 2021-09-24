@@ -47,6 +47,8 @@ dependencies:
   sticky_headers: ^0.2.0
 
   flutter_html:
+  # plugin for printer services
+  esc_pos_printer: ^4.1.0
 
 dev_dependencies:
   flutter_test:
