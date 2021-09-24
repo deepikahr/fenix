@@ -6,6 +6,7 @@ import 'package:fenix_user/screens/auth/access_setting/access_setting.dart';
 import 'package:fenix_user/screens/auth/change_password/change_password.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
+import 'package:fenix_user/screens/sub_category/sub_category.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:flutter/material.dart';
@@ -124,11 +125,13 @@ class DrawerPage extends HookWidget {
         return InkWell(
           onTap: () {
             Get.back();
+            category[i].subCategoryCount == 0 ?
             context.read(homeTabsProvider.notifier).showScreen(ProductList(
                   category[i].id ?? '',
                   category[i].imageUrl ?? '',
                   key: UniqueKey(),
-                ));
+                )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
+                category[i].id ?? '', category[i].title ?? ''));
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

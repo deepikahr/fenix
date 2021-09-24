@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
+import 'package:fenix_user/models/api_response_models/sub_category_response/sub_category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
-import 'package:fenix_user/screens/sub_category/sub_category.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,29 +15,24 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:get/get.dart';
 
-enum CATEGORY_TYPE {
-  @JsonValue('BEVERAGE_CATEGORY')
-  beverageCategory,
-  @JsonValue('FOOD_CATEGORY')
-  foodCategory,
-}
+class SubCategoryScreen extends HookWidget {
+  final String categoryId;
+  final String categoryTitle;
 
-class CategoryScreen extends HookWidget {
-  final CATEGORY_TYPE categoryType;
-
-  CategoryScreen(Key key, this.categoryType) : super(key: key);
+  SubCategoryScreen(this.categoryId, this.categoryTitle, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = useProvider(categoryProvider);
-    final notifier = useProvider(categoryProvider.notifier);
+    final state = useProvider(subCategoryProvider);
+    final notifier = useProvider(subCategoryProvider.notifier);
     final isMounted = useIsMounted();
 
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchCategory(categoryType);
+          await notifier.fetchSubCategory(categoryId);
         });
       }
       return;
@@ -47,17 +42,22 @@ class CategoryScreen extends HookWidget {
       color: light,
       child: Stack(
         children: [
+          if (!state.isLoading && state.total == 0)
+            Center(
+              child: Text('NO_ITEMS'.tr),
+            ),
           ListView(
             padding: EdgeInsets.symmetric(vertical: 16),
             shrinkWrap: true,
             physics: ScrollPhysics(),
             children: [
-              if ((state.category?.length ?? 0) > 0)
+                subCategoryList(context, categoryTitle),
+              if ((state.subCategory?.length ?? 0) > 0)
                 DB().getType() == 'list'
-                    ? categoryBlock(
-                        context, state.category, notifier, state.pageNumber)
-                    : categoryListGrid(
-                        context, state.category, notifier, state.pageNumber),
+                    ? subCategoryBlock(
+                    context, state.subCategory, notifier, state.pageNumber)
+                    : subCategoryListGrid(
+                    context, state.subCategory, notifier, state.pageNumber),
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)
@@ -66,7 +66,20 @@ class CategoryScreen extends HookWidget {
     );
   }
 
-  Widget categoryBlock(BuildContext context, List<CategoryResponse>? category,
+  Widget subCategoryList(context, String? subCategory) => Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(right: 15.0, bottom: 16),
+        child: Text(
+          subCategory ?? '',
+          style: textDarkRegularBS(context),
+        ),
+      )
+    ],
+  );
+
+  Widget subCategoryBlock(BuildContext context, List<SubCategoryResponse>? subCategory,
       notifier, pageNumber) {
     return Container(
       margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
@@ -74,36 +87,34 @@ class CategoryScreen extends HookWidget {
           physics: ScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: category!.length,
+          itemCount: subCategory!.length,
           itemBuilder: (BuildContext context, int i) {
             handleScrollWithIndex(
-                i, pageNumber, () => notifier.fetch(categoryType));
+                i, pageNumber, () => notifier.fetch(categoryId));
             return InkWell(
               onTap: () {
-                category[i].subCategoryCount == 0 ?
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
-                      category[i].id ?? '',
-                      category[i].imageUrl ?? '',
-                    )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                    category[i].id ?? '', category[i].title ?? ''));
+                  subCategory[i].id ?? '',
+                  subCategory[i].imageUrl ?? '',
+                ));
               },
               child: restaurantInfoCard(
                 context,
-                category[i].title,
-                category[i].imageUrl,
+                subCategory[i].title,
+                subCategory[i].imageUrl,
               ),
             );
           }),
     );
   }
 
-  Widget categoryListGrid(BuildContext context,
-          List<CategoryResponse>? category, notifier, pageNumber) =>
+  Widget subCategoryListGrid(BuildContext context,
+      List<SubCategoryResponse>? subCategory, notifier, pageNumber) =>
       GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: category!.length,
+        itemCount: subCategory!.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 0,
@@ -113,21 +124,19 @@ class CategoryScreen extends HookWidget {
           handleScrollWithIndex(
             i,
             pageNumber,
-            () => notifier.fetch(categoryType),
+                () => notifier.fetch(categoryId),
           );
           return InkWell(
               onTap: () {
-                category[i].subCategoryCount == 0 ?
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
-                      category[i].id ?? '',
-                      category[i].imageUrl ?? '',
-                    )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                category[i].id ?? '', category[i].title ?? ''));
+                  subCategory[i].id ?? '',
+                  subCategory[i].imageUrl ?? '',
+                ));
               },
               child: restaurantInfoCardGrid(
                 context,
-                category[i].title,
-                category[i].imageUrl,
+                subCategory[i].title,
+                subCategory[i].imageUrl,
               ));
         },
       );

@@ -10,6 +10,7 @@ class URL {
 
   static const HOME = '/categories/home-page/';
   static const CATEGORY = '/categories/type-based';
+  static const SUB_CATEGORY = '/sub-categories/user/list';
 
   static const PRODUCT_LIST = '/products/list/';
   static const PRODUCT_DETAILS = '/products/detail/';
