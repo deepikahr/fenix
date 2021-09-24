@@ -94,6 +94,8 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       } else {
         db.clearPrinterPort();
       }
+    } else {
+      db.clearPrinterIpAddress();
     }
   }
 

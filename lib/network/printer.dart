@@ -14,69 +14,73 @@ class PrinterService {
 
   DB get db => ref.read(dbProvider);
 
-  void _testReceipt(NetworkPrinter printer,
-      {String? waiterName, required List<CartProduct> products}) {
-    final dateTime = DateTime.now();
-    printer.text(
-      '${Constants.restaurantName}',
-      styles: PosStyles(
-        align: PosAlign.center,
-      ),
-    );
-    if (waiterName != null) {
-      printer.text(
-        '✱✱✱ ${waiterName} ✱✱✱',
-        styles: PosStyles(
-          align: PosAlign.center,
-        ),
-        linesAfter: 1,
-      );
-    }
-    printer.emptyLines(2);
-    printer.text(
-      'Table no.:   #${db.getTableNumber() ?? 3}',
-      styles: PosStyles(
-        align: PosAlign.left,
-      ),
-    );
-    printer.hr(ch: '-', linesAfter: 1);
-    printer.text(
-      'Date: ${dateTime.day}.${dateTime.month}.${dateTime.year}',
-      styles: PosStyles(
-        align: PosAlign.left,
-      ),
-    );
-    printer.text(
-      'Time: ${dateTime.hour}:${dateTime.minute}',
-      styles: PosStyles(
-        align: PosAlign.right,
-      ),
-    );
-    printer.hr(ch: '-', linesAfter: 1);
-    for (var i = 0; i < products.length; i++) {
-      printer.text(
-        '${products[i].productName}',
-        styles: PosStyles(
-          align: PosAlign.left,
-        ),
-        linesAfter: 1,
-      );
-      printer.text(
-        '${products[i].variantQuantity}',
-        styles: PosStyles(
-          align: PosAlign.right,
-        ),
-      );
-    }
+  // void _testReceipt(NetworkPrinter printer,
+  //     {String? waiterName, required List<CartProduct> products}) {
+  //   final dateTime = DateTime.now();
+  //   printer.text(
+  //     '${Constants.restaurantName}',
+  //     styles: PosStyles(
+  //       align: PosAlign.center,
+  //     ),
+  //   );
+  //   if (waiterName != null) {
+  //     printer.text(
+  //       '✱✱✱ ${waiterName} ✱✱✱',
+  //       styles: PosStyles(
+  //         align: PosAlign.center,
+  //       ),
+  //       linesAfter: 1,
+  //     );
+  //   }
+  //   printer.emptyLines(2);
+  //   printer.text(
+  //     'Table no.:   #${db.getTableNumber() ?? 3}',
+  //     styles: PosStyles(
+  //       align: PosAlign.left,
+  //     ),
+  //   );
+  //   printer.hr(ch: '-', linesAfter: 1);
+  //   printer.text(
+  //     'Date: ${dateTime.day}.${dateTime.month}.${dateTime.year}',
+  //     styles: PosStyles(
+  //       align: PosAlign.left,
+  //     ),
+  //   );
+  //   printer.text(
+  //     'Time: ${dateTime.hour}:${dateTime.minute}',
+  //     styles: PosStyles(
+  //       align: PosAlign.right,
+  //     ),
+  //   );
+  //   printer.hr(ch: '-', linesAfter: 1);
+  //   for (var i = 0; i < products.length; i++) {
+  //     printer.text(
+  //       '${products[i].productName}',
+  //       styles: PosStyles(
+  //         align: PosAlign.left,
+  //       ),
+  //       linesAfter: 1,
+  //     );
+  //     printer.text(
+  //       '${products[i].variantQuantity}',
+  //       styles: PosStyles(
+  //         align: PosAlign.right,
+  //       ),
+  //     );
+  //   }
 
-    printer.hr(ch: '-', linesAfter: 1);
-    printer.feed(2);
-    printer.cut();
-  }
+  //   printer.hr(ch: '-', linesAfter: 1);
+  //   printer.feed(2);
+  //   printer.cut();
+  // }
 
   ///printing format for customer reciept
-  void _printCustomerReciept(NetworkPrinter printer,
-      {required List<CartProduct> products}) {
+  void _printCustomerReciept(
+    NetworkPrinter printer, {
+    required List<CartProduct> products,
+    String? paymentType,
+    String? invoiceNo,
+  }) {
     printer.text(Constants.restaurantName,
         styles: PosStyles(
           align: PosAlign.center,
@@ -86,16 +90,15 @@ class PrinterService {
         ),
         linesAfter: 1);
 
-    printer.text(Constants.restaurantName,
-        styles: PosStyles(align: PosAlign.center));
-    printer.text('NIF: some nif number',
+    printer.text('LEGAL NAME', styles: PosStyles(align: PosAlign.center));
+    printer.text('NIF: FISCAL BUSINESS NUMBER',
         styles: PosStyles(align: PosAlign.center, bold: true));
     printer.text(Constants.restaurantAddress,
         styles: PosStyles(align: PosAlign.center));
-    printer.text('phone number',
+    printer.text('PHONE NUMBER',
         styles: PosStyles(align: PosAlign.center), linesAfter: 1);
 
-    printer.text('Invoice number: 123',
+    printer.text('Invoice number: ${invoiceNo == null ? 'N/A' : invoiceNo}',
         styles: PosStyles(align: PosAlign.left, bold: true));
     final now = DateTime.now();
     final dateformatter = DateFormat('MM/dd/yyyy');
@@ -181,7 +184,7 @@ class PrinterService {
       ),
     );
     printer.text(
-      'WAY TO PAY: Card',
+      'WAY TO PAY: ${paymentType == null ? 'N/A' : paymentType}',
       styles: PosStyles(
         align: PosAlign.left,
       ),
@@ -264,60 +267,38 @@ class PrinterService {
     printer.cut();
   }
 
-  Future<bool> printTestReciept(
-      {String? ip, List<CartProduct> products = const []}) async {
-    print('Products to be printed => $products');
+  Future<String?> printReciept({
+    String? ip,
+    List<CartProduct> products = const [],
+    required PrinterRecieptType type,
+    String? paymentType,
+    String? invoiceNo,
+  }) async {
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
     final _printer = NetworkPrinter(_paper, _profile);
-    final ipAddress = db.getPrinterIpAddress();
+    final ipAddress = ip ?? db.getPrinterIpAddress();
+    final port = db.getPrinterPort() ?? 91000;
     if (ipAddress != null && ipAddress.isNotEmpty) {
-      final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
-          port: db.getPrinterPort() ?? 9100);
+      print('IPAddress: $ipAddress, PORT: $port');
+      final PosPrintResult res = await _printer.connect(ipAddress, port: port);
       if (res == PosPrintResult.success) {
-        _testReceipt(_printer, products: products);
+        if (type == PrinterRecieptType.CUSTOMER) {
+          _printCustomerReciept(_printer,
+              products: products,
+              invoiceNo: invoiceNo,
+              paymentType: paymentType);
+        } else if (type == PrinterRecieptType.KITCHEN) {
+          _printKitchenReciept(_printer, products: products);
+        }
         _printer.disconnect();
-        return true;
+        return null;
+      } else {
+        return 'Couldn\'t Connect to the Printer';
       }
     }
-    return false;
-  }
-
-  Future<bool> printCustomerReciept(
-      {String? ip, List<CartProduct> products = const []}) async {
-    print('Products to be printed => $products');
-    final _paper = PaperSize.mm80;
-    final _profile = await CapabilityProfile.load();
-    final _printer = NetworkPrinter(_paper, _profile);
-    final ipAddress = db.getPrinterIpAddress();
-    if (ipAddress != null && ipAddress.isNotEmpty) {
-      final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
-          port: db.getPrinterPort() ?? 9100);
-      if (res == PosPrintResult.success) {
-        _printCustomerReciept(_printer, products: products);
-        _printer.disconnect();
-        return true;
-      }
-    }
-    return false;
-  }
-
-  Future<bool> printKitchenReciept(
-      {String? ip, List<CartProduct> products = const []}) async {
-    print('Products to be printed => $products');
-    final _paper = PaperSize.mm80;
-    final _profile = await CapabilityProfile.load();
-    final _printer = NetworkPrinter(_paper, _profile);
-    final ipAddress = db.getPrinterIpAddress();
-    if (ipAddress != null && ipAddress.isNotEmpty) {
-      final PosPrintResult res = await _printer.connect(ip ?? ipAddress,
-          port: db.getPrinterPort() ?? 9100);
-      if (res == PosPrintResult.success) {
-        _printKitchenReciept(_printer, products: products);
-        _printer.disconnect();
-        return true;
-      }
-    }
-    return false;
+    return 'Printer IP not specified';
   }
 }
+
+enum PrinterRecieptType { KITCHEN, CUSTOMER }
