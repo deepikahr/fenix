@@ -44,7 +44,7 @@ class Thankyou extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${'PAID_OUT!'.tr} \n ${'THANK_YOU_VERY_MUCH,'.tr} \n ${'WE_WAIT_FOR_YOU_SOON.'.tr}\n\n',
+                    '${'PAID_OUT'.tr} \n ${'THANK_YOU_VERY_MUCH'.tr} \n ${'WE_WAIT_FOR_YOU_SOON.'.tr}\n\n',
                     style: textWhiteLargeBMM(context),
                   ),
                   Image.asset(
