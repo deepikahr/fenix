@@ -44,6 +44,7 @@ class PaymentInProcessStateNotifier
               products: order.cart,
               invoiceNo: order.id,
               paymentType: order.paymentType,
+              totalAmount: order.amountPaid,
             );
             if (printResult != null) {
               customDialog(

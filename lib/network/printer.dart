@@ -80,6 +80,7 @@ class PrinterService {
     required List<CartProduct> products,
     String? paymentType,
     String? invoiceNo,
+    double? totalAmount,
   }) {
     printer.text(Constants.restaurantName,
         styles: PosStyles(
@@ -169,7 +170,7 @@ class PrinterService {
     totalPrice += tax;
     printer.hr(ch: '-');
     printer.text(
-      'TOTAL: $totalPrice ${Constants.currency}',
+      'TOTAL: ${totalAmount ?? totalPrice} ${Constants.currency}',
       styles: PosStyles(
         align: PosAlign.right,
         bold: true,
@@ -267,13 +268,13 @@ class PrinterService {
     printer.cut();
   }
 
-  Future<String?> printReciept({
-    String? ip,
-    List<CartProduct> products = const [],
-    required PrinterRecieptType type,
-    String? paymentType,
-    String? invoiceNo,
-  }) async {
+  Future<String?> printReciept(
+      {String? ip,
+      List<CartProduct> products = const [],
+      required PrinterRecieptType type,
+      String? paymentType,
+      String? invoiceNo,
+      double? totalAmount}) async {
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
     final _printer = NetworkPrinter(_paper, _profile);
@@ -287,7 +288,8 @@ class PrinterService {
           _printCustomerReciept(_printer,
               products: products,
               invoiceNo: invoiceNo,
-              paymentType: paymentType);
+              paymentType: paymentType,
+              totalAmount: totalAmount);
         } else if (type == PrinterRecieptType.KITCHEN) {
           _printKitchenReciept(_printer, products: products);
         }
