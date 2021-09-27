@@ -76,7 +76,7 @@ class OrdersInProcess extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS_...'.tr}\n\n',
+                      '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
                       style: textWhiteLargeBMM(context),
                     ),
                     Image.asset(
