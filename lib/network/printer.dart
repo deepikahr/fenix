@@ -7,7 +7,6 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-
 class PrinterService {
   final ProviderReference ref;
 
@@ -114,15 +113,24 @@ class PrinterService {
     printer.hr();
     printer.row([
       PosColumn(
-          text: 'Concept',
+          text: _getPaddedString(
+            'Concept',
+            32,
+          ),
           width: 8,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
-          text: 'Price',
+          text: _getPaddedString(
+            'Price',
+            8,
+          ),
           width: 2,
           styles: PosStyles(align: PosAlign.right, bold: true)),
       PosColumn(
-          text: 'Amount',
+          text: _getPaddedString(
+            'Amount',
+            8,
+          ),
           width: 2,
           styles: PosStyles(align: PosAlign.right, bold: true)),
     ]);
@@ -131,18 +139,22 @@ class PrinterService {
     for (var i = 0; i < products.length; i++) {
       printer.row([
         PosColumn(
-            text: '${products[i].variantQuantity} ${products[i].productName}',
+            text: _getPaddedString(
+                '${products[i].variantQuantity} ${products[i].productName}',
+                32),
             width: 8,
             styles: PosStyles(
               align: PosAlign.left,
             )),
         PosColumn(
-            text:
+            text: _getPaddedString(
                 '${(products[i].variant?.price ?? (products[i].totalProductPrice / products[i].variantQuantity)).toStringAsFixed(2)}',
+                8),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
         PosColumn(
-            text: products[i].totalProductPrice.toStringAsFixed(2),
+            text: _getPaddedString(
+                products[i].totalProductPrice.toStringAsFixed(2), 8),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
@@ -171,12 +183,12 @@ class PrinterService {
     totalPrice += tax;
     printer.hr(ch: '-');
     printer.text(
-      'TOTAL: ${totalAmount ?? totalPrice} \xA4',
+      'TOTAL: ${totalAmount ?? totalPrice} ${Constants.currency}',
       styles: PosStyles(
-        align: PosAlign.right,
-        bold: true,
-        width: PosTextSize.size2,
-      ),
+          align: PosAlign.right,
+          bold: true,
+          width: PosTextSize.size2,
+          codeTable: 'CP1250'),
     );
     printer.hr(ch: '-', linesAfter: 1);
     printer.text(
@@ -242,11 +254,12 @@ class PrinterService {
     for (var i = 0; i < products.length; i++) {
       printer.row([
         PosColumn(
-          text: '${products[i].productName}',
+          text: '${_getPaddedString(products[i].productName ?? '', 40)}',
           width: 10,
         ),
         PosColumn(
-            text: '${products[i].variantQuantity}',
+            text:
+                '${_getPaddedString(products[i].variantQuantity.toString(), 8, prefixPadding: true)}',
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
@@ -277,7 +290,6 @@ class PrinterService {
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
     final _printer = NetworkPrinter(_paper, _profile);
-    _printer.setGlobalCodeTable("ISO_8859-15");
     final ipAddress = ip ?? db.getPrinterIpAddress();
     final port = db.getPrinterPort() ?? 9100;
     if (ipAddress != null && ipAddress.isNotEmpty) {
@@ -300,6 +312,21 @@ class PrinterService {
       }
     }
     return 'Printer IP not specified';
+  }
+
+  String _getPaddedString(String text, int length,
+      {bool prefixPadding = false}) {
+    String value = '';
+    if (!prefixPadding) {
+      value = text;
+    }
+    for (var i = text.length; i < length; i++) {
+      value += ' ';
+    }
+    if (prefixPadding) {
+      value += text;
+    }
+    return value;
   }
 }
 
