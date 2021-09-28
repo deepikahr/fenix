@@ -187,7 +187,8 @@ class PrinterService {
     printer.hr(ch: '-');
     printer.row([
       PosColumn(
-        text: 'TOTAL: ${totalAmount ?? totalPrice}',
+        text:
+            'TOTAL: ${totalAmount == null || totalAmount == 0.0 ? totalPrice : totalAmount}',
         width: 8,
         styles: PosStyles(
           align: PosAlign.left,
@@ -276,7 +277,7 @@ class PrinterService {
         ),
         PosColumn(
             text:
-                '${_getPaddedString(products[i].variantQuantity.toString(), 8, prefixPadding: true)}',
+                '${_getPaddedString('${products[i].variantQuantity ?? '1'}', 8)}',
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);

@@ -46,6 +46,7 @@ class PaymentInProcessStateNotifier
               paymentType: order.paymentType,
               totalAmount: order.amountPaid,
             );
+            print('paid amount: ${order.amountPaid}');
             if (printResult != null) {
               customDialog(
                 title: printResult,
