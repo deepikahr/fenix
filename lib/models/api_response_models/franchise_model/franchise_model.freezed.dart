@@ -21,13 +21,10 @@ class _$FranchiseModelTearOff {
   const _$FranchiseModelTearOff();
 
   _FranchiseModel call(
-      {@JsonKey(name: '_id') String? id,
-      String? franchiseName,
-      String? restaurantName}) {
+      {@JsonKey(name: '_id') String? id, String? franchiseName}) {
     return _FranchiseModel(
       id: id,
       franchiseName: franchiseName,
-      restaurantName: restaurantName,
     );
   }
 
@@ -44,7 +41,6 @@ mixin _$FranchiseModel {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
-  String? get restaurantName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,10 +53,7 @@ abstract class $FranchiseModelCopyWith<$Res> {
   factory $FranchiseModelCopyWith(
           FranchiseModel value, $Res Function(FranchiseModel) then) =
       _$FranchiseModelCopyWithImpl<$Res>;
-  $Res call(
-      {@JsonKey(name: '_id') String? id,
-      String? franchiseName,
-      String? restaurantName});
+  $Res call({@JsonKey(name: '_id') String? id, String? franchiseName});
 }
 
 /// @nodoc
@@ -76,7 +69,6 @@ class _$FranchiseModelCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? franchiseName = freezed,
-    Object? restaurantName = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -86,10 +78,6 @@ class _$FranchiseModelCopyWithImpl<$Res>
       franchiseName: franchiseName == freezed
           ? _value.franchiseName
           : franchiseName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      restaurantName: restaurantName == freezed
-          ? _value.restaurantName
-          : restaurantName // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -102,10 +90,7 @@ abstract class _$FranchiseModelCopyWith<$Res>
           _FranchiseModel value, $Res Function(_FranchiseModel) then) =
       __$FranchiseModelCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {@JsonKey(name: '_id') String? id,
-      String? franchiseName,
-      String? restaurantName});
+  $Res call({@JsonKey(name: '_id') String? id, String? franchiseName});
 }
 
 /// @nodoc
@@ -123,7 +108,6 @@ class __$FranchiseModelCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? franchiseName = freezed,
-    Object? restaurantName = freezed,
   }) {
     return _then(_FranchiseModel(
       id: id == freezed
@@ -134,10 +118,6 @@ class __$FranchiseModelCopyWithImpl<$Res>
           ? _value.franchiseName
           : franchiseName // ignore: cast_nullable_to_non_nullable
               as String?,
-      restaurantName: restaurantName == freezed
-          ? _value.restaurantName
-          : restaurantName // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -145,8 +125,7 @@ class __$FranchiseModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_FranchiseModel extends _FranchiseModel {
-  const _$_FranchiseModel(
-      {@JsonKey(name: '_id') this.id, this.franchiseName, this.restaurantName})
+  const _$_FranchiseModel({@JsonKey(name: '_id') this.id, this.franchiseName})
       : super._();
 
   factory _$_FranchiseModel.fromJson(Map<String, dynamic> json) =>
@@ -157,12 +136,10 @@ class _$_FranchiseModel extends _FranchiseModel {
   final String? id;
   @override
   final String? franchiseName;
-  @override
-  final String? restaurantName;
 
   @override
   String toString() {
-    return 'FranchiseModel(id: $id, franchiseName: $franchiseName, restaurantName: $restaurantName)';
+    return 'FranchiseModel(id: $id, franchiseName: $franchiseName)';
   }
 
   @override
@@ -173,18 +150,14 @@ class _$_FranchiseModel extends _FranchiseModel {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.franchiseName, franchiseName) ||
                 const DeepCollectionEquality()
-                    .equals(other.franchiseName, franchiseName)) &&
-            (identical(other.restaurantName, restaurantName) ||
-                const DeepCollectionEquality()
-                    .equals(other.restaurantName, restaurantName)));
+                    .equals(other.franchiseName, franchiseName)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(franchiseName) ^
-      const DeepCollectionEquality().hash(restaurantName);
+      const DeepCollectionEquality().hash(franchiseName);
 
   @JsonKey(ignore: true)
   @override
@@ -200,8 +173,7 @@ class _$_FranchiseModel extends _FranchiseModel {
 abstract class _FranchiseModel extends FranchiseModel {
   const factory _FranchiseModel(
       {@JsonKey(name: '_id') String? id,
-      String? franchiseName,
-      String? restaurantName}) = _$_FranchiseModel;
+      String? franchiseName}) = _$_FranchiseModel;
   const _FranchiseModel._() : super._();
 
   factory _FranchiseModel.fromJson(Map<String, dynamic> json) =
@@ -212,8 +184,6 @@ abstract class _FranchiseModel extends FranchiseModel {
   String? get id => throw _privateConstructorUsedError;
   @override
   String? get franchiseName => throw _privateConstructorUsedError;
-  @override
-  String? get restaurantName => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FranchiseModelCopyWith<_FranchiseModel> get copyWith =>

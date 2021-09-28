@@ -587,7 +587,7 @@ class ProductDetails extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '${'HOW_YOU_LIKE_TO_CUSTOMIZE_?'.tr}',
+              '${'HOW_YOU_LIKE_TO_CUSTOMIZE'.tr}',
               style: textBlackLargeBM(context),
             ),
             SizedBox(height: 10),

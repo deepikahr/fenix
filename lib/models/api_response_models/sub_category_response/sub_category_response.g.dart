@@ -1,40 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_response.dart';
+part of 'sub_category_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CategoryResponse _$_$_CategoryResponseFromJson(Map<String, dynamic> json) {
-  return _$_CategoryResponse(
-    subCategoryCount: json['subCategoryCount'] as int? ?? 0,
-    isDealAvailable: json['isDealAvailable'] as bool? ?? false,
+_$_SubCategoryResponse _$_$_SubCategoryResponseFromJson(
+    Map<String, dynamic> json) {
+  return _$_SubCategoryResponse(
     status: json['status'] as bool? ?? false,
-    isCopy: json['isCopy'] as bool? ?? false,
     id: json['_id'] as String?,
-    franchiseId: json['franchiseId'] as String?,
+    franchiseId: json['franchiseId'] == null
+        ? null
+        : FranchiseModel.fromJson(json['franchiseId'] as Map<String, dynamic>),
     title: json['title'] as String?,
     description: json['description'] as String?,
     imageUrl: json['imageUrl'] as String?,
     imageId: json['imageId'] as String?,
     filePath: json['filePath'] as String?,
-    topCategory: json['topCategory'] as String?,
-    vendorId: json['vendorId'] as String?,
-    menuId: json['menuId'] as String?,
+    menuId: json['menuId'] == null
+        ? null
+        : MenuResponse.fromJson(json['menuId'] as Map<String, dynamic>),
+    categoryId: json['categoryId'] as String?,
+    categoryName: json['categoryName'] as String?,
     franchiseName: json['franchiseName'] as String?,
-    createdAt: json['createdAt'] as String?,
-    updatedAt: json['updatedAt'] as String?,
   );
 }
 
-Map<String, dynamic> _$_$_CategoryResponseToJson(
-        _$_CategoryResponse instance) =>
+Map<String, dynamic> _$_$_SubCategoryResponseToJson(
+        _$_SubCategoryResponse instance) =>
     <String, dynamic>{
-      'subCategoryCount': instance.subCategoryCount,
-      'isDealAvailable': instance.isDealAvailable,
       'status': instance.status,
-      'isCopy': instance.isCopy,
       '_id': instance.id,
       'franchiseId': instance.franchiseId,
       'title': instance.title,
@@ -42,10 +39,8 @@ Map<String, dynamic> _$_$_CategoryResponseToJson(
       'imageUrl': instance.imageUrl,
       'imageId': instance.imageId,
       'filePath': instance.filePath,
-      'topCategory': instance.topCategory,
-      'vendorId': instance.vendorId,
       'menuId': instance.menuId,
+      'categoryId': instance.categoryId,
+      'categoryName': instance.categoryName,
       'franchiseName': instance.franchiseName,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
     };

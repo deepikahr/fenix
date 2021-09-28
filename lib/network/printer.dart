@@ -7,6 +7,7 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
+
 class PrinterService {
   final ProviderReference ref;
 
