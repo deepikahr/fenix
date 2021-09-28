@@ -87,8 +87,8 @@ class PrinterService {
         styles: PosStyles(
           align: PosAlign.center,
           bold: true,
-          height: PosTextSize.size2,
-          width: PosTextSize.size2,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
         ),
         linesAfter: 1);
 
@@ -115,7 +115,7 @@ class PrinterService {
     printer.row([
       PosColumn(
           text: 'Concept',
-          width: 7,
+          width: 8,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
           text: 'Price',
@@ -132,7 +132,7 @@ class PrinterService {
       printer.row([
         PosColumn(
             text: '${products[i].variantQuantity} ${products[i].productName}',
-            width: 7,
+            width: 8,
             styles: PosStyles(
               align: PosAlign.left,
             )),
@@ -157,15 +157,15 @@ class PrinterService {
         text: 'I.V.A/ TAX BASE 10.00%',
         width: 6,
         styles: PosStyles(
-            height: PosTextSize.size2, width: PosTextSize.size2, bold: true),
+            height: PosTextSize.size1, width: PosTextSize.size1, bold: true),
       ),
       PosColumn(
           text: tax.toStringAsFixed(2),
           width: 6,
           styles: PosStyles(
             align: PosAlign.right,
-            height: PosTextSize.size2,
-            width: PosTextSize.size2,
+            height: PosTextSize.size1,
+            width: PosTextSize.size1,
           )),
     ]);
     totalPrice += tax;
@@ -207,16 +207,16 @@ class PrinterService {
       styles: PosStyles(
         align: PosAlign.center,
         bold: true,
-        height: PosTextSize.size2,
-        width: PosTextSize.size2,
+        height: PosTextSize.size1,
+        width: PosTextSize.size1,
       ),
     );
     printer.text(
       '✱✱✱ ORDER RECEIVED ✱✱✱',
       styles: PosStyles(
         align: PosAlign.center,
-        height: PosTextSize.size2,
-        width: PosTextSize.size2,
+        height: PosTextSize.size1,
+        width: PosTextSize.size1,
       ),
       linesAfter: 1,
     );
@@ -229,27 +229,27 @@ class PrinterService {
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
-          height: PosTextSize.size2,
-          width: PosTextSize.size2,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
         ));
     printer.text('DATE: $date     TIME: $time',
         styles: PosStyles(
           align: PosAlign.left,
-          height: PosTextSize.size2,
-          width: PosTextSize.size2,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
         ),
         linesAfter: 1);
     for (var i = 0; i < products.length; i++) {
       printer.row([
         PosColumn(
             text: '${products[i].productName}',
-            width: 7,
+            width: 8,
             styles: PosStyles(
               align: PosAlign.left,
             )),
         PosColumn(
             text: '${products[i].variantQuantity}',
-            width: 3,
+            width: 4,
             styles: PosStyles(align: PosAlign.center)),
       ]);
       printer.hr();
@@ -261,8 +261,8 @@ class PrinterService {
       styles: PosStyles(
         align: PosAlign.center,
         bold: true,
-        width: PosTextSize.size2,
-        height: PosTextSize.size2,
+        width: PosTextSize.size1,
+        height: PosTextSize.size1,
       ),
     );
     printer.feed(1);
