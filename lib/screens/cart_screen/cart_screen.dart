@@ -142,7 +142,8 @@ class CartScreen extends HookWidget {
                                       //       msg:
                                       //           '${state.orderResponse!.message}');
 
-                                      Timer(Duration(seconds: 2), () async {
+                                      Timer(Duration(milliseconds: 500),
+                                          () async {
                                         context
                                             .read(homeTabsProvider.notifier)
                                             .showScreen(OrdersInProcess(

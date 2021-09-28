@@ -82,7 +82,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
   Future<void> showArrowTowardsCart() async {
     state = state.copyWith(productAdded: true);
     await Future.delayed(const Duration(seconds: 3));
-    state = state.copyWith(productAdded: false);
+    if (mounted) state = state.copyWith(productAdded: false);
   }
 
   Future<void> _addProductInExistingCart(ProductDetailsResponse product) async {

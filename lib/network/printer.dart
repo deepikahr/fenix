@@ -212,7 +212,7 @@ class PrinterService {
       ),
     );
     printer.text(
-      '✱✱✱ ORDER RECEIVED ✱✱✱',
+      '--- ORDER RECEIVED ---',
       styles: PosStyles(
         align: PosAlign.center,
         height: PosTextSize.size1,
@@ -232,7 +232,7 @@ class PrinterService {
           height: PosTextSize.size1,
           width: PosTextSize.size1,
         ));
-    printer.text('DATE: $date     TIME: $time',
+    printer.text('DATE: $date        TIME: $time',
         styles: PosStyles(
           align: PosAlign.left,
           height: PosTextSize.size1,
@@ -242,15 +242,13 @@ class PrinterService {
     for (var i = 0; i < products.length; i++) {
       printer.row([
         PosColumn(
-            text: '${products[i].productName}',
-            width: 8,
-            styles: PosStyles(
-              align: PosAlign.left,
-            )),
+          text: '${products[i].productName}',
+          width: 8,
+        ),
         PosColumn(
             text: '${products[i].variantQuantity}',
             width: 4,
-            styles: PosStyles(align: PosAlign.center)),
+            styles: PosStyles(align: PosAlign.right)),
       ]);
       printer.hr();
     }
@@ -280,7 +278,7 @@ class PrinterService {
     final _profile = await CapabilityProfile.load();
     final _printer = NetworkPrinter(_paper, _profile);
     final ipAddress = ip ?? db.getPrinterIpAddress();
-    final port = db.getPrinterPort() ?? 91000;
+    final port = db.getPrinterPort() ?? 9100;
     if (ipAddress != null && ipAddress.isNotEmpty) {
       print('IPAddress: $ipAddress, PORT: $port');
       final PosPrintResult res = await _printer.connect(ipAddress, port: port);
