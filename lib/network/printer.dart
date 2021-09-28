@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:esc_pos_printer/esc_pos_printer.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:fenix_user/common/constant.dart';
@@ -186,6 +188,7 @@ class PrinterService {
     printer.row([
       PosColumn(
         text: 'TOTAL: ${totalAmount ?? totalPrice}',
+        width: 8,
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
@@ -193,12 +196,14 @@ class PrinterService {
         ),
       ),
       PosColumn(
-        text: '${Constants.currency}',
+        textEncoded: Uint8List.fromList([8364]),
+        width: 4,
         styles: PosStyles(
-            align: PosAlign.left,
-            bold: true,
-            width: PosTextSize.size2,
-            codeTable: 'CP1250'),
+          align: PosAlign.left,
+          bold: true,
+          width: PosTextSize.size2,
+          codeTable: 'CP1250',
+        ),
       ),
     ]);
 
