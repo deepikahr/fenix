@@ -171,11 +171,11 @@ class PrinterService {
     totalPrice += tax;
     printer.hr(ch: '-');
     printer.text(
-      'TOTAL: ${totalAmount ?? totalPrice} ${Constants.currency}',
+      'TOTAL: ${totalAmount ?? totalPrice} \xA4',
       styles: PosStyles(
         align: PosAlign.right,
         bold: true,
-        width: PosTextSize.size3,
+        width: PosTextSize.size2,
       ),
     );
     printer.hr(ch: '-', linesAfter: 1);
@@ -243,11 +243,11 @@ class PrinterService {
       printer.row([
         PosColumn(
           text: '${products[i].productName}',
-          width: 8,
+          width: 10,
         ),
         PosColumn(
             text: '${products[i].variantQuantity}',
-            width: 4,
+            width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
       printer.hr();
@@ -277,6 +277,7 @@ class PrinterService {
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
     final _printer = NetworkPrinter(_paper, _profile);
+    _printer.setGlobalCodeTable("ISO_8859-15");
     final ipAddress = ip ?? db.getPrinterIpAddress();
     final port = db.getPrinterPort() ?? 9100;
     if (ipAddress != null && ipAddress.isNotEmpty) {
