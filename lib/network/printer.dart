@@ -166,13 +166,14 @@ class PrinterService {
     final tax = totalPrice * (10 / 100);
     printer.row([
       PosColumn(
-        text: 'I.V.A/ TAX BASE 10.00%',
+        text: _getPaddedString('I.V.A/ TAX BASE 10.00%', 24),
         width: 6,
         styles: PosStyles(
             height: PosTextSize.size1, width: PosTextSize.size1, bold: true),
       ),
       PosColumn(
-          text: tax.toStringAsFixed(2),
+          text:
+              _getPaddedString(tax.toStringAsFixed(2), 24, prefixPadding: true),
           width: 6,
           styles: PosStyles(
             align: PosAlign.right,
@@ -182,14 +183,25 @@ class PrinterService {
     ]);
     totalPrice += tax;
     printer.hr(ch: '-');
-    printer.text(
-      'TOTAL: ${totalAmount ?? totalPrice} ${Constants.currency}',
-      styles: PosStyles(
-          align: PosAlign.right,
+    printer.row([
+      PosColumn(
+        text: 'TOTAL: ${totalAmount ?? totalPrice}',
+        styles: PosStyles(
+          align: PosAlign.left,
           bold: true,
           width: PosTextSize.size2,
-          codeTable: 'CP1250'),
-    );
+        ),
+      ),
+      PosColumn(
+        text: '${Constants.currency}',
+        styles: PosStyles(
+            align: PosAlign.left,
+            bold: true,
+            width: PosTextSize.size2,
+            codeTable: 'CP1250'),
+      ),
+    ]);
+
     printer.hr(ch: '-', linesAfter: 1);
     printer.text(
       'TABLE: ${db.getTableNumber()}',
