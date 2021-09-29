@@ -85,7 +85,10 @@ class OrdersInProcess extends HookWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              Container(
+                height: 45,
+              ),
             ],
           ),
         ),

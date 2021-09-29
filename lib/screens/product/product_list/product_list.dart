@@ -63,7 +63,10 @@ class ProductList extends HookWidget {
                         productList(state.products, notifier),
                       if (DB().getType() != 'list')
                         productListGrid(context, state.products, notifier),
-                    ]
+                    ],
+                    Container(
+                      height: 45,
+                    ),
                   ],
                 ),
             ],

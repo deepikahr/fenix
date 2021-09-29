@@ -27,6 +27,9 @@ class NotifyWaiter extends HookWidget {
                     style: textBlackLargeBM(context))),
             SizedBox(height: 20),
             requestBlock(context, Constants.notifyList, notifier, state),
+            Container(
+              height: 45,
+            ),
           ],
         ),
       ),

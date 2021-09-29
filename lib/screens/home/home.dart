@@ -50,6 +50,9 @@ class Home extends HookWidget {
                   categoryBlock(context, state.categories, notifier, db),
                 if (db.getType() != 'list')
                   categoryListGrid(context, state.categories, notifier, db),
+                Container(
+                  height: 45,
+                ),
               ]
             ],
           ),

@@ -66,7 +66,10 @@ class PaymentInProcess extends HookWidget {
                       ),
                     ],
                   ),
-                )
+                ),
+                Container(
+                  height: 45,
+                ),
               ],
             ),
           );
