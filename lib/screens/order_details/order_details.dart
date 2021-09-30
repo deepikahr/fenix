@@ -181,6 +181,9 @@ class OrderDetails extends HookWidget {
                                     //   ],
                                     // ),
                                   ),
+                                  Container(
+                                    height: 95,
+                                  )
                                 ],
                               ),
                             ),

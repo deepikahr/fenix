@@ -58,6 +58,9 @@ class CategoryScreen extends HookWidget {
                         context, state.category, notifier, state.pageNumber)
                     : categoryListGrid(
                         context, state.category, notifier, state.pageNumber),
+              Container(
+                height: 45,
+              ),
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)

@@ -139,6 +139,9 @@ class ProductDetails extends HookWidget {
                   noteEditController,
                   noteFocusNode,
                 ),
+              Container(
+                height: 45,
+              ),
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios),

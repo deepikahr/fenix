@@ -58,6 +58,9 @@ class SubCategoryScreen extends HookWidget {
                     context, state.subCategory, notifier, state.pageNumber)
                     : subCategoryListGrid(
                     context, state.subCategory, notifier, state.pageNumber),
+              Container(
+                height: 45,
+              ),
             ],
           ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)
