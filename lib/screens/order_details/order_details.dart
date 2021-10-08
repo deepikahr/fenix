@@ -200,8 +200,7 @@ class OrderDetails extends HookWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 28.0),
                 child: Center(
-                    child:
-                        custombuttonsm(context, 'OK_PAYMENT_METHODS'.tr, () {
+                    child: custombuttonsm(context, 'OK_PAYMENT_METHODS'.tr, () {
                   context
                       .read(homeTabsProvider.notifier)
                       .showScreen(Payment(state.orderDetails));

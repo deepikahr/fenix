@@ -6,7 +6,8 @@ part 'tab_setting_response.freezed.dart';
 part 'tab_setting_response.g.dart';
 
 @freezed
-class TabSettingResponse with BaseModel<TabSettingResponse>, _$TabSettingResponse {
+class TabSettingResponse
+    with BaseModel<TabSettingResponse>, _$TabSettingResponse {
   const TabSettingResponse._();
 
   const factory TabSettingResponse({
@@ -17,8 +18,7 @@ class TabSettingResponse with BaseModel<TabSettingResponse>, _$TabSettingRespons
     String? themeColour,
     String? orderingMode,
     String? viewType,
-  }) =
-  _TabSettingResponse;
+  }) = _TabSettingResponse;
 
   factory TabSettingResponse.fromJson(Map<String, dynamic> json) =>
       _$TabSettingResponseFromJson(json);
@@ -33,5 +33,3 @@ class TabSettingResponse with BaseModel<TabSettingResponse>, _$TabSettingRespons
     return toJson();
   }
 }
-
-

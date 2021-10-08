@@ -1,4 +1,3 @@
-import 'package:fenix_user/screens/category/category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -8,7 +7,8 @@ part 'sub_category_request.freezed.dart';
 part 'sub_category_request.g.dart';
 
 @freezed
-class SubCategoryRequest with BaseModel<SubCategoryRequest>, _$SubCategoryRequest {
+class SubCategoryRequest
+    with BaseModel<SubCategoryRequest>, _$SubCategoryRequest {
   const SubCategoryRequest._();
 
   const factory SubCategoryRequest({

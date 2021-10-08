@@ -27,4 +27,3 @@ class OrderResponse with BaseModel<OrderResponse>, _$OrderResponse {
     return toJson();
   }
 }
-

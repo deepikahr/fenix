@@ -11,7 +11,7 @@ class LocalizationDataRequest
   const LocalizationDataRequest._();
 
   const factory LocalizationDataRequest({String? code}) =
-  _LocalizationDataRequest;
+      _LocalizationDataRequest;
 
   factory LocalizationDataRequest.fromJson(Map<String, dynamic> json) =>
       _$LocalizationDataRequestFromJson(json);

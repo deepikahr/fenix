@@ -33,4 +33,3 @@ class AddOnCategory with BaseModel<AddOnCategory>, _$AddOnCategory {
     return toJson();
   }
 }
-

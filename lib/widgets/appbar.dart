@@ -172,7 +172,8 @@ PreferredSizeWidget fenixAppbar(
                       child: DropdownButton<String>(
                         underline: Container(color: Colors.transparent),
                         iconSize: 0,
-                        value: DB().getLanguage() ?? languages.first.languageName,
+                        value:
+                            DB().getLanguage() ?? languages.first.languageName,
                         onChanged: onSelectLanguage,
                         selectedItemBuilder: (BuildContext context) {
                           return languages.map<Widget>((item) {
@@ -181,10 +182,12 @@ PreferredSizeWidget fenixAppbar(
                                 children: [
                                   Container(
                                       margin: EdgeInsets.only(bottom: 1),
-                                      padding: EdgeInsets.symmetric(horizontal: 6),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 6),
                                       decoration: BoxDecoration(
                                           color: white,
-                                          borderRadius: BorderRadius.circular(8)),
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
                                       child: Text(
                                         '${item.flagCode}',
                                         style: TextStyle(fontSize: 30),

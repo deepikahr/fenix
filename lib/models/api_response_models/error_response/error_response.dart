@@ -11,9 +11,9 @@ class ErrorResponse with BaseModel<ErrorResponse>, _$ErrorResponse {
 
   const factory ErrorResponse(
       {int? status,
-        bool? success,
-        @Default([]) List<String> errors,
-        String? message}) = _ErrorResponse;
+      bool? success,
+      @Default([]) List<String> errors,
+      String? message}) = _ErrorResponse;
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) =>
       _$ErrorResponseFromJson(json);

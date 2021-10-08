@@ -7,12 +7,12 @@ part 'settings_update_request.freezed.dart';
 part 'settings_update_request.g.dart';
 
 @freezed
-class SettingsUpdateRequest with BaseModel<SettingsUpdateRequest>, _$SettingsUpdateRequest {
+class SettingsUpdateRequest
+    with BaseModel<SettingsUpdateRequest>, _$SettingsUpdateRequest {
   const SettingsUpdateRequest._();
 
-  const factory SettingsUpdateRequest({
-    TabSettingResponse? tabSetting
-  }) = _SettingsUpdateRequest;
+  const factory SettingsUpdateRequest({TabSettingResponse? tabSetting}) =
+      _SettingsUpdateRequest;
 
   factory SettingsUpdateRequest.fromJson(Map<String, dynamic> json) =>
       _$SettingsUpdateRequestFromJson(json);

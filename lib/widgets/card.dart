@@ -149,43 +149,42 @@ Widget dishesInfoCard(
                     height: 6,
                   ),
                   // titleTextDarkLightSmallBR(context, '${product.productDescription}'),
-                  HtmlWidget(
-                    product.productDescription!,
-                    textStyle: textDarkLightSmallBR(context),
-                  ),
-                  SizedBox(
-                    height: 60,
-                  ),
+                  if (product.productDescription != null)
+                    HtmlWidget(
+                      product.productDescription ?? "",
+                      textStyle: textDarkLightSmallBR(context),
+                    ),
+                  if (product.productDescription != null)
+                    SizedBox(
+                      height: 60,
+                    ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null
-                          ? Text(
-                              '${product.variant!.price}${Constants.currency}',
-                              style: textDarkRegularBS(context),
-                            )
-                          : Container(),
-                      product.productImage!.imageUrl != null
-                          ? Icon(
-                              Icons.camera_alt_rounded,
-                              color: primary(),
-                            )
-                          : Container(),
-                      product.allergens!.length > 0
-                          ? InkWell(
-                              onTap: () async {},
-                              child: Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                    color: primary(),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(
-                                  'ALLERGENS'.tr,
-                                  style: textWhiteRegularBM(),
-                                ),
-                              ),
-                            )
-                          : Container(),
+                      if (categoryImage != null)
+                        Text(
+                          '${product.variant!.price}${Constants.currency}',
+                          style: textDarkRegularBS(context),
+                        ),
+                      if (product.productImage!.imageUrl != null)
+                        Icon(
+                          Icons.camera_alt_rounded,
+                          color: primary(),
+                        ),
+                      if (product.allergens!.length > 0)
+                        InkWell(
+                          onTap: () async {},
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: primary(),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              'ALLERGENS'.tr,
+                              style: textWhiteRegularBM(),
+                            ),
+                          ),
+                        ),
                       product.totalQuantity > 0
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -233,29 +232,29 @@ Widget dishesInfoCard(
               ],
             )),
         Positioned(
-            top: 80,
-            child: Container(
-              alignment: AlignmentDirectional.center,
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              height: 30,
-              color: Colors.black45,
-              child: Text(
-                '${product.variant!.sizeName}',
-                style: textWhite3XSmallBM(context),
-                textAlign: TextAlign.center,
-              ),
-            )),
-        categoryImage == null
-            ? Positioned(
-                bottom: 10,
-                left: 30,
-                right: 0,
-                child: Text(
-                  '${product.variant!.price}${Constants.currency}',
-                  style: textWhiteLargeBMM(context),
-                ),
-              )
-            : Container()
+          top: 80,
+          child: Container(
+            alignment: AlignmentDirectional.center,
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            height: 30,
+            color: Colors.black45,
+            child: Text(
+              '${product.variant!.sizeName}',
+              style: textWhite3XSmallBM(context),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        if (categoryImage == null)
+          Positioned(
+            bottom: 10,
+            left: 30,
+            right: 0,
+            child: Text(
+              '${product.variant!.price}${Constants.currency}',
+              style: textWhiteLargeBMM(context),
+            ),
+          ),
       ],
     ),
   );
@@ -324,30 +323,30 @@ Widget gridDishCard(
                         ),
                       )),
                   Positioned(
-                      bottom: 0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        color: Colors.black45,
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                    bottom: 0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      color: Colors.black45,
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${product.productName}',
+                            style: textWhiteLightRegularBM(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (categoryImage == null)
                             Text(
-                              '${product.productName}',
-                              style: textWhiteLightRegularBM(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                              '${product.variant!.price}${Constants.currency}',
+                              style: textWhiteLargeBMM(context),
                             ),
-                            categoryImage == null
-                                ? Text(
-                                    '${product.variant!.price}${Constants.currency}',
-                                    style: textWhiteLargeBMM(context),
-                                  )
-                                : Container()
-                          ],
-                        ),
-                      )),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -357,57 +356,58 @@ Widget gridDishCard(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HtmlWidget(
-                    product.productDescription!,
-                    textStyle: textDarkLightSmallBR(context),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  product.allergens!.length > 0
-                      ? InkWell(
-                          onTap: () async {},
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: primary(),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(
-                              'ALLERGENS'.tr,
-                              style: textWhiteRegularBM(),
-                            ),
-                          ),
-                        )
-                      : Container(),
-                  SizedBox(
-                    height: 6,
-                  ),
+                  if (product.productDescription != null)
+                    Container(
+                      height: 20,
+                      child: HtmlWidget(
+                        product.productDescription ?? "",
+                        textStyle: textDarkLightSmallBR(context),
+                      ),
+                    ),
+                  if (product.productDescription != null)
+                    SizedBox(
+                      height: 6,
+                    ),
+                  if (product.allergens!.length > 0)
+                    InkWell(
+                      onTap: () async {},
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                            color: primary(),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          'ALLERGENS'.tr,
+                          style: textWhiteRegularBM(),
+                        ),
+                      ),
+                    ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryImage != null
-                          ? Text(
-                              '${product.variant!.price}${Constants.currency}',
-                              style: textDarkRegularBS(context),
-                            )
-                          : Container(),
-                      product.productImage!.imageUrl != null
-                          ? Icon(
-                              Icons.camera_alt_rounded,
-                              color: primary(),
-                            )
-                          : Container(),
+                      if (categoryImage != null)
+                        Text(
+                          '${product.variant!.price}${Constants.currency}',
+                          style: textDarkRegularBS(context),
+                        ),
+                      if (product.productImage!.imageUrl != null)
+                        Icon(
+                          Icons.camera_alt_rounded,
+                          color: primary(),
+                        ),
                       product.totalQuantity > 0
                           ? Container(
                               child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                counterIcon('remove', onRemove),
-                                Text(product.totalQuantity.toString(),
-                                    style: textBlackLargeBM(context)),
-                                counterIcon('add', onUpdate),
-                              ],
-                            ))
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  counterIcon('remove', onRemove),
+                                  Text(product.totalQuantity.toString(),
+                                      style: textBlackLargeBM(context)),
+                                  counterIcon('add', onUpdate),
+                                ],
+                              ),
+                            )
                           : Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: GFButton(

@@ -28,4 +28,3 @@ class ImageResponse with BaseModel<ImageResponse>, _$ImageResponse {
     return toJson();
   }
 }
-

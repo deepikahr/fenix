@@ -6,7 +6,8 @@ part 'login_verify_request.freezed.dart';
 part 'login_verify_request.g.dart';
 
 @freezed
-class LoginVerifyRequest with BaseModel<LoginVerifyRequest>, _$LoginVerifyRequest {
+class LoginVerifyRequest
+    with BaseModel<LoginVerifyRequest>, _$LoginVerifyRequest {
   const LoginVerifyRequest._();
 
   const factory LoginVerifyRequest({

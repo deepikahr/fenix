@@ -101,7 +101,8 @@ class Localization extends Translations {
           "WE_WAIT_FOR_YOU_SOON": "We wait for you soon.",
           "YES": "Yes",
           "YOUR_ORDER_IS": "Your order is",
-          "YOUR_PAYMENT_IS": "Your payment is"
+          "YOUR_PAYMENT_IS": "Your payment is",
+          "TOTAL_VAT_INCLUDED": "Total 10% vat included"
         },
         'es': {
           "ACCESS_SETTINGS": "Configuración de acceso",
@@ -198,7 +199,8 @@ class Localization extends Translations {
           "WE_WAIT_FOR_YOU_SOON": "Te esperamos pronto.",
           "YES": "Sí",
           "YOUR_ORDER_IS": "Su pedido es",
-          "YOUR_PAYMENT_IS": "Su pago es"
+          "YOUR_PAYMENT_IS": "Su pago es",
+          "TOTAL_VAT_INCLUDED": "Total 10% vat included"
         }
       };
 }

@@ -88,11 +88,10 @@ final categoryProvider =
   return CategoryStateNotifier(ref);
 });
 
-final subCategoryProvider =
-StateNotifierProvider.autoDispose<SubCategoryStateNotifier, SubCategoryState>(
-        (ref) {
-      return SubCategoryStateNotifier(ref);
-    });
+final subCategoryProvider = StateNotifierProvider.autoDispose<
+    SubCategoryStateNotifier, SubCategoryState>((ref) {
+  return SubCategoryStateNotifier(ref);
+});
 
 final settingsProvider =
     StateNotifierProvider.autoDispose<SettingsStateNotifier, SettingsState>(

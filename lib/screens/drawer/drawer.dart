@@ -125,13 +125,17 @@ class DrawerPage extends HookWidget {
         return InkWell(
           onTap: () {
             Get.back();
-            category[i].subCategoryCount == 0 ?
-            context.read(homeTabsProvider.notifier).showScreen(ProductList(
-                  category[i].id ?? '',
-                  category[i].imageUrl ?? '',
-                  key: UniqueKey(),
-                )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                category[i].id ?? '', category[i].title ?? ''));
+            category[i].subCategoryCount == 0
+                ? context
+                    .read(homeTabsProvider.notifier)
+                    .showScreen(ProductList(
+                      category[i].id ?? '',
+                      category[i].imageUrl ?? '',
+                      key: UniqueKey(),
+                    ))
+                : context.read(homeTabsProvider.notifier).showScreen(
+                    SubCategoryScreen(
+                        category[i].id ?? '', category[i].title ?? ''));
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

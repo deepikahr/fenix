@@ -6,13 +6,12 @@ part 'change_password_request.freezed.dart';
 part 'change_password_request.g.dart';
 
 @freezed
-class ChangePasswordRequest with BaseModel<ChangePasswordRequest>, _$ChangePasswordRequest {
+class ChangePasswordRequest
+    with BaseModel<ChangePasswordRequest>, _$ChangePasswordRequest {
   const ChangePasswordRequest._();
 
-  const factory ChangePasswordRequest({
-    String? currentPassword,
-    String? newPassword
-  }) = _ChangePasswordRequest;
+  const factory ChangePasswordRequest(
+      {String? currentPassword, String? newPassword}) = _ChangePasswordRequest;
 
   factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordRequestFromJson(json);
