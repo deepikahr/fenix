@@ -9,11 +9,8 @@ part 'tag_response.g.dart';
 class TagResponse with BaseModel<TagResponse>, _$TagResponse {
   const TagResponse._();
 
-  const factory TagResponse({
-  @JsonKey(name: '_id') String? id,
-  String? title
-  }) =
-  _TagResponse;
+  const factory TagResponse({@JsonKey(name: '_id') String? id, String? title}) =
+      _TagResponse;
 
   factory TagResponse.fromJson(Map<String, dynamic> json) =>
       _$TagResponseFromJson(json);
@@ -28,5 +25,3 @@ class TagResponse with BaseModel<TagResponse>, _$TagResponse {
     return toJson();
   }
 }
-
-

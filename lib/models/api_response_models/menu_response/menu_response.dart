@@ -8,19 +8,18 @@ class MenuResponse with BaseModel<MenuResponse>, _$MenuResponse {
   const MenuResponse._();
 
   const factory MenuResponse({
-  @JsonKey(name: '_id') String? id,
-  String? title,
-  String? menuId,
-  String? masterMenuId,
-  String? vendorId,
-  String? franchiseId,
-  @Default(false) bool isMenuCloned,
-  String? cloneType,
-  @Default(false) bool menuClonedFromMasterMenu,
-  @Default(false) bool menuClonedFromRestaurantMenu,
-  String? createdAt,
-  String? updatedAt,
-
+    @JsonKey(name: '_id') String? id,
+    String? title,
+    String? menuId,
+    String? masterMenuId,
+    String? vendorId,
+    String? franchiseId,
+    @Default(false) bool isMenuCloned,
+    String? cloneType,
+    @Default(false) bool menuClonedFromMasterMenu,
+    @Default(false) bool menuClonedFromRestaurantMenu,
+    String? createdAt,
+    String? updatedAt,
   }) = _MenuResponse;
 
   factory MenuResponse.fromJson(Map<String, dynamic> json) =>

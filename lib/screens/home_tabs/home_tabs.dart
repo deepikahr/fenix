@@ -22,7 +22,6 @@ class HomeTabs extends HookWidget {
     final state = useProvider(homeTabsProvider);
     final notifier = useProvider(homeTabsProvider.notifier);
     final cart = useProvider(cartProvider);
-    final orders = useProvider(orderDetailsProvider);
     final isMounted = useIsMounted();
     SocketService socketService = SocketService();
     useEffect(() {

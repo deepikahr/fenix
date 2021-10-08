@@ -10,10 +10,9 @@ part 'sub_category_model.g.dart';
 class SubCategoryModel with BaseModel<SubCategoryModel>, _$SubCategoryModel {
   const SubCategoryModel._();
 
-  const factory SubCategoryModel({
-    @Default([]) List<SubCategoryResponse> data,
-    @Default(0) int total
-  }) = _SubCategoryModel;
+  const factory SubCategoryModel(
+      {@Default([]) List<SubCategoryResponse> data,
+      @Default(0) int total}) = _SubCategoryModel;
 
   factory SubCategoryModel.fromJson(Map<String, dynamic> json) =>
       _$SubCategoryModelFromJson(json);

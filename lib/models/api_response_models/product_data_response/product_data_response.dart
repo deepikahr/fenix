@@ -7,14 +7,12 @@ part 'product_data_response.freezed.dart';
 part 'product_data_response.g.dart';
 
 @freezed
-class ProductDataResponse with BaseModel<ProductDataResponse>, _$ProductDataResponse {
+class ProductDataResponse
+    with BaseModel<ProductDataResponse>, _$ProductDataResponse {
   const ProductDataResponse._();
 
-  const factory ProductDataResponse({
-    String? categoryTitle,
-    ProductModel? product
-  }) =
-  _ProductDataResponse;
+  const factory ProductDataResponse(
+      {String? categoryTitle, ProductModel? product}) = _ProductDataResponse;
 
   factory ProductDataResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductDataResponseFromJson(json);
@@ -29,4 +27,3 @@ class ProductDataResponse with BaseModel<ProductDataResponse>, _$ProductDataResp
     return toJson();
   }
 }
-

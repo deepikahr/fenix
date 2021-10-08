@@ -5,7 +5,8 @@ part 'notification_list_response.freezed.dart';
 part 'notification_list_response.g.dart';
 
 @freezed
-class NotificationListResponse with BaseModel<NotificationListResponse>, _$NotificationListResponse {
+class NotificationListResponse
+    with BaseModel<NotificationListResponse>, _$NotificationListResponse {
   const NotificationListResponse._();
 
   const factory NotificationListResponse({

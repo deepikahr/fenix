@@ -83,12 +83,16 @@ class CategoryScreen extends HookWidget {
                 i, pageNumber, () => notifier.fetch(categoryType));
             return InkWell(
               onTap: () {
-                category[i].subCategoryCount == 0 ?
-                context.read(homeTabsProvider.notifier).showScreen(ProductList(
-                      category[i].id ?? '',
-                      category[i].imageUrl ?? '',
-                    )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                    category[i].id ?? '', category[i].title ?? ''));
+                category[i].subCategoryCount == 0
+                    ? context
+                        .read(homeTabsProvider.notifier)
+                        .showScreen(ProductList(
+                          category[i].id ?? '',
+                          category[i].imageUrl ?? '',
+                        ))
+                    : context.read(homeTabsProvider.notifier).showScreen(
+                        SubCategoryScreen(
+                            category[i].id ?? '', category[i].title ?? ''));
               },
               child: restaurantInfoCard(
                 context,
@@ -120,12 +124,16 @@ class CategoryScreen extends HookWidget {
           );
           return InkWell(
               onTap: () {
-                category[i].subCategoryCount == 0 ?
-                context.read(homeTabsProvider.notifier).showScreen(ProductList(
-                      category[i].id ?? '',
-                      category[i].imageUrl ?? '',
-                    )) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                category[i].id ?? '', category[i].title ?? ''));
+                category[i].subCategoryCount == 0
+                    ? context
+                        .read(homeTabsProvider.notifier)
+                        .showScreen(ProductList(
+                          category[i].id ?? '',
+                          category[i].imageUrl ?? '',
+                        ))
+                    : context.read(homeTabsProvider.notifier).showScreen(
+                        SubCategoryScreen(
+                            category[i].id ?? '', category[i].title ?? ''));
               },
               child: restaurantInfoCardGrid(
                 context,

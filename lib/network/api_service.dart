@@ -23,8 +23,6 @@ import 'package:fenix_user/models/api_response_models/product_data_response/prod
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
-import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
-import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
 import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/screens/category/category.dart';
 import 'package:flutter/foundation.dart';
@@ -252,17 +250,15 @@ class API {
 
   Future<SubCategoryModel?> subCategory(String? categoryId, int page,
       {ValueSetter<ErrorResponse>? errorListener,
-        int limit = 10,
-        ValueSetter<ApiResponse<SubCategoryModel?>>? responseListener,
-        bool autoErrorHandle = true}) async {
-    return _api.get(
-      URL.SUB_CATEGORY,
-      reqModel: SubCategoryRequest(category: categoryId),
-      errorListener: errorListener,
-      autoErrorHandle: autoErrorHandle,
-      responseListener: responseListener,
-      resModel: SubCategoryModel()
-    );
+      int limit = 10,
+      ValueSetter<ApiResponse<SubCategoryModel?>>? responseListener,
+      bool autoErrorHandle = true}) async {
+    return _api.get(URL.SUB_CATEGORY,
+        reqModel: SubCategoryRequest(category: categoryId),
+        errorListener: errorListener,
+        autoErrorHandle: autoErrorHandle,
+        responseListener: responseListener,
+        resModel: SubCategoryModel());
   }
 
   Future<Map<String, Map<String, String>>?> getLocalizationData(

@@ -111,11 +111,13 @@ class Home extends HookWidget {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                categories[i].subCategoryCount == 0 ?
-                context.read(homeTabsProvider.notifier).showScreen(ProductList(
-                    categories[i].id ?? '', categories[i].imageUrl ?? ''))
-                    : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                    categories[i].id ?? '', categories[i].title ?? ''));
+                categories[i].subCategoryCount == 0
+                    ? context.read(homeTabsProvider.notifier).showScreen(
+                        ProductList(categories[i].id ?? '',
+                            categories[i].imageUrl ?? ''))
+                    : context.read(homeTabsProvider.notifier).showScreen(
+                        SubCategoryScreen(
+                            categories[i].id ?? '', categories[i].title ?? ''));
               },
               child: restaurantInfoCard(
                 context,
@@ -142,12 +144,14 @@ class Home extends HookWidget {
         itemBuilder: (context, i) {
           return InkWell(
             onTap: () {
-              categories[i].subCategoryCount == 0 ?
-              context.read(homeTabsProvider.notifier).showScreen(
-                    ProductList(
-                        categories[i].id ?? '', categories[i].imageUrl ?? ''),
-                  ) : context.read(homeTabsProvider.notifier).showScreen(SubCategoryScreen(
-                  categories[i].id ?? '', categories[i].title ?? ''));
+              categories[i].subCategoryCount == 0
+                  ? context.read(homeTabsProvider.notifier).showScreen(
+                        ProductList(categories[i].id ?? '',
+                            categories[i].imageUrl ?? ''),
+                      )
+                  : context.read(homeTabsProvider.notifier).showScreen(
+                      SubCategoryScreen(
+                          categories[i].id ?? '', categories[i].title ?? ''));
             },
             child: restaurantInfoCardGrid(
               context,

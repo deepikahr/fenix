@@ -5,18 +5,18 @@ part 'notification_response.freezed.dart';
 part 'notification_response.g.dart';
 
 @freezed
-class NotificationResponse with BaseModel<NotificationResponse>, _$NotificationResponse {
+class NotificationResponse
+    with BaseModel<NotificationResponse>, _$NotificationResponse {
   const NotificationResponse._();
 
-  const factory NotificationResponse({
-    @JsonKey(name: '_id') String? id,
-    String? title,
-    String? description,
-    int? tableNumber,
-    String? franchiseId,
-    String? notifyType,
-    String? createdAt
-  }) = _NotificationResponse;
+  const factory NotificationResponse(
+      {@JsonKey(name: '_id') String? id,
+      String? title,
+      String? description,
+      int? tableNumber,
+      String? franchiseId,
+      String? notifyType,
+      String? createdAt}) = _NotificationResponse;
 
   factory NotificationResponse.fromJson(Map<String, dynamic> json) =>
       _$NotificationResponseFromJson(json);

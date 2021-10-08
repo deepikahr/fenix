@@ -7,25 +7,23 @@ part 'sub_category_response.freezed.dart';
 part 'sub_category_response.g.dart';
 
 @freezed
-class SubCategoryResponse with BaseModel<SubCategoryResponse>, _$SubCategoryResponse {
+class SubCategoryResponse
+    with BaseModel<SubCategoryResponse>, _$SubCategoryResponse {
   const SubCategoryResponse._();
 
-  const factory SubCategoryResponse({
-
-  @Default(false) bool status,
-  @JsonKey(name: '_id') String? id,
-  FranchiseModel? franchiseId,
-  String? title,
-  String? description,
-  String? imageUrl,
-  String? imageId,
-  String? filePath,
-  MenuResponse? menuId,
-  String? categoryId,
-  String? categoryName,
-  String? franchiseName
-
-  }) = _SubCategoryResponse;
+  const factory SubCategoryResponse(
+      {@Default(false) bool status,
+      @JsonKey(name: '_id') String? id,
+      FranchiseModel? franchiseId,
+      String? title,
+      String? description,
+      String? imageUrl,
+      String? imageId,
+      String? filePath,
+      MenuResponse? menuId,
+      String? categoryId,
+      String? categoryName,
+      String? franchiseName}) = _SubCategoryResponse;
 
   factory SubCategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$SubCategoryResponseFromJson(json);

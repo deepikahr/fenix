@@ -11,8 +11,7 @@ class TaxInfoModel with BaseModel<TaxInfoModel>, _$TaxInfoModel {
   const factory TaxInfoModel({
     String? taxName,
     int? taxPercentage,
-  }) =
-  _TaxInfoModel;
+  }) = _TaxInfoModel;
 
   factory TaxInfoModel.fromJson(Map<String, dynamic> json) =>
       _$TaxInfoModelFromJson(json);
@@ -27,4 +26,3 @@ class TaxInfoModel with BaseModel<TaxInfoModel>, _$TaxInfoModel {
     return toJson();
   }
 }
-
