@@ -43,7 +43,7 @@ class _ArrowTowardsCartState extends State<ArrowTowardsCart> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            'Added',
+            'OK',
             style: textBlackLargeBM32(context),
           ),
           //Height to match the transform scale and the added text size overlapping distance
