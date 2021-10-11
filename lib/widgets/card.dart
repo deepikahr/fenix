@@ -285,11 +285,11 @@ Widget gridDishCard(
               margin: EdgeInsets.all(6),
               child: Stack(
                 children: [
-                  categoryImage != null
-                      ? networkImage(categoryImage,
-                          MediaQuery.of(context).size.width, 170, 0)
+                  product.productImage?.imageUrl != null
+                      ? networkImage(product.productImage!.imageUrl!,
+                          (MediaQuery.of(context).size.width / 2) - 50, 170, 0)
                       : networkImageOverlay(
-                          MediaQuery.of(context).size.width, 170),
+                          (MediaQuery.of(context).size.width / 2) - 50, 170),
                   Positioned(
                       top: 0,
                       child: Stack(

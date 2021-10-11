@@ -14,7 +14,6 @@ import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -57,11 +56,10 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           if (request.orderStatus == ORDER_STATUS.completed) {
             cleanCart(notifier);
           } else if (request.orderStatus == ORDER_STATUS.cancelled) {
-            Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
             await db.removeOrderId();
             notifier.showScreen(CartScreen());
             customDialog(
-              title: 'Order Denied',
+              title: 'ORDER_IS_CANCELLED',
               okText: 'Ok',
               status: DIALOG_STATUS.WARNING,
             );
@@ -91,7 +89,50 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     });
   }
 
-  cleanCart(notifier) async {
+  getUpdateOrderStatus(String? orderId, HomeTabsNotifier notifier) {
+    var request;
+    var listenTo = URL.ORDER_MODIFIED_STATUS_REQUEST_EVENT
+        .replaceAll('ORDER_ID', orderId!);
+    SocketService().getSocket().on(listenTo, (data) async {
+      if (data != null) {
+        request = OrderSocketRequest.fromJson(data);
+        if (request != null) {
+          if (request.orderStatus == ORDER_STATUS.completed) {
+            cleanCart(notifier);
+          } else if (request.orderStatus == ORDER_STATUS.cancelled) {
+            notifier.showScreen(CartScreen());
+            customDialog(
+              title: 'ORDER_IS_CANCELLED'.tr,
+              okText: 'Ok',
+              status: DIALOG_STATUS.WARNING,
+            );
+          } else if (request.orderStatus == ORDER_STATUS.confirmed) {
+            getNotifiWaiter();
+            notifier.showScreen(Home());
+            customDialog(
+              title: 'Order Confirmed',
+              okText: 'Ok',
+              status: DIALOG_STATUS.SUCCESS,
+            );
+            final res = await fetchOrderDetails();
+            final printResult = await printerService.printReciept(
+              type: PrinterRecieptType.KITCHEN,
+              products: res?.cart ?? [],
+            );
+            if (printResult != null) {
+              customDialog(
+                title: printResult.tr,
+                okText: 'Ok',
+                status: DIALOG_STATUS.FAIL,
+              );
+            }
+          }
+        }
+      }
+    });
+  }
+
+  cleanCart(notifier, {bool clearSocket = true}) async {
     await cartState.deleteCart();
     await db.removeOrderId();
     SocketService().getSocket().clearListeners();

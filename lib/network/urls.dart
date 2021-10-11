@@ -29,6 +29,8 @@ class URL {
 
   static const PAYMENT_REQUEST_EVENT = 'Payment-Request-Complete-ORDER_ID';
   static const ORDER_STATUS_REQUEST_EVENT = 'Order-Status-Update-ORDER_ID';
+  static const ORDER_MODIFIED_STATUS_REQUEST_EVENT =
+      'OrderUpdate-Item-Response-ORDER_ID';
 
   static const String DELIVERY_BOY_SEND_MESSAGE_TO_USER_SOCKET =
       "message-delivery-boy-to-user";
