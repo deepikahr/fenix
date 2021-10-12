@@ -13,6 +13,9 @@ _$_UpdateCart _$_$_UpdateCartFromJson(Map<String, dynamic> json) {
             ?.map((e) => UpdateProduct.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
+    localCart: json['localCart'] == null
+        ? null
+        : Cart.fromJson(json['localCart'] as Map<String, dynamic>),
   );
 }
 
@@ -20,4 +23,5 @@ Map<String, dynamic> _$_$_UpdateCartToJson(_$_UpdateCart instance) =>
     <String, dynamic>{
       'orderId': instance.orderId,
       'products': instance.products,
+      'localCart': instance.localCart,
     };

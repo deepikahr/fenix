@@ -194,7 +194,7 @@ class ProductDetails extends HookWidget {
                       '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
-                    !state.showAddButton && product.variantQuantity > 0
+                    !state.showAddButton && product.totalQuantity > 0
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -214,7 +214,7 @@ class ProductDetails extends HookWidget {
                                   }
                                 },
                               ),
-                              Text('${product.variantQuantity}',
+                              Text('${product.totalQuantity}',
                                   style: textBlackLargeBM(context)),
                               counterIcon(
                                 'add',

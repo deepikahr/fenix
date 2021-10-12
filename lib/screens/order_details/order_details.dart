@@ -275,7 +275,8 @@ class OrderDetails extends HookWidget {
                         style: textBlackLargeBM(context)),
                   ],
                 ),
-                Text('${cartProduct.variantQuantity}',
+                Text(
+                    '${cartProduct.modified ? cartProduct.modifiedQuantity ?? cartProduct.variantQuantity : cartProduct.variantQuantity}',
                     style: textBlackLargeBM(context)),
               ],
             ),

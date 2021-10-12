@@ -187,7 +187,8 @@ Widget customBottomBar(int currentIndex, onSelect, Cart? cart) {
       FABBottomAppBarItem(
           iconData: "lib/assets/icons/toPay.svg",
           text: 'TO_PAY'.tr,
-          total: cart == null ? '0' : '${getQuantityCount(cart.products)}'),
+          total:
+              cart == null ? '0' : '${getQuantityCount(cart.products, false)}'),
     ],
     backgroundColor: Colors.grey.shade200,
     currentIndex: currentIndex,
@@ -231,7 +232,7 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
                         color: Colors.black,
                         textColor: GFColors.WHITE,
                         size: GFSize.SMALL,
-                        text: '${getQuantityCount(cart.products)}',
+                        text: '${getQuantityCount(cart.products, true)}',
                       ),
                     ),
                   )
@@ -242,9 +243,12 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
   );
 }
 
-int getQuantityCount(List<ProductDetailsResponse> products) {
+int getQuantityCount(
+    List<ProductDetailsResponse> products, bool showModifiedCount) {
   int _quantity = products
-      .map((e) => e.variantQuantity)
+      .map((e) => showModifiedCount && e.modified
+          ? e.modifiedQuantity ?? e.variantQuantity
+          : e.variantQuantity)
       .reduce((value, element) => value + element);
   return _quantity;
 }

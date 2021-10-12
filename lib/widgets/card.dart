@@ -185,7 +185,7 @@ Widget dishesInfoCard(
                             ),
                           ),
                         ),
-                      product.totalQuantity > 0
+                      (product.modified || product.totalQuantity > 0)
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

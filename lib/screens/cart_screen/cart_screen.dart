@@ -213,16 +213,25 @@ class CartScreen extends HookWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            counterIcon(
-                              'remove',
-                              () {
-                                context
-                                    .read(cartScreenProvider.notifier)
-                                    .updateQuantity(cartProduct, false);
-                              },
-                            ),
-                            Text('${cartProduct.variantQuantity}',
-                                style: textBlackLargeBM(context)),
+                            if ((cartProduct.modified
+                                    ? cartProduct.modifiedQuantity ??
+                                        cartProduct.variantQuantity
+                                    : cartProduct.variantQuantity) >
+                                0)
+                              counterIcon(
+                                'remove',
+                                () {
+                                  context
+                                      .read(cartScreenProvider.notifier)
+                                      .updateQuantity(cartProduct, false);
+                                },
+                              ),
+                            Text(
+                                '${cartProduct.modified ? cartProduct.modifiedQuantity ?? cartProduct.variantQuantity : cartProduct.variantQuantity}',
+                                style: textBlackLargeBM(context).copyWith(
+                                    color: cartProduct.modified
+                                        ? Colors.amber
+                                        : Colors.black)),
                             counterIcon(
                               'add',
                               () {

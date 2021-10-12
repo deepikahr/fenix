@@ -6,6 +6,13 @@ import '../../base_model.dart';
 part 'update_product.freezed.dart';
 part 'update_product.g.dart';
 
+enum MODIFIED_STATUS {
+  @JsonValue('QUANTITY_UPDATE')
+  quanity_update,
+  @JsonValue('NEW_ITEM')
+  new_item
+}
+
 @freezed
 class UpdateProduct with BaseModel<UpdateProduct>, _$UpdateProduct {
   const UpdateProduct._();
@@ -15,6 +22,7 @@ class UpdateProduct with BaseModel<UpdateProduct>, _$UpdateProduct {
     String? sizeName,
     int? quantity,
     @Default([]) List<AddOnItem> addOnItems,
+    @JsonKey(name: 'modify') MODIFIED_STATUS? modified_status,
   }) = _UpdateProduct;
 
   factory UpdateProduct.fromJson(Map<String, dynamic> json) =>

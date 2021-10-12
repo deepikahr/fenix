@@ -22,7 +22,7 @@ class OrdersInProcess extends HookWidget {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           final order = await notifier.fetchOrderDetails();
-          if (order != null) {
+          if (!notifier.cart!.modifiedCart && order != null) {
             if (order.orderStatus == ORDER_STATUS.completed) {
               await notifier.cleanCart(context.read(homeTabsProvider.notifier));
             } else if (order.orderStatus == ORDER_STATUS.cancelled) {
@@ -37,6 +37,9 @@ class OrdersInProcess extends HookWidget {
                   .read(homeTabsProvider.notifier)
                   .showScreen(OrderDetails());
             }
+          } else {
+            notifier.getUpdateOrderStatus(
+                DB().getOrderId(), context.read(homeTabsProvider.notifier));
           }
         });
       }

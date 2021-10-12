@@ -38,10 +38,29 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
-    final newProduct = product.copyWith(
+    late ProductDetailsResponse newProduct;
+    if (db.getOrderId() != null) {
+      newProduct = product.copyWith(
+        modifiedQuantity: product.modifiedQuantity != null
+            ? product.modifiedQuantity! + (increased ? 1 : -1)
+            : product.variantQuantity + (increased ? 1 : -1),
+      );
+      newProduct = newProduct.copyWith(
+        modified: db.getOrderId() != null &&
+            (newProduct.modifiedQuantity == null ||
+                (newProduct.variantQuantity != newProduct.modifiedQuantity)),
+      );
+    } else {
+      newProduct = product.copyWith(
         variantQuantity: product.variantQuantity + (increased ? 1 : -1),
-        modified: db.getOrderId() != null);
-    if (newProduct.variantQuantity > 0) {
+      );
+    }
+    print('cart ----> ${cart!.toJson()}');
+    print(
+        'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'}');
+    if ((newProduct.modified &&
+            (newProduct.modifiedQuantity ?? newProduct.variantQuantity) > 0) ||
+        newProduct.variantQuantity > 0) {
       var products = cart!.products;
       products = products.map((p) {
         if (p == product) {
@@ -59,7 +78,24 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
         await cartState.deleteCart();
       }
     }
+    await updateModifiedStatusOfCart();
     await updateGrandTotal();
+  }
+
+  Future<void> updateModifiedStatusOfCart() async {
+    if (cart?.products.isNotEmpty ?? false) {
+      await cartState.updateCart(
+          cart?.copyWith(modifiedCart: getModifiedStatusFromProducts()));
+    }
+  }
+
+  bool getModifiedStatusFromProducts() {
+    for (var product in cart!.products) {
+      if (product.modified) {
+        return product.modified;
+      }
+    }
+    return false;
   }
 
   Future<void> removeProduct(ProductDetailsResponse product) async {
@@ -70,6 +106,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     } else {
       await updateGrandTotal();
     }
+    await updateModifiedStatusOfCart();
   }
 
   Future<void> updateGrandTotal() async {
@@ -77,7 +114,10 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     if (cart?.products.isNotEmpty ?? false) {
       final total = cart!.products.map(
         (e) {
-          return e.totalProductPrice * e.variantQuantity;
+          return e.totalProductPrice *
+              (e.modified
+                  ? e.modifiedQuantity ?? e.variantQuantity
+                  : e.variantQuantity);
         },
       ).reduce((_, __) => _ + __);
       final tax = cart!.products.map(
@@ -107,8 +147,11 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     return UpdateProduct(
         productId: product.id,
         sizeName: product.variant?.sizeName,
-        quantity: product.variantQuantity,
-        addOnItems: product.selectedAddOnItems);
+        quantity: product.modifiedQuantity ?? product.variantQuantity,
+        addOnItems: product.selectedAddOnItems,
+        modified_status: product.variantQuantity == 0
+            ? MODIFIED_STATUS.new_item
+            : MODIFIED_STATUS.quanity_update);
   }
 
   Future<String?> updateOrder() async {
@@ -119,7 +162,8 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
         products: cart!.products
             .where((element) => element.modified)
             .map((e) => createUpdateProduct(e))
-            .toList());
+            .toList(),
+        localCart: cart);
 
     final updateResponse = await api.updateOrder(updateCart);
     state = state.copyWith.call(
