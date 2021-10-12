@@ -181,7 +181,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
 
       late ProductDetailsResponse newProduct;
       if (db.getOrderId() != null) {
-        newProduct = product.copyWith.call(
+        newProduct = p.copyWith.call(
             modifiedQuantity: p.modifiedQuantity != null
                 ? p.modifiedQuantity! + (isIncreased ? 1 : -1)
                 : p.variantQuantity + (isIncreased ? 1 : -1));
@@ -191,7 +191,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
                   (newProduct.variantQuantity != newProduct.modifiedQuantity)),
         );
       } else {
-        newProduct = product.copyWith
+        newProduct = p.copyWith
             .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
       }
       print(
