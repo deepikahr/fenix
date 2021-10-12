@@ -194,7 +194,7 @@ class ProductDetails extends HookWidget {
                       '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
-                    !state.showAddButton && product.totalQuantity > 0
+                    !state.showAddButton && product.variantQuantity > 0
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -214,7 +214,7 @@ class ProductDetails extends HookWidget {
                                   }
                                 },
                               ),
-                              Text('${product.totalQuantity}',
+                              Text('${product.variantQuantity}',
                                   style: textBlackLargeBM(context)),
                               counterIcon(
                                 'add',
@@ -273,7 +273,7 @@ class ProductDetails extends HookWidget {
           SizedBox(
             height: 12,
           ),
-          allergenList(context, product.allergens ?? []),
+          allergenList(context, product.allergens),
           sizeBlock(context, state.groupValue, product.variants, state),
           optionBlockExtra(state.productDetails?.addOnItems ?? [],
               state.selectedAddOnItems, state),

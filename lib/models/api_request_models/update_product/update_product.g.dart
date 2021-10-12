@@ -17,6 +17,10 @@ _$_UpdateProduct _$_$_UpdateProductFromJson(Map<String, dynamic> json) {
         [],
     modified_status:
         _$enumDecodeNullable(_$MODIFIED_STATUSEnumMap, json['modify']),
+    productDetails: json['productDetails'] == null
+        ? null
+        : ProductDetailsResponse.fromJson(
+            json['productDetails'] as Map<String, dynamic>),
   );
 }
 
@@ -27,6 +31,7 @@ Map<String, dynamic> _$_$_UpdateProductToJson(_$_UpdateProduct instance) =>
       'quantity': instance.quantity,
       'addOnItems': instance.addOnItems,
       'modify': _$MODIFIED_STATUSEnumMap[instance.modified_status],
+      'productDetails': instance.productDetails,
     };
 
 K _$enumDecode<K, V>(

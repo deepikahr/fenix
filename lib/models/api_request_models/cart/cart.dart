@@ -6,6 +6,13 @@ import '../../base_model.dart';
 part 'cart.freezed.dart';
 part 'cart.g.dart';
 
+enum PAYMENT_TYPE {
+  @JsonValue('COD')
+  cod,
+  @JsonValue('STRIPE')
+  stripe
+}
+
 @freezed
 class Cart with BaseModel<Cart>, _$Cart {
   Cart._();
@@ -16,7 +23,7 @@ class Cart with BaseModel<Cart>, _$Cart {
     @Default(0) subTotal,
     @Default(0) taxTotal,
     String? deliveryType,
-    String? paymentType,
+    @Default(PAYMENT_TYPE.cod) PAYMENT_TYPE paymentType,
     String? restaurantName,
     String? franchiseName,
     String? franchiseId,

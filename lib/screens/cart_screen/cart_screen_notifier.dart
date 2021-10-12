@@ -114,10 +114,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     if (cart?.products.isNotEmpty ?? false) {
       final total = cart!.products.map(
         (e) {
-          return e.totalProductPrice *
-              (e.modified
-                  ? e.modifiedQuantity ?? e.variantQuantity
-                  : e.variantQuantity);
+          return e.totalProductPrice * e.variantQuantity;
         },
       ).reduce((_, __) => _ + __);
       final tax = cart!.products.map(
@@ -149,6 +146,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
         sizeName: product.variant?.sizeName,
         quantity: product.modifiedQuantity ?? product.variantQuantity,
         addOnItems: product.selectedAddOnItems,
+        productDetails: product,
         modified_status: product.variantQuantity == 0
             ? MODIFIED_STATUS.new_item
             : MODIFIED_STATUS.quanity_update);
@@ -157,14 +155,9 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   Future<String?> updateOrder() async {
     state = state.copyWith.call(isUpdateLoading: true);
 
-    UpdateCart updateCart = UpdateCart(
-        orderId: db.getOrderId(),
-        products: cart!.products
-            .where((element) => element.modified)
-            .map((e) => createUpdateProduct(e))
-            .toList(),
-        localCart: cart);
-
+    UpdateCart updateCart =
+        UpdateCart(orderId: db.getOrderId(), localCart: cart);
+    print('Update cart Response: $updateCart');
     final updateResponse = await api.updateOrder(updateCart);
     state = state.copyWith.call(
       isUpdateLoading: false,

@@ -164,7 +164,8 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         newProduct,
       ],
     );
-
+    newCart =
+        newCart?.copyWith(modifiedCart: getModifiedStatusFromProducts(newCart));
     await cartNotifier.updateCart(newCart);
     state = state.copyWith(productDetails: newProduct);
     _updateProduct(cartProducts: newCart?.products ?? []);
@@ -182,16 +183,16 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       if (db.getOrderId() != null) {
         newProduct = product.copyWith.call(
             modifiedQuantity: p.modifiedQuantity != null
-                ? product.modifiedQuantity! + (isIncreased ? 1 : -1)
-                : product.variantQuantity + (isIncreased ? 1 : -1));
+                ? p.modifiedQuantity! + (isIncreased ? 1 : -1)
+                : p.variantQuantity + (isIncreased ? 1 : -1));
         newProduct = newProduct.copyWith(
           modified: db.getOrderId() != null &&
               (newProduct.modifiedQuantity == null ||
                   (newProduct.variantQuantity != newProduct.modifiedQuantity)),
         );
       } else {
-        newProduct = product.copyWith.call(
-            variantQuantity: product.variantQuantity + (isIncreased ? 1 : -1));
+        newProduct = product.copyWith
+            .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
       }
       print(
           'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'} Variants: ${newProduct.variants}');
@@ -200,8 +201,13 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
                   0) ||
           newProduct.variantQuantity > 0) {
         final newProducts = cartState!.products..[i] = newProduct;
-        Cart? newCart = cartState!.copyWith(products: newProducts);
+        Cart? newCart = cartState!.copyWith(
+          products: newProducts,
+        );
+        newCart = newCart.copyWith(
+            modifiedCart: getModifiedStatusFromProducts(newCart));
         await cartNotifier.updateCart(newCart);
+
         state = state.copyWith(productDetails: newProduct);
         _updateProduct(cartProducts: newCart.products);
       } else {
@@ -216,6 +222,15 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         }
       }
     }
+  }
+
+  bool getModifiedStatusFromProducts(Cart? cart) {
+    for (var product in cart!.products) {
+      if (product.modified) {
+        return product.modified;
+      }
+    }
+    return false;
   }
 
   void _updateProduct(

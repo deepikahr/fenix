@@ -15,7 +15,9 @@ _$_Cart _$_$_CartFromJson(Map<String, dynamic> json) {
     subTotal: json['subTotal'] ?? 0,
     taxTotal: json['taxTotal'] ?? 0,
     deliveryType: json['deliveryType'] as String?,
-    paymentType: json['paymentType'] as String?,
+    paymentType:
+        _$enumDecodeNullable(_$PAYMENT_TYPEEnumMap, json['paymentType']) ??
+            PAYMENT_TYPE.cod,
     restaurantName: json['restaurantName'] as String?,
     franchiseName: json['franchiseName'] as String?,
     franchiseId: json['franchiseId'] as String?,
@@ -31,7 +33,7 @@ Map<String, dynamic> _$_$_CartToJson(_$_Cart instance) => <String, dynamic>{
       'subTotal': instance.subTotal,
       'taxTotal': instance.taxTotal,
       'deliveryType': instance.deliveryType,
-      'paymentType': instance.paymentType,
+      'paymentType': _$PAYMENT_TYPEEnumMap[instance.paymentType],
       'restaurantName': instance.restaurantName,
       'franchiseName': instance.franchiseName,
       'franchiseId': instance.franchiseId,
@@ -39,3 +41,45 @@ Map<String, dynamic> _$_$_CartToJson(_$_Cart instance) => <String, dynamic>{
       'userId': instance.userId,
       'modifiedCart': instance.modifiedCart,
     };
+
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
+  }
+
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$PAYMENT_TYPEEnumMap = {
+  PAYMENT_TYPE.cod: 'COD',
+  PAYMENT_TYPE.stripe: 'STRIPE',
+};

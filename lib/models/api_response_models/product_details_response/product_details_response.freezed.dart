@@ -30,7 +30,7 @@ class _$ProductDetailsResponseTearOff {
       double averageRating = 0,
       int? totalRating,
       int? noOfUsersRated,
-      List<String>? allergens,
+      List<String> allergens = const [],
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
@@ -144,7 +144,7 @@ mixin _$ProductDetailsResponse {
   double get averageRating => throw _privateConstructorUsedError;
   int? get totalRating => throw _privateConstructorUsedError;
   int? get noOfUsersRated => throw _privateConstructorUsedError;
-  List<String>? get allergens => throw _privateConstructorUsedError;
+  List<String> get allergens => throw _privateConstructorUsedError;
   List<String>? get relatedProducts => throw _privateConstructorUsedError;
   List<TagResponse>? get tags => throw _privateConstructorUsedError;
   bool? get isCopy => throw _privateConstructorUsedError;
@@ -210,7 +210,7 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       double averageRating,
       int? totalRating,
       int? noOfUsersRated,
-      List<String>? allergens,
+      List<String> allergens,
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
@@ -356,7 +356,7 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
       allergens: allergens == freezed
           ? _value.allergens
           : allergens // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       relatedProducts: relatedProducts == freezed
           ? _value.relatedProducts
           : relatedProducts // ignore: cast_nullable_to_non_nullable
@@ -574,7 +574,7 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       double averageRating,
       int? totalRating,
       int? noOfUsersRated,
-      List<String>? allergens,
+      List<String> allergens,
       List<String>? relatedProducts,
       List<TagResponse>? tags,
       bool? isCopy,
@@ -725,7 +725,7 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
       allergens: allergens == freezed
           ? _value.allergens
           : allergens // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       relatedProducts: relatedProducts == freezed
           ? _value.relatedProducts
           : relatedProducts // ignore: cast_nullable_to_non_nullable
@@ -906,7 +906,7 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       this.averageRating = 0,
       this.totalRating,
       this.noOfUsersRated,
-      this.allergens,
+      this.allergens = const [],
       this.relatedProducts,
       this.tags,
       this.isCopy,
@@ -970,8 +970,9 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   final int? totalRating;
   @override
   final int? noOfUsersRated;
+  @JsonKey(defaultValue: const [])
   @override
-  final List<String>? allergens;
+  final List<String> allergens;
   @override
   final List<String>? relatedProducts;
   @override
@@ -1253,7 +1254,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
           double averageRating,
           int? totalRating,
           int? noOfUsersRated,
-          List<String>? allergens,
+          List<String> allergens,
           List<String>? relatedProducts,
           List<TagResponse>? tags,
           bool? isCopy,
@@ -1318,7 +1319,7 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   int? get noOfUsersRated => throw _privateConstructorUsedError;
   @override
-  List<String>? get allergens => throw _privateConstructorUsedError;
+  List<String> get allergens => throw _privateConstructorUsedError;
   @override
   List<String>? get relatedProducts => throw _privateConstructorUsedError;
   @override

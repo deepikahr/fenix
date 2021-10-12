@@ -20,13 +20,9 @@ UpdateCart _$UpdateCartFromJson(Map<String, dynamic> json) {
 class _$UpdateCartTearOff {
   const _$UpdateCartTearOff();
 
-  _UpdateCart call(
-      {String? orderId,
-      List<UpdateProduct> products = const [],
-      Cart? localCart}) {
+  _UpdateCart call({String? orderId, Cart? localCart}) {
     return _UpdateCart(
       orderId: orderId,
-      products: products,
       localCart: localCart,
     );
   }
@@ -42,7 +38,6 @@ const $UpdateCart = _$UpdateCartTearOff();
 /// @nodoc
 mixin _$UpdateCart {
   String? get orderId => throw _privateConstructorUsedError;
-  List<UpdateProduct> get products => throw _privateConstructorUsedError;
   Cart? get localCart => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +51,7 @@ abstract class $UpdateCartCopyWith<$Res> {
   factory $UpdateCartCopyWith(
           UpdateCart value, $Res Function(UpdateCart) then) =
       _$UpdateCartCopyWithImpl<$Res>;
-  $Res call({String? orderId, List<UpdateProduct> products, Cart? localCart});
+  $Res call({String? orderId, Cart? localCart});
 
   $CartCopyWith<$Res>? get localCart;
 }
@@ -72,7 +67,6 @@ class _$UpdateCartCopyWithImpl<$Res> implements $UpdateCartCopyWith<$Res> {
   @override
   $Res call({
     Object? orderId = freezed,
-    Object? products = freezed,
     Object? localCart = freezed,
   }) {
     return _then(_value.copyWith(
@@ -80,10 +74,6 @@ class _$UpdateCartCopyWithImpl<$Res> implements $UpdateCartCopyWith<$Res> {
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as String?,
-      products: products == freezed
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<UpdateProduct>,
       localCart: localCart == freezed
           ? _value.localCart
           : localCart // ignore: cast_nullable_to_non_nullable
@@ -109,7 +99,7 @@ abstract class _$UpdateCartCopyWith<$Res> implements $UpdateCartCopyWith<$Res> {
           _UpdateCart value, $Res Function(_UpdateCart) then) =
       __$UpdateCartCopyWithImpl<$Res>;
   @override
-  $Res call({String? orderId, List<UpdateProduct> products, Cart? localCart});
+  $Res call({String? orderId, Cart? localCart});
 
   @override
   $CartCopyWith<$Res>? get localCart;
@@ -128,7 +118,6 @@ class __$UpdateCartCopyWithImpl<$Res> extends _$UpdateCartCopyWithImpl<$Res>
   @override
   $Res call({
     Object? orderId = freezed,
-    Object? products = freezed,
     Object? localCart = freezed,
   }) {
     return _then(_UpdateCart(
@@ -136,10 +125,6 @@ class __$UpdateCartCopyWithImpl<$Res> extends _$UpdateCartCopyWithImpl<$Res>
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as String?,
-      products: products == freezed
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<UpdateProduct>,
       localCart: localCart == freezed
           ? _value.localCart
           : localCart // ignore: cast_nullable_to_non_nullable
@@ -151,23 +136,19 @@ class __$UpdateCartCopyWithImpl<$Res> extends _$UpdateCartCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UpdateCart extends _UpdateCart {
-  _$_UpdateCart({this.orderId, this.products = const [], this.localCart})
-      : super._();
+  _$_UpdateCart({this.orderId, this.localCart}) : super._();
 
   factory _$_UpdateCart.fromJson(Map<String, dynamic> json) =>
       _$_$_UpdateCartFromJson(json);
 
   @override
   final String? orderId;
-  @JsonKey(defaultValue: const [])
-  @override
-  final List<UpdateProduct> products;
   @override
   final Cart? localCart;
 
   @override
   String toString() {
-    return 'UpdateCart(orderId: $orderId, products: $products, localCart: $localCart)';
+    return 'UpdateCart(orderId: $orderId, localCart: $localCart)';
   }
 
   @override
@@ -177,9 +158,6 @@ class _$_UpdateCart extends _UpdateCart {
             (identical(other.orderId, orderId) ||
                 const DeepCollectionEquality()
                     .equals(other.orderId, orderId)) &&
-            (identical(other.products, products) ||
-                const DeepCollectionEquality()
-                    .equals(other.products, products)) &&
             (identical(other.localCart, localCart) ||
                 const DeepCollectionEquality()
                     .equals(other.localCart, localCart)));
@@ -189,7 +167,6 @@ class _$_UpdateCart extends _UpdateCart {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(orderId) ^
-      const DeepCollectionEquality().hash(products) ^
       const DeepCollectionEquality().hash(localCart);
 
   @JsonKey(ignore: true)
@@ -204,10 +181,7 @@ class _$_UpdateCart extends _UpdateCart {
 }
 
 abstract class _UpdateCart extends UpdateCart {
-  factory _UpdateCart(
-      {String? orderId,
-      List<UpdateProduct> products,
-      Cart? localCart}) = _$_UpdateCart;
+  factory _UpdateCart({String? orderId, Cart? localCart}) = _$_UpdateCart;
   _UpdateCart._() : super._();
 
   factory _UpdateCart.fromJson(Map<String, dynamic> json) =
@@ -215,8 +189,6 @@ abstract class _UpdateCart extends UpdateCart {
 
   @override
   String? get orderId => throw _privateConstructorUsedError;
-  @override
-  List<UpdateProduct> get products => throw _privateConstructorUsedError;
   @override
   Cart? get localCart => throw _privateConstructorUsedError;
   @override
