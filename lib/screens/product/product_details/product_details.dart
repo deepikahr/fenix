@@ -164,7 +164,8 @@ class ProductDetails extends HookWidget {
     TextEditingController noteEditController,
     FocusNode noteFocusNode,
   ) {
-    print('details shown product: $product');
+    print(
+        'details shown product: ${product.modified}  ${product.variantQuantity}  ${product.modifiedQuantity}  ${product.variants}');
     return StickyHeader(
       header: Column(
         children: [

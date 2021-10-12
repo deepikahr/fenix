@@ -274,6 +274,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         modified: db.getOrderId() != null &&
             (cp?.modifiedQuantity == null ||
                 (cp!.variantQuantity != cp.modifiedQuantity)),
+        modifiedQuantity: cp?.modified ?? false ? cp!.modifiedQuantity : null,
       );
 
       showAddButton(state.productDetails!.totalQuantity < 1);
@@ -338,6 +339,8 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         modified: cartProduct.modified,
         totalProductPrice: cartProduct.totalProductPrice,
         selectedAddOnItems: cartProduct.selectedAddOnItems,
+        variants: cartProduct.variants,
+        modifiedQuantity: cartProduct.modifiedQuantity,
       );
       if (state.productDetails!.variants.isNotEmpty &&
           cartProduct.variant != null) {

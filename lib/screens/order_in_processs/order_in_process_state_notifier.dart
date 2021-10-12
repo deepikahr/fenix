@@ -53,9 +53,10 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
 
   getOrderStatus(String? orderId, HomeTabsNotifier notifier) async {
     var request;
+    SocketService().getSocket().clearListeners();
+
     var listenTo =
         URL.ORDER_STATUS_REQUEST_EVENT.replaceAll('ORDER_ID', orderId!);
-    SocketService().getSocket().clearListeners();
     SocketService().getSocket().on(listenTo, (data) async {
       if (data != null) {
         request = OrderSocketRequest.fromJson(data);
@@ -98,6 +99,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
 
   getUpdateOrderStatus(String? orderId, HomeTabsNotifier notifier) {
     late UpdateOrderSocketResponse request;
+    SocketService().getSocket().clearListeners();
     var listenTo = URL.ORDER_MODIFIED_STATUS_REQUEST_EVENT
         .replaceAll('ORDER_ID', orderId!);
     print('socket order update url: $listenTo');
