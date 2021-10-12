@@ -35,6 +35,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   Future<ProductDetailsResponse?> fetchProductDetails(String productId) async {
     state = state.copyWith.call(isLoading: true);
     final res = await api.productDetails(productId);
+    print(res?.variants);
     if (ref.mounted) {
       state = state.copyWith.call(
         isLoading: false,
@@ -93,7 +94,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   Future<void> showArrowTowardsCart() async {
     state = state.copyWith(productAdded: true);
     await Future.delayed(const Duration(seconds: 3));
-    state = state.copyWith(productAdded: false);
+    if (mounted) state = state.copyWith(productAdded: false);
   }
 
   Future<void> _createCartWithFirstProduct(
@@ -111,7 +112,9 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
               : 0),
       variant: product.variants[state.groupValue],
       selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
-      modified: db.getOrderId() != null,
+      modified: db.getOrderId() != null &&
+          (product.modifiedQuantity == null ||
+              (product.variantQuantity != product.modifiedQuantity)),
     );
     final cart = Cart(
       franchiseId: db.getFranchiseId(),
@@ -144,13 +147,15 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     }).toList());
 
     final newProduct = product.copyWith.call(
-      variantQuantity: 1,
+      variantQuantity: db.getOrderId() != null ? 0 : 1,
+      modifiedQuantity: db.getOrderId() != null ? 1 : null,
       isLastUsedVariant: true,
       totalProductPrice: totalPrice,
       variant: product.variants[state.groupValue],
       selectedAddOnItems: state.selectedAddOnItems?.toList() ?? [],
       modified: db.getOrderId() != null,
       productId: product.id,
+      variants: product.variants,
     );
 
     var newCart = data?.copyWith.call(
@@ -173,10 +178,27 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     if (p != null) {
       final i = cartState!.products.indexOf(p);
 
-      final newProduct = p.copyWith
-          .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
-
-      if (newProduct.variantQuantity > 0) {
+      late ProductDetailsResponse newProduct;
+      if (db.getOrderId() != null) {
+        newProduct = product.copyWith.call(
+            modifiedQuantity: p.modifiedQuantity != null
+                ? product.modifiedQuantity! + (isIncreased ? 1 : -1)
+                : product.variantQuantity + (isIncreased ? 1 : -1));
+        newProduct = newProduct.copyWith(
+          modified: db.getOrderId() != null &&
+              (newProduct.modifiedQuantity == null ||
+                  (newProduct.variantQuantity != newProduct.modifiedQuantity)),
+        );
+      } else {
+        newProduct = product.copyWith.call(
+            variantQuantity: product.variantQuantity + (isIncreased ? 1 : -1));
+      }
+      print(
+          'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'} Variants: ${newProduct.variants}');
+      if ((newProduct.modified &&
+              (newProduct.modifiedQuantity ?? newProduct.variantQuantity) >
+                  0) ||
+          newProduct.variantQuantity > 0) {
         final newProducts = cartState!.products..[i] = newProduct;
         Cart? newCart = cartState!.copyWith(products: newProducts);
         await cartNotifier.updateCart(newCart);
@@ -205,8 +227,11 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
 
     final totalQuantity = (newCartProducts?.isNotEmpty ?? false)
         ? newCartProducts
-                ?.map((cp) =>
-                    cp.id == state.productDetails?.id ? cp.variantQuantity : 0)
+                ?.map((cp) => cp.id == state.productDetails?.id
+                    ? cp.modified
+                        ? cp.modifiedQuantity ?? cp.variantQuantity
+                        : cp.variantQuantity
+                    : 0)
                 .reduce((_, __) => _ + __) ??
             0
         : 0;
@@ -231,10 +256,12 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         variantQuantity: cp?.variantQuantity ?? 0,
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
-        modified: db.getOrderId() != null,
+        modified: db.getOrderId() != null &&
+            (cp?.modifiedQuantity == null ||
+                (cp!.variantQuantity != cp.modifiedQuantity)),
       );
 
-      showAddButton(state.productDetails!.variantQuantity < 1);
+      showAddButton(state.productDetails!.totalQuantity < 1);
     }
     if (productUpdated) showArrowTowardsCart();
   }

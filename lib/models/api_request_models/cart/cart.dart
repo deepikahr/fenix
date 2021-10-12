@@ -22,6 +22,7 @@ class Cart with BaseModel<Cart>, _$Cart {
     String? franchiseId,
     String? vendorId,
     String? userId,
+    @Default(false) bool modifiedCart,
   }) = _Cart;
 
   late final int cartCount = products.length;

@@ -71,23 +71,24 @@ class ProductDetails extends HookWidget {
                               MediaQuery.of(context).size.width,
                               240,
                               0),
-                          Positioned(
-                              top: 0,
-                              child: Stack(
-                                alignment: AlignmentDirectional.center,
-                                children: [
-                                  Image.asset(
-                                    'lib/assets/images/b2.png',
-                                    scale: 1,
-                                    color: primary(),
-                                  ),
-                                  Text(
-                                    '${state.productDetails!.tags!.first.title}',
-                                    style: textDarkRegularBSW(context),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              )),
+                          if (state.productDetails?.tags?.isNotEmpty ?? false)
+                            Positioned(
+                                top: 0,
+                                child: Stack(
+                                  alignment: AlignmentDirectional.center,
+                                  children: [
+                                    Image.asset(
+                                      'lib/assets/images/b2.png',
+                                      scale: 1,
+                                      color: primary(),
+                                    ),
+                                    Text(
+                                      '${state.productDetails!.tags!.first.title}',
+                                      style: textDarkRegularBSW(context),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                )),
                           Positioned(
                               bottom: 0,
                               child: Container(
@@ -104,21 +105,24 @@ class ProductDetails extends HookWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Stack(
-                            alignment: AlignmentDirectional.center,
-                            children: [
-                              Image.asset(
-                                'lib/assets/images/b2.png',
-                                scale: 1,
-                                color: primary(),
-                              ),
-                              Text(
-                                '${state.productDetails!.tags?.first.title}',
-                                style: textDarkRegularBSW(context),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                          if (state.productDetails?.tags?.isNotEmpty ?? false)
+                            Stack(
+                              alignment: AlignmentDirectional.center,
+                              children: [
+                                Image.asset(
+                                  'lib/assets/images/b2.png',
+                                  scale: 1,
+                                  color: primary(),
+                                ),
+                                Text(
+                                  '${state.productDetails?.tags?.first.title}',
+                                  style: textDarkRegularBSW(context),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          if (state.productDetails?.tags?.isEmpty ?? true)
+                            const Spacer(),
                           Container(
                             color: darkLight,
                             padding: EdgeInsets.all(4),
@@ -190,7 +194,7 @@ class ProductDetails extends HookWidget {
                       '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
-                    !state.showAddButton && product.variantQuantity > 0
+                    !state.showAddButton && product.totalQuantity > 0
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -210,7 +214,7 @@ class ProductDetails extends HookWidget {
                                   }
                                 },
                               ),
-                              Text('${product.variantQuantity}',
+                              Text('${product.totalQuantity}',
                                   style: textBlackLargeBM(context)),
                               counterIcon(
                                 'add',

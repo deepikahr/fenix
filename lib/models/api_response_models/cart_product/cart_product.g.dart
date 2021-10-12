@@ -38,28 +38,41 @@ _$_CartProduct _$_$_CartProductFromJson(Map<String, dynamic> json) {
     tax: (json['tax'] as num?)?.toDouble() ?? 0,
     productId: json['productId'] as String?,
     productInstructions: json['productInstructions'] as String?,
+    modified: json['modified'] as bool? ?? false,
+    modifiedQuantity: json['modifiedQuantity'] as int?,
   );
 }
 
-Map<String, dynamic> _$_$_CartProductToJson(_$_CartProduct instance) =>
-    <String, dynamic>{
-      '_id': instance.id,
-      'productImage': instance.productImage,
-      'variant': instance.variant,
-      'taxInfo': instance.taxInfo,
-      'isPaid': instance.isPaid,
-      'tags': instance.tags,
-      'selectedAddOnItems': instance.selectedAddOnItems,
-      'category': instance.category,
-      'productName': instance.productName,
-      'isVeg': instance.isVeg,
-      'subCategory': instance.subCategory,
-      'menuId': instance.menuId,
-      'categoryName': instance.categoryName,
-      'productDescription': instance.productDescription,
-      'totalProductPrice': instance.totalProductPrice,
-      'variantQuantity': instance.variantQuantity,
-      'tax': instance.tax,
-      'productId': instance.productId,
-      'productInstructions': instance.productInstructions,
-    };
+Map<String, dynamic> _$_$_CartProductToJson(_$_CartProduct instance) {
+  final val = <String, dynamic>{
+    '_id': instance.id,
+    'productImage': instance.productImage,
+    'variant': instance.variant,
+    'taxInfo': instance.taxInfo,
+    'isPaid': instance.isPaid,
+    'tags': instance.tags,
+    'selectedAddOnItems': instance.selectedAddOnItems,
+    'category': instance.category,
+    'productName': instance.productName,
+    'isVeg': instance.isVeg,
+    'subCategory': instance.subCategory,
+    'menuId': instance.menuId,
+    'categoryName': instance.categoryName,
+    'productDescription': instance.productDescription,
+    'totalProductPrice': instance.totalProductPrice,
+    'variantQuantity': instance.variantQuantity,
+    'tax': instance.tax,
+    'productId': instance.productId,
+    'productInstructions': instance.productInstructions,
+    'modified': instance.modified,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('modifiedQuantity', instance.modifiedQuantity);
+  return val;
+}

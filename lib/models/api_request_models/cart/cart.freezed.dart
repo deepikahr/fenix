@@ -31,7 +31,8 @@ class _$CartTearOff {
       String? franchiseName,
       String? franchiseId,
       String? vendorId,
-      String? userId}) {
+      String? userId,
+      bool modifiedCart = false}) {
     return _Cart(
       products: products,
       grandTotal: grandTotal,
@@ -44,6 +45,7 @@ class _$CartTearOff {
       franchiseId: franchiseId,
       vendorId: vendorId,
       userId: userId,
+      modifiedCart: modifiedCart,
     );
   }
 
@@ -70,6 +72,7 @@ mixin _$Cart {
   String? get franchiseId => throw _privateConstructorUsedError;
   String? get vendorId => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  bool get modifiedCart => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -91,7 +94,8 @@ abstract class $CartCopyWith<$Res> {
       String? franchiseName,
       String? franchiseId,
       String? vendorId,
-      String? userId});
+      String? userId,
+      bool modifiedCart});
 }
 
 /// @nodoc
@@ -115,6 +119,7 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
     Object? franchiseId = freezed,
     Object? vendorId = freezed,
     Object? userId = freezed,
+    Object? modifiedCart = freezed,
   }) {
     return _then(_value.copyWith(
       products: products == freezed
@@ -161,6 +166,10 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      modifiedCart: modifiedCart == freezed
+          ? _value.modifiedCart
+          : modifiedCart // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -181,7 +190,8 @@ abstract class _$CartCopyWith<$Res> implements $CartCopyWith<$Res> {
       String? franchiseName,
       String? franchiseId,
       String? vendorId,
-      String? userId});
+      String? userId,
+      bool modifiedCart});
 }
 
 /// @nodoc
@@ -206,6 +216,7 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
     Object? franchiseId = freezed,
     Object? vendorId = freezed,
     Object? userId = freezed,
+    Object? modifiedCart = freezed,
   }) {
     return _then(_Cart(
       products: products == freezed
@@ -243,6 +254,10 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      modifiedCart: modifiedCart == freezed
+          ? _value.modifiedCart
+          : modifiedCart // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -261,7 +276,8 @@ class _$_Cart extends _Cart {
       this.franchiseName,
       this.franchiseId,
       this.vendorId,
-      this.userId})
+      this.userId,
+      this.modifiedCart = false})
       : super._();
 
   factory _$_Cart.fromJson(Map<String, dynamic> json) =>
@@ -293,10 +309,13 @@ class _$_Cart extends _Cart {
   final String? vendorId;
   @override
   final String? userId;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool modifiedCart;
 
   @override
   String toString() {
-    return 'Cart(products: $products, grandTotal: $grandTotal, subTotal: $subTotal, taxTotal: $taxTotal, deliveryType: $deliveryType, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId)';
+    return 'Cart(products: $products, grandTotal: $grandTotal, subTotal: $subTotal, taxTotal: $taxTotal, deliveryType: $deliveryType, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, modifiedCart: $modifiedCart)';
   }
 
   @override
@@ -334,7 +353,10 @@ class _$_Cart extends _Cart {
                 const DeepCollectionEquality()
                     .equals(other.vendorId, vendorId)) &&
             (identical(other.userId, userId) ||
-                const DeepCollectionEquality().equals(other.userId, userId)));
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.modifiedCart, modifiedCart) ||
+                const DeepCollectionEquality()
+                    .equals(other.modifiedCart, modifiedCart)));
   }
 
   @override
@@ -350,7 +372,8 @@ class _$_Cart extends _Cart {
       const DeepCollectionEquality().hash(franchiseName) ^
       const DeepCollectionEquality().hash(franchiseId) ^
       const DeepCollectionEquality().hash(vendorId) ^
-      const DeepCollectionEquality().hash(userId);
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(modifiedCart);
 
   @JsonKey(ignore: true)
   @override
@@ -375,7 +398,8 @@ abstract class _Cart extends Cart {
       String? franchiseName,
       String? franchiseId,
       String? vendorId,
-      String? userId}) = _$_Cart;
+      String? userId,
+      bool modifiedCart}) = _$_Cart;
   _Cart._() : super._();
 
   factory _Cart.fromJson(Map<String, dynamic> json) = _$_Cart.fromJson;
@@ -404,6 +428,8 @@ abstract class _Cart extends Cart {
   String? get vendorId => throw _privateConstructorUsedError;
   @override
   String? get userId => throw _privateConstructorUsedError;
+  @override
+  bool get modifiedCart => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CartCopyWith<_Cart> get copyWith => throw _privateConstructorUsedError;

@@ -34,6 +34,8 @@ class CartProduct with BaseModel<CartProduct>, _$CartProduct {
     @Default(0) double tax,
     String? productId,
     String? productInstructions,
+    @Default(false) bool modified,
+    @JsonKey(includeIfNull: false) int? modifiedQuantity,
   }) = _CartProduct;
   factory CartProduct.fromJson(Map<String, dynamic> json) =>
       _$CartProductFromJson(json);

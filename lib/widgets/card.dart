@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-
+import 'package:html/dom.dart' as dom;
 import 'network_image.dart';
 import 'normalText.dart';
 
@@ -185,7 +185,7 @@ Widget dishesInfoCard(
                             ),
                           ),
                         ),
-                      product.totalQuantity > 0
+                      (product.modified || product.totalQuantity > 0)
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -285,11 +285,11 @@ Widget gridDishCard(
               margin: EdgeInsets.all(6),
               child: Stack(
                 children: [
-                  categoryImage != null
-                      ? networkImage(categoryImage,
-                          MediaQuery.of(context).size.width, 170, 0)
+                  product.productImage?.imageUrl != null
+                      ? networkImage(product.productImage!.imageUrl!,
+                          (MediaQuery.of(context).size.width / 2) - 50, 170, 0)
                       : networkImageOverlay(
-                          MediaQuery.of(context).size.width, 170),
+                          (MediaQuery.of(context).size.width / 2) - 50, 170),
                   Positioned(
                       top: 0,
                       child: Stack(
@@ -300,11 +300,12 @@ Widget gridDishCard(
                             scale: 0.8,
                             color: primary(),
                           ),
-                          Text(
-                            '${product.tags!.first.title}',
-                            style: textDarkRegularBSW(context),
-                            textAlign: TextAlign.center,
-                          ),
+                          if (product.tags != null && product.tags!.isNotEmpty)
+                            Text(
+                              '${product.tags!.first.title}',
+                              style: textDarkRegularBSW(context),
+                              textAlign: TextAlign.center,
+                            ),
                         ],
                       )),
                   Positioned(
@@ -362,6 +363,15 @@ Widget gridDishCard(
                       child: HtmlWidget(
                         product.productDescription ?? "",
                         textStyle: textDarkLightSmallBR(context),
+                        customWidgetBuilder: (dom.Element element) {
+                          if (element.localName == 'p') {
+                            return Text(
+                              element.innerHtml,
+                              style: textDarkLightSmallBR(context),
+                              maxLines: 1,
+                            );
+                          }
+                        },
                       ),
                     ),
                   if (product.productDescription != null)

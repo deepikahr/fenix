@@ -39,7 +39,9 @@ class _$CartProductTearOff {
       dynamic variantQuantity = 1,
       double tax = 0,
       String? productId,
-      String? productInstructions}) {
+      String? productInstructions,
+      bool modified = false,
+      @JsonKey(includeIfNull: false) int? modifiedQuantity}) {
     return _CartProduct(
       id: id,
       productImage: productImage,
@@ -60,6 +62,8 @@ class _$CartProductTearOff {
       tax: tax,
       productId: productId,
       productInstructions: productInstructions,
+      modified: modified,
+      modifiedQuantity: modifiedQuantity,
     );
   }
 
@@ -93,6 +97,9 @@ mixin _$CartProduct {
   double get tax => throw _privateConstructorUsedError;
   String? get productId => throw _privateConstructorUsedError;
   String? get productInstructions => throw _privateConstructorUsedError;
+  bool get modified => throw _privateConstructorUsedError;
+  @JsonKey(includeIfNull: false)
+  int? get modifiedQuantity => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -124,7 +131,9 @@ abstract class $CartProductCopyWith<$Res> {
       dynamic variantQuantity,
       double tax,
       String? productId,
-      String? productInstructions});
+      String? productInstructions,
+      bool modified,
+      @JsonKey(includeIfNull: false) int? modifiedQuantity});
 
   $ImageResponseCopyWith<$Res>? get productImage;
   $VariantResponseCopyWith<$Res>? get variant;
@@ -160,6 +169,8 @@ class _$CartProductCopyWithImpl<$Res> implements $CartProductCopyWith<$Res> {
     Object? tax = freezed,
     Object? productId = freezed,
     Object? productInstructions = freezed,
+    Object? modified = freezed,
+    Object? modifiedQuantity = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -238,6 +249,14 @@ class _$CartProductCopyWithImpl<$Res> implements $CartProductCopyWith<$Res> {
           ? _value.productInstructions
           : productInstructions // ignore: cast_nullable_to_non_nullable
               as String?,
+      modified: modified == freezed
+          ? _value.modified
+          : modified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      modifiedQuantity: modifiedQuantity == freezed
+          ? _value.modifiedQuantity
+          : modifiedQuantity // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 
@@ -301,7 +320,9 @@ abstract class _$CartProductCopyWith<$Res>
       dynamic variantQuantity,
       double tax,
       String? productId,
-      String? productInstructions});
+      String? productInstructions,
+      bool modified,
+      @JsonKey(includeIfNull: false) int? modifiedQuantity});
 
   @override
   $ImageResponseCopyWith<$Res>? get productImage;
@@ -342,6 +363,8 @@ class __$CartProductCopyWithImpl<$Res> extends _$CartProductCopyWithImpl<$Res>
     Object? tax = freezed,
     Object? productId = freezed,
     Object? productInstructions = freezed,
+    Object? modified = freezed,
+    Object? modifiedQuantity = freezed,
   }) {
     return _then(_CartProduct(
       id: id == freezed
@@ -418,6 +441,14 @@ class __$CartProductCopyWithImpl<$Res> extends _$CartProductCopyWithImpl<$Res>
           ? _value.productInstructions
           : productInstructions // ignore: cast_nullable_to_non_nullable
               as String?,
+      modified: modified == freezed
+          ? _value.modified
+          : modified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      modifiedQuantity: modifiedQuantity == freezed
+          ? _value.modifiedQuantity
+          : modifiedQuantity // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -444,7 +475,9 @@ class _$_CartProduct extends _CartProduct {
       this.variantQuantity = 1,
       this.tax = 0,
       this.productId,
-      this.productInstructions})
+      this.productInstructions,
+      this.modified = false,
+      @JsonKey(includeIfNull: false) this.modifiedQuantity})
       : super._();
 
   factory _$_CartProduct.fromJson(Map<String, dynamic> json) =>
@@ -493,10 +526,16 @@ class _$_CartProduct extends _CartProduct {
   final String? productId;
   @override
   final String? productInstructions;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool modified;
+  @override
+  @JsonKey(includeIfNull: false)
+  final int? modifiedQuantity;
 
   @override
   String toString() {
-    return 'CartProduct(id: $id, productImage: $productImage, variant: $variant, taxInfo: $taxInfo, isPaid: $isPaid, tags: $tags, selectedAddOnItems: $selectedAddOnItems, category: $category, productName: $productName, isVeg: $isVeg, subCategory: $subCategory, menuId: $menuId, categoryName: $categoryName, productDescription: $productDescription, totalProductPrice: $totalProductPrice, variantQuantity: $variantQuantity, tax: $tax, productId: $productId, productInstructions: $productInstructions)';
+    return 'CartProduct(id: $id, productImage: $productImage, variant: $variant, taxInfo: $taxInfo, isPaid: $isPaid, tags: $tags, selectedAddOnItems: $selectedAddOnItems, category: $category, productName: $productName, isVeg: $isVeg, subCategory: $subCategory, menuId: $menuId, categoryName: $categoryName, productDescription: $productDescription, totalProductPrice: $totalProductPrice, variantQuantity: $variantQuantity, tax: $tax, productId: $productId, productInstructions: $productInstructions, modified: $modified, modifiedQuantity: $modifiedQuantity)';
   }
 
   @override
@@ -553,7 +592,13 @@ class _$_CartProduct extends _CartProduct {
                     .equals(other.productId, productId)) &&
             (identical(other.productInstructions, productInstructions) ||
                 const DeepCollectionEquality()
-                    .equals(other.productInstructions, productInstructions)));
+                    .equals(other.productInstructions, productInstructions)) &&
+            (identical(other.modified, modified) ||
+                const DeepCollectionEquality()
+                    .equals(other.modified, modified)) &&
+            (identical(other.modifiedQuantity, modifiedQuantity) ||
+                const DeepCollectionEquality()
+                    .equals(other.modifiedQuantity, modifiedQuantity)));
   }
 
   @override
@@ -577,7 +622,9 @@ class _$_CartProduct extends _CartProduct {
       const DeepCollectionEquality().hash(variantQuantity) ^
       const DeepCollectionEquality().hash(tax) ^
       const DeepCollectionEquality().hash(productId) ^
-      const DeepCollectionEquality().hash(productInstructions);
+      const DeepCollectionEquality().hash(productInstructions) ^
+      const DeepCollectionEquality().hash(modified) ^
+      const DeepCollectionEquality().hash(modifiedQuantity);
 
   @JsonKey(ignore: true)
   @override
@@ -610,7 +657,9 @@ abstract class _CartProduct extends CartProduct {
       dynamic variantQuantity,
       double tax,
       String? productId,
-      String? productInstructions}) = _$_CartProduct;
+      String? productInstructions,
+      bool modified,
+      @JsonKey(includeIfNull: false) int? modifiedQuantity}) = _$_CartProduct;
   const _CartProduct._() : super._();
 
   factory _CartProduct.fromJson(Map<String, dynamic> json) =
@@ -655,6 +704,11 @@ abstract class _CartProduct extends CartProduct {
   String? get productId => throw _privateConstructorUsedError;
   @override
   String? get productInstructions => throw _privateConstructorUsedError;
+  @override
+  bool get modified => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(includeIfNull: false)
+  int? get modifiedQuantity => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CartProductCopyWith<_CartProduct> get copyWith =>

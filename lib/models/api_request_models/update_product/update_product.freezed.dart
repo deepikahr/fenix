@@ -24,12 +24,14 @@ class _$UpdateProductTearOff {
       {String? productId,
       String? sizeName,
       int? quantity,
-      List<AddOnItem> addOnItems = const []}) {
+      List<AddOnItem> addOnItems = const [],
+      @JsonKey(name: 'modify') MODIFIED_STATUS? modified_status}) {
     return _UpdateProduct(
       productId: productId,
       sizeName: sizeName,
       quantity: quantity,
       addOnItems: addOnItems,
+      modified_status: modified_status,
     );
   }
 
@@ -47,6 +49,8 @@ mixin _$UpdateProduct {
   String? get sizeName => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
   List<AddOnItem> get addOnItems => throw _privateConstructorUsedError;
+  @JsonKey(name: 'modify')
+  MODIFIED_STATUS? get modified_status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +67,8 @@ abstract class $UpdateProductCopyWith<$Res> {
       {String? productId,
       String? sizeName,
       int? quantity,
-      List<AddOnItem> addOnItems});
+      List<AddOnItem> addOnItems,
+      @JsonKey(name: 'modify') MODIFIED_STATUS? modified_status});
 }
 
 /// @nodoc
@@ -81,6 +86,7 @@ class _$UpdateProductCopyWithImpl<$Res>
     Object? sizeName = freezed,
     Object? quantity = freezed,
     Object? addOnItems = freezed,
+    Object? modified_status = freezed,
   }) {
     return _then(_value.copyWith(
       productId: productId == freezed
@@ -99,6 +105,10 @@ class _$UpdateProductCopyWithImpl<$Res>
           ? _value.addOnItems
           : addOnItems // ignore: cast_nullable_to_non_nullable
               as List<AddOnItem>,
+      modified_status: modified_status == freezed
+          ? _value.modified_status
+          : modified_status // ignore: cast_nullable_to_non_nullable
+              as MODIFIED_STATUS?,
     ));
   }
 }
@@ -114,7 +124,8 @@ abstract class _$UpdateProductCopyWith<$Res>
       {String? productId,
       String? sizeName,
       int? quantity,
-      List<AddOnItem> addOnItems});
+      List<AddOnItem> addOnItems,
+      @JsonKey(name: 'modify') MODIFIED_STATUS? modified_status});
 }
 
 /// @nodoc
@@ -134,6 +145,7 @@ class __$UpdateProductCopyWithImpl<$Res>
     Object? sizeName = freezed,
     Object? quantity = freezed,
     Object? addOnItems = freezed,
+    Object? modified_status = freezed,
   }) {
     return _then(_UpdateProduct(
       productId: productId == freezed
@@ -152,6 +164,10 @@ class __$UpdateProductCopyWithImpl<$Res>
           ? _value.addOnItems
           : addOnItems // ignore: cast_nullable_to_non_nullable
               as List<AddOnItem>,
+      modified_status: modified_status == freezed
+          ? _value.modified_status
+          : modified_status // ignore: cast_nullable_to_non_nullable
+              as MODIFIED_STATUS?,
     ));
   }
 }
@@ -163,7 +179,8 @@ class _$_UpdateProduct extends _UpdateProduct {
       {this.productId,
       this.sizeName,
       this.quantity,
-      this.addOnItems = const []})
+      this.addOnItems = const [],
+      @JsonKey(name: 'modify') this.modified_status})
       : super._();
 
   factory _$_UpdateProduct.fromJson(Map<String, dynamic> json) =>
@@ -178,10 +195,13 @@ class _$_UpdateProduct extends _UpdateProduct {
   @JsonKey(defaultValue: const [])
   @override
   final List<AddOnItem> addOnItems;
+  @override
+  @JsonKey(name: 'modify')
+  final MODIFIED_STATUS? modified_status;
 
   @override
   String toString() {
-    return 'UpdateProduct(productId: $productId, sizeName: $sizeName, quantity: $quantity, addOnItems: $addOnItems)';
+    return 'UpdateProduct(productId: $productId, sizeName: $sizeName, quantity: $quantity, addOnItems: $addOnItems, modified_status: $modified_status)';
   }
 
   @override
@@ -199,7 +219,10 @@ class _$_UpdateProduct extends _UpdateProduct {
                     .equals(other.quantity, quantity)) &&
             (identical(other.addOnItems, addOnItems) ||
                 const DeepCollectionEquality()
-                    .equals(other.addOnItems, addOnItems)));
+                    .equals(other.addOnItems, addOnItems)) &&
+            (identical(other.modified_status, modified_status) ||
+                const DeepCollectionEquality()
+                    .equals(other.modified_status, modified_status)));
   }
 
   @override
@@ -208,7 +231,8 @@ class _$_UpdateProduct extends _UpdateProduct {
       const DeepCollectionEquality().hash(productId) ^
       const DeepCollectionEquality().hash(sizeName) ^
       const DeepCollectionEquality().hash(quantity) ^
-      const DeepCollectionEquality().hash(addOnItems);
+      const DeepCollectionEquality().hash(addOnItems) ^
+      const DeepCollectionEquality().hash(modified_status);
 
   @JsonKey(ignore: true)
   @override
@@ -223,10 +247,12 @@ class _$_UpdateProduct extends _UpdateProduct {
 
 abstract class _UpdateProduct extends UpdateProduct {
   const factory _UpdateProduct(
-      {String? productId,
-      String? sizeName,
-      int? quantity,
-      List<AddOnItem> addOnItems}) = _$_UpdateProduct;
+          {String? productId,
+          String? sizeName,
+          int? quantity,
+          List<AddOnItem> addOnItems,
+          @JsonKey(name: 'modify') MODIFIED_STATUS? modified_status}) =
+      _$_UpdateProduct;
   const _UpdateProduct._() : super._();
 
   factory _UpdateProduct.fromJson(Map<String, dynamic> json) =
@@ -240,6 +266,9 @@ abstract class _UpdateProduct extends UpdateProduct {
   int? get quantity => throw _privateConstructorUsedError;
   @override
   List<AddOnItem> get addOnItems => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'modify')
+  MODIFIED_STATUS? get modified_status => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UpdateProductCopyWith<_UpdateProduct> get copyWith =>

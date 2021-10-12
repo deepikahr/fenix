@@ -66,7 +66,8 @@ class ProductDetailsResponse
     @Default(false) bool isSameProductMultipleTime,
     VariantResponse? variant,
     String? productInstructions,
-    @JsonKey(ignore: true) @Default(false) bool modified,
+    @Default(false) bool modified,
+    @JsonKey(includeIfNull: false) int? modifiedQuantity,
   }) = _ProductDetailsResponse;
 
   factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) =>

@@ -11,18 +11,21 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OrdersInProcess extends HookWidget {
-  OrdersInProcess({required Key key}) : super(key: key);
+  final String? title;
+  final String? image;
+  OrdersInProcess({required Key key, this.title, this.image}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final notifier = useProvider(orderInProcess.notifier);
     final isMounted = useIsMounted();
     useProvider(orderInProcess);
     useEffect(() {
-      print('Use Effect in OrderInProcess');
+      print('Use Effect in OrderInProcess $title');
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           final order = await notifier.fetchOrderDetails();
-          if (order != null) {
+          if (!notifier.cart!.modifiedCart && order != null) {
             if (order.orderStatus == ORDER_STATUS.completed) {
               await notifier.cleanCart(context.read(homeTabsProvider.notifier));
             } else if (order.orderStatus == ORDER_STATUS.cancelled) {
@@ -37,6 +40,9 @@ class OrdersInProcess extends HookWidget {
                   .read(homeTabsProvider.notifier)
                   .showScreen(OrderDetails());
             }
+          } else {
+            notifier.getUpdateOrderStatus(
+                DB().getOrderId(), context.read(homeTabsProvider.notifier));
           }
         });
       }
@@ -74,15 +80,16 @@ class OrdersInProcess extends HookWidget {
                     borderRadius: BorderRadius.circular(12)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                      '$title',
                       style: textWhiteLargeBMM(context),
                     ),
-                    Image.asset(
-                      'lib/assets/images/timer.png',
+                    image != null ? Image.asset(
+                      '$image',
                       scale: 3,
-                    ),
+                    ) : Container(),
                   ],
                 ),
               ),

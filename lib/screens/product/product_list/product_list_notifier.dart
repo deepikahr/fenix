@@ -91,7 +91,8 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       products: [
         ...cartState?.products ?? [],
         product.copyWith.call(
-          variantQuantity: 1,
+          variantQuantity: db.getOrderId() != null ? 0 : 1,
+          modifiedQuantity: db.getOrderId() != null ? 1 : null,
           isLastUsedVariant: true,
           totalProductPrice: totalPrice,
         ),
@@ -111,11 +112,27 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
 
     if (p != null) {
       final i = cartState!.products.indexOf(p);
-
-      final newProduct = p.copyWith
-          .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
-
-      if (newProduct.variantQuantity > 0) {
+      late ProductDetailsResponse newProduct;
+      if (db.getOrderId() != null) {
+        newProduct = p.copyWith.call(
+            modifiedQuantity: p.modifiedQuantity != null
+                ? p.modifiedQuantity! + (isIncreased ? 1 : -1)
+                : p.variantQuantity + (isIncreased ? 1 : -1));
+        newProduct = newProduct.copyWith(
+          modified: db.getOrderId() != null &&
+              (newProduct.modifiedQuantity == null ||
+                  (newProduct.variantQuantity != newProduct.modifiedQuantity)),
+        );
+      } else {
+        newProduct = p.copyWith
+            .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
+      }
+      print(
+          'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'}');
+      if ((newProduct.modified &&
+              (newProduct.modifiedQuantity ?? newProduct.variantQuantity) >
+                  0) ||
+          newProduct.variantQuantity > 0) {
         final newProducts = cartState!.products..[i] = newProduct;
         Cart? newCart = cartState!.copyWith(products: newProducts);
         _updateProducts(newCart.products);
@@ -141,7 +158,11 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     final newProducts = state.products.map((p) {
       final totalQuantity = (newCartProducts.isNotEmpty)
           ? newCartProducts
-              .map((cp) => cp.id == p.id ? cp.variantQuantity : 0)
+              .map((cp) => cp.id == p.id
+                  ? cp.modified
+                      ? cp.modifiedQuantity ?? cp.variantQuantity
+                      : cp.variantQuantity
+                  : 0)
               .reduce((_, __) => _ + __)
           : 0;
       final isSameProductMultipleTimes = (newCartProducts.isNotEmpty)
@@ -153,7 +174,9 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       return p.copyWith(
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
-        modified: db.getOrderId() != null,
+        modified: db.getOrderId() != null &&
+            (p.modifiedQuantity == null ||
+                (p.variantQuantity != p.modifiedQuantity)),
       );
     }).toList();
 
@@ -162,6 +185,5 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       print('Product is added for first Time => $productFirstTimeAdded');
       showArrowTowardsCart();
     }
-    ;
   }
 }

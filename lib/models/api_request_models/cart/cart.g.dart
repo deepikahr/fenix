@@ -21,6 +21,7 @@ _$_Cart _$_$_CartFromJson(Map<String, dynamic> json) {
     franchiseId: json['franchiseId'] as String?,
     vendorId: json['vendorId'] as String?,
     userId: json['userId'] as String?,
+    modifiedCart: json['modifiedCart'] as bool? ?? false,
   );
 }
 
@@ -36,4 +37,5 @@ Map<String, dynamic> _$_$_CartToJson(_$_Cart instance) => <String, dynamic>{
       'franchiseId': instance.franchiseId,
       'vendorId': instance.vendorId,
       'userId': instance.userId,
+      'modifiedCart': instance.modifiedCart,
     };
