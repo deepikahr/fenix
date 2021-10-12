@@ -16,8 +16,8 @@ _$_Cart _$_$_CartFromJson(Map<String, dynamic> json) {
     taxTotal: json['taxTotal'] ?? 0,
     deliveryType: json['deliveryType'] as String?,
     paymentType:
-        _$enumDecodeNullable(_$PAYMENT_TYPEEnumMap, json['paymentType']) ??
-            PAYMENT_TYPE.cod,
+        _$enumDecodeNullable(_$PAYMENT_TPESEnumMap, json['paymentType']) ??
+            PAYMENT_TPES.payInCash,
     restaurantName: json['restaurantName'] as String?,
     franchiseName: json['franchiseName'] as String?,
     franchiseId: json['franchiseId'] as String?,
@@ -33,7 +33,7 @@ Map<String, dynamic> _$_$_CartToJson(_$_Cart instance) => <String, dynamic>{
       'subTotal': instance.subTotal,
       'taxTotal': instance.taxTotal,
       'deliveryType': instance.deliveryType,
-      'paymentType': _$PAYMENT_TYPEEnumMap[instance.paymentType],
+      'paymentType': _$PAYMENT_TPESEnumMap[instance.paymentType],
       'restaurantName': instance.restaurantName,
       'franchiseName': instance.franchiseName,
       'franchiseId': instance.franchiseId,
@@ -79,7 +79,8 @@ K? _$enumDecodeNullable<K, V>(
   return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$PAYMENT_TYPEEnumMap = {
-  PAYMENT_TYPE.cod: 'COD',
-  PAYMENT_TYPE.stripe: 'STRIPE',
+const _$PAYMENT_TPESEnumMap = {
+  PAYMENT_TPES.payInCash: 'PAY_IN_CASH',
+  PAYMENT_TPES.payWithCard: 'PAY_WITH_CARD',
+  PAYMENT_TPES.nfc: 'NFC',
 };
