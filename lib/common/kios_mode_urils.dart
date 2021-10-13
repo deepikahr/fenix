@@ -21,7 +21,7 @@ String get getOrderInProcessTitleInKioskMode {
     case KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT:
       return 'PAY_CHECKOUT_PICK_PRODUCT'.tr;
     case KIOSKMODE.PAY_CHECKOUT_DELIVERY_TABLE:
-      return 'PAY_CHECKOUT_DELIVERY_TABLE'.tr;
+      return '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n';
     case KIOSKMODE.PAY_TABLE_DELIVERY_TABLE:
       return 'PAY_TABLE_DELIVERY_TABLE'.tr;
     default:
