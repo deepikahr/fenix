@@ -339,7 +339,6 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         modified: cartProduct.modified,
         totalProductPrice: cartProduct.totalProductPrice,
         selectedAddOnItems: cartProduct.selectedAddOnItems,
-        variants: cartProduct.variants,
         modifiedQuantity: cartProduct.modifiedQuantity,
       );
       if (state.productDetails!.variants.isNotEmpty &&

@@ -54,7 +54,6 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
   getOrderStatus(String? orderId, HomeTabsNotifier notifier) async {
     var request;
     SocketService().getSocket().clearListeners();
-
     var listenTo =
         URL.ORDER_STATUS_REQUEST_EVENT.replaceAll('ORDER_ID', orderId!);
     SocketService().getSocket().on(listenTo, (data) async {
