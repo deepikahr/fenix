@@ -25,8 +25,10 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     averageRating: (json['averageRating'] as num?)?.toDouble() ?? 0,
     totalRating: json['totalRating'] as int?,
     noOfUsersRated: json['noOfUsersRated'] as int?,
-    allergens:
-        (json['allergens'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    allergens: (json['allergens'] as List<dynamic>?)
+            ?.map((e) => e as String)
+            .toList() ??
+        [],
     relatedProducts: (json['relatedProducts'] as List<dynamic>?)
         ?.map((e) => e as String)
         .toList(),

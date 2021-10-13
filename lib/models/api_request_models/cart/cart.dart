@@ -1,3 +1,4 @@
+import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -5,6 +6,7 @@ import '../../base_model.dart';
 
 part 'cart.freezed.dart';
 part 'cart.g.dart';
+
 
 @freezed
 class Cart with BaseModel<Cart>, _$Cart {
@@ -16,7 +18,7 @@ class Cart with BaseModel<Cart>, _$Cart {
     @Default(0) subTotal,
     @Default(0) taxTotal,
     String? deliveryType,
-    String? paymentType,
+    @Default(PAYMENT_TPES.payInCash) PAYMENT_TPES paymentType,
     String? restaurantName,
     String? franchiseName,
     String? franchiseId,

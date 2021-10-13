@@ -98,6 +98,8 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
         ),
       ],
     );
+    newCart =
+        newCart?.copyWith(modifiedCart: getModifiedStatusFromProducts(newCart));
     _updateProducts(newCart?.products ?? []);
     await cartNotifier.updateCart(newCart);
   }
@@ -136,6 +138,8 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
         final newProducts = cartState!.products..[i] = newProduct;
         Cart? newCart = cartState!.copyWith(products: newProducts);
         _updateProducts(newCart.products);
+        newCart = newCart.copyWith(
+            modifiedCart: getModifiedStatusFromProducts(newCart));
         await cartNotifier.updateCart(newCart);
       } else {
         final newCart = cartState!.copyWith(
@@ -148,6 +152,15 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
         }
       }
     }
+  }
+
+  bool getModifiedStatusFromProducts(Cart? cart) {
+    for (var product in cart!.products) {
+      if (product.modified) {
+        return product.modified;
+      }
+    }
+    return false;
   }
 
   void _updateProducts(List<ProductDetailsResponse> cartProducts,

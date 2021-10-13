@@ -171,7 +171,7 @@ Widget dishesInfoCard(
                           Icons.camera_alt_rounded,
                           color: primary(),
                         ),
-                      if (product.allergens!.length > 0)
+                      if (product.allergens.length > 0)
                         InkWell(
                           onTap: () async {},
                           child: Container(
@@ -378,7 +378,7 @@ Widget gridDishCard(
                     SizedBox(
                       height: 6,
                     ),
-                  if (product.allergens!.length > 0)
+                  if (product.allergens.length > 0)
                     InkWell(
                       onTap: () async {},
                       child: Container(
@@ -463,7 +463,7 @@ Widget allergenDialog(BuildContext context, ProductDetailsResponse product) {
                 physics: ScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                itemCount: product.allergens!.length,
+                itemCount: product.allergens.length,
                 itemBuilder: (BuildContext context, int i) {
                   return Column(
                     children: [
@@ -473,7 +473,7 @@ Widget allergenDialog(BuildContext context, ProductDetailsResponse product) {
                         height: 50,
                       ),
                       Text(
-                        product.allergens![i],
+                        product.allergens[i],
                         style: textDarkRegularBM10(context),
                       ),
                       Text(

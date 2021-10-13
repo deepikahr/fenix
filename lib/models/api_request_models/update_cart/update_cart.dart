@@ -1,5 +1,4 @@
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
-import 'package:fenix_user/models/api_request_models/update_product/update_product.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -13,7 +12,6 @@ class UpdateCart with BaseModel<UpdateCart>, _$UpdateCart {
 
   factory UpdateCart({
     String? orderId,
-    @Default([]) List<UpdateProduct> products,
     Cart? localCart,
   }) = _UpdateCart;
 

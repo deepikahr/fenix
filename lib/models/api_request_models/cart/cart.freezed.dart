@@ -26,7 +26,7 @@ class _$CartTearOff {
       dynamic subTotal = 0,
       dynamic taxTotal = 0,
       String? deliveryType,
-      String? paymentType,
+      PAYMENT_TPES paymentType = PAYMENT_TPES.payInCash,
       String? restaurantName,
       String? franchiseName,
       String? franchiseId,
@@ -66,7 +66,7 @@ mixin _$Cart {
   dynamic get subTotal => throw _privateConstructorUsedError;
   dynamic get taxTotal => throw _privateConstructorUsedError;
   String? get deliveryType => throw _privateConstructorUsedError;
-  String? get paymentType => throw _privateConstructorUsedError;
+  PAYMENT_TPES get paymentType => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
   String? get franchiseId => throw _privateConstructorUsedError;
@@ -89,7 +89,7 @@ abstract class $CartCopyWith<$Res> {
       dynamic subTotal,
       dynamic taxTotal,
       String? deliveryType,
-      String? paymentType,
+      PAYMENT_TPES paymentType,
       String? restaurantName,
       String? franchiseName,
       String? franchiseId,
@@ -145,7 +145,7 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as PAYMENT_TPES,
       restaurantName: restaurantName == freezed
           ? _value.restaurantName
           : restaurantName // ignore: cast_nullable_to_non_nullable
@@ -185,7 +185,7 @@ abstract class _$CartCopyWith<$Res> implements $CartCopyWith<$Res> {
       dynamic subTotal,
       dynamic taxTotal,
       String? deliveryType,
-      String? paymentType,
+      PAYMENT_TPES paymentType,
       String? restaurantName,
       String? franchiseName,
       String? franchiseId,
@@ -233,7 +233,7 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as PAYMENT_TPES,
       restaurantName: restaurantName == freezed
           ? _value.restaurantName
           : restaurantName // ignore: cast_nullable_to_non_nullable
@@ -271,7 +271,7 @@ class _$_Cart extends _Cart {
       this.subTotal = 0,
       this.taxTotal = 0,
       this.deliveryType,
-      this.paymentType,
+      this.paymentType = PAYMENT_TPES.payInCash,
       this.restaurantName,
       this.franchiseName,
       this.franchiseId,
@@ -297,8 +297,9 @@ class _$_Cart extends _Cart {
   final dynamic taxTotal;
   @override
   final String? deliveryType;
+  @JsonKey(defaultValue: PAYMENT_TPES.payInCash)
   @override
-  final String? paymentType;
+  final PAYMENT_TPES paymentType;
   @override
   final String? restaurantName;
   @override
@@ -393,7 +394,7 @@ abstract class _Cart extends Cart {
       dynamic subTotal,
       dynamic taxTotal,
       String? deliveryType,
-      String? paymentType,
+      PAYMENT_TPES paymentType,
       String? restaurantName,
       String? franchiseName,
       String? franchiseId,
@@ -417,7 +418,7 @@ abstract class _Cart extends Cart {
   @override
   String? get deliveryType => throw _privateConstructorUsedError;
   @override
-  String? get paymentType => throw _privateConstructorUsedError;
+  PAYMENT_TPES get paymentType => throw _privateConstructorUsedError;
   @override
   String? get restaurantName => throw _privateConstructorUsedError;
   @override

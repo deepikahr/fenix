@@ -283,7 +283,7 @@ class CartScreen extends HookWidget {
                     Text(
                         '${cartProduct.totalProductPrice.toStringAsFixed(2)}${Constants.currency}',
                         style: textBlackLargeBM(context)),
-                    cartProduct.allergens!.isNotEmpty
+                    cartProduct.allergens.isNotEmpty
                         ? Container(
                             margin: EdgeInsets.symmetric(horizontal: 16),
                             padding: EdgeInsets.all(6),

@@ -26,7 +26,7 @@ class ProductDetailsResponse
     @Default(0) double averageRating,
     int? totalRating,
     int? noOfUsersRated,
-    List<String>? allergens,
+    @Default([]) List<String> allergens,
     List<String>? relatedProducts,
     List<TagResponse>? tags,
     bool? isCopy,
