@@ -1,4 +1,5 @@
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/common/kios_mode_urils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -44,7 +45,11 @@ PreferredSizeWidget fenixAppbar(
               top: 35,
               left: 20,
               child: InkWell(
-                onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                onTap: () {
+                  if (shouldBeAbleToChangeTabs) {
+                    _scaffoldKey.currentState!.openDrawer();
+                  }
+                },
                 child: Image.asset(
                   'lib/assets/images/drawer.png',
                   color: primary(),

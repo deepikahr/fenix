@@ -23,6 +23,7 @@ class DrawerStateNotifier extends StateNotifier<DrawerState> {
   Future<void> logout() async {
     if (db.isLoggedIn()) {
       await db.logOut();
+
       state = state.copyWith(isLoading: true);
       await Get.offAll(() => LoginPage());
     }
@@ -31,9 +32,11 @@ class DrawerStateNotifier extends StateNotifier<DrawerState> {
   Future<HomeResponse?> fetchHome() async {
     state = state.copyWith.call(isLoading: true);
     final response = await api.home();
-    state = state.copyWith.call(
-      homeData: response,
-      isLoading: false,
-    );
+    if (mounted) {
+      state = state.copyWith.call(
+        homeData: response,
+        isLoading: false,
+      );
+    }
   }
 }

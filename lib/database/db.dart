@@ -95,6 +95,17 @@ class DB {
     return vendorId;
   }
 
+  bool getIsOrderPending() {
+    final box = Hive.box('user');
+    bool? isOrderPending = box.get('isOrderPending');
+    return isOrderPending ?? false;
+  }
+
+  void setIsOrderPending(bool isOrderPending) {
+    final box = Hive.box('user');
+    box.put('isOrderPending', isOrderPending);
+  }
+
   void saveMenuId(menuId) {
     final box = Hive.box('user');
     box.put('menuId', menuId);
@@ -245,6 +256,7 @@ class DB {
   Future<void> removeOrderId() async {
     final box = Hive.box('user');
     await box.delete('orderId');
+    setIsOrderPending(false);
   }
 
   void saveOrderNumber(orderNumber) {
@@ -260,7 +272,16 @@ class DB {
 
   Future<void> logOut() async {
     final box = Hive.box('user');
-    await box
-        .deleteAll(['cart', 'token', 'role', 'id', 'orderNumber', 'orderId']);
+    await box.deleteAll([
+      'cart',
+      'token',
+      'role',
+      'id',
+      'orderNumber',
+      'orderId',
+      'kioskMode',
+      'printerIPaddress',
+      'printerPort'
+    ]);
   }
 }

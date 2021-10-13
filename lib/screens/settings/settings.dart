@@ -42,6 +42,7 @@ class Settings extends HookWidget {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await notifier.fetchSettings();
+          await notifier.fetchKoiskMode();
           await notifier.fetchMenuList();
         });
       }
@@ -352,32 +353,28 @@ class Settings extends HookWidget {
               const SizedBox(
                 width: 10,
               ),
-              Expanded(
-                child: FittedBox(
-                  child: DropdownButton<KIOSKMODE>(
-                    underline: Container(color: Colors.transparent),
-                    iconSize: 20,
-                    hint: Text(
-                      'CHOOSE_KIOSK_MODE'.tr,
+              DropdownButton<KIOSKMODE>(
+                underline: Container(color: Colors.transparent),
+                iconSize: 20,
+                hint: Text(
+                  'CHOOSE_KIOSK_MODE'.tr,
+                  style: textDarkRegularBG(context),
+                ),
+                value: state.kioskMode,
+                onChanged: (value) {
+                  if (value != null) {
+                    notifier.setKiosModeType(value);
+                  }
+                },
+                items: KIOSKMODE.values.map((KIOSKMODE item) {
+                  return DropdownMenuItem(
+                    child: Text(
+                      describeEnum(item).tr,
                       style: textDarkRegularBG(context),
                     ),
-                    value: state.kioskMode,
-                    onChanged: (value) {
-                      if (value != null) {
-                        notifier.setKiosModeType(value);
-                      }
-                    },
-                    items: KIOSKMODE.values.map((KIOSKMODE item) {
-                      return DropdownMenuItem(
-                        child: Text(
-                          describeEnum(item).tr,
-                          style: textDarkRegularBG(context),
-                        ),
-                        value: item,
-                      );
-                    }).toList(),
-                  ),
-                ),
+                    value: item,
+                  );
+                }).toList(),
               ),
             ],
           ),

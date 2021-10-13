@@ -40,6 +40,15 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     );
   }
 
+  Future<void> fetchKoiskMode() async {
+    state = state.copyWith.call(isLoading: true);
+    final response = DB().getKioskMode();
+    state = state.copyWith.call(
+      kioskMode: response ?? KIOSKMODE.OFF,
+      isLoading: false,
+    );
+  }
+
   Future<String?> setThemeColor(String color) async {
     state = state.copyWith.call(themeColor: color);
   }

@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/kios_mode_urils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/network/socket.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -7,6 +8,7 @@ import 'package:fenix_user/screens/drawer/drawer.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/notify_waiter/notify_waiter.dart';
 import 'package:fenix_user/screens/order_details/order_details.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/widgets/appbar.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,15 @@ class HomeTabs extends HookWidget {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await socketService.socketInitialize();
-          notifier.showScreen(Home());
+          if (DB().getIsOrderPending()) {
+            notifier.showScreen(OrdersInProcess(
+              key: UniqueKey(),
+              title: getOrderInProcessTitleInKioskMode,
+              image: getOrderInProcessImageUrlInKioskMode,
+            ));
+          } else {
+            notifier.showScreen(Home());
+          }
           await notifier.fetchSettings();
           await notifier.fetchLanguage();
         });
@@ -49,32 +59,43 @@ class HomeTabs extends HookWidget {
         state.settingsIsLoading,
         state.settings?.tabSetting?.callToWaiter ?? false,
         () {
-          notifier.showScreen(Home());
+          if (shouldBeAbleToChangeTabs) {
+            notifier.showScreen(Home());
+          }
         },
         () {
-          notifier.showScreen(NotifyWaiter());
+          if (shouldBeAbleToChangeTabs) {
+            notifier.showScreen(NotifyWaiter());
+          }
         },
       ),
       body: state.currentScreen,
       bottomNavigationBar:
           customBottomBar(state.bottomBarIndex, (int index) async {
-        notifier.changeBottomBarNavIndex(index);
-        if (index == 0) {
-          notifier.showScreen(Home());
-        } else if (index == 1) {
-          notifier.showScreen(
-              CategoryScreen(UniqueKey(), CATEGORY_TYPE.beverageCategory));
-        } else if (index == 2) {
-          notifier.showScreen(
-              CategoryScreen(UniqueKey(), CATEGORY_TYPE.foodCategory));
-        } else if (index == 3) {
-          notifier.showScreen(OrderDetails());
+        if (shouldBeAbleToChangeTabs) {
+          notifier.changeBottomBarNavIndex(index);
+          if (index == 0) {
+            notifier.showScreen(Home());
+          } else if (index == 1) {
+            notifier.showScreen(
+                CategoryScreen(UniqueKey(), CATEGORY_TYPE.beverageCategory));
+          } else if (index == 2) {
+            notifier.showScreen(
+                CategoryScreen(UniqueKey(), CATEGORY_TYPE.foodCategory));
+          } else if (index == 3) {
+            notifier.showScreen(OrderDetails());
+          }
         }
       }, DB().getOrderId() != null ? cart : null),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: buildCenterIcon(context, cart, () async {
-        notifier.showScreen(CartScreen());
-      }),
+      floatingActionButton: buildCenterIcon(
+          context,
+          cart,
+          shouldBeAbleToChangeTabs
+              ? () async {
+                  notifier.showScreen(CartScreen());
+                }
+              : () {}),
     );
   }
 }

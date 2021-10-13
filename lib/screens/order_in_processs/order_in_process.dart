@@ -38,14 +38,17 @@ class OrdersInProcess extends HookWidget {
                     .read(homeTabsProvider.notifier)
                     .showScreen(CartScreen());
               } else if (order.orderStatus == ORDER_STATUS.pending) {
+                DB().setIsOrderPending(true);
                 notifier.getOrderStatus(
                     order.id, context.read(homeTabsProvider.notifier));
               } else if (order.orderStatus == ORDER_STATUS.confirmed) {
+                DB().setIsOrderPending(false);
                 context
                     .read(homeTabsProvider.notifier)
                     .showScreen(OrderDetails());
               }
             } else {
+              DB().setIsOrderPending(true);
               notifier.getUpdateOrderStatus(
                   DB().getOrderId(), context.read(homeTabsProvider.notifier));
             }

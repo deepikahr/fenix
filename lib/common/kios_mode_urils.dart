@@ -3,11 +3,15 @@ import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:get/get.dart';
 
 bool get shouldPaymentButtonBeFunctionalInKioskMode {
+  return DB().getKioskMode() != KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT;
+}
+
+bool get isNormalFlowInKioskMode {
   return DB().getKioskMode() == KIOSKMODE.OFF;
 }
 
 bool get shouldSendOrderToWaiterInKioskMode {
-  return DB().getKioskMode() == KIOSKMODE.OFF;
+  return DB().getKioskMode() != KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT;
 }
 
 String get getOrderInProcessTitleInKioskMode {
@@ -40,6 +44,14 @@ String get getOrderInProcessImageUrlInKioskMode {
   }
 }
 
-bool get shouldModificationOfOrderPossibleInKiosMode {
-  return DB().getKioskMode() == KIOSKMODE.OFF;
+// bool get shouldModificationOfOrderBePossibleInKiosMode {
+//   return DB().getOrderId() == null || DB().getKioskMode() == KIOSKMODE.OFF;
+// }
+
+// if order id is null, can change the tabs, if
+bool get shouldBeAbleToChangeTabs {
+  if (DB().getIsOrderPending()) {
+    return false;
+  }
+  return DB().getOrderId() == null || DB().getKioskMode() == KIOSKMODE.OFF;
 }
