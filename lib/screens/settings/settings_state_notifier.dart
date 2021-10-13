@@ -5,6 +5,7 @@ import 'package:fenix_user/models/api_response_models/settings_response/settings
 import 'package:fenix_user/models/api_response_models/tab_setting_response/tab_setting_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'settings_state.dart';
 
@@ -35,6 +36,15 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     final response = await api.menuDropdown();
     state = state.copyWith.call(
       menuList: response,
+      isLoading: false,
+    );
+  }
+
+  Future<void> fetchKoiskMode() async {
+    state = state.copyWith.call(isLoading: true);
+    final response = DB().getKioskMode();
+    state = state.copyWith.call(
+      kioskMode: response ?? KIOSKMODE.OFF,
       isLoading: false,
     );
   }
@@ -72,6 +82,11 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
 
   Future<bool?> setValidatePayment(bool validatePayment) async {
     state = state.copyWith.call(validatePayment: validatePayment);
+  }
+
+  Future<void> setKiosModeType(KIOSKMODE mode) async {
+    DB().saveKioskMode(describeEnum(mode));
+    state = state.copyWith.call(kioskMode: mode);
   }
 
   String? get _getCachedPrinterIpAddressFromdb => db.getPrinterIpAddress();

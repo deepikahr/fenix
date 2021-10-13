@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:fenix_user/screens/settings/settings_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -93,6 +95,17 @@ class DB {
     return vendorId;
   }
 
+  bool getIsOrderPending() {
+    final box = Hive.box('user');
+    bool? isOrderPending = box.get('isOrderPending');
+    return isOrderPending ?? false;
+  }
+
+  void setIsOrderPending(bool isOrderPending) {
+    final box = Hive.box('user');
+    box.put('isOrderPending', isOrderPending);
+  }
+
   void saveMenuId(menuId) {
     final box = Hive.box('user');
     box.put('menuId', menuId);
@@ -156,6 +169,22 @@ class DB {
     final box = Hive.box('user');
     String? menuName = box.get('menuName');
     return menuName;
+  }
+
+  void saveKioskMode(mode) {
+    final box = Hive.box('user');
+    box.put('kioskMode', mode);
+  }
+
+  KIOSKMODE? getKioskMode() {
+    final box = Hive.box('user');
+    String? kioskMode = box.get('kioskMode');
+    if (kioskMode != null) {
+      KIOSKMODE mode =
+          KIOSKMODE.values.firstWhere((e) => describeEnum(e) == kioskMode);
+      return mode;
+    }
+    return null;
   }
 
   void saveThemeColor(themeColor) {
@@ -227,6 +256,7 @@ class DB {
   Future<void> removeOrderId() async {
     final box = Hive.box('user');
     await box.delete('orderId');
+    setIsOrderPending(false);
   }
 
   void saveOrderNumber(orderNumber) {
@@ -242,7 +272,16 @@ class DB {
 
   Future<void> logOut() async {
     final box = Hive.box('user');
-    await box
-        .deleteAll(['cart', 'token', 'role', 'id', 'orderNumber', 'orderId']);
+    await box.deleteAll([
+      'cart',
+      'token',
+      'role',
+      'id',
+      'orderNumber',
+      'orderId',
+      'kioskMode',
+      'printerIPaddress',
+      'printerPort'
+    ]);
   }
 }

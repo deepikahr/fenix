@@ -22,6 +22,8 @@ class _$SettingsStateTearOff {
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
+      KIOSKMODE kioskMode = KIOSKMODE.OFF,
+      String? defaultKioskModeList,
       String? menuTitle,
       String? type,
       String? orderMode,
@@ -35,6 +37,8 @@ class _$SettingsStateTearOff {
       settings: settings,
       menuList: menuList,
       themeColor: themeColor,
+      kioskMode: kioskMode,
+      defaultKioskModeList: defaultKioskModeList,
       menuTitle: menuTitle,
       type: type,
       orderMode: orderMode,
@@ -56,6 +60,8 @@ mixin _$SettingsState {
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
   String? get themeColor => throw _privateConstructorUsedError;
+  KIOSKMODE get kioskMode => throw _privateConstructorUsedError;
+  String? get defaultKioskModeList => throw _privateConstructorUsedError;
   String? get menuTitle => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   String? get orderMode => throw _privateConstructorUsedError;
@@ -80,6 +86,8 @@ abstract class $SettingsStateCopyWith<$Res> {
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
+      KIOSKMODE kioskMode,
+      String? defaultKioskModeList,
       String? menuTitle,
       String? type,
       String? orderMode,
@@ -107,6 +115,8 @@ class _$SettingsStateCopyWithImpl<$Res>
     Object? settings = freezed,
     Object? menuList = freezed,
     Object? themeColor = freezed,
+    Object? kioskMode = freezed,
+    Object? defaultKioskModeList = freezed,
     Object? menuTitle = freezed,
     Object? type = freezed,
     Object? orderMode = freezed,
@@ -135,6 +145,14 @@ class _$SettingsStateCopyWithImpl<$Res>
       themeColor: themeColor == freezed
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kioskMode: kioskMode == freezed
+          ? _value.kioskMode
+          : kioskMode // ignore: cast_nullable_to_non_nullable
+              as KIOSKMODE,
+      defaultKioskModeList: defaultKioskModeList == freezed
+          ? _value.defaultKioskModeList
+          : defaultKioskModeList // ignore: cast_nullable_to_non_nullable
               as String?,
       menuTitle: menuTitle == freezed
           ? _value.menuTitle
@@ -190,6 +208,8 @@ abstract class _$DefaultCopyWith<$Res> implements $SettingsStateCopyWith<$Res> {
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
+      KIOSKMODE kioskMode,
+      String? defaultKioskModeList,
       String? menuTitle,
       String? type,
       String? orderMode,
@@ -218,6 +238,8 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
     Object? settings = freezed,
     Object? menuList = freezed,
     Object? themeColor = freezed,
+    Object? kioskMode = freezed,
+    Object? defaultKioskModeList = freezed,
     Object? menuTitle = freezed,
     Object? type = freezed,
     Object? orderMode = freezed,
@@ -246,6 +268,14 @@ class __$DefaultCopyWithImpl<$Res> extends _$SettingsStateCopyWithImpl<$Res>
       themeColor: themeColor == freezed
           ? _value.themeColor
           : themeColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kioskMode: kioskMode == freezed
+          ? _value.kioskMode
+          : kioskMode // ignore: cast_nullable_to_non_nullable
+              as KIOSKMODE,
+      defaultKioskModeList: defaultKioskModeList == freezed
+          ? _value.defaultKioskModeList
+          : defaultKioskModeList // ignore: cast_nullable_to_non_nullable
               as String?,
       menuTitle: menuTitle == freezed
           ? _value.menuTitle
@@ -288,6 +318,8 @@ class _$_Default implements _Default {
       this.settings,
       this.menuList,
       this.themeColor,
+      this.kioskMode = KIOSKMODE.OFF,
+      this.defaultKioskModeList,
       this.menuTitle,
       this.type,
       this.orderMode,
@@ -308,6 +340,11 @@ class _$_Default implements _Default {
   final List<MenuResponse>? menuList;
   @override
   final String? themeColor;
+  @JsonKey(defaultValue: KIOSKMODE.OFF)
+  @override
+  final KIOSKMODE kioskMode;
+  @override
+  final String? defaultKioskModeList;
   @override
   final String? menuTitle;
   @override
@@ -325,7 +362,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'SettingsState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment)';
+    return 'SettingsState(isLoading: $isLoading, isUpdateLoading: $isUpdateLoading, settings: $settings, menuList: $menuList, themeColor: $themeColor, kioskMode: $kioskMode, defaultKioskModeList: $defaultKioskModeList, menuTitle: $menuTitle, type: $type, orderMode: $orderMode, resetCategory: $resetCategory, enableCall: $enableCall, payOnCommand: $payOnCommand, validatePayment: $validatePayment)';
   }
 
   @override
@@ -347,6 +384,12 @@ class _$_Default implements _Default {
             (identical(other.themeColor, themeColor) ||
                 const DeepCollectionEquality()
                     .equals(other.themeColor, themeColor)) &&
+            (identical(other.kioskMode, kioskMode) ||
+                const DeepCollectionEquality()
+                    .equals(other.kioskMode, kioskMode)) &&
+            (identical(other.defaultKioskModeList, defaultKioskModeList) ||
+                const DeepCollectionEquality().equals(
+                    other.defaultKioskModeList, defaultKioskModeList)) &&
             (identical(other.menuTitle, menuTitle) ||
                 const DeepCollectionEquality()
                     .equals(other.menuTitle, menuTitle)) &&
@@ -377,6 +420,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(settings) ^
       const DeepCollectionEquality().hash(menuList) ^
       const DeepCollectionEquality().hash(themeColor) ^
+      const DeepCollectionEquality().hash(kioskMode) ^
+      const DeepCollectionEquality().hash(defaultKioskModeList) ^
       const DeepCollectionEquality().hash(menuTitle) ^
       const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(orderMode) ^
@@ -398,6 +443,8 @@ abstract class _Default implements SettingsState {
       SettingsResponse? settings,
       List<MenuResponse>? menuList,
       String? themeColor,
+      KIOSKMODE kioskMode,
+      String? defaultKioskModeList,
       String? menuTitle,
       String? type,
       String? orderMode,
@@ -416,6 +463,10 @@ abstract class _Default implements SettingsState {
   List<MenuResponse>? get menuList => throw _privateConstructorUsedError;
   @override
   String? get themeColor => throw _privateConstructorUsedError;
+  @override
+  KIOSKMODE get kioskMode => throw _privateConstructorUsedError;
+  @override
+  String? get defaultKioskModeList => throw _privateConstructorUsedError;
   @override
   String? get menuTitle => throw _privateConstructorUsedError;
   @override

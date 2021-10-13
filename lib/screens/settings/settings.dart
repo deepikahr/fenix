@@ -7,11 +7,14 @@ import 'package:fenix_user/models/api_response_models/settings_response/settings
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
+import 'package:fenix_user/screens/settings/settings_state.dart';
+import 'package:fenix_user/screens/settings/settings_state_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:fenix_user/widgets/textFields.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -39,6 +42,7 @@ class Settings extends HookWidget {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
           await notifier.fetchSettings();
+          await notifier.fetchKoiskMode();
           await notifier.fetchMenuList();
         });
       }
@@ -99,6 +103,7 @@ class Settings extends HookWidget {
               primaryButton(context, 'UPDATE'.tr, () async {
                 if ((formKey.currentState?.validate() ?? true) &&
                     (state.menuTitle != null || DB().getMenuName() != null)) {
+                  notifier.setKiosModeType(state.kioskMode);
                   notifier.cachePrinterIpAddress(ipAddressEditController.text);
                   final response = await notifier.updateSettings(
                     state.resetCategory ??
@@ -184,8 +189,8 @@ class Settings extends HookWidget {
     List<MenuResponse>? menuList,
     tableNumberEditController,
     ipAddressEditController,
-    state,
-    notifier,
+    SettingsState state,
+    SettingsStateNotifier notifier,
   ) {
     DB().saveTableNumber(settings.tableNumber.toString());
     return Container(
@@ -318,9 +323,7 @@ class Settings extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child:
-                    //TODO: localization for Printer ip address
-                    titleTextDarkRegularBS(context, 'Printer IP Adress'.tr),
+                child: titleTextDarkRegularBS(context, 'PRINTER_IP_ADDRESS'.tr),
               ),
               const SizedBox(
                 width: 10,
@@ -337,6 +340,41 @@ class Settings extends HookWidget {
                         formKey.currentState?.validate();
                       })),
                 ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              titleTextDarkRegularBS(context, 'KIOSK_MODE'.tr),
+              const SizedBox(
+                width: 10,
+              ),
+              DropdownButton<KIOSKMODE>(
+                underline: Container(color: Colors.transparent),
+                iconSize: 20,
+                hint: Text(
+                  'CHOOSE_KIOSK_MODE'.tr,
+                  style: textDarkRegularBG(context),
+                ),
+                value: state.kioskMode,
+                onChanged: (value) {
+                  if (value != null) {
+                    notifier.setKiosModeType(value);
+                  }
+                },
+                items: KIOSKMODE.values.map((KIOSKMODE item) {
+                  return DropdownMenuItem(
+                    child: Text(
+                      describeEnum(item).tr,
+                      style: textDarkRegularBG(context),
+                    ),
+                    value: item,
+                  );
+                }).toList(),
               ),
             ],
           ),

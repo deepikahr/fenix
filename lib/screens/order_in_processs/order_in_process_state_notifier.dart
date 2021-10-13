@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/kios_mode_urils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -13,6 +14,7 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
+import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
@@ -71,24 +73,30 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
               status: DIALOG_STATUS.WARNING,
             );
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
+            DB().setIsOrderPending(false);
+
             getNotifiWaiter();
-            notifier.showScreen(Home());
-            customDialog(
-              title: 'ORDER_IS_CONFIRMED'.tr,
-              okText: 'Ok',
-              status: DIALOG_STATUS.SUCCESS,
-            );
-            final res = await fetchOrderDetails();
-            final printResult = await printerService.printReciept(
-              type: PrinterRecieptType.KITCHEN,
-              products: res?.cart ?? [],
-            );
-            if (printResult != null) {
+            if (isNormalFlowInKioskMode) {
+              notifier.showScreen(Home());
               customDialog(
-                title: printResult,
+                title: 'ORDER_IS_CONFIRMED'.tr,
                 okText: 'Ok',
-                status: DIALOG_STATUS.FAIL,
+                status: DIALOG_STATUS.SUCCESS,
               );
+              final res = await fetchOrderDetails();
+              final printResult = await printerService.printReciept(
+                type: PrinterRecieptType.KITCHEN,
+                products: res?.cart ?? [],
+              );
+              if (printResult != null) {
+                customDialog(
+                  title: printResult,
+                  okText: 'Ok',
+                  status: DIALOG_STATUS.FAIL,
+                );
+              }
+            } else {
+              notifier.showScreen(OrderDetails());
             }
           }
         }
@@ -109,6 +117,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
         request = UpdateOrderSocketResponse.fromJson(data);
         await cartState.updateCart(request.localCart);
         notifier.showScreen(Home());
+        DB().setIsOrderPending(false);
         if (request.action == ACTION_MODIFICATION.reject) {
           customDialog(
             title: 'ORDER_IS_CANCELLED'.tr,
@@ -123,37 +132,6 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           );
         }
       }
-      // if (data != null) {
-      //   request = OrderSocketRequest.fromJson(data);
-      //   if (request != null) {
-      //     if (request.orderStatus == ORDER_STATUS.completed) {
-      //       cleanCart(notifier);
-      //     } else if (request.orderStatus == ORDER_STATUS.cancelled) {
-      //       notifier.showScreen(CartScreen());
-      //       customDialog(
-      //         title: 'ORDER_IS_CANCELLED'.tr,
-      //         okText: 'Ok',
-      //         status: DIALOG_STATUS.WARNING,
-      //       );
-      //     } else if (request.orderStatus == ORDER_STATUS.confirmed) {
-      //       getNotifiWaiter();
-      //       notifier.showScreen(Home());
-
-      //       final res = await fetchOrderDetails();
-      //       final printResult = await printerService.printReciept(
-      //         type: PrinterRecieptType.KITCHEN,
-      //         products: res?.cart ?? [],
-      //       );
-      //       if (printResult != null) {
-      //         customDialog(
-      //           title: printResult.tr,
-      //           okText: 'Ok',
-      //           status: DIALOG_STATUS.FAIL,
-      //         );
-      //       }
-      //     }
-      //   }
-      // }
     });
   }
 
