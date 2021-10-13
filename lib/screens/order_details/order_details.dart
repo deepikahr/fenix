@@ -37,6 +37,8 @@ class OrderDetails extends HookWidget {
                     .read(homeTabsProvider.notifier)
                     .showScreen(OrdersInProcess(
                       key: UniqueKey(),
+                  title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                  image: 'lib/assets/images/timer.png',
                     ));
               } else if (res.orderStatus == ORDER_STATUS.cancelled) {
                 Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);

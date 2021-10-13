@@ -147,6 +147,8 @@ class CartScreen extends HookWidget {
                                             .read(homeTabsProvider.notifier)
                                             .showScreen(OrdersInProcess(
                                               key: UniqueKey(),
+                                          title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                                          image: 'lib/assets/images/timer.png',
                                             ));
                                       });
                                     }
@@ -167,6 +169,8 @@ class CartScreen extends HookWidget {
                                                 .read(homeTabsProvider.notifier)
                                                 .showScreen(OrdersInProcess(
                                                   key: UniqueKey(),
+                                              title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                                              image: 'lib/assets/images/timer.png',
                                                 ));
                                           });
                                         }
