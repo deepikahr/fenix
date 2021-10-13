@@ -1,3 +1,4 @@
+import 'package:fenix_user/common/kios_mode_urils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -23,28 +24,37 @@ class OrdersInProcess extends HookWidget {
     useEffect(() {
       print('Use Effect in OrderInProcess $title');
       if (isMounted()) {
-        Future.delayed(Duration.zero, () async {
-          final order = await notifier.fetchOrderDetails();
-          if (!notifier.cart!.modifiedCart && order != null) {
-            if (order.orderStatus == ORDER_STATUS.completed) {
-              await notifier.cleanCart(context.read(homeTabsProvider.notifier));
-            } else if (order.orderStatus == ORDER_STATUS.cancelled) {
-              Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
-              await DB().removeOrderId();
-              context.read(homeTabsProvider.notifier).showScreen(CartScreen());
-            } else if (order.orderStatus == ORDER_STATUS.pending) {
-              notifier.getOrderStatus(
-                  order.id, context.read(homeTabsProvider.notifier));
-            } else if (order.orderStatus == ORDER_STATUS.confirmed) {
-              context
-                  .read(homeTabsProvider.notifier)
-                  .showScreen(OrderDetails());
+        if (shouldSendOrderToWaiterInKioskMode) {
+          Future.delayed(Duration.zero, () async {
+            final order = await notifier.fetchOrderDetails();
+            if (!notifier.cart!.modifiedCart && order != null) {
+              if (order.orderStatus == ORDER_STATUS.completed) {
+                await notifier
+                    .cleanCart(context.read(homeTabsProvider.notifier));
+              } else if (order.orderStatus == ORDER_STATUS.cancelled) {
+                Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
+                await DB().removeOrderId();
+                context
+                    .read(homeTabsProvider.notifier)
+                    .showScreen(CartScreen());
+              } else if (order.orderStatus == ORDER_STATUS.pending) {
+                notifier.getOrderStatus(
+                    order.id, context.read(homeTabsProvider.notifier));
+              } else if (order.orderStatus == ORDER_STATUS.confirmed) {
+                context
+                    .read(homeTabsProvider.notifier)
+                    .showScreen(OrderDetails());
+              }
+            } else {
+              notifier.getUpdateOrderStatus(
+                  DB().getOrderId(), context.read(homeTabsProvider.notifier));
             }
-          } else {
-            notifier.getUpdateOrderStatus(
-                DB().getOrderId(), context.read(homeTabsProvider.notifier));
-          }
-        });
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 8), () async {
+            notifier.cleanCart(context.read(homeTabsProvider.notifier));
+          });
+        }
       }
       return;
     }, const []);
@@ -86,10 +96,12 @@ class OrdersInProcess extends HookWidget {
                       '$title',
                       style: textWhiteLargeBMM(context),
                     ),
-                    image != null ? Image.asset(
-                      '$image',
-                      scale: 3,
-                    ) : Container(),
+                    image != null
+                        ? Image.asset(
+                            '$image',
+                            scale: 3,
+                          )
+                        : Container(),
                   ],
                 ),
               ),

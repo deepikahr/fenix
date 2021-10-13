@@ -1,4 +1,5 @@
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/common/kios_mode_urils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
@@ -7,6 +8,7 @@ import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/screens/payment/payment_screen.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs.dart';
+import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +39,8 @@ class OrderDetails extends HookWidget {
                     .read(homeTabsProvider.notifier)
                     .showScreen(OrdersInProcess(
                       key: UniqueKey(),
-                  title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
-                  image: 'lib/assets/images/timer.png',
+                      title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                      image: 'lib/assets/images/timer.png',
                     ));
               } else if (res.orderStatus == ORDER_STATUS.cancelled) {
                 Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
@@ -202,11 +204,19 @@ class OrderDetails extends HookWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 28.0),
                 child: Center(
-                    child: custombuttonsm(context, 'OK_PAYMENT_METHODS'.tr, () {
-                  context
-                      .read(homeTabsProvider.notifier)
-                      .showScreen(Payment(state.orderDetails));
-                }, false)),
+                    child: custombuttonsm(
+                        context,
+                        shouldPaymentButtonBeFunctionalInKioskMode
+                            ? 'OK_PAYMENT_METHODS'.tr
+                            : 'OK'.tr,
+                        shouldPaymentButtonBeFunctionalInKioskMode
+                            ? () {
+                                context
+                                    .read(homeTabsProvider.notifier)
+                                    .showScreen(Payment(state.orderDetails));
+                              }
+                            : () {},
+                        false)),
               ),
             ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios)

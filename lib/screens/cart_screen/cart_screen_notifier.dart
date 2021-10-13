@@ -7,8 +7,9 @@ import 'package:fenix_user/models/api_response_models/product_details_response/p
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:get/get.dart';
 import 'cart_screen_state.dart';
 
 class CartScreenNotifier extends StateNotifier<CartScreenState> {

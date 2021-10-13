@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:fenix_user/screens/settings/settings_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -156,6 +158,22 @@ class DB {
     final box = Hive.box('user');
     String? menuName = box.get('menuName');
     return menuName;
+  }
+
+  void saveKioskMode(mode) {
+    final box = Hive.box('user');
+    box.put('kioskMode', mode);
+  }
+
+  KIOSKMODE? getKioskMode() {
+    final box = Hive.box('user');
+    String? kioskMode = box.get('kioskMode');
+    if (kioskMode != null) {
+      KIOSKMODE mode =
+          KIOSKMODE.values.firstWhere((e) => describeEnum(e) == kioskMode);
+      return mode;
+    }
+    return null;
   }
 
   void saveThemeColor(themeColor) {

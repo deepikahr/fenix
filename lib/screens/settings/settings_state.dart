@@ -4,6 +4,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'settings_state.freezed.dart';
 
+enum KIOSKMODE {
+  OFF,
+  PAY_CHECKOUT_PICK_PRODUCT,
+  PAY_TABLE_DELIVERY_TABLE,
+  PAY_CHECKOUT_DELIVERY_TABLE
+}
+
 @freezed
 class SettingsState with _$SettingsState {
   const factory SettingsState({
@@ -12,6 +19,8 @@ class SettingsState with _$SettingsState {
     SettingsResponse? settings,
     List<MenuResponse>? menuList,
     String? themeColor,
+    @Default(KIOSKMODE.OFF) KIOSKMODE kioskMode,
+    String? defaultKioskModeList,
     String? menuTitle,
     String? type,
     String? orderMode,

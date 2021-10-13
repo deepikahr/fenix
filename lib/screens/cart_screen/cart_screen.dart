@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/common/kios_mode_urils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -147,8 +148,10 @@ class CartScreen extends HookWidget {
                                             .read(homeTabsProvider.notifier)
                                             .showScreen(OrdersInProcess(
                                               key: UniqueKey(),
-                                          title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
-                                          image: 'lib/assets/images/timer.png',
+                                              title:
+                                                  getOrderInProcessTitleInKioskMode,
+                                              image:
+                                                  getOrderInProcessImageUrlInKioskMode,
                                             ));
                                       });
                                     }
@@ -169,8 +172,10 @@ class CartScreen extends HookWidget {
                                                 .read(homeTabsProvider.notifier)
                                                 .showScreen(OrdersInProcess(
                                                   key: UniqueKey(),
-                                              title: '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
-                                              image: 'lib/assets/images/timer.png',
+                                                  title:
+                                                      '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                                                  image:
+                                                      'lib/assets/images/timer.png',
                                                 ));
                                           });
                                         }
