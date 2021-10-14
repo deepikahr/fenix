@@ -52,7 +52,7 @@ class SubCategoryScreen extends HookWidget {
             children: [
               subCategoryList(context, categoryTitle),
               if ((state.subCategory?.length ?? 0) > 0)
-                DB().getType() == 'list'
+                DB().getType() == 'LIST'
                     ? subCategoryBlock(
                         context, state.subCategory, notifier, state.pageNumber)
                     : subCategoryListGrid(
@@ -98,6 +98,7 @@ class SubCategoryScreen extends HookWidget {
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
                       subCategory[i].id ?? '',
                       subCategory[i].imageUrl ?? '',
+                      fromSubCategory: true,
                     ));
               },
               child: restaurantInfoCard(
@@ -133,6 +134,7 @@ class SubCategoryScreen extends HookWidget {
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
                       subCategory[i].id ?? '',
                       subCategory[i].imageUrl ?? '',
+                      fromSubCategory: true,
                     ));
               },
               child: restaurantInfoCardGrid(

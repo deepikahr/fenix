@@ -129,7 +129,7 @@ class OrderDetails extends HookWidget {
                                         // Text(
                                         //     '${'TOTAL'.tr}: ${cart.subTotal.toStringAsFixed(2)}${Constants.currency}',
                                         //     style: textPrimaryXXSmall(context)),
-                                        Text('${'TOTAL_10%_VAT_INCLUDED'.tr} :',
+                                        Text('${'TOTAL_VAT_INCLUDED'.tr} :',
                                             style: textPrimaryXXSmallDark(
                                                 context)),
                                         Text(

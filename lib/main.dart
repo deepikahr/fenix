@@ -46,14 +46,14 @@ class MyApp extends HookWidget {
         accentColor: primary(),
       ),
       home: DB().isLoggedIn() ? HomeTabs() : LoginPage(),
-      locale: Locale('en'),
+      locale: Locale(DB().getLanguageCode() ?? 'en'),
       translations: Localization(json),
     );
   }
 }
 
 Future<Map<String, Map<String, String>>?> getLocalizationData(API api) async {
-  final res = await api.getLocalizationData(Get.deviceLocale?.languageCode);
+  final res = await api.getLocalizationData();
   if (res != null) {
     json = res;
   }

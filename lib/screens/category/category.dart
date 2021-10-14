@@ -53,7 +53,7 @@ class CategoryScreen extends HookWidget {
             physics: ScrollPhysics(),
             children: [
               if ((state.category?.length ?? 0) > 0)
-                DB().getType() == 'list'
+                DB().getType() == 'LIST'
                     ? categoryBlock(
                         context, state.category, notifier, state.pageNumber)
                     : categoryListGrid(

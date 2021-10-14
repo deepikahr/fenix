@@ -85,7 +85,6 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
   }
 
   Future<void> setKiosModeType(KIOSKMODE mode) async {
-    DB().saveKioskMode(describeEnum(mode));
     state = state.copyWith.call(kioskMode: mode);
   }
 
@@ -123,6 +122,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       bool? payTypeKiosk,
       bool? validatePaymentByWaiter,
       String? themeColour,
+      KIOSKMODE mode,
       String? orderingMode,
       String? viewType) async {
     state = state.copyWith.call(isUpdateLoading: true);
@@ -141,6 +141,8 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
         await api.settingUpdate(SettingsUpdateRequest(tabSetting: tabSetting));
     db.saveThemeColor(themeColour);
     db.saveType(viewType);
+    db.saveKioskMode(describeEnum(mode));
+
     state = state.copyWith.call(isUpdateLoading: false);
     return response;
   }

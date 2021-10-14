@@ -18,8 +18,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class ProductList extends HookWidget {
   final String categoryImage;
   final String categoryId;
-
-  ProductList(this.categoryId, this.categoryImage, {Key? key})
+  final bool fromSubCategory;
+  ProductList(this.categoryId, this.categoryImage,
+      {Key? key, this.fromSubCategory = false})
       : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -33,7 +34,11 @@ class ProductList extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchProductData(categoryId);
+          if (fromSubCategory) {
+            await notifier.fetchSubCategoryProductData(categoryId);
+          } else {
+            await notifier.fetchProductData(categoryId);
+          }
         });
       }
       return;
@@ -59,9 +64,9 @@ class ProductList extends HookWidget {
                       categoryList(context, state.categoryTitle),
                     SizedBox(height: 10),
                     if (state.products.length > 0) ...[
-                      if (DB().getType() == 'list')
+                      if (DB().getType() == 'LIST')
                         productList(state.products, notifier),
-                      if (DB().getType() != 'list')
+                      if (DB().getType() != 'LIST')
                         productListGrid(context, state.products, notifier),
                     ],
                     Container(

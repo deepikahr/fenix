@@ -10,8 +10,8 @@ class LocalizationDataRequest
     with BaseModel<LocalizationDataRequest>, _$LocalizationDataRequest {
   const LocalizationDataRequest._();
 
-  const factory LocalizationDataRequest({String? code}) =
-      _LocalizationDataRequest;
+  const factory LocalizationDataRequest(
+      {@JsonKey(includeIfNull: false) String? code}) = _LocalizationDataRequest;
 
   factory LocalizationDataRequest.fromJson(Map<String, dynamic> json) =>
       _$LocalizationDataRequestFromJson(json);

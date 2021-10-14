@@ -13,6 +13,8 @@ class URL {
   static const SUB_CATEGORY = '/sub-categories/user/list';
 
   static const PRODUCT_LIST = '/products/list/';
+  static const SUB_CATEGORY_PRODUCT_LIST = '/products/subCategory/list/';
+
   static const PRODUCT_DETAILS = '/products/detail/';
 
   static const CREATE_ORDER = '/orders/create';

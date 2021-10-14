@@ -79,7 +79,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             if (isNormalFlowInKioskMode) {
               notifier.showScreen(Home());
               customDialog(
-                title: 'ORDER_IS_CONFIRMED'.tr,
+                title: 'ORDER_CONFIRMED'.tr,
                 okText: 'Ok',
                 status: DIALOG_STATUS.SUCCESS,
               );
@@ -90,8 +90,8 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
               );
               if (printResult != null) {
                 customDialog(
-                  title: printResult,
-                  okText: 'Ok',
+                  title: printResult.tr,
+                  okText: 'Ok'.tr,
                   status: DIALOG_STATUS.FAIL,
                 );
               }
@@ -126,7 +126,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           );
         } else {
           customDialog(
-            title: 'ORDER_IS_CONFIRMED'.tr,
+            title: 'ORDER_CONFIRMED'.tr,
             okText: 'Ok',
             status: DIALOG_STATUS.SUCCESS,
           );
@@ -153,7 +153,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
         request = CallWaiterRequest.fromJson(data);
         customDialog(
           status: DIALOG_STATUS.SUCCESS,
-          title: 'Waiter Warned',
+          title: 'WAITER_WARNED',
         );
       }
     });

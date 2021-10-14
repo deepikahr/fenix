@@ -151,7 +151,9 @@ flutter:
     - lib/assets/images/drawer.png
     - lib/assets/images/smiley.png
     - lib/assets/images/timer.png
-
+    - lib/assets/images/countertocheckout.png
+    - lib/assets/images/counter.png
+    - lib/assets/images/pickup.png
     - lib/assets/icons/close.png
     - lib/assets/icons/warning.png
     - lib/assets/icons/leftArrow.png

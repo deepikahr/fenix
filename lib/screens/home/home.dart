@@ -46,9 +46,9 @@ class Home extends HookWidget {
             children: [
               if (state.banners.length > 0) bannerBlock(context, state.banners),
               if (state.categories.length > 0) ...[
-                if (db.getType() == 'list')
+                if (db.getType() == 'LIST')
                   categoryBlock(context, state.categories, notifier, db),
-                if (db.getType() != 'list')
+                if (db.getType() != 'LIST')
                   categoryListGrid(context, state.categories, notifier, db),
                 Container(
                   height: 45,
@@ -63,7 +63,7 @@ class Home extends HookWidget {
   }
 
   Widget bannerBlock(BuildContext context, List<BannerResponse> banners) {
-    var list = banners.map(
+    var LIST = banners.map(
       (banner) {
         return InkWell(
           onTap: () {
@@ -94,7 +94,7 @@ class Home extends HookWidget {
         height: 300,
         aspectRatio: 2,
         onPageChanged: (_) {},
-        items: list,
+        items: LIST,
       ),
     );
   }
