@@ -14,7 +14,15 @@ _$_LocalizationDataRequest _$_$_LocalizationDataRequestFromJson(
 }
 
 Map<String, dynamic> _$_$_LocalizationDataRequestToJson(
-        _$_LocalizationDataRequest instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-    };
+    _$_LocalizationDataRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('code', instance.code);
+  return val;
+}

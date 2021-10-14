@@ -5,7 +5,7 @@ class Localization extends Translations {
   Localization(this.json);
   @override
   Map<String, Map<String, String>> get keys =>
-      // json ??
+      json ??
       {
         'en': {
           "ACCESS_SETTINGS": "Access settings",
@@ -98,11 +98,26 @@ class Localization extends Translations {
               "Validate payment / Commands by waiter",
           "VAT_INCLUDE_TOTAL": "VAT include Total",
           "VIEW_ALL": "View all",
-          "WE_WAIT_FOR_YOU_SOON": "We wait for you soon.",
+          "WE_WAIT_FOR_YOU_SOON": "We hope to see you soon.",
           "YES": "Yes",
           "YOUR_ORDER_IS": "Your order is",
           "YOUR_PAYMENT_IS": "Your payment is",
-          "TOTAL_VAT_INCLUDED": "Total 10% vat included"
+          "TOTAL_VAT_INCLUDED": "Total 10% vat included",
+          "KIOSK_MODE": "Kiosk mode",
+          "CHOOSE_KIOSK_MODE": "Choose Kiosk mode",
+          "PRINTER_IP_ADDRESS": "Printer's IP address",
+          "PAY_CHECKOUT_PICK_PRODUCT": "Pay at Checkout and Pick up Product",
+          "PAY_TABLE_DELIVERY_TABLE": "Pay at Table and Delivery at Table",
+          "OFF": "OFF",
+          "PAY_CHECKOUT_DELIVERY_TABLE":
+              "Pay at Checkout and Delivery At Table",
+          "PAY_CHECKOUT": "PAY AT CHECKOUT",
+          "PAY_TABLE": "PAY AT TABLE",
+          "PICK_PRODUCT": "PICK UP PRODUCT",
+          "DELIVERY_TABLE": "DELIVERY AT TABLE",
+          "AND": "AND",
+          "CONNECT_ERROR_PRINTER": "Couldn\'t Connect to the Printer",
+          "IP_ERROR_PRINTER": "Printer IP not specified"
         },
         'es': {
           "ACCESS_SETTINGS": "Configuración de acceso",
@@ -196,11 +211,27 @@ class Localization extends Translations {
               "Validar el pago\/Mandatos por el camarero",
           "VAT_INCLUDE_TOTAL": "IVA incluido Total",
           "VIEW_ALL": "Ver todos",
-          "WE_WAIT_FOR_YOU_SOON": "Te esperamos pronto.",
+          "WE_WAIT_FOR_YOU_SOON": "Le esperamos pronto.",
           "YES": "Sí",
           "YOUR_ORDER_IS": "Su pedido es",
           "YOUR_PAYMENT_IS": "Su pago es",
-          "TOTAL_VAT_INCLUDED": "Total 10% vat included"
+          "TOTAL_VAT_INCLUDED": "Total 10% de iva incluido",
+          "KIOSK_MODE": "Modo Kiosk",
+          "CHOOSE_KIOSK_MODE": "Escoger modo Kiosk ",
+          "PRINTER_IP_ADDRESS": "Dirección IP de la impresora",
+          "PAY_CHECKOUT_PICK_PRODUCT":
+              "Pagar al momento del pago y retirar el producto",
+          "PAY_TABLE_DELIVERY_TABLE": "Paga en mesa y entrega en mesa",
+          "OFF": "APAGADA",
+          "PAY_CHECKOUT_DELIVERY_TABLE":
+              "Paga al momento del pago y entrega en la mesa",
+          "PAY_CHECKOUT": "PAGAR EN EL PAGO",
+          "PAY_TABLE": "PAGAR EN MESA",
+          "PICK_PRODUCT": "RECOGER EL PRODUCTO",
+          "DELIVERY_TABLE": "ENTREGA EN MESA",
+          "AND": "Y",
+          "CONNECT_ERROR_PRINTER": "No se pudo conectar a la impresora",
+          "IP_ERROR_PRINTER": "IP de la impresora no especificada"
         }
       };
 }

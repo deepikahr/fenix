@@ -23,6 +23,7 @@ import 'package:fenix_user/models/api_response_models/product_data_response/prod
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
+import 'package:fenix_user/models/api_response_models/sub_category_product_data_response/sub_category_product_data_response.dart';
 import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/screens/category/category.dart';
 import 'package:flutter/foundation.dart';
@@ -130,6 +131,21 @@ class API {
     return _api.get(
       URL.PRODUCT_LIST + '$categoryId',
       resModel: ProductDataResponse(),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+    );
+  }
+
+  Future<SubCategoryProductDataResponse?> subCategoryProductList(
+      String subCategoryId,
+      {ValueSetter<ErrorResponse>? errorListener,
+      ValueSetter<ApiResponse<SubCategoryProductDataResponse>>?
+          responseListener,
+      bool autoErrorHandle = true}) async {
+    return _api.get(
+      URL.SUB_CATEGORY_PRODUCT_LIST + '$subCategoryId',
+      resModel: SubCategoryProductDataResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
@@ -261,8 +277,8 @@ class API {
         resModel: SubCategoryModel());
   }
 
-  Future<Map<String, Map<String, String>>?> getLocalizationData(
-    String? code, {
+  Future<Map<String, Map<String, String>>?> getLocalizationData({
+    String? code,
     ValueSetter<ErrorResponse>? errorListener,
     bool autoErrorHandle = true,
     ValueSetter<ApiResponse<Map<String, Map<String, String>>?>>?

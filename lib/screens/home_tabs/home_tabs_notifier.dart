@@ -6,6 +6,7 @@ import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_state.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeTabsNotifier extends StateNotifier<HomeTabsState> {
@@ -48,8 +49,13 @@ class HomeTabsNotifier extends StateNotifier<HomeTabsState> {
     );
   }
 
-  void onSelectLanguage(String value) {
-    state = state.copyWith(selectedLanguage: value);
-    db.saveLanguage(value);
+  void onSelectLanguage(String language) {
+    print('selected Language --> $language');
+    final languageModel = state.languages
+        .singleWhere((element) => element.languageName == language);
+    state = state.copyWith(selectedLanguage: language);
+    db.saveLanguage(languageModel.languageName);
+    db.saveLanguageCode(languageModel.languageCode);
+    Get.updateLocale(Locale(languageModel.languageCode ?? 'en'));
   }
 }

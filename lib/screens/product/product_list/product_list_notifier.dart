@@ -3,6 +3,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
+import 'package:fenix_user/models/api_response_models/sub_category_product_data_response/sub_category_product_data_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -38,6 +39,21 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     if (ref.mounted) {
       state = state.copyWith.call(
         categoryTitle: response?.categoryTitle,
+        products: response?.product?.data ?? [],
+        totalProducts: response?.product?.total ?? 0,
+        isLoading: false,
+      );
+      _updateProducts(cartState?.products ?? []);
+    }
+  }
+
+  Future<SubCategoryProductDataResponse?> fetchSubCategoryProductData(
+      String subCategoryId) async {
+    state = state.copyWith.call(isLoading: true, products: []);
+    final response = await api.subCategoryProductList(subCategoryId);
+    if (ref.mounted) {
+      state = state.copyWith.call(
+        categoryTitle: response?.subCategoryTitle,
         products: response?.product?.data ?? [],
         totalProducts: response?.product?.total ?? 0,
         isLoading: false,

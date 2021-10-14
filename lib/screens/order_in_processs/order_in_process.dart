@@ -98,6 +98,7 @@ class OrdersInProcess extends HookWidget {
                     Text(
                       '$title',
                       style: textWhiteLargeBMM(context),
+                      textAlign: TextAlign.center,
                     ),
                     image != null
                         ? Image.asset(

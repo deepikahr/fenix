@@ -224,11 +224,12 @@ Widget dishesInfoCard(
                   scale: 0.8,
                   color: primary(),
                 ),
-                Text(
-                  '${product.tags!.first.title}',
-                  style: textDarkRegularBSW(context),
-                  textAlign: TextAlign.center,
-                ),
+                if (product.tags!.isNotEmpty)
+                  Text(
+                    '${product.tags!.first.title}',
+                    style: textDarkRegularBSW(context),
+                    textAlign: TextAlign.center,
+                  ),
               ],
             )),
         Positioned(

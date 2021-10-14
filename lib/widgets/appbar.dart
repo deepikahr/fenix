@@ -207,7 +207,6 @@ PreferredSizeWidget fenixAppbar(
                           }).toList();
                         },
                         items: languages.map((item) {
-                          DB().saveLanguageCode(item.languageCode);
                           return DropdownMenuItem(
                             value: item.languageName,
                             child: Center(

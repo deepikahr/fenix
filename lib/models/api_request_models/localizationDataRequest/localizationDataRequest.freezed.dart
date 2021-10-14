@@ -21,7 +21,7 @@ LocalizationDataRequest _$LocalizationDataRequestFromJson(
 class _$LocalizationDataRequestTearOff {
   const _$LocalizationDataRequestTearOff();
 
-  _LocalizationDataRequest call({String? code}) {
+  _LocalizationDataRequest call({@JsonKey(includeIfNull: false) String? code}) {
     return _LocalizationDataRequest(
       code: code,
     );
@@ -37,6 +37,7 @@ const $LocalizationDataRequest = _$LocalizationDataRequestTearOff();
 
 /// @nodoc
 mixin _$LocalizationDataRequest {
+  @JsonKey(includeIfNull: false)
   String? get code => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,7 +51,7 @@ abstract class $LocalizationDataRequestCopyWith<$Res> {
   factory $LocalizationDataRequestCopyWith(LocalizationDataRequest value,
           $Res Function(LocalizationDataRequest) then) =
       _$LocalizationDataRequestCopyWithImpl<$Res>;
-  $Res call({String? code});
+  $Res call({@JsonKey(includeIfNull: false) String? code});
 }
 
 /// @nodoc
@@ -82,7 +83,7 @@ abstract class _$LocalizationDataRequestCopyWith<$Res>
           $Res Function(_LocalizationDataRequest) then) =
       __$LocalizationDataRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String? code});
+  $Res call({@JsonKey(includeIfNull: false) String? code});
 }
 
 /// @nodoc
@@ -113,12 +114,14 @@ class __$LocalizationDataRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_LocalizationDataRequest extends _LocalizationDataRequest {
-  const _$_LocalizationDataRequest({this.code}) : super._();
+  const _$_LocalizationDataRequest({@JsonKey(includeIfNull: false) this.code})
+      : super._();
 
   factory _$_LocalizationDataRequest.fromJson(Map<String, dynamic> json) =>
       _$_$_LocalizationDataRequestFromJson(json);
 
   @override
+  @JsonKey(includeIfNull: false)
   final String? code;
 
   @override
@@ -151,7 +154,8 @@ class _$_LocalizationDataRequest extends _LocalizationDataRequest {
 }
 
 abstract class _LocalizationDataRequest extends LocalizationDataRequest {
-  const factory _LocalizationDataRequest({String? code}) =
+  const factory _LocalizationDataRequest(
+          {@JsonKey(includeIfNull: false) String? code}) =
       _$_LocalizationDataRequest;
   const _LocalizationDataRequest._() : super._();
 
@@ -159,6 +163,7 @@ abstract class _LocalizationDataRequest extends LocalizationDataRequest {
       _$_LocalizationDataRequest.fromJson;
 
   @override
+  @JsonKey(includeIfNull: false)
   String? get code => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

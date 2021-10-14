@@ -6,11 +6,13 @@ import 'package:fenix_user/network/socket.dart';
 import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
 import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:get/get.dart';
 
 class PaymentInProcessStateNotifier
     extends StateNotifier<PaymentInProcessState> {
@@ -30,7 +32,8 @@ class PaymentInProcessStateNotifier
 
   PaymentInProcessStateNotifier(this.ref) : super(PaymentInProcessState());
 
-  getPaymentStatus(OrderDetailsResponse? order, notifier) async {
+  getPaymentStatus(
+      OrderDetailsResponse? order, HomeTabsNotifier notifier) async {
     var request;
     SocketService().getSocket().clearListeners();
     var listenTo = URL.PAYMENT_REQUEST_EVENT.replaceAll('ORDER_ID', order!.id!);
@@ -39,6 +42,7 @@ class PaymentInProcessStateNotifier
         request = PaymentRequestCompletedResponse.fromJson(data);
         if (request != null) {
           if (request.paymentStatus == PAYMENT_STATUS.completed) {
+            await cleanCart(notifier);
             final printResult = await printerService.printReciept(
               type: PrinterRecieptType.CUSTOMER,
               products: order.cart,
@@ -49,12 +53,11 @@ class PaymentInProcessStateNotifier
             print('paid amount: ${order.amountPaid}');
             if (printResult != null) {
               customDialog(
-                title: printResult,
+                title: printResult.tr,
                 okText: 'Ok',
                 status: DIALOG_STATUS.FAIL,
               );
             }
-            await cleanCart(notifier);
           } else {
             notifier.showScreen(OrderDetails());
           }
@@ -63,7 +66,7 @@ class PaymentInProcessStateNotifier
     });
   }
 
-  cleanCart(notifier) async {
+  cleanCart(HomeTabsNotifier notifier) async {
     await cartState.deleteCart();
     await db.removeOrderId();
     SocketService().getSocket().clearListeners();

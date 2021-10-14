@@ -115,6 +115,7 @@ class Settings extends HookWidget {
                     state.validatePayment ??
                         state.settings!.tabSetting!.validatePaymentByWaiter,
                     state.themeColor ?? state.settings!.tabSetting!.themeColour,
+                    state.kioskMode,
                     state.orderMode ?? state.settings!.tabSetting!.orderingMode,
                     state.type ?? state.settings!.tabSetting!.viewType,
                   );
@@ -286,12 +287,12 @@ class Settings extends HookWidget {
                   await notifier.setType(value!);
                 },
                 items: <String>[
-                  'LIST'.tr,
-                  'GRID'.tr,
+                  'LIST',
+                  'GRID',
                 ].map<DropdownMenuItem<String>>((String item) {
                   return DropdownMenuItem<String>(
                     child: Text(
-                      '$item',
+                      '$item'.tr,
                       style: textDarkRegularBG(context),
                     ),
                     value: item,

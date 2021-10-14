@@ -326,10 +326,10 @@ class PrinterService {
         _printer.disconnect();
         return null;
       } else {
-        return 'Couldn\'t Connect to the Printer';
+        return 'CONNECT_ERROR_PRINTER';
       }
     }
-    return 'Printer IP not specified';
+    return 'IP_ERROR_PRINTER';
   }
 
   String _getPaddedString(String text, int length,
