@@ -20,14 +20,14 @@ class DrawerStateNotifier extends StateNotifier<DrawerState> {
 
   DrawerStateNotifier(this.ref) : super(DrawerState());
 
-  Future<void> logout() async {
-    if (db.isLoggedIn()) {
-      await db.logOut();
+  // Future<void> logout() async {
+  //   if (db.isLoggedIn()) {
+  //     await db.logOut();
 
-      state = state.copyWith(isLoading: true);
-      await Get.offAll(() => LoginPage());
-    }
-  }
+  //     state = state.copyWith(isLoading: true);
+  //     await Get.offAll(() => LoginPage());
+  //   }
+  // }
 
   Future<HomeResponse?> fetchHome() async {
     state = state.copyWith.call(isLoading: true);

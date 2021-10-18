@@ -5,7 +5,9 @@ import 'package:fenix_user/models/api_response_models/settings_response/settings
 import 'package:fenix_user/models/api_response_models/tab_setting_response/tab_setting_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'settings_state.dart';
 
@@ -47,6 +49,15 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       kioskMode: response ?? KIOSKMODE.OFF,
       isLoading: false,
     );
+  }
+
+  Future<void> logout() async {
+    if (db.isLoggedIn()) {
+      await db.logOut();
+
+      state = state.copyWith(isLoading: true);
+      await Get.offAll(() => LoginPage());
+    }
   }
 
   Future<String?> setThemeColor(String color) async {

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:twemoji/twemoji.dart';
 
 import 'normalText.dart';
 
@@ -171,11 +172,12 @@ PreferredSizeWidget fenixAppbar(
                     type: GFLoaderType.ios,
                   )
                 : Positioned(
-                    right: 16,
-                    top: 105,
+                    right: 20,
+                    top: 95,
                     child: Container(
                       child: DropdownButton<String>(
                         underline: Container(color: Colors.transparent),
+                        itemHeight: 80,
                         iconSize: 0,
                         value:
                             DB().getLanguage() ?? languages.first.languageName,
@@ -184,22 +186,25 @@ PreferredSizeWidget fenixAppbar(
                           return languages.map<Widget>((item) {
                             return Container(
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                      margin: EdgeInsets.only(bottom: 1),
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 6),
-                                      decoration: BoxDecoration(
-                                          color: white,
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      child: Text(
-                                        '${item.flagCode}',
-                                        style: TextStyle(fontSize: 30),
-                                      )),
+                                  Twemoji(
+                                    emoji: '${item.flagCode}',
+                                    height: 55,
+                                    width: 55,
+                                  ),
+                                  // Twemoji(
+                                  //   text: '${item.flagCode}',
+                                  //   style: TextStyle(fontSize: 30),
+                                  // )
+                                  // Text(
+                                  //   '${item.flagCode}',
+                                  //   style: TextStyle(fontSize: 30),
+                                  // ),
+
                                   Text(
                                     item.languageName ?? '',
-                                    style: textDarkRegularBGS(context),
+                                    style: textDarkRegularLBS(context),
                                   ),
                                 ],
                               ),
@@ -210,10 +215,16 @@ PreferredSizeWidget fenixAppbar(
                           return DropdownMenuItem(
                             value: item.languageName,
                             child: Center(
-                                child: Text(
-                              '${item.flagCode}',
-                              style: TextStyle(fontSize: 45),
-                            )),
+                              child: Twemoji(
+                                emoji: '${item.flagCode}',
+                                height: 50,
+                                width: 50,
+                              ),
+                              //     Text(
+                              //   '${item.flagCode}',
+                              //   style: TextStyle(fontSize: 45),
+                              // ),
+                            ),
                             // Text(
                             //   '${item.languageName}',
                             //   style: textDarkRegularBG(context),
