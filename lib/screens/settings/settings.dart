@@ -62,16 +62,22 @@ class Settings extends HookWidget {
                 boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 20)]),
             child: SafeArea(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: DB().isLoggedIn()
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: DB().isLoggedIn()
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    crossAxisAlignment: DB().isLoggedIn()
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                     children: [
                       titleTextDarkRegularBW15(
                           context, "MAC 91:75:1a:ec:9a:c7"),
-                      SizedBox(height: 5),
+                      SizedBox(height: DB().isLoggedIn() ? 0 : 5),
                       titleTextDarkRegularBW(context, Constants.restaurantName),
                       titleTextDarkRegularBW17(
                           context, Constants.restaurantAddress),
