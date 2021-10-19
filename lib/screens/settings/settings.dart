@@ -5,6 +5,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/menu_response/menu_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/auth/change_password/change_password.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/screens/settings/settings_state.dart';
@@ -54,23 +55,81 @@ class Settings extends HookWidget {
         backgroundColor: Colors.white,
         appBar: PreferredSize(
           child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(vertical: 15),
             decoration: new BoxDecoration(
                 color: secondary1,
                 boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 20)]),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: 25),
-                titleTextDarkRegularBW15(context, "MAC 91:75:1a:ec:9a:c7"),
-                SizedBox(height: 5),
-                titleTextDarkRegularBW(context, Constants.restaurantName),
-                titleTextDarkRegularBW17(context, Constants.restaurantAddress),
-              ],
+            child: SafeArea(
+              child: Row(
+                mainAxisAlignment: DB().isLoggedIn()
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: DB().isLoggedIn()
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    crossAxisAlignment: DB().isLoggedIn()
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
+                    children: [
+                      titleTextDarkRegularBW15(
+                          context, "MAC 91:75:1a:ec:9a:c7"),
+                      SizedBox(height: DB().isLoggedIn() ? 0 : 5),
+                      titleTextDarkRegularBW(context, Constants.restaurantName),
+                      titleTextDarkRegularBW17(
+                          context, Constants.restaurantAddress),
+                    ],
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => ChangePasswordPage());
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: primary(),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Icon(
+                        Icons.lock_clock_rounded,
+                        color: secondary1,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (DB().isLoggedIn()) {
+                        notifier.logout();
+                      } else {
+                        Get.to(() => LoginPage());
+                      }
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: primary(),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Icon(
+                        Icons.logout,
+                        color: secondary1,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          preferredSize: new Size(MediaQuery.of(context).size.width, 110.0),
+          preferredSize: new Size(MediaQuery.of(context).size.width, 100.0),
         ),
         body: ListView(
           shrinkWrap: true,
