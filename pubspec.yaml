@@ -45,6 +45,7 @@ dependencies:
   fluttertoast: ^8.0.8
   double_back_to_close_app: ^2.0.1
   sticky_headers: ^0.2.0
+  twemoji: ^0.2.2
 
   flutter_html:
   # plugin for printer services

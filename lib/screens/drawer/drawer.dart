@@ -83,33 +83,33 @@ class DrawerPage extends HookWidget {
             categoryBlock(context, state.homeData?.category),
             Divider()
           ],
-          InkWell(
-            onTap: () {
-              Get.to(() => ChangePasswordPage());
-            },
-            child: Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
-            ),
-          ),
-          Divider(),
-          InkWell(
-            onTap: () {
-              if (DB().isLoggedIn()) {
-                notifier.logout();
-              } else {
-                Get.to(() => LoginPage());
-              }
-            },
-            child: Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: titleTextDarkRegularBB20(
-                  context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
-            ),
-          ),
-          Divider(),
+          // InkWell(
+          //   onTap: () {
+          //     Get.to(() => ChangePasswordPage());
+          //   },
+          //   child: Container(
+          //     width: double.maxFinite,
+          //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          //     child: titleTextDarkRegularBB20(context, 'CHANGE_PASSCODE'.tr),
+          //   ),
+          // ),
+          // Divider(),
+          // InkWell(
+          //   onTap: () {
+          //     if (DB().isLoggedIn()) {
+          //       notifier.logout();
+          //     } else {
+          //       Get.to(() => LoginPage());
+          //     }
+          //   },
+          //   child: Container(
+          //     width: double.maxFinite,
+          //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          //     child: titleTextDarkRegularBB20(
+          //         context, DB().isLoggedIn() ? 'LOGOUT'.tr : 'LOGIN'.tr),
+          //   ),
+          // ),
+          // Divider(),
         ],
       )),
     );

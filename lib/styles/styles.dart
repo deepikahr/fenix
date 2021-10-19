@@ -641,6 +641,15 @@ TextStyle textDarkRegularLargeBS(context) {
   );
 }
 
+TextStyle textDarkRegularLBS(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 16.0,
+    color: dark.withOpacity(0.8),
+    fontFamily: 'BarlowSemiBold',
+  );
+}
+
 TextStyle textDarkXXSmallBS(context) {
   return TextStyle(
     fontWeight: FontWeight.w500,
