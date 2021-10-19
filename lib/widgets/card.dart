@@ -214,24 +214,24 @@ Widget dishesInfoCard(
             ),
           ],
         ),
-        Positioned(
-            top: 0,
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                Image.asset(
-                  'lib/assets/images/b2.png',
-                  scale: 0.8,
-                  color: primary(),
-                ),
-                if (product.tags!.isNotEmpty)
+        if (product.tags != null && product.tags!.isNotEmpty)
+          Positioned(
+              top: 0,
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Image.asset(
+                    'lib/assets/images/b2.png',
+                    scale: 0.8,
+                    color: primary(),
+                  ),
                   Text(
                     '${product.tags!.first.title}',
                     style: textDarkRegularBSW(context),
                     textAlign: TextAlign.center,
                   ),
-              ],
-            )),
+                ],
+              )),
         Positioned(
           top: 80,
           child: Container(
@@ -291,24 +291,24 @@ Widget gridDishCard(
                           (MediaQuery.of(context).size.width / 2) - 50, 170, 0)
                       : networkImageOverlay(
                           (MediaQuery.of(context).size.width / 2) - 50, 170),
-                  Positioned(
-                      top: 0,
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Image.asset(
-                            'lib/assets/images/b2.png',
-                            scale: 0.8,
-                            color: primary(),
-                          ),
-                          if (product.tags != null && product.tags!.isNotEmpty)
+                  if (product.tags != null && product.tags!.isNotEmpty)
+                    Positioned(
+                        top: 0,
+                        child: Stack(
+                          alignment: AlignmentDirectional.center,
+                          children: [
+                            Image.asset(
+                              'lib/assets/images/b2.png',
+                              scale: 0.8,
+                              color: primary(),
+                            ),
                             Text(
                               '${product.tags!.first.title}',
                               style: textDarkRegularBSW(context),
                               textAlign: TextAlign.center,
                             ),
-                        ],
-                      )),
+                          ],
+                        )),
                   Positioned(
                       top: 0,
                       right: 0,
