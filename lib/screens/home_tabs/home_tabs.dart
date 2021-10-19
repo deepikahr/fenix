@@ -75,7 +75,7 @@ class HomeTabs extends HookWidget {
         if (shouldBeAbleToChangeTabs) {
           notifier.changeBottomBarNavIndex(index);
           if (index == 0) {
-            notifier.showScreen(Home());
+            notifier.popScreen();
           } else if (index == 1) {
             notifier.showScreen(
                 CategoryScreen(UniqueKey(), CATEGORY_TYPE.beverageCategory));

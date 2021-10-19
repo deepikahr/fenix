@@ -15,5 +15,6 @@ class HomeTabsState with _$HomeTabsState {
     @Default([]) List<LanguageResponse> languages,
     SettingsResponse? settings,
     @Default(false) bool settingsIsLoading,
+    @Default([]) List<Widget> screensHistory,
   }) = _Default;
 }

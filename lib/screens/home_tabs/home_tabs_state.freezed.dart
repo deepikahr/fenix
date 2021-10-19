@@ -18,12 +18,13 @@ class _$HomeTabsStateTearOff {
 
   _Default call(
       {bool isLoading = false,
-      Widget currentScreen = const Center(child: Text('Nothing to show')),
+      Widget currentScreen = const Center(child: const Text('Nothing to show')),
       int bottomBarIndex = 0,
       String? selectedLanguage,
       List<LanguageResponse> languages = const [],
       SettingsResponse? settings,
-      bool settingsIsLoading = false}) {
+      bool settingsIsLoading = false,
+      List<Widget> screensHistory = const []}) {
     return _Default(
       isLoading: isLoading,
       currentScreen: currentScreen,
@@ -32,6 +33,7 @@ class _$HomeTabsStateTearOff {
       languages: languages,
       settings: settings,
       settingsIsLoading: settingsIsLoading,
+      screensHistory: screensHistory,
     );
   }
 }
@@ -48,6 +50,7 @@ mixin _$HomeTabsState {
   List<LanguageResponse> get languages => throw _privateConstructorUsedError;
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   bool get settingsIsLoading => throw _privateConstructorUsedError;
+  List<Widget> get screensHistory => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeTabsStateCopyWith<HomeTabsState> get copyWith =>
@@ -66,7 +69,8 @@ abstract class $HomeTabsStateCopyWith<$Res> {
       String? selectedLanguage,
       List<LanguageResponse> languages,
       SettingsResponse? settings,
-      bool settingsIsLoading});
+      bool settingsIsLoading,
+      List<Widget> screensHistory});
 
   $SettingsResponseCopyWith<$Res>? get settings;
 }
@@ -89,6 +93,7 @@ class _$HomeTabsStateCopyWithImpl<$Res>
     Object? languages = freezed,
     Object? settings = freezed,
     Object? settingsIsLoading = freezed,
+    Object? screensHistory = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
@@ -119,6 +124,10 @@ class _$HomeTabsStateCopyWithImpl<$Res>
           ? _value.settingsIsLoading
           : settingsIsLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      screensHistory: screensHistory == freezed
+          ? _value.screensHistory
+          : screensHistory // ignore: cast_nullable_to_non_nullable
+              as List<Widget>,
     ));
   }
 
@@ -146,7 +155,8 @@ abstract class _$DefaultCopyWith<$Res> implements $HomeTabsStateCopyWith<$Res> {
       String? selectedLanguage,
       List<LanguageResponse> languages,
       SettingsResponse? settings,
-      bool settingsIsLoading});
+      bool settingsIsLoading,
+      List<Widget> screensHistory});
 
   @override
   $SettingsResponseCopyWith<$Res>? get settings;
@@ -170,6 +180,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
     Object? languages = freezed,
     Object? settings = freezed,
     Object? settingsIsLoading = freezed,
+    Object? screensHistory = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
@@ -200,6 +211,10 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
           ? _value.settingsIsLoading
           : settingsIsLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      screensHistory: screensHistory == freezed
+          ? _value.screensHistory
+          : screensHistory // ignore: cast_nullable_to_non_nullable
+              as List<Widget>,
     ));
   }
 }
@@ -209,17 +224,18 @@ class __$DefaultCopyWithImpl<$Res> extends _$HomeTabsStateCopyWithImpl<$Res>
 class _$_Default implements _Default {
   const _$_Default(
       {this.isLoading = false,
-      this.currentScreen = const Center(child: Text('Nothing to show')),
+      this.currentScreen = const Center(child: const Text('Nothing to show')),
       this.bottomBarIndex = 0,
       this.selectedLanguage,
       this.languages = const [],
       this.settings,
-      this.settingsIsLoading = false});
+      this.settingsIsLoading = false,
+      this.screensHistory = const []});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
-  @JsonKey(defaultValue: const Center(child: Text('Nothing to show')))
+  @JsonKey(defaultValue: const Center(child: const Text('Nothing to show')))
   @override
   final Widget currentScreen;
   @JsonKey(defaultValue: 0)
@@ -235,10 +251,13 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: false)
   @override
   final bool settingsIsLoading;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<Widget> screensHistory;
 
   @override
   String toString() {
-    return 'HomeTabsState(isLoading: $isLoading, currentScreen: $currentScreen, bottomBarIndex: $bottomBarIndex, selectedLanguage: $selectedLanguage, languages: $languages, settings: $settings, settingsIsLoading: $settingsIsLoading)';
+    return 'HomeTabsState(isLoading: $isLoading, currentScreen: $currentScreen, bottomBarIndex: $bottomBarIndex, selectedLanguage: $selectedLanguage, languages: $languages, settings: $settings, settingsIsLoading: $settingsIsLoading, screensHistory: $screensHistory)';
   }
 
   @override
@@ -265,7 +284,10 @@ class _$_Default implements _Default {
                     .equals(other.settings, settings)) &&
             (identical(other.settingsIsLoading, settingsIsLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.settingsIsLoading, settingsIsLoading)));
+                    .equals(other.settingsIsLoading, settingsIsLoading)) &&
+            (identical(other.screensHistory, screensHistory) ||
+                const DeepCollectionEquality()
+                    .equals(other.screensHistory, screensHistory)));
   }
 
   @override
@@ -277,7 +299,8 @@ class _$_Default implements _Default {
       const DeepCollectionEquality().hash(selectedLanguage) ^
       const DeepCollectionEquality().hash(languages) ^
       const DeepCollectionEquality().hash(settings) ^
-      const DeepCollectionEquality().hash(settingsIsLoading);
+      const DeepCollectionEquality().hash(settingsIsLoading) ^
+      const DeepCollectionEquality().hash(screensHistory);
 
   @JsonKey(ignore: true)
   @override
@@ -293,7 +316,8 @@ abstract class _Default implements HomeTabsState {
       String? selectedLanguage,
       List<LanguageResponse> languages,
       SettingsResponse? settings,
-      bool settingsIsLoading}) = _$_Default;
+      bool settingsIsLoading,
+      List<Widget> screensHistory}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
@@ -309,6 +333,8 @@ abstract class _Default implements HomeTabsState {
   SettingsResponse? get settings => throw _privateConstructorUsedError;
   @override
   bool get settingsIsLoading => throw _privateConstructorUsedError;
+  @override
+  List<Widget> get screensHistory => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

@@ -23,8 +23,24 @@ class HomeTabsNotifier extends StateNotifier<HomeTabsState> {
   HomeTabsNotifier(this.ref) : super(HomeTabsState());
 
   void showScreen(Widget screen) {
-    state = state.copyWith.call(bottomBarIndex: -1, currentScreen: screen);
+    state = state.copyWith.call(
+      bottomBarIndex: -1,
+      currentScreen: screen,
+      screensHistory: [...state.screensHistory, screen],
+    );
     if (screen is Home) changeBottomBarNavIndex(0);
+  }
+
+  void popScreen() {
+    if (state.screensHistory.isNotEmpty) {
+      final popScreen = state.screensHistory.removeLast();
+      state = state.copyWith.call(
+        bottomBarIndex: -1,
+        currentScreen: state.screensHistory.last,
+        screensHistory: state.screensHistory,
+      );
+      if (popScreen is Home) changeBottomBarNavIndex(0);
+    }
   }
 
   void changeBottomBarNavIndex(int index) {
