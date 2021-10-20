@@ -29,7 +29,7 @@ Future<LanguageResponse?> getLanguage() async {
     DB().saveLanguage(DB().getLanguage() ?? res.first.languageName);
     DB().saveLanguageCode(DB().getLanguageCode() ?? res.first.languageCode);
   } else {
-    DB().saveLanguage(DB().getLanguage() ?? 'English');
+    DB().saveLanguage(DB().getLanguage() ?? ' English');
     DB().saveLanguageCode(DB().getLanguageCode() ?? 'en');
   }
 }
