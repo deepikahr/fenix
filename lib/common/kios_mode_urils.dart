@@ -20,8 +20,8 @@ String get getOrderInProcessTitleInKioskMode {
       return '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n';
     case KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT:
       return '${'PAY_CHECKOUT'.tr}\n${'AND'.tr}\n${'PICK_PRODUCT'.tr}\n\n';
-    // case KIOSKMODE.PAY_CHECKOUT_DELIVERY_TABLE:
-    //   return '${'PAY_CHECKOUT'.tr}\n${'AND'.tr}\n${'DELIVERY_TABLE'.tr}\n\n';
+    case KIOSKMODE.PAY_CHECKOUT_DELIVERY_TABLE:
+      return '${'PAY_CHECKOUT'.tr}\n${'AND'.tr}\n${'DELIVERY_TABLE'.tr}\n\n';
     case KIOSKMODE.PAY_TABLE_DELIVERY_TABLE:
       return '${'PAY_TABLE'.tr}\n${'AND'.tr}\n${'DELIVERY_TABLE'.tr}\n\n';
     default:
@@ -35,8 +35,8 @@ String get getOrderInProcessImageUrlInKioskMode {
       return 'lib/assets/images/timer.png';
     case KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT:
       return 'lib/assets/images/counter.png';
-    // case KIOSKMODE.PAY_CHECKOUT_DELIVERY_TABLE:
-    //   return 'lib/assets/images/countertocheckout.png';
+    case KIOSKMODE.PAY_CHECKOUT_DELIVERY_TABLE:
+      return 'lib/assets/images/countertocheckout.png';
     case KIOSKMODE.PAY_TABLE_DELIVERY_TABLE:
       return 'lib/assets/images/pickup.png';
     default:

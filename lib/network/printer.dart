@@ -281,6 +281,17 @@ class PrinterService {
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
+      if (products[i].productInstructions != null &&
+          products[i].productInstructions!.isNotEmpty)
+        printer.text(
+          'Instructions -> ${products[i].productInstructions!}',
+          styles: PosStyles(
+            align: PosAlign.left,
+            bold: false,
+            width: PosTextSize.size1,
+            height: PosTextSize.size1,
+          ),
+        );
       printer.hr();
     }
 
