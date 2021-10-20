@@ -36,7 +36,9 @@ class HomeTabsNotifier extends StateNotifier<HomeTabsState> {
       final popScreen = state.screensHistory.removeLast();
       state = state.copyWith.call(
         bottomBarIndex: -1,
-        currentScreen: state.screensHistory.last,
+        currentScreen: state.screensHistory.isEmpty
+            ? popScreen
+            : state.screensHistory.last,
         screensHistory: state.screensHistory,
       );
       if (popScreen is Home) changeBottomBarNavIndex(0);
