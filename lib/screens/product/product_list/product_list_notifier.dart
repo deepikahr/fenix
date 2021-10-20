@@ -200,6 +200,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
               (cp.variant?.sizeName != p.variant?.sizeName ||
                   !cp.selectedAddOnItems.equals(p.selectedAddOnItems)))
           : false;
+
       return p.copyWith(
         totalQuantity: totalQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,

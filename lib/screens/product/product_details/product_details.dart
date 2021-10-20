@@ -31,7 +31,6 @@ class ProductDetails extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final noteEditController = useTextEditingController();
     final state = useProvider(productDetailsProvider);
     final notifier = useProvider(productDetailsProvider.notifier);
     final isMounted = useIsMounted();
@@ -140,7 +139,6 @@ class ProductDetails extends HookWidget {
                   state.productDetails!,
                   state,
                   notifier,
-                  noteEditController,
                   noteFocusNode,
                 ),
               Container(
@@ -161,7 +159,6 @@ class ProductDetails extends HookWidget {
     ProductDetailsResponse product,
     ProductDetailsState state,
     ProductDetailsNotifier notifier,
-    TextEditingController noteEditController,
     FocusNode noteFocusNode,
   ) {
     print(
@@ -217,7 +214,10 @@ class ProductDetails extends HookWidget {
                                               context,
                                             ));
                                   } else {
-                                    notifier.addProduct(product, false);
+                                    notifier.addProduct(
+                                      product,
+                                      false,
+                                    );
                                   }
                                 },
                               ),
@@ -242,7 +242,10 @@ class ProductDetails extends HookWidget {
                                   //             },
                                   //           ));
                                   // } else {
-                                  await notifier.addProduct(product, true);
+                                  await notifier.addProduct(
+                                    product,
+                                    true,
+                                  );
                                   // }
                                 },
                               ),
@@ -260,7 +263,10 @@ class ProductDetails extends HookWidget {
                                 context
                                     .read(productDetailsProvider.notifier)
                                     .showAddButton(true);
-                                await notifier.addProduct(product, true);
+                                await notifier.addProduct(
+                                  product,
+                                  true,
+                                );
                               },
                               color: primary(),
                               text: 'ADD'.tr,
@@ -297,11 +303,13 @@ class ProductDetails extends HookWidget {
           ),
           noteTextField(
             context,
-            noteEditController,
             noteFocusNode,
+            useTextEditingController(
+                text: state.productDetails?.productInstructions),
             (value) {
               FocusScope.of(context).unfocus();
             },
+            notifier.updateInstructions,
           ),
         ],
       ),
@@ -310,9 +318,10 @@ class ProductDetails extends HookWidget {
 
   Widget noteTextField(
     BuildContext context,
-    controller,
     FocusNode focusNode,
+    TextEditingController controller,
     ValueChanged<String> onFieldSubmitted,
+    ValueChanged<String> onChange,
   ) {
     return TextFormField(
       keyboardType: TextInputType.text,
@@ -320,6 +329,7 @@ class ProductDetails extends HookWidget {
       focusNode: focusNode,
       onFieldSubmitted: onFieldSubmitted,
       maxLines: 5,
+      onChanged: onChange,
       decoration: InputDecoration(
         fillColor: Colors.white,
         labelStyle: textDarkLightSmallBR(context),

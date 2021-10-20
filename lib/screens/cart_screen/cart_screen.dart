@@ -29,6 +29,9 @@ class CartScreen extends HookWidget {
           await context.read(cartScreenProvider.notifier).updateGrandTotal();
         });
       }
+      for (var i = 0; i < (cart?.products.length ?? 0); i++) {
+        print(cart?.products[i].productInstructions);
+      }
       return;
     }, const []);
 

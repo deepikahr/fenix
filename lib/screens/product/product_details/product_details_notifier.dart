@@ -75,7 +75,9 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   }
 
   Future<void> addProduct(
-      ProductDetailsResponse product, bool isIncreased) async {
+    ProductDetailsResponse product,
+    bool isIncreased,
+  ) async {
     if (cartState == null) {
       await _createCartWithFirstProduct(product);
     } else if (cartState?.products.any((element) =>
@@ -98,7 +100,8 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   }
 
   Future<void> _createCartWithFirstProduct(
-      ProductDetailsResponse product) async {
+    ProductDetailsResponse product,
+  ) async {
     product = product.copyWith.call(
       productId: product.id,
       variantQuantity: 1,
@@ -127,6 +130,10 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     await cartNotifier.updateCart(cart);
     state = state.copyWith(productDetails: product);
     _updateProduct(cartProducts: cart.products, productUpdated: true);
+  }
+
+  void updateInstructions(String? val) {
+    state = state.copyWith.productDetails!.call(productInstructions: val);
   }
 
   Future<void> _addProductInExistingCart(ProductDetailsResponse product) async {
@@ -184,15 +191,17 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         newProduct = p.copyWith.call(
             modifiedQuantity: p.modifiedQuantity != null
                 ? p.modifiedQuantity! + (isIncreased ? 1 : -1)
-                : p.variantQuantity + (isIncreased ? 1 : -1));
+                : p.variantQuantity + (isIncreased ? 1 : -1),
+            productInstructions: product.productInstructions);
         newProduct = newProduct.copyWith(
           modified: db.getOrderId() != null &&
               (newProduct.modifiedQuantity == null ||
                   (newProduct.variantQuantity != newProduct.modifiedQuantity)),
         );
       } else {
-        newProduct = p.copyWith
-            .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
+        newProduct = p.copyWith.call(
+            variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1),
+            productInstructions: product.productInstructions);
       }
       print(
           'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'} Variants: ${newProduct.variants}');
@@ -275,6 +284,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
             (cp?.modifiedQuantity == null ||
                 (cp!.variantQuantity != cp.modifiedQuantity)),
         modifiedQuantity: cp?.modified ?? false ? cp!.modifiedQuantity : null,
+        productInstructions: cp?.productInstructions,
       );
 
       showAddButton(state.productDetails!.totalQuantity < 1);
@@ -340,6 +350,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         totalProductPrice: cartProduct.totalProductPrice,
         selectedAddOnItems: cartProduct.selectedAddOnItems,
         modifiedQuantity: cartProduct.modifiedQuantity,
+        productInstructions: cartProduct.productInstructions,
       );
       if (state.productDetails!.variants.isNotEmpty &&
           cartProduct.variant != null) {

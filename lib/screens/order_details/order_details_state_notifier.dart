@@ -28,7 +28,9 @@ class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
   Future<OrderDetailsResponse?> fetchOrderDetails() async {
     state = state.copyWith.call(isLoading: true);
     final res = await api.orderDetails(db.getOrderId()!);
-    state = state.copyWith.call(isLoading: false, orderDetails: res);
+    if (mounted) {
+      state = state.copyWith.call(isLoading: false, orderDetails: res);
+    }
     return res;
   }
 
