@@ -117,7 +117,7 @@ class CartScreen extends HookWidget {
           cart == null || !DB().isLoggedIn()
               ? Container()
               : Positioned(
-                  bottom: 0,
+                  bottom: 25,
                   left: 0,
                   right: 0,
                   child: Container(

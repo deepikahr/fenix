@@ -187,8 +187,9 @@ Widget customBottomBar(int currentIndex, onSelect, Cart? cart) {
       FABBottomAppBarItem(
           iconData: "lib/assets/icons/toPay.svg",
           text: 'TO_PAY'.tr,
-          total:
-              cart == null ? '0' : '${getQuantityCount(cart.products, false)}'),
+          total: cart == null
+              ? '0'
+              : '${getConfirmedQuantityCount(cart.products)}'),
     ],
     backgroundColor: Colors.grey.shade200,
     currentIndex: currentIndex,
@@ -218,7 +219,10 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
                 ),
               ),
             ),
-            cart == null || !DB().isLoggedIn() || cart.products.length == 0
+            cart == null ||
+                    !DB().isLoggedIn() ||
+                    cart.products.length == 0 ||
+                    getQuantityCount(cart.products, true) == 0
                 ? Container()
                 : PositionedDirectional(
                     end: 0,
@@ -245,10 +249,28 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
 
 int getQuantityCount(
     List<ProductDetailsResponse> products, bool showModifiedCount) {
+  if (DB().getOrderId() == null) {
+    int _quantity = products
+        .map((e) => showModifiedCount && e.modified
+            ? e.modifiedQuantity ?? e.variantQuantity
+            : e.variantQuantity)
+        .reduce((value, element) => value + element);
+    return _quantity;
+  } else {
+    int _quantity = products
+        .map((e) => showModifiedCount && e.modified
+            ? (e.modifiedQuantity ?? e.variantQuantity) - e.variantQuantity
+            : 0)
+        .reduce((value, element) => value + element);
+    return _quantity;
+  }
+}
+
+int getConfirmedQuantityCount(
+  List<ProductDetailsResponse> products,
+) {
   int _quantity = products
-      .map((e) => showModifiedCount && e.modified
-          ? e.modifiedQuantity ?? e.variantQuantity
-          : e.variantQuantity)
+      .map((e) => e.variantQuantity)
       .reduce((value, element) => value + element);
   return _quantity;
 }
