@@ -187,9 +187,8 @@ class PrinterService {
     printer.hr(ch: '-');
     printer.row([
       PosColumn(
-        text:
-            'TOTAL: ${totalAmount == null || totalAmount == 0.0 ? totalPrice : totalAmount}',
-        width: 8,
+        text: 'TOTAL: ',
+        width: 4,
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
@@ -198,12 +197,22 @@ class PrinterService {
       ),
       PosColumn(
         textEncoded: Uint8List.fromList([8364]),
-        width: 4,
+        width: 2,
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
           width: PosTextSize.size2,
           codeTable: 'CP1250',
+        ),
+      ),
+      PosColumn(
+        text:
+            ' ${totalAmount == null || totalAmount == 0.0 ? totalPrice.toStringAsFixed(2) : totalAmount.toStringAsFixed(2)}',
+        width: 6,
+        styles: PosStyles(
+          align: PosAlign.left,
+          bold: true,
+          width: PosTextSize.size2,
         ),
       ),
     ]);
