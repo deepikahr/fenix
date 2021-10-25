@@ -53,7 +53,8 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     return res;
   }
 
-  getOrderStatus(String? orderId, HomeTabsNotifier notifier) async {
+  getOrderStatus(String? orderId, HomeTabsNotifier notifier,
+      {bool isPickUpProduct = false}) async {
     var request;
     SocketService().getSocket().clearListeners();
     var listenTo =
@@ -73,30 +74,34 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
               status: DIALOG_STATUS.WARNING,
             );
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
-            DB().setIsOrderPending(false);
-
-            getNotifiWaiter();
-            if (isNormalFlowInKioskMode) {
-              notifier.showScreen(Home());
-              customDialog(
-                title: 'ORDER_CONFIRMED'.tr,
-                okText: 'Ok',
-                status: DIALOG_STATUS.SUCCESS,
-              );
-              final res = await fetchOrderDetails();
-              final printResult = await printerService.printReciept(
-                type: PrinterRecieptType.KITCHEN,
-                products: res?.cart ?? [],
-              );
-              if (printResult != null) {
-                customDialog(
-                  title: printResult.tr,
-                  okText: 'Ok'.tr,
-                  status: DIALOG_STATUS.FAIL,
-                );
-              }
+            if (isPickUpProduct) {
+              cleanCart(notifier);
             } else {
-              notifier.showScreen(OrderDetails());
+              DB().setIsOrderPending(false);
+
+              getNotifiWaiter();
+              if (isNormalFlowInKioskMode) {
+                notifier.showScreen(Home());
+                customDialog(
+                  title: 'ORDER_CONFIRMED'.tr,
+                  okText: 'Ok',
+                  status: DIALOG_STATUS.SUCCESS,
+                );
+                final res = await fetchOrderDetails();
+                final printResult = await printerService.printReciept(
+                  type: PrinterRecieptType.KITCHEN,
+                  products: res?.cart ?? [],
+                );
+                if (printResult != null) {
+                  customDialog(
+                    title: printResult.tr,
+                    okText: 'Ok'.tr,
+                    status: DIALOG_STATUS.FAIL,
+                  );
+                }
+              } else {
+                notifier.showScreen(OrderDetails());
+              }
             }
           }
         }
