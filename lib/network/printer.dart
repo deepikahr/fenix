@@ -8,6 +8,7 @@ import 'package:fenix_user/models/api_response_models/cart_product/cart_product.
 import 'package:fenix_user/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
 class PrinterService {
   final ProviderReference ref;
@@ -187,9 +188,8 @@ class PrinterService {
     printer.hr(ch: '-');
     printer.row([
       PosColumn(
-        text:
-            'TOTAL: ${totalAmount == null || totalAmount == 0.0 ? totalPrice : totalAmount}',
-        width: 8,
+        text: 'TOTAL: ',
+        width: 4,
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
@@ -198,12 +198,22 @@ class PrinterService {
       ),
       PosColumn(
         textEncoded: Uint8List.fromList([8364]),
-        width: 4,
+        width: 2,
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
           width: PosTextSize.size2,
           codeTable: 'CP1250',
+        ),
+      ),
+      PosColumn(
+        text:
+            ' ${totalAmount == null || totalAmount == 0.0 ? totalPrice.toStringAsFixed(2) : totalAmount.toStringAsFixed(2)}',
+        width: 6,
+        styles: PosStyles(
+          align: PosAlign.left,
+          bold: true,
+          width: PosTextSize.size2,
         ),
       ),
     ]);
@@ -216,7 +226,7 @@ class PrinterService {
       ),
     );
     printer.text(
-      'WAY TO PAY: ${paymentType == null ? 'N/A' : paymentType}',
+      'WAY TO PAY: ${paymentType == null ? 'N/A' : paymentType.tr}',
       styles: PosStyles(
         align: PosAlign.left,
       ),
@@ -281,6 +291,17 @@ class PrinterService {
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
+      if (products[i].productInstructions != null &&
+          products[i].productInstructions!.isNotEmpty)
+        printer.text(
+          'Instructions -> ${products[i].productInstructions!}',
+          styles: PosStyles(
+            align: PosAlign.left,
+            bold: false,
+            width: PosTextSize.size1,
+            height: PosTextSize.size1,
+          ),
+        );
       printer.hr();
     }
 

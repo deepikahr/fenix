@@ -197,11 +197,14 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
           modified: db.getOrderId() != null &&
               (newProduct.modifiedQuantity == null ||
                   (newProduct.variantQuantity != newProduct.modifiedQuantity)),
+          variants: product.variants,
         );
       } else {
         newProduct = p.copyWith.call(
-            variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1),
-            productInstructions: product.productInstructions);
+          variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1),
+          productInstructions: product.productInstructions,
+          variants: product.variants,
+        );
       }
       print(
           'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'} Variants: ${newProduct.variants}');

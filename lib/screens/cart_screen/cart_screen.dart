@@ -102,7 +102,7 @@ class CartScreen extends HookWidget {
                                     ),
                                   ),
                                   Container(
-                                    height: 75,
+                                    height: 120,
                                   )
                                 ],
                               ),
@@ -122,8 +122,10 @@ class CartScreen extends HookWidget {
                   right: 0,
                   child: Container(
                     color: grey2,
-                    padding: EdgeInsets.all(16),
+                    height: 100,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         custombuttonsmh50(context, 'ADD_MORE_PRODUCTS'.tr,
@@ -132,6 +134,9 @@ class CartScreen extends HookWidget {
                               .read(homeTabsProvider.notifier)
                               .showScreen(Home());
                         }, false),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         state.isLoading || state.isUpdateLoading
                             ? GFLoader(type: GFLoaderType.ios)
                             : DB().getOrderId() == null

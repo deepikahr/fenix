@@ -24,40 +24,43 @@ class OrdersInProcess extends HookWidget {
     useEffect(() {
       print('Use Effect in OrderInProcess $title');
       if (isMounted()) {
-        if (shouldSendOrderToWaiterInKioskMode) {
-          Future.delayed(Duration.zero, () async {
-            final order = await notifier.fetchOrderDetails();
-            if (!notifier.cart!.modifiedCart && order != null) {
-              if (order.orderStatus == ORDER_STATUS.completed) {
-                await notifier
-                    .cleanCart(context.read(homeTabsProvider.notifier));
-              } else if (order.orderStatus == ORDER_STATUS.cancelled) {
-                Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
-                await DB().removeOrderId();
-                context
-                    .read(homeTabsProvider.notifier)
-                    .showScreen(CartScreen());
-              } else if (order.orderStatus == ORDER_STATUS.pending) {
-                DB().setIsOrderPending(true);
-                notifier.getOrderStatus(
-                    order.id, context.read(homeTabsProvider.notifier));
-              } else if (order.orderStatus == ORDER_STATUS.confirmed) {
-                DB().setIsOrderPending(false);
+        // if (shouldSendOrderToWaiterInKioskMode) {
+        Future.delayed(Duration.zero, () async {
+          final order = await notifier.fetchOrderDetails();
+          if (!notifier.cart!.modifiedCart && order != null) {
+            if (order.orderStatus == ORDER_STATUS.completed) {
+              await notifier.cleanCart(context.read(homeTabsProvider.notifier));
+            } else if (order.orderStatus == ORDER_STATUS.cancelled) {
+              Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
+              await DB().removeOrderId();
+              context.read(homeTabsProvider.notifier).showScreen(CartScreen());
+            } else if (order.orderStatus == ORDER_STATUS.pending) {
+              DB().setIsOrderPending(true);
+              notifier.getOrderStatus(
+                  order.id, context.read(homeTabsProvider.notifier),
+                  isPickUpProduct: isPayCheckoutAndPickProduct);
+            } else if (order.orderStatus == ORDER_STATUS.confirmed) {
+              DB().setIsOrderPending(false);
+              if (!isPayCheckoutAndPickProduct) {
                 context
                     .read(homeTabsProvider.notifier)
                     .showScreen(OrderDetails());
+              } else {
+                notifier.cleanCart(notifier);
               }
-            } else {
-              DB().setIsOrderPending(true);
-              notifier.getUpdateOrderStatus(
-                  DB().getOrderId(), context.read(homeTabsProvider.notifier));
             }
-          });
-        } else {
-          Future.delayed(const Duration(seconds: 8), () async {
-            notifier.cleanCart(context.read(homeTabsProvider.notifier));
-          });
-        }
+          } else {
+            DB().setIsOrderPending(true);
+            notifier.getUpdateOrderStatus(
+                DB().getOrderId(), context.read(homeTabsProvider.notifier));
+          }
+        });
+        // }
+        // else {
+        //   Future.delayed(Duration.zero, () async {
+        //     notifier.cleanCart(context.read(homeTabsProvider.notifier));
+        //   });
+        // }
       }
       return;
     }, const []);

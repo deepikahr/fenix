@@ -161,7 +161,7 @@ TextStyle textWhiteLargeBM(context) {
 TextStyle textWhiteLargeBM20(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 20.0,
+    fontSize: 18.0,
     color: Colors.white,
     fontFamily: 'BarlowBold',
   );
