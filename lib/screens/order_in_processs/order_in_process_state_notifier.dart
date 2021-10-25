@@ -1,4 +1,4 @@
-import 'package:fenix_user/common/kios_mode_urils.dart';
+import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -75,7 +75,18 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             );
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
             DB().setIsOrderPending(false);
-
+            final res = await fetchOrderDetails();
+            final printResult = await printerService.printReciept(
+              type: PrinterRecieptType.KITCHEN,
+              products: res?.cart ?? [],
+            );
+            if (printResult != null) {
+              customDialog(
+                title: printResult.tr,
+                okText: 'Ok'.tr,
+                status: DIALOG_STATUS.FAIL,
+              );
+            }
             if (isPickUpProduct) {
               cleanCart(notifier);
             } else {
@@ -87,18 +98,6 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                   okText: 'Ok',
                   status: DIALOG_STATUS.SUCCESS,
                 );
-                final res = await fetchOrderDetails();
-                final printResult = await printerService.printReciept(
-                  type: PrinterRecieptType.KITCHEN,
-                  products: res?.cart ?? [],
-                );
-                if (printResult != null) {
-                  customDialog(
-                    title: printResult.tr,
-                    okText: 'Ok'.tr,
-                    status: DIALOG_STATUS.FAIL,
-                  );
-                }
               } else {
                 notifier.showScreen(OrderDetails());
               }

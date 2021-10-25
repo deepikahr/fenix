@@ -1,4 +1,4 @@
-import 'package:fenix_user/common/kios_mode_urils.dart';
+import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';

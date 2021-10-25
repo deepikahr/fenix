@@ -166,7 +166,6 @@ class PrinterService {
 
     printer.emptyLines(1);
     printer.hr();
-    final tax = totalPrice * (10 / 100);
     printer.row([
       PosColumn(
         text: _getPaddedString('I.V.A/ TAX BASE 10.00%', 24),
@@ -175,8 +174,7 @@ class PrinterService {
             height: PosTextSize.size1, width: PosTextSize.size1, bold: true),
       ),
       PosColumn(
-          text:
-              _getPaddedString(tax.toStringAsFixed(2), 24, prefixPadding: true),
+          text: _getPaddedString("", 24, prefixPadding: true),
           width: 6,
           styles: PosStyles(
             align: PosAlign.right,
@@ -184,7 +182,6 @@ class PrinterService {
             width: PosTextSize.size1,
           )),
     ]);
-    totalPrice += tax;
     printer.hr(ch: '-');
     printer.row([
       PosColumn(

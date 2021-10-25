@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:fenix_user/common/constant.dart';
-import 'package:fenix_user/common/kios_mode_urils.dart';
+import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';

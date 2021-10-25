@@ -1,10 +1,11 @@
 import 'package:fenix_user/common/constant.dart';
-import 'package:fenix_user/common/kios_mode_urils.dart';
+import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/language_response/language_response.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:twemoji/twemoji.dart';
@@ -49,6 +50,13 @@ PreferredSizeWidget fenixAppbar(
                 onTap: () {
                   if (shouldBeAbleToChangeTabs) {
                     _scaffoldKey.currentState!.openDrawer();
+                  } else {
+                    if (isStuckOnPaymentForKioskMode) {
+                      Fluttertoast.showToast(
+                          msg: 'USER_CANT_CHANGE_PAYMENT'.tr);
+                    } else {
+                      Fluttertoast.showToast(msg: 'USER_CANT_CHANGE_ORDER'.tr);
+                    }
                   }
                 },
                 child: Image.asset(

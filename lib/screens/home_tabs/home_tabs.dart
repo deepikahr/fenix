@@ -1,4 +1,4 @@
-import 'package:fenix_user/common/kios_mode_urils.dart';
+import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/network/socket.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -14,7 +14,9 @@ import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:get/get.dart';
 
 class HomeTabs extends HookWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -37,7 +39,11 @@ class HomeTabs extends HookWidget {
               image: getOrderInProcessImageUrlInKioskMode,
             ));
           } else {
-            notifier.showScreen(Home());
+            if (shouldBeAbleToChangeTabs) {
+              notifier.showScreen(Home());
+            } else {
+              notifier.showScreen(OrderDetails());
+            }
           }
           await notifier.fetchSettings();
           await notifier.fetchLanguage();
@@ -61,11 +67,15 @@ class HomeTabs extends HookWidget {
         () {
           if (shouldBeAbleToChangeTabs) {
             notifier.showScreen(Home());
+          } else {
+            displayToastForLockedMode();
           }
         },
         () {
           if (shouldBeAbleToChangeTabs) {
             notifier.showScreen(NotifyWaiter());
+          } else {
+            displayToastForLockedMode();
           }
         },
       ),
@@ -85,6 +95,8 @@ class HomeTabs extends HookWidget {
           } else if (index == 3) {
             notifier.showScreen(OrderDetails());
           }
+        } else {
+          displayToastForLockedMode();
         }
       }, DB().getOrderId() != null ? cart : null),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -95,7 +107,17 @@ class HomeTabs extends HookWidget {
               ? () async {
                   notifier.showScreen(CartScreen());
                 }
-              : () {}),
+              : () {
+                  displayToastForLockedMode();
+                }),
     );
+  }
+
+  void displayToastForLockedMode() {
+    if (isStuckOnPaymentForKioskMode) {
+      Fluttertoast.showToast(msg: 'USER_CANT_CHANGE_PAYMENT'.tr);
+    } else {
+      Fluttertoast.showToast(msg: 'USER_CANT_CHANGE_ORDER'.tr);
+    }
   }
 }
