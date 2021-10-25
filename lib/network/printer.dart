@@ -8,6 +8,7 @@ import 'package:fenix_user/models/api_response_models/cart_product/cart_product.
 import 'package:fenix_user/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
 class PrinterService {
   final ProviderReference ref;
@@ -225,7 +226,7 @@ class PrinterService {
       ),
     );
     printer.text(
-      'WAY TO PAY: ${paymentType == null ? 'N/A' : paymentType}',
+      'WAY TO PAY: ${paymentType == null ? 'N/A' : paymentType.tr}',
       styles: PosStyles(
         align: PosAlign.left,
       ),

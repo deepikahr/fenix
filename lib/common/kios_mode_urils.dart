@@ -10,8 +10,8 @@ bool get isNormalFlowInKioskMode {
   return DB().getKioskMode() == KIOSKMODE.OFF;
 }
 
-bool get shouldSendOrderToWaiterInKioskMode {
-  return DB().getKioskMode() != KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT;
+bool get isPayCheckoutAndPickProduct {
+  return DB().getKioskMode() == KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT;
 }
 
 String get getOrderInProcessTitleInKioskMode {

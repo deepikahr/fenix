@@ -74,11 +74,11 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
               status: DIALOG_STATUS.WARNING,
             );
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
+            DB().setIsOrderPending(false);
+
             if (isPickUpProduct) {
               cleanCart(notifier);
             } else {
-              DB().setIsOrderPending(false);
-
               getNotifiWaiter();
               if (isNormalFlowInKioskMode) {
                 notifier.showScreen(Home());
