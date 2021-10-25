@@ -1,5 +1,5 @@
 import 'package:fenix_user/common/constant.dart';
-import 'package:fenix_user/common/kios_mode_urils.dart';
+import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
@@ -68,9 +68,9 @@ class OrderDetails extends HookWidget {
             ListView(
               children: [
                 DB().getOrderId() == null
-                    ? Center(child: Text('CART_IS_EMPTY'.tr))
+                    ? Center(child: Text('NO_ORDER_PLACED'.tr))
                     : state.orderDetails == null || !DB().isLoggedIn()
-                        ? Center(child: Text('CART_IS_EMPTY'.tr))
+                        ? Center(child: Text('NO_ORDER_PLACED'.tr))
                         : Align(
                             alignment: Alignment.topCenter,
                             child: Container(
@@ -194,9 +194,10 @@ class OrderDetails extends HookWidget {
                           ),
               ],
             ),
-          if (state.orderDetails != ORDER_STATUS.cancelled ||
-              state.orderDetails != ORDER_STATUS.completed ||
-              state.orderDetails != ORDER_STATUS.pending)
+          if (DB().getOrderId() != null &&
+              (state.orderDetails != ORDER_STATUS.cancelled ||
+                  state.orderDetails != ORDER_STATUS.completed ||
+                  state.orderDetails != ORDER_STATUS.pending))
             Positioned(
               bottom: 50,
               left: 0,

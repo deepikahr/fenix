@@ -55,3 +55,9 @@ bool get shouldBeAbleToChangeTabs {
   }
   return DB().getOrderId() == null || DB().getKioskMode() == KIOSKMODE.OFF;
 }
+
+bool get isStuckOnPaymentForKioskMode {
+  return !DB().getIsOrderPending() &&
+      (DB().getKioskMode() == KIOSKMODE.PAY_CHECKOUT_PICK_PRODUCT ||
+          DB().getKioskMode() == KIOSKMODE.PAY_TABLE_DELIVERY_TABLE);
+}

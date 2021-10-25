@@ -117,7 +117,12 @@ class Localization extends Translations {
           "DELIVERY_TABLE": "DELIVERY AT TABLE",
           "AND": "AND",
           "CONNECT_ERROR_PRINTER": "Couldn\'t Connect to the Printer",
-          "IP_ERROR_PRINTER": "Printer IP not specified"
+          "IP_ERROR_PRINTER": "Printer IP not specified",
+          "USER_CANT_CHANGE_PAYMENT":
+              "Please wait untill the order is confirmed",
+          "USER_CANT_CHANGE_ORDER":
+              "Please wait untill the payment is complete",
+          "NO_ORDER_PLACED": "No Order Placed yet"
         },
         'es': {
           "ACCESS_SETTINGS": "Configuración de acceso",
@@ -231,7 +236,12 @@ class Localization extends Translations {
           "DELIVERY_TABLE": "ENTREGA EN MESA",
           "AND": "Y",
           "CONNECT_ERROR_PRINTER": "No se pudo conectar a la impresora",
-          "IP_ERROR_PRINTER": "IP de la impresora no especificada"
+          "IP_ERROR_PRINTER": "IP de la impresora no especificada",
+          "USER_CANT_CHANGE_PAYMENT":
+              "Espere hasta que se confirme el pedido",
+          "USER_CANT_CHANGE_ORDER":
+              "Espere hasta que se complete el pago",
+          "NO_ORDER_PLACED": "Aún no se ha realizado ningún pedido"
         }
       };
 }
