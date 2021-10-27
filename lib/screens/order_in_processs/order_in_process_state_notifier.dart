@@ -70,7 +70,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             notifier.showScreen(CartScreen());
             customDialog(
               title: 'ORDER_IS_CANCELLED'.tr,
-              okText: 'Ok',
+              okText: 'OK'.tr,
               status: DIALOG_STATUS.WARNING,
             );
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
@@ -83,7 +83,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             if (printResult != null) {
               customDialog(
                 title: printResult.tr,
-                okText: 'Ok'.tr,
+                okText: 'OK'.tr,
                 status: DIALOG_STATUS.FAIL,
               );
             }
@@ -95,7 +95,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                 notifier.showScreen(Home());
                 customDialog(
                   title: 'ORDER_CONFIRMED'.tr,
-                  okText: 'Ok',
+                  okText: 'OK'.tr,
                   status: DIALOG_STATUS.SUCCESS,
                 );
               } else {
@@ -125,13 +125,25 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
         if (request.action == ACTION_MODIFICATION.reject) {
           customDialog(
             title: 'ORDER_IS_CANCELLED'.tr,
-            okText: 'Ok',
+            okText: 'OK'.tr,
             status: DIALOG_STATUS.WARNING,
           );
         } else {
+          final res = await fetchOrderDetails();
+          final printResult = await printerService.printReciept(
+            type: PrinterRecieptType.KITCHEN,
+            products: res?.cart ?? [],
+          );
+          if (printResult != null) {
+            customDialog(
+              title: printResult.tr,
+              okText: 'OK'.tr,
+              status: DIALOG_STATUS.FAIL,
+            );
+          }
           customDialog(
             title: 'ORDER_CONFIRMED'.tr,
-            okText: 'Ok',
+            okText: 'OK'.tr,
             status: DIALOG_STATUS.SUCCESS,
           );
         }
