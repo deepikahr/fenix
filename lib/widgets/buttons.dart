@@ -259,7 +259,10 @@ int getQuantityCount(
   } else {
     int _quantity = products
         .map((e) => showModifiedCount && e.modified
-            ? (e.modifiedQuantity ?? e.variantQuantity) - e.variantQuantity
+            ? ((e.modifiedQuantity ?? e.variantQuantity) - e.variantQuantity) <
+                    0
+                ? 0
+                : (e.modifiedQuantity ?? e.variantQuantity) - e.variantQuantity
             : 0)
         .reduce((value, element) => value + element);
     return _quantity;

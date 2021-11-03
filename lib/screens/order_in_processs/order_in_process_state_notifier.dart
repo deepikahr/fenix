@@ -252,14 +252,13 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
   void getNotifiWaiter() async {
     final waiterID = db.getId();
     if (waiterID != null) {
-      var request;
       var listenTo =
           URL.NOTIFI_WAITER_REQUEST_EVENT.replaceAll('USER_ID', waiterID);
       print('socket url: $listenTo');
       SocketService().getSocket().on(listenTo, (data) async {
         print('socket response $data');
         if (data != null) {
-          request = CallWaiterRequest.fromJson(data);
+          final request = CallWaiterRequest.fromJson(data);
           customDialog(
             status: DIALOG_STATUS.SUCCESS,
             title: 'WAITER_WARNED',
