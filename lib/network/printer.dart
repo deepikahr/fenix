@@ -183,7 +183,7 @@ class PrinterService {
   void _printKitchenRecieptForModification(
     NetworkPrinter printer, {
     List<UpdateOrderHistoryModel> modificationHistory = const [],
-    String? orderID,
+    int? orderID,
   }) {
     printer.text(
       Constants.restaurantName,
@@ -321,7 +321,7 @@ class PrinterService {
   }
 
   void _printKitchenReciept(NetworkPrinter printer,
-      {required List<CartProduct> products, String? orderID}) {
+      {required List<CartProduct> products, int? orderID}) {
     printer.text(
       Constants.restaurantName,
       styles: PosStyles(
@@ -414,7 +414,7 @@ class PrinterService {
       List<CartProduct> products = const [],
       required PrinterRecieptType type,
       List<UpdateOrderHistoryModel>? modificationHistory,
-      String? orderID,
+      int? orderID,
       String? paymentType,
       String? invoiceNo,
       double? totalAmount}) async {
@@ -436,9 +436,10 @@ class PrinterService {
         } else if (type == PrinterRecieptType.KITCHEN) {
           if (modificationHistory != null) {
             _printKitchenRecieptForModification(_printer,
-                modificationHistory: modificationHistory);
+                modificationHistory: modificationHistory, orderID: orderID);
           } else {
-            _printKitchenReciept(_printer, products: products);
+            _printKitchenReciept(_printer,
+                products: products, orderID: orderID);
           }
         }
         _printer.disconnect();

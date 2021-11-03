@@ -259,14 +259,14 @@ class DB {
     setIsOrderPending(false);
   }
 
-  void saveOrderNumber(orderNumber) {
+  void saveOrderNumber(int? orderNumber) {
     final box = Hive.box('user');
     box.put('orderNumber', orderNumber);
   }
 
-  String? getOrderNumber() {
+  int? getOrderNumber() {
     final box = Hive.box('user');
-    String? orderNumber = box.get('orderNumber');
+    int? orderNumber = box.get('orderNumber');
     return orderNumber;
   }
 
