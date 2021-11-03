@@ -109,6 +109,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                   );
                 }
               } catch (e) {
+                print('Printing Error: $e');
                 customDialog(
                   title: 'CONNECT_ERROR_PRINTER'.tr,
                   okText: 'OK'.tr,
@@ -174,6 +175,8 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                 );
               }
             } catch (e) {
+              print('Printing Error: $e');
+
               customDialog(
                 title: 'CONNECT_ERROR_PRINTER'.tr,
                 okText: 'OK'.tr,
