@@ -4,6 +4,7 @@ import 'package:fenix_user/models/api_request_models/call_waiter_request/call_wa
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_socket_response/order_socket_response.dart';
+import 'package:fenix_user/models/api_response_models/update_order_history_response/update_order_history_model.dart';
 import 'package:fenix_user/models/api_response_models/update_order_socket_response/update_order_socket_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/network/printer.dart';
@@ -49,7 +50,13 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
   Future<OrderDetailsResponse?> fetchOrderDetails() async {
     state = state.copyWith.call(isLoading: true);
     final res = await api.orderDetails(db.getOrderId()!);
+    if (res != null) db.saveOrderNumber(res.orderID);
     if (mounted) state = state.copyWith.call(isLoading: false);
+    return res;
+  }
+
+  Future<List<UpdateOrderHistoryModel>?> fetchmodificationHistory() async {
+    final res = await api.getModificationOrderHistory(db.getOrderId()!);
     return res;
   }
 
@@ -67,6 +74,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             cleanCart(notifier);
           } else if (request.orderStatus == ORDER_STATUS.cancelled) {
             await db.removeOrderId();
+            await db.removeOrderNumber();
             notifier.showScreen(CartScreen());
             customDialog(
               title: 'ORDER_IS_CANCELLED'.tr,
@@ -76,13 +84,22 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           } else if (request.orderStatus == ORDER_STATUS.confirmed) {
             DB().setIsOrderPending(false);
             final res = await fetchOrderDetails();
-            final printResult = await printerService.printReciept(
-              type: PrinterRecieptType.KITCHEN,
-              products: res?.cart ?? [],
-            );
-            if (printResult != null) {
+            try {
+              final printResult = await printerService.printReciept(
+                type: PrinterRecieptType.KITCHEN,
+                orderID: db.getOrderNumber(),
+                products: res?.cart ?? [],
+              );
+              if (printResult != null) {
+                customDialog(
+                  title: printResult.tr,
+                  okText: 'OK'.tr,
+                  status: DIALOG_STATUS.FAIL,
+                );
+              }
+            } catch (e) {
               customDialog(
-                title: printResult.tr,
+                title: 'CONNECT_ERROR_PRINTER'.tr,
                 okText: 'OK'.tr,
                 status: DIALOG_STATUS.FAIL,
               );
@@ -129,14 +146,23 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             status: DIALOG_STATUS.WARNING,
           );
         } else {
-          final res = await fetchOrderDetails();
-          final printResult = await printerService.printReciept(
-            type: PrinterRecieptType.KITCHEN,
-            products: res?.cart ?? [],
-          );
-          if (printResult != null) {
+          final modificationHistory = await fetchmodificationHistory();
+          try {
+            final printResult = await printerService.printReciept(
+              type: PrinterRecieptType.KITCHEN,
+              modificationHistory: modificationHistory ?? [],
+              orderID: db.getOrderNumber(),
+            );
+            if (printResult != null) {
+              customDialog(
+                title: printResult.tr,
+                okText: 'OK'.tr,
+                status: DIALOG_STATUS.FAIL,
+              );
+            }
+          } catch (e) {
             customDialog(
-              title: printResult.tr,
+              title: 'CONNECT_ERROR_PRINTER'.tr,
               okText: 'OK'.tr,
               status: DIALOG_STATUS.FAIL,
             );
@@ -154,6 +180,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
   cleanCart(notifier, {bool clearSocket = true}) async {
     await cartState.deleteCart();
     await db.removeOrderId();
+    await db.removeOrderNumber();
     SocketService().getSocket().clearListeners();
     notifier.showScreen(Thankyou());
   }

@@ -24,6 +24,7 @@ import 'package:fenix_user/models/api_response_models/product_details_response/p
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
 import 'package:fenix_user/models/api_response_models/sub_category_model/sub_category_model.dart';
 import 'package:fenix_user/models/api_response_models/sub_category_product_data_response/sub_category_product_data_response.dart';
+import 'package:fenix_user/models/api_response_models/update_order_history_response/update_order_history_model.dart';
 import 'package:fenix_user/network/urls.dart';
 import 'package:fenix_user/screens/category/category.dart';
 import 'package:flutter/foundation.dart';
@@ -261,6 +262,34 @@ class API {
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
       resModel: CategoryResponse(),
+    );
+  }
+
+  Future<List<UpdateOrderHistoryModel>?> getModificationOrderHistory(
+      String orderId,
+      {ValueSetter<ErrorResponse>? errorListener,
+      ValueSetter<ApiResponse<List<UpdateOrderHistoryModel>?>>?
+          responseListener,
+      bool autoErrorHandle = true}) async {
+    return _api.getForArrayResponse(
+      URL.ORDER_MODIFY_HISTORY + '$orderId',
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+      resModel: UpdateOrderHistoryModel(),
+    );
+  }
+
+  Future<UpdateOrderHistoryModel?> getLatestModificationHistory(String orderId,
+      {ValueSetter<ErrorResponse>? errorListener,
+      ValueSetter<ApiResponse<UpdateOrderHistoryModel?>>? responseListener,
+      bool autoErrorHandle = true}) async {
+    return _api.get(
+      URL.ORDER_LAST_MODIFY + '$orderId',
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+      resModel: UpdateOrderHistoryModel(),
     );
   }
 

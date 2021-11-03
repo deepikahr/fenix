@@ -270,6 +270,11 @@ class DB {
     return orderNumber;
   }
 
+  Future<void> removeOrderNumber() async {
+    final box = Hive.box('user');
+    await box.delete('orderNumber');
+  }
+
   Future<void> logOut() async {
     final box = Hive.box('user');
     await box.deleteAll([
@@ -281,7 +286,8 @@ class DB {
       'orderId',
       'kioskMode',
       'printerIPaddress',
-      'printerPort'
+      'printerPort',
+      'isOrderPending'
     ]);
   }
 }

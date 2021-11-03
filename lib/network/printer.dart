@@ -5,6 +5,8 @@ import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
+import 'package:fenix_user/models/api_response_models/update_order_history_response/update_order_history_model.dart';
+import 'package:fenix_user/models/api_response_models/update_order_socket_response/update_order_socket_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -16,66 +18,6 @@ class PrinterService {
   PrinterService(this.ref);
 
   DB get db => ref.read(dbProvider);
-
-  // void _testReceipt(NetworkPrinter printer,
-  //     {String? waiterName, required List<CartProduct> products}) {
-  //   final dateTime = DateTime.now();
-  //   printer.text(
-  //     '${Constants.restaurantName}',
-  //     styles: PosStyles(
-  //       align: PosAlign.center,
-  //     ),
-  //   );
-  //   if (waiterName != null) {
-  //     printer.text(
-  //       '✱✱✱ ${waiterName} ✱✱✱',
-  //       styles: PosStyles(
-  //         align: PosAlign.center,
-  //       ),
-  //       linesAfter: 1,
-  //     );
-  //   }
-  //   printer.emptyLines(2);
-  //   printer.text(
-  //     'Table no.:   #${db.getTableNumber() ?? 3}',
-  //     styles: PosStyles(
-  //       align: PosAlign.left,
-  //     ),
-  //   );
-  //   printer.hr(ch: '-', linesAfter: 1);
-  //   printer.text(
-  //     'Date: ${dateTime.day}.${dateTime.month}.${dateTime.year}',
-  //     styles: PosStyles(
-  //       align: PosAlign.left,
-  //     ),
-  //   );
-  //   printer.text(
-  //     'Time: ${dateTime.hour}:${dateTime.minute}',
-  //     styles: PosStyles(
-  //       align: PosAlign.right,
-  //     ),
-  //   );
-  //   printer.hr(ch: '-', linesAfter: 1);
-  //   for (var i = 0; i < products.length; i++) {
-  //     printer.text(
-  //       '${products[i].productName}',
-  //       styles: PosStyles(
-  //         align: PosAlign.left,
-  //       ),
-  //       linesAfter: 1,
-  //     );
-  //     printer.text(
-  //       '${products[i].variantQuantity}',
-  //       styles: PosStyles(
-  //         align: PosAlign.right,
-  //       ),
-  //     );
-  //   }
-
-  //   printer.hr(ch: '-', linesAfter: 1);
-  //   printer.feed(2);
-  //   printer.cut();
-  // }
 
   ///printing format for customer reciept
   void _printCustomerReciept(
@@ -94,15 +36,16 @@ class PrinterService {
         ),
         linesAfter: 1);
 
-    printer.text('LEGAL NAME', styles: PosStyles(align: PosAlign.center));
+    printer.text('LEGAL_NAME'.tr, styles: PosStyles(align: PosAlign.center));
     printer.text('NIF: FISCAL BUSINESS NUMBER',
         styles: PosStyles(align: PosAlign.center, bold: true));
     printer.text(Constants.restaurantAddress,
         styles: PosStyles(align: PosAlign.center));
-    printer.text('PHONE NUMBER',
+    printer.text('PHONE_NUMBER'.tr,
         styles: PosStyles(align: PosAlign.center), linesAfter: 1);
 
-    printer.text('Invoice number: ${invoiceNo == null ? 'N/A' : invoiceNo}',
+    printer.text(
+        '${'INVOICE_NUMBER'.tr}: ${invoiceNo == null ? 'N/A' : invoiceNo}',
         styles: PosStyles(align: PosAlign.left, bold: true));
     final now = DateTime.now();
     final dateformatter = DateFormat('MM/dd/yyyy');
@@ -111,27 +54,27 @@ class PrinterService {
     final String date = dateformatter.format(now);
     final String time = timeformatter.format(now);
 
-    printer.text('DATE: $date     TIME: $time',
+    printer.text('${'DATE'.tr}: $date     ${'TIME'.tr}: $time',
         styles: PosStyles(align: PosAlign.center), linesAfter: 2);
     printer.hr();
     printer.row([
       PosColumn(
           text: _getPaddedString(
-            'Concept',
+            'CONCEPT'.tr,
             32,
           ),
           width: 8,
           styles: PosStyles(align: PosAlign.left, bold: true)),
       PosColumn(
           text: _getPaddedString(
-            'Price',
+            'PRICE'.tr,
             8,
           ),
           width: 2,
           styles: PosStyles(align: PosAlign.right, bold: true)),
       PosColumn(
           text: _getPaddedString(
-            'Amount',
+            'AMOUNT'.tr,
             8,
           ),
           width: 2,
@@ -168,7 +111,7 @@ class PrinterService {
     printer.hr();
     printer.row([
       PosColumn(
-        text: _getPaddedString('I.V.A/ TAX BASE 10.00%', 24),
+        text: _getPaddedString('TAX_BASE_PRINTER'.tr, 24),
         width: 6,
         styles: PosStyles(
             height: PosTextSize.size1, width: PosTextSize.size1, bold: true),
@@ -185,7 +128,7 @@ class PrinterService {
     printer.hr(ch: '-');
     printer.row([
       PosColumn(
-        text: 'TOTAL: ',
+        text: '${'TOTAL'.tr}: ',
         width: 4,
         styles: PosStyles(
           align: PosAlign.left,
@@ -217,28 +160,31 @@ class PrinterService {
 
     printer.hr(ch: '-', linesAfter: 1);
     printer.text(
-      'TABLE: ${db.getTableNumber()}',
+      '${'TABLE'.tr}: ${db.getTableNumber()}',
       styles: PosStyles(
         align: PosAlign.left,
       ),
     );
     printer.text(
-      'WAY TO PAY: ${paymentType == null ? 'N/A' : paymentType.tr}',
+      '${'WAY_TO_PAY'.tr}: ${paymentType == null ? 'N/A' : paymentType.tr}',
       styles: PosStyles(
         align: PosAlign.left,
       ),
     );
 
     printer.feed(2);
-    printer.text('THANK YOU FOR YOUR VISIT',
+    printer.text('WE_WAIT_FOR_YOU_SOON'.tr,
         styles: PosStyles(align: PosAlign.center, bold: true));
     printer.feed(1);
     printer.cut();
   }
 
   /// reciept format for cook/kitchen
-  void _printKitchenReciept(NetworkPrinter printer,
-      {required List<CartProduct> products}) {
+  void _printKitchenRecieptForModification(
+    NetworkPrinter printer, {
+    List<UpdateOrderHistoryModel> modificationHistory = const [],
+    String? orderID,
+  }) {
     printer.text(
       Constants.restaurantName,
       styles: PosStyles(
@@ -249,7 +195,7 @@ class PrinterService {
       ),
     );
     printer.text(
-      '--- ORDER RECEIVED ---',
+      '--- ${'ORDER_RECEIVED'.tr} ---',
       styles: PosStyles(
         align: PosAlign.center,
         height: PosTextSize.size1,
@@ -262,20 +208,167 @@ class PrinterService {
     final timeformatter = DateFormat('hh:mm');
     final String date = dateformatter.format(now);
     final String time = timeformatter.format(now);
-    printer.text('TABLE: ${db.getTableNumber()}',
+    printer.text('${'TABLE'.tr}: ${db.getTableNumber()}',
         styles: PosStyles(
           align: PosAlign.left,
           bold: true,
           height: PosTextSize.size1,
           width: PosTextSize.size1,
         ));
-    printer.text('DATE: $date        TIME: $time',
+    printer.text('${'DATE'.tr}: $date        ${'TIME'.tr}: $time',
         styles: PosStyles(
           align: PosAlign.left,
           height: PosTextSize.size1,
           width: PosTextSize.size1,
         ),
         linesAfter: 1);
+    final baseProducts = modificationHistory[0].localCart?.products ?? [];
+    printer.text(
+      '${'ORDERID'.tr}: ${orderID ?? 'N/A'}',
+      styles: PosStyles(
+        align: PosAlign.left,
+        bold: true,
+        width: PosTextSize.size1,
+        height: PosTextSize.size1,
+      ),
+    );
+    printer.emptyLines(1);
+    for (var i = 0; i < baseProducts.length; i++) {
+      if (baseProducts[i].variantQuantity > 0) {
+        printer.row([
+          PosColumn(
+            text: '${_getPaddedString(baseProducts[i].productName ?? '', 40)}',
+            width: 10,
+          ),
+          PosColumn(
+              text:
+                  '${_getPaddedString('${baseProducts[i].variantQuantity}', 8)}',
+              width: 2,
+              styles: PosStyles(align: PosAlign.right)),
+        ]);
+        if (baseProducts[i].productInstructions != null &&
+            baseProducts[i].productInstructions!.isNotEmpty)
+          printer.text(
+            '${'INSTRUCTIONS'.tr} -> ${baseProducts[i].productInstructions!}',
+            styles: PosStyles(
+              align: PosAlign.left,
+              bold: false,
+              width: PosTextSize.size1,
+              height: PosTextSize.size1,
+            ),
+          );
+      }
+    }
+
+    for (var i = 0; i < modificationHistory.length; i++) {
+      if (modificationHistory[i].action == ACTION_MODIFICATION.accept) {
+        final products = modificationHistory[i].localCart?.products ?? [];
+        if (products.length > 0) {
+          printer.hr();
+          printer.text(
+            '${"MODIFICATION".tr} ${i + 1}',
+            styles: PosStyles(
+              align: PosAlign.left,
+              bold: true,
+              width: PosTextSize.size1,
+              height: PosTextSize.size1,
+            ),
+          );
+        }
+        printer.emptyLines(1);
+        for (var i = 0; i < products.length; i++) {
+          if (products[i].modified) {
+            printer.row([
+              PosColumn(
+                text:
+                    '${_getPaddedString((products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})', 40)}',
+                width: 10,
+              ),
+              PosColumn(
+                  text:
+                      '${_getPaddedString('${products[i].modifiedQuantity}', 8)}',
+                  width: 2,
+                  styles: PosStyles(align: PosAlign.right)),
+            ]);
+            if (products[i].productInstructions != null &&
+                products[i].productInstructions!.isNotEmpty)
+              printer.text(
+                '${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
+                styles: PosStyles(
+                  align: PosAlign.left,
+                  bold: false,
+                  width: PosTextSize.size1,
+                  height: PosTextSize.size1,
+                ),
+              );
+          }
+        }
+      }
+    }
+
+    printer.feed(3);
+    printer.text(
+      'PILARBOX',
+      styles: PosStyles(
+        align: PosAlign.center,
+        bold: true,
+        width: PosTextSize.size1,
+        height: PosTextSize.size1,
+      ),
+    );
+    printer.feed(1);
+    printer.cut();
+  }
+
+  void _printKitchenReciept(NetworkPrinter printer,
+      {required List<CartProduct> products, String? orderID}) {
+    printer.text(
+      Constants.restaurantName,
+      styles: PosStyles(
+        align: PosAlign.center,
+        bold: true,
+        height: PosTextSize.size1,
+        width: PosTextSize.size1,
+      ),
+    );
+    printer.text(
+      '--- ${'ORDER_RECEIVED'.tr} ---',
+      styles: PosStyles(
+        align: PosAlign.center,
+        height: PosTextSize.size1,
+        width: PosTextSize.size1,
+      ),
+      linesAfter: 1,
+    );
+    final now = DateTime.now();
+    final dateformatter = DateFormat('MM/dd/yyyy');
+    final timeformatter = DateFormat('hh:mm');
+    final String date = dateformatter.format(now);
+    final String time = timeformatter.format(now);
+    printer.text('${'TABLE'.tr}: ${db.getTableNumber()}',
+        styles: PosStyles(
+          align: PosAlign.left,
+          bold: true,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
+        ));
+    printer.text('${'DATE'.tr}: $date        ${'TIME'.tr}: $time',
+        styles: PosStyles(
+          align: PosAlign.left,
+          height: PosTextSize.size1,
+          width: PosTextSize.size1,
+        ),
+        linesAfter: 1);
+    printer.text(
+      '${'ORDERID'.tr}: ${orderID ?? 'N/A'}',
+      styles: PosStyles(
+        align: PosAlign.left,
+        bold: true,
+        width: PosTextSize.size1,
+        height: PosTextSize.size1,
+      ),
+    );
+    printer.emptyLines(1);
     for (var i = 0; i < products.length; i++) {
       printer.row([
         PosColumn(
@@ -291,7 +384,7 @@ class PrinterService {
       if (products[i].productInstructions != null &&
           products[i].productInstructions!.isNotEmpty)
         printer.text(
-          'Instructions -> ${products[i].productInstructions!}',
+          '${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
           styles: PosStyles(
             align: PosAlign.left,
             bold: false,
@@ -320,6 +413,8 @@ class PrinterService {
       {String? ip,
       List<CartProduct> products = const [],
       required PrinterRecieptType type,
+      List<UpdateOrderHistoryModel>? modificationHistory,
+      String? orderID,
       String? paymentType,
       String? invoiceNo,
       double? totalAmount}) async {
@@ -339,7 +434,12 @@ class PrinterService {
               paymentType: paymentType,
               totalAmount: totalAmount);
         } else if (type == PrinterRecieptType.KITCHEN) {
-          _printKitchenReciept(_printer, products: products);
+          if (modificationHistory != null) {
+            _printKitchenRecieptForModification(_printer,
+                modificationHistory: modificationHistory);
+          } else {
+            _printKitchenReciept(_printer, products: products);
+          }
         }
         _printer.disconnect();
         return null;

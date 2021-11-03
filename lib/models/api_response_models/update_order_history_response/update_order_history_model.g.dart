@@ -1,29 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'update_order_socket_response.dart';
+part of 'update_order_history_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UpdateOrderSocketResponse _$_$_UpdateOrderSocketResponseFromJson(
+_$_UpdateOrderHistoryModel _$_$_UpdateOrderHistoryModelFromJson(
     Map<String, dynamic> json) {
-  return _$_UpdateOrderSocketResponse(
-    action:
-        _$enumDecodeNullable(_$ACTION_MODIFICATIONEnumMap, json['action']) ??
-            ACTION_MODIFICATION.reject,
+  return _$_UpdateOrderHistoryModel(
+    action: _$enumDecodeNullable(
+            _$ACTION_MODIFICATIONEnumMap, json['modifyRequest']) ??
+        ACTION_MODIFICATION.Pending,
     id: json['_id'] as String?,
+    createdAt: json['createdAt'] == null
+        ? null
+        : DateTime.parse(json['createdAt'] as String),
     localCart: json['localCart'] == null
         ? null
         : Cart.fromJson(json['localCart'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$_$_UpdateOrderSocketResponseToJson(
-        _$_UpdateOrderSocketResponse instance) =>
+Map<String, dynamic> _$_$_UpdateOrderHistoryModelToJson(
+        _$_UpdateOrderHistoryModel instance) =>
     <String, dynamic>{
-      'action': _$ACTION_MODIFICATIONEnumMap[instance.action],
+      'modifyRequest': _$ACTION_MODIFICATIONEnumMap[instance.action],
       '_id': instance.id,
+      'createdAt': instance.createdAt?.toIso8601String(),
       'localCart': instance.localCart,
     };
 

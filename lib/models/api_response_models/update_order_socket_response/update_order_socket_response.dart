@@ -10,7 +10,9 @@ enum ACTION_MODIFICATION {
   @JsonValue('ACCEPTED')
   accept,
   @JsonValue('REJECTED')
-  reject
+  reject,
+  @JsonValue('IN_PROGRESS')
+  Pending,
 }
 
 @freezed

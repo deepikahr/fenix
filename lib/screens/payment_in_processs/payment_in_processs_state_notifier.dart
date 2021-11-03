@@ -69,6 +69,8 @@ class PaymentInProcessStateNotifier
   cleanCart(HomeTabsNotifier notifier) async {
     await cartState.deleteCart();
     await db.removeOrderId();
+    await db.removeOrderNumber();
+
     SocketService().getSocket().clearListeners();
     notifier.showScreen(Thankyou());
   }
