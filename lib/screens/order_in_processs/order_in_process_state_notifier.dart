@@ -161,10 +161,57 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             );
           } else {
             final modificationHistory = await fetchmodificationHistory();
+            // final someList = modificationHistory?.reversed.toList() ?? [];
+            // final baseProducts = someList![0].localCart?.products ?? [];
+            // print(
+            //   '${'ORDERID'.tr}: ${db.getOrderNumber() ?? 'N/A'}',
+            // );
+
+            // for (var i = 0; i < baseProducts.length; i++) {
+            //   if (baseProducts[i].variantQuantity > 0) {
+            //     print(
+            //       '${baseProducts[i].productName ?? ''}' +
+            //           '${'${baseProducts[i].variantQuantity}'}',
+            //     );
+            //     if (baseProducts[i].productInstructions != null &&
+            //         baseProducts[i].productInstructions!.isNotEmpty)
+            //       print(
+            //         '${'INSTRUCTIONS'.tr} -> ${baseProducts[i].productInstructions!}',
+            //       );
+            //   }
+            // }
+
+            // for (var i = 0; i < someList.length; i++) {
+            //   if (someList[i].action == ACTION_MODIFICATION.accept) {
+            //     final products = someList[i].localCart?.products ?? [];
+            //     if (products.length > 0) {
+            //       print(
+            //         '${"MODIFICATION".tr} ${i + 1}',
+            //       );
+            //     }
+
+            //     for (var i = 0; i < products.length; i++) {
+            //       if (products[i].modified) {
+            //         print(
+            //           '${(products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
+            //               '${products[i].modifiedQuantity}',
+            //         );
+            //         if (products[i].productInstructions != null &&
+            //             products[i].productInstructions!.isNotEmpty)
+            //           print(
+            //             '${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
+            //           );
+            //       }
+            //     }
+            //   }
+            // }
             try {
               final printResult = await printerService.printReciept(
                 type: PrinterRecieptType.KITCHEN,
-                modificationHistory: modificationHistory ?? [],
+                //we are reversing it because we get it in a descending order of created time, i.e latest first
+                // for printing we need it in the older first order hence reversed
+                modificationHistory:
+                    modificationHistory?.reversed.toList() ?? [],
                 orderID: db.getOrderNumber(),
               );
               if (printResult != null) {
