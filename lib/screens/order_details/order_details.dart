@@ -8,7 +8,6 @@ import 'package:fenix_user/screens/cart_screen/cart_screen.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/screens/payment/payment_screen.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs.dart';
-import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +44,8 @@ class OrderDetails extends HookWidget {
               } else if (res.orderStatus == ORDER_STATUS.cancelled) {
                 Fluttertoast.showToast(msg: 'ORDER_IS_CANCELLED'.tr);
                 await DB().removeOrderId();
+                await DB().removeOrderNumber();
+
                 context
                     .read(homeTabsProvider.notifier)
                     .showScreen(CartScreen());

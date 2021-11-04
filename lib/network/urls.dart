@@ -20,6 +20,8 @@ class URL {
   static const CREATE_ORDER = '/orders/create';
   static const UPDATE_ORDER = '/orders/item/update';
   static const ORDER_DETAILS = '/orders/detail/';
+  static const ORDER_MODIFY_HISTORY = '/orders/history/of/modify-requests/';
+  static const ORDER_LAST_MODIFY = '/orders/latest/modify-request/';
 
   static const CALL_WAITER = '/notifications/request';
   static const CALL_WAITER_LIST = '/notifications/list';

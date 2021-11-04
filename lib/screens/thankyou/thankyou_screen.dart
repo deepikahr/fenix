@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/home.dart';
-import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

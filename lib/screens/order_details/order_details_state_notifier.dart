@@ -42,6 +42,7 @@ class OrderDetailsStateNotifier extends StateNotifier<OrderDetailsState> {
     await cartState.deleteCart();
     SocketService().getSocket().clearListeners();
     await db.removeOrderId();
+    await db.removeOrderNumber();
     notifier.showScreen(Thankyou());
   }
 }

@@ -7,9 +7,7 @@ import 'package:fenix_user/models/api_response_models/product_details_response/p
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
-import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:get/get.dart';
 import 'cart_screen_state.dart';
 
 class CartScreenNotifier extends StateNotifier<CartScreenState> {
@@ -38,13 +36,16 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     state = state.copyWith(isLoading: false);
   }
 
-  Future<void> updateQuantity(ProductDetailsResponse product, increased) async {
+  Future<void> updateQuantity(ProductDetailsResponse product, bool increased,
+      {bool returnToZero = false}) async {
     late ProductDetailsResponse newProduct;
     if (db.getOrderId() != null) {
       newProduct = product.copyWith(
-        modifiedQuantity: product.modifiedQuantity != null
-            ? product.modifiedQuantity! + (increased ? 1 : -1)
-            : product.variantQuantity + (increased ? 1 : -1),
+        modifiedQuantity: returnToZero
+            ? 0
+            : product.modifiedQuantity != null
+                ? product.modifiedQuantity! + (increased ? 1 : -1)
+                : product.variantQuantity + (increased ? 1 : -1),
       );
       newProduct = newProduct.copyWith(
         modified: db.getOrderId() != null &&
@@ -100,14 +101,21 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> removeProduct(ProductDetailsResponse product) async {
-    await cartState
-        .updateCart(cart?.copyWith(products: cart!.products..remove(product)));
-    if (cart!.products.isEmpty) {
-      await cartState.deleteCart();
+    final removeProduct =
+        db.getOrderId() == null || product.variantQuantity < 1;
+
+    if (removeProduct) {
+      await cartState.updateCart(
+          cart?.copyWith(products: cart!.products..remove(product)));
+      if (cart!.products.isEmpty) {
+        await cartState.deleteCart();
+      } else {
+        await updateGrandTotal();
+      }
+      await updateModifiedStatusOfCart();
     } else {
-      await updateGrandTotal();
+      updateQuantity(product, false, returnToZero: true);
     }
-    await updateModifiedStatusOfCart();
   }
 
   Future<void> updateGrandTotal() async {

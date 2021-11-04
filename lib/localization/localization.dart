@@ -122,7 +122,21 @@ class Localization extends Translations {
               "Please wait untill the order is confirmed",
           "USER_CANT_CHANGE_ORDER":
               "Please wait untill the payment is complete",
-          "NO_ORDER_PLACED": "No Order Placed yet"
+          "NO_ORDER_PLACED": "No Order Placed yet",
+          "MODIFICATION": "Modification",
+          "ORDERID": "OrderID",
+          "DATE": "DATE",
+          "TIME": "TIME",
+          "PHONE_NUMBER": "PHONE NUMBER",
+          "LEGAL_NAME": "LEGAL NAME",
+          "INVOICE_NUMBER": "Invoice number",
+          "CONCEPT": "Concept",
+          "PRICE": "Price",
+          "AMOUNT": "Amount",
+          "TAX_BASE_PRINTER": "I.V.A/ TAX BASE 10.00%",
+          "TABLE": "TABLE",
+          "WAY_TO_PAY": "WAY TO PAY",
+          "ORDER_RECEIVED": "ORDER RECEIVED",
         },
         'es': {
           "ACCESS_SETTINGS": "Configuración de acceso",
@@ -237,11 +251,23 @@ class Localization extends Translations {
           "AND": "Y",
           "CONNECT_ERROR_PRINTER": "No se pudo conectar a la impresora",
           "IP_ERROR_PRINTER": "IP de la impresora no especificada",
-          "USER_CANT_CHANGE_PAYMENT":
-              "Espere hasta que se confirme el pedido",
-          "USER_CANT_CHANGE_ORDER":
-              "Espere hasta que se complete el pago",
-          "NO_ORDER_PLACED": "Aún no se ha realizado ningún pedido"
+          "USER_CANT_CHANGE_PAYMENT": "Espere hasta que se confirme el pedido",
+          "USER_CANT_CHANGE_ORDER": "Espere hasta que se complete el pago",
+          "NO_ORDER_PLACED": "Aún no se ha realizado ningún pedido",
+          "MODIFICATION": "Modificación",
+          "ORDERID": "Solicitar ID",
+          "DATE": "FECHA",
+          "TIME": "TIEMPO",
+          "PHONE_NUMBER": "NÚMERO DE TELÉFONO",
+          "LEGAL_NAME": "NOMBRE LEGAL",
+          "INVOICE_NUMBER": "Número de factura",
+          "CONCEPT": "Concepto",
+          "PRICE": "Precio",
+          "AMOUNT": "Monto",
+          "TAX_BASE_PRINTER": "I.V.A/ TAX BASE 10.00%",
+          "TABLE": "MESA",
+          "WAY_TO_PAY": "FORMA DE PAGAR",
+          "ORDER_RECEIVED": "ORDEN RECIBIDA",
         }
       };
 }

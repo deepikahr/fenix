@@ -4,6 +4,7 @@ import 'package:fenix_user/models/api_request_models/call_waiter_request/call_wa
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_socket_response/order_socket_response.dart';
+import 'package:fenix_user/models/api_response_models/update_order_history_response/update_order_history_model.dart';
 import 'package:fenix_user/models/api_response_models/update_order_socket_response/update_order_socket_response.dart';
 import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/network/printer.dart';
@@ -48,130 +49,222 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
 
   Future<OrderDetailsResponse?> fetchOrderDetails() async {
     state = state.copyWith.call(isLoading: true);
-    final res = await api.orderDetails(db.getOrderId()!);
+    final orderId = db.getOrderId();
+    if (orderId != null) {
+      final res = await api.orderDetails(orderId);
+      if (res != null) {
+        db.saveOrderNumber(res.orderID);
+        if (mounted) state = state.copyWith.call(isLoading: false);
+        return res;
+      }
+    }
     if (mounted) state = state.copyWith.call(isLoading: false);
-    return res;
+  }
+
+  Future<List<UpdateOrderHistoryModel>?> fetchmodificationHistory() async {
+    final orderId = db.getOrderId();
+    if (orderId != null) {
+      final res = await api.getModificationOrderHistory(orderId);
+      return res;
+    }
+    return [];
   }
 
   getOrderStatus(String? orderId, HomeTabsNotifier notifier,
       {bool isPickUpProduct = false}) async {
-    var request;
-    SocketService().getSocket().clearListeners();
-    var listenTo =
-        URL.ORDER_STATUS_REQUEST_EVENT.replaceAll('ORDER_ID', orderId!);
-    SocketService().getSocket().on(listenTo, (data) async {
-      if (data != null) {
-        request = OrderSocketRequest.fromJson(data);
-        if (request != null) {
-          if (request.orderStatus == ORDER_STATUS.completed) {
-            cleanCart(notifier);
-          } else if (request.orderStatus == ORDER_STATUS.cancelled) {
-            await db.removeOrderId();
-            notifier.showScreen(CartScreen());
+    if (orderId != null) {
+      var request;
+      SocketService().getSocket().clearListeners();
+      var listenTo =
+          URL.ORDER_STATUS_REQUEST_EVENT.replaceAll('ORDER_ID', orderId);
+      SocketService().getSocket().on(listenTo, (data) async {
+        if (data != null) {
+          request = OrderSocketRequest.fromJson(data);
+          if (request != null) {
+            if (request.orderStatus == ORDER_STATUS.completed) {
+              cleanCart(notifier);
+            } else if (request.orderStatus == ORDER_STATUS.cancelled) {
+              await db.removeOrderId();
+              await db.removeOrderNumber();
+              notifier.showScreen(CartScreen());
+              customDialog(
+                title: 'ORDER_IS_CANCELLED'.tr,
+                okText: 'OK'.tr,
+                status: DIALOG_STATUS.WARNING,
+              );
+            } else if (request.orderStatus == ORDER_STATUS.confirmed) {
+              DB().setIsOrderPending(false);
+              final res = await fetchOrderDetails();
+              try {
+                final printResult = await printerService.printReciept(
+                  type: PrinterRecieptType.KITCHEN,
+                  orderID: db.getOrderNumber(),
+                  products: res?.cart ?? [],
+                );
+                if (printResult != null) {
+                  customDialog(
+                    title: printResult.tr,
+                    okText: 'OK'.tr,
+                    status: DIALOG_STATUS.FAIL,
+                  );
+                }
+              } catch (e) {
+                print('Printing Error: $e');
+                customDialog(
+                  title: 'CONNECT_ERROR_PRINTER'.tr,
+                  okText: 'OK'.tr,
+                  status: DIALOG_STATUS.FAIL,
+                );
+              }
+              if (isPickUpProduct) {
+                cleanCart(notifier);
+              } else {
+                getNotifiWaiter();
+                if (isNormalFlowInKioskMode) {
+                  notifier.showScreen(Home());
+                  customDialog(
+                    title: 'ORDER_CONFIRMED'.tr,
+                    okText: 'OK'.tr,
+                    status: DIALOG_STATUS.SUCCESS,
+                  );
+                } else {
+                  notifier.showScreen(OrderDetails());
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  }
+
+  getUpdateOrderStatus(String? orderId, HomeTabsNotifier notifier) {
+    if (orderId != null) {
+      late UpdateOrderSocketResponse request;
+      SocketService().getSocket().clearListeners();
+      var listenTo = URL.ORDER_MODIFIED_STATUS_REQUEST_EVENT
+          .replaceAll('ORDER_ID', orderId);
+      print('socket order update url: $listenTo');
+      SocketService().getSocket().clearListeners();
+      SocketService().getSocket().on(listenTo, (data) async {
+        print('Update: $data');
+        if (data != null) {
+          request = UpdateOrderSocketResponse.fromJson(data);
+          await cartState.updateCart(request.localCart);
+          notifier.showScreen(Home());
+          DB().setIsOrderPending(false);
+          if (request.action == ACTION_MODIFICATION.reject) {
             customDialog(
               title: 'ORDER_IS_CANCELLED'.tr,
               okText: 'OK'.tr,
               status: DIALOG_STATUS.WARNING,
             );
-          } else if (request.orderStatus == ORDER_STATUS.confirmed) {
-            DB().setIsOrderPending(false);
-            final res = await fetchOrderDetails();
-            final printResult = await printerService.printReciept(
-              type: PrinterRecieptType.KITCHEN,
-              products: res?.cart ?? [],
-            );
-            if (printResult != null) {
+          } else {
+            final modificationHistory = await fetchmodificationHistory();
+            // final someList = modificationHistory?.reversed.toList() ?? [];
+            // final baseProducts = someList![0].localCart?.products ?? [];
+            // print(
+            //   '${'ORDERID'.tr}: ${db.getOrderNumber() ?? 'N/A'}',
+            // );
+
+            // for (var i = 0; i < baseProducts.length; i++) {
+            //   if (baseProducts[i].variantQuantity > 0) {
+            //     print(
+            //       '${baseProducts[i].productName ?? ''}' +
+            //           '${'${baseProducts[i].variantQuantity}'}',
+            //     );
+            //     if (baseProducts[i].productInstructions != null &&
+            //         baseProducts[i].productInstructions!.isNotEmpty)
+            //       print(
+            //         '${'INSTRUCTIONS'.tr} -> ${baseProducts[i].productInstructions!}',
+            //       );
+            //   }
+            // }
+
+            // for (var i = 0; i < someList.length; i++) {
+            //   if (someList[i].action == ACTION_MODIFICATION.accept) {
+            //     final products = someList[i].localCart?.products ?? [];
+            //     if (products.length > 0) {
+            //       print(
+            //         '${"MODIFICATION".tr} ${i + 1}',
+            //       );
+            //     }
+
+            //     for (var i = 0; i < products.length; i++) {
+            //       if (products[i].modified) {
+            //         print(
+            //           '${(products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
+            //               '${products[i].modifiedQuantity}',
+            //         );
+            //         if (products[i].productInstructions != null &&
+            //             products[i].productInstructions!.isNotEmpty)
+            //           print(
+            //             '${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
+            //           );
+            //       }
+            //     }
+            //   }
+            // }
+            try {
+              final printResult = await printerService.printReciept(
+                type: PrinterRecieptType.KITCHEN,
+                //we are reversing it because we get it in a descending order of created time, i.e latest first
+                // for printing we need it in the older first order hence reversed
+                modificationHistory:
+                    modificationHistory?.reversed.toList() ?? [],
+                orderID: db.getOrderNumber(),
+              );
+              if (printResult != null) {
+                customDialog(
+                  title: printResult.tr,
+                  okText: 'OK'.tr,
+                  status: DIALOG_STATUS.FAIL,
+                );
+              }
+            } catch (e) {
+              print('Printing Error: $e');
+
               customDialog(
-                title: printResult.tr,
+                title: 'CONNECT_ERROR_PRINTER'.tr,
                 okText: 'OK'.tr,
                 status: DIALOG_STATUS.FAIL,
               );
             }
-            if (isPickUpProduct) {
-              cleanCart(notifier);
-            } else {
-              getNotifiWaiter();
-              if (isNormalFlowInKioskMode) {
-                notifier.showScreen(Home());
-                customDialog(
-                  title: 'ORDER_CONFIRMED'.tr,
-                  okText: 'OK'.tr,
-                  status: DIALOG_STATUS.SUCCESS,
-                );
-              } else {
-                notifier.showScreen(OrderDetails());
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
-  getUpdateOrderStatus(String? orderId, HomeTabsNotifier notifier) {
-    late UpdateOrderSocketResponse request;
-    SocketService().getSocket().clearListeners();
-    var listenTo = URL.ORDER_MODIFIED_STATUS_REQUEST_EVENT
-        .replaceAll('ORDER_ID', orderId!);
-    print('socket order update url: $listenTo');
-    SocketService().getSocket().clearListeners();
-    SocketService().getSocket().on(listenTo, (data) async {
-      print('Update: $data');
-      if (data != null) {
-        request = UpdateOrderSocketResponse.fromJson(data);
-        await cartState.updateCart(request.localCart);
-        notifier.showScreen(Home());
-        DB().setIsOrderPending(false);
-        if (request.action == ACTION_MODIFICATION.reject) {
-          customDialog(
-            title: 'ORDER_IS_CANCELLED'.tr,
-            okText: 'OK'.tr,
-            status: DIALOG_STATUS.WARNING,
-          );
-        } else {
-          final res = await fetchOrderDetails();
-          final printResult = await printerService.printReciept(
-            type: PrinterRecieptType.KITCHEN,
-            products: res?.cart ?? [],
-          );
-          if (printResult != null) {
             customDialog(
-              title: printResult.tr,
+              title: 'ORDER_CONFIRMED'.tr,
               okText: 'OK'.tr,
-              status: DIALOG_STATUS.FAIL,
+              status: DIALOG_STATUS.SUCCESS,
             );
           }
-          customDialog(
-            title: 'ORDER_CONFIRMED'.tr,
-            okText: 'OK'.tr,
-            status: DIALOG_STATUS.SUCCESS,
-          );
         }
-      }
-    });
+      });
+    }
   }
 
   cleanCart(notifier, {bool clearSocket = true}) async {
     await cartState.deleteCart();
     await db.removeOrderId();
+    await db.removeOrderNumber();
     SocketService().getSocket().clearListeners();
     notifier.showScreen(Thankyou());
   }
 
   void getNotifiWaiter() async {
-    var request;
-    var listenTo = URL.NOTIFI_WAITER_REQUEST_EVENT
-        .replaceAll('USER_ID', DB().getId() ?? '');
-    print('socket url: $listenTo');
-    SocketService().getSocket().on(listenTo, (data) async {
-      print('socket response $data');
-      if (data != null) {
-        request = CallWaiterRequest.fromJson(data);
-        customDialog(
-          status: DIALOG_STATUS.SUCCESS,
-          title: 'WAITER_WARNED',
-        );
-      }
-    });
+    final waiterID = db.getId();
+    if (waiterID != null) {
+      var listenTo =
+          URL.NOTIFI_WAITER_REQUEST_EVENT.replaceAll('USER_ID', waiterID);
+      print('socket url: $listenTo');
+      SocketService().getSocket().on(listenTo, (data) async {
+        print('socket response $data');
+        if (data != null) {
+          final request = CallWaiterRequest.fromJson(data);
+          customDialog(
+            status: DIALOG_STATUS.SUCCESS,
+            title: 'WAITER_WARNED',
+          );
+        }
+      });
+    }
   }
 }
