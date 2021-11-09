@@ -246,6 +246,28 @@ class PrinterService {
               width: 2,
               styles: PosStyles(align: PosAlign.right)),
         ]);
+        if (baseProducts[i].selectedAddOnItems.isNotEmpty) {
+          printer.text(
+            '${'EXTRAS'.tr}:',
+            styles: PosStyles(
+              align: PosAlign.left,
+              bold: false,
+              width: PosTextSize.size1,
+              height: PosTextSize.size1,
+            ),
+          );
+          for (var j = 0; j < baseProducts[i].selectedAddOnItems.length; j++) {
+            printer.text(
+              '${baseProducts[i].selectedAddOnItems[j].addOnItemName}(${baseProducts[i].selectedAddOnItems[j].quantity})',
+              styles: PosStyles(
+                align: PosAlign.left,
+                bold: false,
+                width: PosTextSize.size1,
+                height: PosTextSize.size1,
+              ),
+            );
+          }
+        }
         if (baseProducts[i].productInstructions != null &&
             baseProducts[i].productInstructions!.isNotEmpty)
           printer.text(
@@ -290,6 +312,28 @@ class PrinterService {
                   width: 2,
                   styles: PosStyles(align: PosAlign.right)),
             ]);
+            if (products[i].selectedAddOnItems.isNotEmpty) {
+              printer.text(
+                '${'EXTRAS'.tr}:',
+                styles: PosStyles(
+                  align: PosAlign.left,
+                  bold: false,
+                  width: PosTextSize.size1,
+                  height: PosTextSize.size1,
+                ),
+              );
+              for (var j = 0; j < products[i].selectedAddOnItems.length; j++) {
+                printer.text(
+                  '${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})',
+                  styles: PosStyles(
+                    align: PosAlign.left,
+                    bold: false,
+                    width: PosTextSize.size1,
+                    height: PosTextSize.size1,
+                  ),
+                );
+              }
+            }
             if (products[i].productInstructions != null &&
                 products[i].productInstructions!.isNotEmpty)
               printer.text(
@@ -381,6 +425,28 @@ class PrinterService {
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
+      if (products[i].selectedAddOnItems.isNotEmpty) {
+        printer.text(
+          '${'EXTRAS'.tr}:',
+          styles: PosStyles(
+            align: PosAlign.left,
+            bold: false,
+            width: PosTextSize.size1,
+            height: PosTextSize.size1,
+          ),
+        );
+        for (var j = 0; j < products[i].selectedAddOnItems.length; j++) {
+          printer.text(
+            '${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})',
+            styles: PosStyles(
+              align: PosAlign.left,
+              bold: false,
+              width: PosTextSize.size1,
+              height: PosTextSize.size1,
+            ),
+          );
+        }
+      }
       if (products[i].productInstructions != null &&
           products[i].productInstructions!.isNotEmpty)
         printer.text(

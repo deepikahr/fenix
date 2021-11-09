@@ -164,19 +164,19 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             // final someList = modificationHistory?.reversed.toList() ?? [];
             // final baseProducts = someList![0].localCart?.products ?? [];
             // print(
-            //   '${'ORDERID'.tr}: ${db.getOrderNumber() ?? 'N/A'}',
+            //   '--------------- ${'ORDERID'.tr}: ${db.getOrderNumber() ?? 'N/A'}',
             // );
 
             // for (var i = 0; i < baseProducts.length; i++) {
             //   if (baseProducts[i].variantQuantity > 0) {
             //     print(
-            //       '${baseProducts[i].productName ?? ''}' +
+            //       '--------------- ${baseProducts[i].productName ?? ''}' +
             //           '${'${baseProducts[i].variantQuantity}'}',
             //     );
             //     if (baseProducts[i].productInstructions != null &&
             //         baseProducts[i].productInstructions!.isNotEmpty)
             //       print(
-            //         '${'INSTRUCTIONS'.tr} -> ${baseProducts[i].productInstructions!}',
+            //         ' --------------- ${'INSTRUCTIONS'.tr} -> ${baseProducts[i].productInstructions!}',
             //       );
             //   }
             // }
@@ -186,21 +186,31 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             //     final products = someList[i].localCart?.products ?? [];
             //     if (products.length > 0) {
             //       print(
-            //         '${"MODIFICATION".tr} ${i + 1}',
+            //         ' --------------- ${"MODIFICATION".tr} ${i + 1}',
             //       );
             //     }
 
             //     for (var i = 0; i < products.length; i++) {
             //       if (products[i].modified) {
             //         print(
-            //           '${(products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
+            //           ' --------------- ${(products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
             //               '${products[i].modifiedQuantity}',
             //         );
             //         if (products[i].productInstructions != null &&
             //             products[i].productInstructions!.isNotEmpty)
             //           print(
-            //             '${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
+            //             ' --------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
             //           );
+            //         if (products[i].selectedAddOnItems.isNotEmpty) {
+            //           String addons = 'Extras -> ';
+            //           for (var j = 0;
+            //               j < products[i].selectedAddOnItems.length;
+            //               j++) {
+            //             addons +=
+            //                 '${j > 0 ? ' |' : ''} ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})';
+            //           }
+            //           print(' --------------- $addons');
+            //         }
             //       }
             //     }
             //   }
@@ -246,14 +256,15 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     await db.removeOrderId();
     await db.removeOrderNumber();
     SocketService().getSocket().clearListeners();
+    getNotifiWaiter();
     notifier.showScreen(Thankyou());
   }
 
   void getNotifiWaiter() async {
-    final waiterID = db.getId();
-    if (waiterID != null) {
+    final userId = db.getId();
+    if (userId != null) {
       var listenTo =
-          URL.NOTIFI_WAITER_REQUEST_EVENT.replaceAll('USER_ID', waiterID);
+          URL.NOTIFI_WAITER_REQUEST_EVENT.replaceAll('USER_ID', userId);
       print('socket url: $listenTo');
       SocketService().getSocket().on(listenTo, (data) async {
         print('socket response $data');
@@ -261,7 +272,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           final request = CallWaiterRequest.fromJson(data);
           customDialog(
             status: DIALOG_STATUS.SUCCESS,
-            title: 'WAITER_WARNED',
+            title: 'WAITER_WARNED'.tr,
           );
         }
       });

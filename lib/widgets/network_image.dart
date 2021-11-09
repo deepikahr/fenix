@@ -21,6 +21,22 @@ Widget networkImage(String url, double width, double height, double radius) {
   );
 }
 
+Widget networkImageWithWidth(String url, double width, double radius) {
+  return ClipRRect(
+    borderRadius: BorderRadius.all(Radius.circular(radius)),
+    child: Container(
+      width: width,
+      child: CachedNetworkImage(
+        fit: BoxFit.fitWidth,
+        imageUrl: processImage(
+          url,
+          width: width.toInt(),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget networkImageOverlay(
   double width,
   double height,

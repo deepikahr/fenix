@@ -8,6 +8,7 @@ import 'package:fenix_user/providers/cart_notifier.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_notifier.dart';
 import 'package:fenix_user/screens/order_details/order_details.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process_state_notifier.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
@@ -28,6 +29,10 @@ class PaymentInProcessStateNotifier
 
   PrinterService get printerService {
     return ref.read(printerProvider);
+  }
+
+  OrderInProcessStateNotifier get socketProvider {
+    return ref.read(orderInProcess.notifier);
   }
 
   PaymentInProcessStateNotifier(this.ref) : super(PaymentInProcessState());
@@ -70,8 +75,8 @@ class PaymentInProcessStateNotifier
     await cartState.deleteCart();
     await db.removeOrderId();
     await db.removeOrderNumber();
-
     SocketService().getSocket().clearListeners();
+    socketProvider.getNotifiWaiter();
     notifier.showScreen(Thankyou());
   }
 }

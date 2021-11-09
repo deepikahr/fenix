@@ -21,7 +21,9 @@ class _$CallWaiterRequestTearOff {
   const _$CallWaiterRequestTearOff();
 
   _CallWaiterRequest call(
-      {String? title, String? description, String? orderId}) {
+      {String? title,
+      String? description,
+      @JsonKey(includeIfNull: false) String? orderId}) {
     return _CallWaiterRequest(
       title: title,
       description: description,
@@ -41,6 +43,7 @@ const $CallWaiterRequest = _$CallWaiterRequestTearOff();
 mixin _$CallWaiterRequest {
   String? get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  @JsonKey(includeIfNull: false)
   String? get orderId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +57,10 @@ abstract class $CallWaiterRequestCopyWith<$Res> {
   factory $CallWaiterRequestCopyWith(
           CallWaiterRequest value, $Res Function(CallWaiterRequest) then) =
       _$CallWaiterRequestCopyWithImpl<$Res>;
-  $Res call({String? title, String? description, String? orderId});
+  $Res call(
+      {String? title,
+      String? description,
+      @JsonKey(includeIfNull: false) String? orderId});
 }
 
 /// @nodoc
@@ -96,7 +102,10 @@ abstract class _$CallWaiterRequestCopyWith<$Res>
           _CallWaiterRequest value, $Res Function(_CallWaiterRequest) then) =
       __$CallWaiterRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String? title, String? description, String? orderId});
+  $Res call(
+      {String? title,
+      String? description,
+      @JsonKey(includeIfNull: false) String? orderId});
 }
 
 /// @nodoc
@@ -136,7 +145,10 @@ class __$CallWaiterRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CallWaiterRequest extends _CallWaiterRequest {
-  const _$_CallWaiterRequest({this.title, this.description, this.orderId})
+  const _$_CallWaiterRequest(
+      {this.title,
+      this.description,
+      @JsonKey(includeIfNull: false) this.orderId})
       : super._();
 
   factory _$_CallWaiterRequest.fromJson(Map<String, dynamic> json) =>
@@ -147,6 +159,7 @@ class _$_CallWaiterRequest extends _CallWaiterRequest {
   @override
   final String? description;
   @override
+  @JsonKey(includeIfNull: false)
   final String? orderId;
 
   @override
@@ -189,7 +202,7 @@ abstract class _CallWaiterRequest extends CallWaiterRequest {
   const factory _CallWaiterRequest(
       {String? title,
       String? description,
-      String? orderId}) = _$_CallWaiterRequest;
+      @JsonKey(includeIfNull: false) String? orderId}) = _$_CallWaiterRequest;
   const _CallWaiterRequest._() : super._();
 
   factory _CallWaiterRequest.fromJson(Map<String, dynamic> json) =
@@ -200,6 +213,7 @@ abstract class _CallWaiterRequest extends CallWaiterRequest {
   @override
   String? get description => throw _privateConstructorUsedError;
   @override
+  @JsonKey(includeIfNull: false)
   String? get orderId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
