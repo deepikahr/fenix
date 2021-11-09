@@ -15,9 +15,18 @@ _$_CallWaiterRequest _$_$_CallWaiterRequestFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_CallWaiterRequestToJson(
-        _$_CallWaiterRequest instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'description': instance.description,
-      'orderId': instance.orderId,
-    };
+    _$_CallWaiterRequest instance) {
+  final val = <String, dynamic>{
+    'title': instance.title,
+    'description': instance.description,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('orderId', instance.orderId);
+  return val;
+}

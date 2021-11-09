@@ -12,7 +12,7 @@ class CallWaiterRequest with BaseModel<CallWaiterRequest>, _$CallWaiterRequest {
   const factory CallWaiterRequest({
     String? title,
     String? description,
-    String? orderId,
+    @JsonKey(includeIfNull: false) String? orderId,
   }) = _CallWaiterRequest;
 
   factory CallWaiterRequest.fromJson(Map<String, dynamic> json) =>

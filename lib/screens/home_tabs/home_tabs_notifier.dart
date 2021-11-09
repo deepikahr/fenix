@@ -5,6 +5,7 @@ import 'package:fenix_user/network/api_service.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs_state.dart';
+import 'package:fenix_user/screens/order_in_processs/order_in_process_state_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,7 +21,13 @@ class HomeTabsNotifier extends StateNotifier<HomeTabsState> {
     return ref.read(dbProvider);
   }
 
-  HomeTabsNotifier(this.ref) : super(HomeTabsState());
+  OrderInProcessStateNotifier get socketsNotifier {
+    return ref.read(orderInProcess.notifier);
+  }
+
+  HomeTabsNotifier(this.ref) : super(HomeTabsState()) {
+    socketsNotifier.getNotifiWaiter();
+  }
 
   void showScreen(Widget screen) {
     state = state.copyWith.call(

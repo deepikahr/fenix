@@ -286,11 +286,41 @@ Widget gridDishCard(
               margin: EdgeInsets.all(6),
               child: Stack(
                 children: [
-                  product.productImage?.imageUrl != null
-                      ? networkImage(product.productImage!.imageUrl!,
-                          (MediaQuery.of(context).size.width / 2) - 50, 170, 0)
-                      : networkImageOverlay(
-                          (MediaQuery.of(context).size.width / 2) - 50, 170),
+                  Column(
+                    children: [
+                      product.productImage?.imageUrl != null
+                          ? networkImage(
+                              product.productImage!.imageUrl!,
+                              (MediaQuery.of(context).size.width / 2) - 40,
+                              170,
+                              0)
+                          : networkImageOverlay(
+                              (MediaQuery.of(context).size.width / 2) - 40,
+                              170),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        color: Colors.black45,
+                        padding: EdgeInsets.all(12),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${product.productName}',
+                              style: textWhiteLightRegularBM(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            if (categoryImage == null)
+                              Text(
+                                '${product.variant!.price}${Constants.currency}',
+                                style: textWhiteLargeBMM(context),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                   if (product.tags != null && product.tags!.isNotEmpty)
                     Positioned(
                         top: 0,
@@ -324,31 +354,32 @@ Widget gridDishCard(
                           textAlign: TextAlign.center,
                         ),
                       )),
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      color: Colors.black45,
-                      padding: EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${product.productName}',
-                            style: textWhiteLightRegularBM(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          if (categoryImage == null)
-                            Text(
-                              '${product.variant!.price}${Constants.currency}',
-                              style: textWhiteLargeBMM(context),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Positioned(
+                  //   bottom: 0,
+                  //   child:
+                  // Container(
+                  //     width: MediaQuery.of(context).size.width * 0.45,
+                  //     color: Colors.black45,
+                  //     padding: EdgeInsets.all(12),
+                  //     child: Column(
+                  //       mainAxisAlignment: MainAxisAlignment.start,
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         Text(
+                  //           '${product.productName}',
+                  //           style: textWhiteLightRegularBM(),
+                  //           maxLines: 1,
+                  //           overflow: TextOverflow.ellipsis,
+                  //         ),
+                  //         if (categoryImage == null)
+                  //           Text(
+                  //             '${product.variant!.price}${Constants.currency}',
+                  //             style: textWhiteLargeBMM(context),
+                  //           ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

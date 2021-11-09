@@ -65,10 +65,9 @@ class ProductDetails extends HookWidget {
                 state.productDetails!.productImage!.imageUrl != null
                     ? Stack(
                         children: [
-                          networkImage(
+                          networkImageWithWidth(
                               state.productDetails!.productImage!.imageUrl!,
-                              MediaQuery.of(context).size.width,
-                              240,
+                              MediaQuery.of(context).size.width - 32,
                               0),
                           if (state.productDetails?.tags?.isNotEmpty ?? false)
                             Positioned(

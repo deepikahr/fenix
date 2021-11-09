@@ -137,6 +137,7 @@ class Localization extends Translations {
           "TABLE": "TABLE",
           "WAY_TO_PAY": "WAY TO PAY",
           "ORDER_RECEIVED": "ORDER RECEIVED",
+          "WAITER_WARNED": "Waiter Notified",
         },
         'es': {
           "ACCESS_SETTINGS": "Configuración de acceso",
@@ -268,6 +269,7 @@ class Localization extends Translations {
           "TABLE": "MESA",
           "WAY_TO_PAY": "FORMA DE PAGAR",
           "ORDER_RECEIVED": "ORDEN RECIBIDA",
+          "WAITER_WARNED": "Camarero notificado",
         }
       };
 }
