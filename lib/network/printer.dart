@@ -314,7 +314,7 @@ class PrinterService {
             ]);
             if (products[i].selectedAddOnItems.isNotEmpty) {
               printer.text(
-                '${'EXTRAS'.tr}:',
+                'Extras:',
                 styles: PosStyles(
                   align: PosAlign.left,
                   bold: false,
