@@ -23,7 +23,7 @@ dependencies:
   get: ^4.1.4
   hive: ^2.0.4
   hive_flutter: ^1.0.0
-  flutter_secure_storage: ^4.2.0
+  # flutter_secure_storage: ^4.2.0
   google_maps_flutter: ^2.0.3
   google_maps_webservice: ^0.0.20-nullsafety.5
   geolocator: ^7.0.3
