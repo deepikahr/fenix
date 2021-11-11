@@ -1,8 +1,8 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -10,16 +10,17 @@ class DB {
   Future<void> initDatabase() async {
     await Hive.initFlutter();
 
-    final secureStorage = const FlutterSecureStorage();
-    var containsEncryptionKey = await secureStorage.containsKey(key: 'key');
-    if (!containsEncryptionKey) {
-      var key = Hive.generateSecureKey();
-      await secureStorage.write(key: 'key', value: base64UrlEncode(key));
-    }
+    // final secureStorage = const FlutterSecureStorage();
+    // var containsEncryptionKey = await secureStorage.containsKey(key: 'key');
+    // if (!containsEncryptionKey) {
+    //   var key = Hive.generateSecureKey();
+    //   await secureStorage.write(key: 'key', value: base64UrlEncode(key));
+    // }
 
-    var encryptionKey =
-        base64Url.decode((await secureStorage.read(key: 'key'))!);
-    await Hive.openBox('user', encryptionCipher: HiveAesCipher(encryptionKey));
+    // var encryptionKey =
+    //     base64Url.decode((await secureStorage.read(key: 'key'))!);
+    // await Hive.openBox('user', encryptionCipher: HiveAesCipher(encryptionKey));
+    await Hive.openBox('user');
   }
 
   void closeDatabase() async {

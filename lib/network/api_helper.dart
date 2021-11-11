@@ -1,4 +1,6 @@
 import 'dart:collection';
+import 'dart:io';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/common/utils.dart';
@@ -28,6 +30,12 @@ class ApiHelper {
   final db = DB();
   Dio _getDio() {
     final dio = Dio();
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
     dio.options.baseUrl = Constants.apiUrl;
     dio.options.headers['Authorization'] = 'bearer ${db.getToken()}';
 
