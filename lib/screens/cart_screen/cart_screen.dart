@@ -150,18 +150,15 @@ class CartScreen extends HookWidget {
                                       //       msg:
                                       //           '${state.orderResponse!.message}');
 
-                                      Timer(Duration(milliseconds: 500),
-                                          () async {
-                                        context
-                                            .read(homeTabsProvider.notifier)
-                                            .showScreen(OrdersInProcess(
-                                              key: UniqueKey(),
-                                              title:
-                                                  getOrderInProcessTitleInKioskMode,
-                                              image:
-                                                  getOrderInProcessImageUrlInKioskMode,
-                                            ));
-                                      });
+                                      context
+                                          .read(homeTabsProvider.notifier)
+                                          .showScreen(OrdersInProcess(
+                                            key: UniqueKey(),
+                                            title:
+                                                getOrderInProcessTitleInKioskMode,
+                                            image:
+                                                getOrderInProcessImageUrlInKioskMode,
+                                          ));
                                     }
                                   }, state.isLoading)
                                 : (cart.products.any(
@@ -175,17 +172,16 @@ class CartScreen extends HookWidget {
                                         if (updateResponse != null) {
                                           // Fluttertoast.showToast(
                                           //     msg: '${updateResponse}');
-                                          Timer(Duration(seconds: 2), () async {
-                                            context
-                                                .read(homeTabsProvider.notifier)
-                                                .showScreen(OrdersInProcess(
-                                                  key: UniqueKey(),
-                                                  title:
-                                                      '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
-                                                  image:
-                                                      'lib/assets/images/timer.png',
-                                                ));
-                                          });
+
+                                          context
+                                              .read(homeTabsProvider.notifier)
+                                              .showScreen(OrdersInProcess(
+                                                key: UniqueKey(),
+                                                title:
+                                                    '${'YOUR_ORDER_IS'.tr} \n ${'IN_PROCESS'.tr}\n\n',
+                                                image:
+                                                    'lib/assets/images/timer.png',
+                                              ));
                                         }
                                       }, state.isUpdateLoading)
                                     : Container()

@@ -100,16 +100,13 @@ class HomeTabs extends HookWidget {
         }
       }, DB().getOrderId() != null ? cart : null),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: buildCenterIcon(
-          context,
-          cart,
-          shouldBeAbleToChangeTabs
-              ? () async {
-                  notifier.showScreen(CartScreen());
-                }
-              : () {
-                  displayToastForLockedMode();
-                }),
+      floatingActionButton: buildCenterIcon(context, cart, () {
+        if (shouldBeAbleToChangeTabs) {
+          notifier.showScreen(CartScreen());
+        } else {
+          displayToastForLockedMode();
+        }
+      }),
     );
   }
 
