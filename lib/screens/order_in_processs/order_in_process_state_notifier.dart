@@ -202,14 +202,13 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             //             ' --------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
             //           );
             //         if (products[i].selectedAddOnItems.isNotEmpty) {
-            //           String addons = 'Extras -> ';
+            //           print('EXTRAS -->');
             //           for (var j = 0;
             //               j < products[i].selectedAddOnItems.length;
             //               j++) {
-            //             addons +=
-            //                 '${j > 0 ? ' |' : ''} ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})';
+            //             print(
+            //                 ' --------------- ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})');
             //           }
-            //           print(' --------------- $addons');
             //         }
             //       }
             //     }
