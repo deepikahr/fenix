@@ -33,6 +33,26 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     );
   }
 
+  String? getThemeColorFromValueForDropDown(String? val) {
+    if (val != null) {
+      if (['red', 'green', 'blue', 'yellow'].contains(val.toLowerCase())) {
+        return val.toLowerCase();
+      }
+    }
+    return null;
+  }
+
+  String? getMenuItemFromValueForDropDown(String? val) {
+    if (val != null && state.menuList != null) {
+      for (var i = 0; i < state.menuList!.length; i++) {
+        if (state.menuList![i].title == val) {
+          return val;
+        }
+      }
+    }
+    return null;
+  }
+
   Future<List<MenuResponse>?> fetchMenuList() async {
     state = state.copyWith.call(isLoading: true);
     final response = await api.menuDropdown();
@@ -60,7 +80,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     }
   }
 
-  Future<String?> setThemeColor(String color) async {
+  Future<String?> setThemeColor(String? color) async {
     state = state.copyWith.call(themeColor: color);
   }
 
@@ -139,15 +159,14 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     state = state.copyWith.call(isUpdateLoading: true);
 
     TabSettingResponse tabSetting = TabSettingResponse(
-      resetCategory: resetCategory,
-      callToWaiter: callToWaiter,
-      payTypeKiosk: payTypeKiosk,
-      validatePaymentByWaiter: validatePaymentByWaiter,
-      themeColour: themeColour,
-      orderingMode: orderingMode,
+      resetCategory: resetCategory ?? false,
+      callToWaiter: callToWaiter ?? false,
+      payTypeKiosk: payTypeKiosk ?? false,
+      validatePaymentByWaiter: validatePaymentByWaiter ?? false,
+      themeColour: themeColour ?? 'yellow',
+      orderingMode: orderingMode ?? 'printer',
       viewType: viewType,
     );
-
     final response =
         await api.settingUpdate(SettingsUpdateRequest(tabSetting: tabSetting));
     db.saveThemeColor(themeColour);
