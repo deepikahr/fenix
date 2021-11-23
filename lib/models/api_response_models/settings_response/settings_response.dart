@@ -12,8 +12,11 @@ class SettingsResponse with BaseModel<SettingsResponse>, _$SettingsResponse {
   const SettingsResponse._();
 
   const factory SettingsResponse(
-      {TabSettingResponse? tabSetting,
-      @JsonKey(name: '_id') String? id,
+      {@Default(const TabSettingResponse())
+      @JsonKey()
+          TabSettingResponse tabSetting,
+      @JsonKey(name: '_id')
+          String? id,
       FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,

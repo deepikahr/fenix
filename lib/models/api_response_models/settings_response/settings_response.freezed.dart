@@ -21,7 +21,7 @@ class _$SettingsResponseTearOff {
   const _$SettingsResponseTearOff();
 
   _SettingsResponse call(
-      {TabSettingResponse? tabSetting,
+      {@JsonKey() TabSettingResponse tabSetting = const TabSettingResponse(),
       @JsonKey(name: '_id') String? id,
       FranchiseModel? franchiseId,
       String? vendorId,
@@ -51,7 +51,8 @@ const $SettingsResponse = _$SettingsResponseTearOff();
 
 /// @nodoc
 mixin _$SettingsResponse {
-  TabSettingResponse? get tabSetting => throw _privateConstructorUsedError;
+  @JsonKey()
+  TabSettingResponse get tabSetting => throw _privateConstructorUsedError;
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   FranchiseModel? get franchiseId => throw _privateConstructorUsedError;
@@ -73,7 +74,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
           SettingsResponse value, $Res Function(SettingsResponse) then) =
       _$SettingsResponseCopyWithImpl<$Res>;
   $Res call(
-      {TabSettingResponse? tabSetting,
+      {@JsonKey() TabSettingResponse tabSetting,
       @JsonKey(name: '_id') String? id,
       FranchiseModel? franchiseId,
       String? vendorId,
@@ -82,7 +83,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
       int? tableNumber,
       int? franchiseCode});
 
-  $TabSettingResponseCopyWith<$Res>? get tabSetting;
+  $TabSettingResponseCopyWith<$Res> get tabSetting;
   $FranchiseModelCopyWith<$Res>? get franchiseId;
 }
 
@@ -110,7 +111,7 @@ class _$SettingsResponseCopyWithImpl<$Res>
       tabSetting: tabSetting == freezed
           ? _value.tabSetting
           : tabSetting // ignore: cast_nullable_to_non_nullable
-              as TabSettingResponse?,
+              as TabSettingResponse,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -143,12 +144,8 @@ class _$SettingsResponseCopyWithImpl<$Res>
   }
 
   @override
-  $TabSettingResponseCopyWith<$Res>? get tabSetting {
-    if (_value.tabSetting == null) {
-      return null;
-    }
-
-    return $TabSettingResponseCopyWith<$Res>(_value.tabSetting!, (value) {
+  $TabSettingResponseCopyWith<$Res> get tabSetting {
+    return $TabSettingResponseCopyWith<$Res>(_value.tabSetting, (value) {
       return _then(_value.copyWith(tabSetting: value));
     });
   }
@@ -173,7 +170,7 @@ abstract class _$SettingsResponseCopyWith<$Res>
       __$SettingsResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {TabSettingResponse? tabSetting,
+      {@JsonKey() TabSettingResponse tabSetting,
       @JsonKey(name: '_id') String? id,
       FranchiseModel? franchiseId,
       String? vendorId,
@@ -183,7 +180,7 @@ abstract class _$SettingsResponseCopyWith<$Res>
       int? franchiseCode});
 
   @override
-  $TabSettingResponseCopyWith<$Res>? get tabSetting;
+  $TabSettingResponseCopyWith<$Res> get tabSetting;
   @override
   $FranchiseModelCopyWith<$Res>? get franchiseId;
 }
@@ -214,7 +211,7 @@ class __$SettingsResponseCopyWithImpl<$Res>
       tabSetting: tabSetting == freezed
           ? _value.tabSetting
           : tabSetting // ignore: cast_nullable_to_non_nullable
-              as TabSettingResponse?,
+              as TabSettingResponse,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -251,7 +248,7 @@ class __$SettingsResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SettingsResponse extends _SettingsResponse {
   const _$_SettingsResponse(
-      {this.tabSetting,
+      {@JsonKey() this.tabSetting = const TabSettingResponse(),
       @JsonKey(name: '_id') this.id,
       this.franchiseId,
       this.vendorId,
@@ -265,7 +262,8 @@ class _$_SettingsResponse extends _SettingsResponse {
       _$_$_SettingsResponseFromJson(json);
 
   @override
-  final TabSettingResponse? tabSetting;
+  @JsonKey()
+  final TabSettingResponse tabSetting;
   @override
   @JsonKey(name: '_id')
   final String? id;
@@ -341,7 +339,7 @@ class _$_SettingsResponse extends _SettingsResponse {
 
 abstract class _SettingsResponse extends SettingsResponse {
   const factory _SettingsResponse(
-      {TabSettingResponse? tabSetting,
+      {@JsonKey() TabSettingResponse tabSetting,
       @JsonKey(name: '_id') String? id,
       FranchiseModel? franchiseId,
       String? vendorId,
@@ -355,7 +353,8 @@ abstract class _SettingsResponse extends SettingsResponse {
       _$_SettingsResponse.fromJson;
 
   @override
-  TabSettingResponse? get tabSetting => throw _privateConstructorUsedError;
+  @JsonKey()
+  TabSettingResponse get tabSetting => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
