@@ -165,7 +165,7 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
       validatePaymentByWaiter: validatePaymentByWaiter ?? false,
       themeColour: themeColour ?? 'yellow',
       orderingMode: orderingMode ?? 'printer',
-      viewType: viewType,
+      viewType: viewType ?? 'GRID',
     );
     final response =
         await api.settingUpdate(SettingsUpdateRequest(tabSetting: tabSetting));

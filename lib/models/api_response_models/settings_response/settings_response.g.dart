@@ -8,10 +8,8 @@ part of 'settings_response.dart';
 
 _$_SettingsResponse _$_$_SettingsResponseFromJson(Map<String, dynamic> json) {
   return _$_SettingsResponse(
-    tabSetting: json['tabSetting'] == null
-        ? null
-        : TabSettingResponse.fromJson(
-            json['tabSetting'] as Map<String, dynamic>),
+    tabSetting:
+        TabSettingResponse.fromJson(json['tabSetting'] as Map<String, dynamic>),
     id: json['_id'] as String?,
     franchiseId: json['franchiseId'] == null
         ? null

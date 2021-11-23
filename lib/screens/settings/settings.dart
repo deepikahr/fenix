@@ -166,17 +166,16 @@ class Settings extends HookWidget {
                   notifier.cachePrinterIpAddress(ipAddressEditController.text);
                   final response = await notifier.updateSettings(
                     state.resetCategory ??
-                        state.settings?.tabSetting?.resetCategory,
-                    state.enableCall ??
-                        state.settings?.tabSetting?.callToWaiter,
+                        state.settings?.tabSetting.resetCategory,
+                    state.enableCall ?? state.settings?.tabSetting.callToWaiter,
                     state.payOnCommand ??
-                        state.settings?.tabSetting?.payTypeKiosk,
+                        state.settings?.tabSetting.payTypeKiosk,
                     state.validatePayment ??
-                        state.settings?.tabSetting?.validatePaymentByWaiter,
-                    state.themeColor ?? state.settings?.tabSetting?.themeColour,
+                        state.settings?.tabSetting.validatePaymentByWaiter,
+                    state.themeColor ?? state.settings?.tabSetting.themeColour,
                     state.kioskMode,
-                    state.orderMode ?? state.settings?.tabSetting?.orderingMode,
-                    state.type ?? state.settings?.tabSetting?.viewType,
+                    state.orderMode ?? state.settings?.tabSetting.orderingMode,
+                    state.type ?? state.settings?.tabSetting.viewType,
                   );
                   if (response != null) {
                     Timer(Duration(seconds: 2), () async {
@@ -287,7 +286,7 @@ class Settings extends HookWidget {
                   style: textDarkRegularBG(context),
                 ),
                 value: notifier.getThemeColorFromValueForDropDown(
-                    state.themeColor ?? settings.tabSetting?.themeColour),
+                    state.themeColor ?? settings.tabSetting.themeColour),
                 onChanged: (value) async {
                   await notifier.setThemeColor(value);
                 },
@@ -343,7 +342,7 @@ class Settings extends HookWidget {
               DropdownButton<String>(
                 underline: Container(color: Colors.transparent),
                 iconSize: 20,
-                value: state.type ?? settings.tabSetting?.viewType,
+                value: state.type ?? settings.tabSetting.viewType,
                 onChanged: (String? value) async {
                   await notifier.setType(value!);
                 },
@@ -376,7 +375,7 @@ class Settings extends HookWidget {
                 },
                 enabledThumbColor: primary(),
                 enabledTrackColor: primary().withOpacity(0.3),
-                value: settings.tabSetting?.callToWaiter ?? false,
+                value: settings.tabSetting.callToWaiter,
               )
             ],
           ),
