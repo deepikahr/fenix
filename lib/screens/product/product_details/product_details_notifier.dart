@@ -37,10 +37,12 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
     final res = await api.productDetails(productId);
     print(res?.variants);
     if (ref.mounted) {
+      final groupValueIndex =
+          res?.variants.indexWhere((v) => v.isDefaultVariant) ?? 0;
       state = state.copyWith.call(
         isLoading: false,
         productDetails: res,
-        groupValue: res?.variants.indexWhere((v) => v.isDefaultVariant) ?? 0,
+        groupValue: groupValueIndex < 0 ? 0 : groupValueIndex,
       );
       _updateProduct(
         cartProducts: cartState?.products ?? [],

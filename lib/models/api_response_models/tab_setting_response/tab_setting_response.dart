@@ -11,13 +11,13 @@ class TabSettingResponse
   const TabSettingResponse._();
 
   const factory TabSettingResponse({
-    bool? resetCategory,
-    bool? callToWaiter,
-    bool? payTypeKiosk,
-    bool? validatePaymentByWaiter,
-    String? themeColour,
-    String? orderingMode,
-    String? viewType,
+    @Default(false) bool resetCategory,
+    @Default(false) bool callToWaiter,
+    @Default(false) bool payTypeKiosk,
+    @Default(false) bool validatePaymentByWaiter,
+    @Default('red') String themeColour,
+    @Default('printer') String orderingMode,
+    @Default('GRID') String viewType,
   }) = _TabSettingResponse;
 
   factory TabSettingResponse.fromJson(Map<String, dynamic> json) =>

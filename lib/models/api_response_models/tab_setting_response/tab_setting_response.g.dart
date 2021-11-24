@@ -9,13 +9,13 @@ part of 'tab_setting_response.dart';
 _$_TabSettingResponse _$_$_TabSettingResponseFromJson(
     Map<String, dynamic> json) {
   return _$_TabSettingResponse(
-    resetCategory: json['resetCategory'] as bool?,
-    callToWaiter: json['callToWaiter'] as bool?,
-    payTypeKiosk: json['payTypeKiosk'] as bool?,
-    validatePaymentByWaiter: json['validatePaymentByWaiter'] as bool?,
-    themeColour: json['themeColour'] as String?,
-    orderingMode: json['orderingMode'] as String?,
-    viewType: json['viewType'] as String?,
+    resetCategory: json['resetCategory'] as bool? ?? false,
+    callToWaiter: json['callToWaiter'] as bool? ?? false,
+    payTypeKiosk: json['payTypeKiosk'] as bool? ?? false,
+    validatePaymentByWaiter: json['validatePaymentByWaiter'] as bool? ?? false,
+    themeColour: json['themeColour'] as String? ?? 'red',
+    orderingMode: json['orderingMode'] as String? ?? 'printer',
+    viewType: json['viewType'] as String? ?? 'GRID',
   );
 }
 

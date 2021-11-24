@@ -21,13 +21,13 @@ class _$TabSettingResponseTearOff {
   const _$TabSettingResponseTearOff();
 
   _TabSettingResponse call(
-      {bool? resetCategory,
-      bool? callToWaiter,
-      bool? payTypeKiosk,
-      bool? validatePaymentByWaiter,
-      String? themeColour,
-      String? orderingMode,
-      String? viewType}) {
+      {bool resetCategory = false,
+      bool callToWaiter = false,
+      bool payTypeKiosk = false,
+      bool validatePaymentByWaiter = false,
+      String themeColour = 'red',
+      String orderingMode = 'printer',
+      String viewType = 'GRID'}) {
     return _TabSettingResponse(
       resetCategory: resetCategory,
       callToWaiter: callToWaiter,
@@ -49,13 +49,13 @@ const $TabSettingResponse = _$TabSettingResponseTearOff();
 
 /// @nodoc
 mixin _$TabSettingResponse {
-  bool? get resetCategory => throw _privateConstructorUsedError;
-  bool? get callToWaiter => throw _privateConstructorUsedError;
-  bool? get payTypeKiosk => throw _privateConstructorUsedError;
-  bool? get validatePaymentByWaiter => throw _privateConstructorUsedError;
-  String? get themeColour => throw _privateConstructorUsedError;
-  String? get orderingMode => throw _privateConstructorUsedError;
-  String? get viewType => throw _privateConstructorUsedError;
+  bool get resetCategory => throw _privateConstructorUsedError;
+  bool get callToWaiter => throw _privateConstructorUsedError;
+  bool get payTypeKiosk => throw _privateConstructorUsedError;
+  bool get validatePaymentByWaiter => throw _privateConstructorUsedError;
+  String get themeColour => throw _privateConstructorUsedError;
+  String get orderingMode => throw _privateConstructorUsedError;
+  String get viewType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,13 +69,13 @@ abstract class $TabSettingResponseCopyWith<$Res> {
           TabSettingResponse value, $Res Function(TabSettingResponse) then) =
       _$TabSettingResponseCopyWithImpl<$Res>;
   $Res call(
-      {bool? resetCategory,
-      bool? callToWaiter,
-      bool? payTypeKiosk,
-      bool? validatePaymentByWaiter,
-      String? themeColour,
-      String? orderingMode,
-      String? viewType});
+      {bool resetCategory,
+      bool callToWaiter,
+      bool payTypeKiosk,
+      bool validatePaymentByWaiter,
+      String themeColour,
+      String orderingMode,
+      String viewType});
 }
 
 /// @nodoc
@@ -101,31 +101,31 @@ class _$TabSettingResponseCopyWithImpl<$Res>
       resetCategory: resetCategory == freezed
           ? _value.resetCategory
           : resetCategory // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       callToWaiter: callToWaiter == freezed
           ? _value.callToWaiter
           : callToWaiter // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       payTypeKiosk: payTypeKiosk == freezed
           ? _value.payTypeKiosk
           : payTypeKiosk // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       validatePaymentByWaiter: validatePaymentByWaiter == freezed
           ? _value.validatePaymentByWaiter
           : validatePaymentByWaiter // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       themeColour: themeColour == freezed
           ? _value.themeColour
           : themeColour // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       orderingMode: orderingMode == freezed
           ? _value.orderingMode
           : orderingMode // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       viewType: viewType == freezed
           ? _value.viewType
           : viewType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -138,13 +138,13 @@ abstract class _$TabSettingResponseCopyWith<$Res>
       __$TabSettingResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool? resetCategory,
-      bool? callToWaiter,
-      bool? payTypeKiosk,
-      bool? validatePaymentByWaiter,
-      String? themeColour,
-      String? orderingMode,
-      String? viewType});
+      {bool resetCategory,
+      bool callToWaiter,
+      bool payTypeKiosk,
+      bool validatePaymentByWaiter,
+      String themeColour,
+      String orderingMode,
+      String viewType});
 }
 
 /// @nodoc
@@ -172,31 +172,31 @@ class __$TabSettingResponseCopyWithImpl<$Res>
       resetCategory: resetCategory == freezed
           ? _value.resetCategory
           : resetCategory // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       callToWaiter: callToWaiter == freezed
           ? _value.callToWaiter
           : callToWaiter // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       payTypeKiosk: payTypeKiosk == freezed
           ? _value.payTypeKiosk
           : payTypeKiosk // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       validatePaymentByWaiter: validatePaymentByWaiter == freezed
           ? _value.validatePaymentByWaiter
           : validatePaymentByWaiter // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       themeColour: themeColour == freezed
           ? _value.themeColour
           : themeColour // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       orderingMode: orderingMode == freezed
           ? _value.orderingMode
           : orderingMode // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       viewType: viewType == freezed
           ? _value.viewType
           : viewType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -205,32 +205,39 @@ class __$TabSettingResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TabSettingResponse extends _TabSettingResponse {
   const _$_TabSettingResponse(
-      {this.resetCategory,
-      this.callToWaiter,
-      this.payTypeKiosk,
-      this.validatePaymentByWaiter,
-      this.themeColour,
-      this.orderingMode,
-      this.viewType})
+      {this.resetCategory = false,
+      this.callToWaiter = false,
+      this.payTypeKiosk = false,
+      this.validatePaymentByWaiter = false,
+      this.themeColour = 'red',
+      this.orderingMode = 'printer',
+      this.viewType = 'GRID'})
       : super._();
 
   factory _$_TabSettingResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_TabSettingResponseFromJson(json);
 
+  @JsonKey(defaultValue: false)
   @override
-  final bool? resetCategory;
+  final bool resetCategory;
+  @JsonKey(defaultValue: false)
   @override
-  final bool? callToWaiter;
+  final bool callToWaiter;
+  @JsonKey(defaultValue: false)
   @override
-  final bool? payTypeKiosk;
+  final bool payTypeKiosk;
+  @JsonKey(defaultValue: false)
   @override
-  final bool? validatePaymentByWaiter;
+  final bool validatePaymentByWaiter;
+  @JsonKey(defaultValue: 'red')
   @override
-  final String? themeColour;
+  final String themeColour;
+  @JsonKey(defaultValue: 'printer')
   @override
-  final String? orderingMode;
+  final String orderingMode;
+  @JsonKey(defaultValue: 'GRID')
   @override
-  final String? viewType;
+  final String viewType;
 
   @override
   String toString() {
@@ -289,32 +296,32 @@ class _$_TabSettingResponse extends _TabSettingResponse {
 
 abstract class _TabSettingResponse extends TabSettingResponse {
   const factory _TabSettingResponse(
-      {bool? resetCategory,
-      bool? callToWaiter,
-      bool? payTypeKiosk,
-      bool? validatePaymentByWaiter,
-      String? themeColour,
-      String? orderingMode,
-      String? viewType}) = _$_TabSettingResponse;
+      {bool resetCategory,
+      bool callToWaiter,
+      bool payTypeKiosk,
+      bool validatePaymentByWaiter,
+      String themeColour,
+      String orderingMode,
+      String viewType}) = _$_TabSettingResponse;
   const _TabSettingResponse._() : super._();
 
   factory _TabSettingResponse.fromJson(Map<String, dynamic> json) =
       _$_TabSettingResponse.fromJson;
 
   @override
-  bool? get resetCategory => throw _privateConstructorUsedError;
+  bool get resetCategory => throw _privateConstructorUsedError;
   @override
-  bool? get callToWaiter => throw _privateConstructorUsedError;
+  bool get callToWaiter => throw _privateConstructorUsedError;
   @override
-  bool? get payTypeKiosk => throw _privateConstructorUsedError;
+  bool get payTypeKiosk => throw _privateConstructorUsedError;
   @override
-  bool? get validatePaymentByWaiter => throw _privateConstructorUsedError;
+  bool get validatePaymentByWaiter => throw _privateConstructorUsedError;
   @override
-  String? get themeColour => throw _privateConstructorUsedError;
+  String get themeColour => throw _privateConstructorUsedError;
   @override
-  String? get orderingMode => throw _privateConstructorUsedError;
+  String get orderingMode => throw _privateConstructorUsedError;
   @override
-  String? get viewType => throw _privateConstructorUsedError;
+  String get viewType => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TabSettingResponseCopyWith<_TabSettingResponse> get copyWith =>
