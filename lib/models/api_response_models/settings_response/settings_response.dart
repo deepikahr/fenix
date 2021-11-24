@@ -20,7 +20,8 @@ class SettingsResponse with BaseModel<SettingsResponse>, _$SettingsResponse {
       FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
-      int? tableCapacity,
+      @Default(0)
+          int tableCapacity,
       int? tableNumber,
       int? franchiseCode}) = _SettingsResponse;
 

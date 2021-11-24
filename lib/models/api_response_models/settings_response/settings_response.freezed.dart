@@ -26,7 +26,7 @@ class _$SettingsResponseTearOff {
       FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
-      int? tableCapacity,
+      int tableCapacity = 0,
       int? tableNumber,
       int? franchiseCode}) {
     return _SettingsResponse(
@@ -58,7 +58,7 @@ mixin _$SettingsResponse {
   FranchiseModel? get franchiseId => throw _privateConstructorUsedError;
   String? get vendorId => throw _privateConstructorUsedError;
   String? get tableName => throw _privateConstructorUsedError;
-  int? get tableCapacity => throw _privateConstructorUsedError;
+  int get tableCapacity => throw _privateConstructorUsedError;
   int? get tableNumber => throw _privateConstructorUsedError;
   int? get franchiseCode => throw _privateConstructorUsedError;
 
@@ -79,7 +79,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
       FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
-      int? tableCapacity,
+      int tableCapacity,
       int? tableNumber,
       int? franchiseCode});
 
@@ -131,7 +131,7 @@ class _$SettingsResponseCopyWithImpl<$Res>
       tableCapacity: tableCapacity == freezed
           ? _value.tableCapacity
           : tableCapacity // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       tableNumber: tableNumber == freezed
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -175,7 +175,7 @@ abstract class _$SettingsResponseCopyWith<$Res>
       FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
-      int? tableCapacity,
+      int tableCapacity,
       int? tableNumber,
       int? franchiseCode});
 
@@ -231,7 +231,7 @@ class __$SettingsResponseCopyWithImpl<$Res>
       tableCapacity: tableCapacity == freezed
           ? _value.tableCapacity
           : tableCapacity // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       tableNumber: tableNumber == freezed
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -253,7 +253,7 @@ class _$_SettingsResponse extends _SettingsResponse {
       this.franchiseId,
       this.vendorId,
       this.tableName,
-      this.tableCapacity,
+      this.tableCapacity = 0,
       this.tableNumber,
       this.franchiseCode})
       : super._();
@@ -273,8 +273,9 @@ class _$_SettingsResponse extends _SettingsResponse {
   final String? vendorId;
   @override
   final String? tableName;
+  @JsonKey(defaultValue: 0)
   @override
-  final int? tableCapacity;
+  final int tableCapacity;
   @override
   final int? tableNumber;
   @override
@@ -344,7 +345,7 @@ abstract class _SettingsResponse extends SettingsResponse {
       FranchiseModel? franchiseId,
       String? vendorId,
       String? tableName,
-      int? tableCapacity,
+      int tableCapacity,
       int? tableNumber,
       int? franchiseCode}) = _$_SettingsResponse;
   const _SettingsResponse._() : super._();
@@ -365,7 +366,7 @@ abstract class _SettingsResponse extends SettingsResponse {
   @override
   String? get tableName => throw _privateConstructorUsedError;
   @override
-  int? get tableCapacity => throw _privateConstructorUsedError;
+  int get tableCapacity => throw _privateConstructorUsedError;
   @override
   int? get tableNumber => throw _privateConstructorUsedError;
   @override
