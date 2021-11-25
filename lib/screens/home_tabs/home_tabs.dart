@@ -63,7 +63,7 @@ class HomeTabs extends HookWidget {
         state.languages,
         state.isLoading,
         state.settingsIsLoading,
-        state.settings?.tabSetting?.callToWaiter ?? false,
+        state.settings?.tabSetting.callToWaiter ?? false,
         () {
           if (shouldBeAbleToChangeTabs) {
             notifier.showScreen(Home());
