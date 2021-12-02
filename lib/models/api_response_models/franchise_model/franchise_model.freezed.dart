@@ -21,9 +21,14 @@ class _$FranchiseModelTearOff {
   const _$FranchiseModelTearOff();
 
   _FranchiseModel call(
-      {@JsonKey(name: '_id') String? id, String? franchiseName}) {
+      {@JsonKey(name: '_id') String? id,
+      String? nif,
+      String? restaurantName,
+      String? franchiseName}) {
     return _FranchiseModel(
       id: id,
+      nif: nif,
+      restaurantName: restaurantName,
       franchiseName: franchiseName,
     );
   }
@@ -40,6 +45,8 @@ const $FranchiseModel = _$FranchiseModelTearOff();
 mixin _$FranchiseModel {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
+  String? get nif => throw _privateConstructorUsedError;
+  String? get restaurantName => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,7 +60,11 @@ abstract class $FranchiseModelCopyWith<$Res> {
   factory $FranchiseModelCopyWith(
           FranchiseModel value, $Res Function(FranchiseModel) then) =
       _$FranchiseModelCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: '_id') String? id, String? franchiseName});
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      String? nif,
+      String? restaurantName,
+      String? franchiseName});
 }
 
 /// @nodoc
@@ -68,12 +79,22 @@ class _$FranchiseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? nif = freezed,
+    Object? restaurantName = freezed,
     Object? franchiseName = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nif: nif == freezed
+          ? _value.nif
+          : nif // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
               as String?,
       franchiseName: franchiseName == freezed
           ? _value.franchiseName
@@ -90,7 +111,11 @@ abstract class _$FranchiseModelCopyWith<$Res>
           _FranchiseModel value, $Res Function(_FranchiseModel) then) =
       __$FranchiseModelCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: '_id') String? id, String? franchiseName});
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      String? nif,
+      String? restaurantName,
+      String? franchiseName});
 }
 
 /// @nodoc
@@ -107,12 +132,22 @@ class __$FranchiseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? nif = freezed,
+    Object? restaurantName = freezed,
     Object? franchiseName = freezed,
   }) {
     return _then(_FranchiseModel(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nif: nif == freezed
+          ? _value.nif
+          : nif // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restaurantName: restaurantName == freezed
+          ? _value.restaurantName
+          : restaurantName // ignore: cast_nullable_to_non_nullable
               as String?,
       franchiseName: franchiseName == freezed
           ? _value.franchiseName
@@ -125,7 +160,11 @@ class __$FranchiseModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_FranchiseModel extends _FranchiseModel {
-  const _$_FranchiseModel({@JsonKey(name: '_id') this.id, this.franchiseName})
+  const _$_FranchiseModel(
+      {@JsonKey(name: '_id') this.id,
+      this.nif,
+      this.restaurantName,
+      this.franchiseName})
       : super._();
 
   factory _$_FranchiseModel.fromJson(Map<String, dynamic> json) =>
@@ -135,11 +174,15 @@ class _$_FranchiseModel extends _FranchiseModel {
   @JsonKey(name: '_id')
   final String? id;
   @override
+  final String? nif;
+  @override
+  final String? restaurantName;
+  @override
   final String? franchiseName;
 
   @override
   String toString() {
-    return 'FranchiseModel(id: $id, franchiseName: $franchiseName)';
+    return 'FranchiseModel(id: $id, nif: $nif, restaurantName: $restaurantName, franchiseName: $franchiseName)';
   }
 
   @override
@@ -148,6 +191,11 @@ class _$_FranchiseModel extends _FranchiseModel {
         (other is _FranchiseModel &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.nif, nif) ||
+                const DeepCollectionEquality().equals(other.nif, nif)) &&
+            (identical(other.restaurantName, restaurantName) ||
+                const DeepCollectionEquality()
+                    .equals(other.restaurantName, restaurantName)) &&
             (identical(other.franchiseName, franchiseName) ||
                 const DeepCollectionEquality()
                     .equals(other.franchiseName, franchiseName)));
@@ -157,6 +205,8 @@ class _$_FranchiseModel extends _FranchiseModel {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(nif) ^
+      const DeepCollectionEquality().hash(restaurantName) ^
       const DeepCollectionEquality().hash(franchiseName);
 
   @JsonKey(ignore: true)
@@ -173,6 +223,8 @@ class _$_FranchiseModel extends _FranchiseModel {
 abstract class _FranchiseModel extends FranchiseModel {
   const factory _FranchiseModel(
       {@JsonKey(name: '_id') String? id,
+      String? nif,
+      String? restaurantName,
       String? franchiseName}) = _$_FranchiseModel;
   const _FranchiseModel._() : super._();
 
@@ -182,6 +234,10 @@ abstract class _FranchiseModel extends FranchiseModel {
   @override
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
+  @override
+  String? get nif => throw _privateConstructorUsedError;
+  @override
+  String? get restaurantName => throw _privateConstructorUsedError;
   @override
   String? get franchiseName => throw _privateConstructorUsedError;
   @override
