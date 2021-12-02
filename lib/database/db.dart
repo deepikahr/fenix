@@ -48,6 +48,20 @@ class DB {
     });
   }
 
+  void saveRestaurantDetails(String? restaurantName, String? nif) async {
+    final box = Hive.box('user');
+    await box.putAll({
+      'restaurantName': restaurantName,
+      'nif': nif,
+    });
+  }
+
+  String? getNif() {
+    final box = Hive.box('user');
+    String? franchiseName = box.get('nif');
+    return franchiseName;
+  }
+
   String? getFranchiseName() {
     final box = Hive.box('user');
     String? franchiseName = box.get('franchiseName');

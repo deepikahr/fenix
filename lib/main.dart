@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
@@ -11,11 +13,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'database/db.dart';
 import 'localization/localization.dart';
 import 'models/api_response_models/language_response/language_response.dart';
+import 'network/api_helper.dart';
 import 'network/api_service.dart';
 
 Map<String, Map<String, String>>? json;
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   await dotenv.load();
   await DB().initDatabase();
   await getLanguage();

@@ -27,7 +27,10 @@ class PrinterService {
     String? invoiceNo,
     double? totalAmount,
   }) {
-    printer.text(Constants.restaurantName,
+    printer.text(
+        db.getRestaurantName() ??
+            db.getFranchiseName() ??
+            Constants.restaurantName,
         styles: PosStyles(
           align: PosAlign.center,
           bold: true,
@@ -37,7 +40,7 @@ class PrinterService {
         linesAfter: 1);
 
     printer.text('LEGAL_NAME'.tr, styles: PosStyles(align: PosAlign.center));
-    printer.text('NIF: FISCAL BUSINESS NUMBER',
+    printer.text('NIF: ${db.getNif() ?? 'N/A'}',
         styles: PosStyles(align: PosAlign.center, bold: true));
     printer.text(Constants.restaurantAddress,
         styles: PosStyles(align: PosAlign.center));
@@ -83,10 +86,12 @@ class PrinterService {
     printer.hr(linesAfter: 1);
     double totalPrice = 0.0;
     for (var i = 0; i < products.length; i++) {
+      final productSize = products[i].variant?.sizeName;
+
       printer.row([
         PosColumn(
             text: _getPaddedString(
-                '${products[i].variantQuantity} ${products[i].productName}',
+                '${products[i].variantQuantity} ${products[i].productName} ${productSize != null ? '[$productSize]' : ''}',
                 32),
             width: 8,
             styles: PosStyles(
@@ -186,7 +191,9 @@ class PrinterService {
     int? orderID,
   }) {
     printer.text(
-      Constants.restaurantName,
+      db.getRestaurantName() ??
+          db.getFranchiseName() ??
+          Constants.restaurantName,
       styles: PosStyles(
         align: PosAlign.center,
         bold: true,
@@ -235,9 +242,11 @@ class PrinterService {
     printer.emptyLines(1);
     for (var i = 0; i < baseProducts.length; i++) {
       if (baseProducts[i].variantQuantity > 0) {
+        final productSize = baseProducts[i].variant?.sizeName;
         printer.row([
           PosColumn(
-            text: '${_getPaddedString(baseProducts[i].productName ?? '', 40)}',
+            text:
+                '${_getPaddedString('${baseProducts[i].productName ?? ''} ${productSize != null ? '[$productSize]' : ''}', 40)}',
             width: 10,
           ),
           PosColumn(
@@ -300,10 +309,12 @@ class PrinterService {
         printer.emptyLines(1);
         for (var i = 0; i < products.length; i++) {
           if (products[i].modified) {
+            final productSize = baseProducts[i].variant?.sizeName;
+
             printer.row([
               PosColumn(
                 text:
-                    '${_getPaddedString((products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})', 40)}',
+                    '${_getPaddedString((products[i].productName ?? '') + (productSize != null ? '[$productSize]' : '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})', 40)}',
                 width: 10,
               ),
               PosColumn(
@@ -367,7 +378,9 @@ class PrinterService {
   void _printKitchenReciept(NetworkPrinter printer,
       {required List<CartProduct> products, int? orderID}) {
     printer.text(
-      Constants.restaurantName,
+      db.getRestaurantName() ??
+          db.getFranchiseName() ??
+          Constants.restaurantName,
       styles: PosStyles(
         align: PosAlign.center,
         bold: true,
@@ -414,9 +427,12 @@ class PrinterService {
     );
     printer.emptyLines(1);
     for (var i = 0; i < products.length; i++) {
+      final productSize = products[i].variant?.sizeName;
+
       printer.row([
         PosColumn(
-          text: '${_getPaddedString(products[i].productName ?? '', 40)}',
+          text:
+              '${_getPaddedString((products[i].productName ?? '') + (productSize != null ? '[$productSize]' : ''), 40)}',
           width: 10,
         ),
         PosColumn(

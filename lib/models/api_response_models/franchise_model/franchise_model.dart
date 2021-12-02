@@ -9,6 +9,8 @@ class FranchiseModel with BaseModel<FranchiseModel>, _$FranchiseModel {
 
   const factory FranchiseModel(
       {@JsonKey(name: '_id') String? id,
+      String? nif,
+      String? restaurantName,
       String? franchiseName}) = _FranchiseModel;
 
   factory FranchiseModel.fromJson(Map<String, dynamic> json) =>
