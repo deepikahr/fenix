@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fenix_user/common/constant.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -8,6 +10,12 @@ class SocketService {
   SocketService() {
     socket = IO.io(Constants.apiUrl, <String, dynamic>{
       'transports': ['websocket']
+    });
+    socket.onError((data) {
+      log('Socket connection error', name: 'SOCKET', error: data);
+    });
+    socket.onConnectError((data) {
+      log('Socket connection error', name: 'SOCKET', error: data);
     });
   }
 

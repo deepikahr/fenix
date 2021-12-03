@@ -26,6 +26,15 @@ class StatusCode {
   static const SERVER_ERROR = 500;
 }
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 class ApiHelper {
   final db = DB();
   Dio _getDio() {
