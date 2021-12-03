@@ -124,8 +124,8 @@ Widget dishesInfoCard(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            categoryImage != null
-                ? networkImage(categoryImage, 218, 150, 1)
+            product.productImage?.imageUrl != null
+                ? networkImage(product.productImage!.imageUrl!, 218, 150, 1)
                 : networkImageOverlay(218, 150),
             SizedBox(
               width: 8,
