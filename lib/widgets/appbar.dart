@@ -72,8 +72,10 @@ PreferredSizeWidget fenixAppbar(
               right: 50,
               child: Column(
                 children: [
-                  titleTextDarkRegularBW(context, Constants.restaurantName),
-                  titleTextDarkRegularBW17(context, DB().getMenuName()),
+                  titleTextDarkRegularBW(context,
+                      DB().getRestaurantName() ?? Constants.restaurantName),
+                  titleTextDarkRegularBW17(
+                      context, DB().getMenuName() ?? 'MENU'),
                 ],
               ),
             ),

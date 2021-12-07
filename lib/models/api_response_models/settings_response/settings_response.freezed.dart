@@ -23,7 +23,7 @@ class _$SettingsResponseTearOff {
   _SettingsResponse call(
       {@JsonKey() TabSettingResponse tabSetting = const TabSettingResponse(),
       @JsonKey(name: '_id') String? id,
-      FranchiseModel? franchiseId,
+      FranchiseModel? franchise,
       String? vendorId,
       String? tableName,
       int tableCapacity = 0,
@@ -32,7 +32,7 @@ class _$SettingsResponseTearOff {
     return _SettingsResponse(
       tabSetting: tabSetting,
       id: id,
-      franchiseId: franchiseId,
+      franchise: franchise,
       vendorId: vendorId,
       tableName: tableName,
       tableCapacity: tableCapacity,
@@ -55,7 +55,7 @@ mixin _$SettingsResponse {
   TabSettingResponse get tabSetting => throw _privateConstructorUsedError;
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
-  FranchiseModel? get franchiseId => throw _privateConstructorUsedError;
+  FranchiseModel? get franchise => throw _privateConstructorUsedError;
   String? get vendorId => throw _privateConstructorUsedError;
   String? get tableName => throw _privateConstructorUsedError;
   int get tableCapacity => throw _privateConstructorUsedError;
@@ -76,7 +76,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey() TabSettingResponse tabSetting,
       @JsonKey(name: '_id') String? id,
-      FranchiseModel? franchiseId,
+      FranchiseModel? franchise,
       String? vendorId,
       String? tableName,
       int tableCapacity,
@@ -84,7 +84,7 @@ abstract class $SettingsResponseCopyWith<$Res> {
       int? franchiseCode});
 
   $TabSettingResponseCopyWith<$Res> get tabSetting;
-  $FranchiseModelCopyWith<$Res>? get franchiseId;
+  $FranchiseModelCopyWith<$Res>? get franchise;
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class _$SettingsResponseCopyWithImpl<$Res>
   $Res call({
     Object? tabSetting = freezed,
     Object? id = freezed,
-    Object? franchiseId = freezed,
+    Object? franchise = freezed,
     Object? vendorId = freezed,
     Object? tableName = freezed,
     Object? tableCapacity = freezed,
@@ -116,9 +116,9 @@ class _$SettingsResponseCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      franchiseId: franchiseId == freezed
-          ? _value.franchiseId
-          : franchiseId // ignore: cast_nullable_to_non_nullable
+      franchise: franchise == freezed
+          ? _value.franchise
+          : franchise // ignore: cast_nullable_to_non_nullable
               as FranchiseModel?,
       vendorId: vendorId == freezed
           ? _value.vendorId
@@ -151,13 +151,13 @@ class _$SettingsResponseCopyWithImpl<$Res>
   }
 
   @override
-  $FranchiseModelCopyWith<$Res>? get franchiseId {
-    if (_value.franchiseId == null) {
+  $FranchiseModelCopyWith<$Res>? get franchise {
+    if (_value.franchise == null) {
       return null;
     }
 
-    return $FranchiseModelCopyWith<$Res>(_value.franchiseId!, (value) {
-      return _then(_value.copyWith(franchiseId: value));
+    return $FranchiseModelCopyWith<$Res>(_value.franchise!, (value) {
+      return _then(_value.copyWith(franchise: value));
     });
   }
 }
@@ -172,7 +172,7 @@ abstract class _$SettingsResponseCopyWith<$Res>
   $Res call(
       {@JsonKey() TabSettingResponse tabSetting,
       @JsonKey(name: '_id') String? id,
-      FranchiseModel? franchiseId,
+      FranchiseModel? franchise,
       String? vendorId,
       String? tableName,
       int tableCapacity,
@@ -182,7 +182,7 @@ abstract class _$SettingsResponseCopyWith<$Res>
   @override
   $TabSettingResponseCopyWith<$Res> get tabSetting;
   @override
-  $FranchiseModelCopyWith<$Res>? get franchiseId;
+  $FranchiseModelCopyWith<$Res>? get franchise;
 }
 
 /// @nodoc
@@ -200,7 +200,7 @@ class __$SettingsResponseCopyWithImpl<$Res>
   $Res call({
     Object? tabSetting = freezed,
     Object? id = freezed,
-    Object? franchiseId = freezed,
+    Object? franchise = freezed,
     Object? vendorId = freezed,
     Object? tableName = freezed,
     Object? tableCapacity = freezed,
@@ -216,9 +216,9 @@ class __$SettingsResponseCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      franchiseId: franchiseId == freezed
-          ? _value.franchiseId
-          : franchiseId // ignore: cast_nullable_to_non_nullable
+      franchise: franchise == freezed
+          ? _value.franchise
+          : franchise // ignore: cast_nullable_to_non_nullable
               as FranchiseModel?,
       vendorId: vendorId == freezed
           ? _value.vendorId
@@ -250,7 +250,7 @@ class _$_SettingsResponse extends _SettingsResponse {
   const _$_SettingsResponse(
       {@JsonKey() this.tabSetting = const TabSettingResponse(),
       @JsonKey(name: '_id') this.id,
-      this.franchiseId,
+      this.franchise,
       this.vendorId,
       this.tableName,
       this.tableCapacity = 0,
@@ -268,7 +268,7 @@ class _$_SettingsResponse extends _SettingsResponse {
   @JsonKey(name: '_id')
   final String? id;
   @override
-  final FranchiseModel? franchiseId;
+  final FranchiseModel? franchise;
   @override
   final String? vendorId;
   @override
@@ -283,7 +283,7 @@ class _$_SettingsResponse extends _SettingsResponse {
 
   @override
   String toString() {
-    return 'SettingsResponse(tabSetting: $tabSetting, id: $id, franchiseId: $franchiseId, vendorId: $vendorId, tableName: $tableName, tableCapacity: $tableCapacity, tableNumber: $tableNumber, franchiseCode: $franchiseCode)';
+    return 'SettingsResponse(tabSetting: $tabSetting, id: $id, franchise: $franchise, vendorId: $vendorId, tableName: $tableName, tableCapacity: $tableCapacity, tableNumber: $tableNumber, franchiseCode: $franchiseCode)';
   }
 
   @override
@@ -295,9 +295,9 @@ class _$_SettingsResponse extends _SettingsResponse {
                     .equals(other.tabSetting, tabSetting)) &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.franchiseId, franchiseId) ||
+            (identical(other.franchise, franchise) ||
                 const DeepCollectionEquality()
-                    .equals(other.franchiseId, franchiseId)) &&
+                    .equals(other.franchise, franchise)) &&
             (identical(other.vendorId, vendorId) ||
                 const DeepCollectionEquality()
                     .equals(other.vendorId, vendorId)) &&
@@ -320,7 +320,7 @@ class _$_SettingsResponse extends _SettingsResponse {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(tabSetting) ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(franchiseId) ^
+      const DeepCollectionEquality().hash(franchise) ^
       const DeepCollectionEquality().hash(vendorId) ^
       const DeepCollectionEquality().hash(tableName) ^
       const DeepCollectionEquality().hash(tableCapacity) ^
@@ -342,7 +342,7 @@ abstract class _SettingsResponse extends SettingsResponse {
   const factory _SettingsResponse(
       {@JsonKey() TabSettingResponse tabSetting,
       @JsonKey(name: '_id') String? id,
-      FranchiseModel? franchiseId,
+      FranchiseModel? franchise,
       String? vendorId,
       String? tableName,
       int tableCapacity,
@@ -360,7 +360,7 @@ abstract class _SettingsResponse extends SettingsResponse {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   @override
-  FranchiseModel? get franchiseId => throw _privateConstructorUsedError;
+  FranchiseModel? get franchise => throw _privateConstructorUsedError;
   @override
   String? get vendorId => throw _privateConstructorUsedError;
   @override

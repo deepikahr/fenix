@@ -27,10 +27,7 @@ class PrinterService {
     String? invoiceNo,
     double? totalAmount,
   }) {
-    printer.text(
-        db.getRestaurantName() ??
-            db.getFranchiseName() ??
-            Constants.restaurantName,
+    printer.text(db.getFranchiseName() ?? Constants.restaurantName,
         styles: PosStyles(
           align: PosAlign.center,
           bold: true,
@@ -39,13 +36,19 @@ class PrinterService {
         ),
         linesAfter: 1);
 
-    printer.text('LEGAL_NAME'.tr, styles: PosStyles(align: PosAlign.center));
+    printer.text((db.getRestaurantName() ?? Constants.restaurantName).tr,
+        styles: PosStyles(align: PosAlign.center));
     printer.text('NIF: ${db.getNif() ?? 'N/A'}',
         styles: PosStyles(align: PosAlign.center, bold: true));
-    printer.text(Constants.restaurantAddress,
-        styles: PosStyles(align: PosAlign.center));
-    printer.text('PHONE_NUMBER'.tr,
-        styles: PosStyles(align: PosAlign.center), linesAfter: 1);
+    final address = db.getAddress();
+    if (address != null) {
+      printer.text(address, styles: PosStyles(align: PosAlign.center));
+    }
+    final number = db.getContactNumber();
+    if (number != null) {
+      printer.text(number,
+          styles: PosStyles(align: PosAlign.center), linesAfter: 1);
+    }
 
     printer.text(
         '${'INVOICE_NUMBER'.tr}: ${invoiceNo == null ? 'N/A' : invoiceNo}',

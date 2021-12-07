@@ -11,9 +11,9 @@ _$_SettingsResponse _$_$_SettingsResponseFromJson(Map<String, dynamic> json) {
     tabSetting:
         TabSettingResponse.fromJson(json['tabSetting'] as Map<String, dynamic>),
     id: json['_id'] as String?,
-    franchiseId: json['franchiseId'] == null
+    franchise: json['franchise'] == null
         ? null
-        : FranchiseModel.fromJson(json['franchiseId'] as Map<String, dynamic>),
+        : FranchiseModel.fromJson(json['franchise'] as Map<String, dynamic>),
     vendorId: json['vendorId'] as String?,
     tableName: json['tableName'] as String?,
     tableCapacity: json['tableCapacity'] as int? ?? 0,
@@ -27,7 +27,7 @@ Map<String, dynamic> _$_$_SettingsResponseToJson(
     <String, dynamic>{
       'tabSetting': instance.tabSetting,
       '_id': instance.id,
-      'franchiseId': instance.franchiseId,
+      'franchise': instance.franchise,
       'vendorId': instance.vendorId,
       'tableName': instance.tableName,
       'tableCapacity': instance.tableCapacity,
