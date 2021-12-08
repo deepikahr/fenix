@@ -62,9 +62,14 @@ class LoginPage extends HookWidget {
                   SizedBox(
                     height: 16,
                   ),
-                  titleTextDarkRegularBW(context, Constants.restaurantName),
+                  titleTextDarkRegularBW(
+                    context,
+                    notifier.db.getRestaurantName() ?? Constants.restaurantName,
+                  ),
                   titleTextDarkRegularBW17(
-                      context, Constants.restaurantAddress),
+                    context,
+                    notifier.db.getAddress() ?? Constants.restaurantAddress,
+                  ),
                 ],
               ),
             ),

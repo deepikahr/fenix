@@ -61,8 +61,17 @@ class ChangePasswordPage extends HookWidget {
                 SizedBox(
                   height: 16,
                 ),
-                titleTextDarkRegularBW(context, Constants.restaurantName),
-                titleTextDarkRegularBW17(context, Constants.restaurantAddress),
+                titleTextDarkRegularBW(
+                  context,
+                  notifier.db.getRestaurantName() ?? Constants.restaurantName,
+                ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: titleTextDarkRegularBW17(
+                    context,
+                    notifier.db.getAddress() ?? Constants.restaurantAddress,
+                  ),
+                ),
               ],
             ),
           ),

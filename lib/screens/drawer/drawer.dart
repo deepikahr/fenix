@@ -64,14 +64,21 @@ class DrawerPage extends HookWidget {
                 SizedBox(
                   width: 16,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    titleTextDarkRegularBW(context, Constants.restaurantName),
-                    titleTextDarkRegularBW17(
-                        context, Constants.restaurantAddress),
-                  ],
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      titleTextDarkRegularBW(
+                          context,
+                          notifier.db.getRestaurantName() ??
+                              Constants.restaurantName),
+                      titleTextDarkRegularBW17(
+                          context,
+                          notifier.db.getAddress() ??
+                              Constants.restaurantAddress),
+                    ],
+                  ),
                 ),
               ],
             ),
