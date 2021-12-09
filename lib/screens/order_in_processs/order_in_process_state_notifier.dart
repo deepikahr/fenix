@@ -162,54 +162,37 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           } else {
             final modificationHistory = await fetchmodificationHistory();
             // final someList = modificationHistory?.reversed.toList() ?? [];
-            // final baseProducts = someList![0].localCart?.products ?? [];
-            // print(
-            //   '--------------- ${'ORDERID'.tr}: ${db.getOrderNumber() ?? 'N/A'}',
-            // );
-
-            // for (var i = 0; i < baseProducts.length; i++) {
-            //   if (baseProducts[i].variantQuantity > 0) {
-            //     print(
-            //       '--------------- ${baseProducts[i].productName ?? ''}' +
-            //           '${'${baseProducts[i].variantQuantity}'}',
-            //     );
-            //     if (baseProducts[i].productInstructions != null &&
-            //         baseProducts[i].productInstructions!.isNotEmpty)
-            //       print(
-            //         ' --------------- ${'INSTRUCTIONS'.tr} -> ${baseProducts[i].productInstructions!}',
-            //       );
-            //   }
-            // }
-
-            // for (var i = 0; i < someList.length; i++) {
-            //   if (someList[i].action == ACTION_MODIFICATION.accept) {
-            //     final products = someList[i].localCart?.products ?? [];
+            // for (var i = 0; i < (modificationHistory?.length ?? 0); i++) {
+            //   if (modificationHistory![i].action ==
+            //       ACTION_MODIFICATION.accept) {
+            //     final products =
+            //         modificationHistory[i].localCart?.products ?? [];
             //     if (products.length > 0) {
-            //       print(
-            //         ' --------------- ${"MODIFICATION".tr} ${i + 1}',
-            //       );
+            //       print('-------------' + '${"MODIFICATION".tr} ${i + 1}');
             //     }
-
             //     for (var i = 0; i < products.length; i++) {
             //       if (products[i].modified) {
-            //         print(
-            //           ' --------------- ${(products[i].productName ?? '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
-            //               '${products[i].modifiedQuantity}',
-            //         );
-            //         if (products[i].productInstructions != null &&
-            //             products[i].productInstructions!.isNotEmpty)
-            //           print(
-            //             ' --------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
-            //           );
+            //         final productSize = products[i].variant?.sizeName;
+            //         print('-------------' +
+            //             '${(products[i].productName ?? '') + (productSize != null ? '[$productSize]' : '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
+            //             '  ${'${products[i].modifiedQuantity}'}');
+
             //         if (products[i].selectedAddOnItems.isNotEmpty) {
-            //           print('EXTRAS -->');
+            //           print('------------' + 'Extras:');
+
             //           for (var j = 0;
             //               j < products[i].selectedAddOnItems.length;
             //               j++) {
             //             print(
-            //                 ' --------------- ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})');
+            //               '------------ ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})',
+            //             );
             //           }
             //         }
+            //         if (products[i].productInstructions != null &&
+            //             products[i].productInstructions!.isNotEmpty)
+            //           print(
+            //             '-------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
+            //           );
             //       }
             //     }
             //   }
