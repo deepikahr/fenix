@@ -67,23 +67,34 @@ class Settings extends HookWidget {
                     : MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    mainAxisAlignment: DB().isLoggedIn()
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
-                    crossAxisAlignment: DB().isLoggedIn()
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.center,
-                    children: [
-                      titleTextDarkRegularBW15(
-                          context, "MAC 91:75:1a:ec:9a:c7"),
-                      SizedBox(height: DB().isLoggedIn() ? 0 : 5),
-                      titleTextDarkRegularBW(context, Constants.restaurantName),
-                      titleTextDarkRegularBW17(
-                          context, Constants.restaurantAddress),
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: DB().isLoggedIn()
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.start,
+                      crossAxisAlignment: DB().isLoggedIn()
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
+                      children: [
+                        titleTextDarkRegularBW15(
+                            context, "MAC 91:75:1a:ec:9a:c7"),
+                        SizedBox(height: DB().isLoggedIn() ? 0 : 5),
+                        titleTextDarkRegularBW(
+                            context,
+                            notifier.db.getRestaurantName() ??
+                                Constants.restaurantName),
+                        FittedBox(
+                          child: titleTextDarkRegularBW17(
+                              context,
+                              notifier.db.getAddress() ??
+                                  Constants.restaurantAddress),
+                        ),
+                      ],
+                    ),
                   ),
-                  const Spacer(),
+                  const SizedBox(
+                    width: 20,
+                  ),
                   InkWell(
                     onTap: () {
                       Get.to(() => ChangePasswordPage());

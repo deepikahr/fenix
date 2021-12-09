@@ -7,11 +7,14 @@ part 'franchise_model.g.dart';
 class FranchiseModel with BaseModel<FranchiseModel>, _$FranchiseModel {
   const FranchiseModel._();
 
-  const factory FranchiseModel(
-      {@JsonKey(name: '_id') String? id,
-      String? nif,
-      String? restaurantName,
-      String? franchiseName}) = _FranchiseModel;
+  const factory FranchiseModel({
+    @JsonKey(name: '_id') String? id,
+    String? nif,
+    String? restaurantName,
+    String? contactNumber,
+    String? franchiseName,
+    FranchiseAddress? franchiseAddress,
+  }) = _FranchiseModel;
 
   factory FranchiseModel.fromJson(Map<String, dynamic> json) =>
       _$FranchiseModelFromJson(json);
@@ -24,5 +27,24 @@ class FranchiseModel with BaseModel<FranchiseModel>, _$FranchiseModel {
   @override
   Map<String, dynamic> toMap() {
     return toJson();
+  }
+}
+
+@freezed
+class FranchiseAddress with _$FranchiseAddress {
+  const FranchiseAddress._();
+  const factory FranchiseAddress({
+    String? city,
+    String? country,
+    String? state,
+    String? address,
+    String? postalCode,
+  }) = _FranchiseAddress;
+
+  factory FranchiseAddress.fromJson(Map<String, dynamic> json) =>
+      _$FranchiseAddressFromJson(json);
+
+  String getAddressString() {
+    return '$address, $city, $state, $country - $postalCode';
   }
 }

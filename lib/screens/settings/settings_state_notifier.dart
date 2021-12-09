@@ -28,7 +28,10 @@ class SettingsStateNotifier extends StateNotifier<SettingsState> {
     state = state.copyWith.call(isLoading: true);
     final response = await api.settings();
     db.saveRestaurantDetails(
-        response?.franchiseId?.restaurantName, response?.franchiseId?.nif);
+        response?.franchise?.restaurantName,
+        response?.franchise?.nif,
+        response?.franchise?.contactNumber,
+        response?.franchise?.franchiseAddress?.getAddressString());
     state = state.copyWith.call(
       settings: response,
       isLoading: false,

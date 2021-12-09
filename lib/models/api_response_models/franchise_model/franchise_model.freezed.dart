@@ -24,12 +24,16 @@ class _$FranchiseModelTearOff {
       {@JsonKey(name: '_id') String? id,
       String? nif,
       String? restaurantName,
-      String? franchiseName}) {
+      String? contactNumber,
+      String? franchiseName,
+      FranchiseAddress? franchiseAddress}) {
     return _FranchiseModel(
       id: id,
       nif: nif,
       restaurantName: restaurantName,
+      contactNumber: contactNumber,
       franchiseName: franchiseName,
+      franchiseAddress: franchiseAddress,
     );
   }
 
@@ -47,7 +51,9 @@ mixin _$FranchiseModel {
   String? get id => throw _privateConstructorUsedError;
   String? get nif => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
+  String? get contactNumber => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
+  FranchiseAddress? get franchiseAddress => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,7 +70,11 @@ abstract class $FranchiseModelCopyWith<$Res> {
       {@JsonKey(name: '_id') String? id,
       String? nif,
       String? restaurantName,
-      String? franchiseName});
+      String? contactNumber,
+      String? franchiseName,
+      FranchiseAddress? franchiseAddress});
+
+  $FranchiseAddressCopyWith<$Res>? get franchiseAddress;
 }
 
 /// @nodoc
@@ -81,7 +91,9 @@ class _$FranchiseModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? nif = freezed,
     Object? restaurantName = freezed,
+    Object? contactNumber = freezed,
     Object? franchiseName = freezed,
+    Object? franchiseAddress = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -96,11 +108,30 @@ class _$FranchiseModelCopyWithImpl<$Res>
           ? _value.restaurantName
           : restaurantName // ignore: cast_nullable_to_non_nullable
               as String?,
+      contactNumber: contactNumber == freezed
+          ? _value.contactNumber
+          : contactNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       franchiseName: franchiseName == freezed
           ? _value.franchiseName
           : franchiseName // ignore: cast_nullable_to_non_nullable
               as String?,
+      franchiseAddress: franchiseAddress == freezed
+          ? _value.franchiseAddress
+          : franchiseAddress // ignore: cast_nullable_to_non_nullable
+              as FranchiseAddress?,
     ));
+  }
+
+  @override
+  $FranchiseAddressCopyWith<$Res>? get franchiseAddress {
+    if (_value.franchiseAddress == null) {
+      return null;
+    }
+
+    return $FranchiseAddressCopyWith<$Res>(_value.franchiseAddress!, (value) {
+      return _then(_value.copyWith(franchiseAddress: value));
+    });
   }
 }
 
@@ -115,7 +146,12 @@ abstract class _$FranchiseModelCopyWith<$Res>
       {@JsonKey(name: '_id') String? id,
       String? nif,
       String? restaurantName,
-      String? franchiseName});
+      String? contactNumber,
+      String? franchiseName,
+      FranchiseAddress? franchiseAddress});
+
+  @override
+  $FranchiseAddressCopyWith<$Res>? get franchiseAddress;
 }
 
 /// @nodoc
@@ -134,7 +170,9 @@ class __$FranchiseModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? nif = freezed,
     Object? restaurantName = freezed,
+    Object? contactNumber = freezed,
     Object? franchiseName = freezed,
+    Object? franchiseAddress = freezed,
   }) {
     return _then(_FranchiseModel(
       id: id == freezed
@@ -149,10 +187,18 @@ class __$FranchiseModelCopyWithImpl<$Res>
           ? _value.restaurantName
           : restaurantName // ignore: cast_nullable_to_non_nullable
               as String?,
+      contactNumber: contactNumber == freezed
+          ? _value.contactNumber
+          : contactNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       franchiseName: franchiseName == freezed
           ? _value.franchiseName
           : franchiseName // ignore: cast_nullable_to_non_nullable
               as String?,
+      franchiseAddress: franchiseAddress == freezed
+          ? _value.franchiseAddress
+          : franchiseAddress // ignore: cast_nullable_to_non_nullable
+              as FranchiseAddress?,
     ));
   }
 }
@@ -164,7 +210,9 @@ class _$_FranchiseModel extends _FranchiseModel {
       {@JsonKey(name: '_id') this.id,
       this.nif,
       this.restaurantName,
-      this.franchiseName})
+      this.contactNumber,
+      this.franchiseName,
+      this.franchiseAddress})
       : super._();
 
   factory _$_FranchiseModel.fromJson(Map<String, dynamic> json) =>
@@ -178,11 +226,15 @@ class _$_FranchiseModel extends _FranchiseModel {
   @override
   final String? restaurantName;
   @override
+  final String? contactNumber;
+  @override
   final String? franchiseName;
+  @override
+  final FranchiseAddress? franchiseAddress;
 
   @override
   String toString() {
-    return 'FranchiseModel(id: $id, nif: $nif, restaurantName: $restaurantName, franchiseName: $franchiseName)';
+    return 'FranchiseModel(id: $id, nif: $nif, restaurantName: $restaurantName, contactNumber: $contactNumber, franchiseName: $franchiseName, franchiseAddress: $franchiseAddress)';
   }
 
   @override
@@ -196,9 +248,15 @@ class _$_FranchiseModel extends _FranchiseModel {
             (identical(other.restaurantName, restaurantName) ||
                 const DeepCollectionEquality()
                     .equals(other.restaurantName, restaurantName)) &&
+            (identical(other.contactNumber, contactNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.contactNumber, contactNumber)) &&
             (identical(other.franchiseName, franchiseName) ||
                 const DeepCollectionEquality()
-                    .equals(other.franchiseName, franchiseName)));
+                    .equals(other.franchiseName, franchiseName)) &&
+            (identical(other.franchiseAddress, franchiseAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.franchiseAddress, franchiseAddress)));
   }
 
   @override
@@ -207,7 +265,9 @@ class _$_FranchiseModel extends _FranchiseModel {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(nif) ^
       const DeepCollectionEquality().hash(restaurantName) ^
-      const DeepCollectionEquality().hash(franchiseName);
+      const DeepCollectionEquality().hash(contactNumber) ^
+      const DeepCollectionEquality().hash(franchiseName) ^
+      const DeepCollectionEquality().hash(franchiseAddress);
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +285,9 @@ abstract class _FranchiseModel extends FranchiseModel {
       {@JsonKey(name: '_id') String? id,
       String? nif,
       String? restaurantName,
-      String? franchiseName}) = _$_FranchiseModel;
+      String? contactNumber,
+      String? franchiseName,
+      FranchiseAddress? franchiseAddress}) = _$_FranchiseModel;
   const _FranchiseModel._() : super._();
 
   factory _FranchiseModel.fromJson(Map<String, dynamic> json) =
@@ -239,9 +301,265 @@ abstract class _FranchiseModel extends FranchiseModel {
   @override
   String? get restaurantName => throw _privateConstructorUsedError;
   @override
+  String? get contactNumber => throw _privateConstructorUsedError;
+  @override
   String? get franchiseName => throw _privateConstructorUsedError;
+  @override
+  FranchiseAddress? get franchiseAddress => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FranchiseModelCopyWith<_FranchiseModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FranchiseAddress _$FranchiseAddressFromJson(Map<String, dynamic> json) {
+  return _FranchiseAddress.fromJson(json);
+}
+
+/// @nodoc
+class _$FranchiseAddressTearOff {
+  const _$FranchiseAddressTearOff();
+
+  _FranchiseAddress call(
+      {String? city,
+      String? country,
+      String? state,
+      String? address,
+      String? postalCode}) {
+    return _FranchiseAddress(
+      city: city,
+      country: country,
+      state: state,
+      address: address,
+      postalCode: postalCode,
+    );
+  }
+
+  FranchiseAddress fromJson(Map<String, Object> json) {
+    return FranchiseAddress.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $FranchiseAddress = _$FranchiseAddressTearOff();
+
+/// @nodoc
+mixin _$FranchiseAddress {
+  String? get city => throw _privateConstructorUsedError;
+  String? get country => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String? get postalCode => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FranchiseAddressCopyWith<FranchiseAddress> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FranchiseAddressCopyWith<$Res> {
+  factory $FranchiseAddressCopyWith(
+          FranchiseAddress value, $Res Function(FranchiseAddress) then) =
+      _$FranchiseAddressCopyWithImpl<$Res>;
+  $Res call(
+      {String? city,
+      String? country,
+      String? state,
+      String? address,
+      String? postalCode});
+}
+
+/// @nodoc
+class _$FranchiseAddressCopyWithImpl<$Res>
+    implements $FranchiseAddressCopyWith<$Res> {
+  _$FranchiseAddressCopyWithImpl(this._value, this._then);
+
+  final FranchiseAddress _value;
+  // ignore: unused_field
+  final $Res Function(FranchiseAddress) _then;
+
+  @override
+  $Res call({
+    Object? city = freezed,
+    Object? country = freezed,
+    Object? state = freezed,
+    Object? address = freezed,
+    Object? postalCode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      country: country == freezed
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postalCode: postalCode == freezed
+          ? _value.postalCode
+          : postalCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$FranchiseAddressCopyWith<$Res>
+    implements $FranchiseAddressCopyWith<$Res> {
+  factory _$FranchiseAddressCopyWith(
+          _FranchiseAddress value, $Res Function(_FranchiseAddress) then) =
+      __$FranchiseAddressCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? city,
+      String? country,
+      String? state,
+      String? address,
+      String? postalCode});
+}
+
+/// @nodoc
+class __$FranchiseAddressCopyWithImpl<$Res>
+    extends _$FranchiseAddressCopyWithImpl<$Res>
+    implements _$FranchiseAddressCopyWith<$Res> {
+  __$FranchiseAddressCopyWithImpl(
+      _FranchiseAddress _value, $Res Function(_FranchiseAddress) _then)
+      : super(_value, (v) => _then(v as _FranchiseAddress));
+
+  @override
+  _FranchiseAddress get _value => super._value as _FranchiseAddress;
+
+  @override
+  $Res call({
+    Object? city = freezed,
+    Object? country = freezed,
+    Object? state = freezed,
+    Object? address = freezed,
+    Object? postalCode = freezed,
+  }) {
+    return _then(_FranchiseAddress(
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      country: country == freezed
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postalCode: postalCode == freezed
+          ? _value.postalCode
+          : postalCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_FranchiseAddress extends _FranchiseAddress {
+  const _$_FranchiseAddress(
+      {this.city, this.country, this.state, this.address, this.postalCode})
+      : super._();
+
+  factory _$_FranchiseAddress.fromJson(Map<String, dynamic> json) =>
+      _$_$_FranchiseAddressFromJson(json);
+
+  @override
+  final String? city;
+  @override
+  final String? country;
+  @override
+  final String? state;
+  @override
+  final String? address;
+  @override
+  final String? postalCode;
+
+  @override
+  String toString() {
+    return 'FranchiseAddress(city: $city, country: $country, state: $state, address: $address, postalCode: $postalCode)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _FranchiseAddress &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)) &&
+            (identical(other.country, country) ||
+                const DeepCollectionEquality()
+                    .equals(other.country, country)) &&
+            (identical(other.state, state) ||
+                const DeepCollectionEquality().equals(other.state, state)) &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.postalCode, postalCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.postalCode, postalCode)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(city) ^
+      const DeepCollectionEquality().hash(country) ^
+      const DeepCollectionEquality().hash(state) ^
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(postalCode);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FranchiseAddressCopyWith<_FranchiseAddress> get copyWith =>
+      __$FranchiseAddressCopyWithImpl<_FranchiseAddress>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_FranchiseAddressToJson(this);
+  }
+}
+
+abstract class _FranchiseAddress extends FranchiseAddress {
+  const factory _FranchiseAddress(
+      {String? city,
+      String? country,
+      String? state,
+      String? address,
+      String? postalCode}) = _$_FranchiseAddress;
+  const _FranchiseAddress._() : super._();
+
+  factory _FranchiseAddress.fromJson(Map<String, dynamic> json) =
+      _$_FranchiseAddress.fromJson;
+
+  @override
+  String? get city => throw _privateConstructorUsedError;
+  @override
+  String? get country => throw _privateConstructorUsedError;
+  @override
+  String? get state => throw _privateConstructorUsedError;
+  @override
+  String? get address => throw _privateConstructorUsedError;
+  @override
+  String? get postalCode => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$FranchiseAddressCopyWith<_FranchiseAddress> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -152,6 +152,7 @@ Widget titleTextDarkRegularBW(BuildContext context, title) {
 Widget titleTextDarkRegularBW17(BuildContext context, title) {
   return Text(
     title,
+    maxLines: 3,
     style: textDarkRegularBW17(context),
     textAlign: TextAlign.center,
   );

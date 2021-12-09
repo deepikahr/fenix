@@ -17,7 +17,7 @@ class SettingsResponse with BaseModel<SettingsResponse>, _$SettingsResponse {
           TabSettingResponse tabSetting,
       @JsonKey(name: '_id')
           String? id,
-      FranchiseModel? franchiseId,
+      FranchiseModel? franchise,
       String? vendorId,
       String? tableName,
       @Default(0)
