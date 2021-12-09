@@ -312,7 +312,7 @@ class PrinterService {
         printer.emptyLines(1);
         for (var i = 0; i < products.length; i++) {
           if (products[i].modified) {
-            final productSize = baseProducts[i].variant?.sizeName;
+            final productSize = products[i].variant?.sizeName;
 
             printer.row([
               PosColumn(
