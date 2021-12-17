@@ -14,14 +14,18 @@ class CategoryStateNotifier extends StateNotifier<CategoryState> {
   CategoryStateNotifier(this.ref) : super(CategoryState());
 
   Future<CategoryResponse?> fetchCategory(type) async {
+    if (state.type != type) {
+      state = state.copyWith(pageNumber: 1);
+    }
     state = state.copyWith.call(
       isLoading: true,
-      category: null,
+      type: type,
+      category: [],
     );
     final response = await api.category(type, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
-        category: response ?? [],
+        category: [...state.category, ...response ?? []],
         pageNumber: state.pageNumber + 1,
         isLoading: false,
       );
