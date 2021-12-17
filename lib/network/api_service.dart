@@ -252,7 +252,7 @@ class API {
 
   Future<List<CategoryResponse>?> category(CATEGORY_TYPE type, int page,
       {ValueSetter<ErrorResponse>? errorListener,
-      int limit = 2,
+      int limit = 10,
       ValueSetter<ApiResponse<List<CategoryResponse>?>>? responseListener,
       bool autoErrorHandle = true}) async {
     return _api.getForArrayResponse(

@@ -38,7 +38,7 @@ class CategoryScreen extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchCategory(categoryType);
+          await notifier.fetchCategory(categoryType, true);
         });
       }
       return;
@@ -81,11 +81,8 @@ class CategoryScreen extends HookWidget {
           itemCount: category!.length,
           itemBuilder: (BuildContext context, int i) {
             handleScrollWithIndex(
-              i,
-              pageNumber,
-              () => notifier.fetchCategory(categoryType),
-              pageLimit: 2,
-            );
+                i, pageNumber, () => notifier.fetchCategory(categoryType),
+                pageLimit: 8);
             return InkWell(
               onTap: () {
                 category[i].subCategoryCount == 0
@@ -109,16 +106,13 @@ class CategoryScreen extends HookWidget {
     );
   }
 
-  Widget categoryListGrid(
-          BuildContext context,
-          List<CategoryResponse>? category,
-          CategoryStateNotifier notifier,
-          pageNumber) =>
+  Widget categoryListGrid(BuildContext context, List<CategoryResponse> category,
+          CategoryStateNotifier notifier, pageNumber) =>
       GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: category!.length,
+        itemCount: category.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 0,
@@ -126,11 +120,8 @@ class CategoryScreen extends HookWidget {
             childAspectRatio: MediaQuery.of(context).size.width / 500),
         itemBuilder: (context, i) {
           handleScrollWithIndex(
-            i,
-            pageNumber,
-            () => notifier.fetchCategory(categoryType),
-            pageLimit: 2,
-          );
+              i, pageNumber, () => notifier.fetchCategory(categoryType),
+              pageLimit: 8);
           return InkWell(
               onTap: () {
                 category[i].subCategoryCount == 0

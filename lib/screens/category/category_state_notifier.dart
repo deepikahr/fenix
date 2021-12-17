@@ -13,16 +13,22 @@ class CategoryStateNotifier extends StateNotifier<CategoryState> {
 
   CategoryStateNotifier(this.ref) : super(CategoryState());
 
-  Future<CategoryResponse?> fetchCategory(type) async {
-    if (state.type != type) {
-      state = state.copyWith(pageNumber: 1);
+  Future<CategoryResponse?> fetchCategory(type,
+      [bool startPageNumber = false]) async {
+    if (startPageNumber) {
+      state = state.copyWith(
+        isLoading: true,
+        pageNumber: startPageNumber ? 1 : state.pageNumber,
+        category: [],
+      );
     }
-    state = state.copyWith.call(
-      isLoading: true,
-      type: type,
-      category: [],
-    );
-    final response = await api.category(type, state.pageNumber);
+    // state = state.copyWith.call(
+    //   isLoading: state.pageNumber == 1 || state.type != type ? true : false,
+    //   pageNumber: state.type != type ? 1 : state.pageNumber,
+    //   type: type,
+    //   category: [],
+    // );
+    final response = await api.category(type, state.pageNumber, limit: 8);
     if (ref.mounted) {
       state = state.copyWith.call(
         category: [...state.category, ...response ?? []],
