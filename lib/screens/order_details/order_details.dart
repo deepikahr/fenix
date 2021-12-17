@@ -195,7 +195,8 @@ class OrderDetails extends HookWidget {
                           ),
               ],
             ),
-          if (DB().getOrderId() != null &&
+          if (!state.isLoading &&
+              DB().getOrderId() != null &&
               (state.orderDetails != ORDER_STATUS.cancelled ||
                   state.orderDetails != ORDER_STATUS.completed ||
                   state.orderDetails != ORDER_STATUS.pending))
