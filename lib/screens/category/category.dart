@@ -4,6 +4,7 @@ import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/category/category_state_notifier.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
 import 'package:fenix_user/screens/sub_category/sub_category.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -37,7 +38,7 @@ class CategoryScreen extends HookWidget {
     useEffect(() {
       if (isMounted()) {
         Future.delayed(Duration.zero, () async {
-          await notifier.fetchCategory(categoryType);
+          await notifier.fetchCategory(categoryType, true);
         });
       }
       return;
@@ -52,7 +53,7 @@ class CategoryScreen extends HookWidget {
             shrinkWrap: true,
             physics: ScrollPhysics(),
             children: [
-              if ((state.category?.length ?? 0) > 0)
+              if (state.category.length > 0)
                 DB().getType() == 'LIST'
                     ? categoryBlock(
                         context, state.category, notifier, state.pageNumber)
@@ -70,7 +71,7 @@ class CategoryScreen extends HookWidget {
   }
 
   Widget categoryBlock(BuildContext context, List<CategoryResponse>? category,
-      notifier, pageNumber) {
+      CategoryStateNotifier notifier, pageNumber) {
     return Container(
       margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       child: ListView.builder(
@@ -80,7 +81,8 @@ class CategoryScreen extends HookWidget {
           itemCount: category!.length,
           itemBuilder: (BuildContext context, int i) {
             handleScrollWithIndex(
-                i, pageNumber, () => notifier.fetch(categoryType));
+                i, pageNumber, () => notifier.fetchCategory(categoryType),
+                pageLimit: 8);
             return InkWell(
               onTap: () {
                 category[i].subCategoryCount == 0
@@ -104,13 +106,13 @@ class CategoryScreen extends HookWidget {
     );
   }
 
-  Widget categoryListGrid(BuildContext context,
-          List<CategoryResponse>? category, notifier, pageNumber) =>
+  Widget categoryListGrid(BuildContext context, List<CategoryResponse> category,
+          CategoryStateNotifier notifier, pageNumber) =>
       GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: category!.length,
+        itemCount: category.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 0,
@@ -118,10 +120,8 @@ class CategoryScreen extends HookWidget {
             childAspectRatio: MediaQuery.of(context).size.width / 500),
         itemBuilder: (context, i) {
           handleScrollWithIndex(
-            i,
-            pageNumber,
-            () => notifier.fetch(categoryType),
-          );
+              i, pageNumber, () => notifier.fetchCategory(categoryType),
+              pageLimit: 8);
           return InkWell(
               onTap: () {
                 category[i].subCategoryCount == 0
