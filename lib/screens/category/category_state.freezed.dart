@@ -18,13 +18,11 @@ class _$CategoryStateTearOff {
 
   _Default call(
       {bool isLoading = false,
-      CATEGORY_TYPE type = CATEGORY_TYPE.foodCategory,
       List<CategoryResponse> category = const [],
       int total = 0,
       int pageNumber = 1}) {
     return _Default(
       isLoading: isLoading,
-      type: type,
       category: category,
       total: total,
       pageNumber: pageNumber,
@@ -38,7 +36,6 @@ const $CategoryState = _$CategoryStateTearOff();
 /// @nodoc
 mixin _$CategoryState {
   bool get isLoading => throw _privateConstructorUsedError;
-  CATEGORY_TYPE get type => throw _privateConstructorUsedError;
   List<CategoryResponse> get category => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
   int get pageNumber => throw _privateConstructorUsedError;
@@ -55,7 +52,6 @@ abstract class $CategoryStateCopyWith<$Res> {
       _$CategoryStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      CATEGORY_TYPE type,
       List<CategoryResponse> category,
       int total,
       int pageNumber});
@@ -73,7 +69,6 @@ class _$CategoryStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? type = freezed,
     Object? category = freezed,
     Object? total = freezed,
     Object? pageNumber = freezed,
@@ -83,10 +78,6 @@ class _$CategoryStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as CATEGORY_TYPE,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -110,7 +101,6 @@ abstract class _$DefaultCopyWith<$Res> implements $CategoryStateCopyWith<$Res> {
   @override
   $Res call(
       {bool isLoading,
-      CATEGORY_TYPE type,
       List<CategoryResponse> category,
       int total,
       int pageNumber});
@@ -128,7 +118,6 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? type = freezed,
     Object? category = freezed,
     Object? total = freezed,
     Object? pageNumber = freezed,
@@ -138,10 +127,6 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as CATEGORY_TYPE,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -163,7 +148,6 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
 class _$_Default implements _Default {
   const _$_Default(
       {this.isLoading = false,
-      this.type = CATEGORY_TYPE.foodCategory,
       this.category = const [],
       this.total = 0,
       this.pageNumber = 1});
@@ -171,9 +155,6 @@ class _$_Default implements _Default {
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
-  @JsonKey(defaultValue: CATEGORY_TYPE.foodCategory)
-  @override
-  final CATEGORY_TYPE type;
   @JsonKey(defaultValue: const [])
   @override
   final List<CategoryResponse> category;
@@ -186,7 +167,7 @@ class _$_Default implements _Default {
 
   @override
   String toString() {
-    return 'CategoryState(isLoading: $isLoading, type: $type, category: $category, total: $total, pageNumber: $pageNumber)';
+    return 'CategoryState(isLoading: $isLoading, category: $category, total: $total, pageNumber: $pageNumber)';
   }
 
   @override
@@ -196,8 +177,6 @@ class _$_Default implements _Default {
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
                     .equals(other.isLoading, isLoading)) &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
                     .equals(other.category, category)) &&
@@ -212,7 +191,6 @@ class _$_Default implements _Default {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
-      const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(total) ^
       const DeepCollectionEquality().hash(pageNumber);
@@ -226,15 +204,12 @@ class _$_Default implements _Default {
 abstract class _Default implements CategoryState {
   const factory _Default(
       {bool isLoading,
-      CATEGORY_TYPE type,
       List<CategoryResponse> category,
       int total,
       int pageNumber}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
-  @override
-  CATEGORY_TYPE get type => throw _privateConstructorUsedError;
   @override
   List<CategoryResponse> get category => throw _privateConstructorUsedError;
   @override
