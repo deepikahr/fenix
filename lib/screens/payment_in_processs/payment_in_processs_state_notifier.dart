@@ -51,7 +51,7 @@ class PaymentInProcessStateNotifier
             final printResult = await printerService.printReciept(
               type: PrinterRecieptType.CUSTOMER,
               products: order.cart,
-              invoiceNo: order.id,
+              orderID: order.orderID,
               paymentType: order.paymentType,
               totalAmount: order.amountPaid,
             );

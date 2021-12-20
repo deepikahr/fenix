@@ -501,7 +501,6 @@ class PrinterService {
       List<UpdateOrderHistoryModel>? modificationHistory,
       int? orderID,
       String? paymentType,
-      String? invoiceNo,
       double? totalAmount}) async {
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
@@ -515,7 +514,7 @@ class PrinterService {
         if (type == PrinterRecieptType.CUSTOMER) {
           _printCustomerReciept(_printer,
               products: products,
-              invoiceNo: invoiceNo,
+              invoiceNo: orderID.toString(),
               paymentType: paymentType,
               totalAmount: totalAmount);
         } else if (type == PrinterRecieptType.KITCHEN) {
