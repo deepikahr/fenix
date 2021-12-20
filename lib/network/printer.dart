@@ -102,8 +102,7 @@ class PrinterService {
             )),
         PosColumn(
             text: _getPaddedString(
-                '${(products[i].variant?.price ?? (products[i].totalProductPrice / products[i].variantQuantity)).toStringAsFixed(2)}',
-                8),
+                '${products[i].totalProductPrice.toStringAsFixed(2)}', 8),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
         PosColumn(
