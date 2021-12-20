@@ -108,11 +108,13 @@ class PrinterService {
             styles: PosStyles(align: PosAlign.right)),
         PosColumn(
             text: _getPaddedString(
-                products[i].totalProductPrice.toStringAsFixed(2), 8),
+                (products[i].totalProductPrice * products[i].variantQuantity)
+                    .toStringAsFixed(2),
+                8),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
-      totalPrice += products[i].totalProductPrice;
+      totalPrice += products[i].totalProductPrice * products[i].variantQuantity;
     }
 
     printer.emptyLines(1);

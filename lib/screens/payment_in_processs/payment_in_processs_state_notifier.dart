@@ -53,7 +53,7 @@ class PaymentInProcessStateNotifier
               products: order.cart,
               orderID: order.orderID,
               paymentType: order.paymentType,
-              totalAmount: order.amountPaid,
+              totalAmount: order.grandTotal,
             );
             print('paid amount: ${order.amountPaid}');
             if (printResult != null) {
