@@ -34,28 +34,35 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
   ) : super(ProductListState());
 
   Future<ProductDataResponse?> fetchProductData(String categoryId) async {
-    state = state.copyWith.call(isLoading: true, products: []);
-    final response = await api.productList(categoryId);
+    if (state.pageNumber == 1) {
+      state = state.copyWith.call(isLoading: true, products: []);
+    }
+    final response = await api.productList(categoryId, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
         categoryTitle: response?.categoryTitle,
-        products: response?.product?.data ?? [],
-        totalProducts: response?.product?.total ?? 0,
+        products: [...state.products, ...response?.product?.data ?? []],
+        totalProducts: state.totalProducts + (response?.product?.total ?? 0),
+        pageNumber: state.pageNumber + 1,
         isLoading: false,
       );
-      _updateProducts(cartState?.products ?? []);
+      // _updateProducts(cartState?.products ?? []);
     }
   }
 
   Future<SubCategoryProductDataResponse?> fetchSubCategoryProductData(
       String subCategoryId) async {
-    state = state.copyWith.call(isLoading: true, products: []);
-    final response = await api.subCategoryProductList(subCategoryId);
+    if (state.pageNumber == 1) {
+      state = state.copyWith.call(isLoading: true, products: []);
+    }
+    final response =
+        await api.subCategoryProductList(subCategoryId, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
         categoryTitle: response?.subCategoryTitle,
-        products: response?.product?.data ?? [],
-        totalProducts: response?.product?.total ?? 0,
+        products: [...state.products, ...response?.product?.data ?? []],
+        totalProducts: state.totalProducts + (response?.product?.total ?? 0),
+        pageNumber: state.pageNumber + 1,
         isLoading: false,
       );
       _updateProducts(cartState?.products ?? []);

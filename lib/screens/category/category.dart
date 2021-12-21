@@ -81,8 +81,10 @@ class CategoryScreen extends HookWidget {
           itemCount: category!.length,
           itemBuilder: (BuildContext context, int i) {
             handleScrollWithIndex(
-                i, pageNumber, () => notifier.fetchCategory(categoryType),
-                pageLimit: 8);
+              i,
+              pageNumber,
+              () => notifier.fetchCategory(categoryType),
+            );
             return InkWell(
               onTap: () {
                 category[i].subCategoryCount == 0

@@ -7,7 +7,7 @@ part 'sub_category_state.freezed.dart';
 class SubCategoryState with _$SubCategoryState {
   const factory SubCategoryState({
     @Default(false) bool isLoading,
-    @Default([]) List<SubCategoryResponse>? subCategory,
+    @Default([]) List<SubCategoryResponse> subCategory,
     @Default(0) int total,
     @Default(1) int pageNumber,
   }) = _Default;

@@ -28,7 +28,7 @@ class CategoryStateNotifier extends StateNotifier<CategoryState> {
     //   type: type,
     //   category: [],
     // );
-    final response = await api.category(type, state.pageNumber, limit: 8);
+    final response = await api.category(type, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
         category: [...state.category, ...response ?? []],
