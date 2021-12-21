@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
+import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_socket_response/order_socket_response.dart';
 import 'package:fenix_user/models/api_response_models/update_order_history_response/update_order_history_model.dart';
@@ -21,6 +25,7 @@ import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
   final ProviderReference ref;
@@ -161,42 +166,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
             );
           } else {
             final modificationHistory = await fetchmodificationHistory();
-            // final someList = modificationHistory?.reversed.toList() ?? [];
-            // for (var i = 0; i < (modificationHistory?.length ?? 0); i++) {
-            //   if (modificationHistory![i].action ==
-            //       ACTION_MODIFICATION.accept) {
-            //     final products =
-            //         modificationHistory[i].localCart?.products ?? [];
-            //     if (products.length > 0) {
-            //       print('-------------' + '${"MODIFICATION".tr} ${i + 1}');
-            //     }
-            //     for (var i = 0; i < products.length; i++) {
-            //       if (products[i].modified) {
-            //         final productSize = products[i].variant?.sizeName;
-            //         print('-------------' +
-            //             '${(products[i].productName ?? '') + (productSize != null ? '[$productSize]' : '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
-            //             '  ${'${products[i].modifiedQuantity}'}');
-
-            //         if (products[i].selectedAddOnItems.isNotEmpty) {
-            //           print('------------' + 'Extras:');
-
-            //           for (var j = 0;
-            //               j < products[i].selectedAddOnItems.length;
-            //               j++) {
-            //             print(
-            //               '------------ ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})',
-            //             );
-            //           }
-            //         }
-            //         if (products[i].productInstructions != null &&
-            //             products[i].productInstructions!.isNotEmpty)
-            //           print(
-            //             '-------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
-            //           );
-            //       }
-            //     }
-            //   }
-            // }
+            // _logKitchenReceipt(modificationHistory);
             try {
               final printResult = await printerService.printReciept(
                 type: PrinterRecieptType.KITCHEN,
@@ -230,6 +200,41 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
           }
         }
       });
+    }
+  }
+
+  void _logKitchenReceipt(List<UpdateOrderHistoryModel>? modificationHistory) {
+    final someList = modificationHistory?.reversed.toList() ?? [];
+    for (var i = 0; i < someList.length; i++) {
+      if (someList[i].action == ACTION_MODIFICATION.accept) {
+        final products = someList[i].localCart?.products ?? [];
+        if (products.length > 0) {
+          print('-------------' + '${"MODIFICATION".tr} ${i + 1}');
+        }
+        for (var i = 0; i < products.length; i++) {
+          if (products[i].modified) {
+            final productSize = products[i].variant?.sizeName;
+            print('-------------' +
+                '${(products[i].productName ?? '') + (productSize != null ? '[$productSize]' : '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
+                '  ${'${products[i].modifiedQuantity}'}');
+
+            if (products[i].selectedAddOnItems.isNotEmpty) {
+              print('------------' + 'Extras:');
+
+              for (var j = 0; j < products[i].selectedAddOnItems.length; j++) {
+                print(
+                  '------------ ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})',
+                );
+              }
+            }
+            if (products[i].productInstructions != null &&
+                products[i].productInstructions!.isNotEmpty)
+              print(
+                '-------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
+              );
+          }
+        }
+      }
     }
   }
 
