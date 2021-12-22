@@ -197,11 +197,6 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
               .map((cp) => cp.id == p.id ? getCurrentQuanityOfProduct(cp) : 0)
               .reduce((_, __) => _ + __)
           : 0;
-      final totalModifiedQuantity = (newCartProducts.isNotEmpty)
-          ? newCartProducts
-              .map((cp) => cp.id == p.id ? cp.modifiedQuantity ?? 0 : 0)
-              .reduce((_, __) => _ + __)
-          : 0;
       final totalPreviousQuantity = (newCartProducts.isNotEmpty)
           ? newCartProducts
               .map((cp) => cp.id == p.id ? cp.variantQuantity : 0)
@@ -216,7 +211,6 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
 
       return p.copyWith(
         totalQuantity: totalQuantity,
-        totalModifiedQuantity: totalModifiedQuantity,
         totalPreviousQuantity: totalPreviousQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
         modified: db.getOrderId() != null &&

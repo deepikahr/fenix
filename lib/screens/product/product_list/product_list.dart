@@ -109,6 +109,7 @@ class ProductList extends HookWidget {
   Widget productList(List<ProductDetailsResponse> products,
           ProductListNotifier notifier, int pageNumber, String categoryId) =>
       ListView.builder(
+          shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: products.length,
           itemBuilder: (context, index) {

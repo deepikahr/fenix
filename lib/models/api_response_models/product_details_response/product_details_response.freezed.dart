@@ -75,8 +75,6 @@ class _$ProductDetailsResponseTearOff {
       bool modified = false,
       @JsonKey(includeIfNull: false)
           int? modifiedQuantity,
-      @JsonKey(includeIfNull: false)
-          int? totalModifiedQuantity,
       @JsonKey(includeIfNull: false, defaultValue: 0)
           int totalPreviousQuantity = 0}) {
     return _ProductDetailsResponse(
@@ -130,7 +128,6 @@ class _$ProductDetailsResponseTearOff {
       productInstructions: productInstructions,
       modified: modified,
       modifiedQuantity: modifiedQuantity,
-      totalModifiedQuantity: totalModifiedQuantity,
       totalPreviousQuantity: totalPreviousQuantity,
     );
   }
@@ -198,8 +195,6 @@ mixin _$ProductDetailsResponse {
   bool get modified => throw _privateConstructorUsedError;
   @JsonKey(includeIfNull: false)
   int? get modifiedQuantity => throw _privateConstructorUsedError;
-  @JsonKey(includeIfNull: false)
-  int? get totalModifiedQuantity => throw _privateConstructorUsedError;
   @JsonKey(includeIfNull: false, defaultValue: 0)
   int get totalPreviousQuantity => throw _privateConstructorUsedError;
 
@@ -268,8 +263,6 @@ abstract class $ProductDetailsResponseCopyWith<$Res> {
       bool modified,
       @JsonKey(includeIfNull: false)
           int? modifiedQuantity,
-      @JsonKey(includeIfNull: false)
-          int? totalModifiedQuantity,
       @JsonKey(includeIfNull: false, defaultValue: 0)
           int totalPreviousQuantity});
 
@@ -339,7 +332,6 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
     Object? productInstructions = freezed,
     Object? modified = freezed,
     Object? modifiedQuantity = freezed,
-    Object? totalModifiedQuantity = freezed,
     Object? totalPreviousQuantity = freezed,
   }) {
     return _then(_value.copyWith(
@@ -543,10 +535,6 @@ class _$ProductDetailsResponseCopyWithImpl<$Res>
           ? _value.modifiedQuantity
           : modifiedQuantity // ignore: cast_nullable_to_non_nullable
               as int?,
-      totalModifiedQuantity: totalModifiedQuantity == freezed
-          ? _value.totalModifiedQuantity
-          : totalModifiedQuantity // ignore: cast_nullable_to_non_nullable
-              as int?,
       totalPreviousQuantity: totalPreviousQuantity == freezed
           ? _value.totalPreviousQuantity
           : totalPreviousQuantity // ignore: cast_nullable_to_non_nullable
@@ -649,8 +637,6 @@ abstract class _$ProductDetailsResponseCopyWith<$Res>
       bool modified,
       @JsonKey(includeIfNull: false)
           int? modifiedQuantity,
-      @JsonKey(includeIfNull: false)
-          int? totalModifiedQuantity,
       @JsonKey(includeIfNull: false, defaultValue: 0)
           int totalPreviousQuantity});
 
@@ -725,7 +711,6 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
     Object? productInstructions = freezed,
     Object? modified = freezed,
     Object? modifiedQuantity = freezed,
-    Object? totalModifiedQuantity = freezed,
     Object? totalPreviousQuantity = freezed,
   }) {
     return _then(_ProductDetailsResponse(
@@ -929,10 +914,6 @@ class __$ProductDetailsResponseCopyWithImpl<$Res>
           ? _value.modifiedQuantity
           : modifiedQuantity // ignore: cast_nullable_to_non_nullable
               as int?,
-      totalModifiedQuantity: totalModifiedQuantity == freezed
-          ? _value.totalModifiedQuantity
-          : totalModifiedQuantity // ignore: cast_nullable_to_non_nullable
-              as int?,
       totalPreviousQuantity: totalPreviousQuantity == freezed
           ? _value.totalPreviousQuantity
           : totalPreviousQuantity // ignore: cast_nullable_to_non_nullable
@@ -998,8 +979,6 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       this.modified = false,
       @JsonKey(includeIfNull: false)
           this.modifiedQuantity,
-      @JsonKey(includeIfNull: false)
-          this.totalModifiedQuantity,
       @JsonKey(includeIfNull: false, defaultValue: 0)
           this.totalPreviousQuantity = 0})
       : super._();
@@ -1128,15 +1107,12 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
   @JsonKey(includeIfNull: false)
   final int? modifiedQuantity;
   @override
-  @JsonKey(includeIfNull: false)
-  final int? totalModifiedQuantity;
-  @override
   @JsonKey(includeIfNull: false, defaultValue: 0)
   final int totalPreviousQuantity;
 
   @override
   String toString() {
-    return 'ProductDetailsResponse(productImage: $productImage, taxInfo: $taxInfo, ingredients: $ingredients, addOnCategories: $addOnCategories, status: $status, averageRating: $averageRating, totalRating: $totalRating, noOfUsersRated: $noOfUsersRated, allergens: $allergens, relatedProducts: $relatedProducts, tags: $tags, isCopy: $isCopy, id: $id, offerPercentage: $offerPercentage, franchiseId: $franchiseId, category: $category, productName: $productName, productDescription: $productDescription, isVeg: $isVeg, variants: $variants, addOnItems: $addOnItems, subCategory: $subCategory, ranking: $ranking, menuId: $menuId, vendorId: $vendorId, categoryName: $categoryName, franchiseName: $franchiseName, createdAt: $createdAt, updatedAt: $updatedAt, categoryId: $categoryId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, selectedAddOnItems: $selectedAddOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, tax: $tax, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastUsedVariant: $isLastUsedVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, variantQuantity: $variantQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant, productInstructions: $productInstructions, modified: $modified, modifiedQuantity: $modifiedQuantity, totalModifiedQuantity: $totalModifiedQuantity, totalPreviousQuantity: $totalPreviousQuantity)';
+    return 'ProductDetailsResponse(productImage: $productImage, taxInfo: $taxInfo, ingredients: $ingredients, addOnCategories: $addOnCategories, status: $status, averageRating: $averageRating, totalRating: $totalRating, noOfUsersRated: $noOfUsersRated, allergens: $allergens, relatedProducts: $relatedProducts, tags: $tags, isCopy: $isCopy, id: $id, offerPercentage: $offerPercentage, franchiseId: $franchiseId, category: $category, productName: $productName, productDescription: $productDescription, isVeg: $isVeg, variants: $variants, addOnItems: $addOnItems, subCategory: $subCategory, ranking: $ranking, menuId: $menuId, vendorId: $vendorId, categoryName: $categoryName, franchiseName: $franchiseName, createdAt: $createdAt, updatedAt: $updatedAt, categoryId: $categoryId, restaurantName: $restaurantName, originalPrice: $originalPrice, sellingPrice: $sellingPrice, discount: $discount, selectedAddOnItems: $selectedAddOnItems, preparationTime: $preparationTime, totalProductPrice: $totalProductPrice, tax: $tax, productId: $productId, rate: $rate, rateDescription: $rateDescription, isLastUsedVariant: $isLastUsedVariant, isCustomizable: $isCustomizable, totalQuantity: $totalQuantity, variantQuantity: $variantQuantity, isSameProductMultipleTime: $isSameProductMultipleTime, variant: $variant, productInstructions: $productInstructions, modified: $modified, modifiedQuantity: $modifiedQuantity, totalPreviousQuantity: $totalPreviousQuantity)';
   }
 
   @override
@@ -1236,7 +1212,6 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
             (identical(other.productInstructions, productInstructions) || const DeepCollectionEquality().equals(other.productInstructions, productInstructions)) &&
             (identical(other.modified, modified) || const DeepCollectionEquality().equals(other.modified, modified)) &&
             (identical(other.modifiedQuantity, modifiedQuantity) || const DeepCollectionEquality().equals(other.modifiedQuantity, modifiedQuantity)) &&
-            (identical(other.totalModifiedQuantity, totalModifiedQuantity) || const DeepCollectionEquality().equals(other.totalModifiedQuantity, totalModifiedQuantity)) &&
             (identical(other.totalPreviousQuantity, totalPreviousQuantity) || const DeepCollectionEquality().equals(other.totalPreviousQuantity, totalPreviousQuantity)));
   }
 
@@ -1293,7 +1268,6 @@ class _$_ProductDetailsResponse extends _ProductDetailsResponse {
       const DeepCollectionEquality().hash(productInstructions) ^
       const DeepCollectionEquality().hash(modified) ^
       const DeepCollectionEquality().hash(modifiedQuantity) ^
-      const DeepCollectionEquality().hash(totalModifiedQuantity) ^
       const DeepCollectionEquality().hash(totalPreviousQuantity);
 
   @JsonKey(ignore: true)
@@ -1363,8 +1337,6 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
       bool modified,
       @JsonKey(includeIfNull: false)
           int? modifiedQuantity,
-      @JsonKey(includeIfNull: false)
-          int? totalModifiedQuantity,
       @JsonKey(includeIfNull: false, defaultValue: 0)
           int totalPreviousQuantity}) = _$_ProductDetailsResponse;
   const _ProductDetailsResponse._() : super._();
@@ -1475,9 +1447,6 @@ abstract class _ProductDetailsResponse extends ProductDetailsResponse {
   @override
   @JsonKey(includeIfNull: false)
   int? get modifiedQuantity => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(includeIfNull: false)
-  int? get totalModifiedQuantity => throw _privateConstructorUsedError;
   @override
   @JsonKey(includeIfNull: false, defaultValue: 0)
   int get totalPreviousQuantity => throw _privateConstructorUsedError;
