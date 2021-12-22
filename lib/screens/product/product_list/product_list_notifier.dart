@@ -46,7 +46,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
         pageNumber: state.pageNumber + 1,
         isLoading: false,
       );
-      // _updateProducts(cartState?.products ?? []);
+      _updateProducts(cartState?.products ?? []);
     }
   }
 
@@ -194,11 +194,17 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     final newProducts = state.products.map((p) {
       final totalQuantity = (newCartProducts.isNotEmpty)
           ? newCartProducts
-              .map((cp) => cp.id == p.id
-                  ? cp.modified
-                      ? cp.modifiedQuantity ?? cp.variantQuantity
-                      : cp.variantQuantity
-                  : 0)
+              .map((cp) => cp.id == p.id ? getCurrentQuanityOfProduct(cp) : 0)
+              .reduce((_, __) => _ + __)
+          : 0;
+      final totalModifiedQuantity = (newCartProducts.isNotEmpty)
+          ? newCartProducts
+              .map((cp) => cp.id == p.id ? cp.modifiedQuantity ?? 0 : 0)
+              .reduce((_, __) => _ + __)
+          : 0;
+      final totalPreviousQuantity = (newCartProducts.isNotEmpty)
+          ? newCartProducts
+              .map((cp) => cp.id == p.id ? cp.variantQuantity : 0)
               .reduce((_, __) => _ + __)
           : 0;
       final isSameProductMultipleTimes = (newCartProducts.isNotEmpty)
@@ -210,6 +216,8 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
 
       return p.copyWith(
         totalQuantity: totalQuantity,
+        totalModifiedQuantity: totalModifiedQuantity,
+        totalPreviousQuantity: totalPreviousQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
         modified: db.getOrderId() != null &&
             (p.modifiedQuantity == null ||
@@ -223,4 +231,12 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       showArrowTowardsCart();
     }
   }
+
+  int getCurrentQuanityOfProduct(ProductDetailsResponse product) =>
+      product.modified
+          ? product.modifiedQuantity ?? product.variantQuantity
+          : product.variantQuantity;
+
+  int getLastOrderedQuantityOfProduct(ProductDetailsResponse product) =>
+      db.getOrderId() != null ? product.variantQuantity : 0;
 }

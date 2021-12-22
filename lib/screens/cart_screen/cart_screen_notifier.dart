@@ -37,12 +37,12 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
   }
 
   Future<void> updateQuantity(ProductDetailsResponse product, bool increased,
-      {bool returnToZero = false}) async {
+      {bool returnToPreviousQuantity = false}) async {
     late ProductDetailsResponse newProduct;
     if (db.getOrderId() != null) {
       newProduct = product.copyWith(
-        modifiedQuantity: returnToZero
-            ? 0
+        modifiedQuantity: returnToPreviousQuantity
+            ? getLastOrderedQuantityOfProduct(product)
             : product.modifiedQuantity != null
                 ? product.modifiedQuantity! + (increased ? 1 : -1)
                 : product.variantQuantity + (increased ? 1 : -1),
@@ -114,7 +114,7 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
       }
       await updateModifiedStatusOfCart();
     } else {
-      updateQuantity(product, false, returnToZero: true);
+      updateQuantity(product, false, returnToPreviousQuantity: true);
     }
   }
 
@@ -173,4 +173,12 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
     );
     return updateResponse;
   }
+
+  int getCurrentQuanityOfProduct(ProductDetailsResponse product) =>
+      product.modified
+          ? product.modifiedQuantity ?? product.variantQuantity
+          : product.variantQuantity;
+
+  int getLastOrderedQuantityOfProduct(ProductDetailsResponse product) =>
+      db.getOrderId() != null ? product.variantQuantity : 0;
 }
