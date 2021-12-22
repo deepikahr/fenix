@@ -10,6 +10,7 @@ class ProductListState with _$ProductListState {
     String? categoryTitle,
     @Default([]) List<ProductDetailsResponse> products,
     @Default(0) int totalProducts,
+    @Default(1) int pageNumber,
     @Default(false) productAdded,
   }) = _Default;
 }

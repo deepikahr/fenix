@@ -102,17 +102,18 @@ class PrinterService {
             )),
         PosColumn(
             text: _getPaddedString(
-                '${(products[i].variant?.price ?? (products[i].totalProductPrice / products[i].variantQuantity)).toStringAsFixed(2)}',
-                8),
+                '${products[i].totalProductPrice.toStringAsFixed(2)}', 8),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
         PosColumn(
             text: _getPaddedString(
-                products[i].totalProductPrice.toStringAsFixed(2), 8),
+                (products[i].totalProductPrice * products[i].variantQuantity)
+                    .toStringAsFixed(2),
+                8),
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
-      totalPrice += products[i].totalProductPrice;
+      totalPrice += products[i].totalProductPrice * products[i].variantQuantity;
     }
 
     printer.emptyLines(1);
@@ -501,7 +502,6 @@ class PrinterService {
       List<UpdateOrderHistoryModel>? modificationHistory,
       int? orderID,
       String? paymentType,
-      String? invoiceNo,
       double? totalAmount}) async {
     final _paper = PaperSize.mm80;
     final _profile = await CapabilityProfile.load();
@@ -515,7 +515,7 @@ class PrinterService {
         if (type == PrinterRecieptType.CUSTOMER) {
           _printCustomerReciept(_printer,
               products: products,
-              invoiceNo: invoiceNo,
+              invoiceNo: orderID.toString(),
               paymentType: paymentType,
               totalAmount: totalAmount);
         } else if (type == PrinterRecieptType.KITCHEN) {

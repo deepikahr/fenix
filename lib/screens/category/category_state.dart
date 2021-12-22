@@ -7,7 +7,7 @@ part 'category_state.freezed.dart';
 class CategoryState with _$CategoryState {
   const factory CategoryState({
     @Default(false) bool isLoading,
-    @Default([]) List<CategoryResponse>? category,
+    @Default([]) List<CategoryResponse> category,
     @Default(0) int total,
     @Default(1) int pageNumber,
   }) = _Default;

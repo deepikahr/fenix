@@ -18,7 +18,7 @@ class _$CategoryStateTearOff {
 
   _Default call(
       {bool isLoading = false,
-      List<CategoryResponse>? category = const [],
+      List<CategoryResponse> category = const [],
       int total = 0,
       int pageNumber = 1}) {
     return _Default(
@@ -36,7 +36,7 @@ const $CategoryState = _$CategoryStateTearOff();
 /// @nodoc
 mixin _$CategoryState {
   bool get isLoading => throw _privateConstructorUsedError;
-  List<CategoryResponse>? get category => throw _privateConstructorUsedError;
+  List<CategoryResponse> get category => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
   int get pageNumber => throw _privateConstructorUsedError;
 
@@ -52,7 +52,7 @@ abstract class $CategoryStateCopyWith<$Res> {
       _$CategoryStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      List<CategoryResponse>? category,
+      List<CategoryResponse> category,
       int total,
       int pageNumber});
 }
@@ -81,7 +81,7 @@ class _$CategoryStateCopyWithImpl<$Res>
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as List<CategoryResponse>?,
+              as List<CategoryResponse>,
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -101,7 +101,7 @@ abstract class _$DefaultCopyWith<$Res> implements $CategoryStateCopyWith<$Res> {
   @override
   $Res call(
       {bool isLoading,
-      List<CategoryResponse>? category,
+      List<CategoryResponse> category,
       int total,
       int pageNumber});
 }
@@ -130,7 +130,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$CategoryStateCopyWithImpl<$Res>
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as List<CategoryResponse>?,
+              as List<CategoryResponse>,
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ class _$_Default implements _Default {
   final bool isLoading;
   @JsonKey(defaultValue: const [])
   @override
-  final List<CategoryResponse>? category;
+  final List<CategoryResponse> category;
   @JsonKey(defaultValue: 0)
   @override
   final int total;
@@ -204,14 +204,14 @@ class _$_Default implements _Default {
 abstract class _Default implements CategoryState {
   const factory _Default(
       {bool isLoading,
-      List<CategoryResponse>? category,
+      List<CategoryResponse> category,
       int total,
       int pageNumber}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
-  List<CategoryResponse>? get category => throw _privateConstructorUsedError;
+  List<CategoryResponse> get category => throw _privateConstructorUsedError;
   @override
   int get total => throw _privateConstructorUsedError;
   @override

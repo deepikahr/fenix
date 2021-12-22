@@ -5,6 +5,7 @@ import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/sub_category_response/sub_category_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/product/product_list/product_list.dart';
+import 'package:fenix_user/screens/sub_category/sub_category_state_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,7 +52,7 @@ class SubCategoryScreen extends HookWidget {
             physics: ScrollPhysics(),
             children: [
               subCategoryList(context, categoryTitle),
-              if ((state.subCategory?.length ?? 0) > 0)
+              if (state.subCategory.length > 0)
                 DB().getType() == 'LIST'
                     ? subCategoryBlock(
                         context, state.subCategory, notifier, state.pageNumber)
@@ -81,8 +82,11 @@ class SubCategoryScreen extends HookWidget {
         ],
       );
 
-  Widget subCategoryBlock(BuildContext context,
-      List<SubCategoryResponse>? subCategory, notifier, pageNumber) {
+  Widget subCategoryBlock(
+      BuildContext context,
+      List<SubCategoryResponse>? subCategory,
+      SubCategoryStateNotifier notifier,
+      int pageNumber) {
     return Container(
       margin: EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       child: ListView.builder(
@@ -92,7 +96,7 @@ class SubCategoryScreen extends HookWidget {
           itemCount: subCategory!.length,
           itemBuilder: (BuildContext context, int i) {
             handleScrollWithIndex(
-                i, pageNumber, () => notifier.fetch(categoryId));
+                i, pageNumber, () => notifier.fetchSubCategory(categoryId));
             return InkWell(
               onTap: () {
                 context.read(homeTabsProvider.notifier).showScreen(ProductList(
@@ -111,8 +115,11 @@ class SubCategoryScreen extends HookWidget {
     );
   }
 
-  Widget subCategoryListGrid(BuildContext context,
-          List<SubCategoryResponse>? subCategory, notifier, pageNumber) =>
+  Widget subCategoryListGrid(
+          BuildContext context,
+          List<SubCategoryResponse>? subCategory,
+          SubCategoryStateNotifier notifier,
+          int pageNumber) =>
       GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 8),
         shrinkWrap: true,
@@ -127,7 +134,7 @@ class SubCategoryScreen extends HookWidget {
           handleScrollWithIndex(
             i,
             pageNumber,
-            () => notifier.fetch(categoryId),
+            () => notifier.fetchSubCategory(categoryId),
           );
           return InkWell(
               onTap: () {

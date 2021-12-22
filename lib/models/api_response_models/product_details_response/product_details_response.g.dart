@@ -85,6 +85,7 @@ _$_ProductDetailsResponse _$_$_ProductDetailsResponseFromJson(
     productInstructions: json['productInstructions'] as String?,
     modified: json['modified'] as bool? ?? false,
     modifiedQuantity: json['modifiedQuantity'] as int?,
+    totalPreviousQuantity: json['totalPreviousQuantity'] as int? ?? 0,
   );
 }
 
@@ -149,5 +150,6 @@ Map<String, dynamic> _$_$_ProductDetailsResponseToJson(
   }
 
   writeNotNull('modifiedQuantity', instance.modifiedQuantity);
+  val['totalPreviousQuantity'] = instance.totalPreviousQuantity;
   return val;
 }
