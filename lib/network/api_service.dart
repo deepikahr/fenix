@@ -5,6 +5,7 @@ import 'package:fenix_user/models/api_request_models/category_request/category_r
 import 'package:fenix_user/models/api_request_models/change_password_request/change_password_request.dart';
 import 'package:fenix_user/models/api_request_models/localizationDataRequest/localizationDataRequest.dart';
 import 'package:fenix_user/models/api_request_models/login_verify_request/login_verify_request.dart';
+import 'package:fenix_user/models/api_request_models/pagination_request/pagination_request.dart';
 import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_request_models/settings_update_request/settings_update_request.dart';
 import 'package:fenix_user/models/api_request_models/sub_category_request/sub_category_request.dart';
@@ -125,12 +126,14 @@ class API {
     );
   }
 
-  Future<ProductDataResponse?> productList(String categoryId,
+  Future<ProductDataResponse?> productList(String categoryId, int page,
       {ValueSetter<ErrorResponse>? errorListener,
+      int limit = 10,
       ValueSetter<ApiResponse<ProductDataResponse>>? responseListener,
       bool autoErrorHandle = true}) async {
     return _api.get(
       URL.PRODUCT_LIST + '$categoryId',
+      reqModel: PaginationRequest(limit: limit, page: page),
       resModel: ProductDataResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -139,13 +142,15 @@ class API {
   }
 
   Future<SubCategoryProductDataResponse?> subCategoryProductList(
-      String subCategoryId,
+      String subCategoryId, int page,
       {ValueSetter<ErrorResponse>? errorListener,
+      int limit = 10,
       ValueSetter<ApiResponse<SubCategoryProductDataResponse>>?
           responseListener,
       bool autoErrorHandle = true}) async {
     return _api.get(
       URL.SUB_CATEGORY_PRODUCT_LIST + '$subCategoryId',
+      reqModel: PaginationRequest(limit: limit, page: page),
       resModel: SubCategoryProductDataResponse(),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -299,7 +304,8 @@ class API {
       ValueSetter<ApiResponse<SubCategoryModel?>>? responseListener,
       bool autoErrorHandle = true}) async {
     return _api.get(URL.SUB_CATEGORY,
-        reqModel: SubCategoryRequest(category: categoryId),
+        reqModel:
+            SubCategoryRequest(category: categoryId, limit: limit, page: page),
         errorListener: errorListener,
         autoErrorHandle: autoErrorHandle,
         responseListener: responseListener,

@@ -68,6 +68,9 @@ class ProductDetailsResponse
     String? productInstructions,
     @Default(false) bool modified,
     @JsonKey(includeIfNull: false) int? modifiedQuantity,
+    @Default(0)
+    @JsonKey(includeIfNull: false, defaultValue: 0)
+        int totalPreviousQuantity,
   }) = _ProductDetailsResponse;
 
   factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) =>

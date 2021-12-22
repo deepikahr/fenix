@@ -20,9 +20,11 @@ SubCategoryRequest _$SubCategoryRequestFromJson(Map<String, dynamic> json) {
 class _$SubCategoryRequestTearOff {
   const _$SubCategoryRequestTearOff();
 
-  _SubCategoryRequest call({String? category}) {
+  _SubCategoryRequest call({String? category, int? page, int limit = 10}) {
     return _SubCategoryRequest(
       category: category,
+      page: page,
+      limit: limit,
     );
   }
 
@@ -37,6 +39,8 @@ const $SubCategoryRequest = _$SubCategoryRequestTearOff();
 /// @nodoc
 mixin _$SubCategoryRequest {
   String? get category => throw _privateConstructorUsedError;
+  int? get page => throw _privateConstructorUsedError;
+  int get limit => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +53,7 @@ abstract class $SubCategoryRequestCopyWith<$Res> {
   factory $SubCategoryRequestCopyWith(
           SubCategoryRequest value, $Res Function(SubCategoryRequest) then) =
       _$SubCategoryRequestCopyWithImpl<$Res>;
-  $Res call({String? category});
+  $Res call({String? category, int? page, int limit});
 }
 
 /// @nodoc
@@ -64,12 +68,22 @@ class _$SubCategoryRequestCopyWithImpl<$Res>
   @override
   $Res call({
     Object? category = freezed,
+    Object? page = freezed,
+    Object? limit = freezed,
   }) {
     return _then(_value.copyWith(
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
+      page: page == freezed
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int?,
+      limit: limit == freezed
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -81,7 +95,7 @@ abstract class _$SubCategoryRequestCopyWith<$Res>
           _SubCategoryRequest value, $Res Function(_SubCategoryRequest) then) =
       __$SubCategoryRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String? category});
+  $Res call({String? category, int? page, int limit});
 }
 
 /// @nodoc
@@ -98,12 +112,22 @@ class __$SubCategoryRequestCopyWithImpl<$Res>
   @override
   $Res call({
     Object? category = freezed,
+    Object? page = freezed,
+    Object? limit = freezed,
   }) {
     return _then(_SubCategoryRequest(
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String?,
+      page: page == freezed
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int?,
+      limit: limit == freezed
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -111,17 +135,23 @@ class __$SubCategoryRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SubCategoryRequest extends _SubCategoryRequest {
-  const _$_SubCategoryRequest({this.category}) : super._();
+  const _$_SubCategoryRequest({this.category, this.page, this.limit = 10})
+      : super._();
 
   factory _$_SubCategoryRequest.fromJson(Map<String, dynamic> json) =>
       _$_$_SubCategoryRequestFromJson(json);
 
   @override
   final String? category;
+  @override
+  final int? page;
+  @JsonKey(defaultValue: 10)
+  @override
+  final int limit;
 
   @override
   String toString() {
-    return 'SubCategoryRequest(category: $category)';
+    return 'SubCategoryRequest(category: $category, page: $page, limit: $limit)';
   }
 
   @override
@@ -130,12 +160,19 @@ class _$_SubCategoryRequest extends _SubCategoryRequest {
         (other is _SubCategoryRequest &&
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
-                    .equals(other.category, category)));
+                    .equals(other.category, category)) &&
+            (identical(other.page, page) ||
+                const DeepCollectionEquality().equals(other.page, page)) &&
+            (identical(other.limit, limit) ||
+                const DeepCollectionEquality().equals(other.limit, limit)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(category);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(page) ^
+      const DeepCollectionEquality().hash(limit);
 
   @JsonKey(ignore: true)
   @override
@@ -149,7 +186,8 @@ class _$_SubCategoryRequest extends _SubCategoryRequest {
 }
 
 abstract class _SubCategoryRequest extends SubCategoryRequest {
-  const factory _SubCategoryRequest({String? category}) = _$_SubCategoryRequest;
+  const factory _SubCategoryRequest({String? category, int? page, int limit}) =
+      _$_SubCategoryRequest;
   const _SubCategoryRequest._() : super._();
 
   factory _SubCategoryRequest.fromJson(Map<String, dynamic> json) =
@@ -157,6 +195,10 @@ abstract class _SubCategoryRequest extends SubCategoryRequest {
 
   @override
   String? get category => throw _privateConstructorUsedError;
+  @override
+  int? get page => throw _privateConstructorUsedError;
+  @override
+  int get limit => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SubCategoryRequestCopyWith<_SubCategoryRequest> get copyWith =>

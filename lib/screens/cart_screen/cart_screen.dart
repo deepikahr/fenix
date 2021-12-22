@@ -4,6 +4,7 @@ import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
 import 'package:fenix_user/providers/providers.dart';
+import 'package:fenix_user/screens/cart_screen/cart_screen_state.dart';
 import 'package:fenix_user/screens/home/home.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'cart_screen_notifier.dart';
 
 class CartScreen extends HookWidget {
   @override
@@ -194,7 +197,8 @@ class CartScreen extends HookWidget {
     );
   }
 
-  cartItemBlock(BuildContext context, Cart cart, state) {
+  cartItemBlock(BuildContext context, Cart cart, CartScreenState state) {
+    final notifier = context.read(cartScreenProvider.notifier);
     return Container(
       color: white,
       child: ListView.builder(
@@ -226,11 +230,10 @@ class CartScreen extends HookWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            if ((cartProduct.modified
-                                    ? cartProduct.modifiedQuantity ??
-                                        cartProduct.variantQuantity
-                                    : cartProduct.variantQuantity) >
-                                0)
+                            if (notifier
+                                    .getCurrentQuanityOfProduct(cartProduct) >
+                                notifier.getLastOrderedQuantityOfProduct(
+                                    cartProduct))
                               counterIcon(
                                 'remove',
                                 () {
@@ -240,7 +243,7 @@ class CartScreen extends HookWidget {
                                 },
                               ),
                             Text(
-                                '${cartProduct.modified ? cartProduct.modifiedQuantity ?? cartProduct.variantQuantity : cartProduct.variantQuantity}',
+                                '${notifier.getCurrentQuanityOfProduct(cartProduct)}',
                                 style: textBlackLargeBM(context).copyWith(
                                     color: cartProduct.modified
                                         ? Colors.amber
@@ -256,18 +259,28 @@ class CartScreen extends HookWidget {
                           ],
                         ),
                         // SizedBox(width: 6),
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read(cartScreenProvider.notifier)
-                                .removeProduct(cartProduct);
-                          },
-                          icon: Icon(
-                            Icons.delete_outline_outlined,
-                            color: dark,
-                            size: 26,
+                        Visibility(
+                          visible: notifier
+                                  .getCurrentQuanityOfProduct(cartProduct) >
+                              notifier
+                                  .getLastOrderedQuantityOfProduct(cartProduct),
+                          maintainSize: true,
+                          maintainState: true,
+                          maintainAnimation: true,
+                          maintainInteractivity: false,
+                          child: IconButton(
+                            onPressed: () {
+                              context
+                                  .read(cartScreenProvider.notifier)
+                                  .removeProduct(cartProduct);
+                            },
+                            icon: Icon(
+                              Icons.delete_outline_outlined,
+                              color: dark,
+                              size: 26,
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ],

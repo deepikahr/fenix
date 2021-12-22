@@ -193,33 +193,32 @@ class ProductDetails extends HookWidget {
                       style: textDarkRegularBS(context),
                     ),
                     !state.showAddButton &&
-                            (product.modified
-                                    ? product.modifiedQuantity ??
-                                        product.variantQuantity
-                                    : product.variantQuantity) >
-                                0
+                            notifier.getCurrentQuanityOfProduct(product) > 0
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              counterIcon(
-                                'remove',
-                                () {
-                                  if (product.isSameProductMultipleTime ==
-                                      true) {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            showMultipleTimeProductPopUp(
-                                              context,
-                                            ));
-                                  } else {
+                              if (notifier.getCurrentQuanityOfProduct(product) >
+                                  notifier
+                                      .getLastOrderedQuantityOfProduct(product))
+                                counterIcon(
+                                  'remove',
+                                  () {
+                                    // if (product.isSameProductMultipleTime ==
+                                    //     true) {
+                                    //   showDialog(
+                                    //       context: context,
+                                    //       builder: (context) =>
+                                    //           showMultipleTimeProductPopUp(
+                                    //             context,
+                                    //           ));
+                                    // } else {
                                     notifier.addProduct(
                                       product,
                                       false,
                                     );
-                                  }
-                                },
-                              ),
+                                    // }
+                                  },
+                                ),
                               Text(
                                   '${product.modified ? product.modifiedQuantity ?? product.variantQuantity : product.variantQuantity}',
                                   style: textBlackLargeBM(context)),

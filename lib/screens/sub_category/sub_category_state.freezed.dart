@@ -18,7 +18,7 @@ class _$SubCategoryStateTearOff {
 
   _Default call(
       {bool isLoading = false,
-      List<SubCategoryResponse>? subCategory = const [],
+      List<SubCategoryResponse> subCategory = const [],
       int total = 0,
       int pageNumber = 1}) {
     return _Default(
@@ -36,7 +36,7 @@ const $SubCategoryState = _$SubCategoryStateTearOff();
 /// @nodoc
 mixin _$SubCategoryState {
   bool get isLoading => throw _privateConstructorUsedError;
-  List<SubCategoryResponse>? get subCategory =>
+  List<SubCategoryResponse> get subCategory =>
       throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
   int get pageNumber => throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ abstract class $SubCategoryStateCopyWith<$Res> {
       _$SubCategoryStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      List<SubCategoryResponse>? subCategory,
+      List<SubCategoryResponse> subCategory,
       int total,
       int pageNumber});
 }
@@ -82,7 +82,7 @@ class _$SubCategoryStateCopyWithImpl<$Res>
       subCategory: subCategory == freezed
           ? _value.subCategory
           : subCategory // ignore: cast_nullable_to_non_nullable
-              as List<SubCategoryResponse>?,
+              as List<SubCategoryResponse>,
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -103,7 +103,7 @@ abstract class _$DefaultCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
-      List<SubCategoryResponse>? subCategory,
+      List<SubCategoryResponse> subCategory,
       int total,
       int pageNumber});
 }
@@ -132,7 +132,7 @@ class __$DefaultCopyWithImpl<$Res> extends _$SubCategoryStateCopyWithImpl<$Res>
       subCategory: subCategory == freezed
           ? _value.subCategory
           : subCategory // ignore: cast_nullable_to_non_nullable
-              as List<SubCategoryResponse>?,
+              as List<SubCategoryResponse>,
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ class _$_Default implements _Default {
   final bool isLoading;
   @JsonKey(defaultValue: const [])
   @override
-  final List<SubCategoryResponse>? subCategory;
+  final List<SubCategoryResponse> subCategory;
   @JsonKey(defaultValue: 0)
   @override
   final int total;
@@ -206,14 +206,14 @@ class _$_Default implements _Default {
 abstract class _Default implements SubCategoryState {
   const factory _Default(
       {bool isLoading,
-      List<SubCategoryResponse>? subCategory,
+      List<SubCategoryResponse> subCategory,
       int total,
       int pageNumber}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
-  List<SubCategoryResponse>? get subCategory =>
+  List<SubCategoryResponse> get subCategory =>
       throw _privateConstructorUsedError;
   @override
   int get total => throw _privateConstructorUsedError;

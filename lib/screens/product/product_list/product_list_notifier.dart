@@ -34,13 +34,16 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
   ) : super(ProductListState());
 
   Future<ProductDataResponse?> fetchProductData(String categoryId) async {
-    state = state.copyWith.call(isLoading: true, products: []);
-    final response = await api.productList(categoryId);
+    if (state.pageNumber == 1) {
+      state = state.copyWith.call(isLoading: true, products: []);
+    }
+    final response = await api.productList(categoryId, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
         categoryTitle: response?.categoryTitle,
-        products: response?.product?.data ?? [],
-        totalProducts: response?.product?.total ?? 0,
+        products: [...state.products, ...response?.product?.data ?? []],
+        totalProducts: state.totalProducts + (response?.product?.total ?? 0),
+        pageNumber: state.pageNumber + 1,
         isLoading: false,
       );
       _updateProducts(cartState?.products ?? []);
@@ -49,13 +52,17 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
 
   Future<SubCategoryProductDataResponse?> fetchSubCategoryProductData(
       String subCategoryId) async {
-    state = state.copyWith.call(isLoading: true, products: []);
-    final response = await api.subCategoryProductList(subCategoryId);
+    if (state.pageNumber == 1) {
+      state = state.copyWith.call(isLoading: true, products: []);
+    }
+    final response =
+        await api.subCategoryProductList(subCategoryId, state.pageNumber);
     if (ref.mounted) {
       state = state.copyWith.call(
         categoryTitle: response?.subCategoryTitle,
-        products: response?.product?.data ?? [],
-        totalProducts: response?.product?.total ?? 0,
+        products: [...state.products, ...response?.product?.data ?? []],
+        totalProducts: state.totalProducts + (response?.product?.total ?? 0),
+        pageNumber: state.pageNumber + 1,
         isLoading: false,
       );
       _updateProducts(cartState?.products ?? []);
@@ -187,11 +194,12 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     final newProducts = state.products.map((p) {
       final totalQuantity = (newCartProducts.isNotEmpty)
           ? newCartProducts
-              .map((cp) => cp.id == p.id
-                  ? cp.modified
-                      ? cp.modifiedQuantity ?? cp.variantQuantity
-                      : cp.variantQuantity
-                  : 0)
+              .map((cp) => cp.id == p.id ? getCurrentQuanityOfProduct(cp) : 0)
+              .reduce((_, __) => _ + __)
+          : 0;
+      final totalPreviousQuantity = (newCartProducts.isNotEmpty)
+          ? newCartProducts
+              .map((cp) => cp.id == p.id ? cp.variantQuantity : 0)
               .reduce((_, __) => _ + __)
           : 0;
       final isSameProductMultipleTimes = (newCartProducts.isNotEmpty)
@@ -203,6 +211,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
 
       return p.copyWith(
         totalQuantity: totalQuantity,
+        totalPreviousQuantity: totalPreviousQuantity,
         isSameProductMultipleTime: isSameProductMultipleTimes,
         modified: db.getOrderId() != null &&
             (p.modifiedQuantity == null ||
@@ -216,4 +225,12 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
       showArrowTowardsCart();
     }
   }
+
+  int getCurrentQuanityOfProduct(ProductDetailsResponse product) =>
+      product.modified
+          ? product.modifiedQuantity ?? product.variantQuantity
+          : product.variantQuantity;
+
+  int getLastOrderedQuantityOfProduct(ProductDetailsResponse product) =>
+      db.getOrderId() != null ? product.variantQuantity : 0;
 }

@@ -1,4 +1,5 @@
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -110,6 +111,13 @@ Widget dishesInfoCard(
   void Function()? onUpdate,
   void Function()? onRemove,
 ) {
+  int getCurrentQuanityOfProduct(ProductDetailsResponse product) =>
+      product.modified
+          ? product.modifiedQuantity ?? product.variantQuantity
+          : product.variantQuantity;
+
+  int getLastOrderedQuantityOfProduct(ProductDetailsResponse product) =>
+      DB().getOrderId() != null ? product.variantQuantity : 0;
   return Container(
     decoration: BoxDecoration(
         color: Colors.white,
@@ -189,7 +197,15 @@ Widget dishesInfoCard(
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                counterIcon('remove', onRemove),
+                                Visibility(
+                                  visible: getCurrentQuanityOfProduct(product) >
+                                      getLastOrderedQuantityOfProduct(product),
+                                  maintainInteractivity: false,
+                                  maintainSize: true,
+                                  maintainState: true,
+                                  maintainAnimation: true,
+                                  child: counterIcon('remove', onRemove),
+                                ),
                                 Text(product.totalQuantity.toString(),
                                     style: textBlackLargeBM(context)),
                                 counterIcon('add', onUpdate),
@@ -270,6 +286,8 @@ Widget gridDishCard(
   void Function()? onUpdate,
   void Function()? onRemove,
 ) {
+  int getLastOrderedQuantityOfProduct(ProductDetailsResponse product) =>
+      DB().getOrderId() != null ? product.totalPreviousQuantity : 0;
   return Container(
     margin: EdgeInsets.only(bottom: 10, left: 8, right: 8),
     decoration: BoxDecoration(
@@ -443,7 +461,15 @@ Widget gridDishCard(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  counterIcon('remove', onRemove),
+                                  Visibility(
+                                      visible: product.totalQuantity >
+                                          getLastOrderedQuantityOfProduct(
+                                              product),
+                                      maintainInteractivity: false,
+                                      maintainSize: true,
+                                      maintainState: true,
+                                      maintainAnimation: true,
+                                      child: counterIcon('remove', onRemove)),
                                   Text(product.totalQuantity.toString(),
                                       style: textBlackLargeBM(context)),
                                   counterIcon('add', onUpdate),

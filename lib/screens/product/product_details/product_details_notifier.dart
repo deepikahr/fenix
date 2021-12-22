@@ -365,4 +365,12 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
       }
     }
   }
+
+  int getCurrentQuanityOfProduct(ProductDetailsResponse product) =>
+      product.modified
+          ? product.modifiedQuantity ?? product.variantQuantity
+          : product.variantQuantity;
+
+  int getLastOrderedQuantityOfProduct(ProductDetailsResponse product) =>
+      db.getOrderId() != null ? product.variantQuantity : 0;
 }

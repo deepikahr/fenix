@@ -13,8 +13,8 @@ class SubCategoryRequest
 
   const factory SubCategoryRequest({
     String? category,
-    // int? page,
-    // @Default(10) int limit,
+    int? page,
+    @Default(10) int limit,
   }) = _SubCategoryRequest;
 
   factory SubCategoryRequest.fromJson(Map<String, dynamic> json) =>

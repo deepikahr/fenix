@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -49,33 +51,40 @@ class ProductList extends HookWidget {
       color: grey2,
       child: Stack(
         children: [
-          Stack(
-            children: [
-              if (!state.isLoading && state.totalProducts == 0)
-                Center(
-                  child: Text('NO_PRODUCT'.tr),
-                ),
-              if (state.totalProducts != 0)
-                ListView(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  children: [
-                    if (state.products.length > 0)
-                      categoryList(context, state.categoryTitle),
-                    SizedBox(height: 10),
-                    if (state.products.length > 0) ...[
-                      if (DB().getType() == 'LIST')
-                        productList(state.products, notifier),
-                      if (DB().getType() != 'LIST')
-                        productListGrid(context, state.products, notifier),
-                    ],
-                    Container(
-                      height: 45,
+          if (!state.isLoading && state.totalProducts == 0)
+            Center(
+              child: Text('NO_PRODUCT'.tr),
+            ),
+          if (state.totalProducts != 0)
+            ListView(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              children: [
+                if (state.products.length > 0)
+                  categoryList(context, state.categoryTitle),
+                SizedBox(height: 10),
+                if (state.products.length > 0) ...[
+                  if (DB().getType() == 'LIST')
+                    productList(
+                      state.products,
+                      notifier,
+                      state.pageNumber,
+                      categoryId,
                     ),
-                  ],
+                  if (DB().getType() != 'LIST')
+                    productListGrid(
+                      context,
+                      state.products,
+                      notifier,
+                      state.pageNumber,
+                      categoryId,
+                    ),
+                ],
+                Container(
+                  height: 45,
                 ),
-            ],
-          ),
+              ],
+            ),
           if (state.isLoading) GFLoader(type: GFLoaderType.ios),
           if (state.productAdded)
             Align(alignment: Alignment.bottomCenter, child: ArrowTowardsCart())
@@ -98,18 +107,107 @@ class ProductList extends HookWidget {
       );
 
   Widget productList(List<ProductDetailsResponse> products,
-          ProductListNotifier notifier) =>
+          ProductListNotifier notifier, int pageNumber, String categoryId) =>
       ListView.builder(
-        shrinkWrap: true,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            handleScrollWithIndex(index, pageNumber, () {
+              if (fromSubCategory) {
+                notifier.fetchSubCategoryProductData(categoryId);
+              } else {
+                notifier.fetchProductData(categoryId);
+              }
+            });
+            return InkWell(
+                onTap: () {
+                  context
+                      .read(homeTabsProvider.notifier)
+                      .showScreen(ProductDetails(products[index].id ?? ''));
+                },
+                child: dishesInfoCard(
+                  context,
+                  products[index],
+                  notifier,
+                  categoryImage,
+                  () async {
+                    if (products[index].isCustomizable) {
+                      context
+                          .read(homeTabsProvider.notifier)
+                          .showScreen(ProductDetails(products[index].id ?? ''));
+                    } else {
+                      await notifier.addOrRemoveProduct(
+                        products[index],
+                        true,
+                      );
+                    }
+                  },
+                  () async {
+                    if (products[index].isCustomizable) {
+                      await showDialog(
+                          context: context,
+                          builder: (context) =>
+                              showPopUp(context, products[index], () async {
+                                Get.back();
+                                await notifier.addOrRemoveProduct(
+                                  products[index],
+                                  true,
+                                );
+                              }));
+                    } else {
+                      await notifier.addOrRemoveProduct(
+                        products[index],
+                        true,
+                      );
+                    }
+                  },
+                  () {
+                    if (products[index].isSameProductMultipleTime) {
+                      showDialog(
+                        context: context,
+                        builder: (context) =>
+                            showMultipleTimeProductPopUp(context),
+                      );
+                    } else {
+                      notifier.addOrRemoveProduct(products[index], false);
+                    }
+                  },
+                ));
+          });
+
+  Widget productListGrid(
+          BuildContext context,
+          List<ProductDetailsResponse>? products,
+          ProductListNotifier notifier,
+          int pageNumber,
+          String categoryId) =>
+      GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        itemCount: products!.length,
         physics: NeverScrollableScrollPhysics(),
-        itemCount: products.length,
-        itemBuilder: (context, index) => InkWell(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            childAspectRatio: MediaQuery.of(context).size.width / 740),
+        itemBuilder: (context, index) {
+          handleScrollWithIndex(index, pageNumber, () {
+            if (fromSubCategory) {
+              notifier.fetchSubCategoryProductData(categoryId);
+            } else {
+              notifier.fetchProductData(categoryId);
+            }
+          });
+          log('index: $index', name: 'GRID');
+          return InkWell(
             onTap: () {
               context
                   .read(homeTabsProvider.notifier)
                   .showScreen(ProductDetails(products[index].id ?? ''));
             },
-            child: dishesInfoCard(
+            child: gridDishCard(
               context,
               products[index],
               notifier,
@@ -129,105 +227,35 @@ class ProductList extends HookWidget {
               () async {
                 if (products[index].isCustomizable) {
                   await showDialog(
-                      context: context,
-                      builder: (context) =>
-                          showPopUp(context, products[index], () async {
-                            Get.back();
-                            await notifier.addOrRemoveProduct(
-                              products[index],
-                              true,
-                            );
-                          }));
-                } else {
-                  await notifier.addOrRemoveProduct(
-                    products[index],
-                    true,
+                    context: context,
+                    builder: (context) => showPopUp(
+                      context,
+                      products[index],
+                      () async {
+                        Get.back();
+                        await notifier.addOrRemoveProduct(
+                          products[index],
+                          true,
+                        );
+                      },
+                    ),
                   );
+                } else {
+                  await notifier.addOrRemoveProduct(products[index], true);
                 }
               },
               () {
-                if (products[index].isSameProductMultipleTime) {
+                if (products[index].isSameProductMultipleTime == true) {
                   showDialog(
-                    context: context,
-                    builder: (context) => showMultipleTimeProductPopUp(context),
-                  );
+                      context: context,
+                      builder: (context) =>
+                          showMultipleTimeProductPopUp(context));
                 } else {
                   notifier.addOrRemoveProduct(products[index], false);
                 }
               },
-            )),
-      );
-
-  Widget productListGrid(
-    BuildContext context,
-    List<ProductDetailsResponse>? products,
-    ProductListNotifier notifier,
-  ) =>
-      GridView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: products!.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 0,
-            crossAxisSpacing: 0,
-            childAspectRatio: MediaQuery.of(context).size.width / 740),
-        itemBuilder: (context, index) {
-          return InkWell(
-              onTap: () {
-                context
-                    .read(homeTabsProvider.notifier)
-                    .showScreen(ProductDetails(products[index].id ?? ''));
-              },
-              child: gridDishCard(
-                context,
-                products[index],
-                notifier,
-                categoryImage,
-                () async {
-                  if (products[index].isCustomizable) {
-                    context
-                        .read(homeTabsProvider.notifier)
-                        .showScreen(ProductDetails(products[index].id ?? ''));
-                  } else {
-                    await notifier.addOrRemoveProduct(
-                      products[index],
-                      true,
-                    );
-                  }
-                },
-                () async {
-                  if (products[index].isCustomizable) {
-                    await showDialog(
-                      context: context,
-                      builder: (context) => showPopUp(
-                        context,
-                        products[index],
-                        () async {
-                          Get.back();
-                          await notifier.addOrRemoveProduct(
-                            products[index],
-                            true,
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    await notifier.addOrRemoveProduct(products[index], true);
-                  }
-                },
-                () {
-                  if (products[index].isSameProductMultipleTime == true) {
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            showMultipleTimeProductPopUp(context));
-                  } else {
-                    notifier.addOrRemoveProduct(products[index], false);
-                  }
-                },
-              ));
+            ),
+          );
         },
       );
 
