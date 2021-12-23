@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:fenix_user/common/constant.dart';
@@ -25,18 +26,23 @@ void main() async {
   await DB().initDatabase();
   await getLanguage();
   await getLocalizationData(API());
+  WidgetsFlutterBinding.ensureInitialized();
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://a3cdadaff8af49b88a2c430d9571d5e3@o1091520.ingest.sentry.io/6118974';
+    },
+  );
+  final errorHandler = (FlutterErrorDetails errorDetails) {
+    log('Error ${errorDetails.exception.toString()}', name: 'ERROR');
+    Sentry.captureException(errorDetails.exception,
+        stackTrace: errorDetails.stack);
+  };
+  FlutterError.onError = errorHandler;
   runZonedGuarded(() async {
-    await SentryFlutter.init(
-      (options) {
-        options.dsn =
-            'https://a3cdadaff8af49b88a2c430d9571d5e3@o1091520.ingest.sentry.io/6118974';
-        options.tracesSampleRate = 1.0;
-      },
-    );
-
     runApp(ProviderScope(child: MyApp()));
-  }, (exception, stackTrace) async {
-    await Sentry.captureException(exception, stackTrace: stackTrace);
+  }, (exception, stackTrace) {
+    Sentry.captureException(exception, stackTrace: stackTrace);
   });
 }
 
