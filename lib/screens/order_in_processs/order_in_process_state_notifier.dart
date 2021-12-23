@@ -23,9 +23,11 @@ import 'package:fenix_user/screens/order_details/order_details.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
 import 'package:fenix_user/screens/thankyou/thankyou_screen.dart';
 import 'package:fenix_user/widgets/alertBox.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
   final ProviderReference ref;
@@ -114,7 +116,13 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                   );
                 }
               } catch (e) {
-                print('Printing Error: $e');
+                if (kReleaseMode) {
+                  Sentry.captureException(
+                    Exception(
+                      'Cannot connet to printer --> $e',
+                    ),
+                  );
+                }
                 customDialog(
                   title: 'CONNECT_ERROR_PRINTER'.tr,
                   okText: 'OK'.tr,
@@ -184,6 +192,13 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                 );
               }
             } catch (e) {
+              if (kReleaseMode) {
+                Sentry.captureException(
+                  Exception(
+                    'Cannot connet to printer --> $e',
+                  ),
+                );
+              }
               print('Printing Error: $e');
 
               customDialog(

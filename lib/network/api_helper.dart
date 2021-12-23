@@ -13,6 +13,7 @@ import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response, FormData;
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../database/db.dart';
 
@@ -320,6 +321,10 @@ class ApiHelper {
 
   Null _handleError(DioError e, bool autoErrorHandle,
       ValueSetter<ErrorResponse>? errorListener) {
+    Sentry.captureException(
+      e.error,
+      stackTrace: e.stackTrace,
+    );
     if (e.response?.data == null) {
       customDialog(
         status: DIALOG_STATUS.FAIL,
