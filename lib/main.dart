@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:fenix_user/common/constant.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'database/db.dart';
 import 'localization/localization.dart';
 import 'models/api_response_models/language_response/language_response.dart';
@@ -24,7 +25,19 @@ void main() async {
   await DB().initDatabase();
   await getLanguage();
   await getLocalizationData(API());
-  runApp(ProviderScope(child: MyApp()));
+  runZonedGuarded(() async {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn =
+            'https://a3cdadaff8af49b88a2c430d9571d5e3@o1091520.ingest.sentry.io/6118974';
+        options.tracesSampleRate = 1.0;
+      },
+    );
+
+    runApp(ProviderScope(child: MyApp()));
+  }, (exception, stackTrace) async {
+    await Sentry.captureException(exception, stackTrace: stackTrace);
+  });
 }
 
 Future<LanguageResponse?> getLanguage() async {
@@ -44,6 +57,9 @@ class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorObservers: [
+        SentryNavigatorObserver(),
+      ],
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
