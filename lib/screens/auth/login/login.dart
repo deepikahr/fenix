@@ -137,7 +137,7 @@ class LoginPage extends HookWidget {
                   final response = await notifier.submit(
                     int.parse(tableNumberEditController.text),
                     int.parse(franchiseCodeEditController.text),
-                    passwordEditController.text,
+                    int.parse(passwordEditController.text),
                   );
                   if (response != null) {
                     await Get.offAll(() => Settings());

@@ -11,7 +11,7 @@ _$_LoginVerifyRequest _$_$_LoginVerifyRequestFromJson(
   return _$_LoginVerifyRequest(
     tableNumber: json['tableNumber'] as int?,
     franchiseCode: json['franchiseCode'] as int?,
-    password: json['password'] as String?,
+    password: json['password'] as int?,
   );
 }
 

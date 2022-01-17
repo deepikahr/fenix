@@ -21,7 +21,7 @@ ChangePasswordRequest _$ChangePasswordRequestFromJson(
 class _$ChangePasswordRequestTearOff {
   const _$ChangePasswordRequestTearOff();
 
-  _ChangePasswordRequest call({String? currentPassword, String? newPassword}) {
+  _ChangePasswordRequest call({int? currentPassword, int? newPassword}) {
     return _ChangePasswordRequest(
       currentPassword: currentPassword,
       newPassword: newPassword,
@@ -38,8 +38,8 @@ const $ChangePasswordRequest = _$ChangePasswordRequestTearOff();
 
 /// @nodoc
 mixin _$ChangePasswordRequest {
-  String? get currentPassword => throw _privateConstructorUsedError;
-  String? get newPassword => throw _privateConstructorUsedError;
+  int? get currentPassword => throw _privateConstructorUsedError;
+  int? get newPassword => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +52,7 @@ abstract class $ChangePasswordRequestCopyWith<$Res> {
   factory $ChangePasswordRequestCopyWith(ChangePasswordRequest value,
           $Res Function(ChangePasswordRequest) then) =
       _$ChangePasswordRequestCopyWithImpl<$Res>;
-  $Res call({String? currentPassword, String? newPassword});
+  $Res call({int? currentPassword, int? newPassword});
 }
 
 /// @nodoc
@@ -73,11 +73,11 @@ class _$ChangePasswordRequestCopyWithImpl<$Res>
       currentPassword: currentPassword == freezed
           ? _value.currentPassword
           : currentPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       newPassword: newPassword == freezed
           ? _value.newPassword
           : newPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -89,7 +89,7 @@ abstract class _$ChangePasswordRequestCopyWith<$Res>
           $Res Function(_ChangePasswordRequest) then) =
       __$ChangePasswordRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String? currentPassword, String? newPassword});
+  $Res call({int? currentPassword, int? newPassword});
 }
 
 /// @nodoc
@@ -112,11 +112,11 @@ class __$ChangePasswordRequestCopyWithImpl<$Res>
       currentPassword: currentPassword == freezed
           ? _value.currentPassword
           : currentPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       newPassword: newPassword == freezed
           ? _value.newPassword
           : newPassword // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -131,9 +131,9 @@ class _$_ChangePasswordRequest extends _ChangePasswordRequest {
       _$_$_ChangePasswordRequestFromJson(json);
 
   @override
-  final String? currentPassword;
+  final int? currentPassword;
   @override
-  final String? newPassword;
+  final int? newPassword;
 
   @override
   String toString() {
@@ -172,17 +172,16 @@ class _$_ChangePasswordRequest extends _ChangePasswordRequest {
 
 abstract class _ChangePasswordRequest extends ChangePasswordRequest {
   const factory _ChangePasswordRequest(
-      {String? currentPassword,
-      String? newPassword}) = _$_ChangePasswordRequest;
+      {int? currentPassword, int? newPassword}) = _$_ChangePasswordRequest;
   const _ChangePasswordRequest._() : super._();
 
   factory _ChangePasswordRequest.fromJson(Map<String, dynamic> json) =
       _$_ChangePasswordRequest.fromJson;
 
   @override
-  String? get currentPassword => throw _privateConstructorUsedError;
+  int? get currentPassword => throw _privateConstructorUsedError;
   @override
-  String? get newPassword => throw _privateConstructorUsedError;
+  int? get newPassword => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ChangePasswordRequestCopyWith<_ChangePasswordRequest> get copyWith =>

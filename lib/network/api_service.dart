@@ -38,7 +38,7 @@ class API {
   Future<LoginVerifyResponse?> loginVerify(
     int? tableNumber,
     int? franchiseCode,
-    String? password, {
+    int? password, {
     ValueSetter<ErrorResponse>? errorListener,
     ValueSetter<ApiResponse<LoginVerifyResponse>>? responseListener,
     bool autoErrorHandle = true,
