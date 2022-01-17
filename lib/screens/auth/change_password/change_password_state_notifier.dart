@@ -18,7 +18,7 @@ class ChangePasswordStateNotifier extends StateNotifier<ChangePasswordState> {
 
   ChangePasswordStateNotifier(this.ref) : super(ChangePasswordState());
 
-  Future<String?> submit(String? oldPassword, String? newPassword) async {
+  Future<String?> submit(int? oldPassword, int? newPassword) async {
     state = state.copyWith(isLoading: true);
 
     final response = await api.changePassword(ChangePasswordRequest(

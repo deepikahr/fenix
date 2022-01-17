@@ -19,7 +19,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
   LoginNotifier(this.ref) : super(LoginState());
 
   Future<LoginVerifyResponse?> submit(
-      int tableNumber, int franchiseCode, String password) async {
+      int tableNumber, int franchiseCode, int password) async {
     state = state.copyWith(isLoading: true);
 
     final response =

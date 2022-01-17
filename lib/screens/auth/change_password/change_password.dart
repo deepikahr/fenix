@@ -130,8 +130,8 @@ class ChangePasswordPage extends HookWidget {
                 if (formKey.currentState!.validate() &&
                     formKey2.currentState!.validate()) {
                   final response = await notifier.submit(
-                    oldPasswordEditController.text,
-                    newPasswordEditController.text,
+                    int.parse(oldPasswordEditController.text),
+                    int.parse(newPasswordEditController.text),
                   );
                   if (response != null) {
                     Timer(Duration(seconds: 2), () async {

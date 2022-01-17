@@ -114,7 +114,7 @@ class AccessSettings extends HookWidget {
                   final response = await notifier.submit(
                     int.parse(DB().getTableNumber()!),
                     DB().getFranchiseCode()!,
-                    passwordEditController.text,
+                    int.parse(passwordEditController.text),
                   );
                   if (response != null) {
                     await Get.offAll(() => Settings());
