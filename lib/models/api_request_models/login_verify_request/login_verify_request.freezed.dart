@@ -21,7 +21,7 @@ class _$LoginVerifyRequestTearOff {
   const _$LoginVerifyRequestTearOff();
 
   _LoginVerifyRequest call(
-      {int? tableNumber, int? franchiseCode, String? password}) {
+      {int? tableNumber, int? franchiseCode, int? password}) {
     return _LoginVerifyRequest(
       tableNumber: tableNumber,
       franchiseCode: franchiseCode,
@@ -41,7 +41,7 @@ const $LoginVerifyRequest = _$LoginVerifyRequestTearOff();
 mixin _$LoginVerifyRequest {
   int? get tableNumber => throw _privateConstructorUsedError;
   int? get franchiseCode => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
+  int? get password => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +54,7 @@ abstract class $LoginVerifyRequestCopyWith<$Res> {
   factory $LoginVerifyRequestCopyWith(
           LoginVerifyRequest value, $Res Function(LoginVerifyRequest) then) =
       _$LoginVerifyRequestCopyWithImpl<$Res>;
-  $Res call({int? tableNumber, int? franchiseCode, String? password});
+  $Res call({int? tableNumber, int? franchiseCode, int? password});
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class _$LoginVerifyRequestCopyWithImpl<$Res>
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -96,7 +96,7 @@ abstract class _$LoginVerifyRequestCopyWith<$Res>
           _LoginVerifyRequest value, $Res Function(_LoginVerifyRequest) then) =
       __$LoginVerifyRequestCopyWithImpl<$Res>;
   @override
-  $Res call({int? tableNumber, int? franchiseCode, String? password});
+  $Res call({int? tableNumber, int? franchiseCode, int? password});
 }
 
 /// @nodoc
@@ -128,7 +128,7 @@ class __$LoginVerifyRequestCopyWithImpl<$Res>
       password: password == freezed
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -148,7 +148,7 @@ class _$_LoginVerifyRequest extends _LoginVerifyRequest {
   @override
   final int? franchiseCode;
   @override
-  final String? password;
+  final int? password;
 
   @override
   String toString() {
@@ -192,7 +192,7 @@ abstract class _LoginVerifyRequest extends LoginVerifyRequest {
   const factory _LoginVerifyRequest(
       {int? tableNumber,
       int? franchiseCode,
-      String? password}) = _$_LoginVerifyRequest;
+      int? password}) = _$_LoginVerifyRequest;
   const _LoginVerifyRequest._() : super._();
 
   factory _LoginVerifyRequest.fromJson(Map<String, dynamic> json) =
@@ -203,7 +203,7 @@ abstract class _LoginVerifyRequest extends LoginVerifyRequest {
   @override
   int? get franchiseCode => throw _privateConstructorUsedError;
   @override
-  String? get password => throw _privateConstructorUsedError;
+  int? get password => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LoginVerifyRequestCopyWith<_LoginVerifyRequest> get copyWith =>

@@ -13,7 +13,7 @@ class LoginVerifyRequest
   const factory LoginVerifyRequest({
     int? tableNumber,
     int? franchiseCode,
-    String? password,
+    int? password,
   }) = _LoginVerifyRequest;
 
   factory LoginVerifyRequest.fromJson(Map<String, dynamic> json) =>

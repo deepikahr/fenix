@@ -11,7 +11,7 @@ class ChangePasswordRequest
   const ChangePasswordRequest._();
 
   const factory ChangePasswordRequest(
-      {String? currentPassword, String? newPassword}) = _ChangePasswordRequest;
+      {int? currentPassword, int? newPassword}) = _ChangePasswordRequest;
 
   factory ChangePasswordRequest.fromJson(Map<String, dynamic> json) =>
       _$ChangePasswordRequestFromJson(json);
