@@ -178,7 +178,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         newCart?.copyWith(modifiedCart: getModifiedStatusFromProducts(newCart));
     await cartNotifier.updateCart(newCart);
     state = state.copyWith(productDetails: newProduct);
-    _updateProduct(cartProducts: newCart?.products ?? []);
+    _updateProduct(cartProducts: newCart?.products ?? [], productUpdated: true);
   }
 
   Future<void> _updateQuantityOfLastVariant(
