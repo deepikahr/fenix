@@ -6,6 +6,13 @@ import '../../base_model.dart';
 part 'add_on_category.freezed.dart';
 part 'add_on_category.g.dart';
 
+enum SELECTION_TYPE {
+  @JsonValue('MULTI_SELECT')
+  multiple,
+  @JsonValue('SINGLE_SELECT')
+  single,
+}
+
 @freezed
 class AddOnCategory with BaseModel<AddOnCategory>, _$AddOnCategory {
   const AddOnCategory._();
@@ -14,10 +21,11 @@ class AddOnCategory with BaseModel<AddOnCategory>, _$AddOnCategory {
     @JsonKey(name: '_id') String? id,
     String? addOnCategoryId,
     String? addOnCategoryName,
-    String? selectionType,
+    SELECTION_TYPE? selectionType,
     bool? allItemSelected,
     @JsonKey(name: 'required') bool? isRequired,
     @Default([]) List<AddOnItem> addOnItems,
+    int? selectionValue,
   }) = _AddOnCategory;
 
   factory AddOnCategory.fromJson(Map<String, dynamic> json) =>

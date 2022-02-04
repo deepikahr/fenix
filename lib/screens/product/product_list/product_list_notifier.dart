@@ -123,7 +123,7 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
     );
     newCart =
         newCart?.copyWith(modifiedCart: getModifiedStatusFromProducts(newCart));
-    _updateProducts(newCart?.products ?? []);
+    _updateProducts(newCart?.products ?? [], productFirstTimeAdded: true);
     await cartNotifier.updateCart(newCart);
   }
 
