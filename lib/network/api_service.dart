@@ -11,6 +11,7 @@ import 'package:fenix_user/models/api_request_models/settings_update_request/set
 import 'package:fenix_user/models/api_request_models/sub_category_request/sub_category_request.dart';
 import 'package:fenix_user/models/api_request_models/update_cart/update_cart.dart';
 import 'package:fenix_user/models/api_response_model.dart';
+import 'package:fenix_user/models/api_response_models/allergens_images/allergens_images.dart';
 import 'package:fenix_user/models/api_response_models/category_response/category_response.dart';
 import 'package:fenix_user/models/api_response_models/error_response/error_response.dart';
 import 'package:fenix_user/models/api_response_models/home_response/home_response.dart';
@@ -341,6 +342,19 @@ class API {
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
+    );
+  }
+
+  Future<List<AllergenImageModel>?> getAllergensImages(
+      {ValueSetter<ErrorResponse>? errorListener,
+      ValueSetter<ApiResponse<List<AllergenImageModel>?>>? responseListener,
+      bool autoErrorHandle = true}) async {
+    return _api.getForArrayResponse(
+      URL.GET_ALLERGENS_IMAGES,
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
+      resModel: AllergenImageModel(),
     );
   }
 }

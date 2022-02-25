@@ -8,6 +8,8 @@ class URL {
   static const SETTINGS = '/users/profile/details';
   static const SETTINGS_UPDATE = '/users/update/tabSetting/';
 
+  static const GET_ALLERGENS_IMAGES = '/settings/user/public/allergies';
+
   static const HOME = '/categories/home-page/';
   static const CATEGORY = '/categories/type-based';
   static const SUB_CATEGORY = '/sub-categories/user/list';
