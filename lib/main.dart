@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fenix_user/common/allergen_images.dart';
 import 'package:fenix_user/common/constant.dart';
+import 'package:fenix_user/models/api_response_models/allergens_images/allergens_images.dart';
 import 'package:fenix_user/screens/auth/login/login.dart';
 import 'package:fenix_user/screens/home_tabs/home_tabs.dart';
 import 'package:fenix_user/styles/styles.dart';
@@ -25,6 +27,7 @@ void main() async {
   await dotenv.load();
   await DB().initDatabase();
   await getLanguage();
+  getAllergenImages();
   await getLocalizationData(API());
   WidgetsFlutterBinding.ensureInitialized();
   await SentryFlutter.init(
@@ -54,6 +57,13 @@ Future<LanguageResponse?> getLanguage() async {
   } else {
     DB().saveLanguage(DB().getLanguage() ?? ' English');
     DB().saveLanguageCode(DB().getLanguageCode() ?? 'en');
+  }
+}
+
+Future<List<AllergenImageModel>?> getAllergenImages() async {
+  final res = await API().getAllergensImages();
+  if (res != null) {
+    LocalStoredAllergenImages().init(res);
   }
 }
 

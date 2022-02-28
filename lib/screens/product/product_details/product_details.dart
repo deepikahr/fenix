@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fenix_user/common/allergen_images.dart';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
 import 'package:fenix_user/models/api_response_models/add_on_item/add_on_item.dart';
@@ -285,7 +286,8 @@ class ProductDetails extends HookWidget {
           SizedBox(
             height: 12,
           ),
-          allergenList(context, product.allergens),
+          if (product.allergens.isNotEmpty)
+            allergenList(context, product.allergens),
           sizeBlock(context, state.groupValue, product.variants, state),
           optionBlockExtra(state.productDetails?.addOnItems ?? [],
               state.selectedAddOnItems, state),
@@ -354,22 +356,27 @@ class ProductDetails extends HookWidget {
         ),
         Container(
           alignment: AlignmentDirectional.topStart,
-          height: 85,
+          height: 100,
           child: ListView.builder(
               physics: ScrollPhysics(),
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemCount: allergens.length,
               itemBuilder: (BuildContext context, int i) {
+                final image = LocalStoredAllergenImages()
+                    .getImageForAllergen(allergens[i]);
                 return Column(
                   children: [
-                    Image.asset(
-                      'lib/assets/images/p3.png',
-                      width: 50,
-                      height: 50,
-                    ),
+                    if (image == null)
+                      Image.asset(
+                        'lib/assets/images/p3.png',
+                        width: 50,
+                        height: 50,
+                      )
+                    else
+                      networkImageWithWidth(image, 50, 50),
                     Text(
-                      allergens[i],
+                      allergens[i].tr,
                       style: textDarkRegularBM10(context),
                     ),
                   ],
@@ -449,7 +456,7 @@ class ProductDetails extends HookWidget {
                       return addOnCategory[index].selectionType ==
                               SELECTION_TYPE.single
                           ? RadioListTile(
-                            contentPadding: EdgeInsets.all(0),
+                              contentPadding: EdgeInsets.all(0),
                               dense: true,
                               controlAffinity: ListTileControlAffinity.leading,
                               activeColor: green,
