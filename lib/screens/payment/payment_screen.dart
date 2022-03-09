@@ -2,6 +2,7 @@ import 'package:fenix_user/models/api_request_models/payment_request/payment_req
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs.dart';
+import 'package:fenix_user/screens/tip_waiter/tip_waiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:flutter/material.dart';
@@ -26,17 +27,18 @@ class Payment extends HookWidget {
             context,
             'PAY_IN_CASH'.tr,
             () async {
-              if (!state.isLoading && state.buttonName == null) {
-                final res = await notifier.requestPayment(
-                  order,
-                  PAYMENT_TPES.payInCash,
-                );
-                if (res != null) {
-                  context
-                      .read(homeTabsProvider.notifier)
-                      .showScreen(PaymentInProcess(order));
-                }
-              }
+              // if (!state.isLoading && state.buttonName == null) {
+              //   final res = await notifier.requestPayment(
+              //     order,
+              //     PAYMENT_TPES.payInCash,
+              //   );
+              //   if (res != null) {
+              //     context
+              //         .read(homeTabsProvider.notifier)
+              //         .showScreen(PaymentInProcess(order));
+              //   }
+              // }
+              context.read(homeTabsProvider.notifier).showScreen(TipWaiter());
             },
             state.isLoading && state.buttonName == PAYMENT_TPES.payInCash
                 ? true

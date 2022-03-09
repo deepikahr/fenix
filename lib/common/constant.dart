@@ -44,4 +44,7 @@ class Constants {
     'REQUEST_NAPKINS',
     'OTHER'
   ];
+
+  static List tipAmountList = [0, 0.25, 0.5, 1, 2];
+  static List tipAmountEmojiList = ["", "🙂", "😊", "😉", "😍"];
 }

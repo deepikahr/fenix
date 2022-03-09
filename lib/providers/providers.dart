@@ -35,10 +35,14 @@ import 'package:fenix_user/screens/product/product_details/product_details_notif
 import 'package:fenix_user/screens/product/product_details/product_details_state.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_notifier.dart';
 import 'package:fenix_user/screens/product/product_list/product_list_state.dart';
+import 'package:fenix_user/screens/qr_screen/qr_screen_state.dart';
+import 'package:fenix_user/screens/qr_screen/qr_screen_state_notifier.dart';
 import 'package:fenix_user/screens/settings/settings_state.dart';
 import 'package:fenix_user/screens/settings/settings_state_notifier.dart';
 import 'package:fenix_user/screens/sub_category/sub_category_state.dart';
 import 'package:fenix_user/screens/sub_category/sub_category_state_notifier.dart';
+import 'package:fenix_user/screens/tip_waiter/tip_waiter_state.dart';
+import 'package:fenix_user/screens/tip_waiter/tip_waiter_state_notifier.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -133,6 +137,16 @@ final orderDetailsProvider = StateNotifierProvider.autoDispose<
 final paymentScreenProvider = StateNotifierProvider.autoDispose<
     PaymentScreenStateNotifier, PaymentScreenState>((ref) {
   return PaymentScreenStateNotifier(ref);
+});
+
+final tipWaiterProvider = StateNotifierProvider.autoDispose<
+    TipWaiterStateNotifier, TipWaiterState>((ref) {
+  return TipWaiterStateNotifier(ref);
+});
+
+final qrScreenProvider = StateNotifierProvider.autoDispose<
+    QRScreenStateNotifier, QRScreenState>((ref) {
+  return QRScreenStateNotifier(ref);
 });
 
 final paymentInProcess = StateNotifierProvider.autoDispose<

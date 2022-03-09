@@ -187,6 +187,7 @@ flutter:
     - lib/assets/icons/phonepe.png
     - lib/assets/icons/paytm.png
     - lib/assets/icons/googlePay.png
+    - lib/assets/icons/qrCode.png
     - lib/assets/icons/wallet.png
     - lib/assets/icons/mastercard.png
     - lib/assets/icons/visa.png
