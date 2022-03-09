@@ -453,91 +453,205 @@ class ProductDetails extends HookWidget {
                     shrinkWrap: true,
                     itemCount: addOnItems.length,
                     itemBuilder: (BuildContext context, int i) {
-                      return addOnCategory[index].selectionType ==
-                              SELECTION_TYPE.single
-                          ? RadioListTile(
-                              contentPadding: EdgeInsets.all(0),
-                              dense: true,
-                              controlAffinity: ListTileControlAffinity.leading,
-                              activeColor: green,
-                              value: i,
-                              groupValue: addOnCategory[index].selectionValue,
-                              onChanged: (value) {
-                                if (addOnCategory[index].selectionValue != i) {
-                                  context
-                                      .read(productDetailsProvider.notifier)
-                                      .addSelectedAddOnItemSingle(
-                                        addOnItems[i],
-                                        index,
-                                        i,
-                                      );
-                                }
-                              },
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                      return addOnCategory[index].addOnItems.length > 1
+                          ? addOnCategory[index].selectionType ==
+                                  SELECTION_TYPE.single
+                              ? RadioListTile(
+                                  contentPadding: EdgeInsets.all(0),
+                                  dense: true,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  activeColor: green,
+                                  value: i,
+                                  groupValue:
+                                      addOnCategory[index].selectionValue,
+                                  onChanged: (value) {
+                                    if (addOnCategory[index].selectionValue !=
+                                        i) {
+                                      context
+                                          .read(productDetailsProvider.notifier)
+                                          .addSelectedAddOnItemSingle(
+                                            addOnItems[i],
+                                            index,
+                                            i,
+                                          );
+                                    }
+                                  },
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text('${addOnItems[i].addOnItemName} - ',
-                                          style: textDarkRegularBR(context)),
-                                      Text(
-                                          '${addOnItems[i].addOnItemPrice}${Constants.currency}',
-                                          style: textBlackLargeBM(context)),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              '${addOnItems[i].addOnItemName} - ',
+                                              style:
+                                                  textDarkRegularBR(context)),
+                                          Text(
+                                              '${addOnItems[i].addOnItemPrice}${Constants.currency}',
+                                              style: textBlackLargeBM(context)),
+                                        ],
+                                      ),
+                                      selectedAddOnItems!
+                                                  .toList()
+                                                  .singleWhere(
+                                                      (element) =>
+                                                          element.id ==
+                                                          addOnItems[i].id,
+                                                      orElse: () => AddOnItem())
+                                                  .id !=
+                                              null
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                counterIcon(
+                                                  'remove',
+                                                  () {
+                                                    context
+                                                        .read(
+                                                            productDetailsProvider
+                                                                .notifier)
+                                                        .updateAddonItemQuantity(
+                                                            addOnItems[i],
+                                                            false);
+                                                  },
+                                                ),
+                                                Text(
+                                                    selectedAddOnItems
+                                                        .toList()
+                                                        .singleWhere(
+                                                            (element) =>
+                                                                element.id ==
+                                                                addOnItems[i]
+                                                                    .id,
+                                                            orElse: () =>
+                                                                AddOnItem())
+                                                        .quantity
+                                                        .toString(),
+                                                    style: textBlackLargeBM(
+                                                        context)),
+                                                counterIcon(
+                                                  'add',
+                                                  () async {
+                                                    context
+                                                        .read(
+                                                            productDetailsProvider
+                                                                .notifier)
+                                                        .updateAddonItemQuantity(
+                                                            addOnItems[i],
+                                                            true);
+                                                  },
+                                                ),
+                                              ],
+                                            )
+                                          : Container(),
                                     ],
                                   ),
-                                  selectedAddOnItems!
-                                              .toList()
-                                              .singleWhere(
-                                                  (element) =>
-                                                      element.id ==
-                                                      addOnItems[i].id,
-                                                  orElse: () => AddOnItem())
-                                              .id !=
-                                          null
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            counterIcon(
-                                              'remove',
-                                              () {
-                                                context
-                                                    .read(productDetailsProvider
-                                                        .notifier)
-                                                    .updateAddonItemQuantity(
-                                                        addOnItems[i], false);
-                                              },
-                                            ),
-                                            Text(
-                                                selectedAddOnItems
-                                                    .toList()
-                                                    .singleWhere(
-                                                        (element) =>
-                                                            element.id ==
-                                                            addOnItems[i].id,
-                                                        orElse: () =>
-                                                            AddOnItem())
-                                                    .quantity
-                                                    .toString(),
-                                                style:
-                                                    textBlackLargeBM(context)),
-                                            counterIcon(
-                                              'add',
-                                              () async {
-                                                context
-                                                    .read(productDetailsProvider
-                                                        .notifier)
-                                                    .updateAddonItemQuantity(
-                                                        addOnItems[i], true);
-                                              },
-                                            ),
-                                          ],
-                                        )
-                                      : Container(),
-                                ],
-                              ),
-                            )
+                                )
+                              : ListTile(
+                                  dense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: Checkbox(
+                                    activeColor: green,
+                                    value: selectedAddOnItems!
+                                            .toList()
+                                            .singleWhere(
+                                                (element) =>
+                                                    element.id ==
+                                                    addOnItems[i].id,
+                                                orElse: () => AddOnItem())
+                                            .id !=
+                                        null,
+                                    onChanged: (value) {
+                                      if (value!) {
+                                        context
+                                            .read(
+                                                productDetailsProvider.notifier)
+                                            .addSelectedAddOnItem(addOnItems[i],
+                                                addOnCategory[index]);
+                                      } else {
+                                        context
+                                            .read(
+                                                productDetailsProvider.notifier)
+                                            .removeAddOnItem(addOnItems[i]);
+                                      }
+                                    },
+                                  ),
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                              '${addOnItems[i].addOnItemName} - ',
+                                              style:
+                                                  textDarkRegularBR(context)),
+                                          Text(
+                                              '${addOnItems[i].addOnItemPrice}${Constants.currency}',
+                                              style: textBlackLargeBM(context)),
+                                        ],
+                                      ),
+                                      selectedAddOnItems
+                                                  .toList()
+                                                  .singleWhere(
+                                                      (element) =>
+                                                          element.id ==
+                                                          addOnItems[i].id,
+                                                      orElse: () => AddOnItem())
+                                                  .id !=
+                                              null
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                counterIcon(
+                                                  'remove',
+                                                  () {
+                                                    context
+                                                        .read(
+                                                            productDetailsProvider
+                                                                .notifier)
+                                                        .updateAddonItemQuantity(
+                                                            addOnItems[i],
+                                                            false);
+                                                  },
+                                                ),
+                                                Text(
+                                                    selectedAddOnItems
+                                                        .toList()
+                                                        .singleWhere(
+                                                            (element) =>
+                                                                element.id ==
+                                                                addOnItems[i]
+                                                                    .id,
+                                                            orElse: () =>
+                                                                AddOnItem())
+                                                        .quantity
+                                                        .toString(),
+                                                    style: textBlackLargeBM(
+                                                        context)),
+                                                counterIcon(
+                                                  'add',
+                                                  () async {
+                                                    context
+                                                        .read(
+                                                            productDetailsProvider
+                                                                .notifier)
+                                                        .updateAddonItemQuantity(
+                                                            addOnItems[i],
+                                                            true);
+                                                  },
+                                                ),
+                                              ],
+                                            )
+                                          : Container(),
+                                    ],
+                                  ),
+                                )
                           : ListTile(
                               dense: true,
                               contentPadding: EdgeInsets.zero,
@@ -728,23 +842,24 @@ class ProductDetails extends HookWidget {
                 )),
                 SizedBox(width: 10),
                 Expanded(
-                    child: GFButton(
-                  blockButton: true,
-                  size: GFSize.LARGE,
-                  color: GFColors.DARK,
-                  type: GFButtonType.outline,
-                  onPressed: () async {
-                    context
-                        .read(productDetailsProvider.notifier)
-                        .showAddButton(false);
-                    Get.back();
-                  },
-                  child: Text(
-                    'NEW'.tr.toUpperCase(),
-                    style: textBlackSmallBM(context),
-                    textAlign: TextAlign.center,
+                  child: GFButton(
+                    blockButton: true,
+                    size: GFSize.LARGE,
+                    color: GFColors.DARK,
+                    type: GFButtonType.outline,
+                    onPressed: () async {
+                      context
+                          .read(productDetailsProvider.notifier)
+                          .showAddButton(false);
+                      Get.back();
+                    },
+                    child: Text(
+                      'NEW'.tr.toUpperCase(),
+                      style: textBlackSmallBM(context),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                )),
+                ),
               ],
             )
           ],
