@@ -36,6 +36,7 @@ class Localization extends Translations {
           "DELIVERY_TABLE": "DELIVERY AT TABLE",
           "DESK": "Desk",
           "DIVIDE_THE_ACCOUNT": "Divide the account",
+          "DO_YOU_WANT_TO_ADD_TIP": "Do you want to add a tip to the waiter?",
           "DO_YOU_WANT_TO_EXIT_AN_APP": "Do you want to exit an app",
           "DRINKS": "Drinks",
           "EGGS": "Eggs",
@@ -70,6 +71,7 @@ class Localization extends Translations {
           "NEW": "New",
           "NFC": "Pay here, in pilarbox",
           "NO": "No",
+          "NO_THANKS": "No Thanks!",
           "NO_ITEMS": "No items",
           "NO_ORDER_PLACED": "No Order Placed yet",
           "NO_PRODUCT": "No product",
@@ -101,6 +103,7 @@ class Localization extends Translations {
           "PAY_WHEN_YOU_MAKE_THE_COMMAND_KIOSK TYPE":
               "Pay when you make the command (KIOSK TYPE)",
           "PAY_WITH_CARD": "Pay with dataphone",
+          "PAY_WITH_QR": "Pay with QR",
           "PEANUTS": "Peanuts",
           "PHONE_NUMBER": "PHONE NUMBER",
           "PICK_PRODUCT": "PICK UP PRODUCT",
