@@ -67,11 +67,10 @@ class TipWaiter extends HookWidget {
         ),
         Positioned(
           right: 120,
-          child: RichText(
-            text: TwemojiTextSpan(
-              text: "${emojis[index]}",
-              emojiFontMultiplier: 3.5,
-            ),
+          child: Twemoji(
+            emoji: '${emojis[index]}',
+            height: 50,
+            width: 50,
           ),
         ),
       ],
