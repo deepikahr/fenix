@@ -27,18 +27,18 @@ class Payment extends HookWidget {
             context,
             'PAY_IN_CASH'.tr,
             () async {
-              // if (!state.isLoading && state.buttonName == null) {
-              //   final res = await notifier.requestPayment(
-              //     order,
-              //     PAYMENT_TPES.payInCash,
-              //   );
-              //   if (res != null) {
-              //     context
-              //         .read(homeTabsProvider.notifier)
-              //         .showScreen(PaymentInProcess(order));
-              //   }
-              // }
-              context.read(homeTabsProvider.notifier).showScreen(TipWaiter());
+              if (!state.isLoading && state.buttonName == null) {
+                final res = await notifier.requestPayment(
+                  order,
+                  PAYMENT_TPES.payInCash,
+                );
+                if (res != null) {
+                  context
+                      .read(homeTabsProvider.notifier)
+                      .showScreen(PaymentInProcess(order));
+                }
+              }
+              // context.read(homeTabsProvider.notifier).showScreen(TipWaiter());
             },
             state.isLoading && state.buttonName == PAYMENT_TPES.payInCash
                 ? true
