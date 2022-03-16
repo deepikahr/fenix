@@ -134,18 +134,20 @@ final orderDetailsProvider = StateNotifierProvider.autoDispose<
   return OrderDetailsStateNotifier(ref);
 });
 
-final paymentScreenProvider = StateNotifierProvider.autoDispose<
-    PaymentScreenStateNotifier, PaymentScreenState>((ref) {
-  return PaymentScreenStateNotifier(ref);
-});
+// final paymentScreenProvider = StateNotifierProvider.autoDispose<
+//     PaymentScreenStateNotifier, PaymentScreenState>((ref) {
+//   return PaymentScreenStateNotifier(ref);
+// });
 
-final tipWaiterProvider = StateNotifierProvider.autoDispose<
-    TipWaiterStateNotifier, TipWaiterState>((ref) {
+final tipWaiterProvider =
+    StateNotifierProvider.autoDispose<TipWaiterStateNotifier, TipWaiterState>(
+        (ref) {
   return TipWaiterStateNotifier(ref);
 });
 
-final qrScreenProvider = StateNotifierProvider.autoDispose<
-    QRScreenStateNotifier, QRScreenState>((ref) {
+final qrScreenProvider =
+    StateNotifierProvider.autoDispose<QRScreenStateNotifier, QRScreenState>(
+        (ref) {
   return QRScreenStateNotifier(ref);
 });
 

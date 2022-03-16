@@ -20,7 +20,7 @@ class PaymentRequestCompletedResponse
     PAYMENT_STATUS? paymentStatus,
     String? message,
     String? orderId,
-    PAYMENT_TPES? paymentType,
+    PAYMENT_TYPE? paymentType,
   }) = _PaymentRequestCompletedResponse;
 
   factory PaymentRequestCompletedResponse.fromJson(Map<String, dynamic> json) =>

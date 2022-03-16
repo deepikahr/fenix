@@ -16,7 +16,7 @@ _$_PaymentRequestCompletedResponse _$_$_PaymentRequestCompletedResponseFromJson(
     message: json['message'] as String?,
     orderId: json['orderId'] as String?,
     paymentType:
-        _$enumDecodeNullable(_$PAYMENT_TPESEnumMap, json['paymentType']),
+        _$enumDecodeNullable(_$PAYMENT_TYPEEnumMap, json['paymentType']),
   );
 }
 
@@ -28,7 +28,7 @@ Map<String, dynamic> _$_$_PaymentRequestCompletedResponseToJson(
       'paymentStatus': _$PAYMENT_STATUSEnumMap[instance.paymentStatus],
       'message': instance.message,
       'orderId': instance.orderId,
-      'paymentType': _$PAYMENT_TPESEnumMap[instance.paymentType],
+      'paymentType': _$PAYMENT_TYPEEnumMap[instance.paymentType],
     };
 
 K _$enumDecode<K, V>(
@@ -72,10 +72,12 @@ const _$PAYMENT_STATUSEnumMap = {
   PAYMENT_STATUS.pending: 'PENDING',
   PAYMENT_STATUS.completed: 'COMPLETED',
   PAYMENT_STATUS.inProgress: 'IN_PROGRESS',
+  PAYMENT_STATUS.failed: 'FAILED',
 };
 
-const _$PAYMENT_TPESEnumMap = {
-  PAYMENT_TPES.payInCash: 'PAY_IN_CASH',
-  PAYMENT_TPES.payWithCard: 'PAY_WITH_CARD',
-  PAYMENT_TPES.nfc: 'NFC',
+const _$PAYMENT_TYPEEnumMap = {
+  PAYMENT_TYPE.payInCash: 'PAY_IN_CASH',
+  PAYMENT_TYPE.payWithCard: 'PAY_WITH_CARD',
+  PAYMENT_TYPE.payWithQR: 'PAY_WITH_QR',
+  PAYMENT_TYPE.nfc: 'NFC',
 };

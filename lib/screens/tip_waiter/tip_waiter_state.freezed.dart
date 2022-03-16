@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TipWaiterStateTearOff {
   const _$TipWaiterStateTearOff();
 
-  _Default call({bool isLoading = false}) {
+  _Default call({bool isLoading = false, int? tipIndex}) {
     return _Default(
       isLoading: isLoading,
+      tipIndex: tipIndex,
     );
   }
 }
@@ -29,6 +30,7 @@ const $TipWaiterState = _$TipWaiterStateTearOff();
 /// @nodoc
 mixin _$TipWaiterState {
   bool get isLoading => throw _privateConstructorUsedError;
+  int? get tipIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TipWaiterStateCopyWith<TipWaiterState> get copyWith =>
@@ -40,7 +42,7 @@ abstract class $TipWaiterStateCopyWith<$Res> {
   factory $TipWaiterStateCopyWith(
           TipWaiterState value, $Res Function(TipWaiterState) then) =
       _$TipWaiterStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, int? tipIndex});
 }
 
 /// @nodoc
@@ -55,12 +57,17 @@ class _$TipWaiterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? tipIndex = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      tipIndex: tipIndex == freezed
+          ? _value.tipIndex
+          : tipIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -71,7 +78,7 @@ abstract class _$DefaultCopyWith<$Res>
   factory _$DefaultCopyWith(_Default value, $Res Function(_Default) then) =
       __$DefaultCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading});
+  $Res call({bool isLoading, int? tipIndex});
 }
 
 /// @nodoc
@@ -86,12 +93,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$TipWaiterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? tipIndex = freezed,
   }) {
     return _then(_Default(
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      tipIndex: tipIndex == freezed
+          ? _value.tipIndex
+          : tipIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -99,15 +111,17 @@ class __$DefaultCopyWithImpl<$Res> extends _$TipWaiterStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Default implements _Default {
-  const _$_Default({this.isLoading = false});
+  const _$_Default({this.isLoading = false, this.tipIndex});
 
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
+  @override
+  final int? tipIndex;
 
   @override
   String toString() {
-    return 'TipWaiterState(isLoading: $isLoading)';
+    return 'TipWaiterState(isLoading: $isLoading, tipIndex: $tipIndex)';
   }
 
   @override
@@ -116,12 +130,17 @@ class _$_Default implements _Default {
         (other is _Default &&
             (identical(other.isLoading, isLoading) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+                    .equals(other.isLoading, isLoading)) &&
+            (identical(other.tipIndex, tipIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.tipIndex, tipIndex)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isLoading) ^
+      const DeepCollectionEquality().hash(tipIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -130,10 +149,12 @@ class _$_Default implements _Default {
 }
 
 abstract class _Default implements TipWaiterState {
-  const factory _Default({bool isLoading}) = _$_Default;
+  const factory _Default({bool isLoading, int? tipIndex}) = _$_Default;
 
   @override
   bool get isLoading => throw _privateConstructorUsedError;
+  @override
+  int? get tipIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DefaultCopyWith<_Default> get copyWith =>

@@ -145,7 +145,8 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
       cart!,
     );
     db.saveOrderId(response!.id);
-    state = state.copyWith.call(isLoading: false, orderResponse: response);
+    if (mounted)
+      state = state.copyWith.call(isLoading: false, orderResponse: response);
     return response;
   }
 

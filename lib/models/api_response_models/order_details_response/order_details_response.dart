@@ -24,6 +24,8 @@ enum PAYMENT_STATUS {
   completed,
   @JsonValue('IN_PROGRESS')
   inProgress,
+  @JsonValue('FAILED')
+  failed,
 }
 
 @freezed
@@ -38,6 +40,7 @@ class OrderDetailsResponse
     @Default([]) List<CartProduct> cart,
     @Default(0) double grandTotal,
     @Default(0) double subTotal,
+    @Default(0) double tipAmount,
     String? paymentType,
     String? restaurantName,
     String? franchiseName,

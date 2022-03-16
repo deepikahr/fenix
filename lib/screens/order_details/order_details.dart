@@ -1,6 +1,7 @@
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
+import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
@@ -49,7 +50,9 @@ class OrderDetails extends HookWidget {
                 context
                     .read(homeTabsProvider.notifier)
                     .showScreen(CartScreen());
-              } else if (res.paymentStatus == PAYMENT_STATUS.inProgress) {
+              } else if (res.paymentStatus == PAYMENT_STATUS.inProgress &&
+                  (res.paymentType == PAYMENT_TYPE.payInCash ||
+                      res.paymentType == PAYMENT_TYPE.payWithCard)) {
                 context
                     .read(homeTabsProvider.notifier)
                     .showScreen(PaymentInProcess(res));
