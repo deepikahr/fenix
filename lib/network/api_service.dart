@@ -21,6 +21,8 @@ import 'package:fenix_user/models/api_response_models/menu_response/menu_respons
 import 'package:fenix_user/models/api_response_models/notification_response/notification_response.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_response/order_response.dart';
+import 'package:fenix_user/models/api_response_models/payment_request_completed_response/payment_request_completed_response.dart';
+import 'package:fenix_user/models/api_response_models/payment_response/payment_response.dart';
 import 'package:fenix_user/models/api_response_models/product_data_response/product_data_response.dart';
 import 'package:fenix_user/models/api_response_models/product_details_response/product_details_response.dart';
 import 'package:fenix_user/models/api_response_models/settings_response/settings_response.dart';
@@ -330,14 +332,15 @@ class API {
         ?.map((key, value) => MapEntry(key, Map<String, String>.from(value)));
   }
 
-  Future<String?> paymentRequest(
+  Future<PaymentResponse?> paymentRequest(
     PaymentRequest paymentRequest, {
     ValueSetter<ErrorResponse>? errorListener,
-    ValueSetter<ApiResponse<String?>>? responseListener,
+    ValueSetter<ApiResponse<PaymentResponse?>>? responseListener,
     bool autoErrorHandle = true,
   }) async {
-    return _api.postForStringResponse(
+    return _api.post(
       URL.PAYMENT_REQUEST,
+      resModel: PaymentResponse(),
       reqModel: paymentRequest,
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
@@ -355,6 +358,20 @@ class API {
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,
       resModel: AllergenImageModel(),
+    );
+  }
+
+  Future<PaymentRequestCompletedResponse?> paymentStatus(String? orderId,
+      {ValueSetter<ErrorResponse>? errorListener,
+      ValueSetter<ApiResponse<PaymentRequestCompletedResponse>>?
+          responseListener,
+      bool autoErrorHandle = true}) async {
+    return _api.get(
+      URL.GET_PAYMENT_STATUS + '$orderId',
+      resModel: PaymentRequestCompletedResponse(),
+      errorListener: errorListener,
+      autoErrorHandle: autoErrorHandle,
+      responseListener: responseListener,
     );
   }
 }

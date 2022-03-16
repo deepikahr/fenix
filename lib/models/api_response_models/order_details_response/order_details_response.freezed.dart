@@ -27,6 +27,7 @@ class _$OrderDetailsResponseTearOff {
       List<CartProduct> cart = const [],
       double grandTotal = 0,
       double subTotal = 0,
+      double tipAmount = 0,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -48,6 +49,7 @@ class _$OrderDetailsResponseTearOff {
       cart: cart,
       grandTotal: grandTotal,
       subTotal: subTotal,
+      tipAmount: tipAmount,
       paymentType: paymentType,
       restaurantName: restaurantName,
       franchiseName: franchiseName,
@@ -82,6 +84,7 @@ mixin _$OrderDetailsResponse {
   List<CartProduct> get cart => throw _privateConstructorUsedError;
   double get grandTotal => throw _privateConstructorUsedError;
   double get subTotal => throw _privateConstructorUsedError;
+  double get tipAmount => throw _privateConstructorUsedError;
   String? get paymentType => throw _privateConstructorUsedError;
   String? get restaurantName => throw _privateConstructorUsedError;
   String? get franchiseName => throw _privateConstructorUsedError;
@@ -115,6 +118,7 @@ abstract class $OrderDetailsResponseCopyWith<$Res> {
       List<CartProduct> cart,
       double grandTotal,
       double subTotal,
+      double tipAmount,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -148,6 +152,7 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
     Object? cart = freezed,
     Object? grandTotal = freezed,
     Object? subTotal = freezed,
+    Object? tipAmount = freezed,
     Object? paymentType = freezed,
     Object? restaurantName = freezed,
     Object? franchiseName = freezed,
@@ -187,6 +192,10 @@ class _$OrderDetailsResponseCopyWithImpl<$Res>
       subTotal: subTotal == freezed
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
+              as double,
+      tipAmount: tipAmount == freezed
+          ? _value.tipAmount
+          : tipAmount // ignore: cast_nullable_to_non_nullable
               as double,
       paymentType: paymentType == freezed
           ? _value.paymentType
@@ -262,6 +271,7 @@ abstract class _$OrderDetailsResponseCopyWith<$Res>
       List<CartProduct> cart,
       double grandTotal,
       double subTotal,
+      double tipAmount,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -297,6 +307,7 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
     Object? cart = freezed,
     Object? grandTotal = freezed,
     Object? subTotal = freezed,
+    Object? tipAmount = freezed,
     Object? paymentType = freezed,
     Object? restaurantName = freezed,
     Object? franchiseName = freezed,
@@ -336,6 +347,10 @@ class __$OrderDetailsResponseCopyWithImpl<$Res>
       subTotal: subTotal == freezed
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
+              as double,
+      tipAmount: tipAmount == freezed
+          ? _value.tipAmount
+          : tipAmount // ignore: cast_nullable_to_non_nullable
               as double,
       paymentType: paymentType == freezed
           ? _value.paymentType
@@ -407,6 +422,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       this.cart = const [],
       this.grandTotal = 0,
       this.subTotal = 0,
+      this.tipAmount = 0,
       this.paymentType,
       this.restaurantName,
       this.franchiseName,
@@ -443,6 +459,9 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
   @JsonKey(defaultValue: 0)
   @override
   final double subTotal;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double tipAmount;
   @override
   final String? paymentType;
   @override
@@ -474,7 +493,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
 
   @override
   String toString() {
-    return 'OrderDetailsResponse(id: $id, isAcceptedByDeliveryBoy: $isAcceptedByDeliveryBoy, amountPaid: $amountPaid, cart: $cart, grandTotal: $grandTotal, subTotal: $subTotal, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, currencyCode: $currencyCode, currencySymbol: $currencySymbol, orderStatus: $orderStatus, paymentStatus: $paymentStatus, orderID: $orderID, tableNumber: $tableNumber, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'OrderDetailsResponse(id: $id, isAcceptedByDeliveryBoy: $isAcceptedByDeliveryBoy, amountPaid: $amountPaid, cart: $cart, grandTotal: $grandTotal, subTotal: $subTotal, tipAmount: $tipAmount, paymentType: $paymentType, restaurantName: $restaurantName, franchiseName: $franchiseName, franchiseId: $franchiseId, vendorId: $vendorId, userId: $userId, currencyCode: $currencyCode, currencySymbol: $currencySymbol, orderStatus: $orderStatus, paymentStatus: $paymentStatus, orderID: $orderID, tableNumber: $tableNumber, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -497,6 +516,9 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
             (identical(other.subTotal, subTotal) ||
                 const DeepCollectionEquality()
                     .equals(other.subTotal, subTotal)) &&
+            (identical(other.tipAmount, tipAmount) ||
+                const DeepCollectionEquality()
+                    .equals(other.tipAmount, tipAmount)) &&
             (identical(other.paymentType, paymentType) ||
                 const DeepCollectionEquality()
                     .equals(other.paymentType, paymentType)) &&
@@ -527,10 +549,8 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
                 const DeepCollectionEquality()
                     .equals(other.paymentStatus, paymentStatus)) &&
             (identical(other.orderID, orderID) ||
-                const DeepCollectionEquality()
-                    .equals(other.orderID, orderID)) &&
-            (identical(other.tableNumber, tableNumber) ||
-                const DeepCollectionEquality().equals(other.tableNumber, tableNumber)) &&
+                const DeepCollectionEquality().equals(other.orderID, orderID)) &&
+            (identical(other.tableNumber, tableNumber) || const DeepCollectionEquality().equals(other.tableNumber, tableNumber)) &&
             (identical(other.createdAt, createdAt) || const DeepCollectionEquality().equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) || const DeepCollectionEquality().equals(other.updatedAt, updatedAt)));
   }
@@ -544,6 +564,7 @@ class _$_OrderDetailsResponse extends _OrderDetailsResponse {
       const DeepCollectionEquality().hash(cart) ^
       const DeepCollectionEquality().hash(grandTotal) ^
       const DeepCollectionEquality().hash(subTotal) ^
+      const DeepCollectionEquality().hash(tipAmount) ^
       const DeepCollectionEquality().hash(paymentType) ^
       const DeepCollectionEquality().hash(restaurantName) ^
       const DeepCollectionEquality().hash(franchiseName) ^
@@ -579,6 +600,7 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
       List<CartProduct> cart,
       double grandTotal,
       double subTotal,
+      double tipAmount,
       String? paymentType,
       String? restaurantName,
       String? franchiseName,
@@ -611,6 +633,8 @@ abstract class _OrderDetailsResponse extends OrderDetailsResponse {
   double get grandTotal => throw _privateConstructorUsedError;
   @override
   double get subTotal => throw _privateConstructorUsedError;
+  @override
+  double get tipAmount => throw _privateConstructorUsedError;
   @override
   String? get paymentType => throw _privateConstructorUsedError;
   @override

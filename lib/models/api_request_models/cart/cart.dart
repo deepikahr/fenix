@@ -7,7 +7,6 @@ import '../../base_model.dart';
 part 'cart.freezed.dart';
 part 'cart.g.dart';
 
-
 @freezed
 class Cart with BaseModel<Cart>, _$Cart {
   Cart._();
@@ -18,7 +17,7 @@ class Cart with BaseModel<Cart>, _$Cart {
     @Default(0) subTotal,
     @Default(0) taxTotal,
     String? deliveryType,
-    @Default(PAYMENT_TPES.payInCash) PAYMENT_TPES paymentType,
+    @Default(PAYMENT_TYPE.payInCash) PAYMENT_TYPE paymentType,
     String? restaurantName,
     String? franchiseName,
     String? franchiseId,

@@ -45,4 +45,5 @@ class URL {
 
   static const NOTIFI_WAITER_REQUEST_EVENT =
       'Other-Request-Acknowledged-USER_ID';
+  static const GET_PAYMENT_STATUS = '/orders/check-payment/status/';
 }

@@ -1,7 +1,7 @@
+import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/providers/providers.dart';
-import 'package:fenix_user/screens/payment_in_processs/payment_in_processs.dart';
 import 'package:fenix_user/screens/tip_waiter/tip_waiter.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
@@ -15,69 +15,32 @@ class Payment extends HookWidget {
   Payment(this.order);
   @override
   Widget build(BuildContext context) {
-    final state = useProvider(paymentScreenProvider);
-    final notifier = useProvider(paymentScreenProvider.notifier);
-
     return Container(
       color: light,
-      child: ListView(
-        children: [
-          SizedBox(height: 80),
-          custombuttonsmFW(
+      child: ListView.separated(
+        separatorBuilder: (__, _) {
+          return SizedBox(height: 40);
+        },
+        padding: EdgeInsets.only(left: 12, right: 12, top: 50),
+        physics: ScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: Constants.paymentList.length,
+        itemBuilder: (BuildContext context, int i) {
+          return custombuttonsmFW(
             context,
-            'PAY_IN_CASH'.tr,
+            '${Constants.paymentList[i]}'.tr,
             () async {
-              if (!state.isLoading && state.buttonName == null) {
-                final res = await notifier.requestPayment(
-                  order,
-                  PAYMENT_TPES.payInCash,
-                );
-                if (res != null) {
-                  context
-                      .read(homeTabsProvider.notifier)
-                      .showScreen(PaymentInProcess(order));
-                }
-              }
-              // context.read(homeTabsProvider.notifier).showScreen(TipWaiter());
+              context.read(homeTabsProvider.notifier).showScreen(
+                    TipWaiter(
+                      order: order,
+                      paymentType: Constants.paymentList[i],
+                    ),
+                  );
             },
-            state.isLoading && state.buttonName == PAYMENT_TPES.payInCash
-                ? true
-                : false,
-          ),
-          SizedBox(height: 40),
-          custombuttonsmFW(
-            context,
-            'PAY_WITH_CARD'.tr,
-            () async {
-              if (!state.isLoading && state.buttonName == null) {
-                final res = await notifier.requestPayment(
-                  order,
-                  PAYMENT_TPES.payWithCard,
-                );
-                if (res != null) {
-                  context
-                      .read(homeTabsProvider.notifier)
-                      .showScreen(PaymentInProcess(order));
-                }
-              }
-            },
-            state.isLoading && state.buttonName == PAYMENT_TPES.payWithCard
-                ? true
-                : false,
-          ),
-          // SizedBox(height: 40),
-          // custombuttonsmFW(
-          //   context,
-          //   'NFC'.tr,
-          //   () {},
-          //   state.isLoading && state.buttonName == PAYMENT_TPES.nfc
-          //       ? true
-          //       : false,
-          // ),
-          Container(
-            height: 45,
-          ),
-        ],
+            false,
+          );
+        },
       ),
     );
   }

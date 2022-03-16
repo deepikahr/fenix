@@ -46,5 +46,12 @@ class Constants {
   ];
 
   static List tipAmountList = [0, 0.25, 0.5, 1, 2];
+
   static List tipAmountEmojiList = ["", "🙂", "😊", "😉", "😍"];
+
+  static List paymentList = [
+    'PAY_IN_CASH',
+    'PAY_WITH_DATAPHONE',
+    'PAY_WITH_QR'
+  ];
 }

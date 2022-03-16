@@ -22,14 +22,16 @@ class _$PaymentRequestTearOff {
 
   _PaymentRequest call(
       {String? orderId,
-      PAYMENT_TPES? paymentType,
+      PAYMENT_TYPE? paymentType,
       int? tableNumber,
-      double? amount}) {
+      double? amount,
+      double? tipAmount}) {
     return _PaymentRequest(
       orderId: orderId,
       paymentType: paymentType,
       tableNumber: tableNumber,
       amount: amount,
+      tipAmount: tipAmount,
     );
   }
 
@@ -44,9 +46,10 @@ const $PaymentRequest = _$PaymentRequestTearOff();
 /// @nodoc
 mixin _$PaymentRequest {
   String? get orderId => throw _privateConstructorUsedError;
-  PAYMENT_TPES? get paymentType => throw _privateConstructorUsedError;
+  PAYMENT_TYPE? get paymentType => throw _privateConstructorUsedError;
   int? get tableNumber => throw _privateConstructorUsedError;
   double? get amount => throw _privateConstructorUsedError;
+  double? get tipAmount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -61,9 +64,10 @@ abstract class $PaymentRequestCopyWith<$Res> {
       _$PaymentRequestCopyWithImpl<$Res>;
   $Res call(
       {String? orderId,
-      PAYMENT_TPES? paymentType,
+      PAYMENT_TYPE? paymentType,
       int? tableNumber,
-      double? amount});
+      double? amount,
+      double? tipAmount});
 }
 
 /// @nodoc
@@ -81,6 +85,7 @@ class _$PaymentRequestCopyWithImpl<$Res>
     Object? paymentType = freezed,
     Object? tableNumber = freezed,
     Object? amount = freezed,
+    Object? tipAmount = freezed,
   }) {
     return _then(_value.copyWith(
       orderId: orderId == freezed
@@ -90,7 +95,7 @@ class _$PaymentRequestCopyWithImpl<$Res>
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as PAYMENT_TPES?,
+              as PAYMENT_TYPE?,
       tableNumber: tableNumber == freezed
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -98,6 +103,10 @@ class _$PaymentRequestCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      tipAmount: tipAmount == freezed
+          ? _value.tipAmount
+          : tipAmount // ignore: cast_nullable_to_non_nullable
               as double?,
     ));
   }
@@ -112,9 +121,10 @@ abstract class _$PaymentRequestCopyWith<$Res>
   @override
   $Res call(
       {String? orderId,
-      PAYMENT_TPES? paymentType,
+      PAYMENT_TYPE? paymentType,
       int? tableNumber,
-      double? amount});
+      double? amount,
+      double? tipAmount});
 }
 
 /// @nodoc
@@ -134,6 +144,7 @@ class __$PaymentRequestCopyWithImpl<$Res>
     Object? paymentType = freezed,
     Object? tableNumber = freezed,
     Object? amount = freezed,
+    Object? tipAmount = freezed,
   }) {
     return _then(_PaymentRequest(
       orderId: orderId == freezed
@@ -143,7 +154,7 @@ class __$PaymentRequestCopyWithImpl<$Res>
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as PAYMENT_TPES?,
+              as PAYMENT_TYPE?,
       tableNumber: tableNumber == freezed
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -151,6 +162,10 @@ class __$PaymentRequestCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      tipAmount: tipAmount == freezed
+          ? _value.tipAmount
+          : tipAmount // ignore: cast_nullable_to_non_nullable
               as double?,
     ));
   }
@@ -160,7 +175,11 @@ class __$PaymentRequestCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PaymentRequest extends _PaymentRequest {
   const _$_PaymentRequest(
-      {this.orderId, this.paymentType, this.tableNumber, this.amount})
+      {this.orderId,
+      this.paymentType,
+      this.tableNumber,
+      this.amount,
+      this.tipAmount})
       : super._();
 
   factory _$_PaymentRequest.fromJson(Map<String, dynamic> json) =>
@@ -169,15 +188,17 @@ class _$_PaymentRequest extends _PaymentRequest {
   @override
   final String? orderId;
   @override
-  final PAYMENT_TPES? paymentType;
+  final PAYMENT_TYPE? paymentType;
   @override
   final int? tableNumber;
   @override
   final double? amount;
+  @override
+  final double? tipAmount;
 
   @override
   String toString() {
-    return 'PaymentRequest(orderId: $orderId, paymentType: $paymentType, tableNumber: $tableNumber, amount: $amount)';
+    return 'PaymentRequest(orderId: $orderId, paymentType: $paymentType, tableNumber: $tableNumber, amount: $amount, tipAmount: $tipAmount)';
   }
 
   @override
@@ -194,7 +215,10 @@ class _$_PaymentRequest extends _PaymentRequest {
                 const DeepCollectionEquality()
                     .equals(other.tableNumber, tableNumber)) &&
             (identical(other.amount, amount) ||
-                const DeepCollectionEquality().equals(other.amount, amount)));
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.tipAmount, tipAmount) ||
+                const DeepCollectionEquality()
+                    .equals(other.tipAmount, tipAmount)));
   }
 
   @override
@@ -203,7 +227,8 @@ class _$_PaymentRequest extends _PaymentRequest {
       const DeepCollectionEquality().hash(orderId) ^
       const DeepCollectionEquality().hash(paymentType) ^
       const DeepCollectionEquality().hash(tableNumber) ^
-      const DeepCollectionEquality().hash(amount);
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(tipAmount);
 
   @JsonKey(ignore: true)
   @override
@@ -219,9 +244,10 @@ class _$_PaymentRequest extends _PaymentRequest {
 abstract class _PaymentRequest extends PaymentRequest {
   const factory _PaymentRequest(
       {String? orderId,
-      PAYMENT_TPES? paymentType,
+      PAYMENT_TYPE? paymentType,
       int? tableNumber,
-      double? amount}) = _$_PaymentRequest;
+      double? amount,
+      double? tipAmount}) = _$_PaymentRequest;
   const _PaymentRequest._() : super._();
 
   factory _PaymentRequest.fromJson(Map<String, dynamic> json) =
@@ -230,11 +256,13 @@ abstract class _PaymentRequest extends PaymentRequest {
   @override
   String? get orderId => throw _privateConstructorUsedError;
   @override
-  PAYMENT_TPES? get paymentType => throw _privateConstructorUsedError;
+  PAYMENT_TYPE? get paymentType => throw _privateConstructorUsedError;
   @override
   int? get tableNumber => throw _privateConstructorUsedError;
   @override
   double? get amount => throw _privateConstructorUsedError;
+  @override
+  double? get tipAmount => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PaymentRequestCopyWith<_PaymentRequest> get copyWith =>
