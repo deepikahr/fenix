@@ -7,7 +7,6 @@ import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/normalText.dart';
 import 'package:fenix_user/widgets/textFields.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

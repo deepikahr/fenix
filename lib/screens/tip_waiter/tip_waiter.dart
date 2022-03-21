@@ -109,15 +109,25 @@ class TipWaiter extends HookWidget {
             child: Center(
               child: state.isLoading && state.tipIndex == index
                   ? GFLoader(type: GFLoaderType.ios)
-                  : Text(
-                      amount,
-                      style: textWhiteRegularBM(),
-                      textAlign: TextAlign.center,
-                    ),
+                  : tipAmountList[index] == 0
+                      ? Text(
+                          amount,
+                          style: textWhiteRegularBM(),
+                          textAlign: TextAlign.center,
+                        )
+                      : Row(
+                          children: [
+                            Text(
+                              amount,
+                              style: textWhiteRegularBM(),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
             ),
           ),
           Positioned(
-            right: 120,
+            right: 100,
             child: Twemoji(
               emoji: '${emojis[index]}',
               height: 50,

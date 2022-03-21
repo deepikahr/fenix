@@ -1,11 +1,6 @@
-import 'dart:typed_data';
-
-import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
-import 'package:fenix_user/models/api_request_models/call_waiter_request/call_waiter_request.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
-import 'package:fenix_user/models/api_response_models/cart_product/cart_product.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
 import 'package:fenix_user/models/api_response_models/order_socket_response/order_socket_response.dart';
 import 'package:fenix_user/models/api_response_models/update_order_history_response/update_order_history_model.dart';
@@ -26,7 +21,6 @@ import 'package:fenix_user/widgets/alertBox.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
@@ -271,7 +265,6 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
       SocketService().getSocket().on(listenTo, (data) async {
         print('socket response $data');
         if (data != null) {
-          final request = CallWaiterRequest.fromJson(data);
           customDialog(
             status: DIALOG_STATUS.SUCCESS,
             title: 'WAITER_WARNED'.tr,
