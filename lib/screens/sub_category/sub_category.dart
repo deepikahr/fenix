@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:fenix_user/common/utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_response_models/sub_category_response/sub_category_response.dart';
@@ -8,9 +7,7 @@ import 'package:fenix_user/screens/product/product_list/product_list.dart';
 import 'package:fenix_user/screens/sub_category/sub_category_state_notifier.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

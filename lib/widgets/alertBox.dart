@@ -1,7 +1,5 @@
-import 'dart:ui';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:get/get.dart';
-
 import 'package:flutter/material.dart';
 
 Widget blackAlertBox(BuildContext context, title, icon, onPressed) => Container(

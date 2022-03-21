@@ -62,6 +62,7 @@ Future<LanguageResponse?> getLanguage() async {
 
 Future<List<AllergenImageModel>?> getAllergenImages() async {
   final res = await API().getAllergensImages();
+  print(res);
   if (res != null) {
     LocalStoredAllergenImages().init(res);
   }
@@ -79,7 +80,7 @@ class MyApp extends HookWidget {
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        accentColor: primary(),
+        colorScheme: ThemeData().colorScheme.copyWith(secondary: primary()),
       ),
       home: DB().isLoggedIn() ? HomeTabs() : LoginPage(),
       locale: Locale(DB().getLanguageCode() ?? 'en'),

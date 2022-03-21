@@ -27,8 +27,6 @@ import 'package:fenix_user/screens/order_details/order_details_state.dart';
 import 'package:fenix_user/screens/order_details/order_details_state_notifier.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state.dart';
 import 'package:fenix_user/screens/order_in_processs/order_in_process_state_notifier.dart';
-import 'package:fenix_user/screens/payment/payment_screen_state.dart';
-import 'package:fenix_user/screens/payment/payment_screen_state_notifier.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs_state.dart';
 import 'package:fenix_user/screens/payment_in_processs/payment_in_processs_state_notifier.dart';
 import 'package:fenix_user/screens/product/product_details/product_details_notifier.dart';
