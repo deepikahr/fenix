@@ -79,24 +79,24 @@ Widget restaurantInfoCardGrid(
             ? networkImage(img, MediaQuery.of(context).size.width, 300, 2)
             : networkImageOverlay(MediaQuery.of(context).size.width, 300),
         Positioned(
-            left: 25,
-            right: 25,
-            bottom: 0,
-            child: Container(
-              // width: 120,
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: darkLight,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      topRight: Radius.circular(4))),
-              child: Text(
-                name!,
-                style: textDarkRegularBRW(context),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )),
+          left: 25,
+          right: 25,
+          bottom: 0,
+          child: Container(
+            // width: 120,
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: darkLight,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4), topRight: Radius.circular(4))),
+            child: Text(
+              name!,
+              style: textDarkRegularBRW(context),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -150,7 +150,7 @@ Widget dishesInfoCard(
                     children: [
                       Expanded(
                           child: titleTextDarkRegularBR(
-                              context, '${product.productName}')),
+                              context, '${product.productName ?? ''}')),
                     ],
                   ),
                   SizedBox(
@@ -256,7 +256,7 @@ Widget dishesInfoCard(
             height: 30,
             color: Colors.black45,
             child: Text(
-              '${product.variant!.sizeName}',
+              '${product.variant!.sizeName ?? ''}',
               style: textWhite3XSmallBM(context),
               textAlign: TextAlign.center,
             ),
@@ -351,7 +351,7 @@ Widget gridDishCard(
                               color: primary(),
                             ),
                             Text(
-                              '${product.tags!.first.title}',
+                              '${product.tags!.first.title ?? ''}',
                               style: textDarkRegularBSW(context),
                               textAlign: TextAlign.center,
                             ),
@@ -367,7 +367,7 @@ Widget gridDishCard(
                         height: 30,
                         color: Colors.black45,
                         child: Text(
-                          '${product.variant!.sizeName}',
+                          '${product.variant!.sizeName ?? ''}',
                           style: textWhite3XSmallBM(context),
                           textAlign: TextAlign.center,
                         ),

@@ -265,7 +265,12 @@ class API {
       bool autoErrorHandle = true}) async {
     return _api.getForArrayResponse(
       URL.CATEGORY,
-      reqModel: CategoryRequest(topCategory: type, page: page, limit: limit),
+      reqModel: CategoryRequest(
+        menuId: '${DB().getMenuId()}',
+        topCategory: type,
+        page: page,
+        limit: limit,
+      ),
       errorListener: errorListener,
       autoErrorHandle: autoErrorHandle,
       responseListener: responseListener,

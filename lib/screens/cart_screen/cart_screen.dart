@@ -209,8 +209,10 @@ class CartScreen extends HookWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(cart.products[i].productName ?? '',
-                    style: textBlackLargeBM20(context)),
+                Text(
+                  cart.products[i].productName ?? '',
+                  style: textBlackLargeBM20(context),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -218,7 +220,7 @@ class CartScreen extends HookWidget {
                       fit: FlexFit.tight,
                       flex: 14,
                       child: Text(
-                        "${cart.products[i].variant?.sizeName ?? ''} - ${cart.products[i].variant?.price ?? ''}${Constants.currency}",
+                        "${cart.products[i].variant?.sizeName ?? ''} ${cart.products[i].variant?.sizeName != null ? '-' : ''} ${cart.products[i].variant?.price ?? ''}${Constants.currency}",
                         style: textDarkLightSmallBR(context),
                       ),
                     ),
