@@ -29,14 +29,12 @@ class DrawerPage extends HookWidget {
 
     return Container(
       child: Drawer(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
         children: [
           Container(
             alignment: AlignmentDirectional.center,
             width: MediaQuery.of(context).size.width,
             height: 110,
-            margin: EdgeInsets.only(top: 16),
             padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
             decoration: new BoxDecoration(
                 color: secondary1,

@@ -15,6 +15,7 @@ class CategoryRequest with BaseModel<CategoryRequest>, _$CategoryRequest {
     @Default(10) int limit,
     int? page,
     CATEGORY_TYPE? topCategory,
+    String? menuId,
   }) = _CategoryRequest;
 
   factory CategoryRequest.fromJson(Map<String, dynamic> json) =>

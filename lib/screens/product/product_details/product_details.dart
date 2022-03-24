@@ -72,33 +72,38 @@ class ProductDetails extends HookWidget {
                               0),
                           if (state.productDetails?.tags?.isNotEmpty ?? false)
                             Positioned(
-                                top: 0,
-                                child: Stack(
-                                  alignment: AlignmentDirectional.center,
-                                  children: [
-                                    Image.asset(
-                                      'lib/assets/images/b2.png',
-                                      scale: 1,
-                                      color: primary(),
-                                    ),
-                                    Text(
-                                      '${state.productDetails!.tags!.first.title}',
-                                      style: textDarkRegularBSW(context),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                )),
-                          Positioned(
+                              top: 0,
+                              child: Stack(
+                                alignment: AlignmentDirectional.center,
+                                children: [
+                                  Image.asset(
+                                    'lib/assets/images/b2.png',
+                                    scale: 1,
+                                    color: primary(),
+                                  ),
+                                  Text(
+                                    '${state.productDetails!.tags!.first.title}',
+                                    style: textDarkRegularBSW(context),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (state.productDetails!.variants[state.groupValue]
+                                  .sizeName !=
+                              null)
+                            Positioned(
                               bottom: 0,
                               child: Container(
                                 color: darkLight,
                                 padding: EdgeInsets.all(4),
                                 child: Text(
-                                  '${state.productDetails!.variants[state.groupValue].sizeName}',
+                                  '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
                                   style: textDarkRegularBSW(context),
                                   textAlign: TextAlign.center,
                                 ),
-                              )),
+                              ),
+                            ),
                         ],
                       )
                     : Row(
@@ -122,15 +127,18 @@ class ProductDetails extends HookWidget {
                             ),
                           if (state.productDetails?.tags?.isEmpty ?? true)
                             const Spacer(),
-                          Container(
-                            color: darkLight,
-                            padding: EdgeInsets.all(4),
-                            child: Text(
-                              '${state.productDetails!.variants[state.groupValue].sizeName}',
-                              style: textDarkRegularBSW(context),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
+                          if (state.productDetails!.variants[state.groupValue]
+                                  .sizeName !=
+                              null)
+                            Container(
+                              color: darkLight,
+                              padding: EdgeInsets.all(4),
+                              child: Text(
+                                '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
+                                style: textDarkRegularBSW(context),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
                         ],
                       ),
               if (!state.isLoading && state.productDetails != null)
@@ -409,8 +417,9 @@ class ProductDetails extends HookWidget {
                 groupValue: groupValue,
                 title: Row(
                   children: [
-                    Text('${variants[i].sizeName} -  ',
-                        style: textDarkRegularBR(context)),
+                    if (variants[i].sizeName != null)
+                      Text('${variants[i].sizeName ?? ''} -  ',
+                          style: textDarkRegularBR(context)),
                     Text('${variants[i].price}${Constants.currency}',
                         style: textBlackLargeBM(context)),
                   ],
