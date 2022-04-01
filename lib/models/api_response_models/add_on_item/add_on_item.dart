@@ -17,6 +17,9 @@ class AddOnItem with BaseModel<AddOnItem>, _$AddOnItem {
     double? addOnItemPrice,
     @Default(1) int quantity,
     bool? selected,
+    String? imageId,
+    String? filePath,
+    String? imageUrl,
   }) = _AddOnItem;
 
   factory AddOnItem.fromJson(Map<String, dynamic> json) =>
