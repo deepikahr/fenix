@@ -156,6 +156,8 @@ flutter:
     - lib/assets/images/countertocheckout.png
     - lib/assets/images/counter.png
     - lib/assets/images/pickup.png
+    - lib/assets/images/no_images.png
+    
     - lib/assets/icons/close.png
     - lib/assets/icons/warning.png
     - lib/assets/icons/leftArrow.png
