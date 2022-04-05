@@ -29,9 +29,7 @@ class CartScreen extends HookWidget {
           await context.read(cartScreenProvider.notifier).updateGrandTotal();
         });
       }
-      for (var i = 0; i < (cart?.products.length ?? 0); i++) {
-        print(cart?.products[i].productInstructions);
-      }
+
       return;
     }, const []);
 
@@ -234,7 +232,8 @@ class CartScreen extends HookWidget {
                                 notifier.getLastOrderedQuantityOfProduct(
                                     cartProduct))
                               counterIcon(
-                                'remove',
+                                'REMOVE',
+                                true,
                                 () {
                                   context
                                       .read(cartScreenProvider.notifier)
@@ -248,7 +247,8 @@ class CartScreen extends HookWidget {
                                         ? Colors.amber
                                         : Colors.black)),
                             counterIcon(
-                              'add',
+                              'ADD',
+                              true,
                               () {
                                 context
                                     .read(cartScreenProvider.notifier)

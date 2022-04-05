@@ -23,7 +23,6 @@ class TipWaiter extends HookWidget {
   Widget build(BuildContext context) {
     final state = useProvider(tipWaiterProvider);
     final notifier = useProvider(tipWaiterProvider.notifier);
-    print(paymentType);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),
@@ -68,7 +67,6 @@ class TipWaiter extends HookWidget {
         : "${tipAmountList[index]} ${Constants.currency}";
     return InkWell(
       onTap: () async {
-        print(paymentType);
         double tipAmount = tipAmountList[index] is int
             ? double.parse('${tipAmountList[index]}')
             : tipAmountList[index];

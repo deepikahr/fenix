@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fenix_user/common/kios_mode_utils.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -151,10 +153,8 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
       SocketService().getSocket().clearListeners();
       var listenTo = URL.ORDER_MODIFIED_STATUS_REQUEST_EVENT
           .replaceAll('ORDER_ID', orderId);
-      print('socket order update url: $listenTo');
       SocketService().getSocket().clearListeners();
       SocketService().getSocket().on(listenTo, (data) async {
-        print('Update: $data');
         if (data != null) {
           request = UpdateOrderSocketResponse.fromJson(data);
           await cartState.updateCart(request.localCart);
@@ -193,8 +193,6 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
                   ),
                 );
               }
-              print('Printing Error: $e');
-
               customDialog(
                 title: 'CONNECT_ERROR_PRINTER'.tr,
                 okText: 'OK'.tr,
@@ -217,28 +215,26 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     for (var i = 0; i < someList.length; i++) {
       if (someList[i].action == ACTION_MODIFICATION.accept) {
         final products = someList[i].localCart?.products ?? [];
-        if (products.length > 0) {
-          print('-------------' + '${"MODIFICATION".tr} ${i + 1}');
-        }
+
         for (var i = 0; i < products.length; i++) {
           if (products[i].modified) {
             final productSize = products[i].variant?.sizeName;
-            print('-------------' +
+            log('-------------' +
                 '${(products[i].productName ?? '') + (productSize != null ? '[$productSize]' : '') + ' (${products[i].variantQuantity < 1 ? 'NEW' : 'QUANTITY'})'}' +
                 '  ${'${products[i].modifiedQuantity}'}');
 
             if (products[i].selectedAddOnItems.isNotEmpty) {
-              print('------------' + 'Extras:');
+              log('------------' + 'Extras:');
 
               for (var j = 0; j < products[i].selectedAddOnItems.length; j++) {
-                print(
+                log(
                   '------------ ${products[i].selectedAddOnItems[j].addOnItemName}(${products[i].selectedAddOnItems[j].quantity})',
                 );
               }
             }
             if (products[i].productInstructions != null &&
                 products[i].productInstructions!.isNotEmpty)
-              print(
+              log(
                 '-------------- ${'INSTRUCTIONS'.tr} -> ${products[i].productInstructions!}',
               );
           }
@@ -261,9 +257,7 @@ class OrderInProcessStateNotifier extends StateNotifier<OrderInProcessState> {
     if (userId != null) {
       var listenTo =
           URL.NOTIFI_WAITER_REQUEST_EVENT.replaceAll('USER_ID', userId);
-      print('socket url: $listenTo');
       SocketService().getSocket().on(listenTo, (data) async {
-        print('socket response $data');
         if (data != null) {
           customDialog(
             status: DIALOG_STATUS.SUCCESS,

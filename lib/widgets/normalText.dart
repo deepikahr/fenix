@@ -93,6 +93,10 @@ Widget titleTextDark17RegularBR(BuildContext context, title) {
   return Text(title, style: textDark17RegularBR(context));
 }
 
+Widget titleTextDark17RegularBRR(BuildContext context, title) {
+  return Text(title, style: textDark17RegularBRR(context));
+}
+
 Widget titleTextDarkLightXSmallBR(BuildContext context, String title) {
   return Text(title, style: textDarkLightXSmallBR(context));
 }

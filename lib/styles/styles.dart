@@ -411,6 +411,14 @@ TextStyle textDark17RegularBR(context) {
   );
 }
 
+TextStyle textDark17RegularBRR(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 19.0,
+    color: red,
+    fontFamily: 'BarlowMedium',
+  );
+}
 // ------------------------------------- barlow - regular --------------------------------
 
 TextStyle textDarkSmallBR(context) {

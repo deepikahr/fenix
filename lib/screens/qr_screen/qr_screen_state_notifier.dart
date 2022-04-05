@@ -45,7 +45,6 @@ class QRScreenStateNotifier extends StateNotifier<QRScreenState> {
       OrderDetailsResponse? order, HomeTabsNotifier notifier) async {
     checkPaymentStatusApi(paymentResponse, order, notifier);
     _timer = Timer.periodic(Duration(seconds: 5), (timer) async {
-      print('object ${_timer.isActive}');
       checkPaymentStatusApi(paymentResponse, order, notifier);
     });
   }
@@ -53,7 +52,6 @@ class QRScreenStateNotifier extends StateNotifier<QRScreenState> {
   checkPaymentStatusApi(PaymentResponse? paymentResponse,
       OrderDetailsResponse? order, HomeTabsNotifier notifier) async {
     final res = await api.paymentStatus(paymentResponse?.id);
-    print(res);
     if (res?.paymentStatus == PAYMENT_STATUS.completed) {
       if (order != null) {
         await cleanCart(notifier);
@@ -88,7 +86,6 @@ class QRScreenStateNotifier extends StateNotifier<QRScreenState> {
   }
 
   closeTimer() {
-    print('close');
     if (_timer.isActive) {
       _timer.cancel();
     }

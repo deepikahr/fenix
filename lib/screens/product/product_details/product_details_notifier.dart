@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:collection/collection.dart';
 import 'package:fenix_user/database/db.dart';
 import 'package:fenix_user/models/api_request_models/cart/cart.dart';
@@ -35,7 +38,7 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
   Future<ProductDetailsResponse?> fetchProductDetails(String productId) async {
     state = state.copyWith.call(isLoading: true);
     final res = await api.productDetails(productId);
-
+    log(jsonEncode(res));
     if (ref.mounted) {
       final groupValueIndex =
           res?.variants.indexWhere((v) => v.isDefaultVariant) ?? 0;
@@ -44,67 +47,6 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         productDetails: res,
         groupValue: groupValueIndex < 0 ? 0 : groupValueIndex,
       );
-
-      // state.productDetails!.addOnItems!.forEach((element) {
-      //   if (element.isRequired == true &&
-      //       element.selectionType == SELECTION_TYPE.single) {
-      //     final index = element.addOnItems.indexWhere(
-      //       (addOnItemsElement) => addOnItemsElement.selected == true,
-      //     );
-      //     if (index != -1) {
-      //       element = element.copyWith(selectionValue: index);
-      //       state.productDetails!.addOnItems![index] = element;
-      //       state = state.copyWith.call(
-      //         selectedAddOnItems: state.selectedAddOnItems
-      //           ?..add(
-      //             element.addOnItems[index],
-      //           ),
-      //       );
-      //     }
-      //   } else if (element.isRequired == true &&
-      //       element.selectionType == SELECTION_TYPE.multiple) {
-      //     element.addOnItems.forEach((addOn) {
-      //       if (addOn.selected == true) {
-      //         state = state.copyWith.call(
-      //           selectedAddOnItems: state.selectedAddOnItems
-      //             ?..add(
-      //               addOn,
-      //             ),
-      //         );
-      //       }
-      //     });
-      //   }
-      // });
-
-      for (var element in state.productDetails!.addOnItems ?? []) {
-        if (state.productDetails!.addOnItems!
-            .any((ele) => ele.isRequired == true)) {
-          element = element.copyWith(selectionValue: 0);
-          final index = state.productDetails!.addOnItems!.indexWhere(
-            (addOnItemsElement) =>
-                addOnItemsElement.addOnCategoryId == element.addOnCategoryId,
-          );
-          state.productDetails!.addOnItems![index] = element;
-          final indexSelectedTrue = state
-              .productDetails!.addOnItems![index].addOnItems
-              .indexWhere((element) => element.selected == true);
-          if (indexSelectedTrue != -1) {
-            state = state.copyWith.call(
-              selectedAddOnItems: state.selectedAddOnItems
-                ?..add(
-                  state.productDetails!.addOnItems![index]
-                      .addOnItems[indexSelectedTrue],
-                ),
-            );
-          }
-        }
-        state = state.copyWith.call(
-          productDetails: state.productDetails
-              ?.copyWith(addOnItems: state.productDetails!.addOnItems),
-        );
-      }
-
-      print(state.selectedAddOnItems);
 
       _updateProduct(
         cartProducts: cartState?.products ?? [],
@@ -191,13 +133,18 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
         );
       }
     }
-    print(state.selectedAddOnItems);
   }
 
   void removeAddOnItem(AddOnItem addOnItem) {
-    state = state.copyWith
-        .call(selectedAddOnItems: state.selectedAddOnItems?..remove(addOnItem));
-    print(state.selectedAddOnItems);
+    if (state.selectedAddOnItems!.isNotEmpty) {
+      for (var element in state.selectedAddOnItems!.toList()) {
+        if (element.id == addOnItem.id) {
+          state = state.copyWith.call(
+              selectedAddOnItems: state.selectedAddOnItems?..remove(element));
+        }
+      }
+    }
+
     _updateProduct();
   }
 
@@ -337,8 +284,6 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
           variants: product.variants,
         );
       }
-      print(
-          'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'} Variants: ${newProduct.variants}');
       if ((newProduct.modified &&
               (newProduct.modifiedQuantity ?? newProduct.variantQuantity) >
                   0) ||
@@ -442,7 +387,6 @@ class ProductDetailsNotifier extends StateNotifier<ProductDetailsState> {
                 : item.quantity >= 2
                     ? item.quantity - 1
                     : 1);
-
         selectedAddon[i] = newAddon;
         state = state.copyWith
             .call(selectedAddOnItems: selectedAddon.toSet() as Set<AddOnItem>);

@@ -152,8 +152,6 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
         newProduct = p.copyWith
             .call(variantQuantity: p.variantQuantity + (isIncreased ? 1 : -1));
       }
-      print(
-          'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'}');
       if ((newProduct.modified &&
               (newProduct.modifiedQuantity ?? newProduct.variantQuantity) >
                   0) ||
@@ -221,7 +219,6 @@ class ProductListNotifier extends StateNotifier<ProductListState> {
 
     state = state.copyWith.call(products: newProducts);
     if (productFirstTimeAdded) {
-      print('Product is added for first Time => $productFirstTimeAdded');
       showArrowTowardsCart();
     }
   }
