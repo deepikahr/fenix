@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
@@ -52,30 +53,30 @@ class ApiHelper {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          print('\n🎇🎇🎇 REQUEST 🎇🎇🎇');
-          print('🎇🎇🎇 url: ${options.uri}');
-          print('🎇🎇🎇 headers: ${options.headers}');
-          printWrapped('🎇🎇🎇 data: ${options.data}');
-          print('🎇🎇🎇 method: ${options.method}');
-          print('🎇🎇🎇 queryParameters: ${options.queryParameters}');
+          log('\n🎇🎇🎇 REQUEST 🎇🎇🎇');
+          log('🎇🎇🎇 url: ${options.uri}');
+          log('🎇🎇🎇 headers: ${options.headers}');
+          log('🎇🎇🎇 data: ${options.data}');
+          log('🎇🎇🎇 method: ${options.method}');
+          log('🎇🎇🎇 queryParameters: ${options.queryParameters}');
           handler.next(options);
         },
         onResponse: (res, handler) {
-          print('\n🎇🎇🎇 RESPONSE 🎇🎇🎇');
-          print('🎇🎇🎇 url: ${res.requestOptions.uri}');
-          print('🎇🎇🎇 status code: ${res.statusCode}');
-          printWrapped('🎇🎇🎇 response: ${res.data}');
+          log('\n🎇🎇🎇 RESPONSE 🎇🎇🎇');
+          log('🎇🎇🎇 url: ${res.requestOptions.uri}');
+          log('🎇🎇🎇 status code: ${res.statusCode}');
+          log('🎇🎇🎇 response: ${res.data}');
           handler.next(res);
         },
         onError: (e, handler) {
           if (e.response?.data != null) {
             final errorRes = ErrorResponse.fromJson(e.response?.data);
-            print('\n🎇🎇🎇 ERROR 🎇🎇🎇');
-            print('🎇🎇🎇 status code: ${e.response?.statusCode}');
-            print('🎇🎇🎇 error: $errorRes');
+            log('\n🎇🎇🎇 ERROR 🎇🎇🎇');
+            log('🎇🎇🎇 status code: ${e.response?.statusCode}');
+            log('🎇🎇🎇 error: $errorRes');
           } else {
-            print('\n🎇🎇🎇 ERROR 🎇🎇🎇');
-            print('🎇🎇🎇 error: ${e.toString()}');
+            log('\n🎇🎇🎇 ERROR 🎇🎇🎇');
+            log('🎇🎇🎇 error: ${e.toString()}');
           }
           handler.next(e);
         },

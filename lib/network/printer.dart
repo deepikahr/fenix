@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:esc_pos_printer/esc_pos_printer.dart';
@@ -509,7 +510,7 @@ class PrinterService {
     final ipAddress = ip ?? db.getPrinterIpAddress();
     final port = db.getPrinterPort() ?? 9100;
     if (ipAddress != null && ipAddress.isNotEmpty) {
-      print('IPAddress: $ipAddress, PORT: $port');
+      log('IPAddress: $ipAddress, PORT: $port');
       final PosPrintResult res = await _printer.connect(ipAddress, port: port);
       if (res == PosPrintResult.success) {
         if (type == PrinterRecieptType.CUSTOMER) {

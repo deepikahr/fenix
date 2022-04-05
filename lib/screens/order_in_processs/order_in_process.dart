@@ -22,7 +22,6 @@ class OrdersInProcess extends HookWidget {
     final isMounted = useIsMounted();
     useProvider(orderInProcess);
     useEffect(() {
-      print('Use Effect in OrderInProcess $title');
       if (isMounted()) {
         // if (shouldSendOrderToWaiterInKioskMode) {
         Future.delayed(Duration.zero, () async {

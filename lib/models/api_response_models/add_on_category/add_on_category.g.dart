@@ -20,6 +20,7 @@ _$_AddOnCategory _$_$_AddOnCategoryFromJson(Map<String, dynamic> json) {
             .toList() ??
         [],
     selectionValue: json['selectionValue'] as int?,
+    limitNumber: json['limitNumber'] as int?,
   );
 }
 
@@ -33,6 +34,7 @@ Map<String, dynamic> _$_$_AddOnCategoryToJson(_$_AddOnCategory instance) =>
       'required': instance.isRequired,
       'addOnItems': instance.addOnItems,
       'selectionValue': instance.selectionValue,
+      'limitNumber': instance.limitNumber,
     };
 
 K _$enumDecode<K, V>(

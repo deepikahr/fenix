@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:fenix_user/common/allergen_images.dart';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
@@ -22,6 +22,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
+import '../../../widgets/alertBox.dart';
 import 'product_details_state.dart';
 
 // ignore: must_be_immutable
@@ -169,8 +170,6 @@ class ProductDetails extends HookWidget {
     ProductDetailsNotifier notifier,
     FocusNode noteFocusNode,
   ) {
-    print(
-        'details shown product: ${product.modified}  ${product.variantQuantity}  ${product.modifiedQuantity}  ${product.variants}');
     return StickyHeader(
       header: Column(
         children: [
@@ -210,50 +209,26 @@ class ProductDetails extends HookWidget {
                                   notifier
                                       .getLastOrderedQuantityOfProduct(product))
                                 counterIcon(
-                                  'remove',
+                                  'REMOVE',
+                                  true,
                                   () {
-                                    // if (product.isSameProductMultipleTime ==
-                                    //     true) {
-                                    //   showDialog(
-                                    //       context: context,
-                                    //       builder: (context) =>
-                                    //           showMultipleTimeProductPopUp(
-                                    //             context,
-                                    //           ));
-                                    // } else {
                                     notifier.addProduct(
                                       product,
                                       false,
                                     );
-                                    // }
                                   },
                                 ),
                               Text(
                                   '${product.modified ? product.modifiedQuantity ?? product.variantQuantity : product.variantQuantity}',
                                   style: textBlackLargeBM(context)),
                               counterIcon(
-                                'add',
+                                'ADD',
+                                true,
                                 () async {
-                                  // if (product.isCustomizable) {
-                                  //   await showDialog(
-                                  //       context: context,
-                                  //       builder: (context) => showPopUp(
-                                  //             context,
-                                  //             product,
-                                  //             () async {
-                                  //               Get.back();
-                                  //               await notifier.addProduct(
-                                  //                 product,
-                                  //                 true,
-                                  //               );
-                                  //             },
-                                  //           ));
-                                  // } else {
                                   await notifier.addProduct(
                                     product,
                                     true,
                                   );
-                                  // }
                                 },
                               ),
                             ],
@@ -270,10 +245,51 @@ class ProductDetails extends HookWidget {
                                 context
                                     .read(productDetailsProvider.notifier)
                                     .showAddButton(true);
-                                await notifier.addProduct(
-                                  product,
-                                  true,
-                                );
+                                if (state.productDetails != null &&
+                                    state.productDetails!.addOnItems!
+                                        .isNotEmpty) {
+                                  bool isadd = false;
+                                  for (var element
+                                      in state.productDetails!.addOnItems!) {
+                                    log('${element.id} ${element.addOnCategoryName} ${element.isRequired}');
+                                    if (element.isRequired == true) {
+                                      final checkAddOnIem = state
+                                          .selectedAddOnItems
+                                          ?.toList()
+                                          .any((addOn) =>
+                                              element.addOnCategoryId ==
+                                              addOn.addOnCategoryId);
+                                      print(checkAddOnIem);
+                                      if (checkAddOnIem == false) {
+                                        isadd = false;
+                                        customDialog(
+                                          status: DIALOG_STATUS.WARNING,
+                                          title: 'SELECT_EXTRA_FIRST'
+                                              .tr
+                                              .replaceAll(
+                                                'EXTRA',
+                                                '${element.addOnCategoryName}',
+                                              ),
+                                        );
+                                        break;
+                                      } else {
+                                        isadd = true;
+                                      }
+                                    }
+                                  }
+                                  print(isadd);
+                                  if (isadd == true) {
+                                    await notifier.addProduct(
+                                      product,
+                                      true,
+                                    );
+                                  }
+                                } else {
+                                  await notifier.addProduct(
+                                    product,
+                                    true,
+                                  );
+                                }
                               },
                               color: primary(),
                               text: 'ADD'.tr,
@@ -297,6 +313,7 @@ class ProductDetails extends HookWidget {
           if (product.allergens.isNotEmpty)
             allergenList(context, product.allergens),
           sizeBlock(context, state.groupValue, product.variants, state),
+          dottedLine(context, darkLight3.withOpacity(0.2), 12),
           optionBlockExtra(state.productDetails?.addOnItems ?? [],
               state.selectedAddOnItems, state),
           SizedBox(
@@ -452,11 +469,27 @@ class ProductDetails extends HookWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                titleTextDark17RegularBR(
-                  context,
-                  addOnCategory[index].addOnCategoryName,
+                RichText(
+                  text: TextSpan(
+                    text: '${addOnCategory[index].addOnCategoryName} ' +
+                        '${addOnCategory[index].limitNumber != null ? '(${'NOTE_MAX_SELECT'.tr.replaceAll('QUANTITY', '${addOnCategory[index].limitNumber}')})' : ''}',
+                    style: textDark17RegularBR(context),
+                    children: <TextSpan>[
+                      if (addOnCategory[index].isRequired == true)
+                        TextSpan(
+                            text: ' * ', style: textDark17RegularBRR(context)),
+                    ],
+                  ),
                 ),
-                ListView.builder(
+                SizedBox(
+                  height: 10,
+                ),
+                ListView.separated(
+                    separatorBuilder: (__, _) {
+                      return SizedBox(
+                        height: 5,
+                      );
+                    },
                     physics: ScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -465,19 +498,19 @@ class ProductDetails extends HookWidget {
                       return Row(
                         children: [
                           Container(
-                            width: 35,
-                            height: 35,
+                            width: 70,
+                            height: 70,
                             decoration: BoxDecoration(
                               border:
                                   Border.all(color: blackN.withOpacity(0.60)),
                             ),
                             child: (addOnItems[i].imageUrl != null)
                                 ? networkImageWithWidth(
-                                    addOnItems[i].imageUrl!, 35, 35)
+                                    addOnItems[i].imageUrl!, 70, 70)
                                 : Image.asset(
                                     'lib/assets/images/no_images.png',
-                                    width: 35,
-                                    height: 35,
+                                    width: 70,
+                                    height: 70,
                                   ),
                           ),
                           Expanded(
@@ -540,7 +573,8 @@ class ProductDetails extends HookWidget {
                                                             .spaceBetween,
                                                     children: [
                                                       counterIcon(
-                                                        'remove',
+                                                        'REMOVE',
+                                                        true,
                                                         () {
                                                           context
                                                               .read(
@@ -569,15 +603,46 @@ class ProductDetails extends HookWidget {
                                                               textBlackLargeBM(
                                                                   context)),
                                                       counterIcon(
-                                                        'add',
+                                                        'ADD',
+                                                        selectedAddOnItems.map(
+                                                                  (e) {
+                                                                    return (e.addOnCategoryId ==
+                                                                            addOnCategory[index].addOnCategoryId)
+                                                                        ? e.quantity
+                                                                        : 0;
+                                                                  },
+                                                                ).reduce((_,
+                                                                        __) =>
+                                                                    _ + __) !=
+                                                                addOnCategory[
+                                                                        index]
+                                                                    .limitNumber
+                                                            ? true
+                                                            : false,
                                                         () async {
-                                                          context
-                                                              .read(
-                                                                  productDetailsProvider
-                                                                      .notifier)
-                                                              .updateAddonItemQuantity(
-                                                                  addOnItems[i],
-                                                                  true);
+                                                          if (selectedAddOnItems
+                                                                  .map(
+                                                                (e) {
+                                                                  return (e.addOnCategoryId ==
+                                                                          addOnCategory[index]
+                                                                              .addOnCategoryId)
+                                                                      ? e.quantity
+                                                                      : 0;
+                                                                },
+                                                              ).reduce((_,
+                                                                          __) =>
+                                                                      _ + __) !=
+                                                              addOnCategory[
+                                                                      index]
+                                                                  .limitNumber) {
+                                                            context
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .updateAddonItemQuantity(
+                                                                    addOnItems[
+                                                                        i],
+                                                                    true);
+                                                          }
                                                         },
                                                       ),
                                                     ],
@@ -602,12 +667,37 @@ class ProductDetails extends HookWidget {
                                               null,
                                           onChanged: (value) {
                                             if (value!) {
-                                              context
-                                                  .read(productDetailsProvider
-                                                      .notifier)
-                                                  .addSelectedAddOnItem(
-                                                      addOnItems[i],
-                                                      addOnCategory[index]);
+                                              if (selectedAddOnItems
+                                                  .isNotEmpty) {
+                                                if (selectedAddOnItems.map(
+                                                      (e) {
+                                                        return (e.addOnCategoryId ==
+                                                                addOnCategory[
+                                                                        index]
+                                                                    .addOnCategoryId)
+                                                            ? e.quantity
+                                                            : 0;
+                                                      },
+                                                    ).reduce(
+                                                        (_, __) => _ + __) !=
+                                                    addOnCategory[index]
+                                                        .limitNumber) {
+                                                  context
+                                                      .read(
+                                                          productDetailsProvider
+                                                              .notifier)
+                                                      .addSelectedAddOnItem(
+                                                          addOnItems[i],
+                                                          addOnCategory[index]);
+                                                }
+                                              } else {
+                                                context
+                                                    .read(productDetailsProvider
+                                                        .notifier)
+                                                    .addSelectedAddOnItem(
+                                                        addOnItems[i],
+                                                        addOnCategory[index]);
+                                              }
                                             } else {
                                               context
                                                   .read(productDetailsProvider
@@ -650,7 +740,8 @@ class ProductDetails extends HookWidget {
                                                             .spaceBetween,
                                                     children: [
                                                       counterIcon(
-                                                        'remove',
+                                                        'REMOVE',
+                                                        true,
                                                         () {
                                                           context
                                                               .read(
@@ -679,15 +770,46 @@ class ProductDetails extends HookWidget {
                                                               textBlackLargeBM(
                                                                   context)),
                                                       counterIcon(
-                                                        'add',
+                                                        'ADD',
+                                                        selectedAddOnItems.map(
+                                                                  (e) {
+                                                                    return (e.addOnCategoryId ==
+                                                                            addOnCategory[index].addOnCategoryId)
+                                                                        ? e.quantity
+                                                                        : 0;
+                                                                  },
+                                                                ).reduce((_,
+                                                                        __) =>
+                                                                    _ + __) !=
+                                                                addOnCategory[
+                                                                        index]
+                                                                    .limitNumber
+                                                            ? true
+                                                            : false,
                                                         () async {
-                                                          context
-                                                              .read(
-                                                                  productDetailsProvider
-                                                                      .notifier)
-                                                              .updateAddonItemQuantity(
-                                                                  addOnItems[i],
-                                                                  true);
+                                                          if (selectedAddOnItems
+                                                                  .map(
+                                                                (e) {
+                                                                  return (e.addOnCategoryId ==
+                                                                          addOnCategory[index]
+                                                                              .addOnCategoryId)
+                                                                      ? e.quantity
+                                                                      : 0;
+                                                                },
+                                                              ).reduce((_,
+                                                                          __) =>
+                                                                      _ + __) !=
+                                                              addOnCategory[
+                                                                      index]
+                                                                  .limitNumber) {
+                                                            context
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .updateAddonItemQuantity(
+                                                                    addOnItems[
+                                                                        i],
+                                                                    true);
+                                                          }
                                                         },
                                                       ),
                                                     ],
@@ -712,12 +834,33 @@ class ProductDetails extends HookWidget {
                                           null,
                                       onChanged: (value) {
                                         if (value!) {
-                                          context
-                                              .read(productDetailsProvider
-                                                  .notifier)
-                                              .addSelectedAddOnItem(
-                                                  addOnItems[i],
-                                                  addOnCategory[index]);
+                                          if (selectedAddOnItems.isNotEmpty) {
+                                            if (selectedAddOnItems.map(
+                                                  (e) {
+                                                    return (e.addOnCategoryId ==
+                                                            addOnCategory[index]
+                                                                .addOnCategoryId)
+                                                        ? e.quantity
+                                                        : 0;
+                                                  },
+                                                ).reduce((_, __) => _ + __) !=
+                                                addOnCategory[index]
+                                                    .limitNumber) {
+                                              context
+                                                  .read(productDetailsProvider
+                                                      .notifier)
+                                                  .addSelectedAddOnItem(
+                                                      addOnItems[i],
+                                                      addOnCategory[index]);
+                                            }
+                                          } else {
+                                            context
+                                                .read(productDetailsProvider
+                                                    .notifier)
+                                                .addSelectedAddOnItem(
+                                                    addOnItems[i],
+                                                    addOnCategory[index]);
+                                          }
                                         } else {
                                           context
                                               .read(productDetailsProvider
@@ -758,7 +901,8 @@ class ProductDetails extends HookWidget {
                                                         .spaceBetween,
                                                 children: [
                                                   counterIcon(
-                                                    'remove',
+                                                    'REMOVE',
+                                                    true,
                                                     () {
                                                       context
                                                           .read(
@@ -784,15 +928,44 @@ class ProductDetails extends HookWidget {
                                                       style: textBlackLargeBM(
                                                           context)),
                                                   counterIcon(
-                                                    'add',
+                                                    'ADD',
+                                                    selectedAddOnItems.map(
+                                                              (e) {
+                                                                return (e.addOnCategoryId ==
+                                                                        addOnCategory[index]
+                                                                            .addOnCategoryId)
+                                                                    ? e.quantity
+                                                                    : 0;
+                                                              },
+                                                            ).reduce((_, __) =>
+                                                                _ + __) !=
+                                                            addOnCategory[index]
+                                                                .limitNumber
+                                                        ? true
+                                                        : false,
                                                     () async {
-                                                      context
-                                                          .read(
-                                                              productDetailsProvider
-                                                                  .notifier)
-                                                          .updateAddonItemQuantity(
-                                                              addOnItems[i],
-                                                              true);
+                                                      if (selectedAddOnItems
+                                                              .map(
+                                                            (e) {
+                                                              return (e.addOnCategoryId ==
+                                                                      addOnCategory[
+                                                                              index]
+                                                                          .addOnCategoryId)
+                                                                  ? e.quantity
+                                                                  : 0;
+                                                            },
+                                                          ).reduce((_, __) =>
+                                                                  _ + __) !=
+                                                          addOnCategory[index]
+                                                              .limitNumber) {
+                                                        context
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .updateAddonItemQuantity(
+                                                                addOnItems[i],
+                                                                true);
+                                                      }
                                                     },
                                                   ),
                                                 ],

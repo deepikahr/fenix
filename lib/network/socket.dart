@@ -25,14 +25,14 @@ class SocketService {
 
   socketInitialize() {
     socket.on('connect', (_) {
-      print('Finex User Socket Connected to ${Constants.apiUrl}');
+      log('Finex User Socket Connected to ${Constants.apiUrl}');
     });
   }
 
   socketDisconnect() {
     socket.on('disconnect', (_) {
       socket.clearListeners();
-      print('Finex User Socket Disconnected');
+      log('Finex User Socket Disconnected');
     });
   }
 }

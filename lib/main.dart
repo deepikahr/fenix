@@ -62,7 +62,6 @@ Future<LanguageResponse?> getLanguage() async {
 
 Future<List<AllergenImageModel>?> getAllergenImages() async {
   final res = await API().getAllergensImages();
-  print(res);
   if (res != null) {
     LocalStoredAllergenImages().init(res);
   }

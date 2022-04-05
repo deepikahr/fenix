@@ -28,7 +28,8 @@ class _$AddOnCategoryTearOff {
       bool? allItemSelected,
       @JsonKey(name: 'required') bool? isRequired,
       List<AddOnItem> addOnItems = const [],
-      int? selectionValue}) {
+      int? selectionValue,
+      int? limitNumber}) {
     return _AddOnCategory(
       id: id,
       addOnCategoryId: addOnCategoryId,
@@ -38,6 +39,7 @@ class _$AddOnCategoryTearOff {
       isRequired: isRequired,
       addOnItems: addOnItems,
       selectionValue: selectionValue,
+      limitNumber: limitNumber,
     );
   }
 
@@ -61,6 +63,7 @@ mixin _$AddOnCategory {
   bool? get isRequired => throw _privateConstructorUsedError;
   List<AddOnItem> get addOnItems => throw _privateConstructorUsedError;
   int? get selectionValue => throw _privateConstructorUsedError;
+  int? get limitNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -81,7 +84,8 @@ abstract class $AddOnCategoryCopyWith<$Res> {
       bool? allItemSelected,
       @JsonKey(name: 'required') bool? isRequired,
       List<AddOnItem> addOnItems,
-      int? selectionValue});
+      int? selectionValue,
+      int? limitNumber});
 }
 
 /// @nodoc
@@ -103,6 +107,7 @@ class _$AddOnCategoryCopyWithImpl<$Res>
     Object? isRequired = freezed,
     Object? addOnItems = freezed,
     Object? selectionValue = freezed,
+    Object? limitNumber = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -137,6 +142,10 @@ class _$AddOnCategoryCopyWithImpl<$Res>
           ? _value.selectionValue
           : selectionValue // ignore: cast_nullable_to_non_nullable
               as int?,
+      limitNumber: limitNumber == freezed
+          ? _value.limitNumber
+          : limitNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -156,7 +165,8 @@ abstract class _$AddOnCategoryCopyWith<$Res>
       bool? allItemSelected,
       @JsonKey(name: 'required') bool? isRequired,
       List<AddOnItem> addOnItems,
-      int? selectionValue});
+      int? selectionValue,
+      int? limitNumber});
 }
 
 /// @nodoc
@@ -180,6 +190,7 @@ class __$AddOnCategoryCopyWithImpl<$Res>
     Object? isRequired = freezed,
     Object? addOnItems = freezed,
     Object? selectionValue = freezed,
+    Object? limitNumber = freezed,
   }) {
     return _then(_AddOnCategory(
       id: id == freezed
@@ -214,6 +225,10 @@ class __$AddOnCategoryCopyWithImpl<$Res>
           ? _value.selectionValue
           : selectionValue // ignore: cast_nullable_to_non_nullable
               as int?,
+      limitNumber: limitNumber == freezed
+          ? _value.limitNumber
+          : limitNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -229,7 +244,8 @@ class _$_AddOnCategory extends _AddOnCategory {
       this.allItemSelected,
       @JsonKey(name: 'required') this.isRequired,
       this.addOnItems = const [],
-      this.selectionValue})
+      this.selectionValue,
+      this.limitNumber})
       : super._();
 
   factory _$_AddOnCategory.fromJson(Map<String, dynamic> json) =>
@@ -254,10 +270,12 @@ class _$_AddOnCategory extends _AddOnCategory {
   final List<AddOnItem> addOnItems;
   @override
   final int? selectionValue;
+  @override
+  final int? limitNumber;
 
   @override
   String toString() {
-    return 'AddOnCategory(id: $id, addOnCategoryId: $addOnCategoryId, addOnCategoryName: $addOnCategoryName, selectionType: $selectionType, allItemSelected: $allItemSelected, isRequired: $isRequired, addOnItems: $addOnItems, selectionValue: $selectionValue)';
+    return 'AddOnCategory(id: $id, addOnCategoryId: $addOnCategoryId, addOnCategoryName: $addOnCategoryName, selectionType: $selectionType, allItemSelected: $allItemSelected, isRequired: $isRequired, addOnItems: $addOnItems, selectionValue: $selectionValue, limitNumber: $limitNumber)';
   }
 
   @override
@@ -286,7 +304,10 @@ class _$_AddOnCategory extends _AddOnCategory {
                     .equals(other.addOnItems, addOnItems)) &&
             (identical(other.selectionValue, selectionValue) ||
                 const DeepCollectionEquality()
-                    .equals(other.selectionValue, selectionValue)));
+                    .equals(other.selectionValue, selectionValue)) &&
+            (identical(other.limitNumber, limitNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.limitNumber, limitNumber)));
   }
 
   @override
@@ -299,7 +320,8 @@ class _$_AddOnCategory extends _AddOnCategory {
       const DeepCollectionEquality().hash(allItemSelected) ^
       const DeepCollectionEquality().hash(isRequired) ^
       const DeepCollectionEquality().hash(addOnItems) ^
-      const DeepCollectionEquality().hash(selectionValue);
+      const DeepCollectionEquality().hash(selectionValue) ^
+      const DeepCollectionEquality().hash(limitNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -321,7 +343,8 @@ abstract class _AddOnCategory extends AddOnCategory {
       bool? allItemSelected,
       @JsonKey(name: 'required') bool? isRequired,
       List<AddOnItem> addOnItems,
-      int? selectionValue}) = _$_AddOnCategory;
+      int? selectionValue,
+      int? limitNumber}) = _$_AddOnCategory;
   const _AddOnCategory._() : super._();
 
   factory _AddOnCategory.fromJson(Map<String, dynamic> json) =
@@ -345,6 +368,8 @@ abstract class _AddOnCategory extends AddOnCategory {
   List<AddOnItem> get addOnItems => throw _privateConstructorUsedError;
   @override
   int? get selectionValue => throw _privateConstructorUsedError;
+  @override
+  int? get limitNumber => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AddOnCategoryCopyWith<_AddOnCategory> get copyWith =>

@@ -75,7 +75,6 @@ class HomeTabsNotifier extends StateNotifier<HomeTabsState> {
   }
 
   void onSelectLanguage(String language) {
-    print('selected Language --> $language');
     final languageModel = state.languages
         .singleWhere((element) => element.languageName == language);
     state = state.copyWith(selectedLanguage: language);

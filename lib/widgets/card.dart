@@ -204,11 +204,11 @@ Widget dishesInfoCard(
                                   maintainSize: true,
                                   maintainState: true,
                                   maintainAnimation: true,
-                                  child: counterIcon('remove', onRemove),
+                                  child: counterIcon('REMOVE', true, onRemove),
                                 ),
                                 Text(product.totalQuantity.toString(),
                                     style: textBlackLargeBM(context)),
-                                counterIcon('add', onUpdate),
+                                counterIcon('ADD', true, onUpdate),
                               ],
                             )
                           : Padding(
@@ -469,10 +469,11 @@ Widget gridDishCard(
                                       maintainSize: true,
                                       maintainState: true,
                                       maintainAnimation: true,
-                                      child: counterIcon('remove', onRemove)),
+                                      child: counterIcon(
+                                          'REMOVE', true, onRemove)),
                                   Text(product.totalQuantity.toString(),
                                       style: textBlackLargeBM(context)),
-                                  counterIcon('add', onUpdate),
+                                  counterIcon('ADD', true, onUpdate),
                                 ],
                               ),
                             )
