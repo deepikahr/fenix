@@ -71,7 +71,9 @@ class Localization extends Translations {
           "NEW": "New",
           "NFC": "Pay here, in pilarbox",
           "NO": "No",
-          "NOTE_MAX_SELECT": "Note: Max select QUANTITY quantity",
+          "NOTE_SELECT": "Note: You must select NUMBER extras",
+          "NOTE_SELECT_DAILOG":
+              "You must select NUMBER extras from CATEGORY_NAME",
           "NOTICE_TO_THE_WAITER": "Notify to the waiter",
           "NO_ITEMS": "No items",
           "NO_ORDER_PLACED": "No Order Placed yet",
@@ -223,7 +225,9 @@ class Localization extends Translations {
           "NEW": "Nuevo",
           "NFC": "Pagar aquí en Pilarbox",
           "NO": "No",
-          "NOTE_MAX_SELECT": "Nota: selección máxima QUANTITY Cantidad",
+          "NOTE_SELECT": "Nota: Debes seleccionar NUMBER extras",
+          "NOTE_SELECT_DAILOG":
+              "Debes seleccionar NUMBER extras de CATEGORY_NAME",
           "NOTICE_TO_THE_WAITER": "Notificar al camarero",
           "NO_ITEMS": "No hay artículos",
           "NO_ORDER_PLACED": "Aún no se ha realizado ningún pedido",
