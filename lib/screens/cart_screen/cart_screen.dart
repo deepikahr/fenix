@@ -293,7 +293,7 @@ class CartScreen extends HookWidget {
                       return Padding(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
                         child: Text(
-                          "${cartProduct.selectedAddOnItems[i].addOnItemName ?? ''} x ${cartProduct.selectedAddOnItems[i].quantity} - ${(cartProduct.selectedAddOnItems[i].quantity) * (cartProduct.selectedAddOnItems[i].addOnItemPrice ?? 0)}${Constants.currency}",
+                          "${cartProduct.selectedAddOnItems[i].addOnItemName ?? ''} x ${cartProduct.selectedAddOnItems[i].quantity} - ${((cartProduct.selectedAddOnItems[i].quantity) * (cartProduct.selectedAddOnItems[i].addOnItemPrice ?? 0)).toStringAsFixed(2)}${Constants.currency}",
                           style: textDarkLightSmallBR(context),
                         ),
                       );

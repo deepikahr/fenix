@@ -80,7 +80,6 @@ class TipWaiter extends HookWidget {
           index,
         );
         if (res != null) {
-          log('message--${res}');
           if (paymentType == 'PAY_WITH_QR') {
             context
                 .read(homeTabsProvider.notifier)

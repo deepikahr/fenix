@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:fenix_user/common/allergen_images.dart';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
@@ -251,23 +250,32 @@ class ProductDetails extends HookWidget {
                                   bool isadd = false;
                                   for (var element
                                       in state.productDetails!.addOnItems!) {
-                                    log('${element.id} ${element.addOnCategoryName} ${element.isRequired}');
                                     if (element.isRequired == true) {
-                                      final checkAddOnIem = state
-                                          .selectedAddOnItems
-                                          ?.toList()
-                                          .any((addOn) =>
-                                              element.addOnCategoryId ==
-                                              addOn.addOnCategoryId);
-                                      print(checkAddOnIem);
-                                      if (checkAddOnIem == false) {
+                                      final totalPreviousQuantity =
+                                          state.selectedAddOnItems!.isNotEmpty
+                                              ? state.selectedAddOnItems
+                                                  ?.toList()
+                                                  .map((cp) =>
+                                                      element.addOnCategoryId ==
+                                                              cp.addOnCategoryId
+                                                          ? cp.quantity
+                                                          : 0)
+                                                  .reduce((_, __) => _ + __)
+                                              : 0;
+
+                                      if (totalPreviousQuantity !=
+                                          element.limitNumber) {
                                         isadd = false;
                                         customDialog(
                                           status: DIALOG_STATUS.WARNING,
-                                          title: 'SELECT_EXTRA_FIRST'
+                                          title: 'NOTE_SELECT_DAILOG'
                                               .tr
                                               .replaceAll(
-                                                'EXTRA',
+                                                'NUMBER',
+                                                '${element.limitNumber}',
+                                              )
+                                              .replaceAll(
+                                                'CATEGORY_NAME',
                                                 '${element.addOnCategoryName}',
                                               ),
                                         );
@@ -472,7 +480,7 @@ class ProductDetails extends HookWidget {
                 RichText(
                   text: TextSpan(
                     text: '${addOnCategory[index].addOnCategoryName} ' +
-                        '${addOnCategory[index].limitNumber != null ? '(${'NOTE_MAX_SELECT'.tr.replaceAll('QUANTITY', '${addOnCategory[index].limitNumber}')})' : ''}',
+                        '${addOnCategory[index].limitNumber != null && addOnCategory[index].isRequired == true ? '(${'NOTE_SELECT'.tr.replaceAll('NUMBER', '${addOnCategory[index].limitNumber}')})' : ''}',
                     style: textDark17RegularBR(context),
                     children: <TextSpan>[
                       if (addOnCategory[index].isRequired == true)

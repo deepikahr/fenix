@@ -76,7 +76,6 @@ void handleScrollWithIndex(int index, int pageNumber, Function listener,
   final requestMoreData = itemPosition % pageLimit == 0 && itemPosition != 0;
   final pageToRequest = itemPosition ~/ pageLimit;
   if (requestMoreData && pageToRequest + 1 >= pageNumber) {
-    log('Handling Scroll index: ${index + 1}, shouldRequestData: $requestMoreData, pageNumber: $pageNumber ');
     listener();
   }
 }
