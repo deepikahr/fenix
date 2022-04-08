@@ -212,7 +212,6 @@ class ProductDetails extends HookWidget {
                   child: GFButton(
                     elevation: 3,
                     size: 50,
-                    borderSide: BorderSide(color: Colors.white, width: 3),
                     borderShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -255,6 +254,8 @@ class ProductDetails extends HookWidget {
                             } else {
                               isadd = true;
                             }
+                          } else {
+                            isadd = true;
                           }
                         }
                         print(isadd);
