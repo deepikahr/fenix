@@ -206,16 +206,21 @@ Widget buildCenterIcon(BuildContext context, Cart? cart, onTap) {
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            GFAvatar(
-              // onPressed: onTap,
-              backgroundColor: primary(),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Image.asset(
-                  'lib/assets/images/pedir.png',
-                  width: 120,
-                  height: 120,
-                  alignment: Alignment.center,
+            Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2)),
+              child: GFAvatar(
+                // onPressed: onTap,
+                backgroundColor: primary(),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Image.asset(
+                    'lib/assets/images/pedir.png',
+                    width: 120,
+                    height: 120,
+                    alignment: Alignment.center,
+                  ),
                 ),
               ),
             ),

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fenix_user/common/utils.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 Widget networkImage(String url, double width, double height, double radius) {
@@ -51,6 +50,25 @@ Widget networkImageOverlay(
               Colors.black.withOpacity(0.9), BlendMode.darken),
           image: AssetImage(
             'lib/assets/images/refer.png',
+          )),
+    ),
+  );
+}
+
+Widget assetsProductImage(
+  double width,
+  double height,
+) {
+  return Container(
+    width: width,
+    height: height,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+          fit: BoxFit.cover,
+          // colorFilter: new ColorFilter.mode(
+          //     Colors.black.withOpacity(0.9), BlendMode.darken),
+          image: AssetImage(
+            'lib/assets/logo.png',
           )),
     ),
   );

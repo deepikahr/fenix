@@ -11,13 +11,10 @@ import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/buttons.dart';
 import 'package:fenix_user/widgets/counterBox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'cart_screen_notifier.dart';
 
 class CartScreen extends HookWidget {
   @override
@@ -32,9 +29,7 @@ class CartScreen extends HookWidget {
           await context.read(cartScreenProvider.notifier).updateGrandTotal();
         });
       }
-      for (var i = 0; i < (cart?.products.length ?? 0); i++) {
-        print(cart?.products[i].productInstructions);
-      }
+
       return;
     }, const []);
 
@@ -212,8 +207,10 @@ class CartScreen extends HookWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(cart.products[i].productName ?? '',
-                    style: textBlackLargeBM20(context)),
+                Text(
+                  cart.products[i].productName ?? '',
+                  style: textBlackLargeBM20(context),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -221,7 +218,7 @@ class CartScreen extends HookWidget {
                       fit: FlexFit.tight,
                       flex: 14,
                       child: Text(
-                        "${cart.products[i].variant?.sizeName ?? ''} - ${cart.products[i].variant?.price ?? ''}${Constants.currency}",
+                        "${cart.products[i].variant?.sizeName ?? ''} ${cart.products[i].variant?.sizeName != null ? '-' : ''} ${cart.products[i].variant?.price ?? ''}${Constants.currency}",
                         style: textDarkLightSmallBR(context),
                       ),
                     ),
@@ -235,7 +232,8 @@ class CartScreen extends HookWidget {
                                 notifier.getLastOrderedQuantityOfProduct(
                                     cartProduct))
                               counterIcon(
-                                'remove',
+                                'REMOVE',
+                                true,
                                 () {
                                   context
                                       .read(cartScreenProvider.notifier)
@@ -249,7 +247,8 @@ class CartScreen extends HookWidget {
                                         ? Colors.amber
                                         : Colors.black)),
                             counterIcon(
-                              'add',
+                              'ADD',
+                              true,
                               () {
                                 context
                                     .read(cartScreenProvider.notifier)
@@ -294,7 +293,7 @@ class CartScreen extends HookWidget {
                       return Padding(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
                         child: Text(
-                          "${cartProduct.selectedAddOnItems[i].addOnItemName ?? ''} x ${cartProduct.selectedAddOnItems[i].quantity} - ${(cartProduct.selectedAddOnItems[i].quantity) * (cartProduct.selectedAddOnItems[i].addOnItemPrice ?? 0)}${Constants.currency}",
+                          "${cartProduct.selectedAddOnItems[i].addOnItemName ?? ''} x ${cartProduct.selectedAddOnItems[i].quantity} - ${((cartProduct.selectedAddOnItems[i].quantity) * (cartProduct.selectedAddOnItems[i].addOnItemPrice ?? 0)).toStringAsFixed(2)}${Constants.currency}",
                           style: textDarkLightSmallBR(context),
                         ),
                       );

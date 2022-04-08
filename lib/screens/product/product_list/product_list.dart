@@ -200,7 +200,6 @@ class ProductList extends HookWidget {
               notifier.fetchProductData(categoryId);
             }
           });
-          log('index: $index', name: 'GRID');
           return InkWell(
             onTap: () {
               context

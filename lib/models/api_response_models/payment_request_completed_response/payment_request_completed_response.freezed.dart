@@ -27,7 +27,7 @@ class _$PaymentRequestCompletedResponseTearOff {
       PAYMENT_STATUS? paymentStatus,
       String? message,
       String? orderId,
-      PAYMENT_TPES? paymentType}) {
+      PAYMENT_TYPE? paymentType}) {
     return _PaymentRequestCompletedResponse(
       id: id,
       waiterId: waiterId,
@@ -55,7 +55,7 @@ mixin _$PaymentRequestCompletedResponse {
   PAYMENT_STATUS? get paymentStatus => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get orderId => throw _privateConstructorUsedError;
-  PAYMENT_TPES? get paymentType => throw _privateConstructorUsedError;
+  PAYMENT_TYPE? get paymentType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,7 +75,7 @@ abstract class $PaymentRequestCompletedResponseCopyWith<$Res> {
       PAYMENT_STATUS? paymentStatus,
       String? message,
       String? orderId,
-      PAYMENT_TPES? paymentType});
+      PAYMENT_TYPE? paymentType});
 }
 
 /// @nodoc
@@ -120,7 +120,7 @@ class _$PaymentRequestCompletedResponseCopyWithImpl<$Res>
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as PAYMENT_TPES?,
+              as PAYMENT_TYPE?,
     ));
   }
 }
@@ -139,7 +139,7 @@ abstract class _$PaymentRequestCompletedResponseCopyWith<$Res>
       PAYMENT_STATUS? paymentStatus,
       String? message,
       String? orderId,
-      PAYMENT_TPES? paymentType});
+      PAYMENT_TYPE? paymentType});
 }
 
 /// @nodoc
@@ -188,7 +188,7 @@ class __$PaymentRequestCompletedResponseCopyWithImpl<$Res>
       paymentType: paymentType == freezed
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
-              as PAYMENT_TPES?,
+              as PAYMENT_TYPE?,
     ));
   }
 }
@@ -222,7 +222,7 @@ class _$_PaymentRequestCompletedResponse
   @override
   final String? orderId;
   @override
-  final PAYMENT_TPES? paymentType;
+  final PAYMENT_TYPE? paymentType;
 
   @override
   String toString() {
@@ -282,7 +282,7 @@ abstract class _PaymentRequestCompletedResponse
       PAYMENT_STATUS? paymentStatus,
       String? message,
       String? orderId,
-      PAYMENT_TPES? paymentType}) = _$_PaymentRequestCompletedResponse;
+      PAYMENT_TYPE? paymentType}) = _$_PaymentRequestCompletedResponse;
   const _PaymentRequestCompletedResponse._() : super._();
 
   factory _PaymentRequestCompletedResponse.fromJson(Map<String, dynamic> json) =
@@ -300,7 +300,7 @@ abstract class _PaymentRequestCompletedResponse
   @override
   String? get orderId => throw _privateConstructorUsedError;
   @override
-  PAYMENT_TPES? get paymentType => throw _privateConstructorUsedError;
+  PAYMENT_TYPE? get paymentType => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PaymentRequestCompletedResponseCopyWith<_PaymentRequestCompletedResponse>

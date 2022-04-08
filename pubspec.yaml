@@ -156,6 +156,8 @@ flutter:
     - lib/assets/images/countertocheckout.png
     - lib/assets/images/counter.png
     - lib/assets/images/pickup.png
+    - lib/assets/images/no_images.png
+    
     - lib/assets/icons/close.png
     - lib/assets/icons/warning.png
     - lib/assets/icons/leftArrow.png
@@ -187,6 +189,7 @@ flutter:
     - lib/assets/icons/phonepe.png
     - lib/assets/icons/paytm.png
     - lib/assets/icons/googlePay.png
+    - lib/assets/icons/qrCode.png
     - lib/assets/icons/wallet.png
     - lib/assets/icons/mastercard.png
     - lib/assets/icons/visa.png

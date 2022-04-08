@@ -79,7 +79,7 @@ class MyApp extends HookWidget {
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        accentColor: primary(),
+        colorScheme: ThemeData().colorScheme.copyWith(secondary: primary()),
       ),
       home: DB().isLoggedIn() ? HomeTabs() : LoginPage(),
       locale: Locale(DB().getLanguageCode() ?? 'en'),

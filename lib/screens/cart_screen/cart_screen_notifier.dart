@@ -57,9 +57,6 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
         variantQuantity: product.variantQuantity + (increased ? 1 : -1),
       );
     }
-    print('cart ----> ${cart!.toJson()}');
-    print(
-        'IS MODIFIED: ${newProduct.modified}  NORMALQUANTITY: ${newProduct.variantQuantity}  MODIFIEDQUANTITY: ${newProduct.modifiedQuantity ?? 'N/A'}');
     if ((newProduct.modified &&
             (newProduct.modifiedQuantity ?? newProduct.variantQuantity) > 0) ||
         newProduct.variantQuantity > 0) {
@@ -145,7 +142,8 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
       cart!,
     );
     db.saveOrderId(response!.id);
-    state = state.copyWith.call(isLoading: false, orderResponse: response);
+    if (mounted)
+      state = state.copyWith.call(isLoading: false, orderResponse: response);
     return response;
   }
 
@@ -166,7 +164,6 @@ class CartScreenNotifier extends StateNotifier<CartScreenState> {
 
     UpdateCart updateCart =
         UpdateCart(orderId: db.getOrderId(), localCart: cart);
-    print('Update cart Response: $updateCart');
     final updateResponse = await api.updateOrder(updateCart);
     state = state.copyWith.call(
       isUpdateLoading: false,

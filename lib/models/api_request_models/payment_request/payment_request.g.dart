@@ -10,18 +10,20 @@ _$_PaymentRequest _$_$_PaymentRequestFromJson(Map<String, dynamic> json) {
   return _$_PaymentRequest(
     orderId: json['orderId'] as String?,
     paymentType:
-        _$enumDecodeNullable(_$PAYMENT_TPESEnumMap, json['paymentType']),
+        _$enumDecodeNullable(_$PAYMENT_TYPEEnumMap, json['paymentType']),
     tableNumber: json['tableNumber'] as int?,
     amount: (json['amount'] as num?)?.toDouble(),
+    tipAmount: (json['tipAmount'] as num?)?.toDouble(),
   );
 }
 
 Map<String, dynamic> _$_$_PaymentRequestToJson(_$_PaymentRequest instance) =>
     <String, dynamic>{
       'orderId': instance.orderId,
-      'paymentType': _$PAYMENT_TPESEnumMap[instance.paymentType],
+      'paymentType': _$PAYMENT_TYPEEnumMap[instance.paymentType],
       'tableNumber': instance.tableNumber,
       'amount': instance.amount,
+      'tipAmount': instance.tipAmount,
     };
 
 K _$enumDecode<K, V>(
@@ -61,8 +63,9 @@ K? _$enumDecodeNullable<K, V>(
   return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$PAYMENT_TPESEnumMap = {
-  PAYMENT_TPES.payInCash: 'PAY_IN_CASH',
-  PAYMENT_TPES.payWithCard: 'PAY_WITH_CARD',
-  PAYMENT_TPES.nfc: 'NFC',
+const _$PAYMENT_TYPEEnumMap = {
+  PAYMENT_TYPE.payInCash: 'PAY_IN_CASH',
+  PAYMENT_TYPE.payWithCard: 'PAY_WITH_CARD',
+  PAYMENT_TYPE.payWithQR: 'PAY_WITH_QR',
+  PAYMENT_TYPE.nfc: 'NFC',
 };

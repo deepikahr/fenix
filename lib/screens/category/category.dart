@@ -9,10 +9,9 @@ import 'package:fenix_user/screens/product/product_list/product_list.dart';
 import 'package:fenix_user/screens/sub_category/sub_category.dart';
 import 'package:fenix_user/styles/styles.dart';
 import 'package:fenix_user/widgets/card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -48,6 +47,10 @@ class CategoryScreen extends HookWidget {
       color: light,
       child: Stack(
         children: [
+          if (!state.isLoading && state.total == 0)
+            Center(
+              child: Text('NO_ITEMS'.tr),
+            ),
           ListView(
             padding: EdgeInsets.symmetric(vertical: 16),
             shrinkWrap: true,
