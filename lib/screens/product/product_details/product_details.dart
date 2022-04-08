@@ -283,6 +283,8 @@ class ProductDetails extends HookWidget {
                                       } else {
                                         isadd = true;
                                       }
+                                    } else {
+                                      isadd = true;
                                     }
                                   }
                                   print(isadd);
