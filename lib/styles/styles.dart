@@ -86,6 +86,15 @@ TextStyle textPrimaryLargeBM(context) {
   );
 }
 
+TextStyle textPrimaryXLargeBM(context) {
+  return TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 26.0,
+    color: primary(),
+    fontFamily: 'BarlowMedium',
+  );
+}
+
 TextStyle textBlackLargeBM(context) {
   return TextStyle(
     fontWeight: FontWeight.w600,
