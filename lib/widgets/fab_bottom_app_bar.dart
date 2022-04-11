@@ -84,12 +84,12 @@ class FABBottomAppBar extends HookWidget {
       // padding: EdgeInsets.only(top: 5),
       child: Container(
         // margin: EdgeInsets.only(top: 0, bottom: 3),
-        padding: EdgeInsets.only(top: 3, bottom: 3),
+        padding: EdgeInsets.only(top: 6, ),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black26,
+              color: Colors.black12,
               blurRadius: 10.0,
               spreadRadius: 10.0,
             ),
