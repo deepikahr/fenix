@@ -325,7 +325,7 @@ Widget gridDishCard(
                   Positioned(
                     bottom: 0,
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.45,
+                      width: (MediaQuery.of(context).size.width / 2) - 40,
                       color: Colors.black45,
                       padding: EdgeInsets.all(12),
                       child: Column(
