@@ -167,117 +167,121 @@ class ProductDetails extends HookWidget {
             ],
           ),
         ),
-        Positioned(
-          top: 20,
-          right: 30,
-          child: !state.showAddButton &&
-                  notifier.getCurrentQuanityOfProduct(state.productDetails!) > 0
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (notifier
-                            .getCurrentQuanityOfProduct(state.productDetails!) >
-                        notifier.getLastOrderedQuantityOfProduct(
-                            state.productDetails!))
+        if (state.productDetails != null)
+          Positioned(
+            top: 20,
+            right: 30,
+            child: (!state.showAddButton) &&
+                    notifier.getCurrentQuanityOfProduct(state.productDetails!) >
+                        0
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (notifier.getCurrentQuanityOfProduct(
+                              state.productDetails!) >
+                          notifier.getLastOrderedQuantityOfProduct(
+                              state.productDetails!))
+                        counterIcon(
+                          'REMOVE',
+                          true,
+                          () {
+                            notifier.addProduct(
+                              state.productDetails!,
+                              false,
+                            );
+                          },
+                        ),
+                      Text(
+                          '${state.productDetails!.modified ? state.productDetails!.modifiedQuantity ?? state.productDetails!.variantQuantity : state.productDetails!.variantQuantity}',
+                          style: textBlackLargeBM(context)),
                       counterIcon(
-                        'REMOVE',
+                        'ADD',
                         true,
-                        () {
-                          notifier.addProduct(
+                        () async {
+                          await notifier.addProduct(
                             state.productDetails!,
-                            false,
+                            true,
                           );
                         },
                       ),
-                    Text(
-                        '${state.productDetails!.modified ? state.productDetails!.modifiedQuantity ?? state.productDetails!.variantQuantity : state.productDetails!.variantQuantity}',
-                        style: textBlackLargeBM(context)),
-                    counterIcon(
-                      'ADD',
-                      true,
-                      () async {
-                        await notifier.addProduct(
-                          state.productDetails!,
-                          true,
-                        );
-                      },
-                    ),
-                  ],
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.white, width: 4)),
-                  width: 110,
-                  child: GFButton(
-                    elevation: 3,
-                    size: 50,
-                    borderShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    onPressed: () async {
-                      context
-                          .read(productDetailsProvider.notifier)
-                          .showAddButton(true);
-                      if (state.productDetails != null &&
-                          state.productDetails!.addOnItems!.isNotEmpty) {
-                        bool isadd = false;
-                        for (var element in state.productDetails!.addOnItems!) {
-                          if (element.isRequired == true) {
-                            final totalPreviousQuantity =
-                                state.selectedAddOnItems!.isNotEmpty
-                                    ? state.selectedAddOnItems
-                                        ?.toList()
-                                        .map((cp) => element.addOnCategoryId ==
-                                                cp.addOnCategoryId
-                                            ? cp.quantity
-                                            : 0)
-                                        .reduce((_, __) => _ + __)
-                                    : 0;
+                    ],
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: Colors.white, width: 4)),
+                    width: 110,
+                    child: GFButton(
+                      elevation: 3,
+                      size: 50,
+                      borderShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      onPressed: () async {
+                        context
+                            .read(productDetailsProvider.notifier)
+                            .showAddButton(true);
+                        if (state.productDetails != null &&
+                            state.productDetails!.addOnItems!.isNotEmpty) {
+                          bool isadd = false;
+                          for (var element
+                              in state.productDetails!.addOnItems!) {
+                            if (element.isRequired == true) {
+                              final totalPreviousQuantity = state
+                                      .selectedAddOnItems!.isNotEmpty
+                                  ? state.selectedAddOnItems
+                                      ?.toList()
+                                      .map((cp) => element.addOnCategoryId ==
+                                              cp.addOnCategoryId
+                                          ? cp.quantity
+                                          : 0)
+                                      .reduce((_, __) => _ + __)
+                                  : 0;
 
-                            if (totalPreviousQuantity != element.limitNumber) {
-                              isadd = false;
-                              customDialog(
-                                status: DIALOG_STATUS.WARNING,
-                                title: 'NOTE_SELECT_DAILOG'
-                                    .tr
-                                    .replaceAll(
-                                      'NUMBER',
-                                      '${element.limitNumber}',
-                                    )
-                                    .replaceAll(
-                                      'CATEGORY_NAME',
-                                      '${element.addOnCategoryName}',
-                                    ),
-                              );
-                              break;
+                              if (totalPreviousQuantity !=
+                                  element.limitNumber) {
+                                isadd = false;
+                                customDialog(
+                                  status: DIALOG_STATUS.WARNING,
+                                  title: 'NOTE_SELECT_DAILOG'
+                                      .tr
+                                      .replaceAll(
+                                        'NUMBER',
+                                        '${element.limitNumber}',
+                                      )
+                                      .replaceAll(
+                                        'CATEGORY_NAME',
+                                        '${element.addOnCategoryName}',
+                                      ),
+                                );
+                                break;
+                              } else {
+                                isadd = true;
+                              }
                             } else {
                               isadd = true;
                             }
-                          } else {
-                            isadd = true;
                           }
-                        }
-                        print(isadd);
-                        if (isadd == true) {
+                          print(isadd);
+                          if (isadd == true) {
+                            await notifier.addProduct(
+                              state.productDetails!,
+                              true,
+                            );
+                          }
+                        } else {
                           await notifier.addProduct(
                             state.productDetails!,
                             true,
                           );
                         }
-                      } else {
-                        await notifier.addProduct(
-                          state.productDetails!,
-                          true,
-                        );
-                      }
-                    },
-                    color: primary(),
-                    text: 'ADD'.tr,
-                    textStyle: textLightLargeBM(context),
+                      },
+                      color: primary(),
+                      text: 'ADD'.tr,
+                      textStyle: textLightLargeBM(context),
+                    ),
                   ),
-                ),
-        )
+          )
       ],
     );
   }
