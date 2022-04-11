@@ -134,7 +134,7 @@ Widget dishesInfoCard(
           children: [
             product.productImage?.imageUrl != null
                 ? networkImage(product.productImage!.imageUrl!, 218, 150, 1)
-                : networkImageOverlay(218, 150),
+                : assetsProductImage(218, 150),
             SizedBox(
               width: 8,
             ),
@@ -174,11 +174,11 @@ Widget dishesInfoCard(
                           '${product.variant!.price}${Constants.currency}',
                           style: textDarkRegularBS(context),
                         ),
-                      if (product.productImage!.imageUrl != null)
-                        Icon(
-                          Icons.camera_alt_rounded,
-                          color: primary(),
-                        ),
+                      // if (product.productImage!.imageUrl != null)
+                      //   Icon(
+                      //     Icons.camera_alt_rounded,
+                      //     color: primary(),
+                      //   ),
                       if (product.allergens.length > 0)
                         InkWell(
                           onTap: () async {},
@@ -212,15 +212,20 @@ Widget dishesInfoCard(
                               ],
                             )
                           : Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: GFButton(
-                                borderShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    side: BorderSide(color: buttonBorder)),
-                                onPressed: onAdd,
-                                color: Colors.white,
-                                text: 'ADD'.tr,
-                                textStyle: textPrimaryLargeBM(context),
+                              padding:
+                                  const EdgeInsets.only(right: 8.0, bottom: 5),
+                              child: Container(
+                                width: 110,
+                                child: GFButton(
+                                  size: 50,
+                                  borderShape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      side: BorderSide(color: buttonBorder)),
+                                  onPressed: onAdd,
+                                  color: Colors.white,
+                                  text: 'ADD'.tr,
+                                  textStyle: textPrimaryLargeBM(context),
+                                ),
                               ),
                             ),
                     ],
@@ -312,32 +317,35 @@ Widget gridDishCard(
                               (MediaQuery.of(context).size.width / 2) - 40,
                               170,
                               0)
-                          : networkImageOverlay(
+                          : assetsProductImage(
                               (MediaQuery.of(context).size.width / 2) - 40,
                               170),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        color: Colors.black45,
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${product.productName}',
-                              style: textWhiteLightRegularBM(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            if (categoryImage == null)
-                              Text(
-                                '${product.variant!.price}${Constants.currency}',
-                                style: textWhiteLargeBMM(context),
-                              ),
-                          ],
-                        ),
-                      ),
                     ],
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      color: Colors.black45,
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${product.productName}',
+                            style: textWhiteLightRegularBM(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (categoryImage == null)
+                            Text(
+                              '${product.variant!.price}${Constants.currency}',
+                              style: textWhiteLargeBMM(context),
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
                   if (product.tags != null && product.tags!.isNotEmpty)
                     Positioned(
@@ -446,49 +454,58 @@ Widget gridDishCard(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (categoryImage != null)
-                        Text(
-                          '${product.variant!.price}${Constants.currency}',
-                          style: textDarkRegularBS(context),
+                        Flexible(
+                          flex: 4,
+                          fit: FlexFit.tight,
+                          child: Text(
+                            '${product.variant!.price}${Constants.currency}',
+                            style: textDarkRegularBS(context),
+                          ),
                         ),
-                      if (product.productImage!.imageUrl != null)
-                        Icon(
-                          Icons.camera_alt_rounded,
-                          color: primary(),
-                        ),
-                      product.totalQuantity > 0
-                          ? Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Visibility(
-                                      visible: product.totalQuantity >
-                                          getLastOrderedQuantityOfProduct(
-                                              product),
-                                      maintainInteractivity: false,
-                                      maintainSize: true,
-                                      maintainState: true,
-                                      maintainAnimation: true,
-                                      child: counterIcon(
-                                          'REMOVE', true, onRemove)),
-                                  Text(product.totalQuantity.toString(),
-                                      style: textBlackLargeBM(context)),
-                                  counterIcon('ADD', true, onUpdate),
-                                ],
+                      // if (product.productImage!.imageUrl != null)
+                      //   Icon(
+                      //     Icons.camera_alt_rounded,
+                      //     color: primary(),
+                      //   ),
+                      Flexible(
+                        flex: 8,
+                        fit: FlexFit.tight,
+                        child: product.totalQuantity > 0
+                            ? Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Visibility(
+                                        visible: product.totalQuantity >
+                                            getLastOrderedQuantityOfProduct(
+                                                product),
+                                        maintainInteractivity: false,
+                                        maintainSize: true,
+                                        maintainState: true,
+                                        maintainAnimation: true,
+                                        child: counterIcon(
+                                            'REMOVE', true, onRemove)),
+                                    Text(product.totalQuantity.toString(),
+                                        style: textBlackLargeBM(context)),
+                                    counterIcon('ADD', true, onUpdate),
+                                  ],
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(right: 0.0),
+                                child: GFButton(
+                                  size: 45,
+                                  borderShape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      side: BorderSide(color: buttonBorder)),
+                                  onPressed: onAdd,
+                                  color: Colors.white,
+                                  text: 'ADD'.tr,
+                                  textStyle: textPrimaryLargeBM(context),
+                                ),
                               ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: GFButton(
-                                borderShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    side: BorderSide(color: buttonBorder)),
-                                onPressed: onAdd,
-                                color: Colors.white,
-                                text: 'ADD'.tr,
-                                textStyle: textPrimaryLargeBM(context),
-                              ),
-                            ),
+                      )
                     ],
                   ),
                 ],

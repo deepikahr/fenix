@@ -79,24 +79,35 @@ class FABBottomAppBar extends HookWidget {
     item.insert(items!.length >> 1, _buildMiddleTabItem());
 
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: dark.withOpacity(0.1),
-            blurRadius: 4.0,
-            spreadRadius: 4.0,
-          ),
-        ],
-      ),
-      child: BottomAppBar(
-        elevation: 0.0,
-        shape: notchedShape,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: item,
+      color: Colors.white,
+      // margin: EdgeInsets.only(top: 0, bottom: 3),
+      // padding: EdgeInsets.only(top: 5),
+      child: Container(
+        // margin: EdgeInsets.only(top: 0, bottom: 3),
+        padding: EdgeInsets.only(top: 3, bottom: 3),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 10.0,
+              spreadRadius: 10.0,
+            ),
+          ],
         ),
-        color: backgroundColor,
+        child: Container(
+          child: BottomAppBar(
+            elevation: 0.0,
+            shape: notchedShape,
+            notchMargin: 0,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: item,
+            ),
+            color: backgroundColor,
+          ),
+        ),
       ),
     );
   }

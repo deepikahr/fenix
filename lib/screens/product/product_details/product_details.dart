@@ -53,112 +53,232 @@ class ProductDetails extends HookWidget {
       return;
     }, const []);
 
-    return Container(
-      color: grey2,
-      child: Stack(
-        children: [
-          ListView(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+    return Stack(
+      children: [
+        Container(
+          color: grey2,
+          child: Stack(
             children: [
-              if (!state.isLoading && state.productDetails != null)
-                state.productDetails!.productImage!.imageUrl != null
-                    ? Stack(
-                        children: [
-                          networkImageWithWidth(
-                              state.productDetails!.productImage!.imageUrl!,
-                              MediaQuery.of(context).size.width - 32,
-                              0),
-                          if (state.productDetails?.tags?.isNotEmpty ?? false)
-                            Positioned(
-                              top: 0,
-                              child: Stack(
-                                alignment: AlignmentDirectional.center,
-                                children: [
-                                  Image.asset(
-                                    'lib/assets/images/b2.png',
-                                    scale: 1,
-                                    color: primary(),
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+                children: [
+                  if (!state.isLoading && state.productDetails != null)
+                    state.productDetails!.productImage!.imageUrl != null
+                        ? Stack(
+                            children: [
+                              networkImageWithWidth(
+                                  state.productDetails!.productImage!.imageUrl!,
+                                  MediaQuery.of(context).size.width - 32,
+                                  0),
+                              if (state.productDetails?.tags?.isNotEmpty ??
+                                  false)
+                                Positioned(
+                                  top: 0,
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Image.asset(
+                                        'lib/assets/images/b2.png',
+                                        scale: 1,
+                                        color: primary(),
+                                      ),
+                                      Text(
+                                        '${state.productDetails!.tags!.first.title}',
+                                        style: textDarkRegularBSW(context),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    '${state.productDetails!.tags!.first.title}',
+                                ),
+                              if (state.productDetails!
+                                      .variants[state.groupValue].sizeName !=
+                                  null)
+                                Positioned(
+                                  bottom: 0,
+                                  child: Container(
+                                    color: darkLight,
+                                    padding: EdgeInsets.all(4),
+                                    child: Text(
+                                      '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
+                                      style: textDarkRegularBSW(context),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              if (state.productDetails?.tags?.isNotEmpty ??
+                                  false)
+                                Stack(
+                                  alignment: AlignmentDirectional.center,
+                                  children: [
+                                    Image.asset(
+                                      'lib/assets/images/b2.png',
+                                      scale: 1,
+                                      color: primary(),
+                                    ),
+                                    Text(
+                                      '${state.productDetails?.tags?.first.title}',
+                                      style: textDarkRegularBSW(context),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              if (state.productDetails?.tags?.isEmpty ?? true)
+                                const Spacer(),
+                              if (state.productDetails!
+                                      .variants[state.groupValue].sizeName !=
+                                  null)
+                                Container(
+                                  color: darkLight,
+                                  padding: EdgeInsets.all(4),
+                                  child: Text(
+                                    '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
                                     style: textDarkRegularBSW(context),
                                     textAlign: TextAlign.center,
                                   ),
-                                ],
-                              ),
-                            ),
-                          if (state.productDetails!.variants[state.groupValue]
-                                  .sizeName !=
-                              null)
-                            Positioned(
-                              bottom: 0,
-                              child: Container(
-                                color: darkLight,
-                                padding: EdgeInsets.all(4),
-                                child: Text(
-                                  '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
-                                  style: textDarkRegularBSW(context),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (state.productDetails?.tags?.isNotEmpty ?? false)
-                            Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                Image.asset(
-                                  'lib/assets/images/b2.png',
-                                  scale: 1,
-                                  color: primary(),
-                                ),
-                                Text(
-                                  '${state.productDetails?.tags?.first.title}',
-                                  style: textDarkRegularBSW(context),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          if (state.productDetails?.tags?.isEmpty ?? true)
-                            const Spacer(),
-                          if (state.productDetails!.variants[state.groupValue]
-                                  .sizeName !=
-                              null)
-                            Container(
-                              color: darkLight,
-                              padding: EdgeInsets.all(4),
-                              child: Text(
-                                '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
-                                style: textDarkRegularBSW(context),
-                                textAlign: TextAlign.center,
-                              ),
-                            )
-                        ],
-                      ),
-              if (!state.isLoading && state.productDetails != null)
-                productData(
-                  context,
-                  state.productDetails!,
-                  state,
-                  notifier,
-                  noteFocusNode,
-                ),
-              Container(
-                height: 45,
+                                )
+                            ],
+                          ),
+                  if (!state.isLoading && state.productDetails != null)
+                    productData(
+                      context,
+                      state.productDetails!,
+                      state,
+                      notifier,
+                      noteFocusNode,
+                    ),
+                  Container(
+                    height: 45,
+                  ),
+                ],
               ),
+              if (state.isLoading) GFLoader(type: GFLoaderType.ios),
+              if (state.productAdded)
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ArrowTowardsCart())
             ],
           ),
-          if (state.isLoading) GFLoader(type: GFLoaderType.ios),
-          if (state.productAdded)
-            Align(alignment: Alignment.bottomCenter, child: ArrowTowardsCart())
-        ],
-      ),
+        ),
+        Positioned(
+          top: 20,
+          right: 30,
+          child: !state.showAddButton &&
+                  notifier.getCurrentQuanityOfProduct(state.productDetails!) > 0
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (notifier
+                            .getCurrentQuanityOfProduct(state.productDetails!) >
+                        notifier.getLastOrderedQuantityOfProduct(
+                            state.productDetails!))
+                      counterIcon(
+                        'REMOVE',
+                        true,
+                        () {
+                          notifier.addProduct(
+                            state.productDetails!,
+                            false,
+                          );
+                        },
+                      ),
+                    Text(
+                        '${state.productDetails!.modified ? state.productDetails!.modifiedQuantity ?? state.productDetails!.variantQuantity : state.productDetails!.variantQuantity}',
+                        style: textBlackLargeBM(context)),
+                    counterIcon(
+                      'ADD',
+                      true,
+                      () async {
+                        await notifier.addProduct(
+                          state.productDetails!,
+                          true,
+                        );
+                      },
+                    ),
+                  ],
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: Colors.white, width: 4)),
+                  width: 110,
+                  child: GFButton(
+                    elevation: 3,
+                    size: 50,
+                    borderShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    onPressed: () async {
+                      context
+                          .read(productDetailsProvider.notifier)
+                          .showAddButton(true);
+                      if (state.productDetails != null &&
+                          state.productDetails!.addOnItems!.isNotEmpty) {
+                        bool isadd = false;
+                        for (var element in state.productDetails!.addOnItems!) {
+                          if (element.isRequired == true) {
+                            final totalPreviousQuantity =
+                                state.selectedAddOnItems!.isNotEmpty
+                                    ? state.selectedAddOnItems
+                                        ?.toList()
+                                        .map((cp) => element.addOnCategoryId ==
+                                                cp.addOnCategoryId
+                                            ? cp.quantity
+                                            : 0)
+                                        .reduce((_, __) => _ + __)
+                                    : 0;
+
+                            if (totalPreviousQuantity != element.limitNumber) {
+                              isadd = false;
+                              customDialog(
+                                status: DIALOG_STATUS.WARNING,
+                                title: 'NOTE_SELECT_DAILOG'
+                                    .tr
+                                    .replaceAll(
+                                      'NUMBER',
+                                      '${element.limitNumber}',
+                                    )
+                                    .replaceAll(
+                                      'CATEGORY_NAME',
+                                      '${element.addOnCategoryName}',
+                                    ),
+                              );
+                              break;
+                            } else {
+                              isadd = true;
+                            }
+                          } else {
+                            isadd = true;
+                          }
+                        }
+                        print(isadd);
+                        if (isadd == true) {
+                          await notifier.addProduct(
+                            state.productDetails!,
+                            true,
+                          );
+                        }
+                      } else {
+                        await notifier.addProduct(
+                          state.productDetails!,
+                          true,
+                        );
+                      }
+                    },
+                    color: primary(),
+                    text: 'ADD'.tr,
+                    textStyle: textLightLargeBM(context),
+                  ),
+                ),
+        )
+      ],
     );
   }
 
@@ -199,113 +319,6 @@ class ProductDetails extends HookWidget {
                       '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
-                    !state.showAddButton &&
-                            notifier.getCurrentQuanityOfProduct(product) > 0
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (notifier.getCurrentQuanityOfProduct(product) >
-                                  notifier
-                                      .getLastOrderedQuantityOfProduct(product))
-                                counterIcon(
-                                  'REMOVE',
-                                  true,
-                                  () {
-                                    notifier.addProduct(
-                                      product,
-                                      false,
-                                    );
-                                  },
-                                ),
-                              Text(
-                                  '${product.modified ? product.modifiedQuantity ?? product.variantQuantity : product.variantQuantity}',
-                                  style: textBlackLargeBM(context)),
-                              counterIcon(
-                                'ADD',
-                                true,
-                                () async {
-                                  await notifier.addProduct(
-                                    product,
-                                    true,
-                                  );
-                                },
-                              ),
-                            ],
-                          )
-                        : Container(
-                            width: 100,
-                            child: GFButton(
-                              elevation: 3,
-                              size: GFSize.LARGE,
-                              borderShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              onPressed: () async {
-                                context
-                                    .read(productDetailsProvider.notifier)
-                                    .showAddButton(true);
-                                if (state.productDetails != null &&
-                                    state.productDetails!.addOnItems!
-                                        .isNotEmpty) {
-                                  bool isadd = false;
-                                  for (var element
-                                      in state.productDetails!.addOnItems!) {
-                                    if (element.isRequired == true) {
-                                      final totalPreviousQuantity =
-                                          state.selectedAddOnItems!.isNotEmpty
-                                              ? state.selectedAddOnItems
-                                                  ?.toList()
-                                                  .map((cp) =>
-                                                      element.addOnCategoryId ==
-                                                              cp.addOnCategoryId
-                                                          ? cp.quantity
-                                                          : 0)
-                                                  .reduce((_, __) => _ + __)
-                                              : 0;
-
-                                      if (totalPreviousQuantity !=
-                                          element.limitNumber) {
-                                        isadd = false;
-                                        customDialog(
-                                          status: DIALOG_STATUS.WARNING,
-                                          title: 'NOTE_SELECT_DAILOG'
-                                              .tr
-                                              .replaceAll(
-                                                'NUMBER',
-                                                '${element.limitNumber}',
-                                              )
-                                              .replaceAll(
-                                                'CATEGORY_NAME',
-                                                '${element.addOnCategoryName}',
-                                              ),
-                                        );
-                                        break;
-                                      } else {
-                                        isadd = true;
-                                      }
-                                    } else {
-                                      isadd = true;
-                                    }
-                                  }
-                                  print(isadd);
-                                  if (isadd == true) {
-                                    await notifier.addProduct(
-                                      product,
-                                      true,
-                                    );
-                                  }
-                                } else {
-                                  await notifier.addProduct(
-                                    product,
-                                    true,
-                                  );
-                                }
-                              },
-                              color: primary(),
-                              text: 'ADD'.tr,
-                              textStyle: textLightLargeBM(context),
-                            ),
-                          ),
                   ],
                 ),
               ],

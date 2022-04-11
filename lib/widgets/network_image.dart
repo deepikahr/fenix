@@ -54,3 +54,22 @@ Widget networkImageOverlay(
     ),
   );
 }
+
+Widget assetsProductImage(
+  double width,
+  double height,
+) {
+  return Container(
+    width: width,
+    height: height,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+          fit: BoxFit.cover,
+          // colorFilter: new ColorFilter.mode(
+          //     Colors.black.withOpacity(0.9), BlendMode.darken),
+          image: AssetImage(
+            'lib/assets/logo.png',
+          )),
+    ),
+  );
+}
