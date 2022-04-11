@@ -300,220 +300,210 @@ Widget gridDishCard(
         borderRadius: BorderRadius.circular(4),
         boxShadow: [BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)]),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.all(6),
-              child: Stack(
+        Container(
+          margin: EdgeInsets.all(6),
+          child: Stack(
+            children: [
+              Column(
                 children: [
-                  Column(
+                  product.productImage?.imageUrl != null
+                      ? networkImage(
+                          product.productImage!.imageUrl!,
+                          (MediaQuery.of(context).size.width / 2) - 40,
+                          170,
+                          0)
+                      : assetsProductImage(
+                          (MediaQuery.of(context).size.width / 2) - 40,
+                          170),
+                ],
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  width: (MediaQuery.of(context).size.width / 2) - 40,
+                  color: Colors.black45,
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      product.productImage?.imageUrl != null
-                          ? networkImage(
-                              product.productImage!.imageUrl!,
-                              (MediaQuery.of(context).size.width / 2) - 40,
-                              170,
-                              0)
-                          : assetsProductImage(
-                              (MediaQuery.of(context).size.width / 2) - 40,
-                              170),
+                      Text(
+                        '${product.productName}',
+                        style: textWhiteLightRegularBM(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (categoryImage == null)
+                        Text(
+                          '${product.variant!.price}${Constants.currency}',
+                          style: textWhiteLargeBMM(context),
+                        ),
                     ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      width: (MediaQuery.of(context).size.width / 2) - 40,
-                      color: Colors.black45,
-                      padding: EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${product.productName}',
-                            style: textWhiteLightRegularBM(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          if (categoryImage == null)
-                            Text(
-                              '${product.variant!.price}${Constants.currency}',
-                              style: textWhiteLargeBMM(context),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (product.tags != null && product.tags!.isNotEmpty)
-                    Positioned(
-                        top: 0,
-                        child: Stack(
-                          alignment: AlignmentDirectional.center,
-                          children: [
-                            Image.asset(
-                              'lib/assets/images/b2.png',
-                              scale: 0.8,
-                              color: primary(),
-                            ),
-                            Text(
-                              '${product.tags!.first.title ?? ''}',
-                              style: textDarkRegularBSW(context),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        )),
-                  Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Container(
-                        alignment: AlignmentDirectional.center,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        height: 30,
-                        color: Colors.black45,
-                        child: Text(
-                          '${product.variant!.sizeName ?? ''}',
-                          style: textWhite3XSmallBM(context),
+                ),
+              ),
+              if (product.tags != null && product.tags!.isNotEmpty)
+                Positioned(
+                    top: 0,
+                    child: Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Image.asset(
+                          'lib/assets/images/b2.png',
+                          scale: 0.8,
+                          color: primary(),
+                        ),
+                        Text(
+                          '${product.tags!.first.title ?? ''}',
+                          style: textDarkRegularBSW(context),
                           textAlign: TextAlign.center,
                         ),
-                      )),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child:
-                  // Container(
-                  //     width: MediaQuery.of(context).size.width * 0.45,
-                  //     color: Colors.black45,
-                  //     padding: EdgeInsets.all(12),
-                  //     child: Column(
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Text(
-                  //           '${product.productName}',
-                  //           style: textWhiteLightRegularBM(),
-                  //           maxLines: 1,
-                  //           overflow: TextOverflow.ellipsis,
-                  //         ),
-                  //         if (categoryImage == null)
-                  //           Text(
-                  //             '${product.variant!.price}${Constants.currency}',
-                  //             style: textWhiteLargeBMM(context),
-                  //           ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (product.productDescription != null)
-                    Container(
-                      height: 20,
-                      child: HtmlWidget(
-                        product.productDescription ?? "",
-                        textStyle: textDarkLightSmallBR(context),
-                        customWidgetBuilder: (dom.Element element) {
-                          if (element.localName == 'p') {
-                            return Text(
-                              element.innerHtml,
-                              style: textDarkLightSmallBR(context),
-                              maxLines: 1,
-                            );
-                          }
-                        },
-                      ),
+                      ],
+                    )),
+              Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    alignment: AlignmentDirectional.center,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    height: 30,
+                    color: Colors.black45,
+                    child: Text(
+                      '${product.variant!.sizeName ?? ''}',
+                      style: textWhite3XSmallBM(context),
+                      textAlign: TextAlign.center,
                     ),
-                  if (product.productDescription != null)
-                    SizedBox(
-                      height: 6,
-                    ),
-                  if (product.allergens.length > 0)
-                    InkWell(
-                      onTap: () async {},
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: primary(),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          'ALLERGENS'.tr,
-                          style: textWhiteRegularBM(),
-                        ),
-                      ),
-                    ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (categoryImage != null)
-                        Flexible(
-                          flex: 4,
-                          fit: FlexFit.tight,
-                          child: Text(
-                            '${product.variant!.price}${Constants.currency}',
-                            style: textDarkRegularBS(context),
-                          ),
-                        ),
-                      // if (product.productImage!.imageUrl != null)
-                      //   Icon(
-                      //     Icons.camera_alt_rounded,
-                      //     color: primary(),
-                      //   ),
-                      Flexible(
-                        flex: 8,
-                        fit: FlexFit.tight,
-                        child: product.totalQuantity > 0
-                            ? Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Visibility(
-                                        visible: product.totalQuantity >
-                                            getLastOrderedQuantityOfProduct(
-                                                product),
-                                        maintainInteractivity: false,
-                                        maintainSize: true,
-                                        maintainState: true,
-                                        maintainAnimation: true,
-                                        child: counterIcon(
-                                            'REMOVE', true, onRemove)),
-                                    Text(product.totalQuantity.toString(),
-                                        style: textBlackLargeBM(context)),
-                                    counterIcon('ADD', true, onUpdate),
-                                  ],
-                                ),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(right: 0.0),
-                                child: GFButton(
-                                  size: 45,
-                                  borderShape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                      side: BorderSide(color: buttonBorder)),
-                                  onPressed: onAdd,
-                                  color: Colors.white,
-                                  text: 'ADD'.tr,
-                                  textStyle: textPrimaryLargeBM(context),
-                                ),
-                              ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            // ),
-          ],
+                  )),
+              // Positioned(
+              //   bottom: 0,
+              //   child:
+              // Container(
+              //     width: MediaQuery.of(context).size.width * 0.45,
+              //     color: Colors.black45,
+              //     padding: EdgeInsets.all(12),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Text(
+              //           '${product.productName}',
+              //           style: textWhiteLightRegularBM(),
+              //           maxLines: 1,
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
+              //         if (categoryImage == null)
+              //           Text(
+              //             '${product.variant!.price}${Constants.currency}',
+              //             style: textWhiteLargeBMM(context),
+              //           ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
         ),
+        Flexible(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (product.productDescription != null)
+                  Container(
+                    height: 20,
+                    child: HtmlWidget(
+                      product.productDescription ?? "",
+                      textStyle: textDarkLightSmallBR(context),
+                      customWidgetBuilder: (dom.Element element) {
+                        if (element.localName == 'p') {
+                          return Text(
+                            element.innerHtml,
+                            style: textDarkLightSmallBR(context),
+                            maxLines: 1,
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                if (product.productDescription != null)
+                  SizedBox(
+                    height: 6,
+                  ),
+                if (product.allergens.length > 0)
+                  InkWell(
+                    onTap: () async {},
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: primary(),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                        'ALLERGENS'.tr,
+                        style: textWhiteRegularBM(),
+                      ),
+                    ),
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (categoryImage != null)
+                      Text(
+                        '${product.variant!.price}${Constants.currency}',
+                        style: textDarkRegularBS(context),
+                      ),
+                    // if (product.productImage!.imageUrl != null)
+                    //   Icon(
+                    //     Icons.camera_alt_rounded,
+                    //     color: primary(),
+                    //   ),
+                    product.totalQuantity > 0
+                        ? Container(
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Visibility(
+                                    visible: product.totalQuantity >
+                                        getLastOrderedQuantityOfProduct(
+                                            product),
+                                    maintainInteractivity: false,
+                                    maintainSize: true,
+                                    maintainState: true,
+                                    maintainAnimation: true,
+                                    child: counterIcon(
+                                        'REMOVE', true, onRemove)),
+                                Text(product.totalQuantity.toString(),
+                                    style: textBlackLargeBM(context)),
+                                counterIcon('ADD', true, onUpdate),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            height: 64,
+                            width: 120,
+                            child: GFButton(
+                              borderShape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  side: BorderSide(color: buttonBorder)),
+                              onPressed: onAdd,
+                              color: Colors.white,
+                              text: 'ADD'.tr,
+                              textStyle: textPrimaryXLargeBM(context),
+                            ),
+                          )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        // ),
       ],
     ),
   );
