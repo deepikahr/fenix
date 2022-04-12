@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_request_models/payment_request/payment_request.dart';
 import 'package:fenix_user/models/api_response_models/order_details_response/order_details_response.dart';
