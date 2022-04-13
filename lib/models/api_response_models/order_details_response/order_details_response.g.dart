@@ -18,6 +18,7 @@ _$_OrderDetailsResponse _$_$_OrderDetailsResponseFromJson(
         [],
     grandTotal: (json['grandTotal'] as num?)?.toDouble() ?? 0,
     subTotal: (json['subTotal'] as num?)?.toDouble() ?? 0,
+    tipAmount: (json['tipAmount'] as num?)?.toDouble() ?? 0,
     paymentType: json['paymentType'] as String?,
     restaurantName: json['restaurantName'] as String?,
     franchiseName: json['franchiseName'] as String?,
@@ -46,6 +47,7 @@ Map<String, dynamic> _$_$_OrderDetailsResponseToJson(
       'cart': instance.cart,
       'grandTotal': instance.grandTotal,
       'subTotal': instance.subTotal,
+      'tipAmount': instance.tipAmount,
       'paymentType': instance.paymentType,
       'restaurantName': instance.restaurantName,
       'franchiseName': instance.franchiseName,
@@ -110,4 +112,5 @@ const _$PAYMENT_STATUSEnumMap = {
   PAYMENT_STATUS.pending: 'PENDING',
   PAYMENT_STATUS.completed: 'COMPLETED',
   PAYMENT_STATUS.inProgress: 'IN_PROGRESS',
+  PAYMENT_STATUS.failed: 'FAILED',
 };

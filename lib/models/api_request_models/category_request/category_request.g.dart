@@ -12,6 +12,7 @@ _$_CategoryRequest _$_$_CategoryRequestFromJson(Map<String, dynamic> json) {
     page: json['page'] as int?,
     topCategory:
         _$enumDecodeNullable(_$CATEGORY_TYPEEnumMap, json['topCategory']),
+    menuId: json['menuId'] as String?,
   );
 }
 
@@ -20,6 +21,7 @@ Map<String, dynamic> _$_$_CategoryRequestToJson(_$_CategoryRequest instance) =>
       'limit': instance.limit,
       'page': instance.page,
       'topCategory': _$CATEGORY_TYPEEnumMap[instance.topCategory],
+      'menuId': instance.menuId,
     };
 
 K _$enumDecode<K, V>(

@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:fenix_user/styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ArrowTowardsCart extends StatefulWidget {
   ArrowTowardsCart({Key? key}) : super(key: key);

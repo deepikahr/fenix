@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:fenix_user/common/allergen_images.dart';
 import 'package:fenix_user/common/constant.dart';
 import 'package:fenix_user/models/api_response_models/add_on_category/add_on_category.dart';
@@ -22,6 +21,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
+import '../../../widgets/alertBox.dart';
 import 'product_details_state.dart';
 
 // ignore: must_be_immutable
@@ -53,27 +53,69 @@ class ProductDetails extends HookWidget {
       return;
     }, const []);
 
-    return Container(
-      color: grey2,
-      child: Stack(
-        children: [
-          ListView(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+    return Stack(
+      children: [
+        Container(
+          color: grey2,
+          child: Stack(
             children: [
-              if (!state.isLoading && state.productDetails != null)
-                state.productDetails!.productImage!.imageUrl != null
-                    ? Stack(
-                        children: [
-                          networkImageWithWidth(
-                              state.productDetails!.productImage!.imageUrl!,
-                              MediaQuery.of(context).size.width - 32,
-                              0),
-                          if (state.productDetails?.tags?.isNotEmpty ?? false)
-                            Positioned(
-                                top: 0,
-                                child: Stack(
+              ListView(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+                children: [
+                  if (!state.isLoading && state.productDetails != null)
+                    state.productDetails!.productImage!.imageUrl != null
+                        ? Stack(
+                            children: [
+                              networkImageWithWidth(
+                                  state.productDetails!.productImage!.imageUrl!,
+                                  MediaQuery.of(context).size.width - 32,
+                                  0),
+                              if (state.productDetails?.tags?.isNotEmpty ??
+                                  false)
+                                Positioned(
+                                  top: 0,
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Image.asset(
+                                        'lib/assets/images/b2.png',
+                                        scale: 1,
+                                        color: primary(),
+                                      ),
+                                      Text(
+                                        '${state.productDetails!.tags!.first.title}',
+                                        style: textDarkRegularBSW(context),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              if (state.productDetails!
+                                      .variants[state.groupValue].sizeName !=
+                                  null)
+                                Positioned(
+                                  bottom: 0,
+                                  child: Container(
+                                    color: darkLight,
+                                    padding: EdgeInsets.all(4),
+                                    child: Text(
+                                      '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
+                                      style: textDarkRegularBSW(context),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              if (state.productDetails?.tags?.isNotEmpty ??
+                                  false)
+                                Stack(
                                   alignment: AlignmentDirectional.center,
                                   children: [
                                     Image.asset(
@@ -82,75 +124,165 @@ class ProductDetails extends HookWidget {
                                       color: primary(),
                                     ),
                                     Text(
-                                      '${state.productDetails!.tags!.first.title}',
+                                      '${state.productDetails?.tags?.first.title}',
                                       style: textDarkRegularBSW(context),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
-                                )),
-                          Positioned(
-                              bottom: 0,
-                              child: Container(
-                                color: darkLight,
-                                padding: EdgeInsets.all(4),
-                                child: Text(
-                                  '${state.productDetails!.variants[state.groupValue].sizeName}',
-                                  style: textDarkRegularBSW(context),
-                                  textAlign: TextAlign.center,
                                 ),
-                              )),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (state.productDetails?.tags?.isNotEmpty ?? false)
-                            Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                Image.asset(
-                                  'lib/assets/images/b2.png',
-                                  scale: 1,
-                                  color: primary(),
-                                ),
-                                Text(
-                                  '${state.productDetails?.tags?.first.title}',
-                                  style: textDarkRegularBSW(context),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          if (state.productDetails?.tags?.isEmpty ?? true)
-                            const Spacer(),
-                          Container(
-                            color: darkLight,
-                            padding: EdgeInsets.all(4),
-                            child: Text(
-                              '${state.productDetails!.variants[state.groupValue].sizeName}',
-                              style: textDarkRegularBSW(context),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        ],
-                      ),
-              if (!state.isLoading && state.productDetails != null)
-                productData(
-                  context,
-                  state.productDetails!,
-                  state,
-                  notifier,
-                  noteFocusNode,
-                ),
-              Container(
-                height: 45,
+                              if (state.productDetails?.tags?.isEmpty ?? true)
+                                const Spacer(),
+                              if (state.productDetails!
+                                      .variants[state.groupValue].sizeName !=
+                                  null)
+                                Container(
+                                  color: darkLight,
+                                  padding: EdgeInsets.all(4),
+                                  child: Text(
+                                    '${state.productDetails!.variants[state.groupValue].sizeName ?? ''}',
+                                    style: textDarkRegularBSW(context),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                            ],
+                          ),
+                  if (!state.isLoading && state.productDetails != null)
+                    productData(
+                      context,
+                      state.productDetails!,
+                      state,
+                      notifier,
+                      noteFocusNode,
+                    ),
+                  Container(
+                    height: 45,
+                  ),
+                ],
               ),
+              if (state.isLoading) GFLoader(type: GFLoaderType.ios),
+              if (state.productAdded)
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ArrowTowardsCart())
             ],
           ),
-          if (state.isLoading) GFLoader(type: GFLoaderType.ios),
-          if (state.productAdded)
-            Align(alignment: Alignment.bottomCenter, child: ArrowTowardsCart())
-        ],
-      ),
+        ),
+        if (state.productDetails != null)
+          Positioned(
+            top: 20,
+            right: 30,
+            child: (!state.showAddButton) &&
+                    notifier.getCurrentQuanityOfProduct(state.productDetails!) >
+                        0
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (notifier.getCurrentQuanityOfProduct(
+                              state.productDetails!) >
+                          notifier.getLastOrderedQuantityOfProduct(
+                              state.productDetails!))
+                        counterIcon(
+                          'REMOVE',
+                          true,
+                          () {
+                            notifier.addProduct(
+                              state.productDetails!,
+                              false,
+                            );
+                          },
+                        ),
+                      Text(
+                          '${state.productDetails!.modified ? state.productDetails!.modifiedQuantity ?? state.productDetails!.variantQuantity : state.productDetails!.variantQuantity}',
+                          style: textBlackLargeBM(context)),
+                      counterIcon(
+                        'ADD',
+                        true,
+                        () async {
+                          await notifier.addProduct(
+                            state.productDetails!,
+                            true,
+                          );
+                        },
+                      ),
+                    ],
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: Colors.white, width: 4)),
+                    width: 110,
+                    child: GFButton(
+                      elevation: 3,
+                      size: 50,
+                      borderShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      onPressed: () async {
+                        context
+                            .read(productDetailsProvider.notifier)
+                            .showAddButton(true);
+                        if (state.productDetails != null &&
+                            state.productDetails!.addOnItems!.isNotEmpty) {
+                          bool isadd = false;
+                          for (var element
+                              in state.productDetails!.addOnItems!) {
+                            if (element.isRequired == true) {
+                              final totalPreviousQuantity = state
+                                      .selectedAddOnItems!.isNotEmpty
+                                  ? state.selectedAddOnItems
+                                      ?.toList()
+                                      .map((cp) => element.addOnCategoryId ==
+                                              cp.addOnCategoryId
+                                          ? cp.quantity
+                                          : 0)
+                                      .reduce((_, __) => _ + __)
+                                  : 0;
+
+                              if (totalPreviousQuantity !=
+                                  element.limitNumber) {
+                                isadd = false;
+                                customDialog(
+                                  status: DIALOG_STATUS.WARNING,
+                                  title: 'NOTE_SELECT_DAILOG'
+                                      .tr
+                                      .replaceAll(
+                                        'NUMBER',
+                                        '${element.limitNumber}',
+                                      )
+                                      .replaceAll(
+                                        'CATEGORY_NAME',
+                                        '${element.addOnCategoryName}',
+                                      ),
+                                );
+                                break;
+                              } else {
+                                isadd = true;
+                              }
+                            } else {
+                              isadd = true;
+                            }
+                          }
+                          print(isadd);
+                          if (isadd == true) {
+                            await notifier.addProduct(
+                              state.productDetails!,
+                              true,
+                            );
+                          }
+                        } else {
+                          await notifier.addProduct(
+                            state.productDetails!,
+                            true,
+                          );
+                        }
+                      },
+                      color: primary(),
+                      text: 'ADD'.tr,
+                      textStyle: textLightLargeBM(context),
+                    ),
+                  ),
+          )
+      ],
     );
   }
 
@@ -161,8 +293,6 @@ class ProductDetails extends HookWidget {
     ProductDetailsNotifier notifier,
     FocusNode noteFocusNode,
   ) {
-    print(
-        'details shown product: ${product.modified}  ${product.variantQuantity}  ${product.modifiedQuantity}  ${product.variants}');
     return StickyHeader(
       header: Column(
         children: [
@@ -193,85 +323,6 @@ class ProductDetails extends HookWidget {
                       '${((product.variants[state.groupValue].price) + ((state.selectedAddOnItems!.toList().isNotEmpty) ? state.selectedAddOnItems!.toList().map((saot) => ((saot.addOnItemPrice ?? 0) * saot.quantity)).reduce((_, __) => _ + __) : 0)).toStringAsFixed(2)}${Constants.currency}',
                       style: textDarkRegularBS(context),
                     ),
-                    !state.showAddButton &&
-                            notifier.getCurrentQuanityOfProduct(product) > 0
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (notifier.getCurrentQuanityOfProduct(product) >
-                                  notifier
-                                      .getLastOrderedQuantityOfProduct(product))
-                                counterIcon(
-                                  'remove',
-                                  () {
-                                    // if (product.isSameProductMultipleTime ==
-                                    //     true) {
-                                    //   showDialog(
-                                    //       context: context,
-                                    //       builder: (context) =>
-                                    //           showMultipleTimeProductPopUp(
-                                    //             context,
-                                    //           ));
-                                    // } else {
-                                    notifier.addProduct(
-                                      product,
-                                      false,
-                                    );
-                                    // }
-                                  },
-                                ),
-                              Text(
-                                  '${product.modified ? product.modifiedQuantity ?? product.variantQuantity : product.variantQuantity}',
-                                  style: textBlackLargeBM(context)),
-                              counterIcon(
-                                'add',
-                                () async {
-                                  // if (product.isCustomizable) {
-                                  //   await showDialog(
-                                  //       context: context,
-                                  //       builder: (context) => showPopUp(
-                                  //             context,
-                                  //             product,
-                                  //             () async {
-                                  //               Get.back();
-                                  //               await notifier.addProduct(
-                                  //                 product,
-                                  //                 true,
-                                  //               );
-                                  //             },
-                                  //           ));
-                                  // } else {
-                                  await notifier.addProduct(
-                                    product,
-                                    true,
-                                  );
-                                  // }
-                                },
-                              ),
-                            ],
-                          )
-                        : Container(
-                            width: 100,
-                            child: GFButton(
-                              elevation: 3,
-                              size: GFSize.LARGE,
-                              borderShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              onPressed: () async {
-                                context
-                                    .read(productDetailsProvider.notifier)
-                                    .showAddButton(true);
-                                await notifier.addProduct(
-                                  product,
-                                  true,
-                                );
-                              },
-                              color: primary(),
-                              text: 'ADD'.tr,
-                              textStyle: textLightLargeBM(context),
-                            ),
-                          ),
                   ],
                 ),
               ],
@@ -289,6 +340,7 @@ class ProductDetails extends HookWidget {
           if (product.allergens.isNotEmpty)
             allergenList(context, product.allergens),
           sizeBlock(context, state.groupValue, product.variants, state),
+          dottedLine(context, darkLight3.withOpacity(0.2), 12),
           optionBlockExtra(state.productDetails?.addOnItems ?? [],
               state.selectedAddOnItems, state),
           SizedBox(
@@ -409,8 +461,9 @@ class ProductDetails extends HookWidget {
                 groupValue: groupValue,
                 title: Row(
                   children: [
-                    Text('${variants[i].sizeName} -  ',
-                        style: textDarkRegularBR(context)),
+                    if (variants[i].sizeName != null)
+                      Text('${variants[i].sizeName ?? ''} -  ',
+                          style: textDarkRegularBR(context)),
                     Text('${variants[i].price}${Constants.currency}',
                         style: textBlackLargeBM(context)),
                   ],
@@ -443,50 +496,361 @@ class ProductDetails extends HookWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                titleTextDark17RegularBR(
-                  context,
-                  addOnCategory[index].addOnCategoryName,
+                RichText(
+                  text: TextSpan(
+                    text: '${addOnCategory[index].addOnCategoryName} ' +
+                        '${addOnCategory[index].limitNumber != null && addOnCategory[index].isRequired == true ? '(${'NOTE_SELECT'.tr.replaceAll('NUMBER', '${addOnCategory[index].limitNumber}')})' : ''}',
+                    style: textDark17RegularBR(context),
+                    children: <TextSpan>[
+                      if (addOnCategory[index].isRequired == true)
+                        TextSpan(
+                            text: ' * ', style: textDark17RegularBRR(context)),
+                    ],
+                  ),
                 ),
-                ListView.builder(
+                SizedBox(
+                  height: 10,
+                ),
+                ListView.separated(
+                    separatorBuilder: (__, _) {
+                      return SizedBox(
+                        height: 5,
+                      );
+                    },
                     physics: ScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: addOnItems.length,
                     itemBuilder: (BuildContext context, int i) {
-                      return addOnCategory[index].selectionType ==
-                              SELECTION_TYPE.single
-                          ? RadioListTile(
-                              contentPadding: EdgeInsets.all(0),
-                              dense: true,
-                              controlAffinity: ListTileControlAffinity.leading,
-                              activeColor: green,
-                              value: i,
-                              groupValue: addOnCategory[index].selectionValue,
-                              onChanged: (value) {
-                                if (addOnCategory[index].selectionValue != i) {
-                                  context
-                                      .read(productDetailsProvider.notifier)
-                                      .addSelectedAddOnItemSingle(
-                                        addOnItems[i],
-                                        index,
-                                        i,
-                                      );
-                                }
-                              },
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text('${addOnItems[i].addOnItemName} - ',
-                                          style: textDarkRegularBR(context)),
-                                      Text(
-                                          '${addOnItems[i].addOnItemPrice}${Constants.currency}',
-                                          style: textBlackLargeBM(context)),
-                                    ],
+                      return Row(
+                        children: [
+                          Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: blackN.withOpacity(0.60)),
+                            ),
+                            child: (addOnItems[i].imageUrl != null)
+                                ? networkImageWithWidth(
+                                    addOnItems[i].imageUrl!, 70, 70)
+                                : Image.asset(
+                                    'lib/assets/images/no_images.png',
+                                    width: 70,
+                                    height: 70,
                                   ),
-                                  selectedAddOnItems!
+                          ),
+                          Expanded(
+                            child: addOnCategory[index].addOnItems.length > 1
+                                ? addOnCategory[index].selectionType ==
+                                        SELECTION_TYPE.single
+                                    ? RadioListTile(
+                                        contentPadding: EdgeInsets.all(0),
+                                        dense: true,
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        activeColor: green,
+                                        value: i,
+                                        groupValue:
+                                            addOnCategory[index].selectionValue,
+                                        onChanged: (value) {
+                                          if (addOnCategory[index]
+                                                  .selectionValue !=
+                                              i) {
+                                            context
+                                                .read(productDetailsProvider
+                                                    .notifier)
+                                                .addSelectedAddOnItemSingle(
+                                                  addOnItems[i],
+                                                  index,
+                                                  i,
+                                                );
+                                          }
+                                        },
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                    '${addOnItems[i].addOnItemName} - ',
+                                                    style: textDarkRegularBR(
+                                                        context)),
+                                                Text(
+                                                    '${addOnItems[i].addOnItemPrice}${Constants.currency}',
+                                                    style: textBlackLargeBM(
+                                                        context)),
+                                              ],
+                                            ),
+                                            selectedAddOnItems!
+                                                        .toList()
+                                                        .singleWhere(
+                                                            (element) =>
+                                                                element.id ==
+                                                                addOnItems[i]
+                                                                    .id,
+                                                            orElse: () =>
+                                                                AddOnItem())
+                                                        .id !=
+                                                    null
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      counterIcon(
+                                                        'REMOVE',
+                                                        true,
+                                                        () {
+                                                          context
+                                                              .read(
+                                                                  productDetailsProvider
+                                                                      .notifier)
+                                                              .updateAddonItemQuantity(
+                                                                  addOnItems[i],
+                                                                  false);
+                                                        },
+                                                      ),
+                                                      Text(
+                                                          selectedAddOnItems
+                                                              .toList()
+                                                              .singleWhere(
+                                                                  (element) =>
+                                                                      element
+                                                                          .id ==
+                                                                      addOnItems[
+                                                                              i]
+                                                                          .id,
+                                                                  orElse: () =>
+                                                                      AddOnItem())
+                                                              .quantity
+                                                              .toString(),
+                                                          style:
+                                                              textBlackLargeBM(
+                                                                  context)),
+                                                      counterIcon(
+                                                        'ADD',
+                                                        selectedAddOnItems.map(
+                                                                  (e) {
+                                                                    return (e.addOnCategoryId ==
+                                                                            addOnCategory[index].addOnCategoryId)
+                                                                        ? e.quantity
+                                                                        : 0;
+                                                                  },
+                                                                ).reduce((_,
+                                                                        __) =>
+                                                                    _ + __) !=
+                                                                addOnCategory[
+                                                                        index]
+                                                                    .limitNumber
+                                                            ? true
+                                                            : false,
+                                                        () async {
+                                                          if (selectedAddOnItems
+                                                                  .map(
+                                                                (e) {
+                                                                  return (e.addOnCategoryId ==
+                                                                          addOnCategory[index]
+                                                                              .addOnCategoryId)
+                                                                      ? e.quantity
+                                                                      : 0;
+                                                                },
+                                                              ).reduce((_,
+                                                                          __) =>
+                                                                      _ + __) !=
+                                                              addOnCategory[
+                                                                      index]
+                                                                  .limitNumber) {
+                                                            context
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .updateAddonItemQuantity(
+                                                                    addOnItems[
+                                                                        i],
+                                                                    true);
+                                                          }
+                                                        },
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(),
+                                          ],
+                                        ),
+                                      )
+                                    : ListTile(
+                                        dense: true,
+                                        contentPadding: EdgeInsets.zero,
+                                        leading: Checkbox(
+                                          activeColor: green,
+                                          value: selectedAddOnItems!
+                                                  .toList()
+                                                  .singleWhere(
+                                                      (element) =>
+                                                          element.id ==
+                                                          addOnItems[i].id,
+                                                      orElse: () => AddOnItem())
+                                                  .id !=
+                                              null,
+                                          onChanged: (value) {
+                                            if (value!) {
+                                              if (selectedAddOnItems
+                                                  .isNotEmpty) {
+                                                if (selectedAddOnItems.map(
+                                                      (e) {
+                                                        return (e.addOnCategoryId ==
+                                                                addOnCategory[
+                                                                        index]
+                                                                    .addOnCategoryId)
+                                                            ? e.quantity
+                                                            : 0;
+                                                      },
+                                                    ).reduce(
+                                                        (_, __) => _ + __) !=
+                                                    addOnCategory[index]
+                                                        .limitNumber) {
+                                                  context
+                                                      .read(
+                                                          productDetailsProvider
+                                                              .notifier)
+                                                      .addSelectedAddOnItem(
+                                                          addOnItems[i],
+                                                          addOnCategory[index]);
+                                                }
+                                              } else {
+                                                context
+                                                    .read(productDetailsProvider
+                                                        .notifier)
+                                                    .addSelectedAddOnItem(
+                                                        addOnItems[i],
+                                                        addOnCategory[index]);
+                                              }
+                                            } else {
+                                              context
+                                                  .read(productDetailsProvider
+                                                      .notifier)
+                                                  .removeAddOnItem(
+                                                      addOnItems[i]);
+                                            }
+                                          },
+                                        ),
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                    '${addOnItems[i].addOnItemName} - ',
+                                                    style: textDarkRegularBR(
+                                                        context)),
+                                                Text(
+                                                    '${addOnItems[i].addOnItemPrice}${Constants.currency}',
+                                                    style: textBlackLargeBM(
+                                                        context)),
+                                              ],
+                                            ),
+                                            selectedAddOnItems
+                                                        .toList()
+                                                        .singleWhere(
+                                                            (element) =>
+                                                                element.id ==
+                                                                addOnItems[i]
+                                                                    .id,
+                                                            orElse: () =>
+                                                                AddOnItem())
+                                                        .id !=
+                                                    null
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      counterIcon(
+                                                        'REMOVE',
+                                                        true,
+                                                        () {
+                                                          context
+                                                              .read(
+                                                                  productDetailsProvider
+                                                                      .notifier)
+                                                              .updateAddonItemQuantity(
+                                                                  addOnItems[i],
+                                                                  false);
+                                                        },
+                                                      ),
+                                                      Text(
+                                                          selectedAddOnItems
+                                                              .toList()
+                                                              .singleWhere(
+                                                                  (element) =>
+                                                                      element
+                                                                          .id ==
+                                                                      addOnItems[
+                                                                              i]
+                                                                          .id,
+                                                                  orElse: () =>
+                                                                      AddOnItem())
+                                                              .quantity
+                                                              .toString(),
+                                                          style:
+                                                              textBlackLargeBM(
+                                                                  context)),
+                                                      counterIcon(
+                                                        'ADD',
+                                                        selectedAddOnItems.map(
+                                                                  (e) {
+                                                                    return (e.addOnCategoryId ==
+                                                                            addOnCategory[index].addOnCategoryId)
+                                                                        ? e.quantity
+                                                                        : 0;
+                                                                  },
+                                                                ).reduce((_,
+                                                                        __) =>
+                                                                    _ + __) !=
+                                                                addOnCategory[
+                                                                        index]
+                                                                    .limitNumber
+                                                            ? true
+                                                            : false,
+                                                        () async {
+                                                          if (selectedAddOnItems
+                                                                  .map(
+                                                                (e) {
+                                                                  return (e.addOnCategoryId ==
+                                                                          addOnCategory[index]
+                                                                              .addOnCategoryId)
+                                                                      ? e.quantity
+                                                                      : 0;
+                                                                },
+                                                              ).reduce((_,
+                                                                          __) =>
+                                                                      _ + __) !=
+                                                              addOnCategory[
+                                                                      index]
+                                                                  .limitNumber) {
+                                                            context
+                                                                .read(productDetailsProvider
+                                                                    .notifier)
+                                                                .updateAddonItemQuantity(
+                                                                    addOnItems[
+                                                                        i],
+                                                                    true);
+                                                          }
+                                                        },
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(),
+                                          ],
+                                        ),
+                                      )
+                                : ListTile(
+                                    dense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    leading: Checkbox(
+                                      activeColor: green,
+                                      value: selectedAddOnItems!
                                               .toList()
                                               .singleWhere(
                                                   (element) =>
@@ -494,23 +858,61 @@ class ProductDetails extends HookWidget {
                                                       addOnItems[i].id,
                                                   orElse: () => AddOnItem())
                                               .id !=
-                                          null
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          null,
+                                      onChanged: (value) {
+                                        if (value!) {
+                                          if (selectedAddOnItems.isNotEmpty) {
+                                            if (selectedAddOnItems.map(
+                                                  (e) {
+                                                    return (e.addOnCategoryId ==
+                                                            addOnCategory[index]
+                                                                .addOnCategoryId)
+                                                        ? e.quantity
+                                                        : 0;
+                                                  },
+                                                ).reduce((_, __) => _ + __) !=
+                                                addOnCategory[index]
+                                                    .limitNumber) {
+                                              context
+                                                  .read(productDetailsProvider
+                                                      .notifier)
+                                                  .addSelectedAddOnItem(
+                                                      addOnItems[i],
+                                                      addOnCategory[index]);
+                                            }
+                                          } else {
+                                            context
+                                                .read(productDetailsProvider
+                                                    .notifier)
+                                                .addSelectedAddOnItem(
+                                                    addOnItems[i],
+                                                    addOnCategory[index]);
+                                          }
+                                        } else {
+                                          context
+                                              .read(productDetailsProvider
+                                                  .notifier)
+                                              .removeAddOnItem(addOnItems[i]);
+                                        }
+                                      },
+                                    ),
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
                                           children: [
-                                            counterIcon(
-                                              'remove',
-                                              () {
-                                                context
-                                                    .read(productDetailsProvider
-                                                        .notifier)
-                                                    .updateAddonItemQuantity(
-                                                        addOnItems[i], false);
-                                              },
-                                            ),
                                             Text(
-                                                selectedAddOnItems
+                                                '${addOnItems[i].addOnItemName} - ',
+                                                style:
+                                                    textDarkRegularBR(context)),
+                                            Text(
+                                                '${addOnItems[i].addOnItemPrice}${Constants.currency}',
+                                                style:
+                                                    textBlackLargeBM(context)),
+                                          ],
+                                        ),
+                                        selectedAddOnItems
                                                     .toList()
                                                     .singleWhere(
                                                         (element) =>
@@ -518,117 +920,90 @@ class ProductDetails extends HookWidget {
                                                             addOnItems[i].id,
                                                         orElse: () =>
                                                             AddOnItem())
-                                                    .quantity
-                                                    .toString(),
-                                                style:
-                                                    textBlackLargeBM(context)),
-                                            counterIcon(
-                                              'add',
-                                              () async {
-                                                context
-                                                    .read(productDetailsProvider
-                                                        .notifier)
-                                                    .updateAddonItemQuantity(
-                                                        addOnItems[i], true);
-                                              },
-                                            ),
-                                          ],
-                                        )
-                                      : Container(),
-                                ],
-                              ),
-                            )
-                          : ListTile(
-                              dense: true,
-                              contentPadding: EdgeInsets.zero,
-                              leading: Checkbox(
-                                activeColor: green,
-                                value: selectedAddOnItems!
-                                        .toList()
-                                        .singleWhere(
-                                            (element) =>
-                                                element.id == addOnItems[i].id,
-                                            orElse: () => AddOnItem())
-                                        .id !=
-                                    null,
-                                onChanged: (value) {
-                                  if (value!) {
-                                    context
-                                        .read(productDetailsProvider.notifier)
-                                        .addSelectedAddOnItem(addOnItems[i],
-                                            addOnCategory[index]);
-                                  } else {
-                                    context
-                                        .read(productDetailsProvider.notifier)
-                                        .removeAddOnItem(addOnItems[i]);
-                                  }
-                                },
-                              ),
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text('${addOnItems[i].addOnItemName} - ',
-                                          style: textDarkRegularBR(context)),
-                                      Text(
-                                          '${addOnItems[i].addOnItemPrice}${Constants.currency}',
-                                          style: textBlackLargeBM(context)),
-                                    ],
+                                                    .id !=
+                                                null
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  counterIcon(
+                                                    'REMOVE',
+                                                    true,
+                                                    () {
+                                                      context
+                                                          .read(
+                                                              productDetailsProvider
+                                                                  .notifier)
+                                                          .updateAddonItemQuantity(
+                                                              addOnItems[i],
+                                                              false);
+                                                    },
+                                                  ),
+                                                  Text(
+                                                      selectedAddOnItems
+                                                          .toList()
+                                                          .singleWhere(
+                                                              (element) =>
+                                                                  element.id ==
+                                                                  addOnItems[i]
+                                                                      .id,
+                                                              orElse: () =>
+                                                                  AddOnItem())
+                                                          .quantity
+                                                          .toString(),
+                                                      style: textBlackLargeBM(
+                                                          context)),
+                                                  counterIcon(
+                                                    'ADD',
+                                                    selectedAddOnItems.map(
+                                                              (e) {
+                                                                return (e.addOnCategoryId ==
+                                                                        addOnCategory[index]
+                                                                            .addOnCategoryId)
+                                                                    ? e.quantity
+                                                                    : 0;
+                                                              },
+                                                            ).reduce((_, __) =>
+                                                                _ + __) !=
+                                                            addOnCategory[index]
+                                                                .limitNumber
+                                                        ? true
+                                                        : false,
+                                                    () async {
+                                                      if (selectedAddOnItems
+                                                              .map(
+                                                            (e) {
+                                                              return (e.addOnCategoryId ==
+                                                                      addOnCategory[
+                                                                              index]
+                                                                          .addOnCategoryId)
+                                                                  ? e.quantity
+                                                                  : 0;
+                                                            },
+                                                          ).reduce((_, __) =>
+                                                                  _ + __) !=
+                                                          addOnCategory[index]
+                                                              .limitNumber) {
+                                                        context
+                                                            .read(
+                                                                productDetailsProvider
+                                                                    .notifier)
+                                                            .updateAddonItemQuantity(
+                                                                addOnItems[i],
+                                                                true);
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
                                   ),
-                                  selectedAddOnItems
-                                              .toList()
-                                              .singleWhere(
-                                                  (element) =>
-                                                      element.id ==
-                                                      addOnItems[i].id,
-                                                  orElse: () => AddOnItem())
-                                              .id !=
-                                          null
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            counterIcon(
-                                              'remove',
-                                              () {
-                                                context
-                                                    .read(productDetailsProvider
-                                                        .notifier)
-                                                    .updateAddonItemQuantity(
-                                                        addOnItems[i], false);
-                                              },
-                                            ),
-                                            Text(
-                                                selectedAddOnItems
-                                                    .toList()
-                                                    .singleWhere(
-                                                        (element) =>
-                                                            element.id ==
-                                                            addOnItems[i].id,
-                                                        orElse: () =>
-                                                            AddOnItem())
-                                                    .quantity
-                                                    .toString(),
-                                                style:
-                                                    textBlackLargeBM(context)),
-                                            counterIcon(
-                                              'add',
-                                              () async {
-                                                context
-                                                    .read(productDetailsProvider
-                                                        .notifier)
-                                                    .updateAddonItemQuantity(
-                                                        addOnItems[i], true);
-                                              },
-                                            ),
-                                          ],
-                                        )
-                                      : Container(),
-                                ],
-                              ),
-                            );
+                          ),
+                        ],
+                      );
                     }),
                 dottedLine(context, darkLight3.withOpacity(0.2), 12),
               ],
@@ -728,23 +1103,24 @@ class ProductDetails extends HookWidget {
                 )),
                 SizedBox(width: 10),
                 Expanded(
-                    child: GFButton(
-                  blockButton: true,
-                  size: GFSize.LARGE,
-                  color: GFColors.DARK,
-                  type: GFButtonType.outline,
-                  onPressed: () async {
-                    context
-                        .read(productDetailsProvider.notifier)
-                        .showAddButton(false);
-                    Get.back();
-                  },
-                  child: Text(
-                    'NEW'.tr.toUpperCase(),
-                    style: textBlackSmallBM(context),
-                    textAlign: TextAlign.center,
+                  child: GFButton(
+                    blockButton: true,
+                    size: GFSize.LARGE,
+                    color: GFColors.DARK,
+                    type: GFButtonType.outline,
+                    onPressed: () async {
+                      context
+                          .read(productDetailsProvider.notifier)
+                          .showAddButton(false);
+                      Get.back();
+                    },
+                    child: Text(
+                      'NEW'.tr.toUpperCase(),
+                      style: textBlackSmallBM(context),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                )),
+                ),
               ],
             )
           ],

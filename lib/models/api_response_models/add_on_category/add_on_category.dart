@@ -26,6 +26,7 @@ class AddOnCategory with BaseModel<AddOnCategory>, _$AddOnCategory {
     @JsonKey(name: 'required') bool? isRequired,
     @Default([]) List<AddOnItem> addOnItems,
     int? selectionValue,
+    int? limitNumber,
   }) = _AddOnCategory;
 
   factory AddOnCategory.fromJson(Map<String, dynamic> json) =>

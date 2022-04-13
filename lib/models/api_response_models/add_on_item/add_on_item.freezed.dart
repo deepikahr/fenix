@@ -27,7 +27,10 @@ class _$AddOnItemTearOff {
       String? addOnItemName,
       double? addOnItemPrice,
       int quantity = 1,
-      bool? selected}) {
+      bool? selected,
+      String? imageId,
+      String? filePath,
+      String? imageUrl}) {
     return _AddOnItem(
       id: id,
       addOnCategoryId: addOnCategoryId,
@@ -36,6 +39,9 @@ class _$AddOnItemTearOff {
       addOnItemPrice: addOnItemPrice,
       quantity: quantity,
       selected: selected,
+      imageId: imageId,
+      filePath: filePath,
+      imageUrl: imageUrl,
     );
   }
 
@@ -57,6 +63,9 @@ mixin _$AddOnItem {
   double? get addOnItemPrice => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   bool? get selected => throw _privateConstructorUsedError;
+  String? get imageId => throw _privateConstructorUsedError;
+  String? get filePath => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,7 +84,10 @@ abstract class $AddOnItemCopyWith<$Res> {
       String? addOnItemName,
       double? addOnItemPrice,
       int quantity,
-      bool? selected});
+      bool? selected,
+      String? imageId,
+      String? filePath,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -95,6 +107,9 @@ class _$AddOnItemCopyWithImpl<$Res> implements $AddOnItemCopyWith<$Res> {
     Object? addOnItemPrice = freezed,
     Object? quantity = freezed,
     Object? selected = freezed,
+    Object? imageId = freezed,
+    Object? filePath = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -125,6 +140,18 @@ class _$AddOnItemCopyWithImpl<$Res> implements $AddOnItemCopyWith<$Res> {
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as bool?,
+      imageId: imageId == freezed
+          ? _value.imageId
+          : imageId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filePath: filePath == freezed
+          ? _value.filePath
+          : filePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -142,7 +169,10 @@ abstract class _$AddOnItemCopyWith<$Res> implements $AddOnItemCopyWith<$Res> {
       String? addOnItemName,
       double? addOnItemPrice,
       int quantity,
-      bool? selected});
+      bool? selected,
+      String? imageId,
+      String? filePath,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -163,6 +193,9 @@ class __$AddOnItemCopyWithImpl<$Res> extends _$AddOnItemCopyWithImpl<$Res>
     Object? addOnItemPrice = freezed,
     Object? quantity = freezed,
     Object? selected = freezed,
+    Object? imageId = freezed,
+    Object? filePath = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_AddOnItem(
       id: id == freezed
@@ -193,6 +226,18 @@ class __$AddOnItemCopyWithImpl<$Res> extends _$AddOnItemCopyWithImpl<$Res>
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as bool?,
+      imageId: imageId == freezed
+          ? _value.imageId
+          : imageId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filePath: filePath == freezed
+          ? _value.filePath
+          : filePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -207,7 +252,10 @@ class _$_AddOnItem extends _AddOnItem {
       this.addOnItemName,
       this.addOnItemPrice,
       this.quantity = 1,
-      this.selected})
+      this.selected,
+      this.imageId,
+      this.filePath,
+      this.imageUrl})
       : super._();
 
   factory _$_AddOnItem.fromJson(Map<String, dynamic> json) =>
@@ -229,10 +277,16 @@ class _$_AddOnItem extends _AddOnItem {
   final int quantity;
   @override
   final bool? selected;
+  @override
+  final String? imageId;
+  @override
+  final String? filePath;
+  @override
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'AddOnItem(id: $id, addOnCategoryId: $addOnCategoryId, addOnItemId: $addOnItemId, addOnItemName: $addOnItemName, addOnItemPrice: $addOnItemPrice, quantity: $quantity, selected: $selected)';
+    return 'AddOnItem(id: $id, addOnCategoryId: $addOnCategoryId, addOnItemId: $addOnItemId, addOnItemName: $addOnItemName, addOnItemPrice: $addOnItemPrice, quantity: $quantity, selected: $selected, imageId: $imageId, filePath: $filePath, imageUrl: $imageUrl)';
   }
 
   @override
@@ -258,7 +312,16 @@ class _$_AddOnItem extends _AddOnItem {
                     .equals(other.quantity, quantity)) &&
             (identical(other.selected, selected) ||
                 const DeepCollectionEquality()
-                    .equals(other.selected, selected)));
+                    .equals(other.selected, selected)) &&
+            (identical(other.imageId, imageId) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageId, imageId)) &&
+            (identical(other.filePath, filePath) ||
+                const DeepCollectionEquality()
+                    .equals(other.filePath, filePath)) &&
+            (identical(other.imageUrl, imageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageUrl, imageUrl)));
   }
 
   @override
@@ -270,7 +333,10 @@ class _$_AddOnItem extends _AddOnItem {
       const DeepCollectionEquality().hash(addOnItemName) ^
       const DeepCollectionEquality().hash(addOnItemPrice) ^
       const DeepCollectionEquality().hash(quantity) ^
-      const DeepCollectionEquality().hash(selected);
+      const DeepCollectionEquality().hash(selected) ^
+      const DeepCollectionEquality().hash(imageId) ^
+      const DeepCollectionEquality().hash(filePath) ^
+      const DeepCollectionEquality().hash(imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -291,7 +357,10 @@ abstract class _AddOnItem extends AddOnItem {
       String? addOnItemName,
       double? addOnItemPrice,
       int quantity,
-      bool? selected}) = _$_AddOnItem;
+      bool? selected,
+      String? imageId,
+      String? filePath,
+      String? imageUrl}) = _$_AddOnItem;
   const _AddOnItem._() : super._();
 
   factory _AddOnItem.fromJson(Map<String, dynamic> json) =
@@ -312,6 +381,12 @@ abstract class _AddOnItem extends AddOnItem {
   int get quantity => throw _privateConstructorUsedError;
   @override
   bool? get selected => throw _privateConstructorUsedError;
+  @override
+  String? get imageId => throw _privateConstructorUsedError;
+  @override
+  String? get filePath => throw _privateConstructorUsedError;
+  @override
+  String? get imageUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AddOnItemCopyWith<_AddOnItem> get copyWith =>

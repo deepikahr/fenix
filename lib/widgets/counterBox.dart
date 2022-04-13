@@ -39,7 +39,7 @@ Widget counterBlock(countertext, Function(bool) onChanged) {
   );
 }
 
-Widget counterIcon(type, onTap) {
+Widget counterIcon(type, buttonColor, onTap) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -49,11 +49,12 @@ Widget counterIcon(type, onTap) {
         height: 45,
         decoration: BoxDecoration(
             color: white,
-            border: Border.all(color: dark, width: 1),
+            border:
+                Border.all(color: buttonColor == true ? dark : grey, width: 1),
             borderRadius: BorderRadius.circular(50)),
         child: Icon(
-          type == 'remove' ? Icons.remove : Icons.add,
-          color: dark,
+          type == 'REMOVE' ? Icons.remove : Icons.add,
+          color: buttonColor == true ? dark : grey,
         ),
       ),
     ),

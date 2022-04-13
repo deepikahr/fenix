@@ -79,24 +79,24 @@ Widget restaurantInfoCardGrid(
             ? networkImage(img, MediaQuery.of(context).size.width, 300, 2)
             : networkImageOverlay(MediaQuery.of(context).size.width, 300),
         Positioned(
-            left: 25,
-            right: 25,
-            bottom: 0,
-            child: Container(
-              // width: 120,
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: darkLight,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      topRight: Radius.circular(4))),
-              child: Text(
-                name!,
-                style: textDarkRegularBRW(context),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )),
+          left: 25,
+          right: 25,
+          bottom: 0,
+          child: Container(
+            // width: 120,
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: darkLight,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4), topRight: Radius.circular(4))),
+            child: Text(
+              name!,
+              style: textDarkRegularBRW(context),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -134,7 +134,7 @@ Widget dishesInfoCard(
           children: [
             product.productImage?.imageUrl != null
                 ? networkImage(product.productImage!.imageUrl!, 218, 150, 1)
-                : networkImageOverlay(218, 150),
+                : assetsProductImage(218, 150),
             SizedBox(
               width: 8,
             ),
@@ -150,7 +150,7 @@ Widget dishesInfoCard(
                     children: [
                       Expanded(
                           child: titleTextDarkRegularBR(
-                              context, '${product.productName}')),
+                              context, '${product.productName ?? ''}')),
                     ],
                   ),
                   SizedBox(
@@ -174,11 +174,11 @@ Widget dishesInfoCard(
                           '${product.variant!.price}${Constants.currency}',
                           style: textDarkRegularBS(context),
                         ),
-                      if (product.productImage!.imageUrl != null)
-                        Icon(
-                          Icons.camera_alt_rounded,
-                          color: primary(),
-                        ),
+                      // if (product.productImage!.imageUrl != null)
+                      //   Icon(
+                      //     Icons.camera_alt_rounded,
+                      //     color: primary(),
+                      //   ),
                       if (product.allergens.length > 0)
                         InkWell(
                           onTap: () async {},
@@ -204,23 +204,28 @@ Widget dishesInfoCard(
                                   maintainSize: true,
                                   maintainState: true,
                                   maintainAnimation: true,
-                                  child: counterIcon('remove', onRemove),
+                                  child: counterIcon('REMOVE', true, onRemove),
                                 ),
                                 Text(product.totalQuantity.toString(),
                                     style: textBlackLargeBM(context)),
-                                counterIcon('add', onUpdate),
+                                counterIcon('ADD', true, onUpdate),
                               ],
                             )
                           : Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: GFButton(
-                                borderShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    side: BorderSide(color: buttonBorder)),
-                                onPressed: onAdd,
-                                color: Colors.white,
-                                text: 'ADD'.tr,
-                                textStyle: textPrimaryLargeBM(context),
+                              padding:
+                                  const EdgeInsets.only(right: 8.0, bottom: 5),
+                              child: Container(
+                                width: 110,
+                                child: GFButton(
+                                  size: 50,
+                                  borderShape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      side: BorderSide(color: buttonBorder)),
+                                  onPressed: onAdd,
+                                  color: Colors.white,
+                                  text: 'ADD'.tr,
+                                  textStyle: textPrimaryLargeBM(context),
+                                ),
                               ),
                             ),
                     ],
@@ -256,7 +261,7 @@ Widget dishesInfoCard(
             height: 30,
             color: Colors.black45,
             child: Text(
-              '${product.variant!.sizeName}',
+              '${product.variant!.sizeName ?? ''}',
               style: textWhite3XSmallBM(context),
               textAlign: TextAlign.center,
             ),
@@ -295,207 +300,210 @@ Widget gridDishCard(
         borderRadius: BorderRadius.circular(4),
         boxShadow: [BoxShadow(color: grey.withOpacity(0.3), blurRadius: 10)]),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.all(6),
-              child: Stack(
+        Container(
+          margin: EdgeInsets.all(6),
+          child: Stack(
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      product.productImage?.imageUrl != null
-                          ? networkImage(
-                              product.productImage!.imageUrl!,
-                              (MediaQuery.of(context).size.width / 2) - 40,
-                              170,
-                              0)
-                          : networkImageOverlay(
-                              (MediaQuery.of(context).size.width / 2) - 40,
-                              170),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        color: Colors.black45,
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${product.productName}',
-                              style: textWhiteLightRegularBM(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            if (categoryImage == null)
-                              Text(
-                                '${product.variant!.price}${Constants.currency}',
-                                style: textWhiteLargeBMM(context),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (product.tags != null && product.tags!.isNotEmpty)
-                    Positioned(
-                        top: 0,
-                        child: Stack(
-                          alignment: AlignmentDirectional.center,
-                          children: [
-                            Image.asset(
-                              'lib/assets/images/b2.png',
-                              scale: 0.8,
-                              color: primary(),
-                            ),
-                            Text(
-                              '${product.tags!.first.title}',
-                              style: textDarkRegularBSW(context),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        )),
-                  Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Container(
-                        alignment: AlignmentDirectional.center,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        height: 30,
-                        color: Colors.black45,
-                        child: Text(
-                          '${product.variant!.sizeName}',
-                          style: textWhite3XSmallBM(context),
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child:
-                  // Container(
-                  //     width: MediaQuery.of(context).size.width * 0.45,
-                  //     color: Colors.black45,
-                  //     padding: EdgeInsets.all(12),
-                  //     child: Column(
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Text(
-                  //           '${product.productName}',
-                  //           style: textWhiteLightRegularBM(),
-                  //           maxLines: 1,
-                  //           overflow: TextOverflow.ellipsis,
-                  //         ),
-                  //         if (categoryImage == null)
-                  //           Text(
-                  //             '${product.variant!.price}${Constants.currency}',
-                  //             style: textWhiteLargeBMM(context),
-                  //           ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                  product.productImage?.imageUrl != null
+                      ? networkImage(
+                          product.productImage!.imageUrl!,
+                          (MediaQuery.of(context).size.width / 2) - 40,
+                          170,
+                          0)
+                      : assetsProductImage(
+                          (MediaQuery.of(context).size.width / 2) - 40,
+                          170),
                 ],
               ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (product.productDescription != null)
-                    Container(
-                      height: 20,
-                      child: HtmlWidget(
-                        product.productDescription ?? "",
-                        textStyle: textDarkLightSmallBR(context),
-                        customWidgetBuilder: (dom.Element element) {
-                          if (element.localName == 'p') {
-                            return Text(
-                              element.innerHtml,
-                              style: textDarkLightSmallBR(context),
-                              maxLines: 1,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  if (product.productDescription != null)
-                    SizedBox(
-                      height: 6,
-                    ),
-                  if (product.allergens.length > 0)
-                    InkWell(
-                      onTap: () async {},
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: primary(),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          'ALLERGENS'.tr,
-                          style: textWhiteRegularBM(),
-                        ),
-                      ),
-                    ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  width: (MediaQuery.of(context).size.width / 2) - 40,
+                  color: Colors.black45,
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (categoryImage != null)
+                      Text(
+                        '${product.productName}',
+                        style: textWhiteLightRegularBM(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (categoryImage == null)
                         Text(
                           '${product.variant!.price}${Constants.currency}',
-                          style: textDarkRegularBS(context),
+                          style: textWhiteLargeBMM(context),
                         ),
-                      if (product.productImage!.imageUrl != null)
-                        Icon(
-                          Icons.camera_alt_rounded,
-                          color: primary(),
-                        ),
-                      product.totalQuantity > 0
-                          ? Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Visibility(
-                                      visible: product.totalQuantity >
-                                          getLastOrderedQuantityOfProduct(
-                                              product),
-                                      maintainInteractivity: false,
-                                      maintainSize: true,
-                                      maintainState: true,
-                                      maintainAnimation: true,
-                                      child: counterIcon('remove', onRemove)),
-                                  Text(product.totalQuantity.toString(),
-                                      style: textBlackLargeBM(context)),
-                                  counterIcon('add', onUpdate),
-                                ],
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: GFButton(
-                                borderShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    side: BorderSide(color: buttonBorder)),
-                                onPressed: onAdd,
-                                color: Colors.white,
-                                text: 'ADD'.tr,
-                                textStyle: textPrimaryLargeBM(context),
-                              ),
-                            ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-            // ),
-          ],
+              if (product.tags != null && product.tags!.isNotEmpty)
+                Positioned(
+                    top: 0,
+                    child: Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Image.asset(
+                          'lib/assets/images/b2.png',
+                          scale: 0.8,
+                          color: primary(),
+                        ),
+                        Text(
+                          '${product.tags!.first.title ?? ''}',
+                          style: textDarkRegularBSW(context),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )),
+              Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    alignment: AlignmentDirectional.center,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    height: 30,
+                    color: Colors.black45,
+                    child: Text(
+                      '${product.variant!.sizeName ?? ''}',
+                      style: textWhite3XSmallBM(context),
+                      textAlign: TextAlign.center,
+                    ),
+                  )),
+              // Positioned(
+              //   bottom: 0,
+              //   child:
+              // Container(
+              //     width: MediaQuery.of(context).size.width * 0.45,
+              //     color: Colors.black45,
+              //     padding: EdgeInsets.all(12),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Text(
+              //           '${product.productName}',
+              //           style: textWhiteLightRegularBM(),
+              //           maxLines: 1,
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
+              //         if (categoryImage == null)
+              //           Text(
+              //             '${product.variant!.price}${Constants.currency}',
+              //             style: textWhiteLargeBMM(context),
+              //           ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
         ),
+        Flexible(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (product.productDescription != null)
+                  Container(
+                    height: 20,
+                    child: HtmlWidget(
+                      product.productDescription ?? "",
+                      textStyle: textDarkLightSmallBR(context),
+                      customWidgetBuilder: (dom.Element element) {
+                        if (element.localName == 'p') {
+                          return Text(
+                            element.innerHtml,
+                            style: textDarkLightSmallBR(context),
+                            maxLines: 1,
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                if (product.productDescription != null)
+                  SizedBox(
+                    height: 6,
+                  ),
+                if (product.allergens.length > 0)
+                  InkWell(
+                    onTap: () async {},
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: primary(),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                        'ALLERGENS'.tr,
+                        style: textWhiteRegularBM(),
+                      ),
+                    ),
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (categoryImage != null)
+                      Text(
+                        '${product.variant!.price}${Constants.currency}',
+                        style: textDarkRegularBS(context),
+                      ),
+                    // if (product.productImage!.imageUrl != null)
+                    //   Icon(
+                    //     Icons.camera_alt_rounded,
+                    //     color: primary(),
+                    //   ),
+                    product.totalQuantity > 0
+                        ? Container(
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Visibility(
+                                    visible: product.totalQuantity >
+                                        getLastOrderedQuantityOfProduct(
+                                            product),
+                                    maintainInteractivity: false,
+                                    maintainSize: true,
+                                    maintainState: true,
+                                    maintainAnimation: true,
+                                    child: counterIcon(
+                                        'REMOVE', true, onRemove)),
+                                Text(product.totalQuantity.toString(),
+                                    style: textBlackLargeBM(context)),
+                                counterIcon('ADD', true, onUpdate),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            height: 64,
+                            width: 120,
+                            child: GFButton(
+                              borderShape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  side: BorderSide(color: buttonBorder)),
+                              onPressed: onAdd,
+                              color: Colors.white,
+                              text: 'ADD'.tr,
+                              textStyle: textPrimaryXLargeBM(context),
+                            ),
+                          )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        // ),
       ],
     ),
   );
